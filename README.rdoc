@@ -7,14 +7,5 @@ Forms made easy!
 
 Please refer to TODO file.
 
-== Contributors
-
-* José Valim (http://github.com/josevalim)
-* Carlos Antônio da Silva (http://github.com/carlosantoniodasilva)
-
-== Bugs and Feedback
-
-If you discover any bugs or want to drop a line, feel free to create an issue on
-GitHub or send an e-mail to the mailing list.
 
 MIT License. Copyright 2009 Plataforma Tecnologia. http://blog.plataformatec.com.br
