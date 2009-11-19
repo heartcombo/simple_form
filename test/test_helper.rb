@@ -1,4 +1,3 @@
-#ENV["RAILS_ENV"] = "test"
 require 'rubygems'
 require 'test/unit'
 
@@ -7,18 +6,41 @@ require 'action_view/test_case'
 
 require File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
 
-#Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+class MockController
 
-#ActionController::Base.logger = nil
-#ActionController::Routing::Routes.reload rescue nil
-#ActionController::Base.session_store = nil
+  def url_for(*args)
+    "http://example.com"
+  end
+end
 
-#FIXTURE_LOAD_PATH = File.join(File.dirname(__FILE__), 'fixtures')
-#ActionView::Base.cache_template_loading = true
-#ActionController::Base.view_paths = FIXTURE_LOAD_PATH
+class MockResponse
 
+  def initialize(test_case)
+    @test_case = test_case
+  end
 
-#class ActiveSupport::TestCase
-#  self.use_transactional_fixtures = true
-#  self.use_instantiated_fixtures  = false
-#end
+  def content_type
+    'text/html'
+  end
+
+  def body
+    @test_case.send :output_buffer
+  end
+end
+
+class ActionView::TestCase
+  setup :set_controller
+  setup :set_response
+
+  def set_controller
+    @controller = MockController.new
+  end
+
+  def set_response
+    @response = MockResponse.new(self)
+  end
+
+  def protect_against_forgery?
+    false
+  end
+end
