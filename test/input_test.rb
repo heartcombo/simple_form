@@ -143,4 +143,11 @@ class InputTest < ActionView::TestCase
     assert_select 'form input[type=radio][value=no].radio#user_active_no'
   end
 
+  test 'input should generate a password field for password attributes' do
+    simple_form_for @user do |f|
+      concat f.input :password
+    end
+    assert_select 'form input[type=password].password#user_password'
+  end
+
 end

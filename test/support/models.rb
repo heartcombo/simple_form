@@ -12,7 +12,7 @@ class User < OpenStruct
 
   def column_for_attribute(attribute)
     case attribute.to_sym
-      when :name, :status then :string
+      when :name, :status, :password then :string
       when :description   then :text
       when :age           then :integer
       when :credit_limit  then :decimal
