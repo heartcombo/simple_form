@@ -25,20 +25,20 @@ module SimpleForm
       end
 
       def translate_required_string
-        translate_string(:required_string, :default =>
+        translate(:required_string, :default =>
           %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
         )
       end
 
       def translate_required_text
-        translate_string(:required_text, :default => 'required')
+        translate(:required_text, :default => 'required')
       end
 
       def translate_required_mark
-        translate_string(:required_mark, :default => '*')
+        translate(:required_mark, :default => '*')
       end
 
-      def translate_string(key, params={})
+      def translate(key, params={})
         I18n.t(key, {:scope => :simple_form}.merge!(params))
       end
   end

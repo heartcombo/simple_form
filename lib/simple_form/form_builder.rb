@@ -1,21 +1,24 @@
 require 'simple_form/label'
 require 'simple_form/input'
+require 'simple_form/hint'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include SimpleForm::Label
     include SimpleForm::Input
+    include SimpleForm::Hint
 
     def input(attribute, options={})
       @attribute, @options = attribute, options
-      @options.assert_valid_keys(:as, :label, :required, :options, :html)
+      @options.assert_valid_keys(:as, :label, :required, :hint, :options, :html)
 
       @input_type = (@options[:as] || default_input_type).to_sym
 
       label = generate_label
       input = generate_input
+      hint  = generate_hint
 
-      label << input
+      label << input << hint
     end
 
     private

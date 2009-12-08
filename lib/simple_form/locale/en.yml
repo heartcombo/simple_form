@@ -1,0 +1,8 @@
+en:
+  simple_form:
+    required_text: 'required'
+    required_mark: '*'
+    # You are going to use either required_text and mark, or just required_string.
+    # When using required string, text and mark won't be used.
+    #required_string: '<abbr title="required">*</abbr> '
+
