@@ -13,8 +13,7 @@ module SimpleForm
       end
 
       def translate_hint
-        lookups = [:"#{@object_name}.#{@attribute}", :"#{@attribute}", '']
-        I18n.t(lookups.shift, :scope => :"simple_form.hints", :default => lookups)
+        translate_form(:hints)
       end
   end
 end

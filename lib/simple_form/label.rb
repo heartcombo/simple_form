@@ -20,8 +20,7 @@ module SimpleForm
 
       def translate_label
         default = @object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
-        lookups = [:"#{@object_name}.#{@attribute}", :"#{@attribute}", default]
-        I18n.t(lookups.shift, :scope => :"simple_form.labels", :default => lookups)
+        translate_form(:labels, default)
       end
 
       def translate_required_string
@@ -38,8 +37,5 @@ module SimpleForm
         translate(:required_mark, :default => '*')
       end
 
-      def translate(key, params={})
-        I18n.t(key, {:scope => :simple_form}.merge!(params))
-      end
   end
 end
