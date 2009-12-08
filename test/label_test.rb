@@ -31,7 +31,7 @@ class LabelTest < ActionView::TestCase
     assert_select 'form label[for=super_user_name]', /Super User Name!/
   end
 
-  test 'input should use i18n to pick up label translation' do
+  test 'input should use i18n based on model name to pick up label translation' do
     store_translations(:en, :views => { :labels => { :super_user => {
       :description => 'Descrição', :age => 'Idade'
     } } } ) do
@@ -42,6 +42,15 @@ class LabelTest < ActionView::TestCase
       end
       assert_select 'form label[for=super_user_description]', /Descrição/
       assert_select 'form label[for=super_user_age]', /Idade/
+    end
+  end
+
+  test 'input should use i18n based only on attribute to pick up the label translation' do
+    store_translations(:en, :views => { :labels => { :age => 'Idade' } } ) do
+      simple_form_for @user do |f|
+        concat f.input :age
+      end
+      assert_select 'form label[for=user_age]', /Idade/
     end
   end
 

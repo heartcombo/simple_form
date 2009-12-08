@@ -19,7 +19,8 @@ module SimpleForm
 
       def translate_label
         default = @object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
-        I18n.t(:"#{@object_name}.#{@attribute}", :scope => :"views.labels", :default => default)
+        lookups = [:"#{@object_name}.#{@attribute}", :"#{@attribute}", default]
+        I18n.t(lookups.shift, :scope => :"views.labels", :default => lookups)
       end
 
       def translate_required_string
