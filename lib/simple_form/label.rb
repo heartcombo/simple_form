@@ -6,6 +6,7 @@ module SimpleForm
       def generate_label
         return '' if @options[:label] == false
         html_options = { :class => "#{@input_type} #{required_class}".strip }
+        html_options[:for] = @options[:html][:id] if @options.key?(:html)
         label(@attribute, label_text, html_options)
       end
 

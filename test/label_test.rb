@@ -129,4 +129,20 @@ class LabelTest < ActionView::TestCase
       assert_select 'form label span.required[title=requerido]', '*'
     end
   end
+
+  test 'label should allow overwriting input id' do
+    simple_form_for @user do |f|
+      concat f.input :name, :html => { :id => 'my_new_id' }
+    end
+    assert_select 'form input[id=my_new_id]'
+    assert_select 'form label[for=my_new_id]'
+  end
+
+  test 'label should use default input id when it was not overridden' do
+    simple_form_for @user do |f|
+      concat f.input :name, :html => { :class => 'test' }
+    end
+    assert_select 'form input[id=user_name]'
+    assert_select 'form label[for=user_name]'
+  end
 end
