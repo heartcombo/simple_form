@@ -32,7 +32,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'input should use i18n based on model name to pick up label translation' do
-    store_translations(:en, :views => { :labels => { :super_user => {
+    store_translations(:en, :simple_form => { :labels => { :super_user => {
       :description => 'Descrição', :age => 'Idade'
     } } } ) do
       @super_user = SuperUser.new
@@ -46,7 +46,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'input should use i18n based only on attribute to pick up the label translation' do
-    store_translations(:en, :views => { :labels => { :age => 'Idade' } } ) do
+    store_translations(:en, :simple_form => { :labels => { :age => 'Idade' } } ) do
       simple_form_for @user do |f|
         concat f.input :age
       end
