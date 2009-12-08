@@ -1,53 +1,12 @@
 require 'test_helper'
-require 'ostruct'
 
-class User < OpenStruct
-
-  def id
-    1
-  end
-
-  def new_record?
-    false
-  end
-
-  def column_for_attribute(attribute)
-    case attribute.to_sym
-      when :name, :status then :string
-      when :description   then :text
-      when :age           then :integer
-      when :credit_limit  then :decimal
-      when :active        then :boolean
-      when :born_at       then :date
-      when :delivery_time then :time
-      when :created_at    then :datetime
-      when :updated_at    then :timestamp
-    end
-  end
-end
-
-class FormHelperTest < ActionView::TestCase
-  tests SimpleForm::FormBuilder
-
-  def user_path(*args)
-    '/users'
-  end
-
-  def setup
-    @user = User.new(
-      :name => 'New in Simple Form!',
-      :description => 'Hello!',
-      :created_at => Time.now
-    )
-  end
+class FormBuilderTest < ActionView::TestCase
 
   test 'input should generate a default text field' do
     simple_form_for @user do |f|
       concat f.input :name
-      concat f.input :description
     end
     assert_select 'form input[name=\'user[name]\'][id=user_name][value=New in Simple Form!]'
-    assert_select 'form textarea[name=\'user[description]\'][id=user_description]', 'Hello!'
   end
 
   test 'input should generate a default class for each input' do
@@ -110,7 +69,7 @@ class FormHelperTest < ActionView::TestCase
     assert_select "form select.date#user_born_at_1i"
     assert_select "form select.date#user_born_at_2i"
     assert_select "form select.date#user_born_at_3i"
-    assert_no_tag "select", :attributes => { :id => "user_born_at_4i" }
+    assert_no_tag :tag => 'select', :attributes => { :id => "user_born_at_4i" }
   end
 
   test 'input should generate a time select by default for time attributes' do
@@ -133,11 +92,12 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form input.string#user_born_at'
   end
 
-  test 'it should allow boolean fields as radio buttons' do
+  test 'input should allow boolean fields as radio buttons' do
     simple_form_for @user do |f|
       concat f.input :active, :as => :radio
     end
     assert_select 'form input[type=radio][value=yes].radio#user_active_yes'
     assert_select 'form input[type=radio][value=no].radio#user_active_no'
   end
+
 end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class FormHelperTest < ActionView::TestCase
-  tests SimpleForm::FormHelper
 
   test 'yields an instance of FormBuilder' do
     simple_form_for :user do |f|
