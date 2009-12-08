@@ -2,6 +2,14 @@ require 'test_helper'
 
 class InputTest < ActionView::TestCase
 
+  test 'input should verify options hash' do
+    assert_raise ArgumentError do
+      simple_form_for @user do |f|
+        concat f.input :name, :invalid_param => true
+      end
+    end
+  end
+
   test 'input should generate a default text field' do
     simple_form_for @user do |f|
       concat f.input :name

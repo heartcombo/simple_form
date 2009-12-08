@@ -1,8 +1,12 @@
+require 'simple_form/label'
+
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
+    include SimpleForm::Label
 
     def input(attribute, options={})
       @attribute, @options = attribute, options
+      @options.assert_valid_keys(:as, :label, :options, :html)
 
       label = generate_label
       input = generate_input
@@ -11,15 +15,6 @@ module SimpleForm
     end
 
     private
-
-      def generate_label
-        return '' if @options[:label] == false
-        unless label_text = @options[:label]
-          default = @object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
-          label_text = I18n.t("views.labels.#{@object_name}.#{@attribute}", :default => default)
-        end
-        label(@attribute, label_text)
-      end
 
       def generate_input
         input_type = (@options[:as] || default_input_type).to_sym
