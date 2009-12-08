@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FormBuilderTest < ActionView::TestCase
+class LabelTest < ActionView::TestCase
 
   test 'input should generate a label with the text field' do
     simple_form_for @user do |f|

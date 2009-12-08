@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FormBuilderTest < ActionView::TestCase
+class InputTest < ActionView::TestCase
 
   test 'input should generate a default text field' do
     simple_form_for @user do |f|
