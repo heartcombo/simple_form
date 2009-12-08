@@ -62,6 +62,18 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'input should be able to pass options to datetime select' do
+    simple_form_for @user do |f|
+      concat f.input :created_at, :options => {
+        :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
+      }
+    end
+    assert_tag :tag => 'select', :attributes => { :disabled => 'disabled' }
+    assert_select 'form select.datetime option', 'ano'
+    assert_select 'form select.datetime option', 'mês'
+    assert_select 'form select.datetime option', 'dia'
+  end
+
   test 'input should generate a date select by default for date attributes' do
     simple_form_for @user do |f|
       concat f.input :born_at
@@ -70,6 +82,18 @@ class InputTest < ActionView::TestCase
     assert_select "form select.date#user_born_at_2i"
     assert_select "form select.date#user_born_at_3i"
     assert_no_tag :tag => 'select', :attributes => { :id => "user_born_at_4i" }
+  end
+
+  test 'input should be able to pass options to date select' do
+    simple_form_for @user do |f|
+      concat f.input :born_at, :options => {
+        :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
+      }
+    end
+    assert_tag :tag => 'select', :attributes => { :disabled => 'disabled' }
+    assert_select 'form select.date option', 'ano'
+    assert_select 'form select.date option', 'mês'
+    assert_select 'form select.date option', 'dia'
   end
 
   test 'input should generate a time select by default for time attributes' do
@@ -81,6 +105,17 @@ class InputTest < ActionView::TestCase
     assert_select "form input[type=hidden]#user_delivery_time_3i"
     assert_select "form select.time#user_delivery_time_4i"
     assert_select "form select.time#user_delivery_time_5i"
+  end
+
+  test 'input should be able to pass options to time select' do
+    simple_form_for @user do |f|
+      concat f.input :delivery_time, :options => {
+        :disabled => true, :prompt => { :hour => 'hora', :minute => 'minuto' }
+      }
+    end
+    assert_tag :tag => 'select', :attributes => { :disabled => 'disabled' }
+    assert_select 'form select.time option', 'hora'
+    assert_select 'form select.time option', 'minuto'
   end
 
   test 'input should allow overwriting default type' do

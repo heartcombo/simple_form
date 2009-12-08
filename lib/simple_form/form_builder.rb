@@ -16,7 +16,7 @@ module SimpleForm
         return '' if @options[:label] == false
         unless label_text = @options[:label]
           default = @object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
-          label_text = I18n.t("views.labels.#{@object.class.name.underscore}.#{@attribute}", :default => default)
+          label_text = I18n.t("views.labels.#{@object_name}.#{@attribute}", :default => default)
         end
         label(@attribute, label_text)
       end
@@ -25,6 +25,7 @@ module SimpleForm
         input_type = (@options[:as] || default_input_type).to_sym
         html_options = @options[:html] || {}
         html_options[:class] = "#{html_options[:class]} #{input_type}".strip
+        @options[:options] ||= {}
 
         input_field = case input_type
           when :boolean then
@@ -36,11 +37,11 @@ module SimpleForm
           when :text then
             text_area(@attribute, html_options)
           when :datetime then
-            datetime_select(@attribute, options, html_options)
+            datetime_select(@attribute, @options[:options], html_options)
           when :date then
-            date_select(@attribute, options, html_options)
+            date_select(@attribute, @options[:options], html_options)
           when :time then
-            time_select(@attribute, options, html_options)
+            time_select(@attribute, @options[:options], html_options)
           else
             text_field(@attribute, html_options)
         end
