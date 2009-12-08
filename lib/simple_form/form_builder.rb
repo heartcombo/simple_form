@@ -1,12 +1,14 @@
 require 'simple_form/label'
 require 'simple_form/input'
 require 'simple_form/hint'
+require 'simple_form/error'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include SimpleForm::Label
     include SimpleForm::Input
     include SimpleForm::Hint
+    include SimpleForm::Error
 
     def input(attribute, options={})
       @attribute, @options = attribute, options
@@ -17,8 +19,9 @@ module SimpleForm
       label = generate_label
       input = generate_input
       hint  = generate_hint
+      error = generate_error
 
-      label << input << hint
+      label << input << hint << error
     end
 
     private
