@@ -49,7 +49,7 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :credit_limit
     end
-    assert_select "form input.decimal#user_credit_limit"
+    assert_select "form input.numeric#user_credit_limit"
   end
 
   test 'input should generate a checkbox by default for boolean attributes' do
@@ -76,7 +76,7 @@ class InputTest < ActionView::TestCase
         :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
       }
     end
-    assert_tag :tag => 'select', :attributes => { :disabled => 'disabled' }
+    assert_select 'form select.datetime[disabled=disabled]'
     assert_select 'form select.datetime option', 'ano'
     assert_select 'form select.datetime option', 'mês'
     assert_select 'form select.datetime option', 'dia'
@@ -89,7 +89,7 @@ class InputTest < ActionView::TestCase
     assert_select "form select.date#user_born_at_1i"
     assert_select "form select.date#user_born_at_2i"
     assert_select "form select.date#user_born_at_3i"
-    assert_no_tag :tag => 'select', :attributes => { :id => "user_born_at_4i" }
+    assert_no_select "form select.date#user_born_at_4i"
   end
 
   test 'input should be able to pass options to date select' do
@@ -98,7 +98,7 @@ class InputTest < ActionView::TestCase
         :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
       }
     end
-    assert_tag :tag => 'select', :attributes => { :disabled => 'disabled' }
+    assert_select 'form select.date[disabled=disabled]'
     assert_select 'form select.date option', 'ano'
     assert_select 'form select.date option', 'mês'
     assert_select 'form select.date option', 'dia'
@@ -121,7 +121,7 @@ class InputTest < ActionView::TestCase
         :disabled => true, :prompt => { :hour => 'hora', :minute => 'minuto' }
       }
     end
-    assert_tag :tag => 'select', :attributes => { :disabled => 'disabled' }
+    assert_select 'form select.time[disabled=disabled]'
     assert_select 'form select.time option', 'hora'
     assert_select 'form select.time option', 'minuto'
   end
@@ -150,4 +150,17 @@ class InputTest < ActionView::TestCase
     assert_select 'form input[type=password].password#user_password'
   end
 
+  test 'input should be required by default' do
+    simple_form_for @user do |f|
+      concat f.input :name
+    end
+    assert_select 'form input.required'
+  end
+
+  test 'input should allow disabling required' do
+    simple_form_for @user do |f|
+      concat f.input :name, :required => false
+    end
+    assert_no_select 'form input.required'
+  end
 end

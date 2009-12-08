@@ -5,7 +5,8 @@ module SimpleForm
 
       def generate_label
         return '' if @options[:label] == false
-        label(@attribute, @options[:label] || translate_label)
+        html_options = { :class => "#{@input_type} #{required_class}" }
+        label(@attribute, @options[:label] || translate_label, html_options)
       end
 
       def translate_label
