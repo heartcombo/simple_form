@@ -6,7 +6,7 @@ class LabelTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :name
     end
-    assert_select 'form label[for=user_name]', 'Name'
+    assert_select 'form label[for=user_name]', /Name/
   end
 
   test 'input should allow not using a label' do
@@ -20,7 +20,7 @@ class LabelTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :name, :label => 'My label!'
     end
-    assert_select 'form label[for=user_name]', 'My label!'
+    assert_select 'form label[for=user_name]', /My label!/
   end
 
   test 'input should use label with human attribute name if it responds to it' do
@@ -28,7 +28,7 @@ class LabelTest < ActionView::TestCase
     simple_form_for @super_user do |f|
       concat f.input :name
     end
-    assert_select 'form label[for=super_user_name]', 'Super User Name!'
+    assert_select 'form label[for=super_user_name]', /Super User Name!/
   end
 
   test 'input should use i18n to pick up label translation' do
@@ -40,12 +40,12 @@ class LabelTest < ActionView::TestCase
         concat f.input :description
         concat f.input :age
       end
-      assert_select 'form label[for=super_user_description]', 'Descrição'
-      assert_select 'form label[for=super_user_age]', 'Idade'
+      assert_select 'form label[for=super_user_description]', /Descrição/
+      assert_select 'form label[for=super_user_age]', /Idade/
     end
   end
 
-  test 'label should use the same input type class as input' do
+  test 'label should use the same css class as input' do
     simple_form_for @user do |f|
       concat f.input :name
       concat f.input :description
@@ -76,5 +76,48 @@ class LabelTest < ActionView::TestCase
       concat f.input :name, :required => false
     end
     assert_no_select 'form label.required'
+  end
+
+  test 'label should add required text when input is required' do
+    simple_form_for @user do |f|
+      concat f.input :name
+    end
+    assert_select 'form label.required', '* Name'
+    assert_select 'form label abbr[title=required]', '*'
+  end
+
+  test 'label should not have required text in no required inputs' do
+    simple_form_for @user do |f|
+      concat f.input :name, :required => false
+    end
+    assert_no_select 'form label abbr'
+  end
+
+  test 'label should use i18n to find required text' do
+    store_translations(:en, :simple_form => { :required_text => 'campo requerido' }) do
+      simple_form_for @user do |f|
+        concat f.input :name
+      end
+      assert_select 'form label abbr[title=campo requerido]', '*'
+    end
+  end
+
+  test 'label should use i18n to find required mark' do
+    store_translations(:en, :simple_form => { :required_mark => '*-*' }) do
+      simple_form_for @user do |f|
+        concat f.input :name
+      end
+      assert_select 'form label abbr', '*-*'
+    end
+  end
+
+  test 'label should use i18n to find required string tag' do
+    store_translations(:en, :simple_form => { :required_string => '<span class="required" title="requerido">*</span>' }) do
+      simple_form_for @user do |f|
+        concat f.input :name
+      end
+      assert_no_select 'form label abbr'
+      assert_select 'form label span.required[title=requerido]', '*'
+    end
   end
 end
