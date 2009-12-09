@@ -43,7 +43,8 @@ module SimpleForm
       end
 
       def boolean_collection
-        [['Yes', true], ['No', false]]
+        [[translate(:true, :default => 'Yes'), true],
+         [translate(:false, :default => 'No'), false]]
       end
 
       def detect_collection_methods(collection, options)

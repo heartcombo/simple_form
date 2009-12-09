@@ -151,6 +151,16 @@ class InputTest < ActionView::TestCase
     assert_select 'form label.radio[for=user_active_false]', 'No'
   end
 
+  test 'input as radio should use i18n to translate boolean labels' do
+    store_translations(:en, :simple_form => { :true => 'Sim', :false => 'Não' }) do
+      simple_form_for @user do |f|
+        concat f.input :active, :as => :radio
+      end
+      assert_select 'form label.radio[for=user_active_true]', 'Sim'
+      assert_select 'form label.radio[for=user_active_false]', 'Não'
+    end
+  end
+
   test 'input should allow boolean attributes as a select with options' do
     simple_form_for @user do |f|
       concat f.input :active, :as => :select
@@ -158,6 +168,16 @@ class InputTest < ActionView::TestCase
     assert_select 'form select.select#user_active'
     assert_select 'form select option[value=true]', 'Yes'
     assert_select 'form select option[value=false]', 'No'
+  end
+
+  test 'input as select should use i18n to translate boolean options' do
+    store_translations(:en, :simple_form => { :true => 'Sim', :false => 'Não' }) do
+      simple_form_for @user do |f|
+        concat f.input :active, :as => :select
+      end
+      assert_select 'form select option[value=true]', 'Sim'
+      assert_select 'form select option[value=false]', 'Não'
+    end
   end
 
   test 'input should generate a password field for password attributes' do

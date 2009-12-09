@@ -1,5 +1,7 @@
 en:
   simple_form:
+    true: 'Yes'
+    false: 'No'
     required_text: 'required'
     required_mark: '*'
     # You are going to use either required_text and mark, or just required_string.
