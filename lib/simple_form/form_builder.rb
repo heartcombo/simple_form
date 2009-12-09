@@ -31,16 +31,20 @@ module SimpleForm
       end
 
       def attribute_required?
-        true unless @options[:required] == false
+        @options[:required] != false
+      end
+
+      def default_css_classes(merge_class=nil)
+        "#{@input_type} #{required_class} #{merge_class}".strip
       end
 
       def default_input_type
-        input_type = @object.try(:column_for_attribute, @attribute)
+        column = @object.column_for_attribute(@attribute)
+        input_type = column.type
         case input_type
-          when nil then :string
           when :decimal then :numeric
           when :timestamp then :datetime
-          when :string then
+          when nil, :string then
             @attribute.to_s =~ /password/ ? :password : :string
           else input_type
         end

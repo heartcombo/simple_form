@@ -1,5 +1,14 @@
 require 'ostruct'
 
+class Column
+  attr_accessor :name, :type#, :limit, :precision, :scale
+
+  def initialize(attrs={})
+    self.name = attrs[:name]
+    self.type = attrs[:type]
+  end
+end
+
 class User < OpenStruct
 
   def id
@@ -11,7 +20,7 @@ class User < OpenStruct
   end
 
   def column_for_attribute(attribute)
-    case attribute.to_sym
+    column_type = case attribute.to_sym
       when :name, :status, :password then :string
       when :description   then :text
       when :age           then :integer
@@ -22,6 +31,7 @@ class User < OpenStruct
       when :created_at    then :datetime
       when :updated_at    then :timestamp
     end
+    Column.new(:name => attribute, :type => column_type)
   end
 
   def human_attribute_name(attribute)

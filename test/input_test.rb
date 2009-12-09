@@ -139,8 +139,16 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :active, :as => :radio
     end
-    assert_select 'form input[type=radio][value=yes].radio#user_active_yes'
-    assert_select 'form input[type=radio][value=no].radio#user_active_no'
+    assert_select 'form input[type=radio][value=true].radio#user_active_true'
+    assert_select 'form input[type=radio][value=false].radio#user_active_false'
+  end
+
+  test 'input as radio should generate labels by default' do
+    simple_form_for @user do |f|
+      concat f.input :active, :as => :radio
+    end
+    assert_select 'form label.radio[for=user_active_true]', 'Yes'
+    assert_select 'form label.radio[for=user_active_false]', 'No'
   end
 
   test 'input should generate a password field for password attributes' do
