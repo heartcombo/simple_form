@@ -1,80 +1,46 @@
+require 'simple_form/abstract_component'
 require 'simple_form/label'
 require 'simple_form/input'
 require 'simple_form/hint'
 require 'simple_form/error'
-require 'simple_form/map_type'
-require 'simple_form/i18n_cache'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    include SimpleForm::Label
-    include SimpleForm::Input
-    include SimpleForm::Hint
-    include SimpleForm::Error
+    # Components used by the folder builder. By default is:
+    # [SimpleForm::Label, SimpleForm::Input, SimpleForm::Hint, SimpleForm::Error]
+    cattr_accessor :components, :instance_writer => false
+    @@components = [SimpleForm::Label, SimpleForm::Input, SimpleForm::Hint, SimpleForm::Error]
 
-    extend SimpleForm::MapType
-    extend SimpleForm::I18nCache
-
-    map_type :boolean,  :to => :check_box
-    map_type :text,     :to => :text_area
-    map_type :datetime, :to => :datetime_select, :options => true
-    map_type :date,     :to => :date_select, :options => true
-    map_type :time,     :to => :time_select, :options => true
-    map_type :password, :to => :password_field
-    map_type :hidden,   :to => :hidden_field
-    map_type :select,   :to => :collection_select, :options => true, :collection => true
-    map_type :radio,    :to => :collection_radio, :collection => true
-    map_type :numeric,  :to => :text_field
-    map_type :string,   :to => :text_field
+    # Make the template accessible for components
+    attr_reader :template
 
     def input(attribute, options={})
-      @attribute, @options = attribute, options
-      @options.assert_valid_keys(:as, :label, :required, :hint, :options, :html,
+      # TODO Do this makes sense since we are delegating to components?
+      options.assert_valid_keys(:as, :label, :required, :hint, :options, :html,
                                  :collection, :label_method, :value_method)
 
-      @input_type = (@options[:as] || default_input_type).to_sym
+      input_type = (options[:as] || default_input_type(attribute, options)).to_sym
 
-      label = generate_label
-      input = generate_input
-      hint  = generate_hint
-      error = generate_error
+      pieces = self.components.collect do |klass|
+        next if options[klass.basename] == false
+        klass.new(self, attribute, input_type, options).generate
+      end
 
-      label << input << hint << error
+      pieces.compact.join
     end
 
     private
 
-      def required_class
-        'required' if attribute_required?
-      end
-
-      def attribute_required?
-        @options[:required] != false
-      end
-
-      def default_css_classes(merge_class=nil)
-        "#{@input_type} #{required_class} #{merge_class}".strip
-      end
-
-      def default_input_type
-        column = @object.column_for_attribute(@attribute)
+      def default_input_type(attribute, options)
+        column = @object.column_for_attribute(attribute)
         input_type = column.type
         case input_type
           when :decimal, :integer then :numeric
           when :timestamp then :datetime
           when nil, :string then
-            @attribute.to_s =~ /password/ ? :password : :string
+            attribute.to_s =~ /password/ ? :password : :string
           else input_type
         end
-      end
-
-      def hidden_input?
-        @input_type == :hidden
-      end
-
-      def translate_form(scope, default='')
-        lookups = [:"#{@object_name}.#{@attribute}", :"#{@attribute}", default]
-        I18n.t(lookups.shift, :scope => :"simple_form.#{scope}", :default => lookups)
       end
 
   end

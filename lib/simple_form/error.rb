@@ -1,20 +1,15 @@
 module SimpleForm
-  module Error
+  class Error < AbstractComponent
+    def valid?
+      !hidden_input? && !errors.blank?
+    end
 
-    private
+    def errors
+      @errors ||= object.errors[@attribute]
+    end
 
-      def generate_error
-        return '' if skip_error? || (errors = find_errors).blank?
-        errors = errors.to_sentence if errors.respond_to?(:to_sentence)
-        @template.content_tag(:span, errors, :class => 'error')
-      end
-
-      def skip_error?
-        hidden_input?
-      end
-
-      def find_errors
-        @object.errors[@attribute]
-      end
+    def content
+      Array(errors).to_sentence
+    end
   end
 end
