@@ -1,19 +1,20 @@
 module SimpleForm
   module Input
-    Mapping = Struct.new(:method, :arity)
+    Mapping = Struct.new(:method, :collection, :options)
 
     MAPPINGS = {
-      :boolean  => Mapping.new(:check_box, 2),
-      :text     => Mapping.new(:text_area, 2),
-      :datetime => Mapping.new(:datetime_select, 3),
-      :date     => Mapping.new(:date_select, 3),
-      :time     => Mapping.new(:time_select, 3),
-      :password => Mapping.new(:password_field, 2),
-      :hidden   => Mapping.new(:hidden_field, 2),
+      :boolean  => Mapping.new(:check_box, false, false),
+      :text     => Mapping.new(:text_area, false, false),
+      :datetime => Mapping.new(:datetime_select, false, true),
+      :date     => Mapping.new(:date_select, false, true),
+      :time     => Mapping.new(:time_select, false, true),
+      :password => Mapping.new(:password_field, false, false),
+      :hidden   => Mapping.new(:hidden_field, false, false),
+      :select   => Mapping.new(:select, true, true),
       # Do we need integer and numeric?
-      :integer  => Mapping.new(:text_field, 2),
-      :numeric  => Mapping.new(:text_field, 2),
-      :string   => Mapping.new(:text_field, 2)
+      :integer  => Mapping.new(:text_field, false, false),
+      :numeric  => Mapping.new(:text_field, false, false),
+      :string   => Mapping.new(:text_field, false, false)
     }
 
     private
@@ -34,12 +35,12 @@ module SimpleForm
         mapping = MAPPINGS[@input_type]
         raise "Invalid input type #{@input_type.inspect}" unless mapping
 
-        case mapping.arity
-          when 3
-            send(mapping.method, @attribute, @options[:options], html_options)
-          when 2
-            send(mapping.method, @attribute, html_options)
-        end
+        args = [ @attribute ]
+        args << @options[:collection] if mapping.collection
+        args << @options[:options]    if mapping.options
+        args << html_options
+
+        send(mapping.method, *args)
       end
 
       def boolean_collection

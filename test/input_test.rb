@@ -179,4 +179,14 @@ class InputTest < ActionView::TestCase
     end
     assert_no_select 'form input.required'
   end
+
+  test 'input requires a collection for select types' do
+    simple_form_for @user do |f|
+      concat f.input :name, :as => :select, :collection => [ "Jose", "Carlos"]
+    end
+
+    assert_select 'form select.required'
+    assert_select 'form select option', 'Jose'
+    assert_select 'form select option', 'Carlos'
+  end
 end
