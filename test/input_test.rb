@@ -3,15 +3,7 @@ require 'test_helper'
 class InputTest < ActionView::TestCase
 
   setup do
-    SimpleForm::Input.reset_i18n_cache :boolean_collection
-  end
-
-  test 'input should verify options hash' do
-    assert_raise ArgumentError do
-      simple_form_for @user do |f|
-        concat f.input :name, :invalid_param => true
-      end
-    end
+    SimpleForm::Components::Input.reset_i18n_cache :boolean_collection
   end
 
   test 'input should generate a default text field' do

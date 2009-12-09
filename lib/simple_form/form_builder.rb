@@ -1,24 +1,17 @@
-require 'simple_form/abstract_component'
-require 'simple_form/label'
-require 'simple_form/input'
-require 'simple_form/hint'
-require 'simple_form/error'
-
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    # Components used by the folder builder. By default is:
-    # [SimpleForm::Label, SimpleForm::Input, SimpleForm::Hint, SimpleForm::Error]
+    # Components used by the folder builder.
+    # By default is [:label, :input, :hint, :error].
     cattr_accessor :components, :instance_writer => false
-    @@components = [SimpleForm::Label, SimpleForm::Input, SimpleForm::Hint, SimpleForm::Error]
+    @@components = [
+      SimpleForm::Components::Label, SimpleForm::Components::Input,
+      SimpleForm::Components::Hint,  SimpleForm::Components::Error
+    ]
 
     # Make the template accessible for components
     attr_reader :template
 
     def input(attribute, options={})
-      # TODO Do this makes sense since we are delegating to components?
-      options.assert_valid_keys(:as, :label, :required, :hint, :options, :html,
-                                 :collection, :label_method, :value_method)
-
       input_type = (options[:as] || default_input_type(attribute, options)).to_sym
 
       pieces = self.components.collect do |klass|
