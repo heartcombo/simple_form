@@ -1,13 +1,13 @@
 require 'rubygems'
 require 'test/unit'
-require 'i18n'
 
 require 'action_controller'
 require 'action_view/test_case'
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
+require 'simple_form'
 
-require File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 
 class ActionView::TestCase
