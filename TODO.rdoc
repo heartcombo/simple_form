@@ -1,5 +1,25 @@
-* Input
-* Label
-* I18n
-* Errors
-* Instructions and/or Examples
+== General
+
+* Support simple_fields_for and simple_remote_form_for
+* Allow I18n lookup for labels and hints based on the current action
+* Sample CSS
+* Test forms with non objects
+* Get default string options from column definition
+* Improve input_type heuristic (but do not :integer, :float and :decimal to numeric, for example)
+* Detect label and values automatically
+* Add support to default :include_blank
+* Add support to default label method
+* Add wrapper support
+* Improve readme with examples
+
+== Associations
+
+* has_many
+* has_and_belongs_to_many
+* belongs_to
+
+== Validations
+
+* Add automatic :required check
+* Add unobstrusive javascript validations support
+* Add mask support (same as hint, but with JS)
