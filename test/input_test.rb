@@ -150,6 +150,14 @@ class InputTest < ActionView::TestCase
     assert_select 'form input[type=password].password#user_password'
   end
 
+  test 'input should generate a hidden field' do
+    simple_form_for @user do |f|
+      concat f.input :name, :as => :hidden
+    end
+    assert_no_select 'form input[type=text]'
+    assert_select 'form input#user_name[type=hidden]'
+  end
+
   test 'input should be required by default' do
     simple_form_for @user do |f|
       concat f.input :name

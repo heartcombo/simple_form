@@ -25,6 +25,8 @@ module SimpleForm
             time_select(@attribute, @options[:options], html_options)
           when :password then
             password_field(@attribute, html_options)
+          when :hidden then
+            hidden_field(@attribute, html_options)
           else
             text_field(@attribute, html_options)
         end
