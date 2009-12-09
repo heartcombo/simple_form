@@ -13,7 +13,7 @@ I18n.default_locale = :en
 class ActionView::TestCase
   include I18nHelper
 
-  tests SimpleForm::FormHelper
+  tests SimpleForm::ActionViewExtensions::FormHelper
 
   setup :set_controller
   setup :set_response
