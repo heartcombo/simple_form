@@ -47,18 +47,6 @@ module SimpleForm
 
     private
 
-      def required_class
-        'required' if attribute_required?
-      end
-
-      def attribute_required?
-        @options[:required] != false
-      end
-
-      def default_css_classes(merge_class=nil)
-        "#{@input_type} #{required_class} #{merge_class}".strip
-      end
-
       def default_input_type
         column = @object.column_for_attribute(@attribute)
         input_type = column.type

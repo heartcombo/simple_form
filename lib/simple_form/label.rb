@@ -1,6 +1,9 @@
+require 'simple_form/required_component'
+
 module SimpleForm
   class Label < AbstractComponent
     extend SimpleForm::I18nCache
+    include RequiredComponent
 
     def self.translate_required_string
         i18n_cache :translate_required_string do
@@ -40,18 +43,6 @@ module SimpleForm
     def translate_label
       default = object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
       translate(default)
-    end
-
-    def required_class
-      'required' if attribute_required?
-    end
-
-    def attribute_required?
-      @options[:required] != false
-    end
-
-    def default_css_classes
-      "#{@input_type} #{required_class}".strip
     end
   end
 end

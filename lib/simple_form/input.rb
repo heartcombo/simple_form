@@ -1,5 +1,8 @@
+require 'simple_form/required_component'
+
 module SimpleForm
   module Input
+    include RequiredComponent
 
     def self.included(base) #:nodoc:
       base.extend ClassMethods
