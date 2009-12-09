@@ -11,6 +11,7 @@ module SimpleForm
       :password => Mapping.new(:password_field, false, false),
       :hidden   => Mapping.new(:hidden_field, false, false),
       :select   => Mapping.new(:select, true, true),
+      :radio    => Mapping.new(:collection_radio, true, false),
       # Do we need integer and numeric?
       :integer  => Mapping.new(:text_field, false, false),
       :numeric  => Mapping.new(:text_field, false, false),
@@ -23,17 +24,7 @@ module SimpleForm
         html_options = @options[:html] || {}
         html_options[:class] = default_css_classes(html_options[:class])
         @options[:options] ||= {}
-
-        # TODO Move boolean_collection to form_helper
-        if @input_type == :radio
-          return boolean_collection.inject('') do |result, (text, value)|
-            result << radio_button(@attribute, value, html_options) <<
-                      label("#{@attribute}_#{value}", text, :class => default_css_classes)
-          end
-        elsif @input_type == :select
-          return select(@attribute, boolean_collection,
-                        @options[:options], html_options)
-        end
+        @options[:collection] ||= boolean_collection
 
         mapping = MAPPINGS[@input_type]
         raise "Invalid input type #{@input_type.inspect}" unless mapping
@@ -48,6 +39,13 @@ module SimpleForm
 
       def boolean_collection
         [['Yes', true], ['No', false]]
+      end
+
+      def collection_radio(attribute, collection, html_options)
+        collection.inject('') do |result, (text, value)|
+            result << radio_button(attribute, value, html_options) <<
+                      label("#{attribute}_#{value}", text, :class => default_css_classes)
+        end
       end
 
   end
