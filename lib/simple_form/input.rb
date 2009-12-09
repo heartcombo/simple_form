@@ -67,7 +67,7 @@ module SimpleForm
             text  = item.send text_method
 
             result << radio_button(attribute, value, html_options) <<
-                      label("#{attribute}_#{value}", text, :class => default_css_classes)
+                      label("#{attribute}_#{value}", text, :class => "radio")
         end
       end
 
