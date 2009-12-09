@@ -35,20 +35,10 @@ class User < OpenStruct
   end
 
   def human_attribute_name(attribute)
-    nil
-  end
-
-  def errors
-    {}
-  end
-end
-
-class SuperUser < User
-
-  def human_attribute_name(attribute)
     case attribute
       when 'name' then 'Super User Name!'
-      else super
+      when 'description' then 'User Description!'
+      else nil
     end
   end
 
@@ -57,7 +47,6 @@ class SuperUser < User
       :name => "can't be blank",
       :description => "must be longer than 15 characters",
       :age => ["is not a number", "must be greater than 18"],
-      :credit_limit => ["must be present", "must be greater than 0"]
     }
   end
 end

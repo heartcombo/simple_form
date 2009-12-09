@@ -5,19 +5,23 @@ module SimpleForm
       extend I18nCache
 
       def self.translate_required_string
-          i18n_cache :translate_required_string do
-            I18n.t(:"simple_form.required.string", :default =>
-              %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
-            )
-          end
+        i18n_cache :translate_required_string do
+          I18n.t(:"simple_form.required.string", :default =>
+            %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
+          )
         end
+      end
 
       def self.translate_required_text
-        I18n.t(:"simple_form.required.text", :default => 'required')
+        i18n_cache :translate_required_text do
+          I18n.t(:"simple_form.required.text", :default => 'required')
+        end
       end
 
       def self.translate_required_mark
-        I18n.t(:"simple_form.required.mark", :default => '*')
+        i18n_cache :translate_required_mark do
+          I18n.t(:"simple_form.required.mark", :default => '*')
+        end
       end
 
       def valid?

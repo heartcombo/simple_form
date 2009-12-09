@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BuilderExtensionsTest < ActionView::TestCase
+class BuilderTest < ActionView::TestCase
   test "collection radio accepts a collection and generate inputs from value method" do
     form_for @user do |f|
       concat f.collection_radio :active, [true, false], :to_s, :to_s
