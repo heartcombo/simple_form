@@ -2,12 +2,15 @@ module SimpleForm
   module Label
 
     def self.included(base)
-      base.extend ClassMethods
+      base.class_eval do
+        extend ClassMethods
+        @translate_required_string = {}
+      end
     end
 
     module ClassMethods
       def translate_required_string
-        @translate_required_string ||= I18n.t(:"simple_form.required.string", :default =>
+        @translate_required_string[I18n.locale] ||= I18n.t(:"simple_form.required.string", :default =>
           %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
         )
       end

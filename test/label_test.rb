@@ -3,7 +3,7 @@ require 'test_helper'
 class LabelTest < ActionView::TestCase
 
   setup do
-    SimpleForm::FormBuilder.instance_variable_set(:@translate_required_string, nil)
+    SimpleForm::FormBuilder.instance_variable_set(:@translate_required_string, {})
   end
 
   test 'input should generate a label with the text field' do

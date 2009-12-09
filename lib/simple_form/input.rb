@@ -43,7 +43,8 @@ module SimpleForm
       end
 
       def boolean_collection
-        [['Yes', true], ['No', false]]
+        [ [I18n.t(:"simple_form.true", :default => 'Yes'), true],
+          [I18n.t(:"simple_form.false", :default => 'No'), false] ]
       end
 
       def detect_collection_methods(collection, options)

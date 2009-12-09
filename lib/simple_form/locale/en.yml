@@ -1,5 +1,7 @@
 en:
   simple_form:
+    true: 'Yes'
+    false: 'No'
     required:
       text: "required"
       mark: "*"
