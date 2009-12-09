@@ -3,6 +3,7 @@ require 'simple_form/input'
 require 'simple_form/hint'
 require 'simple_form/error'
 require 'simple_form/map_type'
+require 'simple_form/i18n_cache'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -12,6 +13,7 @@ module SimpleForm
     include SimpleForm::Error
 
     extend SimpleForm::MapType
+    extend SimpleForm::I18nCache
 
     map_type :boolean,  :to => :check_box
     map_type :text,     :to => :text_area

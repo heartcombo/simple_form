@@ -2,6 +2,10 @@ require 'test_helper'
 
 class InputTest < ActionView::TestCase
 
+  setup do
+    SimpleForm::FormBuilder.reset_i18n_cache :boolean_collection
+  end
+
   test 'input should verify options hash' do
     assert_raise ArgumentError do
       simple_form_for @user do |f|

@@ -1,18 +1,17 @@
 module SimpleForm
   module Label
 
-    def self.included(base)
-      base.class_eval do
-        extend ClassMethods
-        @translate_required_string = {}
-      end
+    def self.included(base) #:nodoc:
+      base.extend ClassMethods
     end
 
-    module ClassMethods
+    module ClassMethods #:nodoc:
       def translate_required_string
-        @translate_required_string[I18n.locale] ||= I18n.t(:"simple_form.required.string", :default =>
-          %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
-        )
+        i18n_cache :translate_required_string do
+          I18n.t(:"simple_form.required.string", :default =>
+            %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
+          )
+        end
       end
 
       def translate_required_text
@@ -42,7 +41,7 @@ module SimpleForm
       end
 
       def required_text
-        attribute_required? ? self.class.translate_required_string : ''
+        attribute_required? ? self.class.translate_required_string.dup : ''
       end
 
       def translate_label

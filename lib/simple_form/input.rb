@@ -1,6 +1,19 @@
 module SimpleForm
   module Input
 
+    def self.included(base) #:nodoc:
+      base.extend ClassMethods
+    end
+
+    module ClassMethods
+      def boolean_collection
+        i18n_cache :boolean_collection do
+          [ [I18n.t(:"simple_form.true", :default => 'Yes'), true],
+            [I18n.t(:"simple_form.false", :default => 'No'), false] ]
+        end
+      end
+    end
+
     private
 
       def generate_input
@@ -14,7 +27,7 @@ module SimpleForm
         args = [ @attribute ]
 
         if mapping.collection
-          collection = @options[:collection] || boolean_collection
+          collection = @options[:collection] || self.class.boolean_collection
           detect_collection_methods(collection, @options)
           args.push(collection, @options[:value_method], @options[:label_method])
         end
@@ -23,11 +36,6 @@ module SimpleForm
         args << html_options
 
         send(mapping.method, *args)
-      end
-
-      def boolean_collection
-        [ [I18n.t(:"simple_form.true", :default => 'Yes'), true],
-          [I18n.t(:"simple_form.false", :default => 'No'), false] ]
       end
 
       def detect_collection_methods(collection, options)
