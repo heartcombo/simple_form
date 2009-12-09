@@ -1,3 +1,5 @@
+require 'simple_form/abstract_component'
+
 require 'simple_form/label'
 require 'simple_form/input'
 require 'simple_form/hint'
@@ -7,10 +9,12 @@ require 'simple_form/i18n_cache'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
+    # Make the template accessible for components
+    attr_reader :template
+
     include SimpleForm::Label
     include SimpleForm::Input
     include SimpleForm::Hint
-    include SimpleForm::Error
 
     extend SimpleForm::MapType
     extend SimpleForm::I18nCache
@@ -37,7 +41,7 @@ module SimpleForm
       label = generate_label
       input = generate_input
       hint  = generate_hint
-      error = generate_error
+      error = Error.new(self, @attribute, @input_type, @options).generate
 
       label << input << hint << error
     end
