@@ -42,7 +42,7 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :age
     end
-    assert_select 'form input.integer#user_age'
+    assert_select 'form input.numeric#user_age'
   end
 
   test 'input should generate a text field by default for decimal attributes' do

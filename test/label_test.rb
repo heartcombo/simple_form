@@ -73,7 +73,7 @@ class LabelTest < ActionView::TestCase
     assert_select 'form label.datetime[for=user_created_at]'
     assert_select 'form label.date[for=user_born_at]'
     assert_select 'form label.boolean[for=user_active]'
-    assert_select 'form label.integer[for=user_age]'
+    assert_select 'form label.numeric[for=user_age]'
     assert_select 'form label.numeric[for=user_credit_limit]'
   end
 

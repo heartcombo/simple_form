@@ -12,8 +12,6 @@ module SimpleForm
       :hidden   => Mapping.new(:hidden_field, false, false),
       :select   => Mapping.new(:collection_select, true, true),
       :radio    => Mapping.new(:collection_radio, true, false),
-      # Do we need integer and numeric?
-      :integer  => Mapping.new(:text_field, false, false),
       :numeric  => Mapping.new(:text_field, false, false),
       :string   => Mapping.new(:text_field, false, false)
     }

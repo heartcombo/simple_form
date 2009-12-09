@@ -43,7 +43,7 @@ module SimpleForm
         column = @object.column_for_attribute(@attribute)
         input_type = column.type
         case input_type
-          when :decimal then :numeric
+          when :decimal, :integer then :numeric
           when :timestamp then :datetime
           when nil, :string then
             @attribute.to_s =~ /password/ ? :password : :string
