@@ -12,7 +12,8 @@ module SimpleForm
 
     def input(attribute, options={})
       @attribute, @options = attribute, options
-      @options.assert_valid_keys(:as, :label, :required, :hint, :options, :html, :collection)
+      @options.assert_valid_keys(:as, :label, :required, :hint, :options, :html,
+                                 :collection, :label_method, :value_method)
 
       @input_type = (@options[:as] || default_input_type).to_sym
 

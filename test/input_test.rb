@@ -213,7 +213,6 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :name, :as => :select, :collection => ['Jose', 'Carlos']
     end
-
     assert_select 'form select.required'
     assert_select 'form select option', 'Jose'
     assert_select 'form select option', 'Carlos'
@@ -237,5 +236,18 @@ class InputTest < ActionView::TestCase
     assert_select 'form input[type=radio][value=carlos]'
     assert_select 'form label.radio', 'Jose'
     assert_select 'form label.radio', 'Carlos'
+  end
+
+  test 'input allow overriding label and value method for collections' do
+    simple_form_for @user do |f|
+      concat f.input :name, :as => :radio,
+                            :collection => ['Jose' , 'Carlos'],
+                            :label_method => :upcase,
+                            :value_method => :downcase
+    end
+    assert_select 'form input[type=radio][value=jose]'
+    assert_select 'form input[type=radio][value=carlos]'
+    assert_select 'form label.radio', 'JOSE'
+    assert_select 'form label.radio', 'CARLOS'
   end
 end
