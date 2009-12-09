@@ -2,6 +2,7 @@ require 'simple_form/label'
 require 'simple_form/input'
 require 'simple_form/hint'
 require 'simple_form/error'
+require 'simple_form/map_type'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -9,6 +10,20 @@ module SimpleForm
     include SimpleForm::Input
     include SimpleForm::Hint
     include SimpleForm::Error
+
+    extend SimpleForm::MapType
+
+    map_type :boolean,  :to => :check_box
+    map_type :text,     :to => :text_area
+    map_type :datetime, :to => :datetime_select, :options => true
+    map_type :date,     :to => :date_select, :options => true
+    map_type :time,     :to => :time_select, :options => true
+    map_type :password, :to => :password_field
+    map_type :hidden,   :to => :hidden_field
+    map_type :select,   :to => :collection_select, :options => true, :collection => true
+    map_type :radio,    :to => :collection_radio, :collection => true
+    map_type :numeric,  :to => :text_field
+    map_type :string,   :to => :text_field
 
     def input(attribute, options={})
       @attribute, @options = attribute, options

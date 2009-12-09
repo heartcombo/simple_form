@@ -1,20 +1,5 @@
 module SimpleForm
   module Input
-    Mapping = Struct.new(:method, :collection, :options)
-
-    MAPPINGS = {
-      :boolean  => Mapping.new(:check_box, false, false),
-      :text     => Mapping.new(:text_area, false, false),
-      :datetime => Mapping.new(:datetime_select, false, true),
-      :date     => Mapping.new(:date_select, false, true),
-      :time     => Mapping.new(:time_select, false, true),
-      :password => Mapping.new(:password_field, false, false),
-      :hidden   => Mapping.new(:hidden_field, false, false),
-      :select   => Mapping.new(:collection_select, true, true),
-      :radio    => Mapping.new(:collection_radio, true, false),
-      :numeric  => Mapping.new(:text_field, false, false),
-      :string   => Mapping.new(:text_field, false, false)
-    }
 
     private
 
@@ -23,7 +8,7 @@ module SimpleForm
         html_options[:class] = default_css_classes(html_options[:class])
         @options[:options] ||= {}
 
-        mapping = MAPPINGS[@input_type]
+        mapping = self.class.mappings[@input_type]
         raise "Invalid input type #{@input_type.inspect}" unless mapping
 
         args = [ @attribute ]
@@ -62,11 +47,11 @@ module SimpleForm
 
       def collection_radio(attribute, collection, value_method, text_method, html_options={})
         collection.inject('') do |result, item|
-            value = item.send value_method
-            text  = item.send text_method
+          value = item.send value_method
+          text  = item.send text_method
 
-            result << radio_button(attribute, value, html_options) <<
-                      label("#{attribute}_#{value}", text, :class => "radio")
+          result << radio_button(attribute, value, html_options) <<
+                    label("#{attribute}_#{value}", text, :class => "radio")
         end
       end
 
