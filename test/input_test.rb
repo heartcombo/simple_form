@@ -42,21 +42,21 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :age
     end
-    assert_select "form input.integer#user_age"
+    assert_select 'form input.integer#user_age'
   end
 
   test 'input should generate a text field by default for decimal attributes' do
     simple_form_for @user do |f|
       concat f.input :credit_limit
     end
-    assert_select "form input.numeric#user_credit_limit"
+    assert_select 'form input.numeric#user_credit_limit'
   end
 
   test 'input should generate a checkbox by default for boolean attributes' do
     simple_form_for @user do |f|
       concat f.input :active
     end
-    assert_select "form input[type=checkbox].boolean#user_active"
+    assert_select 'form input[type=checkbox].boolean#user_active'
   end
 
   test 'input should generate a datetime select by default for datetime or timestamp attributes' do
@@ -86,10 +86,10 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :born_at
     end
-    assert_select "form select.date#user_born_at_1i"
-    assert_select "form select.date#user_born_at_2i"
-    assert_select "form select.date#user_born_at_3i"
-    assert_no_select "form select.date#user_born_at_4i"
+    assert_select 'form select.date#user_born_at_1i'
+    assert_select 'form select.date#user_born_at_2i'
+    assert_select 'form select.date#user_born_at_3i'
+    assert_no_select 'form select.date#user_born_at_4i'
   end
 
   test 'input should be able to pass options to date select' do
@@ -108,11 +108,11 @@ class InputTest < ActionView::TestCase
     simple_form_for @user do |f|
       concat f.input :delivery_time
     end
-    assert_select "form input[type=hidden]#user_delivery_time_1i"
-    assert_select "form input[type=hidden]#user_delivery_time_2i"
-    assert_select "form input[type=hidden]#user_delivery_time_3i"
-    assert_select "form select.time#user_delivery_time_4i"
-    assert_select "form select.time#user_delivery_time_5i"
+    assert_select 'form input[type=hidden]#user_delivery_time_1i'
+    assert_select 'form input[type=hidden]#user_delivery_time_2i'
+    assert_select 'form input[type=hidden]#user_delivery_time_3i'
+    assert_select 'form select.time#user_delivery_time_4i'
+    assert_select 'form select.time#user_delivery_time_5i'
   end
 
   test 'input should be able to pass options to time select' do
@@ -209,13 +209,33 @@ class InputTest < ActionView::TestCase
     assert_no_select 'form input.required'
   end
 
-  test 'input requires a collection for select types' do
+  test 'input allow overriding collection for select types' do
     simple_form_for @user do |f|
-      concat f.input :name, :as => :select, :collection => [ "Jose", "Carlos"]
+      concat f.input :name, :as => :select, :collection => ['Jose', 'Carlos']
     end
 
     assert_select 'form select.required'
     assert_select 'form select option', 'Jose'
     assert_select 'form select option', 'Carlos'
+  end
+
+  test 'inputs allow overriding collection for radio types' do
+    simple_form_for @user do |f|
+      concat f.input :name, :as => :radio, :collection => ['Jose', 'Carlos']
+    end
+    assert_select 'form input[type=radio][value=Jose]'
+    assert_select 'form input[type=radio][value=Carlos]'
+    assert_select 'form label.radio', 'Jose'
+    assert_select 'form label.radio', 'Carlos'
+  end
+
+  test 'input allow using a collection with text/value arrays for radio' do
+    simple_form_for @user do |f|
+      concat f.input :name, :as => :radio, :collection => [['Jose', 'jose'], ['Carlos', 'carlos']]
+    end
+    assert_select 'form input[type=radio][value=jose]'
+    assert_select 'form input[type=radio][value=carlos]'
+    assert_select 'form label.radio', 'Jose'
+    assert_select 'form label.radio', 'Carlos'
   end
 end
