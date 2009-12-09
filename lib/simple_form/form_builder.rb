@@ -1,18 +1,18 @@
 require 'simple_form/abstract_component'
+require 'simple_form/i18n_cache'
 
 require 'simple_form/label'
 require 'simple_form/input'
 require 'simple_form/hint'
 require 'simple_form/error'
 require 'simple_form/map_type'
-require 'simple_form/i18n_cache'
+
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     # Make the template accessible for components
     attr_reader :template
 
-    include SimpleForm::Label
     include SimpleForm::Input
 
     extend SimpleForm::MapType
@@ -37,12 +37,12 @@ module SimpleForm
 
       @input_type = (@options[:as] || default_input_type).to_sym
 
-      label = generate_label
+      label  = Label.new(self, @attribute, @input_type, @options).generate unless @options[:label] == false
       input = generate_input
       hint  = Hint.new(self, @attribute, @input_type, @options).generate unless @options[:hint] == false
       error = Error.new(self, @attribute, @input_type, @options).generate
 
-      label << input << hint.to_s << error
+      label.to_s << input << hint.to_s << error
     end
 
     private
