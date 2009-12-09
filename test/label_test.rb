@@ -3,7 +3,9 @@ require 'test_helper'
 class LabelTest < ActionView::TestCase
 
   setup do
-    SimpleForm::FormBuilder.reset_i18n_cache :translate_required_string
+    [:string, :text, :mark].each do |cache|
+      SimpleForm::FormBuilder.reset_i18n_cache :"translate_required_#{cache}"
+    end
   end
 
   test 'input should generate a label with the text field' do

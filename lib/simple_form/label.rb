@@ -15,11 +15,15 @@ module SimpleForm
       end
 
       def translate_required_text
-        I18n.t(:"simple_form.required.text", :default => 'required')
+        i18n_cache :translate_required_text do
+          I18n.t(:"simple_form.required.text", :default => 'required')
+        end
       end
 
       def translate_required_mark
-        I18n.t(:"simple_form.required.mark", :default => '*')
+        i18n_cache :translate_required_mark do
+          I18n.t(:"simple_form.required.mark", :default => '*')
+        end
       end
     end
 
