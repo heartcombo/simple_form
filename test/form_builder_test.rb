@@ -58,13 +58,15 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select#user_updated_at_1i.datetime'
   end
 
-  test 'builder should allow overriding default input type' do
+  test 'builder should allow overriding default input type for text' do
     with_form_for :name, :as => :text
     assert_no_select 'form input#user_name'
     assert_select 'form textarea#user_name.text'
+
     with_form_for :active, :as => :radio
     assert_no_select 'form input[type=checkbox]'
     assert_select 'form input.radio[type=radio]', :count => 2
+
     with_form_for :born_at, :as => :string
     assert_no_select 'form select'
     assert_select 'form input#user_born_at.string'
@@ -83,6 +85,11 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder should be able to disable the label for a input' do
     with_form_for :name, :label => false
     assert_no_select 'form label'
+  end
+
+  test 'builder should use custom label' do
+    with_form_for :name, :label => 'Yay!'
+    assert_no_select 'form label', 'Yay!'
   end
 
   test 'builder should not generate hints for a input' do

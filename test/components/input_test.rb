@@ -185,7 +185,6 @@ class InputTest < ActionView::TestCase
     assert_select 'label.radio', 'CARLOS'
   end
 
-
   test 'input should be required by default' do
     with_input_for :name, :string
     assert_select 'input.required#user_name'
