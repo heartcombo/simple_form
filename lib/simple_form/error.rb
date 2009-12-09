@@ -9,7 +9,7 @@ module SimpleForm
     end
 
     def content
-      template.content_tag(:span, Array(errors).to_sentence, :class => 'error')
+      Array(errors).to_sentence
     end
   end
 end

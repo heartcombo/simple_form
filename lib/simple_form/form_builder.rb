@@ -14,7 +14,6 @@ module SimpleForm
 
     include SimpleForm::Label
     include SimpleForm::Input
-    include SimpleForm::Hint
 
     extend SimpleForm::MapType
     extend SimpleForm::I18nCache
@@ -40,10 +39,10 @@ module SimpleForm
 
       label = generate_label
       input = generate_input
-      hint  = generate_hint
+      hint  = Hint.new(self, @attribute, @input_type, @options).generate unless @options[:hint] == false
       error = Error.new(self, @attribute, @input_type, @options).generate
 
-      label << input << hint << error
+      label << input << hint.to_s << error
     end
 
     private
