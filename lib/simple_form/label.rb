@@ -1,6 +1,26 @@
 module SimpleForm
   module Label
 
+    def self.included(base)
+      base.extend ClassMethods
+    end
+
+    module ClassMethods
+      def translate_required_string
+        @translate_required_string ||= I18n.t(:"simple_form.required.string", :default =>
+          %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
+        )
+      end
+
+      def translate_required_text
+        I18n.t(:"simple_form.required.text", :default => 'required')
+      end
+
+      def translate_required_mark
+        I18n.t(:"simple_form.required.mark", :default => '*')
+      end
+    end
+
     private
 
       def generate_label
@@ -19,26 +39,12 @@ module SimpleForm
       end
 
       def required_text
-        attribute_required? ? translate_required_string : ''
+        attribute_required? ? self.class.translate_required_string : ''
       end
 
       def translate_label
         default = @object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
         translate_form(:labels, default)
-      end
-
-      def translate_required_string
-        translate(:required_string, :default =>
-          %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
-        )
-      end
-
-      def translate_required_text
-        translate(:required_text, :default => 'required')
-      end
-
-      def translate_required_mark
-        translate(:required_mark, :default => '*')
       end
 
   end

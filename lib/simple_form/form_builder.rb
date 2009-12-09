@@ -56,11 +56,7 @@ module SimpleForm
 
       def translate_form(scope, default='')
         lookups = [:"#{@object_name}.#{@attribute}", :"#{@attribute}", default]
-        translate(lookups.shift, :scope => :"simple_form.#{scope}", :default => lookups)
-      end
-
-      def translate(key, params={})
-        I18n.t(key, {:scope => :simple_form}.merge!(params))
+        I18n.t(lookups.shift, :scope => :"simple_form.#{scope}", :default => lookups)
       end
 
   end

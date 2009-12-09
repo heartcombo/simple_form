@@ -2,6 +2,10 @@ require 'test_helper'
 
 class LabelTest < ActionView::TestCase
 
+  setup do
+    SimpleForm::FormBuilder.instance_variable_set(:@translate_required_string, nil)
+  end
+
   test 'input should generate a label with the text field' do
     simple_form_for @user do |f|
       concat f.input :name
@@ -103,7 +107,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should use i18n to find required text' do
-    store_translations(:en, :simple_form => { :required_text => 'campo requerido' }) do
+    store_translations(:en, :simple_form => { :required => { :text => 'campo requerido' }}) do
       simple_form_for @user do |f|
         concat f.input :name
       end
@@ -112,7 +116,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should use i18n to find required mark' do
-    store_translations(:en, :simple_form => { :required_mark => '*-*' }) do
+    store_translations(:en, :simple_form => { :required => { :mark => '*-*' }}) do
       simple_form_for @user do |f|
         concat f.input :name
       end
@@ -121,7 +125,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should use i18n to find required string tag' do
-    store_translations(:en, :simple_form => { :required_string => '<span class="required" title="requerido">*</span>' }) do
+    store_translations(:en, :simple_form => { :required => { :string => '<span class="required" title="requerido">*</span>' }}) do
       simple_form_for @user do |f|
         concat f.input :name
       end
