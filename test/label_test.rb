@@ -145,4 +145,11 @@ class LabelTest < ActionView::TestCase
     assert_select 'form input[id=user_name]'
     assert_select 'form label[for=user_name]'
   end
+
+  test 'label should not be generated for hidden fields' do
+    simple_form_for @user do |f|
+      concat f.input :name, :as => :hidden
+    end
+    assert_no_select 'label'
+  end
 end

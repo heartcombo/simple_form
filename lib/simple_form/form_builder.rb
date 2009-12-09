@@ -46,6 +46,10 @@ module SimpleForm
         end
       end
 
+      def hidden_input?
+        @input_type == :hidden
+      end
+
       def translate_form(scope, default='')
         lookups = [:"#{@object_name}.#{@attribute}", :"#{@attribute}", default]
         translate(lookups.shift, :scope => :"simple_form.#{scope}", :default => lookups)

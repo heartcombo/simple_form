@@ -4,8 +4,12 @@ module SimpleForm
     private
 
       def generate_hint
-        return '' if @options[:hint] == false || (text = hint_text).blank?
+        return '' if skip_hint? || (text = hint_text).blank?
         @template.content_tag(:span, text, :class => 'hint')
+      end
+
+      def skip_hint?
+        @options[:hint] == false || hidden_input?
       end
 
       def hint_text

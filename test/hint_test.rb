@@ -44,4 +44,11 @@ class ErrorTest < ActionView::TestCase
       assert_no_select 'form span.hint'
     end
   end
+
+  test 'hint should not be generated for hidden fields' do
+    simple_form_for @user do |f|
+      concat f.input :name, :hint => 'Bla bla bla', :as => :hidden
+    end
+    assert_no_select 'form span.hint'
+  end
 end

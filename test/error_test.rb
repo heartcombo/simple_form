@@ -30,4 +30,11 @@ class ErrorTest < ActionView::TestCase
     assert_select 'form span.error', "is not a number and must be greater than 18"
     assert_select 'form span.error', "must be present and must be greater than 0"
   end
+
+  test 'errors should not be generated for hidden fields' do
+    simple_form_for @super_user do |f|
+      concat f.input :name, :as => :hidden
+    end
+    assert_no_select 'form span.error'
+  end
 end
