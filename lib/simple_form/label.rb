@@ -1,4 +1,5 @@
 require 'simple_form/required_component'
+require 'simple_form/i18n_cache'
 
 module SimpleForm
   class Label < AbstractComponent
