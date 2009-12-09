@@ -47,6 +47,9 @@ module SimpleForm
         elsif sample.is_a?(String) # TODO Test me
           options[:label_method] ||= :to_s
           options[:value_method] ||= :to_s
+        elsif sample.is_a?(Numeric) # TODO Test me (including selected)
+          options[:label_method] ||= :to_s
+          options[:value_method] ||= :to_i
         else # TODO Implement collection label methods or something similar
           options[:label_method] ||= :to_s
           options[:value_method] ||= :to_s
