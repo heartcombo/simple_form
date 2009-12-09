@@ -30,6 +30,9 @@ module SimpleForm
             result << radio_button(@attribute, value, html_options) <<
                       label("#{@attribute}_#{value}", text, :class => default_css_classes)
           end
+        elsif @input_type == :select
+          return select(@attribute, boolean_collection,
+                        @options[:options], html_options)
         end
 
         mapping = MAPPINGS[@input_type]

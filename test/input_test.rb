@@ -135,7 +135,7 @@ class InputTest < ActionView::TestCase
     assert_select 'form input.string#user_born_at'
   end
 
-  test 'input should allow boolean fields as radio buttons' do
+  test 'input should allow boolean attributes as radio buttons' do
     simple_form_for @user do |f|
       concat f.input :active, :as => :radio
     end
@@ -149,6 +149,15 @@ class InputTest < ActionView::TestCase
     end
     assert_select 'form label.radio[for=user_active_true]', 'Yes'
     assert_select 'form label.radio[for=user_active_false]', 'No'
+  end
+
+  test 'input should allow boolean attributes as a select with options' do
+    simple_form_for @user do |f|
+      concat f.input :active, :as => :select
+    end
+    assert_select 'form select.select#user_active'
+    assert_select 'form select option[value=true]', 'Yes'
+    assert_select 'form select option[value=false]', 'No'
   end
 
   test 'input should generate a password field for password attributes' do
