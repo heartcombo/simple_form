@@ -3,7 +3,7 @@ module SimpleForm
     attr_reader :builder, :attribute, :input_type, :options
 
     def self.basename
-      @basename ||= name.split("::").last
+      @basename ||= name.split("::").last.underscore.to_sym
     end
 
     def initialize(builder, attribute, input_type, options)
@@ -39,12 +39,12 @@ module SimpleForm
     end
 
     def component_tag(content)
-      template.content_tag(:span, content, :class => basename.underscore)
+      template.content_tag(:span, content, :class => basename)
     end
 
     def translate(default='')
       lookups = [ :"#{@builder.object_name}.#{@attribute}", :"#{@attribute}", default ]
-      I18n.t(lookups.shift, :scope => :"simple_form.#{basename.tableize}", :default => lookups)
+      I18n.t(lookups.shift, :scope => :"simple_form.#{basename.to_s.pluralize}", :default => lookups)
     end
   end
 end
