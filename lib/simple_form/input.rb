@@ -53,15 +53,5 @@ module SimpleForm
         end
       end
 
-      def collection_radio(attribute, collection, value_method, text_method, html_options={})
-        collection.inject('') do |result, item|
-          value = item.send value_method
-          text  = item.send text_method
-
-          result << radio_button(attribute, value, html_options) <<
-                    label("#{attribute}_#{value}", text, :class => "radio")
-        end
-      end
-
   end
 end
