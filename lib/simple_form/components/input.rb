@@ -35,7 +35,7 @@ module SimpleForm
         args = [ @attribute ]
 
         if mapping.collection
-          collection = @options[:collection] || self.class.boolean_collection
+          collection = (@options[:collection] || self.class.boolean_collection).to_a
           detect_collection_methods(collection, @options)
           args.push(collection, @options[:value_method], @options[:label_method])
         end
@@ -47,20 +47,19 @@ module SimpleForm
       end
 
       def detect_collection_methods(collection, options)
-        sample = collection.first
-
-        if sample.is_a?(Array) # TODO Test me
-          options[:label_method] ||= :first
-          options[:value_method] ||= :last
-        elsif sample.is_a?(String) # TODO Test me
-          options[:label_method] ||= :to_s
-          options[:value_method] ||= :to_s
-        elsif sample.is_a?(Numeric) # TODO Test me (including selected)
-          options[:label_method] ||= :to_s
-          options[:value_method] ||= :to_i
-        else # TODO Implement collection label methods or something similar
-          options[:label_method] ||= :to_s
-          options[:value_method] ||= :to_s
+        case collection.first
+          when Array
+            options[:label_method] ||= :first
+            options[:value_method] ||= :last
+          when String
+            options[:label_method] ||= :to_s
+            options[:value_method] ||= :to_s
+          when Numeric
+            options[:label_method] ||= :to_s
+            options[:value_method] ||= :to_i
+          else
+            options[:label_method] ||= :to_s
+            options[:value_method] ||= :to_s
         end
       end
     end

@@ -158,12 +158,30 @@ class InputTest < ActionView::TestCase
     assert_select 'select option', 'Carlos'
   end
 
-  test 'inputs should allow overriding collection for radio types' do
+  test 'input should mark the selected value by default' do
+    @user.name = "Carlos"
+    with_input_for :name, :select, :collection => ['Jose', 'Carlos']
+    assert_select 'select option[selected=selected]', 'Carlos'
+  end
+
+  test 'input should mark the selected value also when using integers' do
+    @user.age = 18
+    with_input_for :age, :select, :collection => 18..60
+    assert_select 'select option[selected=selected]', '18'
+  end
+
+  test 'input should allow overriding collection for radio types' do
     with_input_for :name, :radio, :collection => ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'
     assert_select 'input[type=radio][value=Carlos]'
     assert_select 'label.radio', 'Jose'
     assert_select 'label.radio', 'Carlos'
+  end
+
+  test 'input should mark the current radio value by default' do
+    @user.name = "Carlos"
+    with_input_for :name, :radio, :collection => ['Jose', 'Carlos']
+    assert_select 'input[type=radio][value=Carlos][checked=checked]'
   end
 
   test 'input should allow using a collection with text/value arrays' do
@@ -193,5 +211,6 @@ class InputTest < ActionView::TestCase
   test 'input should allow disabling required' do
     with_input_for :name, :string, :required => false
     assert_no_select 'input.required'
+    assert_select 'input.optional#user_name'
   end
 end

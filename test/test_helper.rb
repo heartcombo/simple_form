@@ -4,6 +4,11 @@ require 'test/unit'
 require 'action_controller'
 require 'action_view/test_case'
 
+begin
+  require 'ruby-debug'
+rescue LoadError
+end
+
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
 require 'simple_form'
 
