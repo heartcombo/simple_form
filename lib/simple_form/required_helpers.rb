@@ -1,5 +1,5 @@
 module SimpleForm
-  module RequiredComponent
+  module RequiredHelpers
     def attribute_required?
       @options[:required] != false
     end

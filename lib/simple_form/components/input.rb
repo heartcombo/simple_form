@@ -1,9 +1,9 @@
 module SimpleForm
   module Components
     class Input < Base
+      include RequiredHelpers
       extend I18nCache
       extend MapType
-      include RequiredComponent
 
       map_type :boolean,  :to => :check_box
       map_type :text,     :to => :text_area

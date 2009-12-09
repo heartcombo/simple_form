@@ -1,8 +1,8 @@
 module SimpleForm
   module Components
     class Label < Base
+      include RequiredHelpers
       extend I18nCache
-      include RequiredComponent
 
       def self.translate_required_string
           i18n_cache :translate_required_string do
