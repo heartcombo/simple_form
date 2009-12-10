@@ -1,8 +1,6 @@
 == General
 
-* Allow I18n lookup for labels and hints based on the current action
 * Sample CSS
-* Test forms with non objects
 * Get default string options from column definition
 * Add support to default :prompt methods on datetime inputs
 * Add support to default label method

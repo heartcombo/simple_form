@@ -48,7 +48,12 @@ module SimpleForm
       end
 
       def translate(default='')
-        lookups = [ :"#{object_name}.#{attribute}", :"#{attribute}", default ]
+        action  = template.params[:action] if template.respond_to?(:params)
+        lookups =  []
+        lookups << :"#{object_name}.#{action}.#{attribute}" if action.present?
+        lookups << :"#{object_name}.#{attribute}"
+        lookups << :"#{attribute}"
+        lookups << default
         I18n.t(lookups.shift, :scope => :"simple_form.#{basename.to_s.pluralize}", :default => lookups)
       end
     end

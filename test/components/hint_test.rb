@@ -38,9 +38,19 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
+  test 'hint should use i18n based on model, action, and attribute to lookup translation' do
+    store_translations(:en, :simple_form => { :hints => { :user => {
+      :edit => { :name => 'Content of this input will be truncated...' }
+    } } }) do
+      params.merge!(:action => 'edit')
+      with_hint_for @user, :name, :string
+      assert_select 'span.hint', 'Content of this input will be truncated...'
+    end
+  end
+
   test 'hint should use i18n with model and attribute to lookup translation' do
-    store_translations(:en, :simple_form => { :hints => { :user => { :name =>
-      'Content of this input will be capitalized...'
+    store_translations(:en, :simple_form => { :hints => { :user => {
+      :name => 'Content of this input will be capitalized...'
     } } }) do
       with_hint_for @user, :name, :string
       assert_select 'span.hint', 'Content of this input will be capitalized...'
@@ -48,8 +58,8 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'hint should use i18n just with attribute to lookup translation' do
-    store_translations(:en, :simple_form => { :hints => { :name =>
-      'Content of this input will be downcased...'
+    store_translations(:en, :simple_form => { :hints => {
+      :name => 'Content of this input will be downcased...'
     } }) do
       with_hint_for @user, :name, :string
       assert_select 'span.hint', 'Content of this input will be downcased...'

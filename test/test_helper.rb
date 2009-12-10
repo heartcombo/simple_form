@@ -49,6 +49,10 @@ class ActionView::TestCase
     false
   end
 
+  def params
+    @params ||= {}
+  end
+
   def user_path(*args)
     '/users'
   end
