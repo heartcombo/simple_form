@@ -8,6 +8,21 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
+  test 'simple form should add default class to form' do
+    simple_form_for :user do |f| end
+    assert_select 'form.simple_form'
+  end
+
+  test 'simple form should add object name as css class to form when object is not present' do
+    simple_form_for :user do |f| end
+    assert_select 'form.simple_form.user'
+  end
+
+  test 'simple form should add object class name as css class to form' do
+    simple_form_for @user do |f| end
+    assert_select 'form.simple_form.user'
+  end
+
   test 'pass options to simple form' do
     simple_form_for :user, :url => '/account', :html => { :id => 'my_form' } do |f| end
     assert_select 'form#my_form'
