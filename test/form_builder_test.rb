@@ -137,6 +137,16 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder wrapping tag adds default css classes' do
+    swap SimpleForm, :wrapper_tag => :p do
+      with_form_for @user, :name
+      assert_select 'form p.required.string'
+
+      with_form_for @user, :age, :required => false
+      assert_select 'form p.optional.integer'
+    end
+  end
+
   test 'nested simple fields should yields an instance of FormBuilder' do
     simple_form_for :user do |f|
       f.simple_fields_for :posts do |posts_form|

@@ -8,7 +8,8 @@ module SimpleForm
     # The Base component is a raw component with some helpers and a default behavior
     # of prepending the content available in the method content.
     class Base
-      delegate :template, :object, :object_name, :attribute, :input_type, :options, :to => :@builder
+      delegate :template, :object, :object_name, :column, :attribute,
+               :input_type, :options, :to => :@builder
 
       def self.basename
         @basename ||= name.split("::").last.underscore.to_sym
