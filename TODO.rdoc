@@ -6,7 +6,7 @@
 * Get default string options from column definition
 * Add support to default :prompt methods on datetime inputs
 * Add support to default label method
-* Add support to label, error and hint calls
+* Add support to f.label, f.error and f.hint calls
 * Improve readme with examples
 * :country, :time_zone, :group and :file types support
 

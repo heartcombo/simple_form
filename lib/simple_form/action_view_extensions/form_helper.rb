@@ -1,25 +1,15 @@
 module SimpleForm
   module ActionViewExtensions
     module FormHelper
-      def simple_form_for(*args, &block)
-        build_simple_form(:form_for, *args, &block)
+      [:form_for, :fields_for, :remote_form_for].each do |helper|
+        class_eval <<-METHOD, __FILE__, __LINE__
+          def simple_#{helper}(*args, &block)
+            options = args.extract_options!
+            options[:builder] = SimpleForm::FormBuilder
+            #{helper}(*(args << options), &block)
+          end
+        METHOD
       end
-
-      def simple_fields_for(*args, &block)
-        build_simple_form(:fields_for, *args, &block)
-      end
-
-      def simple_remote_form_for(*args, &block)
-        build_simple_form(:remote_form_for, *args, &block)
-      end
-
-      private
-
-        def build_simple_form(form_method, *args, &block)
-          options = args.extract_options!
-          options[:builder] = SimpleForm::FormBuilder
-          send(form_method, *(args << options), &block)
-        end
     end
   end
 end
