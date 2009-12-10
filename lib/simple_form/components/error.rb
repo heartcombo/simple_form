@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     class Error < Base
       def valid?
-        !hidden_input? && !errors.blank?
+        object && !hidden_input? && !errors.blank?
       end
 
       def errors

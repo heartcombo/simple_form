@@ -28,8 +28,12 @@ module SimpleForm
       return options[:as].to_sym if options[:as]
       return :select             if options[:collection]
 
-      column = @object.column_for_attribute(attribute)
-      input_type = column.type
+      input_type = if @object.respond_to?(:column_for_attribute)
+        column = @object.column_for_attribute(attribute)
+        column.type if column
+      else
+        :string
+      end
 
       case input_type
         when :timestamp
