@@ -9,6 +9,7 @@
 * Add support to f.label, f.error and f.hint calls
 * Improve readme with examples
 * :country, :time_zone, :group and :file types support
+* Allow required to come after or before the label
 
 == Associations
 

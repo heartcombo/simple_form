@@ -18,8 +18,12 @@ class User < OpenStruct
     super
   end
 
+  def new_record!
+    @new_record = true
+  end
+
   def new_record?
-    false
+    @new_record || false
   end
 
   def column_for_attribute(attribute)
@@ -37,12 +41,16 @@ class User < OpenStruct
     Column.new(:name => attribute, :type => column_type, :limit => limit)
   end
 
-  def human_attribute_name(attribute)
+  def self.human_attribute_name(attribute)
     case attribute
       when 'name' then 'Super User Name!'
       when 'description' then 'User Description!'
       else nil
     end
+  end
+
+  def self.human_name
+    "User"
   end
 
   def errors

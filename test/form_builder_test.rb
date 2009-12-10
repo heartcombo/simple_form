@@ -8,6 +8,12 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  def with_button_for(object, *args)
+    simple_form_for object do |f|
+      concat f.button *args
+    end
+  end
+
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
     assert_select 'form input#user_name.string'
@@ -186,4 +192,63 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input.decimal#project_budget'
   end
 
+  test 'builder should create buttons' do
+    with_button_for :post, :submit
+    assert_select 'form input[type=submit][value=Submit Post]'
+  end
+
+  test 'builder should create buttons for new records' do
+    @user.new_record!
+    with_button_for @user, :submit
+    assert_select 'form input[type=submit][value=Create User]'
+  end
+
+  test 'builder should create buttons for existing records' do
+    with_button_for @user, :submit
+    assert_select 'form input[type=submit][value=Update User]'
+  end
+
+  test 'builder should create buttons using human_name' do
+    @user.class.expects(:human_name).returns("Usuario")
+    with_button_for @user, :submit
+   assert_select 'form input[type=submit][value=Update Usuario]'
+  end
+
+  test 'builder should create object buttons with localized labels' do
+    store_translations(:en, :simple_form => { :create => "Criar {{model}}", :update => "Atualizar {{model}}" }) do
+      with_button_for @user, :submit
+      assert_select 'form input[type=submit][value=Atualizar User]'
+
+      @user.new_record!
+      with_button_for @user, :submit
+      assert_select 'form input[type=submit][value=Criar User]'
+    end
+  end
+
+  test 'builder should create non object buttons with localized labels' do
+    store_translations(:en, :simple_form => { :submit => "Enviar {{model}}" }) do
+      with_button_for :post, :submit
+      assert_select 'form input[type=submit][value=Enviar Post]'
+    end
+  end
+
+  test 'builder forwards first options as button text' do
+    with_button_for :post, :submit, "Send it!"
+    assert_select 'form input[type=submit][value=Send it!]'
+  end
+
+  test 'builder forwards label option as button text' do
+    with_button_for :post, :submit, :label => "Send it!"
+    assert_select 'form input[type=submit][value=Send it!]'
+  end
+
+  test 'builder forwards all options except label to button' do
+    with_button_for :post, :submit, :class => "cool", :id => "super"
+    assert_select 'form input#super.cool[type=submit]'
+  end
+
+  test 'builder calls any button tag' do
+    with_button_for :post, :image_submit, "/image/foo/bar"
+    assert_select 'form input[src=/image/foo/bar][type=image]'
+  end
 end

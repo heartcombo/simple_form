@@ -52,5 +52,6 @@ class ActionView::TestCase
   def user_path(*args)
     '/users'
   end
+  alias :users_path :user_path
   alias :super_user_path :user_path
 end
