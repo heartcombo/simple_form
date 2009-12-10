@@ -7,11 +7,16 @@ module SimpleForm
         @basename ||= name.split("::").last.underscore.to_sym
       end
 
-      def initialize(builder, attribute, input_type, options)
+      def initialize(builder, component)
         @builder    = builder
-        @attribute  = attribute
-        @input_type = input_type
-        @options    = options 
+        @component  = component
+        @attribute  = @builder.attribute
+        @input_type = @builder.input_type
+        @options    = @builder.options 
+      end
+
+      def call
+        generate + @component.call
       end
 
       def generate

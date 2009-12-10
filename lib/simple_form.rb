@@ -15,9 +15,13 @@ module SimpleForm
   # Components used by the form builder.
   mattr_accessor :components
   @@components = [
-    SimpleForm::Components::Label, SimpleForm::Components::Input,
-    SimpleForm::Components::Hint,  SimpleForm::Components::Error
+    SimpleForm::Components::Wrapper, SimpleForm::Components::Label,
+    SimpleForm::Components::Input, SimpleForm::Components::Hint, SimpleForm::Components::Error
   ]
+
+  # The terminator sent to the last component
+  mattr_accessor :terminator
+  @@terminator = lambda { "" }
 
   # Series of attemps to detect a default label method for collection
   mattr_accessor :collection_label_methods

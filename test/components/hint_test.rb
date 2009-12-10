@@ -4,7 +4,11 @@ class ErrorTest < ActionView::TestCase
 
   def with_hint_for(object, attribute, type, options={})
     simple_form_for object do |f|
-      hint = SimpleForm::Components::Hint.new(f, attribute, type, options)
+      f.attribute  = attribute
+      f.input_type = type
+      f.options    = options
+
+      hint = SimpleForm::Components::Hint.new(f, SimpleForm.terminator)
       concat(hint.generate)
       yield hint if block_given?
     end

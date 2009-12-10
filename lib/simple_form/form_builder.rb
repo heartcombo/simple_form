@@ -1,38 +1,30 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     # Make the template accessible for components
-    attr_reader :template
+    attr_reader :template, :object_name, :object, :attribute, :input_type, :options
 
     def input(attribute, options={})
-      input_type = default_input_type(attribute, options)
+      @attribute, @options = attribute, options
+      @input_type = default_input_type
 
-      pieces = SimpleForm.components.collect do |klass|
-        next if options[klass.basename] == false
-        klass.new(self, attribute, input_type, options).generate
+      component = SimpleForm.terminator
+      SimpleForm.components.reverse.each do |klass|
+        next if @options[klass.basename] == false
+        component = klass.new(self, component)
       end
 
-      wrap_content(pieces.compact.join)
+      component.call
     end
 
   private
 
-    def wrap_content(content)
-      if SimpleForm.wrapper_tag
-        @template.content_tag(SimpleForm.wrapper_tag, content)
-      else
-        content
-      end
-    end
-
-    def default_input_type(attribute, options)
-      return options[:as].to_sym if options[:as]
-      return :select             if options[:collection]
+    def default_input_type
+      return @options[:as].to_sym if @options[:as]
+      return :select              if @options[:collection]
 
       input_type = if @object.respond_to?(:column_for_attribute)
         column = @object.column_for_attribute(attribute)
         column.type if column
-      else
-        :string
       end
 
       case input_type

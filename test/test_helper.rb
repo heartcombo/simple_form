@@ -15,6 +15,10 @@ require 'simple_form'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 
+class SimpleForm::FormBuilder
+  attr_accessor :attribute, :input_type, :options
+end
+
 class ActionView::TestCase
   include MiscHelpers
 

@@ -10,7 +10,11 @@ class LabelTest < ActionView::TestCase
 
   def with_label_for(object, attribute, type, options={})
     simple_form_for object do |f|
-      label = SimpleForm::Components::Label.new(f, attribute, type, options)
+      f.attribute  = attribute
+      f.input_type = type
+      f.options    = options
+
+      label = SimpleForm::Components::Label.new(f, SimpleForm.terminator)
       concat(label.generate)
       yield label if block_given?
     end

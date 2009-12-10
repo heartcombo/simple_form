@@ -2,9 +2,13 @@ require 'test_helper'
 
 class ErrorTest < ActionView::TestCase
 
-  def with_error_for(object, attribute, type, &block)
+  def with_error_for(object, attribute, type, options={}, &block)
     simple_form_for object do |f|
-      error = SimpleForm::Components::Error.new(f, attribute, type, {})
+      f.attribute  = attribute
+      f.input_type = type
+      f.options    = options
+
+      error = SimpleForm::Components::Error.new(f, SimpleForm.terminator)
       concat(error.generate)
       yield error if block_given?
     end

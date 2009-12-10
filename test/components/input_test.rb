@@ -8,7 +8,11 @@ class InputTest < ActionView::TestCase
 
   def with_input_for(object, attribute, type, options={})
     simple_form_for object do |f|
-      input = SimpleForm::Components::Input.new(f, attribute, type, options)
+      f.attribute  = attribute
+      f.input_type = type
+      f.options    = options
+
+      input = SimpleForm::Components::Input.new(f, SimpleForm.terminator)
       concat(input.generate)
       yield input if block_given?
     end
