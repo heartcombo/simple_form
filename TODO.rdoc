@@ -1,6 +1,5 @@
 == General
 
-* Support simple_fields_for and simple_remote_form_for
 * Allow I18n lookup for labels and hints based on the current action
 * Sample CSS
 * Test forms with non objects

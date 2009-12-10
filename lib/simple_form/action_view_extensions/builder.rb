@@ -12,6 +12,12 @@ module SimpleForm
                     label("#{attribute}_#{value}", text, :class => "radio")
         end
       end
+
+      def simple_fields_for(*args, &block)
+        options = args.extract_options!
+        options[:builder] = SimpleForm::FormBuilder
+        fields_for(*(args << options), &block)
+      end
     end
   end
 end
