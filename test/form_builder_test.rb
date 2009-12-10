@@ -230,4 +230,12 @@ class FormBuilderTest < ActionView::TestCase
     end
     assert_select 'label.string.required#name_label', /My label/
   end
+
+  test 'builder should fallback to default label when string is given' do
+    simple_form_for @user do |f|
+      concat f.label :name, 'Nome do usuário'
+    end
+    assert_select 'label', 'Nome do usuário'
+    assert_no_select 'label.string'
+  end
 end
