@@ -180,6 +180,16 @@ class InputTest < ActionView::TestCase
     assert_select 'select option[selected=selected]', '18'
   end
 
+  test 'input should automatically set include blank' do
+    with_input_for :age, :select, :collection => 18..30
+    assert_select 'select option[value=]', ""
+  end
+
+  test 'input should not set include blank if otherwise is told' do
+    with_input_for :age, :select, :collection => 18..30, :options => { :include_blank => false }
+    assert_no_select 'select option[value=]', ""
+  end
+
   test 'input should allow overriding collection for radio types' do
     with_input_for :name, :radio, :collection => ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'

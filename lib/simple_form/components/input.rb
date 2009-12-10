@@ -35,34 +35,41 @@ module SimpleForm
         raise "Invalid input type #{@input_type.inspect}" unless mapping
 
         args = [ @attribute ]
-
-        if mapping.collection
-          collection = (@options[:collection] || self.class.boolean_collection).to_a
-          detect_collection_methods(collection, @options)
-          args.push(collection, @options[:value_method], @options[:label_method])
-        end
-
-        args << @options[:options] if mapping.options
+        apply_collection_behavior(args) if mapping.collection
+        apply_options_behavior(args)    if mapping.options
         args << html_options
 
         @builder.send(mapping.method, *args)
       end
 
+    protected
+
+      def apply_collection_behavior(args)
+        collection = (@options[:collection] || self.class.boolean_collection).to_a
+        detect_collection_methods(collection, @options)
+
+        @options[:options][:include_blank] = true unless @options[:options].key?(:include_blank)
+        args.push(collection, @options[:value_method], @options[:label_method])
+      end
+
+      def apply_options_behavior(args)
+        args << @options[:options]
+      end
+
       def detect_collection_methods(collection, options)
         case collection.first
           when Array
-            options[:label_method] ||= :first
-            options[:value_method] ||= :last
-          when String
-            options[:label_method] ||= :to_s
-            options[:value_method] ||= :to_s
+            label, value = :first, :last
           when Integer
-            options[:label_method] ||= :to_s
-            options[:value_method] ||= :to_i
+            value = :to_i
+          when String
+            # Do nothing ...
           else
-            options[:label_method] ||= :to_s
-            options[:value_method] ||= :to_s
+            # TODO Implement detection logic
         end
+
+        options[:label_method] ||= label || :to_s
+        options[:value_method] ||= value || :to_s
       end
     end
   end
