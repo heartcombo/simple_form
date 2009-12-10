@@ -1,11 +1,12 @@
 require 'ostruct'
 
 class Column
-  attr_accessor :name, :type#, :limit, :precision, :scale
+  attr_accessor :name, :type, :limit#, :precision, :scale
 
   def initialize(attrs={})
-    self.name = attrs[:name]
-    self.type = attrs[:type]
+    self.name  = attrs[:name]
+    self.type  = attrs[:type]
+    self.limit = attrs[:limit]
   end
 end
 
@@ -22,18 +23,18 @@ class User < OpenStruct
   end
 
   def column_for_attribute(attribute)
-    column_type = case attribute.to_sym
-      when :name, :status, :password then :string
+    column_type, limit = case attribute.to_sym
+      when :name, :status, :password then [:string, 100]
       when :description   then :text
       when :age           then :integer
-      when :credit_limit  then :decimal
+      when :credit_limit  then [:decimal, 15]
       when :active        then :boolean
       when :born_at       then :date
       when :delivery_time then :time
       when :created_at    then :datetime
       when :updated_at    then :timestamp
     end
-    Column.new(:name => attribute, :type => column_type)
+    Column.new(:name => attribute, :type => column_type, :limit => limit)
   end
 
   def human_attribute_name(attribute)

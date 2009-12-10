@@ -9,6 +9,7 @@ class InputTest < ActionView::TestCase
   def with_input_for(object, attribute, type, options={})
     simple_form_for object do |f|
       f.attribute  = attribute
+      f.column     = object.column_for_attribute(attribute) if object.respond_to?(:column_for_attribute)
       f.input_type = type
       f.options    = options
 
@@ -243,6 +244,27 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :name, :string, :required => false
     assert_no_select 'input.required'
     assert_select 'input.optional#user_name'
+  end
+
+  test 'input should get options from column definition for string attributes' do
+    with_input_for @user, :name, :string
+    assert_select 'input.string[maxlength=100]'
+  end
+
+  test 'input should get options from column definition for decimal attributes' do
+    with_input_for @user, :credit_limit, :decimal
+    assert_select 'input.decimal[maxlength=15]'
+  end
+
+  test 'input should get options from column definition for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select 'input.password[maxlength=100]'
+  end
+
+  test 'input should not generate options for different attributes' do
+    with_input_for @user, :description, :text
+    assert_select 'textarea'
+    assert_no_select 'textarea[maxlength]'
   end
 
   test 'input should be generated properly when object is not present' do

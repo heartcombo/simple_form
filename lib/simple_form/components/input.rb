@@ -27,8 +27,6 @@ module SimpleForm
       end
 
       def content
-        html_options = options[:html] || {}
-        html_options[:class] = default_css_classes(html_options[:class])
         options[:options] ||= {}
 
         mapping = self.class.mappings[input_type]
@@ -37,7 +35,7 @@ module SimpleForm
         args = [ attribute ]
         apply_collection_behavior(args) if mapping.collection
         apply_options_behavior(args)    if mapping.options
-        args << html_options
+        apply_html_options(args)
 
         @builder.send(mapping.method, *args)
       end
@@ -54,6 +52,17 @@ module SimpleForm
 
       def apply_options_behavior(args)
         args << options[:options]
+      end
+
+      def apply_html_options(args)
+        html_options = options[:html] || {}
+        html_options[:class] = default_css_classes(html_options[:class])
+
+        if column && [:string, :password, :decimal, :float].include?(input_type)
+          html_options[:maxlength] ||= column.limit
+        end
+
+        args << html_options
       end
 
       def detect_collection_methods(collection, options)
