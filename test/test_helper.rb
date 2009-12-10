@@ -32,12 +32,13 @@ class ActionView::TestCase
     @response = MockResponse.new(self)
   end
 
-  def setup_new_user
-    @user = User.new(
+  def setup_new_user(options={})
+    @user = User.new({
+      :id => 1,
       :name => 'New in Simple Form!',
       :description => 'Hello!',
       :created_at => Time.now
-    )
+    }.merge(options))
   end
 
   def protect_against_forgery?

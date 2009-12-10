@@ -18,4 +18,12 @@ module SimpleForm
     SimpleForm::Components::Label, SimpleForm::Components::Input,
     SimpleForm::Components::Hint,  SimpleForm::Components::Error
   ]
+
+  # Series of attemps to detect a default label method for collection
+  mattr_accessor :collection_label_methods
+  @@collection_label_methods = [ :name, :title, :to_s ]
+
+  # Series of attemps to detect a default value method for collection
+  mattr_accessor :collection_value_methods
+  @@collection_value_methods = [ :id, :to_s ]
 end

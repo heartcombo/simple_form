@@ -10,9 +10,11 @@ class Column
 end
 
 class User < OpenStruct
+  attr_reader :id
 
-  def id
-    1
+  def initialize(attributes={})
+    @id = attributes.delete(:id)
+    super
   end
 
   def new_record?

@@ -5,7 +5,6 @@
 * Sample CSS
 * Test forms with non objects
 * Get default string options from column definition
-* Detect label and values automatically
 * Add support to default :prompt methods on datetime inputs
 * Add support to default label method
 * Add wrapper support

@@ -57,19 +57,19 @@ module SimpleForm
       end
 
       def detect_collection_methods(collection, options)
-        case collection.first
+        sample = collection.first || collection.last
+
+        case sample
           when Array
             label, value = :first, :last
           when Integer
-            value = :to_i
-          when String
-            # Do nothing ...
-          else
-            # TODO Implement detection logic
+            label, value = :to_s, :to_i
+          when String, NilClass
+            label, value = :to_s, :to_s
         end
 
-        options[:label_method] ||= label || :to_s
-        options[:value_method] ||= value || :to_s
+        options[:label_method] ||= label || SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) }
+        options[:value_method] ||= value || SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) }
       end
     end
   end

@@ -190,6 +190,13 @@ class InputTest < ActionView::TestCase
     assert_no_select 'select option[value=]', ""
   end
 
+  test 'input should detect label and value on collections' do
+    users = [ setup_new_user(:id => 1, :name => "Jose"), setup_new_user(:id => 2, :name => "Carlos") ]
+    with_input_for :description, :select, :collection => users
+    assert_select 'select option[value=1]', 'Jose'
+    assert_select 'select option[value=2]', 'Carlos'
+  end
+
   test 'input should allow overriding collection for radio types' do
     with_input_for :name, :radio, :collection => ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'
