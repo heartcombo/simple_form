@@ -39,6 +39,16 @@ class LabelTest < ActionView::TestCase
     assert_select 'label[for=user_description]', /User Description!/
   end
 
+  test 'label should use i18n based on model, action, and attribute to lookup translation' do
+    store_translations(:en, :simple_form => { :labels => { :user => {
+      :new => { :description => 'Nova descrição' }
+    } } } ) do
+      params.merge!(:action => 'new')
+      with_label_for @user, :description, :text
+      assert_select 'label[for=user_description]', /Nova descrição/
+    end
+  end
+
   test 'label should use i18n based on model and attribute to lookup translation' do
     store_translations(:en, :simple_form => { :labels => { :user => {
       :description => 'Descrição'

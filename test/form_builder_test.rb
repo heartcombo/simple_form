@@ -155,8 +155,8 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder wrapping tag allow custom options to be given' do
     swap SimpleForm, :wrapper_tag => :p do
-      with_form_for @user, :name, :wrapper_html => { :id => "super_cool" }
-      assert_select 'form p#super_cool.required.string'
+      with_form_for @user, :name, :wrapper_html => { :id => "super_cool", :class => 'yay' }
+      assert_select 'form p#super_cool.required.string.yay'
     end
   end
 
@@ -192,6 +192,69 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input.decimal#project_budget'
   end
 
+  # ERRORS
+  test 'builder should generate an error component tag for the attribute' do
+    simple_form_for @user do |f|
+      concat f.error :name
+    end
+    assert_select 'span.error', "can't be blank"
+  end
+
+  test 'builder should allow passing options to error tag' do
+    simple_form_for @user do |f|
+      concat f.error :name, :id => 'name_error'
+    end
+    assert_select 'span.error#name_error', "can't be blank"
+  end
+
+  # HINTS
+  test 'builder should generate a hint component tag for the attribute' do
+    store_translations(:en, :simple_form => { :hints => { :user => { :name => "Add your name" }}}) do
+      simple_form_for @user do |f|
+        concat f.hint :name
+      end
+      assert_select 'span.hint', 'Add your name'
+    end
+  end
+
+  test 'builder should generate a hint component tag for the given text' do
+     simple_form_for @user do |f|
+       concat f.hint 'Hello World!'
+     end
+     assert_select 'span.hint', 'Hello World!'
+   end
+
+  test 'builder should allow passing options to hint tag' do
+    simple_form_for @user do |f|
+      concat f.hint :name, :hint => 'Hello World!', :id => 'name_hint'
+    end
+    assert_select 'span.hint#name_hint', 'Hello World!'
+  end
+
+  # LABELS
+  test 'builder should generate a label component tag for the attribute' do
+    simple_form_for @user do |f|
+      concat f.label :name
+    end
+    assert_select 'label.string[for=user_name]', /Name/
+  end
+
+  test 'builder should allow passing options to label tag' do
+    simple_form_for @user do |f|
+      concat f.label :name, :label => 'My label', :id => 'name_label'
+    end
+    assert_select 'label.string.required#name_label', /My label/
+  end
+
+  test 'builder should fallback to default label when string is given' do
+    simple_form_for @user do |f|
+      concat f.label :name, 'Nome do usuário'
+    end
+    assert_select 'label', 'Nome do usuário'
+    assert_no_select 'label.string'
+  end
+  
+  # BUTTONS
   test 'builder should create buttons' do
     with_button_for :post, :submit
     assert_select 'form input[type=submit][value=Submit Post]'

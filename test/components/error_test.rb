@@ -41,4 +41,9 @@ class ErrorTest < ActionView::TestCase
     with_error_for @user, :age, :numeric
     assert_select 'span.error', 'is not a number and must be greater than 18'
   end
+
+  test 'error should be able to pass html options' do
+    with_error_for @user, :name, :string, :error_html => { :id => 'error', :class => 'yay' }
+    assert_select 'span#error.error.yay'
+  end
 end
