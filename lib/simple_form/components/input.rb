@@ -14,8 +14,10 @@ module SimpleForm
       map_type :hidden,   :to => :hidden_field
       map_type :select,   :to => :collection_select, :options => true, :collection => true
       map_type :radio,    :to => :collection_radio, :collection => true
-      map_type :numeric,  :to => :text_field
       map_type :string,   :to => :text_field
+
+      # Numeric types
+      map_type :integer, :float, :decimal, :to => :text_field
 
       def self.boolean_collection
         i18n_cache :boolean_collection do
@@ -54,7 +56,7 @@ module SimpleForm
           when String
             options[:label_method] ||= :to_s
             options[:value_method] ||= :to_s
-          when Numeric
+          when Integer
             options[:label_method] ||= :to_s
             options[:value_method] ||= :to_i
           else

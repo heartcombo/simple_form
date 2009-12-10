@@ -27,12 +27,14 @@ module SimpleForm
       def default_input_type(attribute)
         column = @object.column_for_attribute(attribute)
         input_type = column.type
+
         case input_type
-          when :decimal, :integer then :numeric
-          when :timestamp then :datetime
-          when nil, :string then
+          when :timestamp
+            :datetime
+          when :string, nil
             attribute.to_s =~ /password/ ? :password : :string
-          else input_type
+          else
+            input_type
         end
       end
 

@@ -24,8 +24,8 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string'
     with_input_for(:description, :text)
     assert_select 'textarea.text'
-    with_input_for(:age, :numeric)
-    assert_select 'input.numeric'
+    with_input_for(:age, :integer)
+    assert_select 'input.integer'
     with_input_for(:born_at, :date)
     assert_select 'select.date'
     with_input_for(:created_at, :datetime)
@@ -42,9 +42,19 @@ class InputTest < ActionView::TestCase
     assert_select 'textarea.text#user_description'
   end
 
-  test 'input should generate a numeric text field for numeric attributes ' do
-    with_input_for :age, :numeric
-    assert_select 'input.numeric#user_age'
+  test 'input should generate an integer text field for integer attributes ' do
+    with_input_for :age, :integer
+    assert_select 'input.integer#user_age'
+  end
+
+  test 'input should generate a float text field for float attributes ' do
+    with_input_for :age, :float
+    assert_select 'input.float#user_age'
+  end
+
+  test 'input should generate a decimal text field for decimal attributes ' do
+    with_input_for :age, :decimal
+    assert_select 'input.decimal#user_age'
   end
 
   test 'input should generate a checkbox by default for boolean attributes' do

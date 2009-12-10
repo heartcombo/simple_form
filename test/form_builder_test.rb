@@ -23,14 +23,14 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input[type=checkbox]#user_active.boolean'
   end
 
-  test 'builder should use numeric text field for integer columns' do
+  test 'builder should use integer text field for integer columns' do
     with_form_for :age
-    assert_select 'form input#user_age.numeric'
+    assert_select 'form input#user_age.integer'
   end
 
-  test 'builder should generate numeric text field for numeric columns' do
+  test 'builder should generate decimal text field for decimal columns' do
     with_form_for :credit_limit
-    assert_select 'form input#user_credit_limit.numeric'
+    assert_select 'form input#user_credit_limit.decimal'
   end
 
   test 'builder should generate password fields for columns that match password' do
