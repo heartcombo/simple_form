@@ -17,14 +17,15 @@ module SimpleForm
 
   private
 
+    def column
+      @object.column_for_attribute(@attribute) if @object.respond_to?(:column_for_attribute)
+    end
+
     def default_input_type
       return @options[:as].to_sym if @options[:as]
       return :select              if @options[:collection]
 
-      input_type = if @object.respond_to?(:column_for_attribute)
-        column = @object.column_for_attribute(@attribute)
-        column.type if column
-      end
+      input_type = column.try(:type)
 
       case input_type
         when :timestamp
