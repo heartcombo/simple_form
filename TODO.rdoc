@@ -5,12 +5,13 @@
 * Sample CSS
 * Test forms with non objects
 * Get default string options from column definition
-* Improve input_type heuristic (but do not :integer, :float and :decimal to numeric, for example)
+* Improve input_type heuristic
 * Detect label and values automatically
 * Add support to default :include_blank
 * Add support to default label method
 * Add wrapper support
 * Improve readme with examples
+* :country, :time_zone and :file support
 
 == Associations
 

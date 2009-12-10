@@ -58,6 +58,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select#user_updated_at_1i.datetime'
   end
 
+  test 'build should generate select if a collection is given' do
+    with_form_for :age, :collection => 1..60
+    assert_select 'form select#user_age.select'
+  end
+
   test 'builder should allow overriding default input type for text' do
     with_form_for :name, :as => :text
     assert_no_select 'form input#user_name'

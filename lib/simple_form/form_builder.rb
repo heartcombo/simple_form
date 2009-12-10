@@ -12,7 +12,7 @@ module SimpleForm
     attr_reader :template
 
     def input(attribute, options={})
-      input_type = (options[:as] || default_input_type(attribute)).to_sym
+      input_type = default_input_type(attribute, options)
 
       pieces = self.components.collect do |klass|
         next if options[klass.basename] == false
@@ -24,7 +24,10 @@ module SimpleForm
 
     private
 
-      def default_input_type(attribute)
+      def default_input_type(attribute, options)
+        return options[:as].to_sym if options[:as]
+        return :select             if options[:collection]
+
         column = @object.column_for_attribute(attribute)
         input_type = column.type
 
