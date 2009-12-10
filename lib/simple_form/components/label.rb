@@ -4,24 +4,20 @@ module SimpleForm
       include RequiredHelpers
       extend I18nCache
 
-      def self.translate_required_string
-        i18n_cache :translate_required_string do
-          I18n.t(:"simple_form.required.string", :default =>
+      def self.translate_required_html
+        i18n_cache :translate_required_html do
+          I18n.t(:"simple_form.required.html", :default =>
             %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
           )
         end
       end
 
       def self.translate_required_text
-        i18n_cache :translate_required_text do
-          I18n.t(:"simple_form.required.text", :default => 'required')
-        end
+        I18n.t(:"simple_form.required.text", :default => 'required')
       end
 
       def self.translate_required_mark
-        i18n_cache :translate_required_mark do
-          I18n.t(:"simple_form.required.mark", :default => '*')
-        end
+        I18n.t(:"simple_form.required.mark", :default => '*')
       end
 
       def valid?
@@ -39,7 +35,7 @@ module SimpleForm
       end
 
       def required_text
-        attribute_required? ? self.class.translate_required_string.dup : ''
+        attribute_required? ? self.class.translate_required_html.dup : ''
       end
 
       def translate_label

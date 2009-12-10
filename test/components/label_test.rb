@@ -3,9 +3,7 @@ require 'test_helper'
 class LabelTest < ActionView::TestCase
 
   setup do
-    [:string, :text, :mark].each do |cache|
-      SimpleForm::Components::Label.reset_i18n_cache :"translate_required_#{cache}"
-    end
+    SimpleForm::Components::Label.reset_i18n_cache :translate_required_html
   end
 
   def with_label_for(object, attribute, type, options={})
@@ -105,7 +103,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should use i18n to find required string tag' do
-    store_translations(:en, :simple_form => { :required => { :string => '<span class="required" title="requerido">*</span>' }}) do
+    store_translations(:en, :simple_form => { :required => { :html => '<span class="required" title="requerido">*</span>' }}) do
       with_label_for @user, :name, :string
       assert_no_select 'form label abbr'
       assert_select 'form label span.required[title=requerido]', '*'
