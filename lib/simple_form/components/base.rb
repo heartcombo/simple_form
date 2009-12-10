@@ -42,7 +42,8 @@ module SimpleForm
       end
 
       def component_tag(content)
-        html_options = component_html_options.reverse_merge(:class => basename)
+        html_options = component_html_options
+        html_options[:class] = "#{basename} #{html_options[:class]}".strip
         template.content_tag(SimpleForm.component_tag, content, html_options)
       end
 

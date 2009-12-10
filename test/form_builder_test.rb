@@ -149,8 +149,8 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder wrapping tag allow custom options to be given' do
     swap SimpleForm, :wrapper_tag => :p do
-      with_form_for @user, :name, :wrapper_html => { :id => "super_cool" }
-      assert_select 'form p#super_cool.required.string'
+      with_form_for @user, :name, :wrapper_html => { :id => "super_cool", :class => 'yay' }
+      assert_select 'form p#super_cool.required.string.yay'
     end
   end
 
