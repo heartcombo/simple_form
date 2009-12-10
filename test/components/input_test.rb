@@ -13,7 +13,7 @@ class InputTest < ActionView::TestCase
       f.options    = options
 
       input = SimpleForm::Components::Input.new(f, SimpleForm.terminator)
-      concat(input.generate)
+      concat(input.call)
       yield input if block_given?
     end
   end

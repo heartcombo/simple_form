@@ -1,6 +1,5 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    # Make the template accessible for components
     attr_reader :template, :object_name, :object, :attribute, :input_type, :options
 
     def input(attribute, options={})
@@ -23,7 +22,7 @@ module SimpleForm
       return :select              if @options[:collection]
 
       input_type = if @object.respond_to?(:column_for_attribute)
-        column = @object.column_for_attribute(attribute)
+        column = @object.column_for_attribute(@attribute)
         column.type if column
       end
 
@@ -31,7 +30,7 @@ module SimpleForm
         when :timestamp
           :datetime
         when :string, nil
-          attribute.to_s =~ /password/ ? :password : :string
+          @attribute.to_s =~ /password/ ? :password : :string
         else
           input_type
       end

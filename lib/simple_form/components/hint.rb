@@ -2,11 +2,15 @@ module SimpleForm
   module Components
     class Hint < Base
       def valid?
-        !hidden_input? && !content.blank?
+        !hidden_input? && !hint.blank?
+      end
+
+      def hint
+        @hint ||= options[:hint] || translate
       end
 
       def content
-        @content ||= @options[:hint] || translate
+        component_tag hint
       end
     end
   end

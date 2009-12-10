@@ -15,14 +15,14 @@ class LabelTest < ActionView::TestCase
       f.options    = options
 
       label = SimpleForm::Components::Label.new(f, SimpleForm.terminator)
-      concat(label.generate)
+      concat(label.call)
       yield label if block_given?
     end
   end
 
   test 'label should not be generated for hidden inputs' do
-    with_label_for @user, :name, :hidden  do |label|
-      assert label.generate.blank?
+    with_label_for @user, :name, :hidden do |label|
+      assert label.call.blank?
     end
   end
 

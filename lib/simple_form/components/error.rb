@@ -6,11 +6,11 @@ module SimpleForm
       end
 
       def errors
-        @errors ||= object.errors[@attribute]
+        @errors ||= object.errors[attribute]
       end
 
       def content
-        Array(errors).to_sentence
+        component_tag Array(errors).to_sentence
       end
     end
   end

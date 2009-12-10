@@ -28,15 +28,14 @@ module SimpleForm
         !hidden_input?
       end
 
-      def generate
-        return '' unless valid?
+      def content
         html_options = { :class => default_css_classes }
-        html_options[:for] = @options[:html][:id] if @options.key?(:html)
-        @builder.label(@attribute, label_text, html_options)
+        html_options[:for] = options[:html][:id] if options.key?(:html)
+        @builder.label(attribute, label_text, html_options)
       end
 
       def label_text
-        required_text << (@options[:label] || translate_label)
+        required_text << (options[:label] || translate_label)
       end
 
       def required_text
@@ -44,7 +43,7 @@ module SimpleForm
       end
 
       def translate_label
-        default = object.try(:human_attribute_name, @attribute.to_s) || @attribute.to_s.humanize
+        default = object.try(:human_attribute_name, attribute.to_s) || attribute.to_s.humanize
         translate(default)
       end
     end

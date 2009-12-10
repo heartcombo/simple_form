@@ -26,15 +26,15 @@ module SimpleForm
         end
       end
 
-      def generate
-        html_options = @options[:html] || {}
+      def content
+        html_options = options[:html] || {}
         html_options[:class] = default_css_classes(html_options[:class])
-        @options[:options] ||= {}
+        options[:options] ||= {}
 
-        mapping = self.class.mappings[@input_type]
-        raise "Invalid input type #{@input_type.inspect}" unless mapping
+        mapping = self.class.mappings[input_type]
+        raise "Invalid input type #{input_type.inspect}" unless mapping
 
-        args = [ @attribute ]
+        args = [ attribute ]
         apply_collection_behavior(args) if mapping.collection
         apply_options_behavior(args)    if mapping.options
         args << html_options
@@ -45,15 +45,15 @@ module SimpleForm
     protected
 
       def apply_collection_behavior(args)
-        collection = (@options[:collection] || self.class.boolean_collection).to_a
-        detect_collection_methods(collection, @options)
+        collection = (options[:collection] || self.class.boolean_collection).to_a
+        detect_collection_methods(collection, options)
 
-        @options[:options][:include_blank] = true unless @options[:options].key?(:include_blank)
-        args.push(collection, @options[:value_method], @options[:label_method])
+        options[:options][:include_blank] = true unless options[:options].key?(:include_blank)
+        args.push(collection, options[:value_method], options[:label_method])
       end
 
       def apply_options_behavior(args)
-        args << @options[:options]
+        args << options[:options]
       end
 
       def detect_collection_methods(collection, options)

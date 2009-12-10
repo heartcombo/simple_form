@@ -16,7 +16,8 @@ module SimpleForm
   mattr_accessor :components
   @@components = [
     SimpleForm::Components::Wrapper, SimpleForm::Components::Label,
-    SimpleForm::Components::Input, SimpleForm::Components::Hint, SimpleForm::Components::Error
+    SimpleForm::Components::Input, SimpleForm::Components::Hint,
+    SimpleForm::Components::Error
   ]
 
   # The terminator sent to the last component
