@@ -45,7 +45,7 @@ class User < OpenStruct
     case attribute
       when 'name' then 'Super User Name!'
       when 'description' then 'User Description!'
-      else nil
+      else attribute.humanize
     end
   end
 

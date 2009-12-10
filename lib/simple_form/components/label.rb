@@ -13,7 +13,7 @@ module SimpleForm
       def self.translate_required_html
         i18n_cache :translate_required_html do
           I18n.t(:"simple_form.required.html", :default =>
-            %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr> ]
+            %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>]
           )
         end
       end
@@ -35,14 +35,23 @@ module SimpleForm
       def content
         html_options = component_html_options
         html_options[:for] = options[:input_html][:id] if options.key?(:input_html)
-        @builder.label(attribute, label_text, html_options)
+        @builder.label(attribute, text, html_options)
       end
 
-      # Prepends the required text to label if it is required. The user is able
-      # to pass a label with the :label option, or it will fallback to label
-      # lookup.
+      # The method that actually generates the label. This can be overwriten using
+      # a SimpleForm configuration value:
+      #
+      #   SimpleForm.label_text = lambda do |label_text, required_text|
+      #     required_text + label_text + ":"
+      #   end
+      def text
+        SimpleForm.label_text.call(label_text, required_text)
+      end
+
+      # The user is able to pass a label with the :label option, or it will
+      # fallback to label lookup.
       def label_text
-        required_text << (options[:label] || translate_label)
+        options[:label] || translate_label
       end
 
       # Default required text when attribute is required.

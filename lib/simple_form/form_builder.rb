@@ -109,7 +109,6 @@ module SimpleForm
           key   = @object.new_record? ? :create : :update
           model = @object.class.human_name if @object.class.respond_to?(:human_name)
         end
-
         key   ||= :submit
         model ||= @object_name.to_s.humanize
 
@@ -126,6 +125,7 @@ module SimpleForm
     #
     #    f.error :name
     #    f.error :name, :id => "cool_error"
+    #
     def error(attribute, options={})
       define_simple_form_attributes(attribute, :error_html => options)
       SimpleForm::Components::Error.new(self, SimpleForm.terminator).call

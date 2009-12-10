@@ -253,7 +253,16 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'label', 'Nome do usuário'
     assert_no_select 'label.string'
   end
-  
+
+  test 'builder allows label order to be changed' do
+    swap SimpleForm, :label_text => lambda { |l, r| "#{l}:" } do
+      simple_form_for @user do |f|
+        concat f.label :age
+      end
+      assert_select 'label.integer[for=user_age]', "Age:"
+    end
+  end
+
   # BUTTONS
   test 'builder should create buttons' do
     with_button_for :post, :submit
