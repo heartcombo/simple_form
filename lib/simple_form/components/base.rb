@@ -40,7 +40,7 @@ module SimpleForm
       end
 
       def component_tag(content)
-        template.content_tag(:span, content, :class => basename)
+        template.content_tag(SimpleForm.component_tag, content, :class => basename)
       end
 
       def translate(default='')

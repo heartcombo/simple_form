@@ -16,7 +16,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 
 class ActionView::TestCase
-  include I18nHelper
+  include MiscHelpers
 
   tests SimpleForm::ActionViewExtensions::FormHelper
 
@@ -48,11 +48,4 @@ class ActionView::TestCase
     '/users'
   end
   alias :super_user_path :user_path
-
-  # Wrapper to assert no select exists
-  def assert_no_select(*args)
-    assert_raise Test::Unit::AssertionFailedError do
-      assert_select(*args)
-    end
-  end
 end

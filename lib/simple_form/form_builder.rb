@@ -1,20 +1,12 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    # Components used by the folder builder.
-    # By default is [:label, :input, :hint, :error].
-    cattr_accessor :components, :instance_writer => false
-    @@components = [
-      SimpleForm::Components::Label, SimpleForm::Components::Input,
-      SimpleForm::Components::Hint,  SimpleForm::Components::Error
-    ]
-
     # Make the template accessible for components
     attr_reader :template
 
     def input(attribute, options={})
       input_type = default_input_type(attribute, options)
 
-      pieces = self.components.collect do |klass|
+      pieces = SimpleForm.components.collect do |klass|
         next if options[klass.basename] == false
         klass.new(self, attribute, input_type, options).generate
       end
@@ -22,24 +14,24 @@ module SimpleForm
       pieces.compact.join
     end
 
-    private
+  private
 
-      def default_input_type(attribute, options)
-        return options[:as].to_sym if options[:as]
-        return :select             if options[:collection]
+    def default_input_type(attribute, options)
+      return options[:as].to_sym if options[:as]
+      return :select             if options[:collection]
 
-        column = @object.column_for_attribute(attribute)
-        input_type = column.type
+      column = @object.column_for_attribute(attribute)
+      input_type = column.type
 
-        case input_type
-          when :timestamp
-            :datetime
-          when :string, nil
-            attribute.to_s =~ /password/ ? :password : :string
-          else
-            input_type
-        end
+      case input_type
+        when :timestamp
+          :datetime
+        when :string, nil
+          attribute.to_s =~ /password/ ? :password : :string
+        else
+          input_type
       end
+    end
 
   end
 end

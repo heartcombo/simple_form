@@ -27,6 +27,13 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.hint', 'Use with care...'
   end
 
+  test 'hint uses the current component tag set' do
+    swap SimpleForm, :component_tag => :p do
+      with_hint_for(:name, :string, :hint => 'Use with care...')
+      assert_select 'p.hint', 'Use with care...'
+    end
+  end
+
   test 'hint should use i18n with model and attribute to lookup translation' do
     store_translations(:en, :simple_form => { :hints => { :user => { :name =>
       'Content of this input will be capitalized...'

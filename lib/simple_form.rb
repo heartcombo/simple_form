@@ -7,4 +7,15 @@ module SimpleForm
   autoload :I18nCache,       'simple_form/i18n_cache'
   autoload :MapType,         'simple_form/map_type'
   autoload :RequiredHelpers, 'simple_form/required_helpers'
+
+  # Default tag used in componenents.
+  mattr_accessor :component_tag
+  @@component_tag = :span
+
+  # Components used by the form builder.
+  mattr_accessor :components
+  @@components = [
+    SimpleForm::Components::Label, SimpleForm::Components::Input,
+    SimpleForm::Components::Hint,  SimpleForm::Components::Error
+  ]
 end
