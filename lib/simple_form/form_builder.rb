@@ -11,10 +11,18 @@ module SimpleForm
         klass.new(self, attribute, input_type, options).generate
       end
 
-      pieces.compact.join
+      wrap_content(pieces.compact.join)
     end
 
   private
+
+    def wrap_content(content)
+      if SimpleForm.wrapper_tag
+        @template.content_tag(SimpleForm.wrapper_tag, content)
+      else
+        content
+      end
+    end
 
     def default_input_type(attribute, options)
       return options[:as].to_sym if options[:as]

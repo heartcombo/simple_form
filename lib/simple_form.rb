@@ -26,4 +26,8 @@ module SimpleForm
   # Series of attemps to detect a default value method for collection
   mattr_accessor :collection_value_methods
   @@collection_value_methods = [ :id, :to_s ]
+
+  # You can wrap all inputs in a pre-defined tag. By default is nil.
+  mattr_accessor :wrapper_tag
+  @@wrapper_tag = nil
 end

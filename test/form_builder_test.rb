@@ -128,4 +128,13 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for :name, :error => false
     assert_no_select 'span.error'
   end
+
+  test 'builder support wrapping around an specific tag' do
+    swap SimpleForm, :wrapper_tag => :p do
+      with_form_for :name
+      assert_select 'form p label[for=user_name]'
+      assert_select 'form p input#user_name.string'
+    end
+  end
+  
 end
