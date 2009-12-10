@@ -37,7 +37,7 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should allow passing options to text field' do
-    with_input_for @user, :name, :string, :html => { :class => 'my_input', :id => 'my_input' }
+    with_input_for @user, :name, :string, :input_html => { :class => 'my_input', :id => 'my_input' }
     assert_select 'input#my_input.my_input'
   end
 

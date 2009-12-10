@@ -29,8 +29,8 @@ module SimpleForm
       end
 
       def content
-        html_options = { :class => default_css_classes }
-        html_options[:for] = options[:html][:id] if options.key?(:html)
+        html_options = component_html_options
+        html_options[:for] = options[:input_html][:id] if options.key?(:input_html)
         @builder.label(attribute, label_text, html_options)
       end
 

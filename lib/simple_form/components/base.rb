@@ -37,8 +37,13 @@ module SimpleForm
         self.class.basename
       end
 
+      def component_html_options
+        options[:"#{basename}_html"] || {}
+      end
+
       def component_tag(content)
-        template.content_tag(SimpleForm.component_tag, content, :class => basename)
+        html_options = component_html_options.reverse_merge(:class => basename)
+        template.content_tag(SimpleForm.component_tag, content, html_options)
       end
 
       def translate(default='')

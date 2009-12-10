@@ -78,7 +78,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should allow passing options to input' do
-    with_form_for @user, :name, :html => { :class => 'my_input', :id => 'my_input' }
+    with_form_for @user, :name, :input_html => { :class => 'my_input', :id => 'my_input' }
     assert_select 'form input#my_input.my_input.string'
   end
 
@@ -144,6 +144,13 @@ class FormBuilderTest < ActionView::TestCase
 
       with_form_for @user, :age, :required => false
       assert_select 'form p.optional.integer'
+    end
+  end
+
+  test 'builder wrapping tag allow custom options to be given' do
+    swap SimpleForm, :wrapper_tag => :p do
+      with_form_for @user, :name, :wrapper_html => { :id => "super_cool" }
+      assert_select 'form p#super_cool.required.string'
     end
   end
 

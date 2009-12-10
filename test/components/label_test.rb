@@ -113,12 +113,12 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should allow overwriting input id' do
-    with_label_for @user, :name, :string, :html => { :id => 'my_new_id' }
+    with_label_for @user, :name, :string, :input_html => { :id => 'my_new_id' }
     assert_select 'label[for=my_new_id]'
   end
 
   test 'label should use default input id when it was not overridden' do
-    with_label_for @user, :name, :string, :html => { :class => 'my_new_id' }
+    with_label_for @user, :name, :string, :input_html => { :class => 'my_new_id' }
     assert_select 'label[for=user_name]'
   end
 
