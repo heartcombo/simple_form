@@ -16,8 +16,11 @@ module SimpleForm
     #   end
     #
     #   This is the output html (only the input portion, not the form):
-    #     <label class="string required" for="user_name"><abbr title="required">*</abbr> Super User Name!</label>
-    #     <input class="string required" id="user_name" maxlength="100" name="user[name]" size="100" type="text" value="Carlos" />
+    #     <label class="string required" for="user_name">
+    #       <abbr title="required">*</abbr> Super User Name!
+    #     </label>
+    #     <input class="string required" id="user_name" maxlength="100"
+    #        name="user[name]" size="100" type="text" value="Carlos" />
     #     <span class="hint">My hint</span>
     #     <span class="error">can't be blank</span>
     #
