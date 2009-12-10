@@ -16,7 +16,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 
 class SimpleForm::FormBuilder
-  attr_accessor :attribute, :input_type, :options
+  attr_accessor :attribute, :column, :input_type, :options
 end
 
 class ActionView::TestCase

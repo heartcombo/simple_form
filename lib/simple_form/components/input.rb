@@ -34,7 +34,7 @@ module SimpleForm
         args = [ attribute ]
         apply_collection_behavior(args) if mapping.collection
         apply_options_behavior(args)    if mapping.options
-        args << component_html_options
+        apply_html_options(args)
 
         @builder.send(mapping.method, *args)
       end
@@ -51,6 +51,16 @@ module SimpleForm
 
       def apply_options_behavior(args)
         args << options[:options]
+      end
+
+      def apply_html_options(args)
+        html_options = component_html_options
+
+        if column && [:string, :password, :decimal, :float].include?(input_type)
+          html_options[:maxlength] ||= column.limit
+        end
+
+        args << html_options
       end
 
       def detect_collection_methods(collection, options)
