@@ -8,7 +8,7 @@ module SimpleForm
   autoload :MapType,         'simple_form/map_type'
   autoload :RequiredHelpers, 'simple_form/required_helpers'
 
-  # Default tag used in componenents.
+  # Default tag used in components.
   mattr_accessor :component_tag
   @@component_tag = :span
 

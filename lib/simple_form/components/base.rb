@@ -20,6 +20,8 @@ module SimpleForm
         @component  = component
       end
 
+      # Generate component content and call next component in the stack. When a
+      # component is invalid it will be skipped.
       def call
         return @component.call unless valid?
         content + @component.call
@@ -37,16 +39,49 @@ module SimpleForm
         self.class.basename
       end
 
+      # Default html options for a component. Passed as a parameter for simple
+      # form component using component name as follows:
+      #
+      #   label_html => {}
+      #   input_html => {}
+      #   hint_html => {}
+      #   error_html => {}
+      #   wrapper_html => {}
       def component_html_options
         options[:"#{basename}_html"] || {}
       end
 
+      # Renders default content tag for components, using default html class
+      # and user defined parameters.
+      # Default component tag can be configured in SimpleForm.component_tag.
       def component_tag(content)
         html_options = component_html_options
         html_options[:class] = "#{basename} #{html_options[:class]}".strip
         template.content_tag(SimpleForm.component_tag, content, html_options)
       end
 
+      # Lookup translations for components using I18n, based on object name,
+      # actual action and attribute name. Lookup priority as follows:
+      #
+      #   simple_form.{type}.{model}.{action}.{attribute}
+      #   simple_form.{type}.{model}.{attribute}
+      #   simple_form.{type}.{attribute}
+      #
+      #  Type is used for :labels and :hints.
+      #  Model is the actual object name, for a @user object you'll have :user.
+      #  Action is the action being rendered, usually :new or :edit.
+      #  And attribute is the attribute itself, :name for example.
+      #  Example:
+      #
+      #    simple_form:
+      #      labels:
+      #        user:
+      #          new:
+      #            email: 'E-mail para efetuar o sign in.'
+      #          edit:
+      #            email: 'E-mail.'
+      #
+      #  Take a look at our locale example file.
       def translate(default='')
         action  = template.params[:action] if template.respond_to?(:params)
         lookups =  []

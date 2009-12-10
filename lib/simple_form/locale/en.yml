@@ -3,8 +3,8 @@ en:
     true: 'Yes'
     false: 'No'
     required:
-      text: "required"
-      mark: "*"
+      text: 'required'
+      mark: '*'
       # If you need to overwrite the html tag, you need to overwrite string.
       # When using required string, text and mark won't be used.
       # string: '<abbr title="required">*</abbr> '

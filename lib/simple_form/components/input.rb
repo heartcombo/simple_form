@@ -1,5 +1,7 @@
 module SimpleForm
   module Components
+    # Default input component, responsible for mapping column attributes from
+    # database to inputs to be rendered.
     class Input < Base
       include RequiredHelpers
       extend I18nCache
@@ -19,6 +21,10 @@ module SimpleForm
       # Numeric types
       map_type :integer, :float, :decimal, :to => :text_field
 
+      # Default boolean collection for use with selects/radios when no
+      # collection is given. Always fallback to this boolean collection.
+      # Texts can be translated using i18n in "simple_form.true" and
+      # "simple_form.false" keys. See the example locale file.
       def self.boolean_collection
         i18n_cache :boolean_collection do
           [ [I18n.t(:"simple_form.true", :default => 'Yes'), true],
@@ -26,6 +32,8 @@ module SimpleForm
         end
       end
 
+      # Generate the input through the mapped option. Apply correct behaviors
+      # for collections and add options whenever the input requires it.
       def content
         options[:options] ||= {}
         mapping = self.class.mappings[input_type]
@@ -41,6 +49,9 @@ module SimpleForm
 
     protected
 
+      # Applies default collection behavior, mapping the default collection to
+      # boolean collection if it was not set, and defining default include_blank
+      # option
       def apply_collection_behavior(args)
         collection = (options[:collection] || self.class.boolean_collection).to_a
         detect_collection_methods(collection, options)
@@ -49,10 +60,13 @@ module SimpleForm
         args.push(collection, options[:value_method], options[:label_method])
       end
 
+      # Apply default behavior for inputs that need extra options, such as date
+      # and time selects.
       def apply_options_behavior(args)
         args << options[:options]
       end
 
+      # Adds default html options to the input based on db column information.
       def apply_html_options(args)
         html_options = component_html_options
 
@@ -63,6 +77,11 @@ module SimpleForm
         args << html_options
       end
 
+      # Detect the right method to find the label and value for a collection.
+      # If no label or value method are defined, will attempt to find them based
+      # on default label and value methods that can be configured through
+      # SimpleForm.collection_label_methods and
+      # SimpleForm.collection_value_methods.
       def detect_collection_methods(collection, options)
         sample = collection.first || collection.last
 
