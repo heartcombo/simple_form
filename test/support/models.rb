@@ -1,12 +1,14 @@
 require 'ostruct'
 
-class Column
-  attr_accessor :name, :type, :limit#, :precision, :scale
+Column = Struct.new(:name, :type, :limit)
+Association = Struct.new(:klass)
 
-  def initialize(attrs={})
-    self.name  = attrs[:name]
-    self.type  = attrs[:type]
-    self.limit = attrs[:limit]
+class Company < Struct.new(:id, :name)
+  def self.all(options={})
+    all = (1..3).map{|i| Company.new(i, "Company #{i}")}
+    return [all.first] if options[:conditions]
+    return [all.last]  if options[:order]
+    all
   end
 end
 
@@ -38,7 +40,7 @@ class User < OpenStruct
       when :created_at    then :datetime
       when :updated_at    then :timestamp
     end
-    Column.new(:name => attribute, :type => column_type, :limit => limit)
+    Column.new(attribute, column_type, limit)
   end
 
   def self.human_attribute_name(attribute)
@@ -51,6 +53,10 @@ class User < OpenStruct
 
   def self.human_name
     "User"
+  end
+
+  def self.reflect_on_association(association)
+    Association.new(Company) if association == :company
   end
 
   def errors
