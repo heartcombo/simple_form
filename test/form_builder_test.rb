@@ -369,9 +369,8 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should allow overriding condition to association input' do
-    with_association_for @user, :company,
-                         :collection => [Company.new(999, 'Teste')],
-                         :options => { :include_blank => false }
+    with_association_for @user, :company, :include_blank => false,
+                         :collection => [Company.new(999, 'Teste')]
     assert_select 'form select.select#user_company_id'
     assert_no_select 'form select option[value=1]'
     assert_select 'form select option[value=999]', 'Teste'
