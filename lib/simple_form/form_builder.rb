@@ -11,7 +11,7 @@ module SimpleForm
     # label + input + hint (when defined) + errors (when exists), and all can
     # be configured inside a wrapper html.
     #
-    # == Examples:
+    # == Examples
     #
     #   # Imagine @user has error "can't be blank" on name
     #   simple_form_for @user do |f|
@@ -77,11 +77,19 @@ module SimpleForm
     end
 
     # Helper for dealing with association selects/radios, generating the
-    # collection automatically. It also lets you pass :conditions and :order
-    # options, that will be used directly in find. All other options are passed
-    # to input helper.
+    # collection automatically. It's just a wrapper to input, so all options
+    # supported in input are also supported by association. Some extra options
+    # can also be given:
     #
-    # == Examples:
+    # == Options
+    #
+    # * :conditions - Given as conditions when retrieving the collection
+    #
+    # * :order - Given as order when retrieving the collection
+    #
+    # * :scope - Given as scopes when retrieving the collection
+    #
+    # == Examples
     #
     #   simple_form_for @user do |f|
     #     f.association :company          # Company.all
@@ -96,6 +104,9 @@ module SimpleForm
     #   f.association :company, :collection => Company.all(:order => 'name')
     #   # Same as using :order option, but overriding collection
     #
+    #   f.association :company, :scope => [ :public, :not_broken ]
+    #   # Same as doing Company.public.not_broken.all
+    #
     def association(attribute, options={})
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
@@ -105,9 +116,13 @@ module SimpleForm
       attribute = @reflection.options[:foreign_key] || :"#{@reflection.name}_id"
 
       options[:collection] ||= begin
-        find_options = { :conditions => options.delete(:conditions),
-                         :order => options.delete(:order) }
-        @reflection.klass.all(find_options)
+        find_options = options.slice(:conditions, :order)
+
+        klass = Array(options[:scope]).inject(@reflection.klass) do |klass, scope|
+          klass.send(scope)
+        end
+
+        klass.all(find_options)
       end
 
       returning(input(attribute, options)) { @reflection = nil }
@@ -215,7 +230,7 @@ module SimpleForm
   private
 
     # Setup default simple form attributes.
-    def define_simple_form_attributes(attribute, options)
+    def define_simple_form_attributes(attribute, options) #:nodoc:
       @options = options
 
       if @attribute = attribute
@@ -227,7 +242,7 @@ module SimpleForm
     # Attempt to guess the better input type given the defined options. By
     # default alwayls fallback to the user :as option, or to a :select when a
     # collection is given.
-    def default_input_type
+    def default_input_type #:nodoc:
       return @options[:as].to_sym if @options[:as]
       return :select              if @options[:collection]
 
@@ -244,12 +259,12 @@ module SimpleForm
     end
 
     # Finds the database column for the given attribute
-    def find_attribute_column
+    def find_attribute_column #:nodoc:
       @object.column_for_attribute(@attribute) if @object.respond_to?(:column_for_attribute)
     end
 
     # Find association related to attribute
-    def find_association_reflection(attribute)
+    def find_association_reflection(attribute) #:nodoc:
       @object.class.reflect_on_association(attribute) if @object.class.respond_to?(:reflect_on_association)
     end
 
