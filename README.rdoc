@@ -170,14 +170,14 @@ Instead of using the text and mark options from required, you can also overwrite
 You have a set of options available to configure SimpleForm:
 
 * component_tag => default tag used in components. by default is :span.
+
 * components    => stack of components used in form builder to create the input.
                    You can add or remove any of this components as you need.
-* terminator    => the last component will call this terminator. By default it's
-                   a lambda returning an empty string.
-* collection_label_methods => all methods available to detect the label for a
-                              collection.
-* collection_value_methods => all methods available to detect the value for a
-                              collection.
+
+* collection_label_methods => all methods available to detect the label for a collection.
+
+* collection_value_methods => all methods available to detect the value for a collection.
+
 * wrapper_tag => wrapper tag to wrap the inputs. By default no wrapper exists.
 
 To do it so you just need to create a file inside your initializer folder and use the configurations as follows:

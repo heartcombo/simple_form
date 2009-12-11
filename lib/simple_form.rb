@@ -20,13 +20,9 @@ module SimpleForm
     SimpleForm::Components::Error
   ]
 
-  # The terminator sent to the last component
-  mattr_accessor :terminator
-  @@terminator = lambda { "" }
-
   # Series of attemps to detect a default label method for collection
   mattr_accessor :collection_label_methods
-  @@collection_label_methods = [ :name, :title, :to_s ]
+  @@collection_label_methods = [ :to_label, :name, :title, :to_s ]
 
   # Series of attemps to detect a default value method for collection
   mattr_accessor :collection_value_methods

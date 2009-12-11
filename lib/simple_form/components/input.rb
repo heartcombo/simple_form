@@ -56,14 +56,14 @@ module SimpleForm
         collection = (options[:collection] || self.class.boolean_collection).to_a
         detect_collection_methods(collection, options)
 
-        options[:options][:include_blank] = true unless options[:options].key?(:include_blank)
+        options[:include_blank] = true unless options.key?(:include_blank)
         args.push(collection, options[:value_method], options[:label_method])
       end
 
       # Apply default behavior for inputs that need extra options, such as date
       # and time selects.
       def apply_options_behavior(args)
-        args << options[:options]
+        args << options
       end
 
       # Adds default html options to the input based on db column information.

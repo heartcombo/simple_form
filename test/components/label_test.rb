@@ -12,7 +12,7 @@ class LabelTest < ActionView::TestCase
       f.input_type = type
       f.options    = options
 
-      label = SimpleForm::Components::Label.new(f, SimpleForm.terminator)
+      label = SimpleForm::Components::Label.new(f, SimpleForm::FormBuilder::TERMINATOR)
       concat(label.call)
       yield label if block_given?
     end

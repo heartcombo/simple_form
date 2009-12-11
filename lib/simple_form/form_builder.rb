@@ -2,6 +2,8 @@ module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :template, :object_name, :object, :attribute, :column, :input_type, :options
 
+    TERMINATOR = lambda { "" }
+
     # Basic input helper, combines all components in the stack to generate input
     # html  based on options the user define and some guesses through
     # database column information. By default a call to input will generate
@@ -15,7 +17,8 @@ module SimpleForm
     #     f.input :name, :hint => 'My hint'
     #   end
     #
-    #   This is the output html (only the input portion, not the form):
+    # This is the output html (only the input portion, not the form):
+    #
     #     <label class="string required" for="user_name">
     #       <abbr title="required">*</abbr> Super User Name!
     #     </label>
@@ -46,9 +49,9 @@ module SimpleForm
     # == Options
     #
     # Some inputs, as datetime, time and select allow you to give extra options, like
-    # prompt and/or include blank. Such options are given in the :options key.
+    # prompt and/or include blank. Such options are given in plainly:
     #
-    #    f.input :created_at, :options => { :include_blank => true }
+    #    f.input :created_at, :include_blank => true
     #
     # == Collection
     #
@@ -64,7 +67,7 @@ module SimpleForm
     def input(attribute, options={})
       define_simple_form_attributes(attribute, options)
 
-      component = SimpleForm.terminator
+      component = TERMINATOR
       SimpleForm.components.reverse.each do |klass|
         next if @options[klass.basename] == false
         component = klass.new(self, component)
@@ -168,7 +171,7 @@ module SimpleForm
     #
     def error(attribute, options={})
       define_simple_form_attributes(attribute, :error_html => options)
-      SimpleForm::Components::Error.new(self, SimpleForm.terminator).call
+      SimpleForm::Components::Error.new(self, TERMINATOR).call
     end
 
     # Creates a hint tag for the given attribute. Accepts a symbol indicating
@@ -184,7 +187,7 @@ module SimpleForm
     def hint(attribute, options={})
       attribute, options[:hint] = nil, attribute if attribute.is_a?(String)
       define_simple_form_attributes(attribute, :hint => options.delete(:hint), :hint_html => options)
-      SimpleForm::Components::Hint.new(self, SimpleForm.terminator).call
+      SimpleForm::Components::Hint.new(self, TERMINATOR).call
     end
 
     # Creates a default label tag for the given attribute. You can give a label
@@ -205,7 +208,7 @@ module SimpleForm
       options = args.extract_options!
       define_simple_form_attributes(attribute, :label => options.delete(:label),
         :label_html => options, :required => options.delete(:required))
-      SimpleForm::Components::Label.new(self, SimpleForm.terminator).call
+      SimpleForm::Components::Label.new(self, TERMINATOR).call
     end
 
   private
