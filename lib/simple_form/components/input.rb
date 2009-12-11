@@ -8,19 +8,27 @@ module SimpleForm
       extend MapType
 
       map_type :boolean,  :to => :check_box
-      map_type :text,     :to => :text_area
-      map_type :datetime, :to => :datetime_select, :options => true
-      map_type :date,     :to => :date_select, :options => true
-      map_type :time,     :to => :time_select, :options => true
-      map_type :password, :to => :password_field
-      map_type :hidden,   :to => :hidden_field
-      map_type :select,   :to => :collection_select, :options => true, :collection => true
-      map_type :radio,    :to => :collection_radio, :collection => true
       map_type :string,   :to => :text_field
+      map_type :password, :to => :password_field
+      map_type :text,     :to => :text_area
       map_type :file,     :to => :file_field
+      map_type :hidden,   :to => :hidden_field
 
       # Numeric types
       map_type :integer, :float, :decimal, :to => :text_field
+
+      # Date/time types
+      map_type :datetime, :to => :datetime_select, :options => true
+      map_type :date,     :to => :date_select,     :options => true
+      map_type :time,     :to => :time_select,     :options => true
+
+      # Collection types
+      map_type :select,   :to => :collection_select, :options => true, :collection => true
+      map_type :radio,    :to => :collection_radio, :collection => true
+
+      # With priority zones
+      map_type :country,   :to => :country_select,   :options => true, :with_priority => true
+      map_type :time_zone, :to => :time_zone_select, :options => true, :with_priority => true
 
       # Default boolean collection for use with selects/radios when no
       # collection is given. Always fallback to this boolean collection.
@@ -40,8 +48,9 @@ module SimpleForm
         raise "Invalid input type #{input_type.inspect}" unless mapping
 
         args = [ attribute ]
-        apply_collection_behavior(args) if mapping.collection
-        apply_options_behavior(args)    if mapping.options
+        apply_with_priority_behavior(args) if mapping.with_priority
+        apply_collection_behavior(args)    if mapping.collection
+        apply_options_behavior(args)       if mapping.options
         apply_html_options(args)
 
         @builder.send(mapping.method, *args)
@@ -49,20 +58,25 @@ module SimpleForm
 
     protected
 
+      # Applies priority behavior to configured types.
+      def apply_with_priority_behavior(args)
+        priorities = options[:priority] || SimpleForm.send(:"#{input_type}_priority")
+        args.push(priorities)
+      end
+
       # Applies default collection behavior, mapping the default collection to
       # boolean collection if it was not set, and defining default include_blank
       # option
       def apply_collection_behavior(args)
         collection = (options[:collection] || self.class.boolean_collection).to_a
         detect_collection_methods(collection, options)
-
-        options[:include_blank] = true unless skip_include_blank?
         args.push(collection, options[:value_method], options[:label_method])
       end
 
       # Apply default behavior for inputs that need extra options, such as date
       # and time selects.
       def apply_options_behavior(args)
+        options[:include_blank] = true unless skip_include_blank?
         args << options
       end
 
@@ -77,9 +91,9 @@ module SimpleForm
         args << html_options
       end
 
+      # Check if :include_blank must be included by default.
       def skip_include_blank?
-        input_type != :select || options.key?(:prompt) || options.key?(:include_blank) ||
-        options[:input_html].try(:[], :multiple)
+        options.key?(:prompt) || options.key?(:include_blank) || options[:input_html].try(:[], :multiple)
       end
 
       # Detect the right method to find the label and value for a collection.

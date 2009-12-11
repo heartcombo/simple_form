@@ -12,8 +12,11 @@ end
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
 require 'simple_form'
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 I18n.default_locale = :en
+
+$:.unshift "#{File.dirname(__FILE__)}/support/country_select/lib"
+require 'country_select'
 
 class SimpleForm::FormBuilder
   attr_accessor :attribute, :column, :reflection, :input_type, :options

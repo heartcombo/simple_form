@@ -39,4 +39,12 @@ module SimpleForm
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
   @@file_methods = [ :file?, :public_filename ]
+
+  # Default priority for time_zone inputs.
+  mattr_accessor :time_zone_priority
+  @@time_zone_priority = nil
+
+  # Default priority for country inputs.
+  mattr_accessor :country_priority
+  @@country_priority = nil
 end

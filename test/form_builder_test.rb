@@ -63,9 +63,19 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_credit_limit.decimal'
   end
 
-  test 'builder should generate password fields for columns that match password' do
+  test 'builder should generate password fields for columns that matches password' do
     with_form_for @user, :password
     assert_select 'form input#user_password.password'
+  end
+
+  test 'builder should generate country fields for columns that matches country' do
+    with_form_for @user, :residence_country
+    assert_select 'form select#user_residence_country.country'
+  end
+
+  test 'builder should generate time_zone fields for columns that matches time_zone' do
+    with_form_for @user, :time_zone
+    assert_select 'form select#user_time_zone.time_zone'
   end
 
   test 'builder should generate date select for date columns' do

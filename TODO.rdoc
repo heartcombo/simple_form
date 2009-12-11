@@ -1,7 +1,7 @@
 == General
 
 * Sample CSS
-* :country, :time_zone, :group and :file types support
+* :group types support
 
 == Validations
 

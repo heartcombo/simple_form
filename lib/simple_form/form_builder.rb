@@ -65,6 +65,11 @@ module SimpleForm
     #
     #   :value_method => the method to apply on the array collection to get the value
     #
+    # == Priority
+    #
+    # Some inputs, as :time_zone and :country accepts a :priority option. If none is
+    # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
+    #
     def input(attribute, options={})
       define_simple_form_attributes(attribute, options)
 
