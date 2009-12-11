@@ -377,4 +377,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select option[value=999]', 'Teste'
     assert_select 'form select option', :count => 1
   end
+
+  test 'builder with association input should allow using radios' do
+    with_association_for @user, :company, :as => :radio
+    assert_select 'form input.radio#user_company_id_1'
+    assert_select 'form input.radio#user_company_id_2'
+    assert_select 'form input.radio#user_company_id_3'
+  end
 end
