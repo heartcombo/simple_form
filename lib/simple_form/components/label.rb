@@ -77,7 +77,7 @@ module SimpleForm
       # available or just use the attribute itself humanized.
       def translate_label
         default = if object.class.respond_to?(:human_attribute_name)
-          object.class.human_attribute_name(attribute.to_s)
+          object.class.human_attribute_name(reflecion_name_or_attribute.to_s)
         else
           attribute.to_s.humanize
         end

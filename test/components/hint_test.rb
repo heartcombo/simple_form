@@ -2,9 +2,10 @@ require 'test_helper'
 
 class ErrorTest < ActionView::TestCase
 
-  def with_hint_for(object, attribute, type, options={})
+  def with_hint_for(object, attribute, type, options={}, setup_association=false, &block)
     simple_form_for object do |f|
       f.attribute  = attribute
+      f.reflection = Association.new(Company, :company, {}) if setup_association
       f.input_type = type
       f.options    = options
 
@@ -63,6 +64,15 @@ class ErrorTest < ActionView::TestCase
     } }) do
       with_hint_for @user, :name, :string
       assert_select 'span.hint', 'Content of this input will be downcased...'
+    end
+  end
+
+  test 'hint should use i18n with lookup for association name' do
+    store_translations(:en, :simple_form => { :hints => {
+      :user => { :company => 'My company!' }
+    } } ) do
+      with_hint_for @user, :company_id, :string, {}, true
+      assert_select 'span.hint', /My company!/
     end
   end
 

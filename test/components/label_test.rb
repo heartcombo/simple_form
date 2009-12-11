@@ -6,9 +6,10 @@ class LabelTest < ActionView::TestCase
     SimpleForm::Components::Label.reset_i18n_cache :translate_required_html
   end
 
-  def with_label_for(object, attribute, type, options={})
+  def with_label_for(object, attribute, type, options={}, setup_association=false)
     simple_form_for object do |f|
       f.attribute  = attribute
+      f.reflection = Association.new(Company, :company, {}) if setup_association
       f.input_type = type
       f.options    = options
 
@@ -39,6 +40,11 @@ class LabelTest < ActionView::TestCase
     assert_select 'label[for=user_description]', /User Description!/
   end
 
+  test 'label should use human attribute name based on association name' do
+    with_label_for @user, :company, :string, {}, true
+    assert_select 'label', /Company Human Name!/
+  end
+
   test 'label should use i18n based on model, action, and attribute to lookup translation' do
     store_translations(:en, :simple_form => { :labels => { :user => {
       :new => { :description => 'Nova descrição' }
@@ -62,6 +68,15 @@ class LabelTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :labels => { :age => 'Idade' } } ) do
       with_label_for @user, :age, :integer
       assert_select 'label[for=user_age]', /Idade/
+    end
+  end
+
+  test 'label should use i18n with lookup for association name' do
+    store_translations(:en, :simple_form => { :labels => {
+      :user => { :company => 'My company!' }
+    } } ) do
+      with_label_for @user, :company_id, :string, {}, true
+      assert_select 'label[for=user_company_id]', /My company!/
     end
   end
 

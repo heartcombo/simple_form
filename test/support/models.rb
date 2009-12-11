@@ -45,9 +45,14 @@ class User < OpenStruct
 
   def self.human_attribute_name(attribute)
     case attribute
-      when 'name' then 'Super User Name!'
-      when 'description' then 'User Description!'
-      else attribute.humanize
+      when 'name'
+        'Super User Name!'
+      when 'description'
+        'User Description!'
+      when 'company'
+        'Company Human Name!'
+      else
+        attribute.humanize
     end
   end
 

@@ -39,6 +39,11 @@ module SimpleForm
         self.class.basename
       end
 
+      # Find reflection name when available, otherwise use attribute
+      def reflecion_name_or_attribute
+        @refletion_name_or_attribute ||= (reflection ? reflection.name : attribute)
+      end
+
       # Default html options for a component. Passed as a parameter for simple
       # form component using component name as follows:
       #
@@ -85,9 +90,9 @@ module SimpleForm
       def translate(default='')
         action  = template.params[:action] if template.respond_to?(:params)
         lookups =  []
-        lookups << :"#{object_name}.#{action}.#{attribute}" if action.present?
-        lookups << :"#{object_name}.#{attribute}"
-        lookups << :"#{attribute}"
+        lookups << :"#{object_name}.#{action}.#{reflecion_name_or_attribute}" if action.present?
+        lookups << :"#{object_name}.#{reflecion_name_or_attribute}"
+        lookups << :"#{reflecion_name_or_attribute}"
         lookups << default
         I18n.t(lookups.shift, :scope => :"simple_form.#{basename.to_s.pluralize}", :default => lookups)
       end
