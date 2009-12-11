@@ -6,8 +6,10 @@ module SimpleForm
       include RequiredHelpers
 
       def call
-        if SimpleForm.wrapper_tag
-          template.content_tag(SimpleForm.wrapper_tag, @component.call, component_html_options)
+        tag = options[:wrapper] || SimpleForm.wrapper_tag
+
+        if tag
+          template.content_tag(tag, @component.call, component_html_options)
         else
           @component.call
         end
