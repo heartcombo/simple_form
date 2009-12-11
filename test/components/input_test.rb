@@ -139,15 +139,15 @@ class InputTest < ActionView::TestCase
 
   test 'input as radio should generate internal labels by default' do
     with_input_for @user, :active, :radio
-    assert_select 'label.radio[for=user_active_true]', 'Yes'
-    assert_select 'label.radio[for=user_active_false]', 'No'
+    assert_select 'label[for=user_active_true]', 'Yes'
+    assert_select 'label[for=user_active_false]', 'No'
   end
 
   test 'input as radio should use i18n to translate internal labels' do
     store_translations(:en, :simple_form => { :true => 'Sim', :false => 'Não' }) do
       with_input_for @user, :active, :radio
-      assert_select 'label.radio[for=user_active_true]', 'Sim'
-      assert_select 'label.radio[for=user_active_false]', 'Não'
+      assert_select 'label[for=user_active_true]', 'Sim'
+      assert_select 'label[for=user_active_false]', 'Não'
     end
   end
 
@@ -206,8 +206,8 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'
     assert_select 'input[type=radio][value=Carlos]'
-    assert_select 'label.radio', 'Jose'
-    assert_select 'label.radio', 'Carlos'
+    assert_select 'label.collection_radio', 'Jose'
+    assert_select 'label.collection_radio', 'Carlos'
   end
 
   test 'input should mark the current radio value by default' do
@@ -220,8 +220,8 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :name, :radio, :collection => [['Jose', 'jose'], ['Carlos', 'carlos']]
     assert_select 'input[type=radio][value=jose]'
     assert_select 'input[type=radio][value=carlos]'
-    assert_select 'label.radio', 'Jose'
-    assert_select 'label.radio', 'Carlos'
+    assert_select 'label.collection_radio', 'Jose'
+    assert_select 'label.collection_radio', 'Carlos'
   end
 
   test 'input should allow overriding label and value method for collections' do
@@ -231,8 +231,8 @@ class InputTest < ActionView::TestCase
                           :value_method => :downcase
     assert_select 'input[type=radio][value=jose]'
     assert_select 'input[type=radio][value=carlos]'
-    assert_select 'label.radio', 'JOSE'
-    assert_select 'label.radio', 'CARLOS'
+    assert_select 'label.collection_radio', 'JOSE'
+    assert_select 'label.collection_radio', 'CARLOS'
   end
 
   test 'input should be required by default' do
