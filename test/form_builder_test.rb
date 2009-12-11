@@ -160,6 +160,13 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder allows wrapper tag to be given on demand' do
+    simple_form_for @user do |f|
+      concat f.input :name, :wrapper => :b
+    end
+    assert_select 'form b.required.string'
+  end
+
   test 'nested simple fields should yields an instance of FormBuilder' do
     simple_form_for :user do |f|
       f.simple_fields_for :posts do |posts_form|
