@@ -34,7 +34,7 @@ module SimpleForm
           value = item.send value_method
           text  = item.send text_method
 
-          default_html_options = default_html_options_for_collection(value, options, html_options)
+          default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
           result << radio_button(attribute, value, default_html_options) <<
                     label("#{attribute}_#{value}", text, :class => "collection_radio")
@@ -73,13 +73,8 @@ module SimpleForm
           value = item.send value_method
           text  = item.send text_method
 
-          input_name = "#{object_name}[#{attribute}][]"
-          input_id   = "#{object_name}_#{attribute}_#{value}"
-
-          default_html_options = default_html_options_for_collection(value, options, html_options)
-          # We need to force :id and :name in html
-          default_html_options[:id] = input_id
-          default_html_options[:name] = input_name
+          default_html_options = default_html_options_for_collection(item, value, options, html_options)
+          default_html_options[:multiple] = true
 
           result << check_box(attribute, default_html_options, value, '') <<
                     label("#{attribute}_#{value}", text, :class => "collection_check_box")
@@ -105,13 +100,18 @@ module SimpleForm
 
         # Generate default options for collection helpers, such as :checked and
         # :disabled.
-        def default_html_options_for_collection(value, options, html_options) #:nodoc:
+        def default_html_options_for_collection(item, value, options, html_options) #:nodoc:
           returning(html_options.dup) do |default_html_options|
             [:checked, :disabled].each do |option|
               next unless options[option]
 
-              valid_option = Array(options[option]).include?(value)
-              default_html_options[option] = true if valid_option
+              accept = if options[option].is_a?(Proc)
+                options[option].call(item)
+              else
+                Array(options[option]).include?(value)
+              end
+
+              default_html_options[option] = true if accept
             end
           end
         end

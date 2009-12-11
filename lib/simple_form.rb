@@ -1,5 +1,6 @@
 require 'simple_form/action_view_extensions/form_helper'
 require 'simple_form/action_view_extensions/builder'
+require 'simple_form/action_view_extensions/instance_tag'
 
 module SimpleForm
   autoload :Components,      'simple_form/components'

@@ -125,6 +125,17 @@ class BuilderTest < ActionView::TestCase
     assert_no_select 'form input[type=checkbox][value=2][disabled=disabled]'
   end
 
+  test 'collection check box accepts a proc to disabled items' do
+    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    form_for @user do |f|
+      concat f.collection_check_box :tag_ids, collection, :first, :last, :disabled => proc { |i| i.first == 1 }
+    end
+
+    assert_select 'form input[type=checkbox][value=1][disabled=disabled]'
+    assert_no_select 'form input[type=checkbox][value=3][disabled=disabled]'
+    assert_no_select 'form input[type=checkbox][value=2][disabled=disabled]'
+  end
+
   test 'collection check box accepts html options' do
     collection = [[1, 'Tag 1'], [2, 'Tag 2']]
     form_for @user do |f|
@@ -133,6 +144,21 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form input.check[type=checkbox][value=1]'
     assert_select 'form input.check[type=checkbox][value=2]'
+  end
+
+  test 'collection check box with semantic fields for' do
+    collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
+    form_for @user do |f|
+      f.fields_for :post do |p|
+        concat p.collection_check_box :tag_ids, collection, :id, :name
+      end
+    end
+
+    assert_select 'form input#user_post_tag_ids_1[type=checkbox][value=1]'
+    assert_select 'form input#user_post_tag_ids_2[type=checkbox][value=2]'
+
+    assert_select 'form label.collection_check_box[for=user_post_tag_ids_1]', 'Tag 1'
+    assert_select 'form label.collection_check_box[for=user_post_tag_ids_2]', 'Tag 2'
   end
 
   # SIMPLE FIELDS
