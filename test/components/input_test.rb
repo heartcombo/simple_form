@@ -78,6 +78,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input#user_name[type=hidden]'
   end
 
+  test 'input should generate a file field' do
+    with_input_for @user, :name, :file
+    assert_select 'input#user_name[type=file]'
+  end
+
   test 'input should generate a datetime select by default for datetime attributes' do
     with_input_for @user, :created_at, :datetime
     1.upto(5) do |i|

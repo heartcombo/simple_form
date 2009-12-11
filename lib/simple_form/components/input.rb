@@ -17,6 +17,7 @@ module SimpleForm
       map_type :select,   :to => :collection_select, :options => true, :collection => true
       map_type :radio,    :to => :collection_radio, :collection => true
       map_type :string,   :to => :text_field
+      map_type :file,     :to => :file_field
 
       # Numeric types
       map_type :integer, :float, :decimal, :to => :text_field

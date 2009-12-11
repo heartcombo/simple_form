@@ -35,4 +35,8 @@ module SimpleForm
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
   @@label_text = lambda { |label, required| "#{required} #{label}" }
+
+  # Collection of methods to detect if a file type was given.
+  mattr_accessor :file_methods
+  @@file_methods = [ :file?, :public_filename ]
 end

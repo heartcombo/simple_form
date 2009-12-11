@@ -88,6 +88,15 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select#user_updated_at_1i.datetime'
   end
 
+  test 'builder should generate file for file columns' do
+    @user.avatar = mock("file")
+    @user.avatar.expects(:respond_to?).with(:file?).returns(false)
+    @user.avatar.expects(:respond_to?).with(:public_filename).returns(true)
+
+    with_form_for @user, :avatar
+    assert_select 'form input#user_avatar.file'
+  end
+
   test 'build should generate select if a collection is given' do
     with_form_for @user, :age, :collection => 1..60
     assert_select 'form select#user_age.select'

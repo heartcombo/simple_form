@@ -265,10 +265,22 @@ module SimpleForm
         when :timestamp
           :datetime
         when :string, nil
-          @attribute.to_s =~ /password/ ? :password : :string
+          match = case @attribute.to_s
+            when /password/  then :password
+            when /time_zone/ then :time_zone
+            when /country/   then :country
+          end
+
+          match || input_type || file_method? || :string
         else
           input_type
       end
+    end
+
+    # Checks if attribute is a file_method.
+    def file_method? #:nodoc:
+      file = @object.send(@attribute) if @object.respond_to?(@attribute)
+      :file if file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
     # Finds the database column for the given attribute
