@@ -7,10 +7,10 @@ class BuilderTest < ActionView::TestCase
     end
 
     assert_select 'form input[type=radio][value=true]#user_active_true'
-    assert_select 'form label[for=user_active_true]', 'true'
+    assert_select 'form label.collection_radio[for=user_active_true]', 'true'
 
     assert_select 'form input[type=radio][value=false]#user_active_false'
-    assert_select 'form label[for=user_active_false]', 'false'
+    assert_select 'form label.collection_radio[for=user_active_false]', 'false'
   end
 
   test 'collection radio accepts a collection and generate inputs from label method' do

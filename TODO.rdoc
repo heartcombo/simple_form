@@ -3,7 +3,6 @@
 * Sample CSS
 * Add support to default :prompt methods on datetime inputs
 * Add support to default label method
-* Improve readme with examples
 * :country, :time_zone, :group and :file types support
 
 == Associations

@@ -17,17 +17,17 @@ To start using SimpleForm you just have to use the helper it provides:
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
-This will generate an entire form with labels for user name and password as well, and render errors by default when you render the form with invalid data (after submiting for example).
+This will generate an entire form with labels for user name and password as well, and render errors by default when you render the form with invalid data (after submitting for example).
 
 You can overwrite the default label by passing it to the input method, or even add a hint:
 
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :username, :label => 'Your username please' %></p>
     <p><%= f.input :password, :hint => 'No special characters.' %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
 Or you can disable labels, hints and errors inside a specific input:
@@ -36,7 +36,7 @@ Or you can disable labels, hints and errors inside a specific input:
     <p><%= f.input :username, :label => false %></p>
     <p><%= f.input :password, :hint => false, :error => false %></p>
     <p><%= f.input :password_confirmation, :error => false %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
 You can also pass html options for the label, input, hint or error tag:
@@ -44,9 +44,11 @@ You can also pass html options for the label, input, hint or error tag:
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :name, :label_html => { :class => 'my_class' } %></p>
     <p><%= f.input :username, :input_html => { :disabled => true } %></p>
-    <p><%= f.input :password, :hint => 'Confirm!', :hint_html => { :id => 'password_hint' } %></p>
-    <p><%= f.input :password_confirmation, :error_html => { :id => 'password_error' } %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.input :password, :hint => 'Confirm!',
+                   :hint_html => { :id => 'password_hint' } %></p>
+    <p><%= f.input :password_confirmation,
+                   :error_html => { :id => 'password_error' } %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
 By default all inputs are required, but you can disable it in any input you want:
@@ -55,7 +57,7 @@ By default all inputs are required, but you can disable it in any input you want
     <p><%= f.input :name, :required => false %></p>
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
 This way the name input will not have the required text and css classes. SimpleForm also lets you overwrite the default input type it creates:
@@ -64,7 +66,7 @@ This way the name input will not have the required text and css classes. SimpleF
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
     <p><%= f.input :active, :as => :radio %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
 So instead of a checkbox for the active attribute, you'll have a set of boolean radio buttons with yes/no options. You can do the same with :as => :select option for boolean attributes.
@@ -73,11 +75,23 @@ What if you want to create a select containing the age from 18 to 60 in your for
 
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :user %></p>
-    <p><%= f.input :age, :colletion => 18..60 %></p>
-    <p><%= f.submit 'Save' %></p>
+    <p><%= f.input :age, :collection => 18..60 %></p>
+    <p><%= f.button %></p>
   <% end -%>
 
 Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option.
+
+SimpleForm also allows you using label, hint and error helpers it provides:
+
+  <% simple_form_for @user do |f| -%>
+    <p><%= f.label :username, :label => 'Type your user name:' %></p>
+    <p><%= f.text_field :username %></p>
+    <p><%= f.error :username, :id => 'user_name_error' %></p>
+    <p><%= f.hint 'No special characters, please!' %></p>
+    <p><%= f.submit 'Save' %></p>
+  <% end -%>
+
+Any extra option passed to label, hint or error will be rendered as html option.
 
 == Inputs available
 
@@ -149,7 +163,7 @@ Instead of using the text and mark options from required, you can also overwrite
   en:
     simple_form:
       required:
-        string: '<abbr title="required">*</abbr> '
+        html: '<abbr title="required">*</abbr> '
 
 == Configuration
 

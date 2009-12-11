@@ -35,7 +35,20 @@ module SimpleForm
       def content
         html_options = component_html_options
         html_options[:for] = options[:input_html][:id] if options.key?(:input_html)
-        @builder.label(attribute, text, html_options)
+        @builder.label(attribute_name, text, html_options)
+      end
+
+      # Map attribute to specific name when dealing with date/time/timestamp,
+      # ensuring label will always be "clickable". For better accessibility.
+      def attribute_name
+        case input_type
+          when :date, :datetime
+            "#{attribute}_1i"
+          when :time
+            "#{attribute}_4i"
+          else
+            attribute
+        end
       end
 
       # The method that actually generates the label. This can be overwriten using
