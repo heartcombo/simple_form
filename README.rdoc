@@ -12,12 +12,14 @@ SimpleForm aims to be as flexible as possible while helping you with powerful co
 
 SimpleForm was designed to be customized as you need to. Basically it's a stack of components that are generated to create a complete html input for you, with label + hints + errors. The best of this is that you can add any element on this stack in any place, or even remove any of them.
 
+It also does not aim to create a lot of different logic from the default Rails form helpers, as they do a great work by themselves. Instead, SimpleForm acts as a DSL and uses some mappings to guess which input type you are trying to create. This will let you create your own mappings and helpers to use together with SimpleForm.
+
 To start using SimpleForm you just have to use the helper it provides:
 
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 This will generate an entire form with labels for user name and password as well, and render errors by default when you render the form with invalid data (after submitting for example).
@@ -27,7 +29,7 @@ You can overwrite the default label by passing it to the input method, or even a
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :username, :label => 'Your username please' %></p>
     <p><%= f.input :password, :hint => 'No special characters.' %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 Or you can disable labels, hints and errors inside a specific input:
@@ -36,7 +38,7 @@ Or you can disable labels, hints and errors inside a specific input:
     <p><%= f.input :username, :label => false %></p>
     <p><%= f.input :password, :hint => false, :error => false %></p>
     <p><%= f.input :password_confirmation, :error => false %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 You can also pass html options for the label, input, hint or error tag:
@@ -48,7 +50,7 @@ You can also pass html options for the label, input, hint or error tag:
                    :hint_html => { :id => 'password_hint' } %></p>
     <p><%= f.input :password_confirmation,
                    :error_html => { :id => 'password_error' } %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 By default all inputs are required, but you can disable it in any input you want:
@@ -57,7 +59,7 @@ By default all inputs are required, but you can disable it in any input you want
     <p><%= f.input :name, :required => false %></p>
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 This way the name input will not have the required text and css classes. SimpleForm also lets you overwrite the default input type it creates:
@@ -66,7 +68,7 @@ This way the name input will not have the required text and css classes. SimpleF
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
     <p><%= f.input :active, :as => :radio %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 So instead of a checkbox for the active attribute, you'll have a set of boolean radio buttons with yes/no options. You can do the same with :as => :select option for boolean attributes.
@@ -76,7 +78,7 @@ What if you want to create a select containing the age from 18 to 60 in your for
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :user %></p>
     <p><%= f.input :age, :collection => 18..60 %></p>
-    <p><%= f.button %></p>
+    <p><%= f.button :submit %></p>
   <% end -%>
 
 Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option.
@@ -93,7 +95,152 @@ SimpleForm also allows you using label, hint and error helpers it provides:
 
 Any extra option passed to label, hint or error will be rendered as html option.
 
-== Inputs available
+=== Associations
+
+To deal with associations, SimpleForm can generate select inputs, a serie  of radios or check boxes. Lets see how it works: imagine you have the user model that belongs to a company and has_and_belongs_to_many roles. The structure should be something like:
+
+  class User < ActiveRecord::Base
+    belongs_to :company
+    has_and_belongs_to_many :roles
+  end
+
+  class Company < ActiveRecord::Base
+    has_many :users
+  end
+
+  class Role < ActiveRecord::Base
+    has_and_belongs_to_many :users
+  end
+
+Now we have the user form:
+
+  <% simple_form_for @user do |f| -%>
+    <p><%= f.input :name %></p>
+    <p><%= f.association :company %></p>
+    <p><%= f.association :roles %></p>
+    <p><%= f.button :submit %></p>
+  <% end -%>
+
+Simple enough right? This is going to render a :select input for choosing the :company, and another :select input with :multiple option for the :roles. You can of course change it, to use radios and check boxes as well:
+
+    f.association :company, :as => :radio
+    f.association :roles, :as => :check_boxes
+
+And you will get a set of radios to select the company and another set of check boxes for the roles. Some options are available for refining the collection for associations:
+
+* conditions => given as conditions for retrieving the collection
+
+* order => given as order for retrieving the collection
+
+* scopes => named scopes to be called for retrieving the collection
+
+Here is an example of how to use this options:
+
+  f.association :company, :order => 'name', :scopes => :active
+  f.association :roles, :conditions => { :active => true }
+
+Or you can simply use your own collection:
+
+  f.association :company, :collection => Company.active.all(:order => 'name')
+
+=== Buttons
+
+All web forms need buttons, right? To help you with this, SimpleForm has a default button helper that acts as a wrapper for Rails helpers, creating submit texts using I18n. It's pretty straightforward:
+
+  <% simple_form_for @user do |f| -%>
+    <p><%= f.input :name %></p>
+    <p><%= f.button :submit %></p>
+  <% end -%>
+
+This will create a input submit tag for you, using the information given to create the submit text: when you are dealing with a new object, it will look for a specific :create key using I18n; when it's an existing object, it will look for :update. Otherwise, if no object is given, :submit is the default I18n key. Button will append the human name of the object whenever possible to the text, so in the context of the form above we would have 'Create User' or 'Update User', depending on the context.
+
+You can also pass the button text directly:
+
+  f.button :submit, 'Save User'
+  f.button :submit, :label => 'Save User'
+
+As button is just a wrapper, it is actually calling your :submit_tag Rails helper with the text it provides. That said, any other option you pass will be given to :submit_tag call:
+
+  f.button :submit, 'Save User', :class => 'my_pretty_button'
+
+And if you want to use any other button tag, you just need to create a helper that ends with "_tag":
+
+  # inside ApplicationHelper for instance
+  def custom_submit_tag(text, options={})
+    # render submit tag here
+  end
+
+And you will able to use it with SimpleForm:
+
+  f.button :custom_submit, 'Hello World!'
+
+== Extra helpers
+
+SimpleForm also comes with some extra helpers you can use inside rails default forms without relying on simple_form_for helper.
+
+=== Simple Fields For
+
+Wrapper for use simple form inside a default rails form
+
+  form_for @user do |f|
+    f.simple_fields_for :posts do |posts_form|
+      # Here you have all simple_form methods available
+      posts_form.input :title
+    end
+  end
+
+=== Collection Radio
+
+Creates a collection of radio inputs with labels associated:
+
+  form_for @user do |f|
+    f.collection_radio :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+  end
+
+  <input id="user_options_true" name="user[options]" type="radio" value="true" />
+  <label class="collection_radio" for="user_options_true">Yes</label>
+  <input id="user_options_false" name="user[options]" type="radio" value="false" />
+  <label class="collection_radio" for="user_options_false">No</label>
+
+=== Collection Check Box
+
+Creates a collection of check boxes with labels associated:
+
+  form_for @user do |f|
+    f.collection_check_box :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+  end
+
+  <input name="user[options][]" type="hidden" value="" />
+  <input id="user_options_true" name="user[options][]" type="checkbox" value="true" />
+  <label class="collection_check_box" for="user_options_true">Yes</label>
+  <input name="user[options][]" type="hidden" value="" />
+  <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
+  <label class="collection_check_box" for="user_options_false">No</label>
+
+== Mappings/Inputs available
+
+SimpleForm comes with a lot of default mappings:
+
+  Mapping               Input                   Column Type
+
+  boolean               check box               boolean
+  string                text field              string
+  password              password field          string with name matching "password"
+  text                  text area               text
+  file                  file field              string, responding to file methods
+  hidden                hidden field            -
+  integer               text field              integer
+  float                 text field              float
+  decimal               text field              decimal
+  datetime              datetime select         datetime/timestamp
+  date                  date select             date
+  time                  time select             time
+  select                collection select       belongs_to/has_many/has_and_belongs_to_many associations
+  radio                 collection radio        belongs_to
+  check_boxes           collection check box    has_many/has_and_belongs_to_many associations
+  country               country select          string with name matching "country"
+  time_zone             time zone select        string with name matching "time_zone"
+
 
 == I18n
 
@@ -165,20 +312,30 @@ Instead of using the text and mark options from required, you can also overwrite
       required:
         html: '<abbr title="required">*</abbr> '
 
+Please take a look at our locale file as example.
+
 == Configuration
 
 You have a set of options available to configure SimpleForm:
-
-* component_tag => default tag used in components. by default is :span.
-
-* components    => stack of components used in form builder to create the input.
-                   You can add or remove any of this components as you need.
 
 * collection_label_methods => all methods available to detect the label for a collection.
 
 * collection_value_methods => all methods available to detect the value for a collection.
 
+* file_methods => collection of methods to detect if a file type was given.
+
 * wrapper_tag => wrapper tag to wrap the inputs. By default no wrapper exists.
+
+* component_tag => default tag used in components. by default is :span.
+
+* components => stack of components used in form builder to create the input.
+                   You can add or remove any of this components as you need.
+
+* label_text => how the label text should be generated with the required text.
+
+* time_zone_priority => default priority for time_zone inputs.
+
+* country_priority => default priority for country inputs.
 
 To do it so you just need to create a file inside your initializer folder and use the configurations as follows:
 
@@ -188,5 +345,15 @@ To do it so you just need to create a file inside your initializer folder and us
 
 Please refer to TODO file.
 
+== Contributors
+
+* José Valim (http://github.com/josevalim)
+* Carlos Antonio da Silva (http://github.com/carlosantoniodasilva)
+
+== Bugs and Feedback
+
+If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
+
+http://github.com/plataformatec/simple_form/issues
 
 MIT License. Copyright 2009 Plataforma Tecnologia. http://blog.plataformatec.com.br
