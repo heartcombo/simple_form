@@ -23,8 +23,9 @@ module SimpleForm
       map_type :time,     :to => :time_select,     :options => true
 
       # Collection types
-      map_type :select,   :to => :collection_select, :options => true, :collection => true
-      map_type :radio,    :to => :collection_radio, :collection => true
+      map_type :select,      :to => :collection_select,    :options => true, :collection => true
+      map_type :radio,       :to => :collection_radio,     :options => true, :collection => true
+      map_type :check_boxes, :to => :collection_check_box, :options => true, :collection => true
 
       # With priority zones
       map_type :country,   :to => :country_select,   :options => true, :with_priority => true

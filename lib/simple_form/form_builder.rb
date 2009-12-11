@@ -125,7 +125,7 @@ module SimpleForm
         when :has_one
           raise ":has_one association are not supported by f.association"
         else
-          attribute = :"#{@reflection.name}_ids"
+          attribute = :"#{@reflection.name.to_s.singularize}_ids"
 
           if options[:as] == :select
             html_options = options[:input_html] ||= {}

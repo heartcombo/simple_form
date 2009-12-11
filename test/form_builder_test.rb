@@ -422,7 +422,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder creates a select with multiple options for collection associations' do
     with_association_for @user, :tags
-    assert_select 'form select.select#user_tags_ids'
+    assert_select 'form select.select#user_tag_ids'
     assert_select 'form select[multiple=multiple][size=5]'
     assert_select 'form select option[value=1]', 'Tag 1'
     assert_select 'form select option[value=2]', 'Tag 2'
@@ -435,10 +435,26 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder marks all selected records which already belongs to user' do
-    @user.tags_ids = [1, 2]
+    @user.tag_ids = [1, 2]
     with_association_for @user, :tags
     assert_select 'form select option[value=1][selected=selected]'
     assert_select 'form select option[value=2][selected=selected]'
     assert_no_select 'form select option[value=3][selected=selected]'
+  end
+
+  test 'builder allows a collection of check boxes for collection associations' do
+    @user.tag_ids = [1, 2]
+    with_association_for @user, :tags, :as => :check_boxes
+    assert_select 'form input#user_tag_ids_1[type=checkbox]'
+    assert_select 'form input#user_tag_ids_2[type=checkbox]'
+    assert_select 'form input#user_tag_ids_3[type=checkbox]'
+  end
+
+  test 'builder marks all selected records for collection boxes' do
+    @user.tag_ids = [1, 2]
+    with_association_for @user, :tags, :as => :check_boxes
+    assert_select 'form input[type=checkbox][value=1][checked=checked]'
+    assert_select 'form input[type=checkbox][value=2][checked=checked]'
+    assert_no_select 'form input[type=checkbox][value=3][checked=checked]'
   end
 end

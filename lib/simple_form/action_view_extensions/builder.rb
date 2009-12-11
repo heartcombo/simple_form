@@ -8,24 +8,95 @@ module SimpleForm
       # helper will create a radio input associated with a label for each
       # text/value option in the collection, using value_method and text_method
       # to convert these text/value. Based on collection_select.
-      # Example:
+      #
+      # == Examples
       #
       #   form_for @user do |f|
-      #     f.collection_radio :active, [['Yes', true] ,['No', false]], :first, :last
+      #     f.collection_radio :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
       #   end
       #
-      #   <input id="user_active_true" name="user[active]" type="radio" value="true" />
-      #   <label class="radio" for="user_active_true">Yes</label>
-      #   <input id="user_active_false" name="user[active]" type="radio" value="false" />
-      #   <label class="radio" for="user_active_false">No</label>
+      #   <input id="user_options_true" name="user[options]" type="radio" value="true" />
+      #   <label class="collection_radio" for="user_options_true">Yes</label>
+      #   <input id="user_options_false" name="user[options]" type="radio" value="false" />
+      #   <label class="collection_radio" for="user_options_false">No</label>
       #
-      def collection_radio(attribute, collection, value_method, text_method, html_options={})
+      # == Options
+      #
+      # Collection radio accepts some extra options:
+      #
+      #   * checked  => the value that should be checked initially.
+      #
+      #   * disabled => the value or values that should be disabled. Accepts a single
+      #                 item or an array of items.
+      #
+      def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
+        checked_option = options.delete(:checked)
+        disabled_options = Array(options.delete(:disabled))
+
         collection.inject('') do |result, item|
           value = item.send value_method
           text  = item.send text_method
 
-          result << radio_button(attribute, value, html_options) <<
+          checked = checked_option == value if checked_option
+          disabled = disabled_options.include?(value)
+
+          default_html_options = html_options.dup
+          default_html_options[:checked] = checked if checked
+          default_html_options[:disabled] = disabled if disabled
+
+          result << radio_button(attribute, value, default_html_options) <<
                     label("#{attribute}_#{value}", text, :class => "collection_radio")
+        end
+      end
+
+      # Creates a collection of check boxes for each item in the collection, associated
+      # with a clickable label. Use value_method and text_method to convert items in
+      # the collection for use as text/value in check boxes.
+      #
+      # == Examples
+      #
+      #   form_for @user do |f|
+      #     f.collection_check_box :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #   end
+      #
+      #   <input name="user[options][]" type="hidden" value="" />
+      #   <input id="user_options_true" name="user[options][]" type="checkbox" value="true" />
+      #   <label class="collection_check_box" for="user_options_true">Yes</label>
+      #   <input name="user[options][]" type="hidden" value="" />
+      #   <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
+      #   <label class="collection_check_box" for="user_options_false">No</label>
+      #
+      # == Options
+      #
+      # Collection check box accepts some extra options:
+      #
+      #   * checked  => the value or values that should be checked initially. Accepts
+      #                 a single item or an array of items.
+      #
+      #   * disabled => the value or values that should be disabled. Accepts a single
+      #                 item or an array of items.
+      #
+      def collection_check_box(attribute, collection, value_method, text_method, options={}, html_options={})
+        checked_options = Array(options.delete(:checked))
+        disabled_options = Array(options.delete(:disabled))
+
+        collection.inject('') do |result, item|
+          value = item.send value_method
+          text  = item.send text_method
+
+          input_name = "#{object_name}[#{attribute}][]"
+          input_id   = "#{object_name}_#{attribute}_#{value}"
+          checked = checked_options.include?(value)
+          disabled = disabled_options.include?(value)
+
+          default_html_options = html_options.dup
+          default_html_options[:id] = input_id
+          default_html_options[:name] = input_name
+          default_html_options[:checked] = checked if checked
+          default_html_options[:disabled] = disabled if disabled
+
+          result << check_box(attribute, default_html_options, value, '') <<
+                    label("#{attribute}_#{value}", text, :class => "collection_check_box")
         end
       end
 
