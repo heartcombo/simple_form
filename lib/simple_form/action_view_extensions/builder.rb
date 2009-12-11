@@ -30,19 +30,11 @@ module SimpleForm
       #                 item or an array of items.
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
-        checked_option = options.delete(:checked)
-        disabled_options = Array(options.delete(:disabled))
-
         collection.inject('') do |result, item|
           value = item.send value_method
           text  = item.send text_method
 
-          checked = checked_option == value if checked_option
-          disabled = disabled_options.include?(value)
-
-          default_html_options = html_options.dup
-          default_html_options[:checked] = checked if checked
-          default_html_options[:disabled] = disabled if disabled
+          default_html_options = default_html_options_for_collection(value, options, html_options)
 
           result << radio_button(attribute, value, default_html_options) <<
                     label("#{attribute}_#{value}", text, :class => "collection_radio")
@@ -77,23 +69,17 @@ module SimpleForm
       #                 item or an array of items.
       #
       def collection_check_box(attribute, collection, value_method, text_method, options={}, html_options={})
-        checked_options = Array(options.delete(:checked))
-        disabled_options = Array(options.delete(:disabled))
-
         collection.inject('') do |result, item|
           value = item.send value_method
           text  = item.send text_method
 
           input_name = "#{object_name}[#{attribute}][]"
           input_id   = "#{object_name}_#{attribute}_#{value}"
-          checked = checked_options.include?(value)
-          disabled = disabled_options.include?(value)
 
-          default_html_options = html_options.dup
+          default_html_options = default_html_options_for_collection(value, options, html_options)
+          # We need to force :id and :name in html
           default_html_options[:id] = input_id
           default_html_options[:name] = input_name
-          default_html_options[:checked] = checked if checked
-          default_html_options[:disabled] = disabled if disabled
 
           result << check_box(attribute, default_html_options, value, '') <<
                     label("#{attribute}_#{value}", text, :class => "collection_check_box")
@@ -114,6 +100,21 @@ module SimpleForm
         options[:builder] = SimpleForm::FormBuilder
         fields_for(*(args << options), &block)
       end
+
+      private
+
+        # Generate default options for collection helpers, such as :checked and
+        # :disabled.
+        def default_html_options_for_collection(value, options, html_options) #:nodoc:
+          returning(html_options.dup) do |default_html_options|
+            [:checked, :disabled].each do |option|
+              next unless options[option]
+
+              valid_option = Array(options[option]).include?(value)
+              default_html_options[option] = true if valid_option
+            end
+          end
+        end
     end
   end
 end
