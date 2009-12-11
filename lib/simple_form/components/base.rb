@@ -11,6 +11,12 @@ module SimpleForm
       delegate :template, :object, :object_name, :attribute, :column,
                :reflection, :input_type, :options, :to => :@builder
 
+      # When action is create or update, we still should use new and edit
+      ACTIONS = {
+        :create => :new,
+        :update => :edit
+      }
+
       def self.basename
         @basename ||= name.split("::").last.underscore.to_sym
       end
@@ -88,13 +94,18 @@ module SimpleForm
       #
       #  Take a look at our locale example file.
       def translate(default='')
-        action  = template.params[:action] if template.respond_to?(:params)
-        lookups =  []
-        lookups << :"#{object_name}.#{action}.#{reflecion_name_or_attribute}" if action.present?
+        lookups = []
+        lookups << :"#{object_name}.#{lookup_action}.#{reflecion_name_or_attribute}"
         lookups << :"#{object_name}.#{reflecion_name_or_attribute}"
         lookups << :"#{reflecion_name_or_attribute}"
         lookups << default
         I18n.t(lookups.shift, :scope => :"simple_form.#{basename.to_s.pluralize}", :default => lookups)
+      end
+
+      # The action to be used in lookup.
+      def lookup_action
+        action = template.controller.action_name.to_sym
+        ACTIONS[action] || action
       end
     end
   end
