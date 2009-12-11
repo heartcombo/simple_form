@@ -344,7 +344,8 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
-  test 'builder should allow creating an association input generating collection' do
+  # ASSOCIATIONS - BELONGS TO
+  test 'builder creates a select for belongs_to associations' do
     with_association_for @user, :company
     assert_select 'form select.select#user_company_id'
     assert_select 'form select option[value=1]', 'Company 1'
@@ -352,6 +353,22 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select option[value=3]', 'Company 3'
   end
 
+  test 'builder allows collection radio for belongs_to associations' do
+    with_association_for @user, :company, :as => :radio
+    assert_select 'form input.radio#user_company_id_1'
+    assert_select 'form input.radio#user_company_id_2'
+    assert_select 'form input.radio#user_company_id_3'
+  end
+
+  test 'builder marks the record which already belongs to the user' do
+    @user.company_id = 2
+    with_association_for @user, :company, :as => :radio
+    assert_no_select 'form input.radio#user_company_id_1[checked=checked]'
+    assert_select 'form input.radio#user_company_id_2[checked=checked]'
+    assert_no_select 'form input.radio#user_company_id_3[checked=checked]'
+  end
+
+  # ASSOCIATIONS - FINDERS
   test 'builder should allow passing conditions to find collection' do
     with_association_for @user, :company, :conditions => { :id => 1 }
     assert_select 'form select.select#user_company_id'
@@ -368,7 +385,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select option[value=3]'
   end
 
-  test 'builder should allow overriding condition to association input' do
+  test 'builder should allow overriding collection to association input' do
     with_association_for @user, :company, :include_blank => false,
                          :collection => [Company.new(999, 'Teste')]
     assert_select 'form select.select#user_company_id'
@@ -377,10 +394,32 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select option', :count => 1
   end
 
-  test 'builder with association input should allow using radios' do
-    with_association_for @user, :company, :as => :radio
-    assert_select 'form input.radio#user_company_id_1'
-    assert_select 'form input.radio#user_company_id_2'
-    assert_select 'form input.radio#user_company_id_3'
+  # ASSOCIATIONS - has_*
+  test 'builder does not allow has_one associations' do
+    assert_raise RuntimeError do
+      with_association_for @user, :first_company, :as => :radio
+    end
+  end
+
+  test 'builder creates a select with multiple options for collection associations' do
+    with_association_for @user, :tags
+    assert_select 'form select.select#user_tags_ids'
+    assert_select 'form select[multiple=multiple][size=5]'
+    assert_select 'form select option[value=1]', 'Tag 1'
+    assert_select 'form select option[value=2]', 'Tag 2'
+    assert_select 'form select option[value=3]', 'Tag 3'
+  end
+
+  test 'builder allows size to be overwritten for collection associations' do
+    with_association_for @user, :tags, :input_html => { :size => 10 }
+    assert_select 'form select[multiple=multiple][size=10]'
+  end
+
+  test 'builder marks all selected records which already belongs to user' do
+    @user.tags_ids = [1, 2]
+    with_association_for @user, :tags
+    assert_select 'form select option[value=1][selected=selected]'
+    assert_select 'form select option[value=2][selected=selected]'
+    assert_no_select 'form select option[value=3][selected=selected]'
   end
 end

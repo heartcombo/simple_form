@@ -187,12 +187,22 @@ class InputTest < ActionView::TestCase
 
   test 'input should automatically set include blank' do
     with_input_for @user, :age, :select, :collection => 18..30
-    assert_select 'select option[value=]', ""
+    assert_select 'select option[value=]', ''
   end
 
   test 'input should not set include blank if otherwise is told' do
     with_input_for @user, :age, :select, :collection => 18..30, :include_blank => false
-    assert_no_select 'select option[value=]', ""
+    assert_no_select 'select option[value=]', ''
+  end
+
+  test 'input should not set include blank if prompt is given' do
+    with_input_for @user, :age, :select, :collection => 18..30, :prompt => "Please select foo"
+    assert_no_select 'select option[value=]', ''
+  end
+
+  test 'input should not set include blank if multiple is given' do
+    with_input_for @user, :age, :select, :collection => 18..30, :input_html => { :multiple => true }
+    assert_no_select 'select option[value=]', ''
   end
 
   test 'input should detect label and value on collections' do

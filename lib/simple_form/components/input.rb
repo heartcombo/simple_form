@@ -35,7 +35,6 @@ module SimpleForm
       # Generate the input through the mapped option. Apply correct behaviors
       # for collections and add options whenever the input requires it.
       def content
-        options[:options] ||= {}
         mapping = self.class.mappings[input_type]
         raise "Invalid input type #{input_type.inspect}" unless mapping
 
@@ -56,7 +55,7 @@ module SimpleForm
         collection = (options[:collection] || self.class.boolean_collection).to_a
         detect_collection_methods(collection, options)
 
-        options[:include_blank] = true unless options.key?(:include_blank)
+        options[:include_blank] = true unless skip_include_blank?
         args.push(collection, options[:value_method], options[:label_method])
       end
 
@@ -75,6 +74,11 @@ module SimpleForm
         end
 
         args << html_options
+      end
+
+      def skip_include_blank?
+        input_type != :select || options.key?(:prompt) || options.key?(:include_blank) ||
+        options[:input_html].try(:[], :multiple)
       end
 
       # Detect the right method to find the label and value for a collection.

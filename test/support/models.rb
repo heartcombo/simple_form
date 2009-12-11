@@ -1,7 +1,7 @@
 require 'ostruct'
 
 Column = Struct.new(:name, :type, :limit)
-Association = Struct.new(:klass, :name, :options)
+Association = Struct.new(:klass, :name, :macro, :options)
 
 class Company < Struct.new(:id, :name)
   def self.all(options={})
@@ -12,13 +12,15 @@ class Company < Struct.new(:id, :name)
   end
 end
 
-class User < OpenStruct
-  attr_reader :id
-
-  def initialize(attributes={})
-    @id = attributes.delete(:id)
-    super
+class Tag < Struct.new(:id, :name)
+  def self.all(options={})
+    (1..3).map{|i| Tag.new(i, "Tag #{i}")}
   end
+end
+
+class User < OpenStruct
+  # Get rid of deprecation warnings
+  undef_method :id
 
   def new_record!
     @new_record = true
@@ -61,7 +63,14 @@ class User < OpenStruct
   end
 
   def self.reflect_on_association(association)
-    Association.new(Company, association, {}) if association == :company
+    case association
+      when :company
+        Association.new(Company, association, :belongs_to, {})
+      when :tags
+        Association.new(Tag, association, :has_many, {})
+      when :first_company
+        Association.new(Company, association, :has_one, {})
+    end
   end
 
   def errors

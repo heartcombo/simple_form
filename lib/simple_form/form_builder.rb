@@ -110,18 +110,30 @@ module SimpleForm
     def association(attribute, options={})
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
+      options[:as] ||= :select
       @reflection = find_association_reflection(attribute)
-      raise "Association not found #{attribute.inspect}" unless @reflection
+      raise "Association #{attribute.inspect} not found" unless @reflection
 
-      attribute = @reflection.options[:foreign_key] || :"#{@reflection.name}_id"
+      case @reflection.macro
+        when :belongs_to
+          attribute = @reflection.options[:foreign_key] || :"#{@reflection.name}_id"
+        when :has_one
+          raise ":has_one association are not supported by f.association"
+        else
+          attribute = :"#{@reflection.name}_ids"
+
+          if options[:as] == :select
+            html_options = options[:input_html] ||= {}
+            html_options[:size]   ||= 5
+            html_options[:multiple] = true unless html_options.key?(:multiple)
+          end
+      end
 
       options[:collection] ||= begin
         find_options = options.slice(:conditions, :order)
-
         klass = Array(options[:scope]).inject(@reflection.klass) do |klass, scope|
           klass.send(scope)
         end
-
         klass.all(find_options)
       end
 

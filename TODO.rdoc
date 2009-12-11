@@ -5,12 +5,6 @@
 * Add support to default label method
 * :country, :time_zone, :group and :file types support
 
-== Associations
-
-* has_many
-* has_and_belongs_to_many
-* belongs_to
-
 == Validations
 
 * Add automatic :required check
