@@ -5,6 +5,7 @@ class ErrorTest < ActionView::TestCase
   def with_error_for(object, attribute, type, options={}, &block)
     simple_form_for object do |f|
       f.attribute  = attribute
+      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type = type
       f.options    = options
 
@@ -45,5 +46,10 @@ class ErrorTest < ActionView::TestCase
   test 'error should be able to pass html options' do
     with_error_for @user, :name, :string, :error_html => { :id => 'error', :class => 'yay' }
     assert_select 'span#error.error.yay'
+  end
+
+  test 'error should find errors on attribute and association' do
+    with_error_for @user, :company_id, :select, :setup_association => true
+    assert_select 'span.error', 'must be valid and company must be present'
   end
 end

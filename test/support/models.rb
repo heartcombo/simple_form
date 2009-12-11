@@ -64,6 +64,8 @@ class User < OpenStruct
       :name => "can't be blank",
       :description => "must be longer than 15 characters",
       :age => ["is not a number", "must be greater than 18"],
+      :company => "company must be present",
+      :company_id => "must be valid"
     }
   end
 end

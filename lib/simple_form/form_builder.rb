@@ -1,14 +1,15 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object, :attribute, :column, :input_type, :options
+    attr_reader :template, :object_name, :object, :attribute, :column,
+                :reflection, :input_type, :options
 
     TERMINATOR = lambda { "" }
 
-    # Basic input helper, combines all components in the stack to generate input
-    # html  based on options the user define and some guesses through
+    # Basic input helper, combines all components in the stack to generate
+    # input html based on options the user define and some guesses through
     # database column information. By default a call to input will generate
-    # label + input + hint (when defined) + errors (when exists), and all can be
-    # configured inside a wrapper html.
+    # label + input + hint (when defined) + errors (when exists), and all can
+    # be configured inside a wrapper html.
     #
     # == Examples:
     #
@@ -98,18 +99,18 @@ module SimpleForm
     def association(attribute, options={})
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
-      association = find_association(attribute)
-      raise "Association not found #{attribute.inspect}" unless association
+      @reflection = find_association_reflection(attribute)
+      raise "Association not found #{attribute.inspect}" unless @reflection
 
-      attribute = association.options[:foreign_key] || :"#{association.name}_id"
+      attribute = @reflection.options[:foreign_key] || :"#{@reflection.name}_id"
 
       options[:collection] ||= begin
         find_options = { :conditions => options.delete(:conditions),
                          :order => options.delete(:order) }
-        association.klass.all(find_options)
+        @reflection.klass.all(find_options)
       end
 
-      input(attribute, options)
+      returning(input(attribute, options)) { @reflection = nil }
     end
 
     # Creates a button:
@@ -248,7 +249,7 @@ module SimpleForm
     end
 
     # Find association related to attribute
-    def find_association(attribute)
+    def find_association_reflection(attribute)
       @object.class.reflect_on_association(attribute) if @object.class.respond_to?(:reflect_on_association)
     end
 

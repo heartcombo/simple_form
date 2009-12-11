@@ -9,11 +9,19 @@ module SimpleForm
       end
 
       def errors
-        @errors ||= object.errors[attribute]
+        @errors ||= (errors_on_attribute + errors_on_association).compact
+      end
+
+      def errors_on_attribute
+        Array(object.errors[attribute])
+      end
+
+      def errors_on_association
+        reflection ? Array(object.errors[reflection.name]) : []
       end
 
       def content
-        component_tag Array(errors).to_sentence
+        component_tag errors.to_sentence
       end
     end
   end
