@@ -14,6 +14,30 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  def with_error_for(object, *args)
+    simple_form_for object do |f|
+      concat f.error *args
+    end
+  end
+
+  def with_hint_for(object, *args)
+    simple_form_for object do |f|
+      concat f.hint *args
+    end
+  end
+
+  def with_label_for(object, *args)
+    simple_form_for object do |f|
+      concat f.label *args
+    end
+  end
+
+  def with_association_for(object, *args)
+    simple_form_for object do |f|
+      concat f.association *args
+    end
+  end
+
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
     assert_select 'form input#user_name.string'
@@ -201,71 +225,53 @@ class FormBuilderTest < ActionView::TestCase
 
   # ERRORS
   test 'builder should generate an error component tag for the attribute' do
-    simple_form_for @user do |f|
-      concat f.error :name
-    end
+    with_error_for @user, :name
     assert_select 'span.error', "can't be blank"
   end
 
   test 'builder should allow passing options to error tag' do
-    simple_form_for @user do |f|
-      concat f.error :name, :id => 'name_error'
-    end
+    with_error_for @user, :name, :id => 'name_error'
     assert_select 'span.error#name_error', "can't be blank"
   end
 
   # HINTS
   test 'builder should generate a hint component tag for the attribute' do
     store_translations(:en, :simple_form => { :hints => { :user => { :name => "Add your name" }}}) do
-      simple_form_for @user do |f|
-        concat f.hint :name
-      end
+      with_hint_for @user, :name
       assert_select 'span.hint', 'Add your name'
     end
   end
 
   test 'builder should generate a hint component tag for the given text' do
-     simple_form_for @user do |f|
-       concat f.hint 'Hello World!'
-     end
+     with_hint_for @user, 'Hello World!'
      assert_select 'span.hint', 'Hello World!'
    end
 
   test 'builder should allow passing options to hint tag' do
-    simple_form_for @user do |f|
-      concat f.hint :name, :hint => 'Hello World!', :id => 'name_hint'
-    end
+    with_hint_for @user, :name, :hint => 'Hello World!', :id => 'name_hint'
     assert_select 'span.hint#name_hint', 'Hello World!'
   end
 
   # LABELS
   test 'builder should generate a label component tag for the attribute' do
-    simple_form_for @user do |f|
-      concat f.label :name
-    end
+    with_label_for @user, :name
     assert_select 'label.string[for=user_name]', /Name/
   end
 
   test 'builder should allow passing options to label tag' do
-    simple_form_for @user do |f|
-      concat f.label :name, :label => 'My label', :id => 'name_label'
-    end
+    with_label_for @user, :name, :label => 'My label', :id => 'name_label'
     assert_select 'label.string.required#name_label', /My label/
   end
 
   test 'builder should fallback to default label when string is given' do
-    simple_form_for @user do |f|
-      concat f.label :name, 'Nome do usuário'
-    end
+    with_label_for @user, :name, 'Nome do usuário'
     assert_select 'label', 'Nome do usuário'
     assert_no_select 'label.string'
   end
 
   test 'builder allows label order to be changed' do
     swap SimpleForm, :label_text => lambda { |l, r| "#{l}:" } do
-      simple_form_for @user do |f|
-        concat f.label :age
-      end
+      with_label_for @user, :age
       assert_select 'label.integer[for=user_age]', "Age:"
     end
   end
@@ -329,5 +335,46 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder calls any button tag' do
     with_button_for :post, :image_submit, "/image/foo/bar"
     assert_select 'form input[src=/image/foo/bar][type=image]'
+  end
+
+  # ASSOCIATIONS
+  test 'builder should not allow creating an association input when no object exists' do
+    assert_raise ArgumentError do
+      with_association_for :post, :author
+    end
+  end
+
+  test 'builder should allow creating an association input generating collection' do
+    with_association_for @user, :company
+    assert_select 'form select.select#user_company_id'
+    assert_select 'form select option[value=1]', 'Company 1'
+    assert_select 'form select option[value=2]', 'Company 2'
+    assert_select 'form select option[value=3]', 'Company 3'
+  end
+
+  test 'builder should allow passing conditions to find collection' do
+    with_association_for @user, :company, :conditions => { :id => 1 }
+    assert_select 'form select.select#user_company_id'
+    assert_select 'form select option[value=1]'
+    assert_no_select 'form select option[value=2]'
+    assert_no_select 'form select option[value=3]'
+  end
+
+  test 'builder should allow passing order to find collection' do
+    with_association_for @user, :company, :order => 'name'
+    assert_select 'form select.select#user_company_id'
+    assert_no_select 'form select option[value=1]'
+    assert_no_select 'form select option[value=2]'
+    assert_select 'form select option[value=3]'
+  end
+
+  test 'builder should allow overriding condition to association input' do
+    with_association_for @user, :company,
+                         :collection => [Company.new(999, 'Teste')],
+                         :options => { :include_blank => false }
+    assert_select 'form select.select#user_company_id'
+    assert_no_select 'form select option[value=1]'
+    assert_select 'form select option[value=999]', 'Teste'
+    assert_select 'form select option', :count => 1
   end
 end

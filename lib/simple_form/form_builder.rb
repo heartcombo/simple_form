@@ -10,7 +10,7 @@ module SimpleForm
     # label + input + hint (when defined) + errors (when exists), and all can be
     # configured inside a wrapper html.
     #
-    # Examples:
+    # == Examples:
     #
     #   # Imagine @user has error "can't be blank" on name
     #   simple_form_for @user do |f|
@@ -73,6 +73,43 @@ module SimpleForm
         component = klass.new(self, component)
       end
       component.call
+    end
+
+    # Helper for dealing with association selects/radios, generating the
+    # collection automatically. It also lets you pass :conditions and :order
+    # options, that will be used directly in find. All other options are passed
+    # to input helper.
+    #
+    # == Examples:
+    #
+    #   simple_form_for @user do |f|
+    #     f.association :company          # Company.all
+    #   end
+    #
+    #   f.association :company, :order => 'name'
+    #   # Company.all(:order => 'name')
+    #
+    #   f.association :company, :conditions => { :active => true }
+    #   # Company.all(:conditions => { :active => true })
+    #
+    #   f.association :company, :collection => Company.all(:order => 'name')
+    #   # Same as using :order option, but overriding collection
+    #
+    def association(attribute, options={})
+      raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
+
+      association = find_association(attribute)
+      raise "Association not found #{attribute.inspect}" unless association
+
+      attribute = association.options[:foreign_key] || :"#{association.name}_id"
+
+      options[:collection] ||= begin
+        find_options = { :conditions => options.delete(:conditions),
+                         :order => options.delete(:order) }
+        association.klass.all(find_options)
+      end
+
+      input(attribute, options)
     end
 
     # Creates a button:
@@ -208,6 +245,11 @@ module SimpleForm
     # Finds the database column for the given attribute
     def find_attribute_column
       @object.column_for_attribute(@attribute) if @object.respond_to?(:column_for_attribute)
+    end
+
+    # Find association related to attribute
+    def find_association(attribute)
+      @object.class.reflect_on_association(attribute) if @object.class.respond_to?(:reflect_on_association)
     end
 
   end
