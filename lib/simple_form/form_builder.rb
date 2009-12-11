@@ -188,7 +188,7 @@ module SimpleForm
           @object_name.to_s.humanize
         end
 
-        I18n.t(:"simple_form.#{key}", :model => model, :default => "#{key.to_s.humanize} #{model}")
+        I18n.t(:"simple_form.buttons.#{key}", :model => model, :default => "#{key.to_s.humanize} #{model}")
       end
 
       options[:class] = "#{key} #{options[:class]}".strip

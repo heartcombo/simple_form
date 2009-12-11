@@ -1,18 +1,28 @@
 == SimpleForm
 
-Forms made easy!
+Forms made easy (for Rails)!
 
-SimpleForm aims to be as flexible as possible while helping you with powerful components to create your forms. The basic goal of simple form is to not touch your way of defining the layout, this way letting you find how you find the better design for your eyes.
+SimpleForm aims to be as flexible as possible while helping you with powerful components to create your forms. The basic goal of simple form is to not touch your way of defining the layout, this way letting you find how you find the better design for your eyes. Good part of the DSL was inherited from Formtastic, which we are thankful for and should make you feel right at home.
 
-== Instalation
+== Installation
+
+Install the gem:
 
   sudo gem install simple_form
 
+Configure simple_form gem inside your app:
+
+  config.gem 'simple_form'
+
+Run the generator:
+
+  ruby script/generate simple_form_install
+
+And you're ready to go.
+
 == Usage
 
-SimpleForm was designed to be customized as you need to. Basically it's a stack of components that are generated to create a complete html input for you, with label + hints + errors. The best of this is that you can add any element on this stack in any place, or even remove any of them.
-
-It also does not aim to create a lot of different logic from the default Rails form helpers, as they do a great work by themselves. Instead, SimpleForm acts as a DSL and uses some mappings to guess which input type you are trying to create. This will let you create your own mappings and helpers to use together with SimpleForm.
+SimpleForm was designed to be customized as you need to. Basically it's a stack of components that are invoked to create a complete html input for you, which by default contains label, hints, errors and the input itself. It does not aim to create a lot of different logic from the default Rails form helpers, as they do a great work by themselves. Instead, SimpleForm acts as a DSL and just maps your input type (retrieved from the column definition in the database) to an specific helper method.
 
 To start using SimpleForm you just have to use the helper it provides:
 
@@ -32,28 +42,16 @@ You can overwrite the default label by passing it to the input method, or even a
     <p><%= f.button :submit %></p>
   <% end -%>
 
-Or you can disable labels, hints and errors inside a specific input:
+You can also disable labels, hints or error or configure the html of any of them:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :username, :label => false %></p>
-    <p><%= f.input :password, :hint => false, :error => false %></p>
-    <p><%= f.input :password_confirmation, :error => false %></p>
+    <p><%= f.input :username, :label_html => { :class => 'my_class' } %></p>
+    <p><%= f.input :password, :hint => false, :error_html => { :id => "password_error"} %></p>
+    <p><%= f.input :password_confirmation, :label => false %></p>
     <p><%= f.button :submit %></p>
   <% end -%>
 
-You can also pass html options for the label, input, hint or error tag:
-
-  <% simple_form_for @user do |f| -%>
-    <p><%= f.input :name, :label_html => { :class => 'my_class' } %></p>
-    <p><%= f.input :username, :input_html => { :disabled => true } %></p>
-    <p><%= f.input :password, :hint => 'Confirm!',
-                   :hint_html => { :id => 'password_hint' } %></p>
-    <p><%= f.input :password_confirmation,
-                   :error_html => { :id => 'password_error' } %></p>
-    <p><%= f.button :submit %></p>
-  <% end -%>
-
-By default all inputs are required, but you can disable it in any input you want:
+By default all inputs are required, which means an * is prepended to the label, but you can disable it in any input you want:
 
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :name, :required => false %></p>
@@ -62,31 +60,22 @@ By default all inputs are required, but you can disable it in any input you want
     <p><%= f.button :submit %></p>
   <% end -%>
 
-This way the name input will not have the required text and css classes. SimpleForm also lets you overwrite the default input type it creates:
+SimpleForm also lets you overwrite the default input type it creates:
 
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :username %></p>
     <p><%= f.input :password %></p>
-    <p><%= f.input :active, :as => :radio %></p>
+    <p><%= f.input :description, :as => :text %></p>
+    <p><%= f.input :accepts,     :as => :radio %></p>
     <p><%= f.button :submit %></p>
   <% end -%>
 
-So instead of a checkbox for the active attribute, you'll have a set of boolean radio buttons with yes/no options. You can do the same with :as => :select option for boolean attributes.
-
-What if you want to create a select containing the age from 18 to 60 in your form? You can do it overriding the :collection option:
-
-  <% simple_form_for @user do |f| -%>
-    <p><%= f.input :user %></p>
-    <p><%= f.input :age, :collection => 18..60 %></p>
-    <p><%= f.button :submit %></p>
-  <% end -%>
-
-Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option.
+So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no labels and a text area instead of a text field for the description. You can also render boolean attributes using :as => :select to show a dropdown.
 
 SimpleForm also allows you using label, hint and error helpers it provides:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.label :username, :label => 'Type your user name:' %></p>
+    <p><%= f.label :username %></p>
     <p><%= f.text_field :username %></p>
     <p><%= f.error :username, :id => 'user_name_error' %></p>
     <p><%= f.hint 'No special characters, please!' %></p>
@@ -95,9 +84,55 @@ SimpleForm also allows you using label, hint and error helpers it provides:
 
 Any extra option passed to label, hint or error will be rendered as html option.
 
-=== Associations
+=== Collections
 
-To deal with associations, SimpleForm can generate select inputs, a serie  of radios or check boxes. Lets see how it works: imagine you have the user model that belongs to a company and has_and_belongs_to_many roles. The structure should be something like:
+And what if you want to create a select containing the age from 18 to 60 in your form? You can do it overriding the :collection option:
+
+  <% simple_form_for @user do |f| -%>
+    <p><%= f.input :user %></p>
+    <p><%= f.input :age, :collection => 18..60 %></p>
+    <p><%= f.button :submit %></p>
+  <% end -%>
+
+Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option. Other types of collection are :radio and :check_boxes. Those are added by SimpleForm to Rails set of form helpers (read Extra Helpers session below for more information).
+
+Collection inputs accepts two other options beside collections:
+
+* label_method => the label method to be applied to the collection to retrieve the label
+
+* value_method => the value method to be applied to the collection to retrieve the value
+
+Those methods are useful to manipulate the given collection. All other options given are sent straight to the underlying helper. For example, you can give prompt as:
+
+  f.input :age, :collection => 18..60, :prompt => "Select your age"
+
+=== Priority
+
+SimpleForm also supports :time_zone and :country. When using such helpers, you can give :priority as option to select which time zones and/or countries should be given higher priority:
+
+  f.input :residence_country, :priority => [ "Brazil ]
+  f.input :time_zone, :priority => /US/
+
+Those values can also be configured with a default value to be used site use through the SimpleForm.country_priority and SimpleForm.time_zone_priority helpers.
+
+=== Wrapper
+
+SimpleForm allows you to add a wrapper which contains the label, error, hint and input.
+The first step is to configure a wrapper tag:
+
+	SimpleForm.wrapper_tag = :p
+
+And now, you don't need to wrap your f.input calls with <p> anymore:
+
+	<% simple_form_for @user do |f| -%>
+	  <%= f.input :username %>
+	  <%= f.input :password %>
+	  <p><%= f.button :submit %></p>
+	<% end -%>
+
+== Associations
+
+To deal with associations, SimpleForm can generate select inputs or a series of radios or check boxes. Lets see how it works: imagine you have the user model that belongs to a company and has_and_belongs_to_many roles. The structure should be something like:
 
   class User < ActiveRecord::Base
     belongs_to :company
@@ -139,11 +174,11 @@ Here is an example of how to use this options:
   f.association :company, :order => 'name', :scopes => :active
   f.association :roles, :conditions => { :active => true }
 
-Or you can simply use your own collection:
+The association helper just invokes input under the hood, so all options available to :select, :radio and :check_boxes are also available to association. For example, you can specify the collection by hand, all together with the prompt:
 
-  f.association :company, :collection => Company.active.all(:order => 'name')
+  f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
 
-=== Buttons
+== Buttons
 
 All web forms need buttons, right? To help you with this, SimpleForm has a default button helper that acts as a wrapper for Rails helpers, creating submit texts using I18n. It's pretty straightforward:
 
@@ -152,16 +187,16 @@ All web forms need buttons, right? To help you with this, SimpleForm has a defau
     <p><%= f.button :submit %></p>
   <% end -%>
 
-This will create a input submit tag for you, using the information given to create the submit text: when you are dealing with a new object, it will look for a specific :create key using I18n; when it's an existing object, it will look for :update. Otherwise, if no object is given, :submit is the default I18n key. Button will append the human name of the object whenever possible to the text, so in the context of the form above we would have 'Create User' or 'Update User', depending on the context.
+This will create a input submit tag for you. If the resource @user is a new record, the button will have text 'Create User', otherwise 'Update User' is shown. If you are working with forms without objects, 'Submit User' would be shown. All those buttons labels can be configured using I18n through the keys :simple_form.buttons.create, :simple_form.buttons.update and :simple_form.buttons.submit.
 
 You can also pass the button text directly:
 
   f.button :submit, 'Save User'
   f.button :submit, :label => 'Save User'
 
-As button is just a wrapper, it is actually calling your :submit_tag Rails helper with the text it provides. That said, any other option you pass will be given to :submit_tag call:
+As button is just a wrapper, it is actually calling Rails helper :submit_tag with the provided text. That said, any other option you pass will be given to :submit_tag call:
 
-  f.button :submit, 'Save User', :class => 'my_pretty_button'
+  f.button :submit, :confirm => 'Are you sure?'
 
 And if you want to use any other button tag, you just need to create a helper that ends with "_tag":
 
@@ -172,15 +207,15 @@ And if you want to use any other button tag, you just need to create a helper th
 
 And you will able to use it with SimpleForm:
 
-  f.button :custom_submit, 'Hello World!'
+  f.button :custom_submit
 
 == Extra helpers
 
-SimpleForm also comes with some extra helpers you can use inside rails default forms without relying on simple_form_for helper.
+SimpleForm also comes with some extra helpers you can use inside rails default forms without relying on simple_form_for helper. They are listed below.
 
 === Simple Fields For
 
-Wrapper for use simple form inside a default rails form
+Wrapper to use simple form inside a default rails form
 
   form_for @user do |f|
     f.simple_fields_for :posts do |posts_form|
@@ -191,7 +226,7 @@ Wrapper for use simple form inside a default rails form
 
 === Collection Radio
 
-Creates a collection of radio inputs with labels associated:
+Creates a collection of radio inputs with labels associated (same API as collection_select):
 
   form_for @user do |f|
     f.collection_radio :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
@@ -204,7 +239,7 @@ Creates a collection of radio inputs with labels associated:
 
 === Collection Check Box
 
-Creates a collection of check boxes with labels associated:
+Creates a collection of check boxes with labels associated (same API as collection_select):
 
   form_for @user do |f|
     f.collection_check_box :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
@@ -241,7 +276,6 @@ SimpleForm comes with a lot of default mappings:
   country               country select          string with name matching "country"
   time_zone             time zone select        string with name matching "time_zone"
 
-
 == I18n
 
 SimpleForm uses all power of I18n API to lookup labels and hints for you. To customize your forms you can create a locale file like this:
@@ -259,26 +293,17 @@ SimpleForm uses all power of I18n API to lookup labels and hints for you. To cus
 
 And your forms will use this information to render labels and hints for you.
 
-SimpleForm also lets you be more specific, separating lookups through actions. Let's say you want a different label and hint for new and edit actions, the locale file would be something like:
+SimpleForm also lets you be more specific, separating lookups through actions for both hint and label. Let's say you want a different label for new and edit actions, the locale file would be something like:
 
   en:
     simple_form:
       labels:
         user:
-          new:
-            username: 'User name'
-            password: 'Password'
+        	username: 'User name'
+        	password: 'Password'
           edit:
             username: 'Change user name'
             password: 'Change password'
-      hints:
-        user:
-          new:
-            username: 'User name to sign in.'
-            password: 'No special characters, please.'
-          edit:
-            username: 'Update your user name to sign in.'
-            password: 'Let it blank to not change your password.'
 
 This way SimpleForm will figure out the right translation for you, based on the action being rendered. And to be a little bit DRYer with your locale file, you can skip the model information inside it:
 
@@ -295,51 +320,37 @@ SimpleForm will always look for a default attribute translation if no specific i
 
 Finally, you can also overwrite labels and hints inside your view, just by passing the label/hint manually. This way the I18n lookup will be skipped.
 
-There are other options that can be configured through I18n API, such as required for labels and boolean texts, you just need to overwrite the following keys:
+There are other options that can be configured through I18n API, such as required text, boolean and button texts. Be sure to check our locale file or the one copied to your application after you run "script/generate simple_form_install".
 
-  en:
-    simple_form:
-      true: 'Yes'
-      false: 'No'
-      required:
-        text: 'required'
-        mark: '*'
+== Components
 
-Instead of using the text and mark options from required, you can also overwrite the entire required html string as follows:
+SimpleForm has several configuration values. You can read and change them in the initializer created by SimpleForm, so if you haven't executed the command below yet, please do:
 
-  en:
-    simple_form:
-      required:
-        html: '<abbr title="required">*</abbr> '
+  ruby script/generate simple_form_install
 
-Please take a look at our locale file as example.
+== Components
 
-== Configuration
+SimpleForm is built within components, by default, those components are:
 
-You have a set of options available to configure SimpleForm:
+ [ SimpleForm::Components::Label, SimpleForm::Components::Input,
+	 SimpleForm::Components::Hint, SimpleForm::Components::Error ]
 
-* collection_label_methods => all methods available to detect the label for a collection.
+This means you can add, remove and change components order through the SimpleForm.components method. A component is an object that accepts two arguments on initialization, the form builder and the next component in the stack, and responds to call. A bypass component (which does nothing) is as simple as:
 
-* collection_value_methods => all methods available to detect the value for a collection.
+  class MyComponent
+		def initialize(builder, next_component)
+		  @builder = builder
+		  @next_component = next_component
+		end
 
-* file_methods => collection of methods to detect if a file type was given.
+		def call
+			@next_component.call
+		end
+	end
 
-* wrapper_tag => wrapper tag to wrap the inputs. By default no wrapper exists.
+For example, imagine you get a layout for some project where the concept of hint does not exist. Instead you have instructions and example sections for each input. You can simply create a Instruction and Example component (check for example the Hint component, it's just 10 lines of code) and add them to the component stack.
 
-* component_tag => default tag used in components. by default is :span.
-
-* components => stack of components used in form builder to create the input.
-                   You can add or remove any of this components as you need.
-
-* label_text => how the label text should be generated with the required text.
-
-* time_zone_priority => default priority for time_zone inputs.
-
-* country_priority => default priority for country inputs.
-
-To do it so you just need to create a file inside your initializer folder and use the configurations as follows:
-
-  SimpleForm.collection_label_methods = [:to_label, :title, :description, :name, :to_s]
+This also gives great extensibility to SimpleForm, so you can add javascript masks, validations, etc.
 
 == TODO
 
