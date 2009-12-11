@@ -1,7 +1,7 @@
 require 'ostruct'
 
 Column = Struct.new(:name, :type, :limit)
-Association = Struct.new(:klass)
+Association = Struct.new(:klass, :name, :options)
 
 class Company < Struct.new(:id, :name)
   def self.all(options={})
@@ -56,7 +56,7 @@ class User < OpenStruct
   end
 
   def self.reflect_on_association(association)
-    Association.new(Company) if association == :company
+    Association.new(Company, association, {}) if association == :company
   end
 
   def errors

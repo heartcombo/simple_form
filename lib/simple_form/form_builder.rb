@@ -95,10 +95,12 @@ module SimpleForm
     def association(attribute, options={})
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
-      options[:collection] ||= begin
-        association = find_association(attribute)
-        raise "Association not found #{attribute.inspect}" unless association
+      association = find_association(attribute)
+      raise "Association not found #{attribute.inspect}" unless association
 
+      attribute = association.options[:foreign_key] || :"#{association.name}_id"
+
+      options[:collection] ||= begin
         find_options = { :conditions => options.delete(:conditions),
                          :order => options.delete(:order) }
         association.klass.all(find_options)

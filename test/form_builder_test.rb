@@ -346,7 +346,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should allow creating an association input generating collection' do
     with_association_for @user, :company
-    assert_select 'form select.select#user_company'
+    assert_select 'form select.select#user_company_id'
     assert_select 'form select option[value=1]', 'Company 1'
     assert_select 'form select option[value=2]', 'Company 2'
     assert_select 'form select option[value=3]', 'Company 3'
@@ -354,7 +354,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should allow passing conditions to find collection' do
     with_association_for @user, :company, :conditions => { :id => 1 }
-    assert_select 'form select.select#user_company'
+    assert_select 'form select.select#user_company_id'
     assert_select 'form select option[value=1]'
     assert_no_select 'form select option[value=2]'
     assert_no_select 'form select option[value=3]'
@@ -362,7 +362,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should allow passing order to find collection' do
     with_association_for @user, :company, :order => 'name'
-    assert_select 'form select.select#user_company'
+    assert_select 'form select.select#user_company_id'
     assert_no_select 'form select option[value=1]'
     assert_no_select 'form select option[value=2]'
     assert_select 'form select option[value=3]'
@@ -372,7 +372,7 @@ class FormBuilderTest < ActionView::TestCase
     with_association_for @user, :company,
                          :collection => [Company.new(999, 'Teste')],
                          :options => { :include_blank => false }
-    assert_select 'form select.select#user_company'
+    assert_select 'form select.select#user_company_id'
     assert_no_select 'form select option[value=1]'
     assert_select 'form select option[value=999]', 'Teste'
     assert_select 'form select option', :count => 1
