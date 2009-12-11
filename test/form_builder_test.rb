@@ -279,18 +279,18 @@ class FormBuilderTest < ActionView::TestCase
   # BUTTONS
   test 'builder should create buttons' do
     with_button_for :post, :submit
-    assert_select 'form input[type=submit][value=Submit Post]'
+    assert_select 'form input.submit[type=submit][value=Submit Post]'
   end
 
   test 'builder should create buttons for new records' do
     @user.new_record!
     with_button_for @user, :submit
-    assert_select 'form input[type=submit][value=Create User]'
+    assert_select 'form input.create[type=submit][value=Create User]'
   end
 
   test 'builder should create buttons for existing records' do
     with_button_for @user, :submit
-    assert_select 'form input[type=submit][value=Update User]'
+    assert_select 'form input.update[type=submit][value=Update User]'
   end
 
   test 'builder should create buttons using human_name' do
@@ -329,7 +329,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder forwards all options except label to button' do
     with_button_for :post, :submit, :class => "cool", :id => "super"
-    assert_select 'form input#super.cool[type=submit]'
+    assert_select 'form input#super.submit.cool[type=submit]'
   end
 
   test 'builder calls any button tag' do

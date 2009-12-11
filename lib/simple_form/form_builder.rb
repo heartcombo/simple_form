@@ -162,18 +162,19 @@ module SimpleForm
     def button(type, *args)
       options = args.extract_options!
       value   = args.first || options.delete(:label)
+      key     = @object ? (@object.new_record? ? :create : :update) : :submit
 
       value ||= begin
-        if @object
-          key   = @object.new_record? ? :create : :update
-          model = @object.class.human_name if @object.class.respond_to?(:human_name)
+        model = if @object.class.respond_to?(:human_name)
+          @object.class.human_name
+        else
+          @object_name.to_s.humanize
         end
-        key   ||= :submit
-        model ||= @object_name.to_s.humanize
 
         I18n.t(:"simple_form.#{key}", :model => model, :default => "#{key.to_s.humanize} #{model}")
       end
 
+      options[:class] = "#{key} #{options[:class]}".strip
       @template.send(:"#{type}_tag", value, options)
     end
 
