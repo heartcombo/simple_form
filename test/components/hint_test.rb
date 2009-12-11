@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ErrorTest < ActionView::TestCase
+class HintTest < ActionView::TestCase
 
   def with_hint_for(object, attribute, type, options={}, setup_association=false, &block)
     simple_form_for object do |f|
@@ -43,7 +43,6 @@ class ErrorTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :hints => { :user => {
       :edit => { :name => 'Content of this input will be truncated...' }
     } } }) do
-      params.merge!(:action => 'edit')
       with_hint_for @user, :name, :string
       assert_select 'span.hint', 'Content of this input will be truncated...'
     end

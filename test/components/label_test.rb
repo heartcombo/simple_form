@@ -50,7 +50,6 @@ class LabelTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :labels => { :user => {
       :new => { :description => 'Nova descrição' }
     } } } ) do
-      params.merge!(:action => 'new')
       with_label_for @user, :description, :text
       assert_select 'label[for=user_description]', /Nova descrição/
     end
@@ -61,7 +60,6 @@ class LabelTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :labels => { :user => {
       :new => { :description => 'Nova descrição' }
     } } } ) do
-      params.merge!(:action => 'new')
       with_label_for @user, :description, :text
       assert_select 'label[for=user_description]', /Nova descrição/
     end
