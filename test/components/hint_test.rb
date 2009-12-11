@@ -8,7 +8,7 @@ class ErrorTest < ActionView::TestCase
       f.input_type = type
       f.options    = options
 
-      hint = SimpleForm::Components::Hint.new(f, SimpleForm.terminator)
+      hint = SimpleForm::Components::Hint.new(f, SimpleForm::FormBuilder::TERMINATOR)
       concat(hint.call)
       yield hint if block_given?
     end

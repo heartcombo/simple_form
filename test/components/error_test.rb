@@ -8,7 +8,7 @@ class ErrorTest < ActionView::TestCase
       f.input_type = type
       f.options    = options
 
-      error = SimpleForm::Components::Error.new(f, SimpleForm.terminator)
+      error = SimpleForm::Components::Error.new(f, SimpleForm::FormBuilder::TERMINATOR)
       concat(error.call)
       yield error if block_given?
     end
