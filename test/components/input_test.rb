@@ -86,9 +86,9 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should be able to pass options to datetime select' do
-    with_input_for @user, :created_at, :datetime, :options => {
+    with_input_for @user, :created_at, :datetime,
       :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
-    }
+
     assert_select 'select.datetime[disabled=disabled]'
     assert_select 'select.datetime option', 'ano'
     assert_select 'select.datetime option', 'mês'
@@ -104,9 +104,9 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should be able to pass options to date select' do
-    with_input_for @user, :born_at, :date, :options => {
+    with_input_for @user, :born_at, :date, :as => :date,
       :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
-    }
+
     assert_select 'select.date[disabled=disabled]'
     assert_select 'select.date option', 'ano'
     assert_select 'select.date option', 'mês'
@@ -123,9 +123,9 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should be able to pass options to time select' do
-    with_input_for @user, :delivery_time, :time, :options => {
+    with_input_for @user, :delivery_time, :time, :required => true,
       :disabled => true, :prompt => { :hour => 'hora', :minute => 'minuto' }
-    }
+
     assert_select 'select.time[disabled=disabled]'
     assert_select 'select.time option', 'hora'
     assert_select 'select.time option', 'minuto'
@@ -191,7 +191,7 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should not set include blank if otherwise is told' do
-    with_input_for @user, :age, :select, :collection => 18..30, :options => { :include_blank => false }
+    with_input_for @user, :age, :select, :collection => 18..30, :include_blank => false
     assert_no_select 'select option[value=]', ""
   end
 

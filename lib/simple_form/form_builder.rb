@@ -17,7 +17,8 @@ module SimpleForm
     #     f.input :name, :hint => 'My hint'
     #   end
     #
-    #   This is the output html (only the input portion, not the form):
+    # This is the output html (only the input portion, not the form):
+    #
     #     <label class="string required" for="user_name">
     #       <abbr title="required">*</abbr> Super User Name!
     #     </label>
@@ -48,9 +49,9 @@ module SimpleForm
     # == Options
     #
     # Some inputs, as datetime, time and select allow you to give extra options, like
-    # prompt and/or include blank. Such options are given in the :options key.
+    # prompt and/or include blank. Such options are given in plainly:
     #
-    #    f.input :created_at, :options => { :include_blank => true }
+    #    f.input :created_at, :include_blank => true
     #
     # == Collection
     #
