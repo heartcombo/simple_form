@@ -1,6 +1,7 @@
 module SimpleForm
   module ActionViewExtensions
-    module InstanceTag
+    module InstanceTag #:nodoc:
+      # Overwrite to_check_box_tag to make it available to work with :multiple => true
       def to_check_box_tag(options = {}, checked_value = "1", unchecked_value = "0")
         options = options.stringify_keys
         options["type"]  = "checkbox"
@@ -14,6 +15,7 @@ module SimpleForm
         end
         options["checked"] = "checked" if checked
 
+        # The only part added to deal with multiple check box is this conditional.
         if options["multiple"]
           add_default_name_and_id_for_value(checked_value, options)
           options.delete("multiple")
@@ -23,7 +25,7 @@ module SimpleForm
 
         hidden   = tag("input", "name" => options["name"], "type" => "hidden", "value" => options['disabled'] && checked ? checked_value : unchecked_value)
         checkbox = tag("input", options)
-        
+
         result = hidden + checkbox
         result.respond_to?(:html_safe!) ? result.html_safe! : result
       end
