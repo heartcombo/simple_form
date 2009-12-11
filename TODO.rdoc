@@ -1,7 +1,6 @@
 == General
 
 * Sample CSS
-* :group types support
 
 == Validations
 
