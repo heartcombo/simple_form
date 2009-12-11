@@ -146,7 +146,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form input.check[type=checkbox][value=2]'
   end
 
-  test 'collection check box with semantic fields for' do
+  test 'collection check box with fields for' do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     form_for @user do |f|
       f.fields_for :post do |p|
