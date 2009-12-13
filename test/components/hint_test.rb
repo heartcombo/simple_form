@@ -2,10 +2,10 @@ require 'test_helper'
 
 class HintTest < ActionView::TestCase
 
-  def with_hint_for(object, attribute, type, options={}, setup_association=false, &block)
+  def with_hint_for(object, attribute, type, options={}, &block)
     simple_form_for object do |f|
       f.attribute  = attribute
-      f.reflection = Association.new(Company, :company, {}) if setup_association
+      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type = type
       f.options    = options
 
@@ -70,7 +70,7 @@ class HintTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :hints => {
       :user => { :company => 'My company!' }
     } } ) do
-      with_hint_for @user, :company_id, :string, {}, true
+      with_hint_for @user, :company_id, :string, :setup_association => true
       assert_select 'span.hint', /My company!/
     end
   end

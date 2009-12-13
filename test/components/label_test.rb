@@ -6,10 +6,10 @@ class LabelTest < ActionView::TestCase
     SimpleForm::Components::Label.reset_i18n_cache :translate_required_html
   end
 
-  def with_label_for(object, attribute, type, options={}, setup_association=false)
+  def with_label_for(object, attribute, type, options={})
     simple_form_for object do |f|
       f.attribute  = attribute
-      f.reflection = Association.new(Company, :company, {}) if setup_association
+      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type = type
       f.options    = options
 
@@ -41,7 +41,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should use human attribute name based on association name' do
-    with_label_for @user, :company, :string, {}, true
+    with_label_for @user, :company_id, :string, :setup_association => true
     assert_select 'label', /Company Human Name!/
   end
 
@@ -85,7 +85,7 @@ class LabelTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :labels => {
       :user => { :company => 'My company!' }
     } } ) do
-      with_label_for @user, :company_id, :string, {}, true
+      with_label_for @user, :company_id, :string, :setup_association => true
       assert_select 'label[for=user_company_id]', /My company!/
     end
   end

@@ -58,6 +58,7 @@ module SimpleForm
       #   hint_html => {}
       #   error_html => {}
       #   wrapper_html => {}
+      #
       def component_html_options
         options[:"#{basename}_html"] || {}
       end

@@ -2,10 +2,10 @@ require 'test_helper'
 
 class ErrorTest < ActionView::TestCase
 
-  def with_error_for(object, attribute, type, options={}, setup_association=false, &block)
+  def with_error_for(object, attribute, type, options={}, &block)
     simple_form_for object do |f|
       f.attribute  = attribute
-      f.reflection = Association.new(Company, :company, {}) if setup_association
+      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type = type
       f.options    = options
 
@@ -49,7 +49,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'error should find errors on attribute and association' do
-    with_error_for @user, :company_id, :select, {}, true
+    with_error_for @user, :company_id, :select, :setup_association => true
     assert_select 'span.error', 'must be valid and company must be present'
   end
 end

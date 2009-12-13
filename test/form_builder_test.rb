@@ -38,6 +38,7 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  # INPUT TYPES
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
     assert_select 'form input#user_name.string'
@@ -100,6 +101,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should generate file for file columns' do
     @user.avatar = mock("file")
+    @user.avatar.expects(:respond_to?).with(:mounted_as).returns(false)
     @user.avatar.expects(:respond_to?).with(:file?).returns(false)
     @user.avatar.expects(:respond_to?).with(:public_filename).returns(true)
 
@@ -126,6 +128,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_born_at.string'
   end
 
+  # COMMON OPTIONS
   test 'builder should allow passing options to input' do
     with_form_for @user, :name, :input_html => { :class => 'my_input', :id => 'my_input' }
     assert_select 'form input#my_input.my_input.string'
@@ -178,6 +181,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'span.error'
   end
 
+  # WRAPPERS
   test 'builder support wrapping around an specific tag' do
     swap SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name
@@ -218,6 +222,7 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name
     assert_select 'form input.string#project_name'
