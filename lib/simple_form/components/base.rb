@@ -8,7 +8,7 @@ module SimpleForm
     # The Base component is a raw component with some helpers and a default behavior
     # of prepending the content available in the method content.
     class Base
-      delegate :template, :object, :object_name, :attribute, :column,
+      delegate :template, :object, :object_name, :attribute_name, :column,
                :reflection, :input_type, :options, :to => :@builder
 
       # When action is create or update, we still should use new and edit
@@ -46,8 +46,8 @@ module SimpleForm
       end
 
       # Find reflection name when available, otherwise use attribute
-      def reflecion_name_or_attribute
-        @refletion_name_or_attribute ||= (reflection ? reflection.name : attribute)
+      def reflection_or_attribute_name
+        reflection ? reflection.name : attribute_name
       end
 
       # Default html options for a component. Passed as a parameter for simple
@@ -96,9 +96,9 @@ module SimpleForm
       #  Take a look at our locale example file.
       def translate(default='')
         lookups = []
-        lookups << :"#{object_name}.#{lookup_action}.#{reflecion_name_or_attribute}"
-        lookups << :"#{object_name}.#{reflecion_name_or_attribute}"
-        lookups << :"#{reflecion_name_or_attribute}"
+        lookups << :"#{object_name}.#{lookup_action}.#{reflection_or_attribute_name}"
+        lookups << :"#{object_name}.#{reflection_or_attribute_name}"
+        lookups << :"#{reflection_or_attribute_name}"
         lookups << default
         I18n.t(lookups.shift, :scope => :"simple_form.#{basename.to_s.pluralize}", :default => lookups)
       end

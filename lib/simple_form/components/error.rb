@@ -13,7 +13,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        Array(object.errors[attribute])
+        Array(object.errors[attribute_name])
       end
 
       def errors_on_association

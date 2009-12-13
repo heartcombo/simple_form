@@ -1,6 +1,6 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object, :attribute, :column,
+    attr_reader :template, :object_name, :object, :attribute_name, :column,
                 :reflection, :input_type, :options
 
     TERMINATOR = lambda { "" }
@@ -70,8 +70,8 @@ module SimpleForm
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
-    def input(attribute, options={})
-      define_simple_form_attributes(attribute, options)
+    def input(attribute_name, options={})
+      define_simple_form_attributes(attribute_name, options)
 
       component = TERMINATOR
       SimpleForm.components.reverse.each do |klass|
@@ -80,6 +80,7 @@ module SimpleForm
       end
       component.call
     end
+    alias :attribute :input
 
     # Helper for dealing with association selects/radios, generating the
     # collection automatically. It's just a wrapper to input, so all options
@@ -112,11 +113,11 @@ module SimpleForm
     #   f.association :company, :scope => [ :public, :not_broken ]
     #   # Same as doing Company.public.not_broken.all
     #
-    def association(attribute, options={})
+    def association(association, options={})
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
       options[:as] ||= :select
-      @reflection = find_association_reflection(attribute)
+      @reflection = find_association_reflection(association)
       raise "Association #{attribute.inspect} not found" unless @reflection
 
       case @reflection.macro
@@ -203,8 +204,8 @@ module SimpleForm
     #    f.error :name
     #    f.error :name, :id => "cool_error"
     #
-    def error(attribute, options={})
-      define_simple_form_attributes(attribute, :error_html => options)
+    def error(attribute_name, options={})
+      define_simple_form_attributes(attribute_name, :error_html => options)
       SimpleForm::Components::Error.new(self, TERMINATOR).call
     end
 
@@ -218,9 +219,9 @@ module SimpleForm
     #    f.hint :name, :id => "cool_hint"
     #    f.hint "Don't forget to accept this"
     #
-    def hint(attribute, options={})
-      attribute, options[:hint] = nil, attribute if attribute.is_a?(String)
-      define_simple_form_attributes(attribute, :hint => options.delete(:hint), :hint_html => options)
+    def hint(attribute_name, options={})
+      attribute_name, options[:hint] = nil, attribute_name if attribute_name.is_a?(String)
+      define_simple_form_attributes(attribute_name, :hint => options.delete(:hint), :hint_html => options)
       SimpleForm::Components::Hint.new(self, TERMINATOR).call
     end
 
@@ -237,10 +238,10 @@ module SimpleForm
     #    f.label :name, :required => false
     #    f.label :name, :id => "cool_label"
     #
-    def label(attribute, *args)
+    def label(attribute_name, *args)
       return super if args.first.is_a?(String)
       options = args.extract_options!
-      define_simple_form_attributes(attribute, :label => options.delete(:label),
+      define_simple_form_attributes(attribute_name, :label => options.delete(:label),
         :label_html => options, :required => options.delete(:required))
       SimpleForm::Components::Label.new(self, TERMINATOR).call
     end
@@ -248,10 +249,10 @@ module SimpleForm
   private
 
     # Setup default simple form attributes.
-    def define_simple_form_attributes(attribute, options) #:nodoc:
+    def define_simple_form_attributes(attribute_name, options) #:nodoc:
       @options = options
 
-      if @attribute = attribute
+      if @attribute_name = attribute_name
         @column     = find_attribute_column
         @input_type = default_input_type
       end
@@ -270,7 +271,7 @@ module SimpleForm
         when :timestamp
           :datetime
         when :string, nil
-          match = case @attribute.to_s
+          match = case @attribute_name.to_s
             when /password/  then :password
             when /time_zone/ then :time_zone
             when /country/   then :country
@@ -284,18 +285,18 @@ module SimpleForm
 
     # Checks if attribute is a file_method.
     def file_method? #:nodoc:
-      file = @object.send(@attribute) if @object.respond_to?(@attribute)
+      file = @object.send(@attribute_name) if @object.respond_to?(@attribute_name)
       :file if file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
     # Finds the database column for the given attribute
     def find_attribute_column #:nodoc:
-      @object.column_for_attribute(@attribute) if @object.respond_to?(:column_for_attribute)
+      @object.column_for_attribute(@attribute_name) if @object.respond_to?(:column_for_attribute)
     end
 
     # Find association related to attribute
-    def find_association_reflection(attribute) #:nodoc:
-      @object.class.reflect_on_association(attribute) if @object.class.respond_to?(:reflect_on_association)
+    def find_association_reflection(association) #:nodoc:
+      @object.class.reflect_on_association(association) if @object.class.respond_to?(:reflect_on_association)
     end
 
   end

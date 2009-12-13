@@ -6,12 +6,12 @@ class LabelTest < ActionView::TestCase
     SimpleForm::Components::Label.reset_i18n_cache :translate_required_html
   end
 
-  def with_label_for(object, attribute, type, options={})
+  def with_label_for(object, attribute_name, type, options={})
     simple_form_for object do |f|
-      f.attribute  = attribute
-      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
-      f.input_type = type
-      f.options    = options
+      f.attribute_name = attribute_name
+      f.reflection     = Association.new(Company, :company, {}) if options.delete(:setup_association)
+      f.input_type     = type
+      f.options        = options
 
       label = SimpleForm::Components::Label.new(f, SimpleForm::FormBuilder::TERMINATOR)
       concat(label.call)

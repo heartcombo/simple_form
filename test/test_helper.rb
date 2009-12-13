@@ -19,7 +19,7 @@ $:.unshift "#{File.dirname(__FILE__)}/support/country_select/lib"
 require 'country_select'
 
 class SimpleForm::FormBuilder
-  attr_accessor :attribute, :column, :reflection, :input_type, :options
+  attr_accessor :attribute_name, :column, :reflection, :input_type, :options
 end
 
 class ActionView::TestCase

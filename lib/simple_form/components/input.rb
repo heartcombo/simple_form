@@ -48,7 +48,7 @@ module SimpleForm
         mapping = self.class.mappings[input_type]
         raise "Invalid input type #{input_type.inspect}" unless mapping
 
-        args = [ attribute ]
+        args = [ attribute_name ]
         apply_with_priority_behavior(args) if mapping.with_priority
         apply_collection_behavior(args)    if mapping.collection
         apply_options_behavior(args)       if mapping.options

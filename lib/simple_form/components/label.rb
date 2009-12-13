@@ -35,19 +35,19 @@ module SimpleForm
       def content
         html_options = component_html_options
         html_options[:for] = options[:input_html][:id] if options.key?(:input_html)
-        @builder.label(attribute_name, text, html_options)
+        @builder.label(label_target, text, html_options)
       end
 
       # Map attribute to specific name when dealing with date/time/timestamp,
       # ensuring label will always be "clickable". For better accessibility.
-      def attribute_name
+      def label_target
         case input_type
           when :date, :datetime
-            "#{attribute}_1i"
+            "#{attribute_name}_1i"
           when :time
-            "#{attribute}_4i"
+            "#{attribute_name}_4i"
           else
-            attribute
+            attribute_name
         end
       end
 
@@ -77,9 +77,9 @@ module SimpleForm
       # available or just use the attribute itself humanized.
       def translate_label
         default = if object.class.respond_to?(:human_attribute_name)
-          object.class.human_attribute_name(reflecion_name_or_attribute.to_s)
+          object.class.human_attribute_name(reflection_or_attribute_name.to_s)
         else
-          attribute.to_s.humanize
+          attribute_name.to_s.humanize
         end
 
         translate(default)

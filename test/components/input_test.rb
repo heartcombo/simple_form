@@ -6,12 +6,12 @@ class InputTest < ActionView::TestCase
     SimpleForm::Components::Input.reset_i18n_cache :boolean_collection
   end
 
-  def with_input_for(object, attribute, type, options={})
+  def with_input_for(object, attribute_name, type, options={})
     simple_form_for object do |f|
-      f.attribute  = attribute
-      f.column     = object.column_for_attribute(attribute) if object.respond_to?(:column_for_attribute)
-      f.input_type = type
-      f.options    = options
+      f.attribute_name = attribute_name
+      f.column         = object.column_for_attribute(attribute_name) if object.respond_to?(:column_for_attribute)
+      f.input_type     = type
+      f.options        = options
 
       input = SimpleForm::Components::Input.new(f, SimpleForm::FormBuilder::TERMINATOR)
       concat(input.call)

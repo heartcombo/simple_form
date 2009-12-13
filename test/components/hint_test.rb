@@ -2,12 +2,12 @@ require 'test_helper'
 
 class HintTest < ActionView::TestCase
 
-  def with_hint_for(object, attribute, type, options={}, &block)
+  def with_hint_for(object, attribute_name, type, options={}, &block)
     simple_form_for object do |f|
-      f.attribute  = attribute
-      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
-      f.input_type = type
-      f.options    = options
+      f.attribute_name = attribute_name
+      f.reflection     = Association.new(Company, :company, {}) if options.delete(:setup_association)
+      f.input_type     = type
+      f.options        = options
 
       hint = SimpleForm::Components::Hint.new(f, SimpleForm::FormBuilder::TERMINATOR)
       concat(hint.call)
