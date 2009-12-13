@@ -1,7 +1,7 @@
 en:
   simple_form:
-    true: 'Yes'
-    false: 'No'
+    "yes": 'Yes'
+    "no": 'No'
     buttons:
       create: 'Create {{model}}'
       update: 'Update {{model}}'

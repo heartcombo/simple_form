@@ -180,7 +180,7 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input as radio should use i18n to translate internal labels' do
-    store_translations(:en, :simple_form => { :true => 'Sim', :false => 'Não' }) do
+    store_translations(:en, :simple_form => { :yes => 'Sim', :no => 'Não' }) do
       with_input_for @user, :active, :radio
       assert_select 'label[for=user_active_true]', 'Sim'
       assert_select 'label[for=user_active_false]', 'Não'
@@ -195,7 +195,7 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input as select should use i18n to translate select boolean options' do
-    store_translations(:en, :simple_form => { :true => 'Sim', :false => 'Não' }) do
+    store_translations(:en, :simple_form => { :yes => 'Sim', :no => 'Não' }) do
       with_input_for @user, :active, :select
       assert_select 'select option[value=true]', 'Sim'
       assert_select 'select option[value=false]', 'Não'

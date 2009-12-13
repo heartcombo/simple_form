@@ -37,8 +37,8 @@ module SimpleForm
       # "simple_form.false" keys. See the example locale file.
       def self.boolean_collection
         i18n_cache :boolean_collection do
-          [ [I18n.t(:"simple_form.true", :default => 'Yes'), true],
-            [I18n.t(:"simple_form.false", :default => 'No'), false] ]
+          [ [I18n.t(:"simple_form.yes", :default => 'Yes'), true],
+            [I18n.t(:"simple_form.no", :default => 'No'), false] ]
         end
       end
 
