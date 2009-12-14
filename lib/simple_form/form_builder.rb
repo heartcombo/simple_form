@@ -91,6 +91,10 @@ module SimpleForm
     #
     # * :conditions - Given as conditions when retrieving the collection
     #
+    # * :include - Given as include when retrieving the collection
+    #
+    # * :joins - Given as joins when retrieving the collection
+    #
     # * :order - Given as order when retrieving the collection
     #
     # * :scope - Given as scopes when retrieving the collection
@@ -136,7 +140,7 @@ module SimpleForm
       end
 
       options[:collection] ||= begin
-        find_options = options.slice(:conditions, :order)
+        find_options = options.slice(:conditions, :order, :include, :joins)
         klass = Array(options[:scope]).inject(@reflection.klass) do |klass, scope|
           klass.send(scope)
         end

@@ -8,6 +8,8 @@ class Company < Struct.new(:id, :name)
     all = (1..3).map{|i| Company.new(i, "Company #{i}")}
     return [all.first] if options[:conditions]
     return [all.last]  if options[:order]
+    return all[0..1] if options[:include]
+    return all[1..2] if options[:joins]
     all
   end
 end
