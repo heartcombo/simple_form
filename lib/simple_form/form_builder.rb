@@ -118,7 +118,7 @@ module SimpleForm
 
       options[:as] ||= :select
       @reflection = find_association_reflection(association)
-      raise "Association #{attribute.inspect} not found" unless @reflection
+      raise "Association #{association.inspect} not found" unless @reflection
 
       case @reflection.macro
         when :belongs_to
@@ -294,7 +294,7 @@ module SimpleForm
       @object.column_for_attribute(@attribute_name) if @object.respond_to?(:column_for_attribute)
     end
 
-    # Find association related to attribute
+    # Find reflection related to association
     def find_association_reflection(association) #:nodoc:
       @object.class.reflect_on_association(association) if @object.class.respond_to?(:reflect_on_association)
     end
