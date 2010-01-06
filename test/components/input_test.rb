@@ -19,6 +19,12 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'input should be html safe' do
+    with_input_for @user, :name, :string do |input|
+      assert input.call.html_safe?
+    end
+  end
+
   test 'input should map text field to string attribute' do
     with_input_for @user, :name, :string
     assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!]'

@@ -30,7 +30,9 @@ module SimpleForm
       # component is invalid it will be skipped.
       def call
         return @component.call unless valid?
-        content + @component.call
+        safe_content = content.html_safe! + @component.call
+        safe_content.html_safe! if safe_content.respond_to?(:html_safe!)
+        safe_content
       end
 
       def valid?
