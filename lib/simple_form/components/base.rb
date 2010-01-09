@@ -17,6 +17,10 @@ module SimpleForm
         :update => :edit
       }
 
+      def __content
+        valid? ? content : ""
+      end
+
       def self.basename
         @basename ||= name.split("::").last.underscore.to_sym
       end
@@ -69,7 +73,7 @@ module SimpleForm
       def component_tag(content)
         html_options = component_html_options
         html_options[:class] = "#{basename} #{html_options[:class]}".strip
-        template.content_tag(SimpleForm.component_tag, content, html_options)
+        template.content_tag(SimpleForm.error_tag, content, html_options)
       end
 
       # Lookup translations for components using I18n, based on object name,

@@ -8,11 +8,15 @@ module SimpleForm
     end
 
     def get_i18n_cache(key)
-      instance_variable_get(:"@#{key}") || reset_i18n_cache(key)
+      if class_variable_defined?(:"@@#{key}")
+        class_variable_get(:"@@#{key}")
+      else
+        reset_i18n_cache(key)
+      end
     end
 
     def reset_i18n_cache(key)
-      instance_variable_set(:"@#{key}", {})
+      class_variable_set(:"@@#{key}", {})
     end
   end
 end

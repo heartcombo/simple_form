@@ -9,17 +9,17 @@ module SimpleForm
   autoload :MapType,         'simple_form/map_type'
   autoload :RequiredHelpers, 'simple_form/required_helpers'
 
-  # Default tag used in components.
-  mattr_accessor :component_tag
-  @@component_tag = :span
+  # Default tag used in hints
+  mattr_accessor :hint_tag
+  @@hint_tag = :span
+
+  # Default tag used in errors
+  mattr_accessor :error_tag
+  @@error_tag = :span
 
   # Components used by the form builder.
   mattr_accessor :components
-  @@components = [
-    SimpleForm::Components::Wrapper, SimpleForm::Components::Label,
-    SimpleForm::Components::Input, SimpleForm::Components::Hint,
-    SimpleForm::Components::Error
-  ]
+  @@components = [ :label, :input, :hint, :error ]
 
   # Series of attemps to detect a default label method for collection
   mattr_accessor :collection_label_methods

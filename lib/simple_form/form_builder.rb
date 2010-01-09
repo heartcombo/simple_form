@@ -70,15 +70,225 @@ module SimpleForm
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
+    module Labels
+      def self.included(base)
+        base.extend ClassMethods
+      end
+
+      module ClassMethods #:nodoc:
+        include I18nCache
+
+        def translate_required_html
+          i18n_cache :translate_required_html do
+            I18n.t(:"simple_form.required.html", :default =>
+              %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>]
+            )
+          end
+        end
+
+        def translate_required_text
+          I18n.t(:"simple_form.required.text", :default => 'required')
+        end
+
+        def translate_required_mark
+          I18n.t(:"simple_form.required.mark", :default => '*')
+        end
+      end
+
+      def label
+        @builder.label(label_target, label_text, label_html_options)
+      end
+
+      def label_text
+        SimpleForm.label_text.call(raw_label_text, required_label_text)
+      end
+      
+      # TODO Fix me
+      def label_target
+        case input_type
+          when :date, :datetime
+            "#{attribute_name}_1i"
+          when :time
+            "#{attribute_name}_4i"
+          else
+            attribute_name
+        end
+      end
+      
+      # TODO Why default_css_options only in labels?
+      def label_html_options
+        label_options = html_options_for(:label, input_type, required_class)
+        label_options[:for] = options[:input_html][:id] if options.key?(:input_html)
+        label_options
+      end
+    
+    protected
+    
+      def raw_label_text #:nodoc:
+        options[:label] || label_translation
+      end
+
+      # Default required text when attribute is required.
+      def required_label_text #:nodoc:
+        attribute_required? ? self.class.translate_required_html.dup : ''
+      end
+
+      # First check human attribute name and then labels.
+      # TODO Remove me in Rails > 2.3.5
+      def label_translation #:nodoc:
+        default = if object.class.respond_to?(:human_attribute_name)
+          object.class.human_attribute_name(reflection_or_attribute_name.to_s)
+        else
+          attribute_name.to_s.humanize
+        end
+
+        translate(:labels, default)
+      end
+    end
+
+    module Hints
+      def hint
+        template.content_tag(hint_tag, hint_text, hint_html_options) unless hint_text.blank?
+      end
+
+      def hint_tag
+        options[:hint_tag] || SimpleForm.hint_tag
+      end
+
+      def hint_text
+        @hint_text ||= options[:hint] || translate(:hints)
+      end
+
+      def hint_html_options
+        html_options_for(:hint, :hint)
+      end
+    end
+
+    module Errors
+      def error
+        template.content_tag(error_tag, error_text, error_html_options) if object && errors.present?
+      end
+
+      def error_tag
+        options[:error_tag] || SimpleForm.error_tag
+      end
+
+      def error_text
+        errors.to_sentence
+      end
+
+      def error_html_options
+        html_options_for(:error, :error)
+      end
+
+    protected
+
+      def errors
+        @errors ||= (errors_on_attribute + errors_on_association).compact
+      end
+
+      def errors_on_attribute
+        Array(object.errors[attribute_name])
+      end
+
+      def errors_on_association
+        reflection ? Array(object.errors[reflection.name]) : []
+      end
+    end
+
+    class Input
+      include Errors
+      include Hints
+      include Labels
+
+      delegate :template, :object, :object_name, :attribute_name, :column,
+               :reflection, :input_type, :options, :to => :@builder
+
+      def initialize(builder)
+        @builder = builder
+      end
+
+      def input
+        SimpleForm::Components::Input.new(@builder, TERMINATOR).__content
+      end
+
+      def render
+        pieces = SimpleForm.components.select { |n| n unless @builder.options[n] == false }
+        terminator = lambda { pieces.map!{ |p| send(p).to_s }.join }
+        SimpleForm::Components::Wrapper.new(@builder, terminator).call
+      end
+
+    protected
+    
+      # When action is create or update, we still should use new and edit
+      ACTIONS = {
+        :create => :new,
+        :update => :edit
+      }
+
+      def attribute_required?
+        options[:required] != false
+      end
+
+      def required_class
+        attribute_required? ? :required : :optional
+      end
+
+      # Find reflection name when available, otherwise use attribute
+      def reflection_or_attribute_name
+        reflection ? reflection.name : attribute_name
+      end
+
+      # Retrieve options for the given namespace from the options hash
+      def html_options_for(namespace, *extra)
+        html_options = options[:"#{namespace}_html"] || {}
+        html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
+        html_options
+      end
+
+      # Lookup translations for the given namespace using I18n, based on object name,
+      # actual action and attribute name. Lookup priority as follows:
+      #
+      #   simple_form.{namespace}.{model}.{action}.{attribute}
+      #   simple_form.{namespace}.{model}.{attribute}
+      #   simple_form.{namespace}.{attribute}
+      #
+      #  Namespace is used for :labels and :hints.
+      #
+      #  Model is the actual object name, for a @user object you'll have :user.
+      #  Action is the action being rendered, usually :new or :edit.
+      #  And attribute is the attribute itself, :name for example.
+      #
+      #  Example:
+      #
+      #    simple_form:
+      #      labels:
+      #        user:
+      #          new:
+      #            email: 'E-mail para efetuar o sign in.'
+      #          edit:
+      #            email: 'E-mail.'
+      #
+      #  Take a look at our locale example file.
+      def translate(namespace, default='')
+        lookups = []
+        lookups << :"#{object_name}.#{lookup_action}.#{reflection_or_attribute_name}"
+        lookups << :"#{object_name}.#{reflection_or_attribute_name}"
+        lookups << :"#{reflection_or_attribute_name}"
+        lookups << default
+        I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups)
+      end
+
+      # The action to be used in lookup.
+      def lookup_action
+        action = template.controller.action_name.to_sym
+        ACTIONS[action] || action
+      end
+    end
+
     def input(attribute_name, options={})
       define_simple_form_attributes(attribute_name, options)
-
-      component = TERMINATOR
-      SimpleForm.components.reverse.each do |klass|
-        next if @options[klass.basename] == false
-        component = klass.new(self, component)
-      end
-      component.call
+      Input.new(self).render
     end
     alias :attribute :input
 
