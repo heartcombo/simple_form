@@ -68,7 +68,7 @@ module SimpleForm
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
       #
-      def collection_check_box(attribute, collection, value_method, text_method, options={}, html_options={})
+      def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         collection.inject('') do |result, item|
           value = item.send value_method
           text  = item.send text_method
@@ -77,7 +77,7 @@ module SimpleForm
           default_html_options[:multiple] = true
 
           result << check_box(attribute, default_html_options, value, '') <<
-                    label("#{attribute}_#{value}", text, :class => "collection_check_box")
+                    label("#{attribute}_#{value}", text, :class => "collection_check_boxes")
         end
       end
 

@@ -3,7 +3,7 @@ require 'test_helper'
 class LabelTest < ActionView::TestCase
 
   setup do
-    SimpleForm::FormBuilder::Input.reset_i18n_cache :translate_required_html
+    SimpleForm::FormBuilder::Base.reset_i18n_cache :translate_required_html
   end
 
   def with_label_for(object, attribute_name, type, options={})
@@ -13,7 +13,7 @@ class LabelTest < ActionView::TestCase
       f.input_type     = type
       f.options        = options
 
-      concat(SimpleForm::FormBuilder::Input.new(f).label)
+      concat(SimpleForm::FormBuilder::Base.new(f).label)
     end
   end
 
