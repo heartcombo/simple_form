@@ -3,17 +3,17 @@ require 'simple_form/action_view_extensions/builder'
 require 'simple_form/action_view_extensions/instance_tag'
 
 module SimpleForm
-  autoload :Components,      'simple_form/components'
-  autoload :FormBuilder,     'simple_form/form_builder'
-  autoload :I18nCache,       'simple_form/i18n_cache'
-  autoload :MapType,         'simple_form/map_type'
-  autoload :RequiredHelpers, 'simple_form/required_helpers'
+  autoload :Components,  'simple_form/components'
+  autoload :FormBuilder, 'simple_form/form_builder'
+  autoload :I18nCache,   'simple_form/i18n_cache'
+  autoload :Inputs,      'simple_form/inputs'
+  autoload :MapType,     'simple_form/map_type'
 
-  # Default tag used in hints
+  # Default tag used in hints.
   mattr_accessor :hint_tag
   @@hint_tag = :span
 
-  # Default tag used in errors
+  # Default tag used in errors.
   mattr_accessor :error_tag
   @@error_tag = :span
 
@@ -21,11 +21,11 @@ module SimpleForm
   mattr_accessor :components
   @@components = [ :label, :input, :hint, :error ]
 
-  # Series of attemps to detect a default label method for collection
+  # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
   @@collection_label_methods = [ :to_label, :name, :title, :to_s ]
 
-  # Series of attemps to detect a default value method for collection
+  # Series of attemps to detect a default value method for collection.
   mattr_accessor :collection_value_methods
   @@collection_value_methods = [ :id, :to_s ]
 

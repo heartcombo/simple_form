@@ -3,6 +3,15 @@ module SimpleForm
     attr_reader :template, :object_name, :object, :attribute_name, :column,
                 :reflection, :input_type, :options
 
+    extend MapType
+    include SimpleForm::Inputs
+
+    map_type :boolean, :password, :text, :file,   :to => SimpleForm::Inputs::MappingInput
+    map_type :string, :integer, :decimal, :float, :to => SimpleForm::Inputs::TextFieldInput
+    map_type :select, :radio, :check_boxes,       :to => SimpleForm::Inputs::CollectionInput
+    map_type :date, :time, :datetime,             :to => SimpleForm::Inputs::DateTimeInput
+    map_type :country, :time_zone,                :to => SimpleForm::Inputs::PriorityInput
+
     # Basic input helper, combines all components in the stack to generate
     # input html based on options the user define and some guesses through
     # database column information. By default a call to input will generate
@@ -68,365 +77,6 @@ module SimpleForm
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
-    module Labels
-      def self.included(base)
-        base.extend ClassMethods
-      end
-
-      module ClassMethods #:nodoc:
-        def translate_required_html
-          i18n_cache :translate_required_html do
-            I18n.t(:"simple_form.required.html", :default =>
-              %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>]
-            )
-          end
-        end
-
-        def translate_required_text
-          I18n.t(:"simple_form.required.text", :default => 'required')
-        end
-
-        def translate_required_mark
-          I18n.t(:"simple_form.required.mark", :default => '*')
-        end
-      end
-
-      def label
-        @builder.label(label_target, label_text, label_html_options)
-      end
-
-      def label_text
-        SimpleForm.label_text.call(raw_label_text, required_label_text)
-      end
-
-      def label_target
-        attribute_name
-      end
-
-      def label_html_options
-        label_options = html_options_for(:label, input_type, required_class)
-        label_options[:for] = options[:input_html][:id] if options.key?(:input_html)
-        label_options
-      end
-    
-    protected
-    
-      def raw_label_text #:nodoc:
-        options[:label] || label_translation
-      end
-
-      # Default required text when attribute is required.
-      def required_label_text #:nodoc:
-        attribute_required? ? self.class.translate_required_html.dup : ''
-      end
-
-      # First check human attribute name and then labels.
-      # TODO Remove me in Rails > 2.3.5
-      def label_translation #:nodoc:
-        default = if object.class.respond_to?(:human_attribute_name)
-          object.class.human_attribute_name(reflection_or_attribute_name.to_s)
-        else
-          attribute_name.to_s.humanize
-        end
-
-        translate(:labels, default)
-      end
-    end
-
-    module Hints
-      def hint
-        template.content_tag(hint_tag, hint_text, hint_html_options) unless hint_text.blank?
-      end
-
-      def hint_tag
-        options[:hint_tag] || SimpleForm.hint_tag
-      end
-
-      def hint_text
-        @hint_text ||= options[:hint] || translate(:hints)
-      end
-
-      def hint_html_options
-        html_options_for(:hint, :hint)
-      end
-    end
-
-    module Errors
-      def error
-        template.content_tag(error_tag, error_text, error_html_options) if object && errors.present?
-      end
-
-      def error_tag
-        options[:error_tag] || SimpleForm.error_tag
-      end
-
-      def error_text
-        errors.to_sentence
-      end
-
-      def error_html_options
-        html_options_for(:error, :error)
-      end
-
-    protected
-
-      def errors
-        @errors ||= (errors_on_attribute + errors_on_association).compact
-      end
-
-      def errors_on_attribute
-        Array(object.errors[attribute_name])
-      end
-
-      def errors_on_association
-        reflection ? Array(object.errors[reflection.name]) : []
-      end
-    end
-
-    class Base
-      extend I18nCache
-
-      include Errors
-      include Hints
-      include Labels
-
-      delegate :template, :object, :object_name, :attribute_name, :column,
-               :reflection, :input_type, :options, :to => :@builder
-
-      def initialize(builder)
-        @builder = builder
-      end
-
-      def input
-        raise NotImplemented
-      end
-
-      def input_options
-        options[:include_blank] = true unless skip_include_blank?
-        options
-      end
-
-      def input_html_options
-        html_options_for(:input, input_type, required_class)
-      end
-
-      def render
-        pieces = SimpleForm.components.select { |n| n unless @builder.options[n] == false }
-        content = pieces.map!{ |p| send(p).to_s }.join
-        wrap(content)
-      end
-
-      def wrap(content)
-        if wrapper_tag && options[:wrapper] != false
-          template.content_tag(wrapper_tag, content, wrapper_html_options)
-        else
-          content
-        end
-      end
-
-      def wrapper_tag
-        options[:wrapper_tag] || SimpleForm.wrapper_tag
-      end
-
-      def wrapper_html_options
-        html_options_for(:wrapper, input_type, required_class)
-      end
-
-    protected
-    
-      # When action is create or update, we still should use new and edit
-      ACTIONS = {
-        :create => :new,
-        :update => :edit
-      }
-
-      def attribute_required?
-        options[:required] != false
-      end
-
-      def required_class
-        attribute_required? ? :required : :optional
-      end
-
-      # Find reflection name when available, otherwise use attribute
-      def reflection_or_attribute_name
-        reflection ? reflection.name : attribute_name
-      end
-
-      # Check if :include_blank must be included by default.
-      def skip_include_blank?
-        options.key?(:prompt) || options.key?(:include_blank)
-      end
-
-      # Retrieve options for the given namespace from the options hash
-      def html_options_for(namespace, *extra)
-        html_options = options[:"#{namespace}_html"] || {}
-        html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
-        html_options
-      end
-
-      # Lookup translations for the given namespace using I18n, based on object name,
-      # actual action and attribute name. Lookup priority as follows:
-      #
-      #   simple_form.{namespace}.{model}.{action}.{attribute}
-      #   simple_form.{namespace}.{model}.{attribute}
-      #   simple_form.{namespace}.{attribute}
-      #
-      #  Namespace is used for :labels and :hints.
-      #
-      #  Model is the actual object name, for a @user object you'll have :user.
-      #  Action is the action being rendered, usually :new or :edit.
-      #  And attribute is the attribute itself, :name for example.
-      #
-      #  Example:
-      #
-      #    simple_form:
-      #      labels:
-      #        user:
-      #          new:
-      #            email: 'E-mail para efetuar o sign in.'
-      #          edit:
-      #            email: 'E-mail.'
-      #
-      #  Take a look at our locale example file.
-      def translate(namespace, default='')
-        lookups = []
-        lookups << :"#{object_name}.#{lookup_action}.#{reflection_or_attribute_name}"
-        lookups << :"#{object_name}.#{reflection_or_attribute_name}"
-        lookups << :"#{reflection_or_attribute_name}"
-        lookups << default
-        I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups)
-      end
-
-      # The action to be used in lookup.
-      def lookup_action
-        action = template.controller.action_name.to_sym
-        ACTIONS[action] || action
-      end
-    end
-
-    # Uses MapType to handle basic input types.
-    class MappingInput < Base
-      extend MapType
-
-      map_type :boolean,  :to => :check_box
-      map_type :password, :to => :password_field
-      map_type :text,     :to => :text_area
-      map_type :file,     :to => :file_field
-
-      def input
-        @builder.send(input_method, attribute_name, input_html_options)
-      end
-
-      def input_method
-        method = self.class.mappings[input_type]
-        raise "Could not find method for #{input_type.inspect}" unless method
-        method
-      end
-    end
-
-    # Handles common text field inputs, as String, Numeric, Float and Decimal.
-    class TextFieldInput < Base
-      def input
-        @builder.text_field(attribute_name, input_html_options)
-      end
-
-      def input_html_options
-        input_options = super
-        input_options[:max_length] ||= column.limit if column
-        input_options
-      end
-    end
-
-    class DateTimeInput < Base
-      def input
-        @builder.send(:"#{input_type}_select", attribute_name, input_options, input_html_options)
-      end
-
-      def label_target
-        case input_type
-          when :date, :datetime
-            "#{attribute_name}_1i"
-          when :time
-            "#{attribute_name}_4i"
-        end
-      end
-    end
-
-    class CollectionInput < Base
-      # Default boolean collection for use with selects/radios when no
-      # collection is given. Always fallback to this boolean collection.
-      # Texts can be translated using i18n in "simple_form.true" and
-      # "simple_form.false" keys. See the example locale file.
-      def self.boolean_collection
-        i18n_cache :boolean_collection do
-          [ [I18n.t(:"simple_form.yes", :default => 'Yes'), true],
-            [I18n.t(:"simple_form.no", :default => 'No'), false] ]
-        end
-      end
-
-      def input
-        collection = (options[:collection] || self.class.boolean_collection).to_a
-        detect_collection_methods(collection, options)
-        @builder.send(:"collection_#{input_type}", attribute_name, collection, options[:value_method],
-                      options[:label_method], input_options, input_html_options)
-      end
-
-    protected
-
-      def skip_include_blank?
-        super || options[:input_html].try(:[], :multiple)
-      end
-
-      # Detect the right method to find the label and value for a collection.
-      # If no label or value method are defined, will attempt to find them based
-      # on default label and value methods that can be configured through
-      # SimpleForm.collection_label_methods and
-      # SimpleForm.collection_value_methods.
-      def detect_collection_methods(collection, options)
-        sample = collection.first || collection.last
-
-        case sample
-          when Array
-            label, value = :first, :last
-          when Integer
-            label, value = :to_s, :to_i
-          when String, NilClass
-            label, value = :to_s, :to_s
-        end
-
-        options[:label_method] ||= label || SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) }
-        options[:value_method] ||= value || SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) }
-      end
-    end
-
-    # Handles hidden input.
-    class HiddenInput < Base
-      def render
-        @builder.hidden_field(attribute_name, input_html_options)
-      end
-    end
-
-    class PriorityInput < Base
-      def input
-        @builder.send(:"#{input_type}_select", attribute_name, input_priority,
-                      input_options, input_html_options)
-      end
-
-      def input_priority
-        options[:priority] || SimpleForm.send(:"#{input_type}_priority")
-      end
-    end
-
-    extend MapType
-
-    map_type :boolean, :password, :text, :file, :to => MappingInput
-    map_type :hidden, :to => HiddenInput # TODO This should be automatic
-    map_type :string, :integer, :decimal, :float, :to => TextFieldInput
-    map_type :select, :radio, :check_boxes, :to => CollectionInput
-    map_type :date, :time, :datetime, :to => DateTimeInput
-    map_type :country, :time_zone, :to => PriorityInput
-
     def input(attribute_name, options={})
       define_simple_form_attributes(attribute_name, options)
 
@@ -566,7 +216,7 @@ module SimpleForm
     #
     def error(attribute_name, options={})
       define_simple_form_attributes(attribute_name, :error_html => options)
-      Base.new(self).error
+      SimpleForm::Inputs::Base.new(self).error
     end
 
     # Creates a hint tag for the given attribute. Accepts a symbol indicating
@@ -582,7 +232,7 @@ module SimpleForm
     def hint(attribute_name, options={})
       attribute_name, options[:hint] = nil, attribute_name if attribute_name.is_a?(String)
       define_simple_form_attributes(attribute_name, :hint => options.delete(:hint), :hint_html => options)
-      Base.new(self).hint
+      SimpleForm::Inputs::Base.new(self).hint
     end
 
     # Creates a default label tag for the given attribute. You can give a label
@@ -603,7 +253,7 @@ module SimpleForm
       options = args.extract_options!
       define_simple_form_attributes(attribute_name, :label => options.delete(:label),
         :label_html => options, :required => options.delete(:required))
-      Base.new(self).label
+      SimpleForm::Inputs::Base.new(self).label
     end
 
   private
