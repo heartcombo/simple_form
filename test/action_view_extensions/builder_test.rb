@@ -77,8 +77,8 @@ class BuilderTest < ActionView::TestCase
       concat f.collection_check_boxes :tag_ids, collection, :id, :name
     end
 
-    assert_select 'form label.collection_check_box[for=user_tag_ids_1]', 'Tag 1'
-    assert_select 'form label.collection_check_box[for=user_tag_ids_2]', 'Tag 2'
+    assert_select 'form label.collection_check_boxes[for=user_tag_ids_1]', 'Tag 1'
+    assert_select 'form label.collection_check_boxes[for=user_tag_ids_2]', 'Tag 2'
   end
 
   test 'collection check box accepts selected values as :checked option' do
@@ -150,15 +150,15 @@ class BuilderTest < ActionView::TestCase
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     form_for @user do |f|
       f.fields_for :post do |p|
-        concat p.collection_check_box :tag_ids, collection, :id, :name
+        concat p.collection_check_boxes :tag_ids, collection, :id, :name
       end
     end
 
     assert_select 'form input#user_post_tag_ids_1[type=checkbox][value=1]'
     assert_select 'form input#user_post_tag_ids_2[type=checkbox][value=2]'
 
-    assert_select 'form label.collection_check_box[for=user_post_tag_ids_1]', 'Tag 1'
-    assert_select 'form label.collection_check_box[for=user_post_tag_ids_2]', 'Tag 2'
+    assert_select 'form label.collection_check_boxes[for=user_post_tag_ids_1]', 'Tag 1'
+    assert_select 'form label.collection_check_boxes[for=user_post_tag_ids_2]', 'Tag 2'
   end
 
   # SIMPLE FIELDS

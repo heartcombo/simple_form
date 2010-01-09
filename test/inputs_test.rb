@@ -3,27 +3,16 @@ require 'test_helper'
 class InputTest < ActionView::TestCase
 
   setup do
-    SimpleForm::Inputs::Base.reset_i18n_cache :boolean_collection
+    SimpleForm::Inputs::CollectionInput.reset_i18n_cache :boolean_collection
   end
   
   def with_input_for(object, attribute_name, type, options={})
     simple_form_for object do |f|
-      f.attribute_name = attribute_name
-      f.column         = object.column_for_attribute(attribute_name) if object.respond_to?(:column_for_attribute)
-      f.input_type     = type
-      f.options        = options
-  
-      klass = SimpleForm::FormBuilder.mappings[type]
-      klass ||= SimpleForm::Inputs.const_get(:"#{type.to_s.camelize}Input")
-      concat(klass.new(f).input)
+      concat f.input(attribute_name, options.merge(:as => type))
     end
   end
   
-  test 'input should map text field to string attribute' do
-    with_input_for @user, :name, :string
-    assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!]'
-  end
-  
+  # ALL
   test 'input should generate css class based on default input type' do
     with_input_for @user, :name, :string
     assert_select 'input.string'
@@ -36,17 +25,29 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :created_at, :datetime
     assert_select 'select.datetime'
   end
-  
-  test 'input should allow passing options to text field' do
+
+  test 'input should allow passing options to input field' do
     with_input_for @user, :name, :string, :input_html => { :class => 'my_input', :id => 'my_input' }
     assert_select 'input#my_input.my_input'
   end
-  
-  test 'input should generate a text area for text attributes' do
-    with_input_for @user, :description, :text
-    assert_select 'textarea.text#user_description'
+
+  test 'input should be required by default' do
+    with_input_for @user, :name, :string
+    assert_select 'input.required#user_name'
   end
   
+  test 'input should allow disabling required' do
+    with_input_for @user, :name, :string, :required => false
+    assert_no_select 'input.required'
+    assert_select 'input.optional#user_name'
+  end  
+
+  # TextFieldInput
+  test 'input should map text field to string attribute' do
+    with_input_for @user, :name, :string
+    assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!]'
+  end
+
   test 'input should generate an integer text field for integer attributes ' do
     with_input_for @user, :age, :integer
     assert_select 'input.integer#user_age'
@@ -61,7 +62,23 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :age, :decimal
     assert_select 'input.decimal#user_age'
   end
+
+  test 'input should get options from column definition for string attributes' do
+    with_input_for @user, :name, :string
+    assert_select 'input.string[maxlength=100]'
+  end
   
+  test 'input should get options from column definition for decimal attributes' do
+    with_input_for @user, :credit_limit, :decimal
+    assert_select 'input.decimal[maxlength=15]'
+  end
+
+  # MappingInput
+  test 'input should generate a text area for text attributes' do
+    with_input_for @user, :description, :text
+    assert_select 'textarea.text#user_description'
+  end
+
   test 'input should generate a checkbox by default for boolean attributes' do
     with_input_for @user, :active, :boolean
     assert_select 'input[type=checkbox].boolean#user_active'
@@ -71,18 +88,30 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :password, :password
     assert_select 'input[type=password].password#user_password'
   end
-  
+
+  test 'input should generate a file field' do
+    with_input_for @user, :name, :file
+    assert_select 'input#user_name[type=file]'
+  end
+
+  # HiddenInput
   test 'input should generate a hidden field' do
     with_input_for @user, :name, :hidden
     assert_no_select 'input[type=text]'
     assert_select 'input#user_name[type=hidden]'
   end
-  
-  test 'input should generate a file field' do
-    with_input_for @user, :name, :file
-    assert_select 'input#user_name[type=file]'
+
+  test 'hint should not be generated for hidden fields' do
+    with_input_for @user, :name, :hidden, :hint => 'Use with care...'
+    assert_no_select 'span.hint'
   end
-  
+
+  test 'label should not be generated for hidden inputs' do
+    with_input_for @user, :name, :hidden
+    assert_no_select 'label'
+  end
+
+  # PriorityInput
   test 'input should generate a country select field' do
     with_input_for @user, :country, :country
     assert_select 'select#user_country'
@@ -96,7 +125,7 @@ class InputTest < ActionView::TestCase
       assert_select 'select option[value=][disabled=disabled]'
     end
   end
-  
+
   test 'input should generate a time zone select field' do
     with_input_for @user, :time_zone, :time_zone
     assert_select 'select#user_time_zone'
@@ -113,7 +142,8 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :time_zone, :time_zone, :priority => /Brasilia/
     assert_select 'select option[value=][disabled=disabled]'
   end
-  
+
+  # DateTime input
   test 'input should generate a datetime select by default for datetime attributes' do
     with_input_for @user, :created_at, :datetime
     1.upto(5) do |i|
@@ -166,7 +196,23 @@ class InputTest < ActionView::TestCase
     assert_select 'select.time option', 'hora'
     assert_select 'select.time option', 'minuto'
   end
-  
+
+  test 'label should point to first option when date input type' do
+    with_input_for :project, :created_at, :date
+    assert_select 'label[for=project_created_at_1i]'
+  end
+
+  test 'label should point to first option when datetime input type' do
+    with_input_for :project, :created_at, :datetime
+    assert_select 'label[for=project_created_at_1i]'
+  end
+
+  test 'label should point to first option when time input type' do
+    with_input_for :project, :created_at, :time
+    assert_select 'label[for=project_created_at_4i]'
+  end
+
+  # CollectionInput
   test 'input should generate boolean radio buttons by default for radio types' do
     with_input_for @user, :active, :radio
     assert_select 'input[type=radio][value=true].radio#user_active_true'
@@ -281,38 +327,7 @@ class InputTest < ActionView::TestCase
     assert_select 'label.collection_radio', 'CARLOS'
   end
   
-  test 'input should be required by default' do
-    with_input_for @user, :name, :string
-    assert_select 'input.required#user_name'
-  end
-  
-  test 'input should allow disabling required' do
-    with_input_for @user, :name, :string, :required => false
-    assert_no_select 'input.required'
-    assert_select 'input.optional#user_name'
-  end
-  
-  test 'input should get options from column definition for string attributes' do
-    with_input_for @user, :name, :string
-    assert_select 'input.string[maxlength=100]'
-  end
-  
-  test 'input should get options from column definition for decimal attributes' do
-    with_input_for @user, :credit_limit, :decimal
-    assert_select 'input.decimal[maxlength=15]'
-  end
-  
-  test 'input should get options from column definition for password attributes' do
-    with_input_for @user, :password, :password
-    assert_select 'input.password[maxlength=100]'
-  end
-  
-  test 'input should not generate options for different attributes' do
-    with_input_for @user, :description, :text
-    assert_select 'textarea'
-    assert_no_select 'textarea[maxlength]'
-  end
-  
+  # With no object
   test 'input should be generated properly when object is not present' do
     with_input_for :project, :name, :string
     assert_select 'input.string.required#project_name'

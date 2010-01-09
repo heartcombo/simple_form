@@ -17,13 +17,6 @@ class LabelTest < ActionView::TestCase
     end
   end
 
-  # Fix me!
-  # test 'label should not be generated for hidden inputs' do
-  #   with_label_for @user, :name, :hidden do |label|
-  #     assert label.call.blank?
-  #   end
-  # end
-
   test 'label should generate a default humanized description' do
     with_label_for @user, :name, :string
     assert_select 'label[for=user_name]', /Name/
@@ -173,20 +166,5 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.required[for=project_name]'
     with_label_for :project, :description, :string, :required => false
     assert_no_select 'label.required[for=project_description]'
-  end
-
-  test 'label should point to first option when date input type' do
-    with_label_for :project, :created_at, :date
-    assert_select 'label[for=project_created_at_1i]'
-  end
-
-  test 'label should point to first option when datetime input type' do
-    with_label_for :project, :created_at, :datetime
-    assert_select 'label[for=project_created_at_1i]'
-  end
-
-  test 'label should point to first option when time input type' do
-    with_label_for :project, :created_at, :time
-    assert_select 'label[for=project_created_at_4i]'
   end
 end

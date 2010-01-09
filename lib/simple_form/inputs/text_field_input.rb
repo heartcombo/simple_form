@@ -8,7 +8,7 @@ module SimpleForm
 
       def input_html_options
         input_options = super
-        input_options[:max_length] ||= column.limit if column
+        input_options[:maxlength] ||= column.limit if column
         input_options
       end
     end

@@ -83,7 +83,7 @@ module SimpleForm
       if klass = self.class.mappings[input_type]
         klass.new(self).render
       else
-        const_get(:"#{input_type.to_s.camelize}Input").new(self).render
+        self.class.const_get(:"#{input_type.to_s.camelize}Input").new(self).render
       end
     end
     alias :attribute :input
