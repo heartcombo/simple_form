@@ -33,12 +33,6 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
-  test 'error should be html safe' do
-    with_error_for @user, :name, :string do |error|
-      assert error.call.html_safe?
-    end
-  end
-
   test 'error should generate messages for attribute with single error' do
     with_error_for @user, :name, :string
     assert_select 'span.error', "can't be blank"

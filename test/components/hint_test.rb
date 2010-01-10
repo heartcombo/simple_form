@@ -27,12 +27,6 @@ class HintTest < ActionView::TestCase
     end
   end
 
-  test 'hint should be html safe' do
-    with_hint_for @user, :name, :string, :hint => 'Use with care...' do |hint|
-      assert hint.call.html_safe?
-    end
-  end
-
   test 'hint should be generated with input text' do
     with_hint_for @user, :name, :string, :hint => 'Use with care...'
     assert_select 'span.hint', 'Use with care...'

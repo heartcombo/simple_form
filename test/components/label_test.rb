@@ -19,12 +19,6 @@ class LabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should be html safe' do
-    with_label_for @user, :name, :string do |label|
-      assert label.call.html_safe?
-    end
-  end
-
   test 'label should not be generated for hidden inputs' do
     with_label_for @user, :name, :hidden do |label|
       assert label.call.blank?
