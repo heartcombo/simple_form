@@ -3,7 +3,7 @@ require 'test_helper'
 class LabelTest < ActionView::TestCase
 
   setup do
-    SimpleForm::Components::Label.reset_i18n_cache :translate_required_html
+    SimpleForm::Inputs::Base.reset_i18n_cache :translate_required_html
   end
 
   def with_label_for(object, attribute_name, type, options={})
@@ -13,15 +13,7 @@ class LabelTest < ActionView::TestCase
       f.input_type     = type
       f.options        = options
 
-      label = SimpleForm::Components::Label.new(f, SimpleForm::FormBuilder::TERMINATOR)
-      concat(label.call)
-      yield label if block_given?
-    end
-  end
-
-  test 'label should not be generated for hidden inputs' do
-    with_label_for @user, :name, :hidden do |label|
-      assert label.call.blank?
+      concat(SimpleForm::Inputs::Base.new(f).label)
     end
   end
 
@@ -174,20 +166,5 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.required[for=project_name]'
     with_label_for :project, :description, :string, :required => false
     assert_no_select 'label.required[for=project_description]'
-  end
-
-  test 'label should point to first option when date input type' do
-    with_label_for :project, :created_at, :date
-    assert_select 'label[for=project_created_at_1i]'
-  end
-
-  test 'label should point to first option when datetime input type' do
-    with_label_for :project, :created_at, :datetime
-    assert_select 'label[for=project_created_at_1i]'
-  end
-
-  test 'label should point to first option when time input type' do
-    with_label_for :project, :created_at, :time
-    assert_select 'label[for=project_created_at_4i]'
   end
 end

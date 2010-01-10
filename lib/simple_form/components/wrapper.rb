@@ -1,18 +1,20 @@
 module SimpleForm
   module Components
-    # Wrapper component. The last the will be executed by default, responsible
-    # for wrapping the entire stack in a wrapper tag if it is configured.
-    class Wrapper < Base
-      include RequiredHelpers
-
-      def call
-        tag = options[:wrapper] || SimpleForm.wrapper_tag
-
-        if tag
-          template.content_tag(tag, @component.call, component_html_options)
+    module Wrapper
+      def wrap(content)
+        if wrapper_tag && options[:wrapper] != false
+          template.content_tag(wrapper_tag, content, wrapper_html_options)
         else
-          @component.call
+          content
         end
+      end
+
+      def wrapper_tag
+        options[:wrapper_tag] || SimpleForm.wrapper_tag
+      end
+
+      def wrapper_html_options
+        html_options_for(:wrapper, input_type, required_class)
       end
     end
   end

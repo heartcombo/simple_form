@@ -2,7 +2,6 @@
 
 * Sample CSS
 * Add default size support
-* Allow block to be given to overwrite content
 
 == Validations
 

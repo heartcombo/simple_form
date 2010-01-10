@@ -3,7 +3,14 @@ module SimpleForm
     attr_reader :template, :object_name, :object, :attribute_name, :column,
                 :reflection, :input_type, :options
 
-    TERMINATOR = lambda { "" }
+    extend MapType
+    include SimpleForm::Inputs
+
+    map_type :boolean, :password, :text, :file,   :to => SimpleForm::Inputs::MappingInput
+    map_type :string, :integer, :decimal, :float, :to => SimpleForm::Inputs::TextFieldInput
+    map_type :select, :radio, :check_boxes,       :to => SimpleForm::Inputs::CollectionInput
+    map_type :date, :time, :datetime,             :to => SimpleForm::Inputs::DateTimeInput
+    map_type :country, :time_zone,                :to => SimpleForm::Inputs::PriorityInput
 
     # Basic input helper, combines all components in the stack to generate
     # input html based on options the user define and some guesses through
@@ -70,15 +77,16 @@ module SimpleForm
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
-    def input(attribute_name, options={})
+    def input(attribute_name, options={}, &block)
       define_simple_form_attributes(attribute_name, options)
 
-      component = TERMINATOR
-      SimpleForm.components.reverse.each do |klass|
-        next if @options[klass.basename] == false
-        component = klass.new(self, component)
+      if block_given?
+        SimpleForm::Inputs::BlockInput.new(self, block).render
+      else
+        klass = self.class.mappings[input_type] ||
+          self.class.const_get(:"#{input_type.to_s.camelize}Input")
+        klass.new(self).render
       end
-      component.call
     end
     alias :attribute :input
 
@@ -117,7 +125,22 @@ module SimpleForm
     #   f.association :company, :scope => [ :public, :not_broken ]
     #   # Same as doing Company.public.not_broken.all
     #
-    def association(association, options={})
+    # == Block
+    #
+    # When a block is given, association simple behaves as a proxy to
+    # simple_fields_for:
+    #
+    #   f.association :company do |c|
+    #     c.input :name
+    #     c.input :type
+    #   end
+    #
+    # From the options above, only :collection can also be supplied.
+    #
+    def association(association, options={}, &block)
+      return simple_fields_for(*[association,
+        options.delete(:collection), options].compact, &block) if block_given?
+
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
       options[:as] ||= :select
@@ -210,7 +233,7 @@ module SimpleForm
     #
     def error(attribute_name, options={})
       define_simple_form_attributes(attribute_name, :error_html => options)
-      SimpleForm::Components::Error.new(self, TERMINATOR).call
+      SimpleForm::Inputs::Base.new(self).error
     end
 
     # Creates a hint tag for the given attribute. Accepts a symbol indicating
@@ -226,7 +249,7 @@ module SimpleForm
     def hint(attribute_name, options={})
       attribute_name, options[:hint] = nil, attribute_name if attribute_name.is_a?(String)
       define_simple_form_attributes(attribute_name, :hint => options.delete(:hint), :hint_html => options)
-      SimpleForm::Components::Hint.new(self, TERMINATOR).call
+      SimpleForm::Inputs::Base.new(self).hint
     end
 
     # Creates a default label tag for the given attribute. You can give a label
@@ -247,7 +270,7 @@ module SimpleForm
       options = args.extract_options!
       define_simple_form_attributes(attribute_name, :label => options.delete(:label),
         :label_html => options, :required => options.delete(:required))
-      SimpleForm::Components::Label.new(self, TERMINATOR).call
+      SimpleForm::Inputs::Base.new(self).label
     end
 
   private

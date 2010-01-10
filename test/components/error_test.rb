@@ -9,28 +9,18 @@ class ErrorTest < ActionView::TestCase
       f.input_type     = type
       f.options        = options
 
-      error = SimpleForm::Components::Error.new(f, SimpleForm::FormBuilder::TERMINATOR)
-      concat(error.call)
-      yield error if block_given?
-    end
-  end
-
-  test 'error should not generate content for hidden fields' do
-    with_error_for @user, :name, :hidden do |error|
-      assert error.call.blank?
+      concat(SimpleForm::Inputs::Base.new(f).error.to_s)
     end
   end
 
   test 'error should not generate content for attribute without errors' do
-    with_error_for @user, :active, :boolean do |error|
-      assert error.call.blank?
-    end
+    with_error_for @user, :active, :boolean
+    assert_no_select 'span.error'
   end
 
   test 'error should not generate messages when object is not present' do
-    with_error_for :project, :name, :string do |error|
-      assert error.call.blank?
-    end
+    with_error_for :project, :name, :string
+    assert_no_select 'span.error'
   end
 
   test 'error should generate messages for attribute with single error' do

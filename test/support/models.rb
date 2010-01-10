@@ -12,6 +12,10 @@ class Company < Struct.new(:id, :name)
     return all[1..2] if options[:joins]
     all
   end
+
+  def new_record?
+    false
+  end
 end
 
 class Tag < Struct.new(:id, :name)
@@ -30,6 +34,9 @@ class User < OpenStruct
 
   def new_record?
     @new_record || false
+  end
+
+  def company_attributes=(foo)
   end
 
   def column_for_attribute(attribute)
