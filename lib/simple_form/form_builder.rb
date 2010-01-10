@@ -163,11 +163,13 @@ module SimpleForm
       end
 
       options[:collection] ||= begin
-        find_options = options.slice(:conditions, :order, :include, :joins)
+        finders = options.slice(:conditions, :order, :include, :joins)
+        finders[:conditions] = @reflection.klass.merge_conditions(finders[:conditions],
+          @reflection.options[:conditions])
         klass = Array(options[:scope]).inject(@reflection.klass) do |klass, scope|
           klass.send(scope)
         end
-        klass.all(find_options)
+        klass.all(finders)
       end
 
       returning(input(attribute, options)) { @reflection = nil }

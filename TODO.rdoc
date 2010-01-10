@@ -2,6 +2,8 @@
 
 * Sample CSS
 * Add default size support
+* HTML 5 support
+* Pretty buttons
 
 == Validations
 

@@ -462,6 +462,14 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'form select option[value=3]'
   end
 
+  test 'builder should use reflection conditions to find collection' do
+    with_association_for @user, :special_company
+    assert_select 'form select.select#user_special_company_id'
+    assert_select 'form select option[value=1]'
+    assert_no_select 'form select option[value=2]'
+    assert_no_select 'form select option[value=3]'
+  end
+
   test 'builder should allow passing order to find collection' do
     with_association_for @user, :company, :order => 'name'
     assert_select 'form select.select#user_company_id'
