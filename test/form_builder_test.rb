@@ -47,6 +47,12 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder input is html safe' do
+    simple_form_for @user do |f|
+      assert f.input(:name).html_safe?
+    end
+  end
+
   # INPUT TYPES
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name

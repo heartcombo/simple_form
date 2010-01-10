@@ -40,7 +40,7 @@ module SimpleForm
           send(component)
         end
         content.compact!
-        wrap(content.join)
+        wrap(content.join).html_safe!
       end
 
     protected
