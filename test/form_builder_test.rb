@@ -53,6 +53,14 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder input should allow a block to configure input' do
+    with_form_for @user, :name do
+      concat text_field_tag :foo, :bar, :id => :cool
+    end
+    assert_no_select 'input.string'
+    assert_select 'input#cool'
+  end
+
   # INPUT TYPES
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
@@ -151,7 +159,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should generate a input with label' do
     with_form_for @user, :name
-    assert_select 'form label.string[for=user_name]'
+    assert_select 'form label.string[for=user_name]', /Name/
   end
 
   test 'builder should be able to disable the label for a input' do
@@ -161,7 +169,12 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should use custom label' do
     with_form_for @user, :name, :label => 'Yay!'
-    assert_no_select 'form label', 'Yay!'
+    assert_select 'form label', /Yay!/
+  end
+
+  test 'builder should pass options to label' do
+    with_form_for @user, :name, :label_html => { :id => "cool" }
+    assert_select 'form label#cool', /Name/
   end
 
   test 'builder should not generate hints for a input' do
@@ -181,6 +194,11 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should pass options to hint' do
+    with_form_for @user, :name, :hint => 'test', :hint_html => { :id => "cool" }
+    assert_select 'span.hint#cool', 'test'
+  end
+
   test 'builder should generate errors for attribute without errors' do
     with_form_for @user, :credit_limit
     assert_no_select 'span.errors'
@@ -196,6 +214,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'span.error'
   end
 
+  test 'builder should pass options to errors' do
+    with_form_for @user, :name, :error_html => { :id => "cool" }
+    assert_select 'span.error#cool', "can't be blank"
+  end
+
   test 'builder input should be required by default' do
     with_form_for @user, :name
     assert_select 'input.required#user_name'
@@ -205,14 +228,6 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :name, :required => false
     assert_no_select 'input.required'
     assert_select 'input.optional#user_name'
-  end
-
-  test 'builder input should allow a block to configure input' do
-    with_form_for @user, :name do
-      concat text_field_tag :foo, :bar, :id => :cool
-    end
-    assert_no_select 'input.string'
-    assert_select 'input#cool'
   end
 
   # WRAPPERS
