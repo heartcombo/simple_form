@@ -26,22 +26,6 @@ class InputTest < ActionView::TestCase
     assert_select 'select.datetime'
   end
 
-  test 'input should allow passing options to input field' do
-    with_input_for @user, :name, :string, :input_html => { :class => 'my_input', :id => 'my_input' }
-    assert_select 'input#my_input.my_input'
-  end
-
-  test 'input should be required by default' do
-    with_input_for @user, :name, :string
-    assert_select 'input.required#user_name'
-  end
-  
-  test 'input should allow disabling required' do
-    with_input_for @user, :name, :string, :required => false
-    assert_no_select 'input.required'
-    assert_select 'input.optional#user_name'
-  end  
-
   # TextFieldInput
   test 'input should map text field to string attribute' do
     with_input_for @user, :name, :string

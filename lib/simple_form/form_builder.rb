@@ -77,13 +77,15 @@ module SimpleForm
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
-    def input(attribute_name, options={})
+    def input(attribute_name, options={}, &block)
       define_simple_form_attributes(attribute_name, options)
 
-      if klass = self.class.mappings[input_type]
-        klass.new(self).render
+      if block_given?
+        SimpleForm::Inputs::BlockInput.new(self, block).render
       else
-        self.class.const_get(:"#{input_type.to_s.camelize}Input").new(self).render
+        klass = self.class.mappings[input_type] ||
+          self.class.const_get(:"#{input_type.to_s.camelize}Input")
+        klass.new(self).render
       end
     end
     alias :attribute :input
@@ -123,7 +125,22 @@ module SimpleForm
     #   f.association :company, :scope => [ :public, :not_broken ]
     #   # Same as doing Company.public.not_broken.all
     #
-    def association(association, options={})
+    # == Block
+    #
+    # When a block is given, association simple behaves as a proxy to
+    # simple_fields_for:
+    #
+    #   f.association :company do |c|
+    #     c.input :name
+    #     c.input :type
+    #   end
+    #
+    # From the options above, only :collection can also be supplied.
+    #
+    def association(association, options={}, &block)
+      return simple_fields_for(*[association,
+        options.delete(:collection), options].compact, &block) if block_given?
+
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
       options[:as] ||= :select

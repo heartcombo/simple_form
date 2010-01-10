@@ -2,39 +2,39 @@ require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
 
-  def with_form_for(object, attribute, options={})
+  def with_form_for(object, *args, &block)
     simple_form_for object do |f|
-      concat f.input attribute, options
+      concat f.input(*args, &block)
     end
   end
 
   def with_button_for(object, *args)
     simple_form_for object do |f|
-      concat f.button *args
+      concat f.button(*args)
     end
   end
 
   def with_error_for(object, *args)
     simple_form_for object do |f|
-      concat f.error *args
+      concat f.error(*args)
     end
   end
 
   def with_hint_for(object, *args)
     simple_form_for object do |f|
-      concat f.hint *args
+      concat f.hint(*args)
     end
   end
 
   def with_label_for(object, *args)
     simple_form_for object do |f|
-      concat f.label *args
+      concat f.label(*args)
     end
   end
 
   def with_association_for(object, *args)
     simple_form_for object do |f|
-      concat f.association *args
+      concat f.association(*args)
     end
   end
 
@@ -190,6 +190,25 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'span.error'
   end
 
+  test 'builder input should be required by default' do
+    with_form_for @user, :name
+    assert_select 'input.required#user_name'
+  end
+
+  test 'builder input should allow disabling required' do
+    with_form_for @user, :name, :required => false
+    assert_no_select 'input.required'
+    assert_select 'input.optional#user_name'
+  end
+
+  test 'builder input should allow a block to configure input' do
+    with_form_for @user, :name do
+      concat text_field_tag :foo, :bar, :id => :cool
+    end
+    assert_no_select 'input.string'
+    assert_select 'input#cool'
+  end
+
   # WRAPPERS
   test 'builder support wrapping around an specific tag' do
     swap SimpleForm, :wrapper_tag => :p do
@@ -249,7 +268,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # ERRORS
-  test 'builder should generate an error component tag for the attribute' do
+  test 'builder should generate an error tag for the attribute' do
     with_error_for @user, :name
     assert_select 'span.error', "can't be blank"
   end
@@ -260,7 +279,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # HINTS
-  test 'builder should generate a hint component tag for the attribute' do
+  test 'builder should generate a hint tag for the attribute' do
     store_translations(:en, :simple_form => { :hints => { :user => { :name => "Add your name" }}}) do
       with_hint_for @user, :name
       assert_select 'span.hint', 'Add your name'
@@ -278,7 +297,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # LABELS
-  test 'builder should generate a label component tag for the attribute' do
+  test 'builder should generate a label for the attribute' do
     with_label_for @user, :name
     assert_select 'label.string[for=user_name]', /Name/
   end
@@ -368,6 +387,25 @@ class FormBuilderTest < ActionView::TestCase
     assert_raise ArgumentError do
       with_association_for :post, :author
     end
+  end
+
+  test 'builder association with a block call simple_fields_for' do
+    simple_form_for @user do |f|
+      f.association :posts do |posts_form|
+        assert posts_form.instance_of?(SimpleForm::FormBuilder)
+      end
+    end
+  end
+
+  test 'builder association forwards collection to simple_fields_for' do
+    calls = 0
+    simple_form_for @user do |f|
+      f.association :company, :collection => Company.all do |c|
+        calls += 1
+      end
+    end
+
+    assert_equal calls, 3
   end
 
   # ASSOCIATIONS - BELONGS TO
