@@ -26,7 +26,6 @@ module SimpleForm
       end
 
       def input_options
-        options[:include_blank] = true unless skip_include_blank?
         options
       end
 
@@ -56,11 +55,6 @@ module SimpleForm
       # Find reflection name when available, otherwise use attribute
       def reflection_or_attribute_name
         reflection ? reflection.name : attribute_name
-      end
-
-      # Check if :include_blank must be included by default.
-      def skip_include_blank?
-        options.key?(:prompt) || options.key?(:include_blank)
       end
 
       # Retrieve options for the given namespace from the options hash

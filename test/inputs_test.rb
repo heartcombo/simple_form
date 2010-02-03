@@ -116,15 +116,17 @@ class InputTest < ActionView::TestCase
     assert_select 'select option[value=Brasilia]', '(GMT-03:00) Brasilia'
     assert_no_select 'select option[value=][disabled=disabled]'
   end
-  
+
   test 'input should generate a time zone select field with default' do
     with_input_for @user, :time_zone, :time_zone, :default => 'Brasilia'
     assert_select 'select option[value=Brasilia][selected=selected]'
+    assert_no_select 'select option[value=]'
   end
-  
+
   test 'input should generate a time zone select using options priority' do
     with_input_for @user, :time_zone, :time_zone, :priority => /Brasilia/
     assert_select 'select option[value=][disabled=disabled]'
+    assert_no_select 'select option[value=]', /^$/
   end
 
   # DateTime input
@@ -162,7 +164,12 @@ class InputTest < ActionView::TestCase
     assert_select 'select.date option', 'mês'
     assert_select 'select.date option', 'dia'
   end
-  
+
+  test 'input should be able to pass :default to date select' do
+    with_input_for @user, :born_at, :date, :default => Date.today
+    assert_select "select.date option[value=#{Date.today.year}][selected=selected]"
+  end
+
   test 'input should generate a time select for time attributes' do
     with_input_for @user, :delivery_time, :time
     assert_select 'input[type=hidden]#user_delivery_time_1i'

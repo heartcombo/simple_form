@@ -19,10 +19,18 @@ module SimpleForm
                       options[:label_method], input_options, input_html_options)
       end
 
+      def input_options
+        options = super
+        options[:include_blank] = true unless skip_include_blank?
+        options
+      end
+
     protected
 
+      # Check if :include_blank must be included by default.
       def skip_include_blank?
-        super || options[:input_html].try(:[], :multiple)
+        (options.keys & [:prompt, :include_blank, :default, :selected]).any? ||
+          options[:input_html].try(:[], :multiple)
       end
 
       # Detect the right method to find the label and value for a collection.
