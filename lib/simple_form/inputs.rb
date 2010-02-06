@@ -6,7 +6,8 @@ module SimpleForm
     autoload :DateTimeInput,   'simple_form/inputs/date_time_input'
     autoload :HiddenInput,     'simple_form/inputs/hidden_input'
     autoload :MappingInput,    'simple_form/inputs/mapping_input'
+    autoload :NumericInput,    'simple_form/inputs/numeric_input'
     autoload :PriorityInput,   'simple_form/inputs/priority_input'
-    autoload :TextFieldInput,  'simple_form/inputs/text_field_input'
+    autoload :StringInput,     'simple_form/inputs/string_input'
   end
 end

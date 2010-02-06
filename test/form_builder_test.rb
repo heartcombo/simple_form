@@ -79,12 +79,12 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should use integer text field for integer columns' do
     with_form_for @user, :age
-    assert_select 'form input#user_age.integer'
+    assert_select 'form input#user_age.numeric.integer'
   end
 
   test 'builder should generate decimal text field for decimal columns' do
     with_form_for @user, :credit_limit
-    assert_select 'form input#user_credit_limit.decimal'
+    assert_select 'form input#user_credit_limit.numeric.decimal'
   end
 
   test 'builder should generate password fields for columns that matches password' do
@@ -100,6 +100,16 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder should generate time_zone fields for columns that matches time_zone' do
     with_form_for @user, :time_zone
     assert_select 'form select#user_time_zone.time_zone'
+  end
+
+  test 'builder should generate email fields for columns that matches email' do
+    with_form_for @user, :email
+    assert_select 'form input#user_email.string.email'
+  end
+
+  test 'builder should generate url fields for columns that matches url' do
+    with_form_for @user, :url
+    assert_select 'form input#user_url.string.url'
   end
 
   test 'builder should generate date select for date columns' do

@@ -1,0 +1,8 @@
+== 1.1
+
+* enhancements
+  * Rails 3 support with generators, templates and HTML 5
+
+== 1.0
+
+* First release
