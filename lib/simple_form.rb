@@ -49,6 +49,10 @@ module SimpleForm
   mattr_accessor :country_priority
   @@country_priority = nil
 
+  # Maximum size allowed for inputs.
+  mattr_accessor :default_input_size
+  @@default_input_size = 50
+
   # Default way to setup SimpleForm. Run script/generate simple_form_install
   # to create a fresh initializer with all configuration values.
   def self.setup

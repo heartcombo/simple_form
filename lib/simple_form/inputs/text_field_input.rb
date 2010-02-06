@@ -8,8 +8,19 @@ module SimpleForm
 
       def input_html_options
         input_options = super
-        input_options[:maxlength] ||= column.limit if column
+        if text_type? && column && column.limit
+          input_options[:size]      ||= [column.limit, SimpleForm.default_input_size].min
+          input_options[:maxlength] ||= column.limit
+        else
+          input_options[:size]      ||= SimpleForm.default_input_size
+        end
         input_options
+      end
+
+    protected
+
+      def text_type?
+        [:string, :email, :url].include?(input_type)
       end
     end
   end

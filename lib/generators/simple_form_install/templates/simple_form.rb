@@ -35,4 +35,7 @@ SimpleForm.setup do |config|
 
   # Default priority for country inputs.
   # config.country_priority = nil
+
+  # Default size for text inputs
+  # config.default_input_size = 50
 end

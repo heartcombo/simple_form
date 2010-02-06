@@ -47,14 +47,19 @@ class InputTest < ActionView::TestCase
     assert_select 'input.decimal#user_age'
   end
 
-  test 'input should get options from column definition for string attributes' do
+  test 'input should use default text size for decimal attributes' do
+    with_input_for @user, :credit_limit, :decimal
+    assert_select 'input.decimal[size=50]'
+  end
+
+  test 'input should get maxlength from column definition for string attributes' do
     with_input_for @user, :name, :string
     assert_select 'input.string[maxlength=100]'
   end
-  
-  test 'input should get options from column definition for decimal attributes' do
-    with_input_for @user, :credit_limit, :decimal
-    assert_select 'input.decimal[maxlength=15]'
+
+  test 'input should get size from column definition for string attributes respecting maximum value' do
+    with_input_for @user, :name, :string
+    assert_select 'input.string[size=50]'
   end
 
   # MappingInput

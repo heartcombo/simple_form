@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{simple_form}
-  s.version = "1.0.0"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim", "Carlos Ant\303\264nio"]
@@ -16,14 +16,13 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    "generators/simple_form_install/USAGE",
-     "generators/simple_form_install/simple_form_install_generator.rb",
-     "generators/simple_form_install/templates/simple_form.rb",
-     "init.rb",
+    "lib/generators/simple_form_install/USAGE",
+     "lib/generators/simple_form_install/simple_form_install_generator.rb",
+     "lib/generators/simple_form_install/templates/simple_form.rb",
+     "lib/locales/en.yml",
      "lib/simple_form.rb",
      "lib/simple_form/action_view_extensions/builder.rb",
      "lib/simple_form/action_view_extensions/form_helper.rb",
-     "lib/simple_form/action_view_extensions/instance_tag.rb",
      "lib/simple_form/components.rb",
      "lib/simple_form/components/errors.rb",
      "lib/simple_form/components/hints.rb",
@@ -40,9 +39,9 @@ Gem::Specification.new do |s|
      "lib/simple_form/inputs/mapping_input.rb",
      "lib/simple_form/inputs/priority_input.rb",
      "lib/simple_form/inputs/text_field_input.rb",
-     "lib/simple_form/locale/en.yml",
      "lib/simple_form/map_type.rb",
-     "lib/simple_form/version.rb"
+     "lib/simple_form/version.rb",
+     "lib/templates/erb/scaffold/_form.html.erb"
   ]
   s.homepage = %q{http://github.com/plataformatec/simple_form}
   s.rdoc_options = ["--charset=UTF-8"]
