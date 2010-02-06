@@ -4,6 +4,8 @@ Column = Struct.new(:name, :type, :limit)
 Association = Struct.new(:klass, :name, :macro, :options)
 
 class Company < Struct.new(:id, :name)
+  extend ActiveModel::Naming
+
   def self.all(options={})
     all = (1..3).map{|i| Company.new(i, "Company #{i}")}
     return [all.first] if options[:conditions].present?
@@ -23,12 +25,16 @@ class Company < Struct.new(:id, :name)
 end
 
 class Tag < Company
+  extend ActiveModel::Naming
+
   def self.all(options={})
     (1..3).map{|i| Tag.new(i, "Tag #{i}")}
   end
 end
 
 class User < OpenStruct
+  extend ActiveModel::Naming
+
   # Get rid of deprecation warnings
   undef_method :id
 
@@ -40,7 +46,7 @@ class User < OpenStruct
     @new_record || false
   end
 
-  def company_attributes=(foo)
+  def company_attributes=(*)
   end
 
   def column_for_attribute(attribute)
@@ -69,10 +75,6 @@ class User < OpenStruct
       else
         attribute.humanize
     end
-  end
-
-  def self.human_name
-    "User"
   end
 
   def self.reflect_on_association(association)

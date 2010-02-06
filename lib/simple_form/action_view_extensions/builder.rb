@@ -38,7 +38,7 @@ module SimpleForm
 
           result << radio_button(attribute, value, default_html_options) <<
                     label("#{attribute}_#{value}", text, :class => "collection_radio")
-        end
+        end.html_safe
       end
 
       # Creates a collection of check boxes for each item in the collection, associated
@@ -78,7 +78,7 @@ module SimpleForm
 
           result << check_box(attribute, default_html_options, value, '') <<
                     label("#{attribute}_#{value}", text, :class => "collection_check_boxes")
-        end
+        end.html_safe
       end
 
       # Wrapper for using simple form inside a default rails form.

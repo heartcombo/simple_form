@@ -398,11 +398,6 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#super.submit.cool[type=submit]'
   end
 
-  test 'builder calls any button tag' do
-    with_button_for :post, :image_submit, "/image/foo/bar"
-    assert_select 'form input[src=/image/foo/bar][type=image]'
-  end
-
   # ASSOCIATIONS
   test 'builder should not allow creating an association input when no object exists' do
     assert_raise ArgumentError do
@@ -426,7 +421,7 @@ class FormBuilderTest < ActionView::TestCase
       end
     end
 
-    assert_equal calls, 3
+    assert_equal 3, calls
   end
 
   # ASSOCIATIONS - BELONGS TO
