@@ -8,17 +8,16 @@ SimpleForm aims to be as flexible as possible while helping you with powerful co
 
 Install the gem:
 
-  sudo gem install simple_form --version=1.0
-
-Configure simple_form gem inside your app:
-
-  config.gem 'simple_form'
+  sudo gem install simple_form --version=1.1
 
 Run the generator:
 
-  ruby script/generate simple_form_install
+  rails generate simple_form_install
 
-And you're ready to go.
+And you are ready to go. Since this branch is aims Rails 3 support,
+if you want to use it with Rails 2.3 you should check this branch:
+
+  http://github.com/plataformatec/simple_form/tree/v1.0
 
 == Usage
 
@@ -158,8 +157,8 @@ Now we have the user form:
 
 Simple enough right? This is going to render a :select input for choosing the :company, and another :select input with :multiple option for the :roles. You can of course change it, to use radios and check boxes as well:
 
-    f.association :company, :as => :radio
-    f.association :roles, :as => :check_boxes
+  f.association :company, :as => :radio
+  f.association :roles, :as => :check_boxes
 
 And you will get a set of radios to select the company and another set of check boxes for the roles. Some options are available for refining the collection for associations: :conditions, :include, :joins, :order. These options are given straight to the find method. Here is an example of how to use these options:
 
