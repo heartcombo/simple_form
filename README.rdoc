@@ -175,34 +175,14 @@ The association helper just invokes input under the hood, so all options availab
 
 == Buttons
 
-All web forms need buttons, right? To help you with this, SimpleForm has a default button helper that acts as a wrapper for Rails helpers, creating submit texts using I18n. It's pretty straightforward:
+All web forms need buttons, right? SimpleForm wraps them in the DSL, acting like a proxy:
 
   <% simple_form_for @user do |f| -%>
     <p><%= f.input :name %></p>
     <p><%= f.button :submit %></p>
   <% end -%>
 
-This will create a input submit tag for you. If the resource @user is a new record, the button will have text 'Create User', otherwise 'Update User' is shown. If you are working with forms without objects, 'Submit User' would be shown. All those buttons labels can be configured using I18n through the keys :simple_form.buttons.create, :simple_form.buttons.update and :simple_form.buttons.submit.
-
-You can also pass the button text directly:
-
-  f.button :submit, 'Save User'
-  f.button :submit, :label => 'Save User'
-
-As button is just a wrapper, it is actually calling Rails helper :submit_tag with the provided text. That said, any other option you pass will be given to :submit_tag call:
-
-  f.button :submit, :confirm => 'Are you sure?'
-
-And if you want to use any other button tag, you just need to create a helper that ends with "_tag":
-
-  # inside ApplicationHelper for instance
-  def custom_submit_tag(text, options={})
-    # render submit tag here
-  end
-
-And you will able to use it with SimpleForm:
-
-  f.button :custom_submit
+The above will simply call submit. You choose to use it or not, it's just a question of taste.
 
 == Extra helpers
 
@@ -255,6 +235,8 @@ SimpleForm comes with a lot of default mappings:
 
   boolean               check box               boolean
   string                text field              string
+  email                 email field             string
+  url                   url field               string
   password              password field          string with name matching "password"
   text                  text area               text
   file                  file field              string, responding to file methods
