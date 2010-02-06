@@ -181,48 +181,14 @@ module SimpleForm
     #     f.button :submit
     #   end
     #
-    # If the record is a new_record?, it will create a button with label "Create User",
-    # otherwise it will create with label "Update User". You can overwrite the label
-    # giving a second parameter or giving :label.
+    # It just acts as a proxy to method name given.
     #
-    #   f.button :submit, "Create a new user"
-    #   f.button :submit, :label => "Create a new user"
-    #
-    # button is actually just a wrapper that adds a default text, that said, f.button
-    # above is just calling:
-    #
-    #   submit_tag "Create a new user"
-    #
-    # All options given to button are given straight to submit_tag. That said, you can
-    # use :confirm normally:
-    #
-    #   f.button :submit, :confirm => "Are you sure?"
-    #
-    # And if you want to use image_submit_tag, just give it as an option:
-    #
-    #   f.button :image_submit, "/images/foo/bar.png"
-    #
-    # This comes with a bonus that any method added to your ApplicationController can
-    # be used by SimpleForm, as long as it ends with _tag. So is quite easy to customize
-    # your buttons.
-    #
-    def button(type, *args)
-      options = args.extract_options!
-      value   = args.first || options.delete(:label)
-      key     = @object ? (@object.new_record? ? :create : :update) : :submit
-
-      value ||= begin
-        model = if @object.class.respond_to?(:human_name)
-          @object.class.human_name
-        else
-          @object_name.to_s.humanize
-        end
-
-        I18n.t(:"simple_form.buttons.#{key}", :model => model, :default => "#{key.to_s.humanize} #{model}")
+    def button(type, *args, &block)
+      if respond_to?(:"#{type}_button")
+        send(:"#{type}_button", *args, &block)
+      else
+        send(type, *args, &block)
       end
-
-      options[:class] = "#{key} #{options[:class]}".strip
-      @template.send(:"#{type}_tag", value, options)
     end
 
     # Creates an error tag based on the given attribute, only when the attribute

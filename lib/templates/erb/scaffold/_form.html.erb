@@ -1,0 +1,11 @@
+<%% simple_form_for(@<%= singular_name %>) do |f| %>
+  <div class="inputs">
+  <% attibutes.each do |attribute| %>
+    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+  <% end -%>
+  </div>
+
+  <div class="actions">
+    <%%= f.button :submit %> or <%%= link_to 'cancel', :back %>
+  </div>
+<%% end %>

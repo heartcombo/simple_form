@@ -2,10 +2,6 @@ en:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
-    buttons:
-      create: 'Create {{model}}'
-      update: 'Update {{model}}'
-      submit: 'Submit {{model}}'
     required:
       text: 'required'
       mark: '*'

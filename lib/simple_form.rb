@@ -31,7 +31,7 @@ module SimpleForm
 
   # You can wrap all inputs in a pre-defined tag. By default is nil.
   mattr_accessor :wrapper_tag
-  @@wrapper_tag = nil
+  @@wrapper_tag = :div
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
@@ -53,5 +53,24 @@ module SimpleForm
   # to create a fresh initializer with all configuration values.
   def self.setup
     yield self
+  end
+
+  class Railtie < ::Rails::Railtie
+    railtie_name :simple_form
+
+    # Add load paths straight to I18n, so engines and application can overwrite it.
+    require 'active_support/i18n'
+    I18n.load_path << File.expand_path('../locales/en.yml', __FILE__)
+
+    # Remove this conditional on next Rails beta
+    if config.generators.respond_to?(:templates)
+      config.generators.templates << File.expand_path('../templates', __FILE__)
+    end
+
+    initializer "simple_form.initialize_values" do |app|
+      config.simple_form.each do |setting, value|
+        SimpleForm.send("#{setting}=", value)
+      end
+    end
   end
 end
