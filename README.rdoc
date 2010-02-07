@@ -26,9 +26,9 @@ SimpleForm was designed to be customized as you need to. Basically it's a stack 
 To start using SimpleForm you just have to use the helper it provides:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :username %></p>
-    <p><%= f.input :password %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :username %>
+    <%= f.input :password %>
+    <%= f.button :submit %>
   <% end -%>
 
 This will generate an entire form with labels for user name and password as well, and render errors by default when you render the form with invalid data (after submitting for example).
@@ -36,37 +36,37 @@ This will generate an entire form with labels for user name and password as well
 You can overwrite the default label by passing it to the input method, or even add a hint:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :username, :label => 'Your username please' %></p>
-    <p><%= f.input :password, :hint => 'No special characters.' %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :username, :label => 'Your username please' %>
+    <%= f.input :password, :hint => 'No special characters.' %>
+    <%= f.button :submit %>
   <% end -%>
 
 You can also disable labels, hints or error or configure the html of any of them:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :username, :label_html => { :class => 'my_class' } %></p>
-    <p><%= f.input :password, :hint => false, :error_html => { :id => "password_error"} %></p>
-    <p><%= f.input :password_confirmation, :label => false %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :username, :label_html => { :class => 'my_class' } %>
+    <%= f.input :password, :hint => false, :error_html => { :id => "password_error"} %>
+    <%= f.input :password_confirmation, :label => false %>
+    <%= f.button :submit %>
   <% end -%>
 
 By default all inputs are required, which means an * is prepended to the label, but you can disable it in any input you want:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :name, :required => false %></p>
-    <p><%= f.input :username %></p>
-    <p><%= f.input :password %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :name, :required => false %>
+    <%= f.input :username %>
+    <%= f.input :password %>
+    <%= f.button :submit %>
   <% end -%>
 
 SimpleForm also lets you overwrite the default input type it creates:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :username %></p>
-    <p><%= f.input :password %></p>
-    <p><%= f.input :description, :as => :text %></p>
-    <p><%= f.input :accepts,     :as => :radio %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :username %>
+    <%= f.input :password %>
+    <%= f.input :description, :as => :text %>
+    <%= f.input :accepts,     :as => :radio %>
+    <%= f.button :submit %>
   <% end -%>
 
 So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no labels and a text area instead of a text field for the description. You can also render boolean attributes using :as => :select to show a dropdown.
@@ -74,11 +74,11 @@ So instead of a checkbox for the :accepts attribute, you'll have a pair of radio
 SimpleForm also allows you using label, hint and error helpers it provides:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.label :username %></p>
-    <p><%= f.text_field :username %></p>
-    <p><%= f.error :username, :id => 'user_name_error' %></p>
-    <p><%= f.hint 'No special characters, please!' %></p>
-    <p><%= f.submit 'Save' %></p>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+    <%= f.error :username, :id => 'user_name_error' %>
+    <%= f.hint 'No special characters, please!' %>
+    <%= f.submit 'Save' %>
   <% end -%>
 
 Any extra option passed to label, hint or error will be rendered as html option.
@@ -88,9 +88,9 @@ Any extra option passed to label, hint or error will be rendered as html option.
 And what if you want to create a select containing the age from 18 to 60 in your form? You can do it overriding the :collection option:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :user %></p>
-    <p><%= f.input :age, :collection => 18..60 %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :user %>
+    <%= f.input :age, :collection => 18..60 %>
+    <%= f.button :submit %>
   <% end -%>
 
 Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option. Other types of collection are :radio and :check_boxes. Those are added by SimpleForm to Rails set of form helpers (read Extra Helpers session below for more information).
@@ -121,12 +121,12 @@ The first step is to configure a wrapper tag:
 
   SimpleForm.wrapper_tag = :p
 
-And now, you don't need to wrap your f.input calls with <p> anymore:
+And now, you don't need to wrap your f.input calls with  anymore:
 
   <% simple_form_for @user do |f| -%>
     <%= f.input :username %>
     <%= f.input :password %>
-    <p><%= f.button :submit %></p>
+    <%= f.button :submit %>
   <% end -%>
 
 == Associations
@@ -149,10 +149,10 @@ To deal with associations, SimpleForm can generate select inputs or a series of 
 Now we have the user form:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :name %></p>
-    <p><%= f.association :company %></p>
-    <p><%= f.association :roles %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :name %>
+    <%= f.association :company %>
+    <%= f.association :roles %>
+    <%= f.button :submit %>
   <% end -%>
 
 Simple enough right? This is going to render a :select input for choosing the :company, and another :select input with :multiple option for the :roles. You can of course change it, to use radios and check boxes as well:
@@ -178,8 +178,8 @@ The association helper just invokes input under the hood, so all options availab
 All web forms need buttons, right? SimpleForm wraps them in the DSL, acting like a proxy:
 
   <% simple_form_for @user do |f| -%>
-    <p><%= f.input :name %></p>
-    <p><%= f.button :submit %></p>
+    <%= f.input :name %>
+    <%= f.button :submit %>
   <% end -%>
 
 The above will simply call submit. You choose to use it or not, it's just a question of taste.
