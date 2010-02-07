@@ -1,9 +1,17 @@
 class SimpleFormInstallGenerator < Rails::Generators::Base
+  def self.source_root
+    @_source_root = File.expand_path('../templates', __FILE__)
+  end
+
   def copy_initializers
-    template 'simple_form.rb', 'config/initializers/simple_form.rb'
+    copy_file 'simple_form.rb', 'config/initializers/simple_form.rb'
   end
 
   def copy_locale_file
-    template '../../locale/en.yml', 'config/locales/simple_form.en.yml'
+    copy_file 'en.yml', 'config/locales/simple_form.en.yml'
+  end
+
+  def copy_scaffold_template
+    copy_file '_form.html.erb', 'lib/templates/erb/scaffold/_form.html.erb'
   end
 end

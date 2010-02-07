@@ -62,15 +62,6 @@ module SimpleForm
   class Railtie < ::Rails::Railtie
     railtie_name :simple_form
 
-    # Add load paths straight to I18n, so engines and application can overwrite it.
-    require 'active_support/i18n'
-    I18n.load_path << File.expand_path('../locales/en.yml', __FILE__)
-
-    # Remove this conditional on next Rails beta
-    if config.generators.respond_to?(:templates)
-      config.generators.templates << File.expand_path('../templates', __FILE__)
-    end
-
     initializer "simple_form.initialize_values" do |app|
       config.simple_form.each do |setting, value|
         SimpleForm.send("#{setting}=", value)
