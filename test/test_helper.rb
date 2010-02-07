@@ -5,8 +5,6 @@ require 'active_model'
 require 'action_controller'
 require 'action_view/test_case'
 
-require 'rails/railtie'
-
 begin
   require 'ruby-debug'
 rescue LoadError

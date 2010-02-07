@@ -1,4 +1,6 @@
 class SimpleFormInstallGenerator < Rails::Generators::Base
+  desc "Copy SimpleForm default files"
+
   def self.source_root
     @_source_root = File.expand_path('../templates', __FILE__)
   end

@@ -58,14 +58,4 @@ module SimpleForm
   def self.setup
     yield self
   end
-
-  class Railtie < ::Rails::Railtie
-    railtie_name :simple_form
-
-    initializer "simple_form.initialize_values" do |app|
-      config.simple_form.each do |setting, value|
-        SimpleForm.send("#{setting}=", value)
-      end
-    end
-  end
 end
