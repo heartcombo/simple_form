@@ -34,7 +34,7 @@ begin
     s.description = "Forms made easy!"
     s.authors = ['José Valim', 'Carlos Antônio']
     s.files =  FileList["[A-Z]*(.rdoc)", "{generators,lib}/**/*", "init.rb"]
-    s.test_files =  FileList["test/**/*.rb"].exclude("test/support/country_select")
+    s.test_files.exclude("test/support/country_select")
   end
 
   Jeweler::GemcutterTasks.new
