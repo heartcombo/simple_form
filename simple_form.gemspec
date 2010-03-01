@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim", "Carlos Ant\303\264nio"]
-  s.date = %q{2010-02-19}
+  s.date = %q{2010-03-01}
   s.description = %q{Forms made easy!}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -48,26 +48,22 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/plataformatec/simple_form}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Forms made easy!}
   s.test_files = [
-    "test/action_view_extensions/builder_test.rb",
+    "test/simple_form_test.rb",
+     "test/support/models.rb",
+     "test/support/mock_controller.rb",
+     "test/support/mock_response.rb",
+     "test/support/misc_helpers.rb",
+     "test/form_builder_test.rb",
      "test/action_view_extensions/form_helper_test.rb",
+     "test/action_view_extensions/builder_test.rb",
+     "test/test_helper.rb",
      "test/components/error_test.rb",
      "test/components/hint_test.rb",
      "test/components/label_test.rb",
-     "test/form_builder_test.rb",
-     "test/inputs_test.rb",
-     "test/simple_form_test.rb",
-     "test/support/country_select/init.rb",
-     "test/support/country_select/install.rb",
-     "test/support/country_select/lib/country_select.rb",
-     "test/support/country_select/uninstall.rb",
-     "test/support/misc_helpers.rb",
-     "test/support/mock_controller.rb",
-     "test/support/mock_response.rb",
-     "test/support/models.rb",
-     "test/test_helper.rb"
+     "test/inputs_test.rb"
   ]
 
   if s.respond_to? :specification_version then
