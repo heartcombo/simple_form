@@ -7,10 +7,14 @@ module SimpleForm
 
       def input_html_options
         input_options = super
-        input_options[:class]       = "string #{input_options[:class]}" unless input_type == :string
         input_options[:size]      ||= [limit, SimpleForm.default_input_size].compact.min
         input_options[:maxlength] ||= limit if limit
-        input_options[:type]      ||= input_type
+
+        unless input_type == :string
+          input_options[:type] ||= input_type
+          input_options[:class]  = "string #{input_options[:class]}"
+        end
+
         input_options
       end
 

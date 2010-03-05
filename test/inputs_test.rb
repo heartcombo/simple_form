@@ -29,22 +29,22 @@ class InputTest < ActionView::TestCase
   # TextFieldInput
   test 'input should map text field to string attribute' do
     with_input_for @user, :name, :string
-    assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!]'
+    assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!][type=text]'
   end
 
   test 'input should generate an integer text field for integer attributes ' do
     with_input_for @user, :age, :integer
-    assert_select 'input.integer#user_age'
+    assert_select 'input[type=text].integer#user_age'
   end
   
   test 'input should generate a float text field for float attributes ' do
     with_input_for @user, :age, :float
-    assert_select 'input.float#user_age'
+    assert_select 'input[type=text].float#user_age'
   end
   
   test 'input should generate a decimal text field for decimal attributes ' do
     with_input_for @user, :age, :decimal
-    assert_select 'input.decimal#user_age'
+    assert_select 'input[type=text].decimal#user_age'
   end
 
   test 'input should use default text size for decimal attributes' do

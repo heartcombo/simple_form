@@ -19,8 +19,8 @@ class Company < Struct.new(:id, :name)
     (a || {}).merge(b || {})
   end
 
-  def new_record?
-    false
+  def persisted?
+    true
   end
 end
 
@@ -42,8 +42,8 @@ class User < OpenStruct
     @new_record = true
   end
 
-  def new_record?
-    @new_record || false
+  def persisted?
+    !(@new_record || false)
   end
 
   def company_attributes=(*)
