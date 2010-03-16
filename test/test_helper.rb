@@ -16,8 +16,14 @@ require 'simple_form'
 Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 
-$:.unshift "#{File.dirname(__FILE__)}/support/country_select/lib"
-require 'country_select'
+country_select = "#{File.dirname(__FILE__)}/support/country_select/lib"
+
+if File.exists?(country_select)
+  $:.unshift country_select
+  require 'country_select'
+else
+  raise "Could not find country_select plugin in test/support. Please execute git submodule update --init."
+end
 
 class SimpleForm::FormBuilder
   attr_accessor :attribute_name, :column, :reflection, :input_type, :options
