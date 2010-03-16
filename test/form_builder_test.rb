@@ -3,39 +3,39 @@ require 'test_helper'
 class FormBuilderTest < ActionView::TestCase
 
   def with_form_for(object, *args, &block)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       concat f.input(*args, &block)
-    end
+    end)
   end
 
   def with_button_for(object, *args)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       concat f.button(*args)
-    end
+    end)
   end
 
   def with_error_for(object, *args)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       concat f.error(*args)
-    end
+    end)
   end
 
   def with_hint_for(object, *args)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       concat f.hint(*args)
-    end
+    end)
   end
 
   def with_label_for(object, *args)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       concat f.label(*args)
-    end
+    end)
   end
 
   def with_association_for(object, *args)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       concat f.association(*args)
-    end
+    end)
   end
 
   # All
@@ -267,9 +267,9 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder allows wrapper tag to be given on demand' do
-    simple_form_for @user do |f|
+    concat(simple_form_for @user do |f|
       concat f.input :name, :wrapper_tag => :b
-    end
+    end)
     assert_select 'form b.required.string'
   end
 

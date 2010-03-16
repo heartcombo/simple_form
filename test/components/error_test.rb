@@ -3,14 +3,14 @@ require 'test_helper'
 class ErrorTest < ActionView::TestCase
 
   def with_error_for(object, attribute_name, type, options={}, &block)
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       f.attribute_name = attribute_name
       f.reflection     = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type     = type
       f.options        = options
 
       concat(SimpleForm::Inputs::Base.new(f).error.to_s)
-    end
+    end)
   end
 
   test 'error should not generate content for attribute without errors' do

@@ -7,14 +7,14 @@ class LabelTest < ActionView::TestCase
   end
 
   def with_label_for(object, attribute_name, type, options={})
-    simple_form_for object do |f|
+    concat(simple_form_for object do |f|
       f.attribute_name = attribute_name
       f.reflection     = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type     = type
       f.options        = options
 
       concat(SimpleForm::Inputs::Base.new(f).label)
-    end
+    end)
   end
 
   test 'label should generate a default humanized description' do
