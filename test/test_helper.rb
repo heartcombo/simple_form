@@ -3,6 +3,8 @@ require 'test/unit'
 
 require 'active_model'
 require 'action_controller'
+require 'action_view'
+require 'action_view/template'
 require 'action_view/test_case'
 
 begin
