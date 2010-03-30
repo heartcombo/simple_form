@@ -2,6 +2,7 @@
 
 * bug fix
   * fix some escaping issues
+  * removed :conditions, :order, :joins and :include support in f.association
 
 == 1.1.0
 

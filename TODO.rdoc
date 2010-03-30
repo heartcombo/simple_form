@@ -1,6 +1,5 @@
 == General
 
-* HTML 5 support
 * Pretty buttons
 
 == Validations

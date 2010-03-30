@@ -414,44 +414,12 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # ASSOCIATIONS - FINDERS
-  test 'builder should allow passing conditions to find collection' do
-    with_association_for @user, :company, :conditions => { :id => 1 }
-    assert_select 'form select.select#user_company_id'
-    assert_select 'form select option[value=1]'
-    assert_no_select 'form select option[value=2]'
-    assert_no_select 'form select option[value=3]'
-  end
-
   test 'builder should use reflection conditions to find collection' do
     with_association_for @user, :special_company
     assert_select 'form select.select#user_special_company_id'
     assert_select 'form select option[value=1]'
     assert_no_select 'form select option[value=2]'
     assert_no_select 'form select option[value=3]'
-  end
-
-  test 'builder should allow passing order to find collection' do
-    with_association_for @user, :company, :order => 'name'
-    assert_select 'form select.select#user_company_id'
-    assert_no_select 'form select option[value=1]'
-    assert_no_select 'form select option[value=2]'
-    assert_select 'form select option[value=3]'
-  end
-
-  test 'builder should allow passing include option to find collection' do
-    with_association_for @user, :company, :include => :city
-    assert_select 'form select.select#user_company_id'
-    assert_select 'form select option[value=1]'
-    assert_select 'form select option[value=2]'
-    assert_no_select 'form select option[value=3]'
-  end
-
-  test 'builder should allow passing joins option to find collection' do
-    with_association_for @user, :company, :joins => :city
-    assert_select 'form select.select#user_company_id'
-    assert_select 'form select option[value=2]'
-    assert_select 'form select option[value=3]'
-    assert_no_select 'form select option[value=1]'
   end
 
   test 'builder should allow overriding collection to association input' do

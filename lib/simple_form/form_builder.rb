@@ -96,35 +96,14 @@ module SimpleForm
     # supported in input are also supported by association. Some extra options
     # can also be given:
     #
-    # == Options
-    #
-    # * :conditions - Given as conditions when retrieving the collection
-    #
-    # * :include - Given as include when retrieving the collection
-    #
-    # * :joins - Given as joins when retrieving the collection
-    #
-    # * :order - Given as order when retrieving the collection
-    #
-    # * :scope - Given as scopes when retrieving the collection
-    #
     # == Examples
     #
     #   simple_form_for @user do |f|
     #     f.association :company          # Company.all
     #   end
     #
-    #   f.association :company, :order => 'name'
-    #   # Company.all(:order => 'name')
-    #
-    #   f.association :company, :conditions => { :active => true }
-    #   # Company.all(:conditions => { :active => true })
-    #
     #   f.association :company, :collection => Company.all(:order => 'name')
     #   # Same as using :order option, but overriding collection
-    #
-    #   f.association :company, :scope => [ :public, :not_broken ]
-    #   # Same as doing Company.public.not_broken.all
     #
     # == Block
     #
@@ -163,15 +142,9 @@ module SimpleForm
           end
       end
 
-      options[:collection] ||= begin
-        finders = options.slice(:conditions, :order, :include, :joins)
-        finders[:conditions] = @reflection.klass.merge_conditions(finders[:conditions],
-          @reflection.options[:conditions])
-        klass = Array(options[:scope]).inject(@reflection.klass) do |klass, scope|
-          klass.send(scope)
-        end
-        klass.all(finders)
-      end
+      options[:collection] ||= @reflection.klass.all(
+        :conditions => @reflection.options[:conditions], :order => @reflection.options[:order]
+      )
 
       returning(input(attribute, options)) { @reflection = nil }
     end

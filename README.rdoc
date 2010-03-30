@@ -160,16 +160,7 @@ Simple enough right? This is going to render a :select input for choosing the :c
   f.association :company, :as => :radio
   f.association :roles, :as => :check_boxes
 
-And you will get a set of radios to select the company and another set of check boxes for the roles. Some options are available for refining the collection for associations: :conditions, :include, :joins, :order. These options are given straight to the find method. Here is an example of how to use these options:
-
-  f.association :company, :order => 'name'
-  f.association :roles, :conditions => { :active => true }
-
-You also have the ability to call named scopes using the association:
-
-  f.association :company, :scope => [:active, :available]
-
-The association helper just invokes input under the hood, so all options available to :select, :radio and :check_boxes are also available to association. For example, you can specify the collection by hand, all together with the prompt:
+The association helper just invokes input under the hood, so all options available to :select, :radio and :check_boxes are also available to association. Additionally, you can specify the collection by hand, all together with the prompt:
 
   f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
 
@@ -235,8 +226,8 @@ SimpleForm comes with a lot of default mappings:
 
   boolean               check box               boolean
   string                text field              string
-  email                 email field             string
-  url                   url field               string
+  email                 email field             string with name matching "email"
+  url                   url field               string with name matching "url"
   password              password field          string with name matching "password"
   text                  text area               text
   file                  file field              string, responding to file methods
