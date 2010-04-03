@@ -1,8 +1,17 @@
+== 1.1.3
+
+* deprecation
+  * removed :conditions, :order, :joins and :include support in f.association
+
+== 1.1.2
+
+* bug fix
+  * Ensure type is set to "text" and not "string"
+
 == 1.1.1
 
 * bug fix
-  * fix some escaping issues
-  * removed :conditions, :order, :joins and :include support in f.association
+  * Fix some escaping issues
 
 == 1.1.0
 

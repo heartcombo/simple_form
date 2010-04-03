@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{simple_form}
-  s.version = "1.1.2"
+  s.version = "1.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim", "Carlos Ant\303\264nio"]
-  s.date = %q{2010-03-16}
+  s.date = %q{2010-04-03}
   s.description = %q{Forms made easy!}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
