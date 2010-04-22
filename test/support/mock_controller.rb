@@ -5,6 +5,10 @@ class MockController
     @action_name || "edit"
   end
 
+  def _router
+    self
+  end
+
   def url_for(*args)
     "http://example.com"
   end

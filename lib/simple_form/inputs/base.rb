@@ -34,7 +34,7 @@ module SimpleForm
       end
 
       def render
-        content = SimpleForm.components.map do |component|
+        content = components_list.map do |component|
           next if options[component] == false
           send(component)
         end
@@ -43,6 +43,10 @@ module SimpleForm
       end
 
     protected
+
+      def components_list
+        SimpleForm.components
+      end
 
       def attribute_required?
         options[:required] != false

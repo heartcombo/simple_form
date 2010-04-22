@@ -30,15 +30,15 @@ module SimpleForm
       #                 item or an array of items.
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
-        collection.inject('') do |result, item|
+        collection.map do |item|
           value = item.send value_method
           text  = item.send text_method
 
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
-          result << radio_button(attribute, value, default_html_options) <<
-                    label("#{attribute}_#{value}", text, :class => "collection_radio")
-        end.html_safe
+          radio_button(attribute, value, default_html_options) <<
+            label("#{attribute}_#{value}", text, :class => "collection_radio")
+        end.join.html_safe
       end
 
       # Creates a collection of check boxes for each item in the collection, associated
@@ -69,16 +69,16 @@ module SimpleForm
       #                 item or an array of items.
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
-        collection.inject('') do |result, item|
+        collection.map do |item|
           value = item.send value_method
           text  = item.send text_method
 
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
           default_html_options[:multiple] = true
 
-          result << check_box(attribute, default_html_options, value, '') <<
-                    label("#{attribute}_#{value}", text, :class => "collection_check_boxes")
-        end.html_safe
+          check_box(attribute, default_html_options, value, '') <<
+            label("#{attribute}_#{value}", text, :class => "collection_check_boxes")
+        end.join.html_safe
       end
 
       # Wrapper for using simple form inside a default rails form.
