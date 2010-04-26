@@ -11,9 +11,11 @@ SimpleForm.setup do |config|
   #  SimpleForm::Components::Error
   #]
 
-  # Default tag used in components (hints and errors basically). When using one
-  # of these components, this tag will be used to render it.
-  # config.component_tag = :span
+  # Default tag used on hints.
+  # config.hint_tag = :span
+
+  # Default tag used on errors.
+  # config.error_tag = :span
 
   # You can wrap all inputs in a pre-defined tag. By default is nil.
   # config.wrapper_tag = nil

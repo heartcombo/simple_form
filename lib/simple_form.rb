@@ -9,11 +9,11 @@ module SimpleForm
   autoload :Inputs,      'simple_form/inputs'
   autoload :MapType,     'simple_form/map_type'
 
-  # Default tag used in hints.
+  # Default tag used on hints.
   mattr_accessor :hint_tag
   @@hint_tag = :span
 
-  # Default tag used in errors.
+  # Default tag used on errors.
   mattr_accessor :error_tag
   @@error_tag = :span
 
