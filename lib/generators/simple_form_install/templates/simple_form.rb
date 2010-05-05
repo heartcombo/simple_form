@@ -13,8 +13,8 @@ SimpleForm.setup do |config|
   # Default tag used on errors.
   # config.error_tag = :span
 
-  # You can wrap all inputs in a pre-defined tag. By default is nil.
-  # config.wrapper_tag = nil
+  # You can wrap all inputs in a pre-defined tag.
+  # config.wrapper_tag = :div
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
