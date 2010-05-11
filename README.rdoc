@@ -10,6 +10,10 @@ Install the gem:
 
   sudo gem install simple_form
 
+Add it to your Gemfile:
+
+  gem "simple_form"
+
 Run the generator:
 
   rails generate simple_form_install
