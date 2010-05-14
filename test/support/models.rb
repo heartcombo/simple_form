@@ -100,3 +100,8 @@ class User < OpenStruct
     }
   end
 end
+
+class ValidatingUser < User
+  include ActiveModel::Validations
+  validates :name, :presence => true
+end

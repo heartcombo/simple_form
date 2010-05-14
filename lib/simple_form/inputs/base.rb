@@ -49,6 +49,11 @@ module SimpleForm
       end
 
       def attribute_required?
+        klass = object.class
+        if defined? klass.validators_on
+          return options[:required] unless options[:required].nil?
+          return klass.validators_on(attribute_name).map {|validator| validator.kind}.include?(:presence)
+        end
         options[:required] != false
       end
 

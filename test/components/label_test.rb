@@ -94,13 +94,27 @@ class LabelTest < ActionView::TestCase
     with_label_for @user, :created_at, :datetime
     assert_select 'label.datetime'
   end
+  
+  test 'label should obtain required from ActiveModel::Validations when it is included' do
+    with_label_for @validating_user, :name, :string
+    assert_select 'label.required'
+    with_label_for @validating_user, :status, :string
+    assert_select 'label.optional'
+  end
+  
+  test 'label should allow overriding required when ActiveModel::Validations is included' do
+    with_label_for @validating_user, :name, :string, :required => false
+    assert_select 'label.optional'
+    with_label_for @validating_user, :status, :string, :required => true
+    assert_select 'label.required'
+  end
 
-  test 'label should be required by default' do
+  test 'label should be required by default when ActiveModel::Validations is not included' do
     with_label_for @user, :name, :string
     assert_select 'label.required'
   end
 
-  test 'label should be able to disable required' do
+  test 'label should be able to disable required when ActiveModel::Validations is not included' do
     with_label_for @user, :name, :string, :required => false
     assert_no_select 'label.required'
   end
