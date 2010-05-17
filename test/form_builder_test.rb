@@ -229,6 +229,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'span.error#cool', "can't be blank"
   end
 
+  # REQUIRED AND PRESENCE VALIDATION 
   test 'builder input should obtain required from ActiveModel::Validations when it is included' do
     with_form_for @validating_user, :name
     assert_select 'input.required#validating_user_name'
@@ -347,9 +348,14 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'label.string[for=user_name]', /Name/
   end
 
+  test 'builder should add a required class to label if the attribute is required' do
+    with_label_for @validating_user, :name
+    assert_select 'label.string[for=validating_user_name]', /Name/
+  end
+
   test 'builder should allow passing options to label tag' do
     with_label_for @user, :name, :label => 'My label', :id => 'name_label'
-    assert_select 'label.string.required#name_label', /My label/
+    assert_select 'label.string#name_label', /My label/
   end
 
   test 'builder should fallback to default label when string is given' do
