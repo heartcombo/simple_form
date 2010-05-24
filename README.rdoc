@@ -16,7 +16,7 @@ Add it to your Gemfile:
 
 Run the generator:
 
-  rails generate simple_form_install
+  rails generate simple_form:install
 
 And you are ready to go. Since this branch is aims Rails 3 support,
 if you want to use it with Rails 2.3 you should check this branch:
@@ -298,7 +298,7 @@ There are other options that can be configured through I18n API, such as require
 
 SimpleForm has several configuration values. You can read and change them in the initializer created by SimpleForm, so if you haven't executed the command below yet, please do:
 
-  ruby script/generate simple_form_install
+  rails generate simple_form:install
 
 == TODO
 

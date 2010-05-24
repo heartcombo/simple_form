@@ -1,5 +1,8 @@
+* deprecation
+  * Changed simple_form_install generator to simple_form:install
+
 * enhancements
-  * added support to presence validation to check if attribute is required or not (by github.com/gcirne)
+  * Added support to presence validation to check if attribute is required or not (by github.com/gcirne)
 
 == 1.1.3
 

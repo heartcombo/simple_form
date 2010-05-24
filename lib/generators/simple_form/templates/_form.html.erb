@@ -1,4 +1,4 @@
-<%% simple_form_for(@<%= singular_name %>) do |f| %>
+<%%= simple_form_for(@<%= singular_name %>) do |f| %>
   <div class="inputs">
   <%- attributes.each do |attribute| -%>
     <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>

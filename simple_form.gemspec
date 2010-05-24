@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim", "Carlos Ant\303\264nio"]
-  s.date = %q{2010-04-03}
+  s.date = %q{2010-05-24}
   s.description = %q{Forms made easy!}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -17,11 +17,11 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "init.rb",
-     "lib/generators/simple_form_install/USAGE",
-     "lib/generators/simple_form_install/simple_form_install_generator.rb",
-     "lib/generators/simple_form_install/templates/_form.html.erb",
-     "lib/generators/simple_form_install/templates/en.yml",
-     "lib/generators/simple_form_install/templates/simple_form.rb",
+     "lib/generators/simple_form/USAGE",
+     "lib/generators/simple_form/install_generator.rb",
+     "lib/generators/simple_form/templates/_form.html.erb",
+     "lib/generators/simple_form/templates/en.yml",
+     "lib/generators/simple_form/templates/simple_form.rb",
      "lib/simple_form.rb",
      "lib/simple_form/action_view_extensions/builder.rb",
      "lib/simple_form/action_view_extensions/form_helper.rb",
