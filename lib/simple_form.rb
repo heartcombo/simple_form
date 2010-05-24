@@ -33,8 +33,8 @@ module SimpleForm
   mattr_accessor :wrapper_tag
   @@wrapper_tag = :div
 
-  mattr_accessor :wrapper_errors_class
-  @@wrapper_errors_class = :fieldWithErrors
+  mattr_accessor :wrapper_error_class
+  @@wrapper_error_class = :fieldWithErrors
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text

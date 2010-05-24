@@ -22,4 +22,11 @@ class WrapperTest < ActionView::TestCase
     with_error_for @user, :name
     assert_select 'div.fieldWithErrors'
   end
+
+  test 'wrapper should add chosen error class for attribute with errors' do
+    swap SimpleForm, :wrapper_error_class => "omgError" do
+      with_error_for @user, :name
+      assert_select 'div.omgError'
+    end
+  end
 end

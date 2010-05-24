@@ -17,7 +17,7 @@ SimpleForm.setup do |config|
   # config.wrapper_tag = :div
 
   # CSS class to add to the wrapper if the field has errors
-  # config.wrapper_errors_class = :fieldWithErrors
+  # config.wrapper_error_class = :fieldWithErrors
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }

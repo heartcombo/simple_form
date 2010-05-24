@@ -1,3 +1,6 @@
+* enhancements
+  * Add error class on wrappers (by github.com/jduff)
+
 == 1.2.0
 
 * deprecation

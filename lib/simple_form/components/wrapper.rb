@@ -14,7 +14,7 @@ module SimpleForm
       end
 
       def errors_class
-        options[:wrapper_errors_class] || SimpleForm.wrapper_errors_class
+        options[:wrapper_error_class] || SimpleForm.wrapper_error_class
       end
 
       def wrapper_html_options
