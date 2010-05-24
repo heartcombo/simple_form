@@ -288,6 +288,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form b.required.string'
   end
 
+  test 'builder wrapping tag adds erros class for attribute with errors' do
+    with_form_for @user, :name
+    assert_select 'form div.input.required.string.fieldWithErrors'
+  end
+
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name

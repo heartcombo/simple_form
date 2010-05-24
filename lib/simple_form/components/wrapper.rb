@@ -13,8 +13,14 @@ module SimpleForm
         options[:wrapper_tag] || SimpleForm.wrapper_tag
       end
 
+      def errors_class
+        options[:wrapper_errors_class] || SimpleForm.wrapper_errors_class
+      end
+
       def wrapper_html_options
-        html_options_for(:wrapper, "input", input_type, required_class)
+        css_classes = ["input", input_type, required_class]
+        css_classes << errors_class if object && errors.present?
+        html_options_for(:wrapper, css_classes)
       end
     end
   end
