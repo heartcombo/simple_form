@@ -1,9 +1,12 @@
+== 1.2.0
+
 * deprecation
   * Changed simple_form_install generator to simple_form:install
 
 * enhancements
   * Added support to presence validation to check if attribute is required or not (by github.com/gcirne)
-  * Add .input as class to wrapper tag
+  * Added .input as class to wrapper tag
+  * Added config options for hint and error tags (by github.com/tjogin)
 
 == 1.1.3
 
