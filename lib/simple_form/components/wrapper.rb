@@ -14,7 +14,7 @@ module SimpleForm
       end
 
       def wrapper_html_options
-        html_options_for(:wrapper, input_type, required_class)
+        html_options_for(:wrapper, "input", input_type, required_class)
       end
     end
   end

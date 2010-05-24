@@ -3,6 +3,7 @@
 
 * enhancements
   * Added support to presence validation to check if attribute is required or not (by github.com/gcirne)
+  * Add .input as class to wrapper tag
 
 == 1.1.3
 

@@ -267,10 +267,10 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder wrapping tag adds default css classes' do
     swap SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name
-      assert_select 'form p.required.string'
+      assert_select 'form p.input.required.string'
 
       with_form_for @user, :age, :required => false
-      assert_select 'form p.optional.integer'
+      assert_select 'form p.input.optional.integer'
     end
   end
 
