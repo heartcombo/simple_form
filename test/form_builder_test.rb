@@ -288,7 +288,14 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form b.required.string'
   end
 
-  test 'builder wrapping tag adds erros class for attribute with errors' do
+  test 'builder allows wrapper class to be given on demand' do
+    concat(simple_form_for @user do |f|
+      concat f.input :name, :wrapper_class => :wrapper
+    end)
+    assert_select 'form div.wrapper.required.string'
+  end
+
+  test 'builder wrapping tag adds errors class for attribute with errors' do
     with_form_for @user, :name
     assert_select 'form div.input.required.string.fieldWithErrors'
   end

@@ -29,10 +29,15 @@ module SimpleForm
   mattr_accessor :collection_value_methods
   @@collection_value_methods = [ :id, :to_s ]
 
-  # You can wrap all inputs in a pre-defined tag. By default is nil.
+  # You can wrap all inputs in a pre-defined tag. Default is a div.
   mattr_accessor :wrapper_tag
   @@wrapper_tag = :div
 
+  # You can define the class to use on all wrappers. Default is input.
+  mattr_accessor :wrapper_class
+  @@wrapper_class = :input
+
+  # You can define the class to add to the wrapper when the field has errors. Default is fieldWithErrors.
   mattr_accessor :wrapper_error_class
   @@wrapper_error_class = :fieldWithErrors
 
