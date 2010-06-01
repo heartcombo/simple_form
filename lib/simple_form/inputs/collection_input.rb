@@ -42,12 +42,12 @@ module SimpleForm
         sample = collection.first || collection.last
 
         case sample
-          when Array
-            label, value = :first, :last
-          when Integer
-            label, value = :to_s, :to_i
-          when String, NilClass
-            label, value = :to_s, :to_s
+        when Array
+          label, value = :first, :last
+        when Integer
+          label, value = :to_s, :to_i
+        when String, NilClass
+          label, value = :to_s, :to_s
         end
 
         options[:label_method] ||= label || SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) }

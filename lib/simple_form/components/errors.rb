@@ -14,7 +14,7 @@ module SimpleForm
       end
 
       def error_html_options
-        html_options_for(:error, :error)
+        html_options_for(:error, [:error])
       end
 
     protected

@@ -30,7 +30,11 @@ module SimpleForm
       end
 
       def input_html_options
-        html_options_for(:input, input_type, required_class)
+        html_options_for(:input, input_html_classes)
+      end
+
+      def input_html_classes
+        [input_type, required_class]
       end
 
       def render
@@ -68,7 +72,7 @@ module SimpleForm
       end
 
       # Retrieve options for the given namespace from the options hash
-      def html_options_for(namespace, *extra)
+      def html_options_for(namespace, extra)
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options

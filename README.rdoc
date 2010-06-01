@@ -236,9 +236,9 @@ SimpleForm comes with a lot of default mappings:
   text                  text area               text
   file                  file field              string, responding to file methods
   hidden                hidden field            -
-  integer               text field              integer
-  float                 text field              float
-  decimal               text field              decimal
+  integer               number field            integer
+  float                 number field            float
+  decimal               number field            decimal
   datetime              datetime select         datetime/timestamp
   date                  date select             date
   time                  time select             time

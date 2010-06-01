@@ -3,7 +3,7 @@ require 'test_helper'
 class WrapperTest < ActionView::TestCase
   def with_error_for(object, attribute_name, options={}, &block)
     concat(simple_form_for object do |f|
-      f.options        = options
+      f.options = options
       f.input attribute_name
     end)
   end

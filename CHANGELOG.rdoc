@@ -1,5 +1,6 @@
 * enhancements
-  * Add error class on wrappers (by github.com/jduff)
+  * Added error class on wrappers (by github.com/jduff)
+  * Changed numeric types to have type=number for HTML5
 
 == 1.2.0
 

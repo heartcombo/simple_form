@@ -7,10 +7,10 @@ module SimpleForm
 
       def label_target
         case input_type
-          when :date, :datetime
-            "#{attribute_name}_1i"
-          when :time
-            "#{attribute_name}_4i"
+        when :date, :datetime
+          "#{attribute_name}_1i"
+        when :time
+          "#{attribute_name}_4i"
         end
       end
     end

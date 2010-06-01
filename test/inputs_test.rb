@@ -34,17 +34,17 @@ class InputTest < ActionView::TestCase
 
   test 'input should generate an integer text field for integer attributes ' do
     with_input_for @user, :age, :integer
-    assert_select 'input[type=text].integer#user_age'
+    assert_select 'input[type=number].integer#user_age'
   end
   
   test 'input should generate a float text field for float attributes ' do
     with_input_for @user, :age, :float
-    assert_select 'input[type=text].float#user_age'
+    assert_select 'input[type=number].float#user_age'
   end
   
   test 'input should generate a decimal text field for decimal attributes ' do
     with_input_for @user, :age, :decimal
-    assert_select 'input[type=text].decimal#user_age'
+    assert_select 'input[type=number].decimal#user_age'
   end
 
   test 'input should use default text size for decimal attributes' do

@@ -17,13 +17,13 @@ module SimpleForm
         options[:wrapper_class] || SimpleForm.wrapper_class
       end
 
-      def errors_class
+      def wrapper_error_class
         options[:wrapper_error_class] || SimpleForm.wrapper_error_class
       end
 
       def wrapper_html_options
-        css_classes = [wrapper_class, input_type, required_class]
-        css_classes << errors_class if object && errors.present?
+        css_classes = input_html_classes.unshift(wrapper_class)
+        css_classes << wrapper_error_class if object && errors.present?
         html_options_for(:wrapper, css_classes)
       end
     end

@@ -1,19 +1,24 @@
 require 'rubygems'
 require 'test/unit'
 
+gem "actionpack", "3.0.0.beta3"
+gem "activemodel", "3.0.0.beta3"
+
 require 'active_model'
 require 'action_controller'
 require 'action_view'
 require 'action_view/template'
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
+require 'simple_form'
+
+# Load tests specifics
 require 'action_view/test_case'
 
 begin
   require 'ruby-debug'
 rescue LoadError
 end
-
-$:.unshift File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
-require 'simple_form'
 
 Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 I18n.default_locale = :en
@@ -33,8 +38,6 @@ end
 
 class ActionView::TestCase
   include MiscHelpers
-
-  tests SimpleForm::ActionViewExtensions::FormHelper
 
   setup :set_controller
   setup :set_response
