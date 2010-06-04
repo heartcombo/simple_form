@@ -8,7 +8,7 @@ SimpleForm aims to be as flexible as possible while helping you with powerful co
 
 Install the gem:
 
-  sudo gem install simple_form
+  gem install simple_form
 
 Add it to your Gemfile:
 
@@ -18,7 +18,7 @@ Run the generator:
 
   rails generate simple_form:install
 
-And you are ready to go. Since this branch is aims Rails 3 support,
+And you are ready to go. Since this branch aims Rails 3 support,
 if you want to use it with Rails 2.3 you should check this branch:
 
   http://github.com/plataformatec/simple_form/tree/v1.0
@@ -125,7 +125,7 @@ The first step is to configure a wrapper tag:
 
   SimpleForm.wrapper_tag = :p
 
-And now, you don't need to wrap your f.input calls with  anymore:
+And now, you don't need to wrap your f.input calls anymore:
 
   <% simple_form_for @user do |f| -%>
     <%= f.input :username %>
@@ -135,7 +135,7 @@ And now, you don't need to wrap your f.input calls with  anymore:
 
 == Associations
 
-To deal with associations, SimpleForm can generate select inputs or a series of radios or check boxes. Lets see how it works: imagine you have the user model that belongs to a company and has_and_belongs_to_many roles. The structure should be something like:
+To deal with associations, SimpleForm can generate select inputs, a series of radios or check boxes. Lets see how it works: imagine you have a user model that belongs to a company and has_and_belongs_to_many roles. The structure would be something like:
 
   class User < ActiveRecord::Base
     belongs_to :company
@@ -162,7 +162,7 @@ Now we have the user form:
 Simple enough right? This is going to render a :select input for choosing the :company, and another :select input with :multiple option for the :roles. You can of course change it, to use radios and check boxes as well:
 
   f.association :company, :as => :radio
-  f.association :roles, :as => :check_boxes
+  f.association :roles,   :as => :check_boxes
 
 The association helper just invokes input under the hood, so all options available to :select, :radio and :check_boxes are also available to association. Additionally, you can specify the collection by hand, all together with the prompt:
 
@@ -292,7 +292,7 @@ SimpleForm will always look for a default attribute translation if no specific i
 
 Finally, you can also overwrite labels and hints inside your view, just by passing the label/hint manually. This way the I18n lookup will be skipped.
 
-There are other options that can be configured through I18n API, such as required text, boolean and button texts. Be sure to check our locale file or the one copied to your application after you run "script/generate simple_form_install".
+There are other options that can be configured through I18n API, such as required text, boolean and button texts. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
 
 == Configuration
 

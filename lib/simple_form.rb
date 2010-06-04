@@ -61,7 +61,7 @@ module SimpleForm
   mattr_accessor :default_input_size
   @@default_input_size = 50
 
-  # Default way to setup SimpleForm. Run script/generate simple_form:install
+  # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
     yield self
