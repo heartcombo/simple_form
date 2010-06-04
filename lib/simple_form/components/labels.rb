@@ -28,7 +28,8 @@ module SimpleForm
       end
 
       def label_text
-        SimpleForm.label_text.call(raw_label_text, required_label_text)
+        result = SimpleForm.label_text.call(raw_label_text, required_label_text)
+        result.respond_to?(:html_safe) ? result.html_safe : result
       end
 
       def label_target

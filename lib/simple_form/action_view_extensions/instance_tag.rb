@@ -27,7 +27,7 @@ module SimpleForm
         checkbox = tag("input", options)
 
         result = hidden + checkbox
-        result.respond_to?(:html_safe!) ? result.html_safe! : result
+        result.respond_to?(:html_safe) ? result.html_safe : result
       end
     end
   end
