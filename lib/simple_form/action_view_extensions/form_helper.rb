@@ -53,4 +53,4 @@ module SimpleForm
   end
 end
 
-ActionView::Helpers.send :include, SimpleForm::ActionViewExtensions::FormHelper
+ActionView::Base.send :include, SimpleForm::ActionViewExtensions::FormHelper

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim", "Carlos Ant\303\264nio"]
-  s.date = %q{2010-05-24}
+  s.date = %q{2010-06-07}
   s.description = %q{Forms made easy!}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -56,6 +56,7 @@ Gem::Specification.new do |s|
      "test/components/error_test.rb",
      "test/components/hint_test.rb",
      "test/components/label_test.rb",
+     "test/components/wrapper_test.rb",
      "test/form_builder_test.rb",
      "test/inputs_test.rb",
      "test/simple_form_test.rb",

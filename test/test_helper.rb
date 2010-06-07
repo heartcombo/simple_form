@@ -38,6 +38,7 @@ end
 
 class ActionView::TestCase
   include MiscHelpers
+  include SimpleForm::ActionViewExtensions::FormHelper
 
   setup :set_controller
   setup :set_response
