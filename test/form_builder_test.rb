@@ -1,39 +1,40 @@
+# encoding: UTF-8
 require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
 
   def with_form_for(object, *args, &block)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.input(*args, &block)
     end)
   end
 
   def with_button_for(object, *args)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.button(*args)
     end)
   end
 
   def with_error_for(object, *args)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.error(*args)
     end)
   end
 
   def with_hint_for(object, *args)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.hint(*args)
     end)
   end
 
   def with_label_for(object, *args)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.label(*args)
     end)
   end
 
   def with_association_for(object, *args)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.association(*args)
     end)
   end
@@ -229,26 +230,26 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'span.error#cool', "can't be blank"
   end
 
-  # REQUIRED AND PRESENCE VALIDATION 
+  # REQUIRED AND PRESENCE VALIDATION
   test 'builder input should obtain required from ActiveModel::Validations when it is included' do
     with_form_for @validating_user, :name
     assert_select 'input.required#validating_user_name'
     with_form_for @validating_user, :status
     assert_select 'input.optional#validating_user_status'
   end
-  
+
   test 'builder input should allow overriding required when ActiveModel::Validations is included' do
     with_form_for @validating_user, :name, :required => false
     assert_select 'input.optional#validating_user_name'
     with_form_for @validating_user, :status, :required => true
     assert_select 'input.required#validating_user_status'
   end
-  
+
   test 'builder input should be required by default when ActiveModel::Validations is not included' do
     with_form_for @user, :name
     assert_select 'input.required#user_name'
   end
-  
+
   test 'builder input should allow disabling required when ActiveModel::Validations is not included' do
     with_form_for @user, :name, :required => false
     assert_no_select 'input.required'
@@ -282,14 +283,14 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder allows wrapper tag to be given on demand' do
-    concat(simple_form_for @user do |f|
+    concat(simple_form_for(@user) do |f|
       concat f.input :name, :wrapper_tag => :b
     end)
     assert_select 'form b.required.string'
   end
 
   test 'builder allows wrapper class to be given on demand' do
-    concat(simple_form_for @user do |f|
+    concat(simple_form_for(@user) do |f|
       concat f.input :name, :wrapper_class => :wrapper
     end)
     assert_select 'form div.wrapper.required.string'

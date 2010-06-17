@@ -3,7 +3,7 @@ require 'test_helper'
 class BuilderTest < ActionView::TestCase
   # COLLECTION RADIO
   test 'collection radio accepts a collection and generate inputs from value method' do
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_radio :active, [true, false], :to_s, :to_s
     end)
 
@@ -12,7 +12,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio accepts a collection and generate inputs from label method' do
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_radio :active, [true, false], :to_s, :to_s
     end)
 
@@ -21,7 +21,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio accepts checked item' do
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_radio :active, [[1, true], [0, false]], :last, :first, :checked => true
     end)
 
@@ -31,7 +31,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection radio accepts multiple disabled items' do
     collection = [[1, true], [0, false], [2, 'other']]
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_radio :active, collection, :last, :first, :disabled => [true, false]
     end)
 
@@ -42,7 +42,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection radio accepts single disable item' do
     collection = [[1, true], [0, false]]
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_radio :active, collection, :last, :first, :disabled => true
     end)
 
@@ -51,7 +51,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio accepts html options as input' do
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_radio :active, [[1, true], [0, false]], :last, :first, {}, :class => 'radio'
     end)
 
@@ -62,7 +62,7 @@ class BuilderTest < ActionView::TestCase
   # COLLECTION CHECK BOX
   test 'collection check box accepts a collection and generate a serie of checkboxes for value method' do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :id, :name
     end)
 
@@ -73,7 +73,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts a collection and generate a serie of checkboxes with labels for label method' do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :id, :name
     end)
 
@@ -83,7 +83,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts selected values as :checked option' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :first, :last, :checked => [1, 3]
     end)
 
@@ -94,7 +94,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts a single checked value' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :first, :last, :checked => 3
     end)
 
@@ -105,7 +105,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts multiple disabled items' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :first, :last, :disabled => [1, 3]
     end)
 
@@ -116,7 +116,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts single disable item' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :first, :last, :disabled => 1
     end)
 
@@ -127,7 +127,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts a proc to disabled items' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :first, :last, :disabled => proc { |i| i.first == 1 }
     end)
 
@@ -138,7 +138,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box accepts html options' do
     collection = [[1, 'Tag 1'], [2, 'Tag 2']]
-    concat(form_for @user do |f|
+    concat(form_for(@user) do |f|
       concat f.collection_check_boxes :tag_ids, collection, :first, :last, {}, :class => 'check'
     end)
 
@@ -148,8 +148,8 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box with fields for' do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
-    concat(form_for @user do |f|
-      concat(f.fields_for :post do |p|
+    concat(form_for(@user) do |f|
+      concat(f.fields_for(:post) do |p|
         concat p.collection_check_boxes :tag_ids, collection, :id, :name
       end)
     end)
@@ -163,8 +163,8 @@ class BuilderTest < ActionView::TestCase
 
   # SIMPLE FIELDS
   test 'simple fields for is available and yields an instance of FormBuilder' do
-    concat(form_for @user do |f|
-      concat(f.simple_fields_for :posts do |posts_form|
+    concat(form_for(@user) do |f|
+      concat(f.simple_fields_for(:posts) do |posts_form|
         assert posts_form.instance_of?(SimpleForm::FormBuilder)
       end)
     end)

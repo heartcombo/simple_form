@@ -2,14 +2,14 @@ require 'test_helper'
 
 class WrapperTest < ActionView::TestCase
   def with_error_for(object, attribute_name, options={}, &block)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       f.options = options
       f.input attribute_name
     end)
   end
 
   def with_form_for(object, *args, &block)
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       concat f.input(*args, &block)
     end)
   end

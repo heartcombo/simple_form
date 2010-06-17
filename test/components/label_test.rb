@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'test_helper'
 
 class LabelTest < ActionView::TestCase
@@ -7,7 +8,7 @@ class LabelTest < ActionView::TestCase
   end
 
   def with_label_for(object, attribute_name, type, options={})
-    concat(simple_form_for object do |f|
+    concat(simple_form_for(object) do |f|
       f.attribute_name = attribute_name
       f.reflection     = Association.new(Company, :company, {}) if options.delete(:setup_association)
       f.input_type     = type
@@ -94,14 +95,14 @@ class LabelTest < ActionView::TestCase
     with_label_for @user, :created_at, :datetime
     assert_select 'label.datetime'
   end
-  
+
   test 'label should obtain required from ActiveModel::Validations when it is included' do
     with_label_for @validating_user, :name, :string
     assert_select 'label.required'
     with_label_for @validating_user, :status, :string
     assert_select 'label.optional'
   end
-  
+
   test 'label should allow overriding required when ActiveModel::Validations is included' do
     with_label_for @validating_user, :name, :string, :required => false
     assert_select 'label.optional'

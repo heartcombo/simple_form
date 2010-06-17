@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'test/unit'
 
-gem "actionpack", "3.0.0.beta3"
-gem "activemodel", "3.0.0.beta3"
+gem "actionpack", "3.0.0.beta4"
+gem "activemodel", "3.0.0.beta4"
 
 require 'active_model'
 require 'action_controller'
@@ -59,7 +59,7 @@ class ActionView::TestCase
       :description => 'Hello!',
       :created_at => Time.now
     }.merge(options))
-    
+
     @validating_user = ValidatingUser.new({
       :id => 1,
       :name => 'New in Simple Form!',
