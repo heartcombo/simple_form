@@ -8,7 +8,7 @@ SimpleForm aims to be as flexible as possible while helping you with powerful co
 
 Install the gem:
 
-  sudo gem install simple_form --version=1.0
+  sudo gem install simple_form --version=1.0.1
 
 Configure simple_form gem inside your app:
 
@@ -323,10 +323,6 @@ There are other options that can be configured through I18n API, such as require
 SimpleForm has several configuration values. You can read and change them in the initializer created by SimpleForm, so if you haven't executed the command below yet, please do:
 
   ruby script/generate simple_form_install
-
-== TODO
-
-Please refer to TODO file.
 
 == Maintainers
 
