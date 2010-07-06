@@ -28,9 +28,18 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.error', "can't be blank"
   end
 
-  test 'error should generate messages for attribute with several errors' do
-    with_error_for @user, :age, :numeric
-    assert_select 'span.error', 'is not a number and must be greater than 18'
+  test 'error should generate messages for attribute with one error when using first' do
+    swap SimpleForm, :error_method => :first do
+      with_error_for @user, :age, :numeric
+      assert_select 'span.error', 'is not a number'
+    end
+  end
+
+  test 'error should generate messages for attribute with several errors when using to_sentence' do
+    swap SimpleForm, :error_method => :to_sentence do
+      with_error_for @user, :age, :numeric
+      assert_select 'span.error', 'is not a number and must be greater than 18'
+    end
   end
 
   test 'error should be able to pass html options' do
@@ -39,7 +48,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'error should find errors on attribute and association' do
-    with_error_for @user, :company_id, :select, :setup_association => true
+    with_error_for @user, :company_id, :select, :setup_association => true, :error_method => :to_sentence
     assert_select 'span.error', 'must be valid and company must be present'
   end
 end

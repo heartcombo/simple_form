@@ -11,6 +11,9 @@ SimpleForm.setup do |config|
   # Default tag used on errors.
   # config.error_tag = :span
 
+  # Method used to tidy up errors.
+  # config.error_method = :first
+
   # You can wrap all inputs in a pre-defined tag.
   # config.wrapper_tag = :div
 

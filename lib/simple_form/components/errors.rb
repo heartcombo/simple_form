@@ -10,7 +10,11 @@ module SimpleForm
       end
 
       def error_text
-        errors.to_sentence
+        errors.send(error_method)
+      end
+
+      def error_method
+        options[:error_method] || SimpleForm.error_method
       end
 
       def error_html_options
@@ -24,11 +28,11 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        Array(object.errors[attribute_name])
+        object.errors[attribute_name]
       end
 
       def errors_on_association
-        reflection ? Array(object.errors[reflection.name]) : []
+        reflection ? object.errors[reflection.name] : []
       end
     end
   end

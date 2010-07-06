@@ -17,6 +17,10 @@ module SimpleForm
   mattr_accessor :error_tag
   @@error_tag = :span
 
+  # Method used to tidy up errors.
+  mattr_accessor :error_method
+  @@error_method = :first
+
   # Components used by the form builder.
   mattr_accessor :components
   @@components = [ :label_input, :hint, :error ]

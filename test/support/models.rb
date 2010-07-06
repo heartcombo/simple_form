@@ -91,13 +91,16 @@ class User < OpenStruct
   end
 
   def errors
-    @errors ||= {
-      :name => "can't be blank",
-      :description => "must be longer than 15 characters",
-      :age => ["is not a number", "must be greater than 18"],
-      :company => "company must be present",
-      :company_id => "must be valid"
-    }
+    @errors ||= begin
+      hash = Hash.new { |h,k| h[k] = [] }
+      hash.merge!(
+        :name => ["can't be blank"],
+        :description => ["must be longer than 15 characters"],
+        :age => ["is not a number", "must be greater than 18"],
+        :company => ["company must be present"],
+        :company_id => ["must be valid"]
+      )
+    end
   end
 end
 
