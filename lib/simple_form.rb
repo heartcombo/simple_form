@@ -45,6 +45,10 @@ module SimpleForm
   mattr_accessor :label_text
   @@label_text = lambda { |label, required| "#{required} #{label}" }
 
+  # Whether attributes are required by default (or not).
+  mattr_accessor :required_by_default
+  @@required_by_default = true
+
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
   @@file_methods = [ :mounted_as, :file?, :public_filename ]

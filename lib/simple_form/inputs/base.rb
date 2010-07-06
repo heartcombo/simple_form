@@ -63,7 +63,7 @@ module SimpleForm
       end
 
       def attribute_required_by_default?
-        true
+        SimpleForm.required_by_default
       end
 
       def required_class
