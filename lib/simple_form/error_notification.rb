@@ -4,18 +4,21 @@ module SimpleForm
 
     def initialize(builder, options)
       @builder = builder
+      @message = options.delete(:message)
       @options = options
     end
 
     def render
       if has_errors?
-        error_message = @options.delete(:message) || translate_error_notification
-        @options[:class] = "error_notification #{@options[:class]}".strip
-        template.content_tag(error_notification_tag, error_message, @options)
+        template.content_tag(error_notification_tag, error_message, html_options)
       end
     end
 
     protected
+
+    def error_message
+      @message || translate_error_notification
+    end
 
     def error_notification_tag
       SimpleForm.error_notification_tag
@@ -23,6 +26,11 @@ module SimpleForm
 
     def has_errors?
       object && object.respond_to?(:errors) && object.errors.present?
+    end
+
+    def html_options
+      @options[:class] = "error_notification #{@options[:class]}".strip
+      @options
     end
 
     def translate_error_notification
