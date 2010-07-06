@@ -257,7 +257,6 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
-
   test 'builder input should allow disabling required when ActiveModel::Validations is not included' do
     with_form_for @user, :name, :required => false
     assert_no_select 'input.required'

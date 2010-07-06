@@ -8,11 +8,9 @@ class ErrorNotificationTest < ActionView::TestCase
     end)
   end
 
-  test 'error notification is not generated when the form has no error' do
-    valid_user = ValidatingUser.new
-    valid_user.name = 'Carlos'
-    assert valid_user.valid?
-    with_error_notification_for valid_user
+  test 'error notification is not generated when the object has no error' do
+    assert @validating_user.valid?
+    with_error_notification_for @validating_user
     assert_no_select 'p.error_notification'
   end
 
@@ -21,7 +19,7 @@ class ErrorNotificationTest < ActionView::TestCase
     assert_no_select 'p.error_notification'
   end
 
-  test 'error notification is generated when the form has some error' do
+  test 'error notification is generated when the object has some error' do
     with_error_notification_for @user
     assert_select 'p.error_notification', 'Some errors were found, please take a look:'
   end
