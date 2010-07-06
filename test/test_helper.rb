@@ -1,24 +1,19 @@
 require 'rubygems'
-require 'test/unit'
+require 'bundler'
 
-gem "actionpack", "3.0.0.beta4"
-gem "activemodel", "3.0.0.beta4"
+Bundler.setup
+
+require 'test/unit'
+require 'mocha'
 
 require 'active_model'
 require 'action_controller'
 require 'action_view'
 require 'action_view/template'
-
-$:.unshift File.join(File.dirname(__FILE__), '..', 'lib', 'simple_form')
-require 'simple_form'
-
-# Load tests specifics
 require 'action_view/test_case'
 
-begin
-  require 'ruby-debug'
-rescue LoadError
-end
+$:.unshift File.expand_path("../../lib", __FILE__)
+require 'simple_form'
 
 Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 I18n.default_locale = :en
