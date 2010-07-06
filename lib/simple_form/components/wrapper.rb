@@ -23,7 +23,7 @@ module SimpleForm
 
       def wrapper_html_options
         css_classes = input_html_classes.unshift(wrapper_class)
-        css_classes << wrapper_error_class if object && errors.present?
+        css_classes << wrapper_error_class if has_errors?
         html_options_for(:wrapper, css_classes)
       end
     end

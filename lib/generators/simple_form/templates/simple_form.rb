@@ -14,6 +14,9 @@ SimpleForm.setup do |config|
   # Method used to tidy up errors.
   # config.error_method = :first
 
+  # Default tag used for error notification helper.
+  # config.error_notification_tag = :p
+
   # You can wrap all inputs in a pre-defined tag.
   # config.wrapper_tag = :div
 

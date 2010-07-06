@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     module Errors
       def error
-        template.content_tag(error_tag, error_text, error_html_options) if object && errors.present?
+        template.content_tag(error_tag, error_text, error_html_options) if has_errors?
       end
 
       def error_tag
@@ -22,6 +22,10 @@ module SimpleForm
       end
 
     protected
+
+      def has_errors?
+        object && errors.present?
+      end
 
       def errors
         @errors ||= (errors_on_attribute + errors_on_association).compact

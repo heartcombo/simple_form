@@ -216,6 +216,21 @@ module SimpleForm
       SimpleForm::Inputs::Base.new(self).label
     end
 
+    # Creates an error notification message that only appears when the form object
+    # has some error. You can give a specific message with the :message option,
+    # otherwise it will look for a message using I18n. All other options given are
+    # passed straight as html options to the html tag.
+    #
+    # == Examples
+    #
+    #    f.error_notification
+    #    f.error_notification :message => 'Something went wrong'
+    #    f.error_notification :id => 'user_error_message', :class => 'form_error'
+    #
+    def error_notification(options={})
+      SimpleForm::ErrorNotification.new(self, options).render
+    end
+
   private
 
     # Setup default simple form attributes.

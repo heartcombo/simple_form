@@ -3,11 +3,12 @@ require 'simple_form/action_view_extensions/form_helper'
 require 'simple_form/action_view_extensions/builder'
 
 module SimpleForm
-  autoload :Components,  'simple_form/components'
-  autoload :FormBuilder, 'simple_form/form_builder'
-  autoload :I18nCache,   'simple_form/i18n_cache'
-  autoload :Inputs,      'simple_form/inputs'
-  autoload :MapType,     'simple_form/map_type'
+  autoload :Components,        'simple_form/components'
+  autoload :ErrorNotification, 'simple_form/error_notification'
+  autoload :FormBuilder,       'simple_form/form_builder'
+  autoload :I18nCache,         'simple_form/i18n_cache'
+  autoload :Inputs,            'simple_form/inputs'
+  autoload :MapType,           'simple_form/map_type'
 
   # Default tag used on hints.
   mattr_accessor :hint_tag
@@ -20,6 +21,10 @@ module SimpleForm
   # Method used to tidy up errors.
   mattr_accessor :error_method
   @@error_method = :first
+
+  # Default tag used for error notification helper.
+  mattr_accessor :error_notification_tag
+  @@error_notification_tag = :p
 
   # Components used by the form builder.
   mattr_accessor :components

@@ -1,4 +1,5 @@
 * enhancements
+  * Added error_notification message to form builder
   * Added required by default as configuration option
   * Added label_input as component, allowing boolean to change its order (input appearing first than label)
   * Added error_method to tidy up how errors are exhibited
