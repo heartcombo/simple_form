@@ -5,7 +5,7 @@ SimpleForm.setup do |config|
   # remove any of them, change the order, or even add your own components in the
   # stack. By inheriting your component from SimpleForm::Components::Base you'll
   # have some extra helpers for free.
-  # config.components = [ :label, :input, :hint, :error ]
+  # config.components = [ :label_input, :hint, :error ]
 
   # Default tag used on hints.
   # config.hint_tag = :span

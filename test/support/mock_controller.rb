@@ -1,7 +1,7 @@
 class MockController
   attr_accessor :action_name
 
-  def _router
+  def _routes
     self
   end
 

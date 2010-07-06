@@ -63,15 +63,17 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[size=50]'
   end
 
+  # BooleanInput
+  test 'input should generate a checkbox by default for boolean attributes' do
+    with_input_for @user, :active, :boolean
+    assert_select 'input[type=checkbox].boolean#user_active'
+    assert_select 'input.boolean + label.boolean.optional'
+  end
+
   # MappingInput
   test 'input should generate a text area for text attributes' do
     with_input_for @user, :description, :text
     assert_select 'textarea.text#user_description'
-  end
-
-  test 'input should generate a checkbox by default for boolean attributes' do
-    with_input_for @user, :active, :boolean
-    assert_select 'input[type=checkbox].boolean#user_active'
   end
 
   test 'input should generate a password field for password attributes' do

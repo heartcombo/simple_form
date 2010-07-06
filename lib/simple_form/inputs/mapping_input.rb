@@ -4,7 +4,6 @@ module SimpleForm
     class MappingInput < Base
       extend MapType
 
-      map_type :boolean,  :to => :check_box
       map_type :password, :to => :password_field
       map_type :text,     :to => :text_area
       map_type :file,     :to => :file_field

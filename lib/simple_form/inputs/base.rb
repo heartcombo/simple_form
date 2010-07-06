@@ -11,7 +11,7 @@ module SimpleForm
 
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
-      include SimpleForm::Components::Labels
+      include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Wrapper
 
       delegate :template, :object, :object_name, :attribute_name, :column,
@@ -38,12 +38,12 @@ module SimpleForm
       end
 
       def render
-        content = components_list.map do |component|
+        content = "".html_safe
+        components_list.each do |component|
           next if options[component] == false
-          send(component)
+          content.safe_concat send(component).to_s
         end
-        content.compact!
-        wrap(content.join.html_safe)
+        wrap(content)
       end
 
     protected
@@ -55,11 +55,15 @@ module SimpleForm
       def attribute_required?
         if options.key?(:required)
           options[:required]
-        elsif defined?(object.class.validators_on)
+        elsif object.class.respond_to?(:validators_on)
           object.class.validators_on(attribute_name).any? { |v| v.kind == :presence }
         else
-          true
+          attribute_required_by_default?
         end
+      end
+
+      def attribute_required_by_default?
+        true
       end
 
       def required_class
