@@ -48,7 +48,7 @@ module SimpleForm
 
   # You can define the class to add to the wrapper when the field has errors. Default is fieldWithErrors.
   mattr_accessor :wrapper_error_class
-  @@wrapper_error_class = :fieldWithErrors
+  @@wrapper_error_class = :field_with_errors
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
