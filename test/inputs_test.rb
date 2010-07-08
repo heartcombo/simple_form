@@ -27,25 +27,10 @@ class InputTest < ActionView::TestCase
     assert_select 'select.datetime'
   end
 
-  # TextFieldInput
+  # StringInput
   test 'input should map text field to string attribute' do
     with_input_for @user, :name, :string
     assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!][type=text]'
-  end
-
-  test 'input should generate an integer text field for integer attributes ' do
-    with_input_for @user, :age, :integer
-    assert_select 'input[type=number].integer#user_age'
-  end
-
-  test 'input should generate a float text field for float attributes ' do
-    with_input_for @user, :age, :float
-    assert_select 'input[type=number].float#user_age'
-  end
-
-  test 'input should generate a decimal text field for decimal attributes ' do
-    with_input_for @user, :age, :decimal
-    assert_select 'input[type=number].decimal#user_age'
   end
 
   test 'input should use default text size for decimal attributes' do
@@ -61,6 +46,22 @@ class InputTest < ActionView::TestCase
   test 'input should get size from column definition for string attributes respecting maximum value' do
     with_input_for @user, :name, :string
     assert_select 'input.string[size=50]'
+  end
+
+  # NumericInput
+  test 'input should generate an integer text field for integer attributes ' do
+    with_input_for @user, :age, :integer
+    assert_select 'input[type=number].integer#user_age'
+  end
+
+  test 'input should generate a float text field for float attributes ' do
+    with_input_for @user, :age, :float
+    assert_select 'input[type=number].float#user_age'
+  end
+
+  test 'input should generate a decimal text field for decimal attributes ' do
+    with_input_for @user, :age, :decimal
+    assert_select 'input[type=number].decimal#user_age'
   end
 
   # BooleanInput
