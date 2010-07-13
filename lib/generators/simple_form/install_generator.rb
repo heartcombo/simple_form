@@ -3,6 +3,7 @@ module SimpleForm
     class InstallGenerator < Rails::Generators::Base
       desc "Copy SimpleForm default files"
       source_root File.expand_path('../templates', __FILE__)
+      class_option :template_engine
 
       def copy_initializers
         copy_file 'simple_form.rb', 'config/initializers/simple_form.rb'
@@ -13,11 +14,8 @@ module SimpleForm
       end
 
       def copy_scaffold_template
-        if Rails::Generators.options[:rails][:template_engine] == :haml
-          copy_file '_form.html.haml', 'lib/templates/haml/scaffold/_form.html.haml'
-        else
-          copy_file '_form.html.erb', 'lib/templates/erb/scaffold/_form.html.erb'
-        end
+        engine = options[:template_engine]
+        copy_file "_form.html.#{engine}", "lib/templates/#{engine}/scaffold/_form.html.#{engine}"
       end
     end
   end
