@@ -1,0 +1,18 @@
+= simple_form_for(@<%= singular_name %>) do |f|
+  - if @<%= singular_name %>.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@<%= singular_name %>.errors.count, "error")
+        prohibited this <%= singular_name %> from being saved:
+
+      %ul
+      - @<%= singular_name %>.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+  <%- attributes.each do |attribute| -%>
+    = f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>
+  <%- end -%>
+
+  .actions
+    = f.button :submit

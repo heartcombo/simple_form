@@ -13,7 +13,11 @@ module SimpleForm
       end
 
       def copy_scaffold_template
-        copy_file '_form.html.erb', 'lib/templates/erb/scaffold/_form.html.erb'
+        if Rails::Generators.options[:rails][:template_engine] == :haml
+          copy_file '_form.html.haml', 'lib/templates/haml/scaffold/_form.html.haml'
+        else
+          copy_file '_form.html.erb', 'lib/templates/erb/scaffold/_form.html.erb'
+        end
       end
     end
   end
