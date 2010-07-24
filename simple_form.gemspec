@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim", "Carlos Ant\303\264nio"]
-  s.date = %q{2010-07-06}
+  s.date = %q{2010-07-24}
   s.description = %q{Forms made easy!}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
      "lib/generators/simple_form/USAGE",
      "lib/generators/simple_form/install_generator.rb",
      "lib/generators/simple_form/templates/_form.html.erb",
+     "lib/generators/simple_form/templates/_form.html.haml",
      "lib/generators/simple_form/templates/en.yml",
      "lib/generators/simple_form/templates/simple_form.rb",
      "lib/simple_form.rb",
@@ -31,6 +32,7 @@ Gem::Specification.new do |s|
      "lib/simple_form/components/label_input.rb",
      "lib/simple_form/components/labels.rb",
      "lib/simple_form/components/wrapper.rb",
+     "lib/simple_form/error_notification.rb",
      "lib/simple_form/form_builder.rb",
      "lib/simple_form/i18n_cache.rb",
      "lib/simple_form/inputs.rb",
@@ -59,6 +61,7 @@ Gem::Specification.new do |s|
      "test/components/hint_test.rb",
      "test/components/label_test.rb",
      "test/components/wrapper_test.rb",
+     "test/error_notification_test.rb",
      "test/form_builder_test.rb",
      "test/inputs_test.rb",
      "test/simple_form_test.rb",

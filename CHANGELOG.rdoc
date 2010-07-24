@@ -1,4 +1,7 @@
+== 1.2.1
+
 * enhancements
+  * Added haml generator support (by github.com/grimen)
   * Added error_notification message to form builder
   * Added required by default as configuration option
   * Added label_input as component, allowing boolean to change its order (input appearing first than label)
