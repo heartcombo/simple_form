@@ -147,7 +147,7 @@ module SimpleForm
         :conditions => @reflection.options[:conditions], :order => @reflection.options[:order]
       )
 
-      returning(input(attribute, options)) { @reflection = nil }
+      input(attribute, options).tap { @reflection = nil }
     end
 
     # Creates a button:

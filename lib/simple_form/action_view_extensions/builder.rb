@@ -96,25 +96,27 @@ module SimpleForm
         fields_for(*(args << options), &block)
       end
 
-      private
+    private
 
-        # Generate default options for collection helpers, such as :checked and
-        # :disabled.
-        def default_html_options_for_collection(item, value, options, html_options) #:nodoc:
-          returning(html_options.dup) do |default_html_options|
-            [:checked, :disabled].each do |option|
-              next unless options[option]
+      # Generate default options for collection helpers, such as :checked and
+      # :disabled.
+      def default_html_options_for_collection(item, value, options, html_options) #:nodoc:
+        html_options = html_options.dup
 
-              accept = if options[option].is_a?(Proc)
-                options[option].call(item)
-              else
-                Array(options[option]).include?(value)
-              end
+        [:checked, :disabled].each do |option|
+          next unless options[option]
 
-              default_html_options[option] = true if accept
-            end
+          accept = if options[option].is_a?(Proc)
+            options[option].call(item)
+          else
+            Array(options[option]).include?(value)
           end
+
+          html_options[option] = true if accept
         end
+
+        html_options
+      end
     end
   end
 end
