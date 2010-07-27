@@ -1,3 +1,8 @@
+== 1.2.2
+
+* enhancements
+  * Compatibility with Rails 3 RC
+
 == 1.2.1
 
 * enhancements
