@@ -429,6 +429,13 @@ class FormBuilderTest < ActionView::TestCase
     assert_equal 3, calls
   end
 
+  test 'builder association mark input as required based both association and attribute' do
+    swap SimpleForm, :required_by_default => false do
+      with_association_for @validating_user, :company, :collection => []
+      assert_select 'label.required'
+    end
+  end
+
   # ASSOCIATIONS - BELONGS TO
   test 'builder creates a select for belongs_to associations' do
     with_association_for @user, :company

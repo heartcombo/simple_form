@@ -107,4 +107,5 @@ end
 class ValidatingUser < User
   include ActiveModel::Validations
   validates :name, :presence => true
+  validates :company, :presence => true
 end
