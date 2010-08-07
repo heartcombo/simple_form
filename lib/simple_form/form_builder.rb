@@ -159,6 +159,9 @@ module SimpleForm
     # It just acts as a proxy to method name given.
     #
     def button(type, *args, &block)
+      options = args.extract_options!
+      options[:class] = "button #{options[:class]}".strip
+      args << options
       if respond_to?(:"#{type}_button")
         send(:"#{type}_button", *args, &block)
       else

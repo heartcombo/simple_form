@@ -394,13 +394,13 @@ class FormBuilderTest < ActionView::TestCase
   # BUTTONS
   test 'builder should create buttons' do
     with_button_for :post, :submit
-    assert_select 'form input[type=submit][value=Save Post]'
+    assert_select 'form input.button[type=submit][value=Save Post]'
   end
 
   test 'builder should create buttons for records' do
     @user.new_record!
     with_button_for @user, :submit
-    assert_select 'form input[type=submit][value=Create User]'
+    assert_select 'form input.button[type=submit][value=Create User]'
   end
 
   # ASSOCIATIONS
