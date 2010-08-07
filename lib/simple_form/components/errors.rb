@@ -32,7 +32,11 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        if object.respond_to?(:errors)
+          object.errors[attribute_name]
+        else
+          []
+        end
       end
 
       def errors_on_association

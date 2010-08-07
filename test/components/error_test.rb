@@ -23,6 +23,13 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'span.error'
   end
 
+  test "error should not generate messages when object doesn't respond to errors method" do
+    @user.instance_eval {undef errors}
+    with_error_for @user, :name, :string
+    assert_no_select 'span.error'
+  end
+
+
   test 'error should generate messages for attribute with single error' do
     with_error_for @user, :name, :string
     assert_select 'span.error', "can't be blank"
