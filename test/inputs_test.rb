@@ -327,6 +327,13 @@ class InputTest < ActionView::TestCase
     assert_select 'label.collection_radio', 'CARLOS'
   end
 
+  test 'input should allow symbols for collections' do
+    with_input_for @user, :name, :select, :collection => [:jose, :carlos]
+    assert_select 'select.select#user_name'
+    assert_select 'select option[value=jose]', 'jose'
+    assert_select 'select option[value=carlos]', 'carlos'
+  end
+
   # With no object
   test 'input should be generated properly when object is not present' do
     with_input_for :project, :name, :string

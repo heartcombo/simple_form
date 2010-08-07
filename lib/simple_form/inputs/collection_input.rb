@@ -46,7 +46,7 @@ module SimpleForm
           label, value = :first, :last
         when Integer
           label, value = :to_s, :to_i
-        when String, NilClass
+        when String, Symbol, NilClass
           label, value = :to_s, :to_s
         end
 
