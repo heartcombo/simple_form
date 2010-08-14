@@ -24,7 +24,7 @@ module SimpleForm
     protected
 
       def has_errors?
-        object && errors.present?
+        object && object.respond_to?(:errors) && errors.present?
       end
 
       def errors
@@ -32,11 +32,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        if object.respond_to?(:errors)
-          object.errors[attribute_name]
-        else
-          []
-        end
+        object.errors[attribute_name]
       end
 
       def errors_on_association
