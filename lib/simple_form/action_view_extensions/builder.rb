@@ -31,8 +31,8 @@ module SimpleForm
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         collection.map do |item|
-          value = item.send value_method
-          text  = item.send text_method
+          value = (value_method.respond_to?(:call) ? value_method.call(item) : item.send(value_method))
+          text  = (text_method.respond_to?(:call)  ? text_method.call(item)  : item.send(text_method))
 
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
@@ -70,8 +70,8 @@ module SimpleForm
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         collection.map do |item|
-          value = item.send value_method
-          text  = item.send text_method
+          value = (value_method.respond_to?(:call) ? value_method.call(item) : item.send(value_method))
+          text  = (text_method.respond_to?(:call)  ? text_method.call(item)  : item.send(text_method))
 
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
           default_html_options[:multiple] = true

@@ -327,6 +327,17 @@ class InputTest < ActionView::TestCase
     assert_select 'label.collection_radio', 'CARLOS'
   end
 
+  test 'input should allow overriding label and value method using a lambda for collections' do
+    with_input_for @user, :name, :radio,
+                          :collection => ['Jose' , 'Carlos'],
+                          :label_method => lambda { |i| i.upcase },
+                          :value_method => lambda { |i| i.downcase }
+    assert_select 'input[type=radio][value=jose]'
+    assert_select 'input[type=radio][value=carlos]'
+    assert_select 'label.collection_radio', 'JOSE'
+    assert_select 'label.collection_radio', 'CARLOS'
+  end
+
   test 'input should allow symbols for collections' do
     with_input_for @user, :name, :select, :collection => [:jose, :carlos]
     assert_select 'select.select#user_name'
