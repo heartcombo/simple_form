@@ -5,6 +5,7 @@ Association = Struct.new(:klass, :name, :macro, :options)
 
 class Company < Struct.new(:id, :name)
   extend ActiveModel::Naming
+  include ActiveModel::Conversion
 
   def self.all(options={})
     all = (1..3).map{|i| Company.new(i, "Company #{i}")}
@@ -26,17 +27,26 @@ end
 
 class Tag < Company
   extend ActiveModel::Naming
+  include ActiveModel::Conversion
 
   def self.all(options={})
     (1..3).map{|i| Tag.new(i, "Tag #{i}")}
   end
 end
 
-class User < OpenStruct
+class User
   extend ActiveModel::Naming
+  include ActiveModel::Conversion
 
-  # Get rid of deprecation warnings
-  undef_method :id if respond_to?(:id)
+  attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :description, :created_at, :updated_at,
+    :credit_limit, :age, :password, :delivery_time, :born_at, :special_company_id, :country, :url, :tag_ids,
+    :avatar, :email, :status, :residence_country
+
+  def initialize(options={})
+    options.each do |key, value|
+      send("#{key}=", value)
+    end if options
+  end
 
   def new_record!
     @new_record = true
