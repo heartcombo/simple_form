@@ -22,20 +22,23 @@ module SimpleForm
     protected
 
       def infer_attrs_from_validations(input_options)
-        obj = @builder.object
+        model_class = @builder.object.class
 
-        return unless obj.class.respond_to?(:validators_on)
+        # The model should include ActiveModel::Validations.
+        return unless model_class.respond_to?(:validators_on)
 
-        validators = obj.class.validators_on(attribute_name)
-        num_validator = validators.find {|v| v.is_a?(ActiveModel::Validations::NumericalityValidator) }
-
-        return if num_validator.nil?
+        num_validator = find_numericality_validator(model_class) or return
 
         options = num_validator.__send__(:options)
 
         input_options[:min]  ||= options[:greater_than_or_equal_to]
         input_options[:max]  ||= options[:less_than_or_equal_to]
         input_options[:step] ||= options[:only_integer] && 1
+      end
+
+      def find_numericality_validator(model_class)
+        validators = model_class.validators_on(attribute_name)
+        validators.find {|v| ActiveModel::Validations::NumericalityValidator === v }
       end
     end
   end
