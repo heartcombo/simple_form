@@ -64,6 +64,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input[max=99]'
   end
 
+  test 'input should get the step attr from a numericality validation' do
+    with_input_for @validating_user, :age, :integer
+    assert_select 'input[step=1]'
+  end
+
   test 'input should generate a float text field for float attributes ' do
     with_input_for @user, :age, :float
     assert_select 'input[type=number].float#user_age'

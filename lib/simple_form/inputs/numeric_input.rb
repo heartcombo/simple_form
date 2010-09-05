@@ -33,8 +33,9 @@ module SimpleForm
 
         options = num_validator.__send__(:options)
 
-        input_options[:min] ||= options[:greater_than_or_equal_to]
-        input_options[:max] ||= options[:less_than_or_equal_to]
+        input_options[:min]  ||= options[:greater_than_or_equal_to]
+        input_options[:max]  ||= options[:less_than_or_equal_to]
+        input_options[:step] ||= options[:only_integer] && 1
       end
     end
   end
