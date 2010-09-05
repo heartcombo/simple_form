@@ -54,6 +54,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input[type=number].integer#user_age'
   end
 
+  test 'input should generate a min attribute when such a validation exists in the model' do
+    with_input_for @validating_user, :age, :integer
+    assert_select 'input[min=18]'
+  end
+
   test 'input should generate a float text field for float attributes ' do
     with_input_for @user, :age, :float
     assert_select 'input[type=number].float#user_age'
