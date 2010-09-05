@@ -74,7 +74,7 @@ class InputTest < ActionView::TestCase
     assert_select 'input[max=99]'
   end
 
-  test 'input should infre the step attr from an integer only validation' do
+  test 'input should infer the step attr from an integer only validation' do
     with_input_for @validating_user, :age, :integer
     assert_select 'input[step=1]'
   end
