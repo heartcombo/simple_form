@@ -60,6 +60,7 @@ class ActionView::TestCase
       :name => 'New in Simple Form!',
       :description => 'Hello!',
       :created_at => Time.now,
+      :age => 19,
       :company => 1
     }.merge(options))
   end
