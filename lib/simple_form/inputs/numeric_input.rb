@@ -9,6 +9,7 @@ module SimpleForm
         input_options = super
         input_options[:type] ||= "number"
         input_options[:size] ||= SimpleForm.default_input_size
+        input_options[:step] ||= integer? && 1
 
         infer_attrs_from_validations(input_options)
 
@@ -31,9 +32,8 @@ module SimpleForm
 
         @val_options = num_validator.__send__(:options)
 
-        input_options[:min]  ||= minimum_value
-        input_options[:max]  ||= maximum_value
-        input_options[:step] ||= integer? && 1
+        input_options[:min] ||= minimum_value
+        input_options[:max] ||= maximum_value
       end
 
       def integer?
