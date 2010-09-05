@@ -118,5 +118,5 @@ class ValidatingUser < User
   include ActiveModel::Validations
   validates :name, :presence => true
   validates :company, :presence => true
-  validates_numericality_of :age, :greater_than_or_equal_to => 18
+  validates_numericality_of :age, :greater_than_or_equal_to => 18, :less_than_or_equal_to => 99
 end
