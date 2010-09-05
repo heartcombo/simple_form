@@ -33,7 +33,7 @@ module SimpleForm
 
         input_options[:min]  ||= options[:greater_than_or_equal_to]
         input_options[:max]  ||= options[:less_than_or_equal_to]
-        input_options[:step] ||= options[:only_integer] && 1
+        input_options[:step] ||= input_type == :integer && 1
       end
 
       def find_numericality_validator(model_class)
