@@ -29,11 +29,21 @@ module SimpleForm
 
         num_validator = find_numericality_validator(model_class) or return
 
-        options = num_validator.__send__(:options)
+        @val_options = num_validator.__send__(:options)
 
-        input_options[:min]  ||= options[:greater_than_or_equal_to]
-        input_options[:max]  ||= options[:less_than_or_equal_to]
+        input_options[:min]  ||= minimum_value
+        input_options[:max]  ||= maximum_value
         input_options[:step] ||= input_type == :integer && 1
+      end
+
+      def minimum_value
+        return @val_options[:greater_than] + 1 if @val_options[:greater_than]
+        @val_options[:greater_than_or_equal_to]
+      end
+
+      def maximum_value
+        return @val_options[:less_than] - 1 if @val_options[:less_than]
+        @val_options[:less_than_or_equal_to]
       end
 
       def find_numericality_validator(model_class)
