@@ -63,6 +63,15 @@ class ActionView::TestCase
       :age => 19,
       :company => 1
     }.merge(options))
+
+    @other_validating_user = OtherValidatingUser.new({
+      :id => 1,
+      :name => 'New in Simple Form!',
+      :description => 'Hello!',
+      :created_at => Time.now,
+      :age => 19,
+      :company => 1
+    }.merge(options))
   end
 
   def protect_against_forgery?
@@ -75,4 +84,5 @@ class ActionView::TestCase
   alias :users_path :user_path
   alias :super_user_path :user_path
   alias :validating_user_path :user_path
+  alias :other_validating_user_path :user_path
 end

@@ -123,3 +123,11 @@ class ValidatingUser < User
     :less_than_or_equal_to => 99,
     :only_integer => true
 end
+
+class OtherValidatingUser < User
+  include ActiveModel::Validations
+  validates_numericality_of :age,
+    :greater_than => 17,
+    :less_than => 100,
+    :only_integer => true
+end

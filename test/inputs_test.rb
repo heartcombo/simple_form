@@ -54,17 +54,27 @@ class InputTest < ActionView::TestCase
     assert_select 'input[type=number].integer#user_age'
   end
 
-  test 'input should generate a min attribute when such a validation exists in the model' do
+  test 'input should infer the min attr from a >= validation' do
     with_input_for @validating_user, :age, :integer
     assert_select 'input[min=18]'
   end
 
-  test 'input should generate a max attribute when such a validation exists in the model' do
+  test 'input should infer the min attr from a > validation' do
+    with_input_for @other_validating_user, :age, :integer
+    assert_select 'input[min=18]'
+  end
+
+  test 'input should infer the max attr from a <= validation' do
     with_input_for @validating_user, :age, :integer
     assert_select 'input[max=99]'
   end
 
-  test 'input should get the step attr from a numericality validation' do
+  test 'input should infer the max attr from a < validation' do
+    with_input_for @other_validating_user, :age, :integer
+    assert_select 'input[max=99]'
+  end
+
+  test 'input should infre the step attr from an integer only validation' do
     with_input_for @validating_user, :age, :integer
     assert_select 'input[step=1]'
   end
