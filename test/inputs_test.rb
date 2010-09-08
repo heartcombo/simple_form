@@ -54,19 +54,9 @@ class InputTest < ActionView::TestCase
     assert_select 'input[type=number].integer#user_age'
   end
 
-  test 'input should infer the min attr from a >= validation' do
-    with_input_for @validating_user, :age, :integer
-    assert_select 'input[min=18]'
-  end
-
   test 'input should infer the min attr from a > validation' do
     with_input_for @other_validating_user, :age, :integer
     assert_select 'input[min=18]'
-  end
-
-  test 'input should infer the max attr from a <= validation' do
-    with_input_for @validating_user, :age, :integer
-    assert_select 'input[max=99]'
   end
 
   test 'input should infer the max attr from a < validation' do
@@ -77,6 +67,18 @@ class InputTest < ActionView::TestCase
   test 'input should infer the step attr from an integer only validation' do
     with_input_for @validating_user, :age, :integer
     assert_select 'input[step=1]'
+  end
+
+  [:integer, :float, :decimal].each do |type|
+    test "#{type} input should infer the min attr from a >= validation" do
+      with_input_for @validating_user, :age, type
+      assert_select 'input[min=18]'
+    end
+
+    test "#{type} input should infer the max attr from a <= validation" do
+      with_input_for @validating_user, :age, type
+      assert_select 'input[max=99]'
+    end
   end
 
   test 'input should generate a float text field for float attributes ' do
