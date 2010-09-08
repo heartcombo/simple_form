@@ -54,6 +54,16 @@ class InputTest < ActionView::TestCase
     assert_select 'input[type=number].integer#user_age'
   end
 
+  test 'input should be default not have a min attr' do
+    with_input_for @user, :age, :integer
+    assert_select 'input[min]', :count => 0
+  end
+
+  test 'input should be default not have a max attr' do
+    with_input_for @user, :age, :integer
+    assert_select 'input[max]', :count => 0
+  end
+
   test 'input should infer the min attr from a > validation' do
     with_input_for @other_validating_user, :age, :integer
     assert_select 'input[min=18]'
