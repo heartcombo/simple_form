@@ -48,15 +48,15 @@ module SimpleForm
       # == Examples
       #
       #   form_for @user do |f|
-      #     f.collection_check_box :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #     f.collection_check_boxes :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
       #   end
       #
       #   <input name="user[options][]" type="hidden" value="" />
       #   <input id="user_options_true" name="user[options][]" type="checkbox" value="true" />
-      #   <label class="collection_check_box" for="user_options_true">Yes</label>
+      #   <label class="collection_check_boxes" for="user_options_true">Yes</label>
       #   <input name="user[options][]" type="hidden" value="" />
       #   <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
-      #   <label class="collection_check_box" for="user_options_false">No</label>
+      #   <label class="collection_check_boxes" for="user_options_false">No</label>
       #
       # == Options
       #
