@@ -238,7 +238,7 @@ Creates a collection of radio inputs with labels associated (same API as collect
 Creates a collection of check boxes with labels associated (same API as collection_select):
 
   form_for @user do |f|
-    f.collection_check_box :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+    f.collection_check_boxes :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
   end
 
   <input name="user[options][]" type="hidden" value="" />
