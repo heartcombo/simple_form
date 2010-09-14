@@ -3,6 +3,7 @@
   * Add default css class to button
   * Allow forms for objects that don't respond to the "errors" method
   * collection_check_boxes and collection_radio now wrap the input in the label
+  * Automatic add min/max values for numeric attributes based on validations and step for integers - HTML5 (by http://github.com/dasch)
 
 * bug fix
   * Search for validations on both association and attribute
