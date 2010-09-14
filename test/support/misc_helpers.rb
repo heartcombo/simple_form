@@ -8,10 +8,8 @@ module MiscHelpers
     end
   end
 
-  def assert_no_select(*args)
-    assert_raise Test::Unit::AssertionFailedError do
-      assert_select(*args)
-    end
+  def assert_no_select(selector, value = nil)
+    assert_select(selector, :text => value, :count => 0)
   end
 
   def swap(object, new_values)

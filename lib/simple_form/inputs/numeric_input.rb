@@ -9,9 +9,9 @@ module SimpleForm
         input_options = super
         input_options[:type] ||= "number"
         input_options[:size] ||= SimpleForm.default_input_size
-        input_options[:step] ||= integer? && 1
+        input_options[:step] ||= 1 if integer?
 
-        infer_attrs_from_validations(input_options)
+        infer_attributes_from_validations(input_options)
 
         input_options
       end
@@ -22,37 +22,38 @@ module SimpleForm
 
     protected
 
-      def infer_attrs_from_validations(input_options)
-        model_class = @builder.object.class
+      def infer_attributes_from_validations(input_options)
+        return unless has_validators?
 
-        # The model should include ActiveModel::Validations.
-        return unless model_class.respond_to?(:validators_on)
+        numeric_validator = find_numericality_validator or return
+        validator_options = numeric_validator.options
 
-        num_validator = find_numericality_validator(model_class) or return
-
-        @val_options = num_validator.__send__(:options)
-
-        input_options[:min] ||= minimum_value
-        input_options[:max] ||= maximum_value
+        input_options[:min] ||= minimum_value(validator_options)
+        input_options[:max] ||= maximum_value(validator_options)
       end
 
       def integer?
         input_type == :integer
       end
 
-      def minimum_value
-        return @val_options[:greater_than] + 1 if integer? && @val_options[:greater_than]
-        @val_options[:greater_than_or_equal_to]
+      def minimum_value(validator_options)
+        if integer? && validator_options.key?(:greater_than)
+          validator_options[:greater_than] + 1
+        else
+          validator_options[:greater_than_or_equal_to]
+        end
       end
 
-      def maximum_value
-        return @val_options[:less_than] - 1 if integer? && @val_options[:less_than]
-        @val_options[:less_than_or_equal_to]
+      def maximum_value(validator_options)
+        if integer? && validator_options.key?(:less_than)
+          validator_options[:less_than] - 1
+        else
+          validator_options[:less_than_or_equal_to]
+        end
       end
 
-      def find_numericality_validator(model_class)
-        validators = model_class.validators_on(attribute_name)
-        validators.find {|v| ActiveModel::Validations::NumericalityValidator === v }
+      def find_numericality_validator
+        attribute_validators.find { |v| ActiveModel::Validations::NumericalityValidator === v }
       end
     end
   end

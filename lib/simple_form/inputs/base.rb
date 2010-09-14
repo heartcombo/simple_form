@@ -55,11 +55,15 @@ module SimpleForm
       def attribute_required?
         if options.key?(:required)
           options[:required]
-        elsif object.class.respond_to?(:validators_on)
+        elsif has_validators?
           (attribute_validators + reflection_validators).any? { |v| v.kind == :presence }
         else
           attribute_required_by_default?
         end
+      end
+
+      def has_validators?
+        object.class.respond_to?(:validators_on)
       end
 
       def attribute_validators
