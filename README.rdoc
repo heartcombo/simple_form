@@ -18,6 +18,10 @@ Run the generator:
 
   rails generate simple_form:install
 
+Also, if you want to use the country select, you will need the country_select plugin, install with following command:
+
+  rails plugin install git://github.com/rails/country_select.git
+
 And you are ready to go. Since this branch aims Rails 3 support,
 if you want to use it with Rails 2.3 you should check this branch:
 
