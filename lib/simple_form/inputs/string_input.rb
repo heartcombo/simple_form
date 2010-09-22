@@ -7,9 +7,10 @@ module SimpleForm
 
       def input_html_options
         input_options = super
-        input_options[:size]      ||= [limit, SimpleForm.default_input_size].compact.min
-        input_options[:maxlength] ||= limit if limit
-        input_options[:type]      ||= input_type unless input_type == :string
+        input_options[:size]        ||= [limit, SimpleForm.default_input_size].compact.min
+        input_options[:maxlength]   ||= limit if limit
+        input_options[:type]        ||= input_type unless input_type == :string
+        input_options[:placeholder] ||= placeholder if placeholder
         input_options
       end
 
@@ -21,6 +22,10 @@ module SimpleForm
 
       def limit
         column && column.limit
+      end
+
+      def placeholder
+        @placeholder ||= options[:placeholder] || translate(:placeholder)
       end
     end
   end
