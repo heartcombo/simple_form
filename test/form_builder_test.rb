@@ -230,6 +230,15 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'span.error#cool', "can't be blank"
   end
 
+  test 'placeholder should not be generated when set to false' do
+    store_translations(:en, :simple_form => { :placeholder => { :user => {
+      :name => 'Name goes here'
+    } } }) do
+      with_form_for @user, :name, :placeholder => false
+      assert_no_select 'input.string[placeholder=Name goes here]'
+    end
+  end
+
   # REQUIRED AND PRESENCE VALIDATION
   test 'builder input should obtain required from ActiveModel::Validations when it is included' do
     with_form_for @validating_user, :name
