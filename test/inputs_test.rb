@@ -48,6 +48,20 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[size=50]'
   end
 
+  test 'input should accept the placeholder option' do
+    with_input_for @user, :name, :string, :placeholder => 'Put in some text'
+    assert_select 'input.string[placeholder=Put in some text]'
+  end
+
+  test 'input should use i18n to translate placeholder text' do
+    store_translations(:en, :simple_form => { :placeholder => { :user => {
+      :name => 'Name goes here'
+    } } }) do
+      with_input_for @user, :name, :string
+      assert_select 'input.string[placeholder=Name goes here]'
+    end
+  end
+
   # NumericInput
   test 'input should generate an integer text field for integer attributes ' do
     with_input_for @user, :age, :integer
