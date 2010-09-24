@@ -10,7 +10,7 @@ module SimpleForm
         input_options[:size]        ||= [limit, SimpleForm.default_input_size].compact.min
         input_options[:maxlength]   ||= limit if limit
         input_options[:type]        ||= input_type unless input_type == :string
-        input_options[:placeholder] ||= placeholder unless options[:placeholder] == false
+        input_options[:placeholder] ||= placeholder if has_placeholder?
         input_options
       end
 
@@ -22,6 +22,10 @@ module SimpleForm
 
       def limit
         column && column.limit
+      end
+
+      def has_placeholder?
+        options[:placeholder] != false && placeholder.present?
       end
 
       def placeholder

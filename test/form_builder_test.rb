@@ -235,7 +235,7 @@ class FormBuilderTest < ActionView::TestCase
       :name => 'Name goes here'
     } } }) do
       with_form_for @user, :name, :placeholder => false
-      assert_no_select 'input.string[placeholder=Name goes here]'
+      assert_no_select 'input[placeholder]'
     end
   end
 

@@ -48,6 +48,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[size=50]'
   end
 
+  test 'input should not generate placeholder by default' do
+    with_input_for @user, :name, :string
+    assert_no_select 'input[placeholder]'
+  end
+
   test 'input should accept the placeholder option' do
     with_input_for @user, :name, :string, :placeholder => 'Put in some text'
     assert_select 'input.string[placeholder=Put in some text]'
