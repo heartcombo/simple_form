@@ -41,11 +41,12 @@ To start using SimpleForm you just have to use the helper it provides:
 
 This will generate an entire form with labels for user name and password as well, and render errors by default when you render the form with invalid data (after submitting for example).
 
-You can overwrite the default label by passing it to the input method, or even add a hint:
+You can overwrite the default label by passing it to the input method, add a hint or even a placeholder:
 
   <%= simple_form_for @user do |f| %>
     <%= f.input :username, :label => 'Your username please' %>
     <%= f.input :password, :hint => 'No special characters.' %>
+    <%= f.input :email, :placeholder => 'user@domain.com' %>
     <%= f.button :submit %>
   <% end %>
 
@@ -254,7 +255,7 @@ SimpleForm comes with a lot of default mappings:
 
 == I18n
 
-SimpleForm uses all power of I18n API to lookup labels and hints for you. To customize your forms you can create a locale file like this:
+SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. To customize your forms you can create a locale file like this:
 
   en:
     simple_form:
@@ -266,10 +267,14 @@ SimpleForm uses all power of I18n API to lookup labels and hints for you. To cus
         user:
           username: 'User name to sign in.'
           password: 'No special characters, please.'
+      placeholders:
+        user:
+          username: 'Your username'
+          password: '****'
 
-And your forms will use this information to render labels and hints for you.
+And your forms will use this information to render the components for you.
 
-SimpleForm also lets you be more specific, separating lookups through actions for both hint and label. Let's say you want a different label for new and edit actions, the locale file would be something like:
+SimpleForm also lets you be more specific, separating lookups through actions for labels, hints and placeholders. Let's say you want a different label for new and edit actions, the locale file would be something like:
 
   en:
     simple_form:
@@ -291,10 +296,13 @@ This way SimpleForm will figure out the right translation for you, based on the 
       hints:
         username: 'User name to sign in.'
         password: 'No special characters, please.'
+      placeholders:
+        username: 'Your username'
+        password: '****'
 
-SimpleForm will always look for a default attribute translation if no specific is found inside the model key. In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found.
+SimpleForm will always look for a default attribute translation if no specific is found inside the model key. In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found for labels.
 
-Finally, you can also overwrite labels and hints inside your view, just by passing the label/hint manually. This way the I18n lookup will be skipped.
+Finally, you can also overwrite any label, hint or placeholder inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
 
 There are other options that can be configured through I18n API, such as required text, boolean and button texts. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
 
