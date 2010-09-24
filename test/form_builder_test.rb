@@ -231,7 +231,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'placeholder should not be generated when set to false' do
-    store_translations(:en, :simple_form => { :placeholder => { :user => {
+    store_translations(:en, :simple_form => { :placeholders => { :user => {
       :name => 'Name goes here'
     } } }) do
       with_form_for @user, :name, :placeholder => false

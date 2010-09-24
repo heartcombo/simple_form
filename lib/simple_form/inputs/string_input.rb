@@ -29,7 +29,7 @@ module SimpleForm
       end
 
       def placeholder
-        @placeholder ||= options[:placeholder] || translate(:placeholder)
+        @placeholder ||= options[:placeholder] || translate(:placeholders)
       end
     end
   end

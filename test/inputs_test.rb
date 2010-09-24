@@ -59,7 +59,7 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should use i18n to translate placeholder text' do
-    store_translations(:en, :simple_form => { :placeholder => { :user => {
+    store_translations(:en, :simple_form => { :placeholders => { :user => {
       :name => 'Name goes here'
     } } }) do
       with_input_for @user, :name, :string
