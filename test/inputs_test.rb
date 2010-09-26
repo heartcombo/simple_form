@@ -9,7 +9,7 @@ class InputTest < ActionView::TestCase
 
   def with_input_for(object, attribute_name, type, options={})
     concat(simple_form_for(object) do |f|
-      concat f.input(attribute_name, options.merge(:as => type))
+      f.input(attribute_name, options.merge(:as => type))
     end)
   end
 

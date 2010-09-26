@@ -9,7 +9,7 @@ class ErrorTest < ActionView::TestCase
       f.input_type     = type
       f.options        = options
 
-      concat(SimpleForm::Inputs::Base.new(f).error.to_s)
+      SimpleForm::Inputs::Base.new(f).error.to_s
     end)
   end
 

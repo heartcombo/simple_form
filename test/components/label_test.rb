@@ -14,7 +14,7 @@ class LabelTest < ActionView::TestCase
       f.input_type     = type
       f.options        = options
 
-      concat(SimpleForm::Inputs::Base.new(f).label)
+      SimpleForm::Inputs::Base.new(f).label
     end)
   end
 

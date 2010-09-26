@@ -5,37 +5,37 @@ class FormBuilderTest < ActionView::TestCase
 
   def with_form_for(object, *args, &block)
     concat(simple_form_for(object) do |f|
-      concat f.input(*args, &block)
+      f.input(*args, &block)
     end)
   end
 
   def with_button_for(object, *args)
     concat(simple_form_for(object) do |f|
-      concat f.button(*args)
+      f.button(*args)
     end)
   end
 
   def with_error_for(object, *args)
     concat(simple_form_for(object) do |f|
-      concat f.error(*args)
+      f.error(*args)
     end)
   end
 
   def with_hint_for(object, *args)
     concat(simple_form_for(object) do |f|
-      concat f.hint(*args)
+      f.hint(*args)
     end)
   end
 
   def with_label_for(object, *args)
     concat(simple_form_for(object) do |f|
-      concat f.label(*args)
+      f.label(*args)
     end)
   end
 
   def with_association_for(object, *args)
     concat(simple_form_for(object) do |f|
-      concat f.association(*args)
+      f.association(*args)
     end)
   end
 
@@ -56,7 +56,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder input should allow a block to configure input' do
     with_form_for @user, :name do
-      concat text_field_tag :foo, :bar, :id => :cool
+      text_field_tag :foo, :bar, :id => :cool
     end
     assert_no_select 'input.string'
     assert_select 'input#cool'
@@ -300,14 +300,14 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder allows wrapper tag to be given on demand' do
     concat(simple_form_for(@user) do |f|
-      concat f.input :name, :wrapper_tag => :b
+      f.input :name, :wrapper_tag => :b
     end)
     assert_select 'form b.required.string'
   end
 
   test 'builder allows wrapper class to be given on demand' do
     concat(simple_form_for(@user) do |f|
-      concat f.input :name, :wrapper_class => :wrapper
+      f.input :name, :wrapper_class => :wrapper
     end)
     assert_select 'form div.wrapper.required.string'
   end
@@ -362,9 +362,9 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should generate a hint component tag for the given text' do
-     with_hint_for @user, 'Hello World!'
-     assert_select 'span.hint', 'Hello World!'
-   end
+    with_hint_for @user, 'Hello World!'
+    assert_select 'span.hint', 'Hello World!'
+  end
 
   test 'builder should allow passing options to hint tag' do
     with_hint_for @user, :name, :hint => 'Hello World!', :id => 'name_hint'

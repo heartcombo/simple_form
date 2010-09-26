@@ -9,7 +9,7 @@ class HintTest < ActionView::TestCase
       f.input_type     = type
       f.options        = options
 
-      concat(SimpleForm::Inputs::Base.new(f).hint.to_s)
+      SimpleForm::Inputs::Base.new(f).hint.to_s
     end)
   end
 
