@@ -2,15 +2,15 @@ require 'test_helper'
 
 class WrapperTest < ActionView::TestCase
   def with_error_for(object, attribute_name, &block)
-    concat(simple_form_for(object) do |f|
+    with_concat_form_for(object) do |f|
       f.input attribute_name
-    end)
+    end
   end
 
   def with_form_for(object, *args, &block)
-    concat(simple_form_for(object) do |f|
+    with_concat_form_for(object) do |f|
        f.input(*args, &block)
-    end)
+    end
   end
 
   test 'wrapper should not have error class for attribute without errors' do

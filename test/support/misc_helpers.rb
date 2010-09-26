@@ -24,4 +24,8 @@ module MiscHelpers
       object.send :"#{key}=", value
     end
   end
+
+  def with_concat_form_for(object, &block)
+    concat simple_form_for(object, &block)
+  end
 end
