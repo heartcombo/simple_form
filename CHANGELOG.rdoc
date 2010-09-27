@@ -6,9 +6,12 @@
   * Automatic add min/max values for numeric attributes based on validations and step for integers - HTML5 (by github.com/dasch)
   * Add :placeholder option for string inputs, allowing customization through I18n - HTML5 (by github.com/jonathan)
   * Add :search and :tel input types, with :tel mapping automatically from attributes matching "phone" - HTML5
+  * Add :required html attribute for required inputs - HTML5
+  * Add optional :components option to input to control component rendering (by github.com/khoan)
 
 * bug fix
   * Search for validations on both association and attribute
+  * Use controller.action_name to lookup actoin only when available, to fix issue with Rspec views tests (by github.com/rafaelfranca)
 
 == 1.2.2
 
