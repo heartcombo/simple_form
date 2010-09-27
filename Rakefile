@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'

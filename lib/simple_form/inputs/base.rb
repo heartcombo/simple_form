@@ -34,7 +34,8 @@ module SimpleForm
       end
 
       def render
-        content = SimpleForm.components.map do |component|
+	components = options[:components] || SimpleForm.components
+        content = components.map do |component|
           next if options[component] == false
           send(component)
         end
