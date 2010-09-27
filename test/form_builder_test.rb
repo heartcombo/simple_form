@@ -108,6 +108,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_email.string.email'
   end
 
+  test 'builder should generate tel fields for columns that matches phone' do
+    with_form_for @user, :phone_number
+    assert_select 'form input#user_phone_number.string.tel'
+  end
+
   test 'builder should generate url fields for columns that matches url' do
     with_form_for @user, :url
     assert_select 'form input#user_url.string.url'

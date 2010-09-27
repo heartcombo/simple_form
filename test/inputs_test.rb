@@ -67,6 +67,13 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  [:email, :url, :search, :tel].each do |type|
+    test "input should allow type #{type}" do
+      with_input_for @user, :name, type
+      assert_select "input.string.#{type}"
+    end
+  end
+
   # NumericInput
   test 'input should generate an integer text field for integer attributes ' do
     with_input_for @user, :age, :integer

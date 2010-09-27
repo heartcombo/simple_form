@@ -237,7 +237,9 @@ SimpleForm comes with a lot of default mappings:
   string                text field              string
   email                 email field             string with name matching "email"
   url                   url field               string with name matching "url"
+  tel                   tel field               string with name matching "phone"
   password              password field          string with name matching "password"
+  search                search                  -
   text                  text area               text
   file                  file field              string, responding to file methods
   hidden                hidden field            -
