@@ -143,9 +143,7 @@ module SimpleForm
           end
       end
 
-      options[:collection] ||= @reflection.klass.all(
-        :conditions => @reflection.options[:conditions], :order => @reflection.options[:order]
-      )
+      options[:collection] ||= @reflection.klass.all(@reflection.options.slice(:conditions, :order))
 
       input(attribute, options).tap { @reflection = nil }
     end

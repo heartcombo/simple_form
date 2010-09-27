@@ -12,7 +12,7 @@ module SimpleForm
         @builder.send(input_method, attribute_name, input_html_options)
       end
 
-      private
+    private
 
       def input_method
         self.class.mappings[input_type] or

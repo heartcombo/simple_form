@@ -5,6 +5,8 @@ module SimpleForm
         @builder.send(:"#{input_type}_select", attribute_name, input_options, input_html_options)
       end
 
+    private
+
       def label_target
         case input_type
         when :date, :datetime
