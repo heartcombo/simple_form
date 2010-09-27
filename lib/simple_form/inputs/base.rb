@@ -51,7 +51,7 @@ module SimpleForm
     protected
 
       def components_list
-        SimpleForm.components
+        options[:components] || SimpleForm.components
       end
 
       def attribute_required?
