@@ -30,7 +30,9 @@ module SimpleForm
       end
 
       def input_html_options
-        html_options_for(:input, input_html_classes)
+        html_options = html_options_for(:input, input_html_classes)
+        html_options[:required] = true if attribute_required?
+        html_options
       end
 
       def input_html_classes

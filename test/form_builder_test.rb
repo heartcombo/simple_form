@@ -247,7 +247,7 @@ class FormBuilderTest < ActionView::TestCase
   # REQUIRED AND PRESENCE VALIDATION
   test 'builder input should obtain required from ActiveModel::Validations when it is included' do
     with_form_for @validating_user, :name
-    assert_select 'input.required#validating_user_name'
+    assert_select 'input.required[required]#validating_user_name'
     with_form_for @validating_user, :status
     assert_select 'input.optional#validating_user_status'
   end
@@ -256,24 +256,26 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @validating_user, :name, :required => false
     assert_select 'input.optional#validating_user_name'
     with_form_for @validating_user, :status, :required => true
-    assert_select 'input.required#validating_user_status'
+    assert_select 'input.required[required]#validating_user_status'
   end
 
   test 'builder input should be required by default when ActiveModel::Validations is not included' do
     with_form_for @user, :name
-    assert_select 'input.required#user_name'
+    assert_select 'input.required[required]#user_name'
   end
 
   test 'builder input should not be required by default when ActiveModel::Validations is not included if option is set to false' do
     swap SimpleForm, :required_by_default => false do
       with_form_for @user, :name
       assert_select 'input.optional#user_name'
+      assert_no_select 'input[required]'
     end
   end
 
   test 'builder input should allow disabling required when ActiveModel::Validations is not included' do
     with_form_for @user, :name, :required => false
     assert_no_select 'input.required'
+    assert_no_select 'input[required]'
     assert_select 'input.optional#user_name'
   end
 

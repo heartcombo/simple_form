@@ -184,6 +184,14 @@ class InputTest < ActionView::TestCase
     assert_no_select 'label'
   end
 
+  test 'required/optional options should not be generated for hidden inputs' do
+    with_input_for @user, :name, :hidden
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_no_select 'input.optional'
+    assert_select 'input.hidden#user_name'
+  end
+
   # PriorityInput
   test 'input should generate a country select field' do
     with_input_for @user, :country, :country
