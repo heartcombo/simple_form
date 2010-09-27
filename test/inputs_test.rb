@@ -152,6 +152,14 @@ class InputTest < ActionView::TestCase
     assert_select 'input#user_name[type=file]'
   end
 
+  test 'mapping input should generate an error if type is not found' do
+    with_concat_form_for(@user) do |f|
+      assert_raise(RuntimeError, "Could not find method for nil") do
+        SimpleForm::Inputs::MappingInput.new(f).input
+      end
+    end
+  end
+
   # HiddenInput
   test 'input should generate a hidden field' do
     with_input_for @user, :name, :hidden

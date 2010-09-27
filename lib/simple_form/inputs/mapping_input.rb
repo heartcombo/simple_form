@@ -12,10 +12,11 @@ module SimpleForm
         @builder.send(input_method, attribute_name, input_html_options)
       end
 
+      private
+
       def input_method
-        method = self.class.mappings[input_type]
-        raise "Could not find method for #{input_type.inspect}" unless method
-        method
+        self.class.mappings[input_type] or
+          raise("Could not find method for #{input_type.inspect}")
       end
     end
   end
