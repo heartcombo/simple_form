@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'test_helper'
 
 class ErrorNotificationTest < ActionView::TestCase
