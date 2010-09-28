@@ -28,7 +28,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "simple_form"
-    s.version = SimpleForm::VERSION
+    s.version = SimpleForm::VERSION.dup
     s.summary = "Forms made easy!"
     s.email = "contact@plataformatec.com.br"
     s.homepage = "http://github.com/plataformatec/simple_form"
