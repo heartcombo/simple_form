@@ -131,7 +131,9 @@ module SimpleForm
 
       # The action to be used in lookup.
       def lookup_action
-        action = template.controller.action_name.to_sym if template.controller.action_name
+        return unless template.controller.action_name
+
+        action = template.controller.action_name.to_sym
         ACTIONS[action] || action
       end
     end

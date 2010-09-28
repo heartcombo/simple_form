@@ -11,7 +11,7 @@
 
 * bug fix
   * Search for validations on both association and attribute
-  * Use controller.action_name to lookup actoin only when available, to fix issue with Rspec views tests (by github.com/rafaelfranca)
+  * Use controller.action_name to lookup action only when available, to fix issue with Rspec views tests (by github.com/rafaelfranca)
 
 == 1.2.2
 
