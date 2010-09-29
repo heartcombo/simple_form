@@ -308,6 +308,14 @@ Finally, you can also overwrite any label, hint or placeholder inside your view,
 
 There are other options that can be configured through I18n API, such as required text, boolean and button texts. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
 
+For translating buttons, use Rails' built-in I18n support:
+
+  en:
+    helpers:
+      user:
+        create: "Add User"
+        update: "Save Changes"
+
 == Configuration
 
 SimpleForm has several configuration values. You can read and change them in the initializer created by SimpleForm, so if you haven't executed the command below yet, please do:
