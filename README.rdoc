@@ -306,15 +306,16 @@ SimpleForm will always look for a default attribute translation if no specific i
 
 Finally, you can also overwrite any label, hint or placeholder inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
 
-There are other options that can be configured through I18n API, such as required text, boolean and button texts. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
-
-For translating buttons, use Rails' built-in I18n support:
+It's also possible to translate buttons, using Rails' built-in I18n support:
 
   en:
     helpers:
-      user:
-        create: "Add User"
-        update: "Save Changes"
+      submit:
+        user:
+          create: "Add %{model}"
+          update: "Save Changes"
+
+There are other options that can be configured through I18n API, such as required text and boolean. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
 
 == Configuration
 
