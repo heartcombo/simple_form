@@ -121,19 +121,20 @@ module SimpleForm
       #
       #  Take a look at our locale example file.
       def translate(namespace, default='')
+        return nil unless SimpleForm.translate
         lookups = []
         lookups << :"#{object_name}.#{lookup_action}.#{reflection_or_attribute_name}"
         lookups << :"#{object_name}.#{reflection_or_attribute_name}"
         lookups << :"#{reflection_or_attribute_name}"
         lookups << default
-        I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups)
+        I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
       end
 
       # The action to be used in lookup.
       def lookup_action
-        return unless template.controller.action_name
-
-        action = template.controller.action_name.to_sym
+        action = template.controller.action_name
+        return unless action
+        action = action.to_sym
         ACTIONS[action] || action
       end
     end

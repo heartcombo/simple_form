@@ -54,13 +54,11 @@ module SimpleForm
 
       # First check human attribute name and then labels.
       def label_translation #:nodoc:
-        default = if object.class.respond_to?(:human_attribute_name)
+        translate(:labels) || if object.class.respond_to?(:human_attribute_name)
           object.class.human_attribute_name(reflection_or_attribute_name.to_s)
         else
           attribute_name.to_s.humanize
         end
-
-        translate(:labels, default)
       end
     end
   end

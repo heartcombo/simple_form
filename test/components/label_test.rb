@@ -83,6 +83,15 @@ class LabelTest < ActionView::TestCase
     end
   end
 
+  test 'input should not use i18n label if translate is false' do
+    swap SimpleForm, :translate => false do
+      store_translations(:en, :simple_form => { :labels => { :age => 'Idade' } } ) do
+        with_label_for @user, :age, :integer
+        assert_select 'label[for=user_age]', /Age/
+      end
+    end
+  end
+
   test 'label should use i18n with lookup for association name' do
     store_translations(:en, :simple_form => { :labels => {
       :user => { :company => 'My company!' }
