@@ -8,6 +8,7 @@
   * Add :search and :tel input types, with :tel mapping automatically from attributes matching "phone" - HTML5
   * Add :required html attribute for required inputs - HTML5
   * Add optional :components option to input to control component rendering (by github.com/khoan)
+  * Add SimpleForm.translate as an easy way to turn off SimpleForm internal translations
 
 * bug fix
   * Search for validations on both association and attribute
