@@ -59,6 +59,15 @@ You can also disable labels, hints or error or configure the html of any of them
     <%= f.button :submit %>
   <% end %>
 
+You can set a default value on an input using the input_html option:
+
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :username %>
+    <%= f.input :password %>
+    <%= f.input :remember_me, :as => :hidden, :input_html => {:value => '1'} %>
+    <%= f.button :submit %>
+  <% end %>
+
 By default all inputs are required, which means an * is prepended to the label, but you can disable it in any input you want:
 
   <%= simple_form_for @user do |f| %>
