@@ -174,6 +174,16 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :description, :text
     assert_select 'textarea.text#user_description'
   end
+    
+  test 'input should accept the rows option' do
+    with_input_for @user, :description, :text, :rows => 10
+    assert_select 'textarea[rows=10]'
+  end
+  
+  test 'input should accept the cols option' do
+    with_input_for @user, :description, :text, :cols => 10
+    assert_select 'textarea[cols=10]'
+  end
 
   test 'input should generate a password field for password attributes' do
     with_input_for @user, :password, :password
