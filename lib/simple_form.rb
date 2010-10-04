@@ -74,8 +74,8 @@ module SimpleForm
   mattr_accessor :default_input_size
   @@default_input_size = 50
 
-  # When off, do not use translations in hint and labels.
-  # It is a small performance improvement if you are not such features.
+  # When off, do not use translations in hint, labels and placeholders.
+  # It is a small performance improvement if you are not using such features.
   mattr_accessor :translate
   @@translate = true
 
