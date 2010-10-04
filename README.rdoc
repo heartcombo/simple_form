@@ -59,12 +59,12 @@ You can also disable labels, hints or error or configure the html of any of them
     <%= f.button :submit %>
   <% end %>
 
-You can set a default value on an input using the input_html option:
+It is also possible to pass any html attribute straight to the input, by using the :input_html option, for instance:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username %>
-    <%= f.input :password %>
-    <%= f.input :remember_me, :as => :hidden, :input_html => {:value => '1'} %>
+    <%= f.input :username, :input_html => { :class => 'special' } %>
+    <%= f.input :password, :input_html => { :maxlength => 20 } %>
+    <%= f.input :remember_me, :input_html => { :value => '1' } %>
     <%= f.button :submit %>
   <% end %>
 
