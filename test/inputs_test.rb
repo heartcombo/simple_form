@@ -150,6 +150,25 @@ class InputTest < ActionView::TestCase
     assert_select 'input[step=1]'
   end
 
+  test 'numeric input should not generate placeholder by default' do
+    with_input_for @user, :age, :integer
+    assert_no_select 'input[placeholder]'
+  end
+
+  test 'numeric input should accept the placeholder option' do
+    with_input_for @user, :age, :integer, :placeholder => 'Put in some text'
+    assert_select 'input.integer[placeholder=Put in some text]'
+  end
+
+  test 'numeric input should use i18n to translate placeholder text' do
+    store_translations(:en, :simple_form => { :placeholders => { :user => {
+      :age => 'Age goes here'
+    } } }) do
+      with_input_for @user, :age, :integer
+      assert_select 'input.integer[placeholder=Age goes here]'
+    end
+  end
+
   [:integer, :float, :decimal].each do |type|
     test "#{type} input should infer min value from attributes with greater than or equal validation" do
       with_input_for @validating_user, :age, type
