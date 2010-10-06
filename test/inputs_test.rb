@@ -194,6 +194,11 @@ class InputTest < ActionView::TestCase
     assert_select 'textarea.text#user_description'
   end
 
+  test 'input should generate a text area for text attributes that accept placeholder' do
+    with_input_for @user, :description, :text, :placeholder => 'Put in some text'
+    assert_select 'textarea.text[placeholder=Put in some text]'
+  end
+
   test 'input should generate a password field for password attributes' do
     with_input_for @user, :password, :password
     assert_select 'input[type=password].password#user_password'
