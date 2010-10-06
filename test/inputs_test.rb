@@ -156,8 +156,8 @@ class InputTest < ActionView::TestCase
   end
 
   test 'numeric input should accept the placeholder option' do
-    with_input_for @user, :age, :integer, :placeholder => 'Put in some text'
-    assert_select 'input.integer[placeholder=Put in some text]'
+    with_input_for @user, :age, :integer, :placeholder => 'Put in your age'
+    assert_select 'input.integer[placeholder=Put in your age]'
   end
 
   test 'numeric input should use i18n to translate placeholder text' do
