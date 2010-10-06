@@ -23,14 +23,6 @@ module SimpleForm
       def limit
         column && column.limit
       end
-
-      def has_placeholder?
-        options[:placeholder] != false && placeholder.present?
-      end
-
-      def placeholder
-        @placeholder ||= options[:placeholder] || translate(:placeholders)
-      end
     end
   end
 end
