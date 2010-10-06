@@ -209,6 +209,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input#user_name[type=file]'
   end
 
+  test "input should generate a file field that don't accept placeholder" do
+    with_input_for @user, :name, :file, :placeholder => 'Put in some text'
+    assert_no_select 'input[placeholder]'
+  end
+
   test 'mapping input should generate an error if type is not found' do
     with_concat_form_for(@user) do |f|
       assert_raise(RuntimeError, "Could not find method for nil") do
