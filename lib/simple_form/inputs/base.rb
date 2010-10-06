@@ -76,6 +76,14 @@ module SimpleForm
         reflection ? object.class.validators_on(reflection.name) : []
       end
 
+      def has_placeholder?
+        options[:placeholder] != false && placeholder.present?
+      end
+
+      def placeholder
+        @placeholder ||= options[:placeholder] || translate(:placeholders)
+      end
+
       def attribute_required_by_default?
         SimpleForm.required_by_default
       end
