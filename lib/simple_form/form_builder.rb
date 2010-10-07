@@ -172,7 +172,7 @@ module SimpleForm
         klass.all(finders)
       end
 
-      returning(input(attribute, options)) { @reflection = nil }
+      input(attribute, options).tap { @reflection = nil }
     end
 
     # Creates a button:

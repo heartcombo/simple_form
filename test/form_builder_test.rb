@@ -366,7 +366,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should create object buttons with localized labels' do
     store_translations(:en, :simple_form => { :buttons => {
-        :create => "Criar {{model}}", :update => "Atualizar {{model}}" }}) do
+        :create => "Criar %{model}", :update => "Atualizar %{model}" }}) do
       with_button_for @user, :submit
       assert_select 'form input[type=submit][value=Atualizar User]'
 
@@ -377,7 +377,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should create non object buttons with localized labels' do
-    store_translations(:en, :simple_form => { :buttons => { :submit => "Enviar {{model}}" }}) do
+    store_translations(:en, :simple_form => { :buttons => { :submit => "Enviar %{model}" }}) do
       with_button_for :post, :submit
       assert_select 'form input[type=submit][value=Enviar Post]'
     end

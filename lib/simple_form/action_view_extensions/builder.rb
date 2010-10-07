@@ -101,7 +101,7 @@ module SimpleForm
         # Generate default options for collection helpers, such as :checked and
         # :disabled.
         def default_html_options_for_collection(item, value, options, html_options) #:nodoc:
-          returning(html_options.dup) do |default_html_options|
+          html_options.dup.tap do |default_html_options|
             [:checked, :disabled].each do |option|
               next unless options[option]
 
