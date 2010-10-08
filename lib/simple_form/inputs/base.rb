@@ -65,7 +65,7 @@ module SimpleForm
         html_options
       end
 
-      # Ensure we make html safe only if it responds to it
+      # Ensure we make html safe only if it responds to it.
       def html_safe(content)
         if content.respond_to?(:html_safe)
           content.html_safe
