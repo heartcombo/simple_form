@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'test/unit'
+require 'mocha'
 
 require 'action_controller'
 require 'action_view/test_case'

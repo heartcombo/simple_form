@@ -39,7 +39,8 @@ module SimpleForm
           send(component)
         end
         content.compact!
-        wrap(content.join.html_safe).html_safe
+        content = html_safe(content.join)
+        html_safe(wrap(content))
       end
 
     protected
@@ -62,6 +63,17 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
+      end
+
+      # Ensure we make html safe only if it responds to it
+      def html_safe(content)
+        if content.respond_to?(:html_safe)
+          content.html_safe
+        elsif content.respond_to?(:html_safe!)
+          content.html_safe!
+        else
+          content
+        end
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,
