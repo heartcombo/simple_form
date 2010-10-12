@@ -33,6 +33,13 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_radio[for=user_active_false]', 'false'
   end
 
+  test 'collection radio handles camelized collection values for labels correctly' do
+    with_collection_radio @user, :active, ['Yes', 'No'], :to_s, :to_s
+
+    assert_select 'form label.collection_radio[for=user_active_yes]', 'Yes'
+    assert_select 'form label.collection_radio[for=user_active_no]', 'No'
+  end
+
   test 'collection radio accepts checked item' do
     with_collection_radio @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
 
@@ -80,6 +87,13 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form label.collection_check_boxes[for=user_tag_ids_1]', 'Tag 1'
     assert_select 'form label.collection_check_boxes[for=user_tag_ids_2]', 'Tag 2'
+  end
+
+  test 'collection check box handles camelized collection values for labels correctly' do
+    with_collection_check_boxes @user, :active, ['Yes', 'No'], :to_s, :to_s
+
+    assert_select 'form label.collection_check_boxes[for=user_active_yes]', 'Yes'
+    assert_select 'form label.collection_check_boxes[for=user_active_no]', 'No'
   end
 
   test 'collection check box accepts selected values as :checked option' do

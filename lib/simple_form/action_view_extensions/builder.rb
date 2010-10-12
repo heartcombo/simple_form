@@ -37,7 +37,7 @@ module SimpleForm
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
           radio = radio_button(attribute, value, default_html_options)
-          label("#{attribute}_#{value}", radio << text.to_s, :class => "collection_radio")
+          label("#{attribute}_#{value.to_s.downcase}", radio << text.to_s, :class => "collection_radio")
         end.join.html_safe
       end
 
@@ -77,7 +77,7 @@ module SimpleForm
           default_html_options[:multiple] = true
 
           check_box = check_box(attribute, default_html_options, value, '')
-          label("#{attribute}_#{value}", check_box << text.to_s, :class => "collection_check_boxes")
+          label("#{attribute}_#{value.to_s.downcase}", check_box << text.to_s, :class => "collection_check_boxes")
         end.join.html_safe
       end
 
