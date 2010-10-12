@@ -31,13 +31,12 @@ module SimpleForm
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         collection.map do |item|
-          value = (value_method.respond_to?(:call) ? value_method.call(item) : item.send(value_method))
-          text  = (text_method.respond_to?(:call)  ? text_method.call(item)  : item.send(text_method))
-
+          value = value_for_collection(item, value_method)
+          text  = value_for_collection(item, text_method)
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
           radio = radio_button(attribute, value, default_html_options)
-          label("#{attribute}_#{value.to_s.downcase}", radio << text.to_s, :class => "collection_radio")
+          collection_label(attribute, value, radio, text, :class => "collection_radio")
         end.join.html_safe
       end
 
@@ -70,14 +69,13 @@ module SimpleForm
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         collection.map do |item|
-          value = (value_method.respond_to?(:call) ? value_method.call(item) : item.send(value_method))
-          text  = (text_method.respond_to?(:call)  ? text_method.call(item)  : item.send(text_method))
-
+          value = value_for_collection(item, value_method)
+          text  = value_for_collection(item, text_method)
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
           default_html_options[:multiple] = true
 
           check_box = check_box(attribute, default_html_options, value, '')
-          label("#{attribute}_#{value.to_s.downcase}", check_box << text.to_s, :class => "collection_check_boxes")
+          collection_label(attribute, value, check_box, text, :class => "collection_check_boxes")
         end.join.html_safe
       end
 
@@ -98,6 +96,11 @@ module SimpleForm
 
     private
 
+      # Wraps the given component in a label, for better accessibility with collections.
+      def collection_label(attribute, value, component_tag, label_text, html_options) #:nodoc:
+        label("#{attribute}_#{value.to_s.downcase}", component_tag << label_text.to_s, html_options)
+      end
+
       # Generate default options for collection helpers, such as :checked and
       # :disabled.
       def default_html_options_for_collection(item, value, options, html_options) #:nodoc:
@@ -116,6 +119,10 @@ module SimpleForm
         end
 
         html_options
+      end
+
+      def value_for_collection(item, value) #:nodoc:
+        value.respond_to?(:call) ? value.call(item) : item.send(value)
       end
     end
   end
