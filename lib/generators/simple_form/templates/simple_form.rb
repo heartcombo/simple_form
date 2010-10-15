@@ -7,6 +7,9 @@ SimpleForm.setup do |config|
   # Default tag used on hints.
   # config.hint_tag = :span
 
+  # CSS class to add to all hint tags.
+  # config.hint_class = :hint
+
   # Default tag used on errors.
   # config.error_tag = :span
 

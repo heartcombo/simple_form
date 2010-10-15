@@ -14,6 +14,10 @@ module SimpleForm
   mattr_accessor :hint_tag
   @@hint_tag = :span
 
+  # CSS class to add to all hint tags.
+  mattr_accessor :hint_class
+  @@hint_class = :hint
+
   # Default tag used on errors.
   mattr_accessor :error_tag
   @@error_tag = :span
