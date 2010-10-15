@@ -14,7 +14,7 @@ module SimpleForm
       end
 
       def hint_html_options
-        html_options_for(:hint, [:hint])
+        html_options_for(:hint, [SimpleForm.hint_class])
       end
     end
   end
