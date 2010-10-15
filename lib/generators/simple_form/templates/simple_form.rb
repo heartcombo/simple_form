@@ -11,6 +11,9 @@ SimpleForm.setup do |config|
   # config.hint_class = :hint
 
   # Default tag used on errors.
+  # config.error_class = :error
+
+  # Default tag used on errors.
   # config.error_tag = :span
 
   # Method used to tidy up errors.
