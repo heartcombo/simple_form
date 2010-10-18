@@ -128,14 +128,14 @@ module SimpleForm
       #            email: 'E-mail.'
       #
       #  Take a look at our locale example file.
-      def translate(namespace, default='')
+      def translate(namespace, default='', primary_scope = 'simple_form')
         return nil unless SimpleForm.translate
         lookups = []
         lookups << :"#{object_name}.#{lookup_action}.#{reflection_or_attribute_name}"
         lookups << :"#{object_name}.#{reflection_or_attribute_name}"
         lookups << :"#{reflection_or_attribute_name}"
         lookups << default
-        I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
+        I18n.t(lookups.shift, :scope => :"#{primary_scope}.#{namespace}", :default => lookups).presence
       end
 
       # The action to be used in lookup.

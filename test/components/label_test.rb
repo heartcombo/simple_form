@@ -194,6 +194,13 @@ class LabelTest < ActionView::TestCase
     end
   end
 
+  test 'label should use i18n from Rails scope properly' do
+    store_translations(:en, :helpers => { :label => { :age => 'Umar' }} ) do
+      with_label_for @user, :age, :integer
+      assert_select 'label[for=user_age]', /Umar/
+    end
+  end
+
   test 'label should add required by default when object is not present' do
     with_label_for :project, :name, :string
     assert_select 'label.required[for=project_name]'
