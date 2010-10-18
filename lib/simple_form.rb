@@ -35,6 +35,14 @@ module SimpleForm
   mattr_accessor :error_notification_tag
   @@error_notification_tag = :p
 
+  # CSS class to add for error notification helper.
+  mattr_accessor :error_notification_class
+  @@error_notification_class = nil
+
+  # ID to add for error notification helper.
+  mattr_accessor :error_notification_id
+  @@error_notification_id = nil
+
   # Components used by the form builder.
   mattr_accessor :components
   @@components = [ :label_input, :hint, :error ]
