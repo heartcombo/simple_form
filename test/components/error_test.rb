@@ -59,7 +59,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'error should include field name when option is set' do
-    with_error_for @user, :age, :numeric, :add_field_name_to_error => true, :error_method => :to_sentence
+    with_error_for @user, :age, :numeric, :add_attribute_name_to_error => true, :error_method => :to_sentence
     assert_select 'span.error', 'Age is not a number and must be greater than 18'
   end
 end
