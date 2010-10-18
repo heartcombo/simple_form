@@ -57,4 +57,9 @@ class ErrorTest < ActionView::TestCase
     with_error_for @user, :company_id, :select, :setup_association => true, :error_method => :to_sentence
     assert_select 'span.error', 'must be valid and company must be present'
   end
+
+  test 'error should include field name when option is set' do
+    with_error_for @user, :age, :numeric, :add_field_name_to_error => true, :error_method => :to_sentence
+    assert_select 'span.error', 'Age is not a number and must be greater than 18'
+  end
 end

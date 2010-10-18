@@ -12,6 +12,10 @@ SimpleForm.setup do |config|
 
   # Method used to tidy up errors.
   # config.error_method = :first
+   
+  # Default for whether to use field name in error text.
+  # Especially nice when using :as_sentence for the error method
+  # config.add_field_name_to_error = false
 
   # Default tag used for error notification helper.
   # config.error_notification_tag = :p

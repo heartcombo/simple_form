@@ -22,6 +22,11 @@ module SimpleForm
   mattr_accessor :error_method
   @@error_method = :first
 
+  # Default for whether to use field name in error text.
+  # Especially nice when using :as_sentence for the error method
+  mattr_accessor :add_field_name_to_error
+  @@add_field_name_to_error = false
+
   # Default tag used for error notification helper.
   mattr_accessor :error_notification_tag
   @@error_notification_tag = :p

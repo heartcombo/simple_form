@@ -10,11 +10,15 @@ module SimpleForm
       end
 
       def error_text
-        errors.send(error_method)
+        add_field_name_to_error ? error_text_with_attribute_name : error_text_without_attribute_name
       end
 
       def error_method
         options[:error_method] || SimpleForm.error_method
+      end
+
+      def add_field_name_to_error
+        options[:add_field_name_to_error] || SimpleForm.add_field_name_to_error
       end
 
       def error_html_options
@@ -22,6 +26,13 @@ module SimpleForm
       end
 
     protected
+      def error_text_with_attribute_name
+        "#{attribute_name.to_s.humanize} #{error_text_without_attribute_name}" 
+      end
+
+      def error_text_without_attribute_name
+        errors.send(error_method)
+      end
 
       def has_errors?
         object && object.respond_to?(:errors) && errors.present?
