@@ -22,6 +22,12 @@ SimpleForm.setup do |config|
   # Default tag used for error notification helper.
   # config.error_notification_tag = :p
 
+  # CSS class to add for error notification helper.
+  # config.error_notification_class = ''
+
+  # ID to add for error notification helper.
+  # config.error_notification_id = ''
+
   # You can wrap all inputs in a pre-defined tag.
   # config.wrapper_tag = :div
 
