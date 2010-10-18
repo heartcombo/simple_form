@@ -1,2 +1,3 @@
 .bundle/
+.rvmrc
 pkg/
