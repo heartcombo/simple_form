@@ -14,11 +14,16 @@ module SimpleForm
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Wrapper
 
-      delegate :template, :object, :object_name, :attribute_name, :column,
-               :reflection, :input_type, :options, :to => :@builder
+      attr_reader :attribute_name, :column, :input_type, :options
 
-      def initialize(builder)
-        @builder = builder
+      delegate :template, :object, :object_name, :reflection, :to => :@builder
+
+      def initialize(builder, attribute_name, column, input_type, options = {})
+        @builder        = builder
+        @attribute_name = attribute_name
+        @column         = column
+        @input_type     = input_type
+        @options        = options
       end
 
       def input

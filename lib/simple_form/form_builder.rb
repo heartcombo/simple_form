@@ -1,7 +1,6 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object, :attribute_name, :column,
-                :reflection, :input_type, :options
+    attr_reader :template, :object_name, :object, :reflection, :options
 
     extend MapType
     include SimpleForm::Inputs
@@ -80,14 +79,14 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      define_simple_form_attributes(attribute_name, options)
-
+      column      = find_attribute_column(attribute_name)
+      input_type  = default_input_type(attribute_name, column, options)
       if block_given?
         SimpleForm::Inputs::BlockInput.new(self, block).render
       else
         klass = self.class.mappings[input_type] ||
           self.class.const_get(:"#{input_type.to_s.camelize}Input")
-        klass.new(self).render
+        klass.new(self, attribute_name, column, input_type, options).render
       end
     end
     alias :attribute :input
@@ -176,8 +175,10 @@ module SimpleForm
     #    f.error :name, :id => "cool_error"
     #
     def error(attribute_name, options={})
-      define_simple_form_attributes(attribute_name, :error_html => options)
-      SimpleForm::Inputs::Base.new(self).error
+      options[:error_html] = options
+      column      = find_attribute_column(attribute_name)
+      input_type  = default_input_type(attribute_name, column, options)
+      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).error
     end
 
     # Creates a hint tag for the given attribute. Accepts a symbol indicating
@@ -191,9 +192,15 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
-      attribute_name, options[:hint] = nil, attribute_name if attribute_name.is_a?(String)
-      define_simple_form_attributes(attribute_name, :hint => options.delete(:hint), :hint_html => options)
-      SimpleForm::Inputs::Base.new(self).hint
+      options[:hint_html] = options
+      if attribute_name.is_a?(String)
+        options[:hint] = attribute_name
+        attribute_name, column, input_type = nil, nil, nil
+      else
+        column      = find_attribute_column(attribute_name)
+        input_type  = default_input_type(attribute_name, column, options)
+      end
+      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).hint
     end
 
     # Creates a default label tag for the given attribute. You can give a label
@@ -212,9 +219,12 @@ module SimpleForm
     def label(attribute_name, *args)
       return super if args.first.is_a?(String)
       options = args.extract_options!
-      define_simple_form_attributes(attribute_name, :label => options.delete(:label),
-        :label_html => options, :required => options.delete(:required))
-      SimpleForm::Inputs::Base.new(self).label
+      options[:label]       = options.delete(:label)
+      options[:label_html]  = options
+      options[:required]    = options.delete(:required)
+      column      = find_attribute_column(attribute_name)
+      input_type  = default_input_type(attribute_name, column, options)
+      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).label
     end
 
     # Creates an error notification message that only appears when the form object
@@ -234,30 +244,20 @@ module SimpleForm
 
   private
 
-    # Setup default simple form attributes.
-    def define_simple_form_attributes(attribute_name, options) #:nodoc:
-      @options = options
-
-      if @attribute_name = attribute_name
-        @column     = find_attribute_column
-        @input_type = default_input_type
-      end
-    end
-
     # Attempt to guess the better input type given the defined options. By
     # default alwayls fallback to the user :as option, or to a :select when a
     # collection is given.
-    def default_input_type #:nodoc:
-      return @options[:as].to_sym if @options[:as]
-      return :select              if @options[:collection]
+    def default_input_type(attribute_name, column, options) #:nodoc:
+      return options[:as].to_sym if options[:as]
+      return :select              if options[:collection]
 
-      input_type = @column.try(:type)
+      input_type = column.try(:type)
 
       case input_type
         when :timestamp
           :datetime
         when :string, nil
-          match = case @attribute_name.to_s
+          match = case attribute_name.to_s
             when /password/  then :password
             when /time_zone/ then :time_zone
             when /country/   then :country
@@ -266,21 +266,21 @@ module SimpleForm
             when /url/       then :url
           end
 
-          match || input_type || file_method? || :string
+          match || input_type || file_method?(attribute_name) || :string
         else
           input_type
       end
     end
 
     # Checks if attribute is a file_method.
-    def file_method? #:nodoc:
-      file = @object.send(@attribute_name) if @object.respond_to?(@attribute_name)
+    def file_method?(attribute_name) #:nodoc:
+      file = @object.send(attribute_name) if @object.respond_to?(attribute_name)
       :file if file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
     # Finds the database column for the given attribute
-    def find_attribute_column #:nodoc:
-      @object.column_for_attribute(@attribute_name) if @object.respond_to?(:column_for_attribute)
+    def find_attribute_column(attribute_name) #:nodoc:
+      @object.column_for_attribute(attribute_name) if @object.respond_to?(:column_for_attribute)
     end
 
     # Find reflection related to association
