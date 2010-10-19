@@ -89,6 +89,15 @@ SimpleForm also lets you overwrite the default input type it creates:
 
 So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no labels and a text area instead of a text field for the description. You can also render boolean attributes using :as => :select to show a dropdown.
 
+SimpleForm accepts same options as their corresponding input type helper in Rails:
+
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 90,
+                                :end_year => Date.today.year - 12, :discard_day => true,
+                                :order => [:month, :year] %>
+    <%= f.button :submit %>
+  <% end %>
+
 SimpleForm also allows you using label, hint and error helpers it provides:
 
   <%= simple_form_for @user do |f| %>
