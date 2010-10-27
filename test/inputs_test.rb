@@ -368,6 +368,13 @@ class InputTest < ActionView::TestCase
     assert_select 'label[for=user_active_false]', 'No'
   end
 
+  test 'input as radio should sanitize the label for attribute' do
+    with_input_for @user, :name, :radio, :collection => ['$0.99', '$1.99']
+    assert_select 'label.collection_radio[for=user_name_099]', '$0.99'
+    assert_select 'label.collection_radio[for=user_name_199]', '$1.99'
+  end
+
+
   test 'input as radio should use i18n to translate internal labels' do
     store_translations(:en, :simple_form => { :yes => 'Sim', :no => 'Não' }) do
       with_input_for @user, :active, :radio
