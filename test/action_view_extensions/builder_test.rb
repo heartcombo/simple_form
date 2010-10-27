@@ -40,6 +40,12 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_radio[for=user_active_no]', 'No'
   end
 
+  test 'colection radio should sanitize collection values for labels correctly' do
+    with_collection_radio @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+    assert_select 'label.collection_radio[for=user_name_099]', '$0.99'
+    assert_select 'label.collection_radio[for=user_name_199]', '$1.99'
+  end
+
   test 'collection radio accepts checked item' do
     with_collection_radio @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
 
@@ -94,6 +100,12 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form label.collection_check_boxes[for=user_active_yes]', 'Yes'
     assert_select 'form label.collection_check_boxes[for=user_active_no]', 'No'
+  end
+
+  test 'colection check box should sanitize collection values for labels correctly' do
+    with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+    assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
+    assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
   end
 
   test 'collection check box accepts selected values as :checked option' do
