@@ -14,7 +14,7 @@ module SimpleForm
 
       def input_html_options
         input_options = super
-        input_options[:placeholder] ||= placeholder if has_placeholder? and text?
+        input_options[:placeholder] ||= placeholder if has_placeholder?
         input_options
       end
 
@@ -23,6 +23,10 @@ module SimpleForm
       def input_method
         self.class.mappings[input_type] or
           raise("Could not find method for #{input_type.inspect}")
+      end
+
+      def has_placeholder?
+        text? && super
       end
 
       def text?
