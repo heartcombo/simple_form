@@ -11,9 +11,7 @@ module SimpleForm
         input_options[:size]        ||= SimpleForm.default_input_size
         input_options[:step]        ||= 1 if integer?
         input_options[:placeholder] ||= placeholder if has_placeholder?
-
         infer_attributes_from_validations(input_options)
-
         input_options
       end
 
