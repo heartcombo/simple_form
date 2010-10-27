@@ -98,7 +98,7 @@ module SimpleForm
 
       # Wraps the given component in a label, for better accessibility with collections.
       def collection_label(attribute, value, component_tag, label_text, html_options) #:nodoc:
-        label("#{attribute}_#{value.to_s.downcase}", component_tag << label_text.to_s, html_options)
+        label(sanitize_attribute_name(attribute, value), component_tag << label_text.to_s, html_options)
       end
 
       # Generate default options for collection helpers, such as :checked and
@@ -120,6 +120,11 @@ module SimpleForm
 
         html_options
       end
+
+      def sanitize_attribute_name(attribute, value)
+        "#{attribute}_#{value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
+      end
+
 
       def value_for_collection(item, value) #:nodoc:
         value.respond_to?(:call) ? value.call(item) : item.send(value)
