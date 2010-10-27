@@ -386,7 +386,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should add a required class to label if the attribute is required' do
     with_label_for @validating_user, :name
-    assert_select 'label.string[for=validating_user_name]', /Name/
+    assert_select 'label.string.required[for=validating_user_name]', /Name/
   end
 
   test 'builder should allow passing options to label tag' do
