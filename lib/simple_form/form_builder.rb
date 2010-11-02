@@ -129,7 +129,7 @@ module SimpleForm
       raise "Association #{association.inspect} not found" unless @reflection
 
       case @reflection.macro
-        when :belongs_to
+        when :belongs_to, :referenced_in
           attribute = @reflection.options[:foreign_key] || :"#{@reflection.name}_id"
         when :has_one
           raise ":has_one association are not supported by f.association"
