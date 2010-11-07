@@ -81,11 +81,11 @@ module SimpleForm
     def input(attribute_name, options={}, &block)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
+
       if block_given?
-        SimpleForm::Inputs::BlockInput.new(self, block).render
+        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
       else
-        klass = self.class.mappings[input_type] ||
-          self.class.const_get(:"#{input_type.to_s.camelize}Input")
+        klass = self.class.mappings[input_type] || self.class.const_get("#{input_type.to_s.camelize}Input")
         klass.new(self, attribute_name, column, input_type, options).render
       end
     end
@@ -159,8 +159,8 @@ module SimpleForm
       options = args.extract_options!
       options[:class] = "button #{options[:class]}".strip
       args << options
-      if respond_to?(:"#{type}_button")
-        send(:"#{type}_button", *args, &block)
+      if respond_to?("#{type}_button")
+        send("#{type}_button", *args, &block)
       else
         send(type, *args, &block)
       end
@@ -219,9 +219,9 @@ module SimpleForm
     def label(attribute_name, *args)
       return super if args.first.is_a?(String)
       options = args.extract_options!
-      options[:label]       = options.delete(:label)
-      options[:label_html]  = options
-      options[:required]    = options.delete(:required)
+      options[:label]      = options.delete(:label)
+      options[:label_html] = options
+      options[:required]   = options.delete(:required)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
       SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).label

@@ -37,7 +37,7 @@ module SimpleForm
 
   # CSS class to add for error notification helper.
   mattr_accessor :error_notification_class
-  @@error_notification_class = nil
+  @@error_notification_class = :error_notification
 
   # ID to add for error notification helper.
   mattr_accessor :error_notification_id
