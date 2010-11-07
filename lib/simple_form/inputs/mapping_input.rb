@@ -12,12 +12,6 @@ module SimpleForm
         @builder.send(input_method, attribute_name, input_html_options)
       end
 
-      def input_html_options
-        input_options = super
-        input_options[:placeholder] ||= placeholder if has_placeholder?
-        input_options
-      end
-
     private
 
       def input_method
@@ -26,7 +20,7 @@ module SimpleForm
       end
 
       def has_placeholder?
-        (text? || password?) && super
+        (text? || password?) && placeholder_present?
       end
 
       def password?

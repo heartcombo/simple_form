@@ -12,18 +12,22 @@ module SimpleForm
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
+      include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Wrapper
 
-      attr_reader :attribute_name, :column, :input_type, :options
+      attr_reader :attribute_name, :column, :input_type, :options, :input_html_options
 
       delegate :template, :object, :object_name, :reflection, :to => :@builder
 
       def initialize(builder, attribute_name, column, input_type, options = {})
-        @builder        = builder
-        @attribute_name = attribute_name
-        @column         = column
-        @input_type     = input_type
-        @options        = options
+        @builder            = builder
+        @attribute_name     = attribute_name
+        @column             = column
+        @input_type         = input_type
+        @options            = options
+        @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
+          o[:required] = true if attribute_required?
+        end
       end
 
       def input
@@ -34,12 +38,6 @@ module SimpleForm
         options
       end
 
-      def input_html_options
-        html_options = html_options_for(:input, input_html_classes)
-        html_options[:required] = true if attribute_required?
-        html_options
-      end
-
       def input_html_classes
         [input_type, required_class]
       end
@@ -48,7 +46,8 @@ module SimpleForm
         content = "".html_safe
         components_list.each do |component|
           next if options[component] == false
-          content.safe_concat send(component).to_s
+          rendered = send(component)
+          content.safe_concat rendered.to_s if rendered
         end
         wrap(content)
       end
@@ -79,14 +78,6 @@ module SimpleForm
 
       def reflection_validators
         reflection ? object.class.validators_on(reflection.name) : []
-      end
-
-      def has_placeholder?
-        options[:placeholder] != false && placeholder.present?
-      end
-
-      def placeholder
-        @placeholder ||= options[:placeholder] || translate(:placeholders)
       end
 
       def attribute_required_by_default?
