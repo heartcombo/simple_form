@@ -204,6 +204,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input[type=password].password#user_password'
   end
 
+  test 'input should generate a password field for password attributes that accept placeholder' do
+    with_input_for @user, :password, :password, :placeholder => 'Password Confirmation'
+    assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
+  end
+
   test 'input should generate a file field' do
     with_input_for @user, :name, :file
     assert_select 'input#user_name[type=file]'
