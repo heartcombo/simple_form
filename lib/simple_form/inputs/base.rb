@@ -27,6 +27,7 @@ module SimpleForm
         @options            = options
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:required] = true if attribute_required?
+          o[:disabled] = "disabled" if options[:disabled]
         end
       end
 
