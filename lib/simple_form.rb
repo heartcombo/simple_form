@@ -55,6 +55,14 @@ module SimpleForm
   mattr_accessor :collection_value_methods
   @@collection_value_methods = [ :id, :to_s ]
 
+  # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
+  mattr_accessor :collection_wrapper_tag
+  @@collection_wrapper_tag = nil
+
+  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
+  mattr_accessor :item_wrapper_tag
+  @@item_wrapper_tag = nil
+
   # You can wrap all inputs in a pre-defined tag. Default is a div.
   mattr_accessor :wrapper_tag
   @@wrapper_tag = :div
@@ -63,7 +71,7 @@ module SimpleForm
   mattr_accessor :wrapper_class
   @@wrapper_class = :input
 
-  # You can define the class to add to the wrapper when the field has errors. Default is fieldWithErrors.
+  # You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
   mattr_accessor :wrapper_error_class
   @@wrapper_error_class = :field_with_errors
 

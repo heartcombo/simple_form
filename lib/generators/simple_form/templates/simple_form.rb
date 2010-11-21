@@ -37,17 +37,23 @@ SimpleForm.setup do |config|
   # CSS class to add to the wrapper if the field has errors.
   # config.wrapper_error_class = :field_with_errors
 
-  # How the label text should be generated altogether with the required text.
-  # config.label_text = lambda { |label, required| "#{required} #{label}" }
+  # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
+  # config.collection_wrapper_tag = nil
 
-  # Whether attributes are required by default (or not). Default is true.
-  # config.required_by_default = true
+  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
+  # config.item_wrapper_tag = nil
 
   # Series of attemps to detect a default label method for collection.
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
 
   # Series of attemps to detect a default value method for collection.
   # config.collection_value_methods = [ :id, :to_s ]
+
+  # How the label text should be generated altogether with the required text.
+  # config.label_text = lambda { |label, required| "#{required} #{label}" }
+
+  # Whether attributes are required by default (or not). Default is true.
+  # config.required_by_default = true
 
   # Collection of methods to detect if a file type was given.
   # config.file_methods = [ :file?, :public_filename ]
