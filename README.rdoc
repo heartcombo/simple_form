@@ -10,13 +10,13 @@ SimpleForm aims to be as flexible as possible while helping you with powerful co
 
 If you have any questions, comments, or concerns please use the Google Group instead of the GitHub Issues tracker:
 
-groups.google.com/group/plataformatec-simpleform
+http://groups.google.com/group/plataformatec-simpleform
 
 === RDocs
 
 You can view the SimpleForm documentation in RDoc format here:
 
-rubydoc.info/github/plataformatec/simple_form/master/frames
+http://rubydoc.info/github/plataformatec/simple_form/master/frames
 
 If you need to use SimpleForm with Rails 2.3, you can always run `gem server` from the command line after you install the gem to access the old documentation.
 
