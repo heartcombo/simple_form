@@ -89,6 +89,13 @@ SimpleForm also lets you overwrite the default input type it creates:
 
 So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no labels and a text area instead of a text field for the description. You can also render boolean attributes using :as => :select to show a dropdown.
 
+It is also possible to give the :disabled option to SimpleForm, and it'll automatically mark the wrapper as disabled with a css class, so you can style labels, hints and other components inside the wrapper as well:
+
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :username, :disabled => true, :hint => "You cannot change your username." %>
+    <%= f.button :submit %>
+  <% end %>
+
 SimpleForm accepts same options as their corresponding input type helper in Rails:
 
   <%= simple_form_for @user do |f| %>

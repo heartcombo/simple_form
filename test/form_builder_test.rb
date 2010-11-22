@@ -538,4 +538,12 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input[type=checkbox][value=2][checked=checked]'
     assert_no_select 'form input[type=checkbox][value=3][checked=checked]'
   end
+
+  test 'builder with collection support giving collection and item wrapper tags' do
+    with_association_for @user, :tags, :as => :check_boxes,
+      :collection_wrapper_tag => :ul, :item_wrapper_tag => :li
+
+    assert_select 'form ul', :count => 1
+    assert_select 'form ul li', :count => 3
+  end
 end
