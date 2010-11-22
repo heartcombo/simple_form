@@ -27,7 +27,7 @@ module SimpleForm
         @options            = options
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:required] = true if attribute_required?
-          o[:disabled] = "disabled" if options[:disabled]
+          o[:disabled] = true if disabled?
         end
       end
 
@@ -99,6 +99,10 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
+      end
+
+      def disabled?
+        options[:disabled]
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,

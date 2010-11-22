@@ -50,4 +50,14 @@ class WrapperTest < ActionView::TestCase
       assert_no_select 'div.input'
     end
   end
+
+  test 'wrapper should not have disabled class by default' do
+    with_form_for @user, :active
+    assert_no_select 'div.disabled'
+  end
+
+  test 'wrapper should add disabled class when the input is disabled' do
+    with_form_for @user, :active, :disabled => true
+    assert_select 'div.disabled'
+  end
 end
