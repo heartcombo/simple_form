@@ -1,3 +1,2 @@
 * Add unobstrusive javascript validations support
 * Add mask support (same as hint, but with JS)
-* Support for placeholders using I18n (like hints)
