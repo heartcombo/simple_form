@@ -8,3 +8,5 @@ if RUBY_VERSION < "1.9"
 else
   gem "test-unit"
 end
+
+gem "jeweler"
