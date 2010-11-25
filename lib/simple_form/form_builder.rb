@@ -13,6 +13,8 @@ module SimpleForm
     map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
     map_type :boolean,                             :to => SimpleForm::Inputs::BooleanInput
 
+    @@custom_matchers = Hash.new
+
     # Basic input helper, combines all components in the stack to generate
     # input html based on options the user define and some guesses through
     # database column information. By default a call to input will generate
@@ -242,6 +244,16 @@ module SimpleForm
       SimpleForm::ErrorNotification.new(self, options).render
     end
 
+    # Add custom matchers for selecting default input type
+    #
+    # == Examples
+    #
+    # SimpleForm::FormBuilder.add_matcher( /regexp/ => :input_type )
+    #
+    def self.add_matcher(*args)
+      @@custom_matchers.reverse_merge!(*args)
+    end
+
   private
 
     # Attempt to guess the better input type given the defined options. By
@@ -264,6 +276,10 @@ module SimpleForm
             when /email/     then :email
             when /phone/     then :tel
             when /url/       then :url
+            else
+              @@custom_matchers.reduce(nil) { |memo, a|
+                a[0].match(attribute_name.to_s) ? a[1] : memo
+              }
           end
 
           match || input_type || file_method?(attribute_name) || :string
