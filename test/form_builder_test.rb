@@ -167,6 +167,13 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_born_at.string'
   end
 
+  test 'builder should allow adding custom matchers for default input types' do
+    SimpleForm::FormBuilder.add_matcher( /count/ => :integer )
+    with_form_for @user, :post_count
+    assert_no_select 'form input#user_post_count.string'
+    assert_select 'form input#user_post_count.numeric.integer'
+  end
+
   # COMMON OPTIONS
   test 'builder should allow passing options to input' do
     with_form_for @user, :name, :input_html => { :class => 'my_input', :id => 'my_input' }

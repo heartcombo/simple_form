@@ -40,7 +40,7 @@ class User
 
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :description, :created_at, :updated_at,
     :credit_limit, :age, :password, :delivery_time, :born_at, :special_company_id, :country, :url, :tag_ids,
-    :avatar, :email, :status, :residence_country, :phone_number
+    :avatar, :email, :status, :residence_country, :phone_number, :post_count
 
   def initialize(options={})
     options.each do |key, value|
