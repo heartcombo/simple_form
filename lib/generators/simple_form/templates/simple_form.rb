@@ -55,6 +55,11 @@ SimpleForm.setup do |config|
   # Whether attributes are required by default (or not). Default is true.
   # config.required_by_default = true
 
+  # Custom mappings for input types. This should be a hash containing a regexp
+  # to match as key, and the input type that will be used when the field name
+  # matches the regexp as value.
+  # config.input_mappings = { /count/ => :integer }
+
   # Collection of methods to detect if a file type was given.
   # config.file_methods = [ :file?, :public_filename ]
 

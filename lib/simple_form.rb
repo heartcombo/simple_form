@@ -87,6 +87,12 @@ module SimpleForm
   mattr_accessor :file_methods
   @@file_methods = [ :mounted_as, :file?, :public_filename ]
 
+  # Custom mappings for input types. This should be a hash containing a regexp
+  # to match as key, and the input type that will be used when the field name
+  # matches the regexp as value, such as { /count/ => :integer }.
+  mattr_accessor :input_mappings
+  @@input_mappings = nil
+
   # Default priority for time_zone inputs.
   mattr_accessor :time_zone_priority
   @@time_zone_priority = nil

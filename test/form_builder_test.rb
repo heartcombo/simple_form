@@ -62,6 +62,22 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input#cool'
   end
 
+  test 'builder should allow adding custom input mappings for default input types' do
+    swap SimpleForm, :input_mappings => { /count$/ => :integer } do
+      with_form_for @user, :post_count
+      assert_no_select 'form input#user_post_count.string'
+      assert_select 'form input#user_post_count.numeric.integer'
+    end
+  end
+
+  test 'builder uses the first matching custom input map when more than one match' do
+    swap SimpleForm, :input_mappings => { /count$/ => :integer, /^post_/ => :password } do
+      with_form_for @user, :post_count
+      assert_no_select 'form input#user_post_count.password'
+      assert_select 'form input#user_post_count.numeric.integer'
+    end
+  end
+
   # INPUT TYPES
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
@@ -165,13 +181,6 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :born_at, :as => :string
     assert_no_select 'form select'
     assert_select 'form input#user_born_at.string'
-  end
-
-  test 'builder should allow adding custom matchers for default input types' do
-    SimpleForm::FormBuilder.add_matcher( /count/ => :integer )
-    with_form_for @user, :post_count
-    assert_no_select 'form input#user_post_count.string'
-    assert_select 'form input#user_post_count.numeric.integer'
   end
 
   # COMMON OPTIONS
