@@ -4,12 +4,8 @@ class ErrorTest < ActionView::TestCase
 
   def with_error_for(object, attribute_name, type, options={}, &block)
     with_concat_form_for(object) do |f|
-      f.attribute_name = attribute_name
-      f.reflection     = Association.new(Company, :company, {}) if options.delete(:setup_association)
-      f.input_type     = type
-      f.options        = options
-
-      SimpleForm::Inputs::Base.new(f).error.to_s
+      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
+      SimpleForm::Inputs::Base.new(f, attribute_name, nil, type, options).error.to_s
     end
   end
 

@@ -1,6 +1,7 @@
 module SimpleForm
   class ErrorNotification
     delegate :object, :object_name, :template, :to => :@builder
+    include SimpleForm::HasErrors
 
     def initialize(builder, options)
       @builder = builder
@@ -24,13 +25,8 @@ module SimpleForm
       SimpleForm.error_notification_tag
     end
 
-    def has_errors?
-      object && object.respond_to?(:errors) && object.errors.present?
-    end
-
     def html_options
-      css_class = SimpleForm.error_notification_class || @options[:class]
-      @options[:class] = "error_notification #{css_class}".strip
+      @options[:class] = "#{SimpleForm.error_notification_class} #{@options[:class]}".strip
       @options[:id] = SimpleForm.error_notification_id if SimpleForm.error_notification_id
       @options
     end

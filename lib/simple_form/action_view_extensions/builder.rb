@@ -29,15 +29,17 @@ module SimpleForm
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
       #
+      #   * collection_wrapper_tag => the tag to wrap the entire collection.
+      #
+      #   * item_wrapper_tag       => the tag to wrap each item in the collection.
+      #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
-        collection.map do |item|
-          value = value_for_collection(item, value_method)
-          text  = value_for_collection(item, text_method)
-          default_html_options = default_html_options_for_collection(item, value, options, html_options)
-
+        render_collection(
+          attribute, collection, value_method, text_method, options, html_options
+        ) do |value, text, default_html_options|
           radio = radio_button(attribute, value, default_html_options)
           collection_label(attribute, value, radio, text, :class => "collection_radio")
-        end.join.html_safe
+        end
       end
 
       # Creates a collection of check boxes for each item in the collection, associated
@@ -67,16 +69,19 @@ module SimpleForm
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
       #
+      #   * collection_wrapper_tag => the tag to wrap the entire collection.
+      #
+      #   * item_wrapper_tag       => the tag to wrap each item in the collection.
+      #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
-        collection.map do |item|
-          value = value_for_collection(item, value_method)
-          text  = value_for_collection(item, text_method)
-          default_html_options = default_html_options_for_collection(item, value, options, html_options)
+        render_collection(
+          attribute, collection, value_method, text_method, options, html_options
+        ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
 
           check_box = check_box(attribute, default_html_options, value, '')
           collection_label(attribute, value, check_box, text, :class => "collection_check_boxes")
-        end.join.html_safe
+        end
       end
 
       # Wrapper for using simple form inside a default rails form.
@@ -98,7 +103,7 @@ module SimpleForm
 
       # Wraps the given component in a label, for better accessibility with collections.
       def collection_label(attribute, value, component_tag, label_text, html_options) #:nodoc:
-        label("#{attribute}_#{value.to_s.downcase}", component_tag << label_text.to_s, html_options)
+        label(sanitize_attribute_name(attribute, value), component_tag << label_text.to_s, html_options)
       end
 
       # Generate default options for collection helpers, such as :checked and
@@ -119,6 +124,27 @@ module SimpleForm
         end
 
         html_options
+      end
+
+      def sanitize_attribute_name(attribute, value)
+        "#{attribute}_#{value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
+      end
+
+      def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
+        collection_wrapper_tag = options[:collection_wrapper_tag] || SimpleForm.collection_wrapper_tag
+        item_wrapper_tag       = options[:item_wrapper_tag] || SimpleForm.item_wrapper_tag
+
+        rendered_collection = collection.map do |item|
+          value = value_for_collection(item, value_method)
+          text  = value_for_collection(item, text_method)
+          default_html_options = default_html_options_for_collection(item, value, options, html_options)
+
+          rendered_item = yield value, text, default_html_options
+
+          item_wrapper_tag ? @template.content_tag(item_wrapper_tag, rendered_item) : rendered_item
+        end.join.html_safe
+
+        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection) : rendered_collection
       end
 
       def value_for_collection(item, value) #:nodoc:

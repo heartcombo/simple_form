@@ -28,7 +28,7 @@ else
 end
 
 class SimpleForm::FormBuilder
-  attr_accessor :attribute_name, :column, :reflection, :input_type, :options
+  attr_accessor :reflection, :options
 end
 
 class ActionView::TestCase

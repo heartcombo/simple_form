@@ -1,8 +1,9 @@
 module SimpleForm
   module Inputs
     class BlockInput < Base
-      def initialize(builder, block)
-        @builder, @block = builder, block
+      def initialize(*args, &block)
+        super
+        @block = block
       end
 
       def input

@@ -62,6 +62,22 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input#cool'
   end
 
+  test 'builder should allow adding custom input mappings for default input types' do
+    swap SimpleForm, :input_mappings => { /count$/ => :integer } do
+      with_form_for @user, :post_count
+      assert_no_select 'form input#user_post_count.string'
+      assert_select 'form input#user_post_count.numeric.integer'
+    end
+  end
+
+  test 'builder uses the first matching custom input map when more than one match' do
+    swap SimpleForm, :input_mappings => { /count$/ => :integer, /^post_/ => :password } do
+      with_form_for @user, :post_count
+      assert_no_select 'form input#user_post_count.password'
+      assert_select 'form input#user_post_count.numeric.integer'
+    end
+  end
+
   # INPUT TYPES
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
@@ -386,7 +402,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should add a required class to label if the attribute is required' do
     with_label_for @validating_user, :name
-    assert_select 'label.string[for=validating_user_name]', /Name/
+    assert_select 'label.string.required[for=validating_user_name]', /Name/
   end
 
   test 'builder should allow passing options to label tag' do
@@ -537,5 +553,13 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input[type=checkbox][value=1][checked=checked]'
     assert_select 'form input[type=checkbox][value=2][checked=checked]'
     assert_no_select 'form input[type=checkbox][value=3][checked=checked]'
+  end
+
+  test 'builder with collection support giving collection and item wrapper tags' do
+    with_association_for @user, :tags, :as => :check_boxes,
+      :collection_wrapper_tag => :ul, :item_wrapper_tag => :li
+
+    assert_select 'form ul', :count => 1
+    assert_select 'form ul li', :count => 3
   end
 end

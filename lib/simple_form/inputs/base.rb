@@ -12,18 +12,23 @@ module SimpleForm
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
+      include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Wrapper
 
-      attr_reader :attribute_name, :column, :input_type, :options
+      attr_reader :attribute_name, :column, :input_type, :options, :input_html_options
 
       delegate :template, :object, :object_name, :reflection, :to => :@builder
 
       def initialize(builder, attribute_name, column, input_type, options = {})
-        @builder        = builder
-        @attribute_name = attribute_name
-        @column         = column
-        @input_type     = input_type
-        @options        = options
+        @builder            = builder
+        @attribute_name     = attribute_name
+        @column             = column
+        @input_type         = input_type
+        @options            = options
+        @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
+          o[:required] = true if attribute_required?
+          o[:disabled] = true if disabled?
+        end
       end
 
       def input
@@ -34,12 +39,6 @@ module SimpleForm
         options
       end
 
-      def input_html_options
-        html_options = html_options_for(:input, input_html_classes)
-        html_options[:required] = true if attribute_required?
-        html_options
-      end
-
       def input_html_classes
         [input_type, required_class]
       end
@@ -48,7 +47,8 @@ module SimpleForm
         content = "".html_safe
         components_list.each do |component|
           next if options[component] == false
-          content.safe_concat send(component).to_s
+          rendered = send(component)
+          content.safe_concat rendered.to_s if rendered
         end
         wrap(content)
       end
@@ -60,7 +60,7 @@ module SimpleForm
       end
 
       def attribute_required?
-        if options.key?(:required)
+        if !options[:required].nil?
           options[:required]
         elsif has_validators?
           (attribute_validators + reflection_validators).any? { |v| v.kind == :presence }
@@ -81,14 +81,6 @@ module SimpleForm
         reflection ? object.class.validators_on(reflection.name) : []
       end
 
-      def has_placeholder?
-        options[:placeholder] != false && placeholder.present?
-      end
-
-      def placeholder
-        @placeholder ||= options[:placeholder] || translate(:placeholders)
-      end
-
       def attribute_required_by_default?
         SimpleForm.required_by_default
       end
@@ -107,6 +99,10 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
+      end
+
+      def disabled?
+        options[:disabled]
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,

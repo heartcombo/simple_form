@@ -40,6 +40,12 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_radio[for=user_active_no]', 'No'
   end
 
+  test 'colection radio should sanitize collection values for labels correctly' do
+    with_collection_radio @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+    assert_select 'label.collection_radio[for=user_name_099]', '$0.99'
+    assert_select 'label.collection_radio[for=user_name_199]', '$1.99'
+  end
+
   test 'collection radio accepts checked item' do
     with_collection_radio @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
 
@@ -65,10 +71,55 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio accepts html options as input' do
-    with_collection_radio @user, :active, [[1, true], [0, false]], :last, :first, {}, :class => 'radio'
+    collection = [[1, true], [0, false]]
+    with_collection_radio @user, :active, collection, :last, :first, {}, :class => 'radio'
 
     assert_select 'form input[type=radio][value=true].radio#user_active_true'
     assert_select 'form input[type=radio][value=false].radio#user_active_false'
+  end
+
+  test 'collection radio wraps the collection in the configured collection wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_collection_radio @user, :active, [true, false], :to_s, :to_s
+
+      assert_select 'form ul input[type=radio][value=true]#user_active_true'
+      assert_select 'form ul input[type=radio][value=false]#user_active_false'
+    end
+  end
+
+  test 'collection radio wraps the collection in the given collection wrapper tag' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+
+    assert_select 'form ul input[type=radio][value=true]#user_active_true'
+    assert_select 'form ul input[type=radio][value=false]#user_active_false'
+  end
+
+  test 'collection radio does not wrap the collection by default' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+
+    assert_no_select 'form ul'
+  end
+
+  test 'collection radio wraps each label/radio in the configured item wrapper tag' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_collection_radio @user, :active, [true, false], :to_s, :to_s
+
+      assert_select 'form li input[type=radio][value=true]#user_active_true'
+      assert_select 'form li input[type=radio][value=false]#user_active_false'
+    end
+  end
+
+  test 'collection radio wraps each label/radio in the given item wrapper tag' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+
+    assert_select 'form li input[type=radio][value=true]#user_active_true'
+    assert_select 'form li input[type=radio][value=false]#user_active_false'
+  end
+
+  test 'collection radio does not wrap items by default' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+
+    assert_no_select 'form li'
   end
 
   # COLLECTION CHECK BOX
@@ -94,6 +145,12 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form label.collection_check_boxes[for=user_active_yes]', 'Yes'
     assert_select 'form label.collection_check_boxes[for=user_active_no]', 'No'
+  end
+
+  test 'colection check box should sanitize collection values for labels correctly' do
+    with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+    assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
+    assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
   end
 
   test 'collection check box accepts selected values as :checked option' do
@@ -162,6 +219,50 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form label.collection_check_boxes[for=user_post_tag_ids_1]', 'Tag 1'
     assert_select 'form label.collection_check_boxes[for=user_post_tag_ids_2]', 'Tag 2'
+  end
+
+  test 'collection check box wraps the collection in the configured collection wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+
+      assert_select 'form ul input[type=checkbox][value=true]#user_active_true'
+      assert_select 'form ul input[type=checkbox][value=false]#user_active_false'
+    end
+  end
+
+  test 'collection check box wraps the collection in the given collection wrapper tag' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+
+    assert_select 'form ul input[type=checkbox][value=true]#user_active_true'
+    assert_select 'form ul input[type=checkbox][value=false]#user_active_false'
+  end
+
+  test 'collection check box does not wrap the collection by default' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+
+    assert_no_select 'form ul'
+  end
+
+  test 'collection check box wraps each label/radio in the configured item wrapper tag' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+
+      assert_select 'form li input[type=checkbox][value=true]#user_active_true'
+      assert_select 'form li input[type=checkbox][value=false]#user_active_false'
+    end
+  end
+
+  test 'collection check box wraps each label/radio in the given item wrapper tag' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+
+    assert_select 'form li input[type=checkbox][value=true]#user_active_true'
+    assert_select 'form li input[type=checkbox][value=false]#user_active_false'
+  end
+
+  test 'collection check box does not wrap items by default' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+
+    assert_no_select 'form li'
   end
 
   # SIMPLE FIELDS

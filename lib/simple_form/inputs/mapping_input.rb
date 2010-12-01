@@ -12,17 +12,19 @@ module SimpleForm
         @builder.send(input_method, attribute_name, input_html_options)
       end
 
-      def input_html_options
-        input_options = super
-        input_options[:placeholder] ||= placeholder if has_placeholder? and text?
-        input_options
-      end
-
     private
 
       def input_method
         self.class.mappings[input_type] or
           raise("Could not find method for #{input_type.inspect}")
+      end
+
+      def has_placeholder?
+        (text? || password?) && placeholder_present?
+      end
+
+      def password?
+        input_type == :password
       end
 
       def text?

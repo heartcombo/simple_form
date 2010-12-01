@@ -9,6 +9,9 @@
   * Add :required html attribute for required inputs - HTML5
   * Add optional :components option to input to control component rendering (by github.com/khoan)
   * Add SimpleForm.translate as an easy way to turn off SimpleForm internal translations
+  * Add :disabled option for all inputs (by github.com/fabiob)
+  * Add collection wrapper tag and item wrapper tag to wrap elements in collection helpers - radio / check boxes
+  * Add SimpleForm.input_mappings to allow configuring custom mappings for inputs (by github.com/TMaYaD)
 
 * bug fix
   * Search for validations on both association and attribute

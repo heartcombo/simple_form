@@ -82,10 +82,9 @@ module SimpleForm
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
       if block_given?
-        SimpleForm::Inputs::BlockInput.new(self, block).render
+        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
       else
-        klass = self.class.mappings[input_type] ||
-          self.class.const_get(:"#{input_type.to_s.camelize}Input")
+        klass = self.class.mappings[input_type] || self.class.const_get("#{input_type.to_s.camelize}Input")
         klass.new(self, attribute_name, column, input_type, options).render
       end
     end
@@ -159,8 +158,8 @@ module SimpleForm
       options = args.extract_options!
       options[:class] = "button #{options[:class]}".strip
       args << options
-      if respond_to?(:"#{type}_button")
-        send(:"#{type}_button", *args, &block)
+      if respond_to?("#{type}_button")
+        send("#{type}_button", *args, &block)
       else
         send(type, *args, &block)
       end
@@ -219,9 +218,9 @@ module SimpleForm
     def label(attribute_name, *args)
       return super if args.first.is_a?(String)
       options = args.extract_options!
-      options[:label]       = options.delete(:label)
-      options[:label_html]  = options
-      options[:required]    = options.delete(:required)
+      options[:label]      = options.delete(:label)
+      options[:label_html] = options
+      options[:required]   = options.delete(:required)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
       SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).label
@@ -249,7 +248,7 @@ module SimpleForm
     # collection is given.
     def default_input_type(attribute_name, column, options) #:nodoc:
       return options[:as].to_sym if options[:as]
-      return :select              if options[:collection]
+      return :select             if options[:collection]
 
       input_type = column.try(:type)
 
@@ -264,6 +263,10 @@ module SimpleForm
             when /email/     then :email
             when /phone/     then :tel
             when /url/       then :url
+            else
+              SimpleForm.input_mappings.find { |match, type|
+                attribute_name.to_s =~ match
+              }.try(:last) if SimpleForm.input_mappings
           end
 
           match || input_type || file_method?(attribute_name) || :string

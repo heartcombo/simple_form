@@ -2,19 +2,11 @@ module SimpleForm
   module Inputs
     class NumericInput < Base
       def input
+        input_html_options[:type] ||= "number"
+        input_html_options[:size] ||= SimpleForm.default_input_size
+        input_html_options[:step] ||= 1 if integer?
+        infer_attributes_from_validations!
         @builder.text_field(attribute_name, input_html_options)
-      end
-
-      def input_html_options
-        input_options = super
-        input_options[:type]        ||= "number"
-        input_options[:size]        ||= SimpleForm.default_input_size
-        input_options[:step]        ||= 1 if integer?
-        input_options[:placeholder] ||= placeholder if has_placeholder?
-
-        infer_attributes_from_validations(input_options)
-
-        input_options
       end
 
       def input_html_classes
@@ -23,14 +15,18 @@ module SimpleForm
 
     protected
 
-      def infer_attributes_from_validations(input_options)
+      def has_placeholder?
+        placeholder_present?
+      end
+
+      def infer_attributes_from_validations!
         return unless has_validators?
 
         numeric_validator = find_numericality_validator or return
         validator_options = numeric_validator.options
 
-        input_options[:min] ||= minimum_value(validator_options)
-        input_options[:max] ||= maximum_value(validator_options)
+        input_html_options[:min] ||= minimum_value(validator_options)
+        input_html_options[:max] ||= maximum_value(validator_options)
       end
 
       def integer?

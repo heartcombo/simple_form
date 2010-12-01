@@ -1,6 +1,8 @@
 module SimpleForm
   module Components
     module Errors
+      include SimpleForm::HasErrors
+
       def error
         template.content_tag(error_tag, error_text, error_html_options) if has_errors?
       end
@@ -22,10 +24,6 @@ module SimpleForm
       end
 
     protected
-
-      def has_errors?
-        object && object.respond_to?(:errors) && errors.present?
-      end
 
       def errors
         @errors ||= (errors_on_attribute + errors_on_association).compact

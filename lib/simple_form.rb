@@ -6,6 +6,7 @@ module SimpleForm
   autoload :Components,        'simple_form/components'
   autoload :ErrorNotification, 'simple_form/error_notification'
   autoload :FormBuilder,       'simple_form/form_builder'
+  autoload :HasErrors,         'simple_form/has_errors'
   autoload :I18nCache,         'simple_form/i18n_cache'
   autoload :Inputs,            'simple_form/inputs'
   autoload :MapType,           'simple_form/map_type'
@@ -36,7 +37,7 @@ module SimpleForm
 
   # CSS class to add for error notification helper.
   mattr_accessor :error_notification_class
-  @@error_notification_class = nil
+  @@error_notification_class = :error_notification
 
   # ID to add for error notification helper.
   mattr_accessor :error_notification_id
@@ -44,7 +45,7 @@ module SimpleForm
 
   # Components used by the form builder.
   mattr_accessor :components
-  @@components = [ :label_input, :hint, :error ]
+  @@components = [ :placeholder, :label_input, :hint, :error ]
 
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
@@ -54,6 +55,14 @@ module SimpleForm
   mattr_accessor :collection_value_methods
   @@collection_value_methods = [ :id, :to_s ]
 
+  # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
+  mattr_accessor :collection_wrapper_tag
+  @@collection_wrapper_tag = nil
+
+  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
+  mattr_accessor :item_wrapper_tag
+  @@item_wrapper_tag = nil
+
   # You can wrap all inputs in a pre-defined tag. Default is a div.
   mattr_accessor :wrapper_tag
   @@wrapper_tag = :div
@@ -62,7 +71,7 @@ module SimpleForm
   mattr_accessor :wrapper_class
   @@wrapper_class = :input
 
-  # You can define the class to add to the wrapper when the field has errors. Default is fieldWithErrors.
+  # You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
   mattr_accessor :wrapper_error_class
   @@wrapper_error_class = :field_with_errors
 
@@ -77,6 +86,12 @@ module SimpleForm
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
   @@file_methods = [ :mounted_as, :file?, :public_filename ]
+
+  # Custom mappings for input types. This should be a hash containing a regexp
+  # to match as key, and the input type that will be used when the field name
+  # matches the regexp as value, such as { /count/ => :integer }.
+  mattr_accessor :input_mappings
+  @@input_mappings = nil
 
   # Default priority for time_zone inputs.
   mattr_accessor :time_zone_priority

@@ -4,6 +4,28 @@ Forms made easy (for Rails)!
 
 SimpleForm aims to be as flexible as possible while helping you with powerful components to create your forms. The basic goal of simple form is to not touch your way of defining the layout, letting you find the better design for your eyes. Good part of the DSL was inherited from Formtastic, which we are thankful for and should make you feel right at home.
 
+== Information
+
+=== Google Group
+
+If you have any questions, comments, or concerns please use the Google Group instead of the GitHub Issues tracker:
+
+http://groups.google.com/group/plataformatec-simpleform
+
+=== RDocs
+
+You can view the SimpleForm documentation in RDoc format here:
+
+http://rubydoc.info/github/plataformatec/simple_form/master/frames
+
+If you need to use SimpleForm with Rails 2.3, you can always run `gem server` from the command line after you install the gem to access the old documentation.
+
+=== Bug reports
+
+If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as possible to help us fixing the possible bug. We also encourage you to help even more by forking and sending us a pull request.
+
+http://github.com/plataformatec/simple_form/issues
+
 == Installation
 
 Install the gem:
@@ -88,6 +110,22 @@ SimpleForm also lets you overwrite the default input type it creates:
   <% end %>
 
 So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no labels and a text area instead of a text field for the description. You can also render boolean attributes using :as => :select to show a dropdown.
+
+It is also possible to give the :disabled option to SimpleForm, and it'll automatically mark the wrapper as disabled with a css class, so you can style labels, hints and other components inside the wrapper as well:
+
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :username, :disabled => true, :hint => "You cannot change your username." %>
+    <%= f.button :submit %>
+  <% end %>
+
+SimpleForm accepts same options as their corresponding input type helper in Rails:
+
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 90,
+                                :end_year => Date.today.year - 12, :discard_day => true,
+                                :order => [:month, :year] %>
+    <%= f.button :submit %>
+  <% end %>
 
 SimpleForm also allows you using label, hint and error helpers it provides:
 
@@ -341,10 +379,6 @@ Please refer to TODO file.
 * José Valim (http://github.com/josevalim)
 * Carlos Antonio da Silva (http://github.com/carlosantoniodasilva)
 
-== Bugs and Feedback
-
-If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
-
-http://github.com/plataformatec/simple_form/issues
+== License
 
 MIT License. Copyright 2010 Plataforma Tecnologia. http://blog.plataformatec.com.br

@@ -27,6 +27,41 @@ class InputTest < ActionView::TestCase
     assert_select 'select.datetime'
   end
 
+  test 'input should generate disabled elements based on the disabled option' do
+    with_input_for @user, :name, :string, :disabled => true
+    assert_select 'input.string[disabled]'
+    with_input_for @user, :description, :text, :disabled => true
+    assert_select 'textarea.text[disabled]'
+    with_input_for @user, :age, :integer, :disabled => true
+    assert_select 'input.integer[disabled]'
+    with_input_for @user, :born_at, :date, :disabled => true
+    assert_select 'select.date[disabled]'
+    with_input_for @user, :created_at, :datetime, :disabled => true
+    assert_select 'select.datetime[disabled]'
+
+    with_input_for @user, :name, :string, :disabled => false
+    assert_select 'input.string:not([disabled])'
+    with_input_for @user, :description, :text, :disabled => false
+    assert_select 'textarea.text:not([disabled])'
+    with_input_for @user, :age, :integer, :disabled => false
+    assert_select 'input.integer:not([disabled])'
+    with_input_for @user, :born_at, :date, :disabled => false
+    assert_select 'select.date:not([disabled])'
+    with_input_for @user, :created_at, :datetime, :disabled => false
+    assert_select 'select.datetime:not([disabled])'
+
+    with_input_for @user, :name, :string
+    assert_select 'input.string:not([disabled])'
+    with_input_for @user, :description, :text
+    assert_select 'textarea.text:not([disabled])'
+    with_input_for @user, :age, :integer
+    assert_select 'input.integer:not([disabled])'
+    with_input_for @user, :born_at, :date
+    assert_select 'select.date:not([disabled])'
+    with_input_for @user, :created_at, :datetime
+    assert_select 'select.datetime:not([disabled])'
+  end
+
   test 'input should render components according to an optional :components option' do
     with_input_for @user, :name, :string, :components => [:input, :label]
     assert_select 'input + label'
@@ -204,6 +239,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input[type=password].password#user_password'
   end
 
+  test 'input should generate a password field for password attributes that accept placeholder' do
+    with_input_for @user, :password, :password, :placeholder => 'Password Confirmation'
+    assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
+  end
+
   test 'input should generate a file field' do
     with_input_for @user, :name, :file
     assert_select 'input#user_name[type=file]'
@@ -217,7 +257,7 @@ class InputTest < ActionView::TestCase
   test 'mapping input should generate an error if type is not found' do
     with_concat_form_for(@user) do |f|
       assert_raise(RuntimeError, "Could not find method for nil") do
-        SimpleForm::Inputs::MappingInput.new(f).input
+        SimpleForm::Inputs::MappingInput.new(f, "unknown", nil, nil, {}).input
       end
     end
   end
