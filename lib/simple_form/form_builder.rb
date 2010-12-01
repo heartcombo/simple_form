@@ -175,7 +175,7 @@ module SimpleForm
     #    f.error :name, :id => "cool_error"
     #
     def error(attribute_name, options={})
-      options[:error_html] = options
+      options[:error_html] = options.dup
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
       SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).error
@@ -192,7 +192,7 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
-      options[:hint_html] = options
+      options[:hint_html] = options.dup
       if attribute_name.is_a?(String)
         options[:hint] = attribute_name
         attribute_name, column, input_type = nil, nil, nil
@@ -219,8 +219,8 @@ module SimpleForm
     def label(attribute_name, *args)
       return super if args.first.is_a?(String)
       options = args.extract_options!
+      options[:label_html] = options.dup
       options[:label]      = options.delete(:label)
-      options[:label_html] = options
       options[:required]   = options.delete(:required)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
