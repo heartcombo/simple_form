@@ -64,7 +64,7 @@ module SimpleForm
       def attribute_required?
         if !options[:required].nil?
           options[:required]
-        elsif has_validators?
+        elsif attribute_name && has_validators?
           (attribute_validators + reflection_validators).any? { |v| v.kind == :presence }
         else
           attribute_required_by_default?
