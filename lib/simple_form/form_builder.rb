@@ -134,6 +134,8 @@ module SimpleForm
           reflection.options[:foreign_key] || :"#{reflection.name}_id"
         when :has_one
           raise ":has_one association are not supported by f.association"
+        when :embeds_many
+          attribute = :"#{@reflection.name.to_s.pluralize}"
         else
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
