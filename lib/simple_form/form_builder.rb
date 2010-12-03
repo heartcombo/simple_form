@@ -136,6 +136,14 @@ module SimpleForm
           raise ":has_one association are not supported by f.association"
         when :embeds_many
           attribute = :"#{@reflection.name.to_s.pluralize}"
+        when :embeds_one
+          attribute = :"#{@reflection.name.to_s.singularize}"
+        when :references_many
+          attribute = (@reflection.options[:stored_as] == :array) ?
+            :"#{@reflection.name.to_s.singularize}_ids" :
+            :"#{@reflection.name.to_s.pluralize}"
+        when :references_one
+            attribute = :"#{@reflection.name.to_s.singularize}_id"
         else
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
