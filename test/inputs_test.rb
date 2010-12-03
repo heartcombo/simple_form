@@ -450,6 +450,26 @@ class InputTest < ActionView::TestCase
     assert_select 'select option[selected=selected]', '18'
   end
 
+  test 'input should set the correct value when using a collection that includes floats' do
+    with_input_for @user, :age, :select, :collection => [2.0, 2.5, 3.0, 3.5, 4.0, 4.5]
+    assert_select 'select option[value="2.0"]'
+    assert_select 'select option[value="2.5"]'
+  end
+
+  test 'input should set the correct values when using a collection that uses mixed values' do
+    with_input_for @user, :age, :select, :collection => ["Hello Kitty", 2, 4.5, :johnny, nil]
+    assert_select 'select option[value="Hello Kitty"]'
+    assert_select 'select option[value="2"]'
+    assert_select 'select option[value="4.5"]'
+    assert_select 'select option[value="johnny"]'
+    assert_select 'select option[value=""]'
+  end
+
+  test 'input should include a blank option even if :include_blank is set to false if the collection includes a nil value' do
+    with_input_for @user, :age, :select, :collection => [nil], :include_blank => false
+    assert_select 'select option[value=""]'
+  end
+
   test 'input should automatically set include blank' do
     with_input_for @user, :age, :select, :collection => 18..30
     assert_select 'select option[value=]', ''

@@ -39,19 +39,34 @@ module SimpleForm
       # SimpleForm.collection_label_methods and
       # SimpleForm.collection_value_methods.
       def detect_collection_methods(collection, options)
-        sample = collection.first || collection.last
+        common_method_for = detect_common_display_methods(collection)
 
-        case sample
-        when Array
-          label, value = :first, :last
-        when Integer
-          label, value = :to_s, :to_i
-        when String, Symbol, NilClass
-          label, value = :to_s, :to_s
+        options[:label_method] ||= common_method_for[:label]
+        options[:value_method] ||= common_method_for[:value]
+      end
+
+      def detect_common_display_methods(collection)
+        collection_classes = detect_collection_classes(collection)
+
+        if collection_classes.include? Array
+          { :label => :first, :value => :last }
+        elsif collection_includes_basic_objects(collection_classes)
+          { :label => :to_s, :value => :to_s }
+        else
+          sample = collection.first || collection.last
+
+          { :label => SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) },
+            :value => SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) } }
         end
+      end
 
-        options[:label_method] ||= label || SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) }
-        options[:value_method] ||= value || SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) }
+      def detect_collection_classes(collection)
+        collection_classes = collection.map { |e| e.class }
+        collection_classes.uniq
+      end
+
+      def collection_includes_basic_objects(collection_classes)
+        !(collection_classes & [String, Integer, Fixnum, Bignum, Float, NilClass, Symbol]).empty?
       end
     end
   end
