@@ -457,12 +457,14 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input should set the correct values when using a collection that uses mixed values' do
-    with_input_for @user, :age, :select, :collection => ["Hello Kitty", 2, 4.5, :johnny, nil]
+    with_input_for @user, :age, :select, :collection => ["Hello Kitty", 2, 4.5, :johnny, nil, true, false]
     assert_select 'select option[value="Hello Kitty"]'
     assert_select 'select option[value="2"]'
     assert_select 'select option[value="4.5"]'
     assert_select 'select option[value="johnny"]'
     assert_select 'select option[value=""]'
+    assert_select 'select option[value="true"]'
+    assert_select 'select option[value="false"]'
   end
 
   test 'input should include a blank option even if :include_blank is set to false if the collection includes a nil value' do
