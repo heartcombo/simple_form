@@ -52,7 +52,7 @@ module SimpleForm
         attribute_required? ? self.class.translate_required_html.dup : ''
       end
 
-      # First check human attribute name and then labels.
+      # First check labels translation and then human attribute name.
       def label_translation #:nodoc:
         translate(:labels) || if object.class.respond_to?(:human_attribute_name)
           object.class.human_attribute_name(reflection_or_attribute_name.to_s)
