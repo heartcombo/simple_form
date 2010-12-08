@@ -521,6 +521,22 @@ class InputTest < ActionView::TestCase
     assert_select 'label.collection_radio', 'Carlos'
   end
 
+  test 'input should allow overriding only label method for collections' do
+    with_input_for @user, :name, :radio,
+                          :collection => ['Jose' , 'Carlos'],
+                          :label_method => :upcase
+    assert_select 'label.collection_radio', 'JOSE'
+    assert_select 'label.collection_radio', 'CARLOS'
+  end
+
+  test 'input should allow overriding only value method for collections' do
+    with_input_for @user, :name, :radio,
+                          :collection => ['Jose' , 'Carlos'],
+                          :value_method => :upcase
+    assert_select 'input[type=radio][value=JOSE]'
+    assert_select 'input[type=radio][value=CARLOS]'
+  end
+
   test 'input should allow overriding label and value method for collections' do
     with_input_for @user, :name, :radio,
                           :collection => ['Jose' , 'Carlos'],

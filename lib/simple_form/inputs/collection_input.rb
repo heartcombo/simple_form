@@ -13,10 +13,10 @@ module SimpleForm
       end
 
       def input
-        collection = (options[:collection] || self.class.boolean_collection).to_a
-        detect_collection_methods(collection, options)
-        @builder.send(:"collection_#{input_type}", attribute_name, collection, options[:value_method],
-                      options[:label_method], input_options, input_html_options)
+        label_method, value_method = detect_collection_methods
+
+        @builder.send(:"collection_#{input_type}", attribute_name, collection,
+                      value_method, label_method, input_options, input_html_options)
       end
 
       def input_options
@@ -26,6 +26,10 @@ module SimpleForm
       end
 
     protected
+
+      def collection
+        @collection ||= (options.delete(:collection) || self.class.boolean_collection).to_a
+      end
 
       # Check if :include_blank must be included by default.
       def skip_include_blank?
@@ -38,15 +42,20 @@ module SimpleForm
       # on default label and value methods that can be configured through
       # SimpleForm.collection_label_methods and
       # SimpleForm.collection_value_methods.
-      def detect_collection_methods(collection, options)
-        common_method_for = detect_common_display_methods(collection)
+      def detect_collection_methods
+        label, value = options.delete(:label_method), options.delete(:value_method)
 
-        options[:label_method] ||= common_method_for[:label]
-        options[:value_method] ||= common_method_for[:value]
+        unless label && value
+          common_method_for = detect_common_display_methods
+          label ||= common_method_for[:label]
+          value ||= common_method_for[:value]
+        end
+
+        [label, value]
       end
 
-      def detect_common_display_methods(collection)
-        collection_classes = detect_collection_classes(collection)
+      def detect_common_display_methods
+        collection_classes = detect_collection_classes
 
         if collection_classes.include?(Array)
           { :label => :first, :value => :last }
@@ -60,13 +69,13 @@ module SimpleForm
         end
       end
 
-      def detect_collection_classes(collection)
+      def detect_collection_classes
         collection.map { |e| e.class }.uniq
       end
 
       def collection_includes_basic_objects?(collection_classes)
         (collection_classes & [
-         String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
+          String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
         ]).any?
       end
     end
