@@ -4,7 +4,7 @@ class HintTest < ActionView::TestCase
 
   def with_hint_for(object, attribute_name, type, options={}, &block)
     with_concat_form_for(object) do |f|
-      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
+      options[:reflection] = Association.new(Company, :company, {}) if options.delete(:setup_association)
       SimpleForm::Inputs::Base.new(f, attribute_name, nil, type, options).hint.to_s
     end
   end
