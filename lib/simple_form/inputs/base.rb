@@ -72,7 +72,7 @@ module SimpleForm
       end
 
       def has_validators?
-        object.class.respond_to?(:validators_on)
+        attribute_name && object.class.respond_to?(:validators_on)
       end
 
       def attribute_validators

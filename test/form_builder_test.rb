@@ -389,6 +389,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'span.hint', 'Hello World!'
   end
 
+  test 'builder should generate a hint component tag for the given text for a model with ActiveModel::Validations' do
+    with_hint_for @validating_user, 'Hello World!'
+    assert_select 'span.hint', 'Hello World!'
+  end
+
   test 'builder should allow passing options to hint tag' do
     with_hint_for @user, :name, :hint => 'Hello World!', :id => 'name_hint'
     assert_select 'span.hint#name_hint', 'Hello World!'
