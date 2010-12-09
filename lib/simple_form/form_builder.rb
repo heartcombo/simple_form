@@ -192,15 +192,17 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
-      options[:hint_html] = options
+      input_options = {}
+      input_options[:hint_html] = options
       if attribute_name.is_a?(String)
-        options[:hint] = attribute_name
+        input_options[:hint] = attribute_name
         attribute_name, column, input_type = nil, nil, nil
       else
+        input_options[:hint] = input_options[:hint_html].delete(:hint)
         column      = find_attribute_column(attribute_name)
-        input_type  = default_input_type(attribute_name, column, options)
+        input_type  = default_input_type(attribute_name, column, input_options)
       end
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).hint
+      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, input_options).hint
     end
 
     # Creates a default label tag for the given attribute. You can give a label
