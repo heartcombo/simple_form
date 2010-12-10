@@ -12,6 +12,10 @@ module SimpleForm
 
     protected
 
+      def has_required?
+        false
+      end
+
       def skip_include_blank?
         super || input_priority.present?
       end

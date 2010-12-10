@@ -31,6 +31,11 @@ module SimpleForm
         @collection ||= (options.delete(:collection) || self.class.boolean_collection).to_a
       end
 
+      # Select components does not allow the required html tag.
+      def has_required?
+        super && input_type != :select
+      end
+
       # Check if :include_blank must be included by default.
       def skip_include_blank?
         (options.keys & [:prompt, :include_blank, :default, :selected]).any? ||

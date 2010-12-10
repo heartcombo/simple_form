@@ -321,6 +321,12 @@ class InputTest < ActionView::TestCase
     assert_no_select 'select option[value=]', /^$/
   end
 
+  test 'priority input should not generate invalid required html attribute' do
+    with_input_for @user, :country, :country
+    assert_select 'select.required'
+    assert_no_select 'select[required]'
+  end
+
   # DateTime input
   test 'input should generate a datetime select by default for datetime attributes' do
     with_input_for @user, :created_at, :datetime
@@ -393,6 +399,12 @@ class InputTest < ActionView::TestCase
   test 'label should point to first option when time input type' do
     with_input_for :project, :created_at, :time
     assert_select 'label[for=project_created_at_4i]'
+  end
+
+  test 'date time input should not generate invalid required html attribute' do
+    with_input_for @user, :delivery_time, :time, :required => true
+    assert_select 'select.required'
+    assert_no_select 'select[required]'
   end
 
   # CollectionInput
@@ -564,6 +576,18 @@ class InputTest < ActionView::TestCase
     assert_select 'select.select#user_name'
     assert_select 'select option[value=jose]', 'jose'
     assert_select 'select option[value=carlos]', 'carlos'
+  end
+
+  test 'collection input with radio type should generate required html attribute' do
+    with_input_for @user, :name, :radio, :collection => ['Jose' , 'Carlos']
+    assert_select 'input[type=radio].required'
+    assert_select 'input[type=radio][required]'
+  end
+
+  test 'collection input with select type should not generate invalid required html attribute' do
+    with_input_for @user, :name, :select, :collection => ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_no_select 'select[required]'
   end
 
   # With no object

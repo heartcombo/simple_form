@@ -7,6 +7,10 @@ module SimpleForm
 
     private
 
+      def has_required?
+        false
+      end
+
       def label_target
         case input_type
         when :date, :datetime
