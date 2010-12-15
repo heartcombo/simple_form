@@ -137,6 +137,12 @@ module SimpleForm
         rendered_collection = collection.map do |item|
           value = value_for_collection(item, value_method)
           text  = value_for_collection(item, text_method)
+          
+          if item.respond_to?(:disabled)
+            disabled = value_for_collection(item, :disabled)
+            html_options.merge!(:disabled => 'disabled') if disabled
+          end
+          
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
           rendered_item = yield value, text, default_html_options
