@@ -28,8 +28,9 @@ module SimpleForm
         @reflection         = options.delete(:reflection)
         @options            = options
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
-          o[:required] = true if has_required?
-          o[:disabled] = true if disabled?
+          o[:required]  = true if has_required?
+          o[:disabled]  = true if disabled?
+          o[:autofocus] = true if has_autofocus?
         end
       end
 
@@ -74,6 +75,10 @@ module SimpleForm
       # Whether this input is valid for HTML 5 required attribute.
       def has_required?
         attribute_required?
+      end
+
+      def has_autofocus?
+        options[:autofocus]
       end
 
       def has_validators?
