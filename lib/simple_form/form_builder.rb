@@ -130,7 +130,7 @@ module SimpleForm
       options[:collection] ||= reflection.klass.all(reflection.options.slice(:conditions, :order))
 
       attribute = case reflection.macro
-        when :belongs_to, :referenced_in
+        when :belongs_to, :referenced_in, :embedded_in
           reflection.options[:foreign_key] || :"#{reflection.name}_id"
         when :has_one
           raise ":has_one association are not supported by f.association"
