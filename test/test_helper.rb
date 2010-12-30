@@ -27,10 +27,6 @@ else
   raise "Could not find country_select plugin in test/support. Please execute git submodule update --init."
 end
 
-class SimpleForm::FormBuilder
-  attr_accessor :reflection, :options
-end
-
 class ActionView::TestCase
   include MiscHelpers
   include SimpleForm::ActionViewExtensions::FormHelper

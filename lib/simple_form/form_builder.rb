@@ -1,6 +1,6 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object, :reflection, :options
+    attr_reader :template, :object_name, :object
 
     extend MapType
     include SimpleForm::Inputs
@@ -79,8 +79,9 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      column      = find_attribute_column(attribute_name)
-      input_type  = default_input_type(attribute_name, column, options)
+      column     = find_attribute_column(attribute_name)
+      input_type = default_input_type(attribute_name, column, options)
+
       if block_given?
         SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
       else
@@ -122,28 +123,28 @@ module SimpleForm
 
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
-      options[:as] ||= :select
-      @reflection = find_association_reflection(association)
-      raise "Association #{association.inspect} not found" unless @reflection
+      reflection = find_association_reflection(association)
+      raise "Association #{association.inspect} not found" unless reflection
 
-      case @reflection.macro
+      options[:as] ||= :select
+      options[:collection] ||= reflection.klass.all(reflection.options.slice(:conditions, :order))
+
+      attribute = case reflection.macro
         when :belongs_to
-          attribute = @reflection.options[:foreign_key] || :"#{@reflection.name}_id"
+          reflection.options[:foreign_key] || :"#{reflection.name}_id"
         when :has_one
           raise ":has_one association are not supported by f.association"
         else
-          attribute = :"#{@reflection.name.to_s.singularize}_ids"
-
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
             html_options[:size]   ||= 5
             html_options[:multiple] = true unless html_options.key?(:multiple)
           end
+
+          :"#{reflection.name.to_s.singularize}_ids"
       end
 
-      options[:collection] ||= @reflection.klass.all(@reflection.options.slice(:conditions, :order))
-
-      input(attribute, options).tap { @reflection = nil }
+      input(attribute, options.merge(:reflection => reflection))
     end
 
     # Creates a button:

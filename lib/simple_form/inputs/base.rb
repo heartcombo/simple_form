@@ -15,19 +15,22 @@ module SimpleForm
       include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Wrapper
 
-      attr_reader :attribute_name, :column, :input_type, :options, :input_html_options
+      attr_reader :attribute_name, :column, :input_type, :reflection,
+                  :options, :input_html_options
 
-      delegate :template, :object, :object_name, :reflection, :to => :@builder
+      delegate :template, :object, :object_name, :to => :@builder
 
       def initialize(builder, attribute_name, column, input_type, options = {})
         @builder            = builder
         @attribute_name     = attribute_name
         @column             = column
         @input_type         = input_type
+        @reflection         = options.delete(:reflection)
         @options            = options
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
-          o[:required] = true if attribute_required?
-          o[:disabled] = true if disabled?
+          o[:required]  = true if has_required?
+          o[:disabled]  = true if disabled?
+          o[:autofocus] = true if has_autofocus?
         end
       end
 
@@ -69,8 +72,17 @@ module SimpleForm
         end
       end
 
+      # Whether this input is valid for HTML 5 required attribute.
+      def has_required?
+        attribute_required?
+      end
+
+      def has_autofocus?
+        options[:autofocus]
+      end
+
       def has_validators?
-        object.class.respond_to?(:validators_on)
+        attribute_name && object.class.respond_to?(:validators_on)
       end
 
       def attribute_validators

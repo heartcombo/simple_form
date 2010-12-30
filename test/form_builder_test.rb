@@ -371,6 +371,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'span.error', "can't be blank"
   end
 
+  test 'builder should generate an error tag with a clean HTML' do
+    with_error_for @user, :name
+    assert_no_select 'span.error[error_html]'
+  end
+
   test 'builder should allow passing options to error tag' do
     with_error_for @user, :name, :id => 'name_error'
     assert_select 'span.error#name_error', "can't be blank"
@@ -384,9 +389,20 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should generate a hint component tag for the given text for a model with ActiveModel::Validations' do
+    with_hint_for @validating_user, 'Hello World!'
+    assert_select 'span.hint', 'Hello World!'
+  end
+
   test 'builder should generate a hint component tag for the given text' do
     with_hint_for @user, 'Hello World!'
     assert_select 'span.hint', 'Hello World!'
+  end
+
+  test 'builder should generate a hint componet tag with a clean HTML' do
+    with_hint_for @validating_user, 'Hello World!'
+    assert_no_select 'span.hint[hint]'
+    assert_no_select 'span.hint[hint_html]'
   end
 
   test 'builder should allow passing options to hint tag' do
@@ -398,6 +414,11 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder should generate a label for the attribute' do
     with_label_for @user, :name
     assert_select 'label.string[for=user_name]', /Name/
+  end
+
+  test 'builder should generate a label componet tag with a clean HTML' do
+    with_label_for @user, :name
+    assert_no_select 'label.string[label_html]'
   end
 
   test 'builder should add a required class to label if the attribute is required' do

@@ -8,7 +8,7 @@ class LabelTest < ActionView::TestCase
 
   def with_label_for(object, attribute_name, type, options={})
     with_concat_form_for(object) do |f|
-      f.reflection = Association.new(Company, :company, {}) if options.delete(:setup_association)
+      options[:reflection] = Association.new(Company, :company, {}) if options.delete(:setup_association)
       SimpleForm::Inputs::Base.new(f, attribute_name, nil, type, options).label
     end
   end

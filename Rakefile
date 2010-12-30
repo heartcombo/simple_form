@@ -23,22 +23,3 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |s|
-    s.name = "simple_form"
-    s.version = SimpleForm::VERSION.dup
-    s.summary = "Forms made easy!"
-    s.email = "contact@plataformatec.com.br"
-    s.homepage = "http://github.com/plataformatec/simple_form"
-    s.description = "Forms made easy!"
-    s.authors = ['José Valim', 'Carlos Antônio']
-    s.files =  FileList["[A-Z]*(.rdoc)", "{generators,lib}/**/*", "init.rb"]
-    s.test_files.exclude("test/support/country_select")
-  end
-
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install jeweler"
-end
