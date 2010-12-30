@@ -39,6 +39,18 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  def with_wrapper_for(object, *args, &block)
+    with_concat_form_for(object) do |f|
+      f.wrapper(*args, &block)
+    end
+  end
+
+  def with_buttons_for(object, *args, &block)
+    with_concat_form_for(object) do |f|
+      f.buttons(*args, &block)
+    end
+  end
+
   # All
   test 'nested simple fields should yields an instance of FormBuilder' do
     simple_form_for :user do |f|
@@ -258,6 +270,20 @@ class FormBuilderTest < ActionView::TestCase
       with_form_for @user, :name, :placeholder => false
       assert_no_select 'input[placeholder]'
     end
+  end
+
+  test 'builder should be able to generate a wrapper' do
+    with_wrapper_for @user, :buttons do
+      submit_tag
+    end
+    assert_select 'form div.buttons input[type=submit]'
+  end
+
+  test 'builder should be able to generate a button wrapper' do
+    with_buttons_for @user do
+      submit_tag
+    end
+    assert_select 'form div.buttons input[type=submit]'
   end
 
   # REQUIRED AND PRESENCE VALIDATION

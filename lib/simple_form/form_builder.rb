@@ -242,6 +242,31 @@ module SimpleForm
       SimpleForm::ErrorNotification.new(self, options).render
     end
 
+    # Creates a wrapper with the given CSS class around the block. This is useful
+    # when you want to group items together, such as buttons.
+    #
+    # == Examples
+    #
+    #    f.wrapper :buttons do
+    #      link_to 'Cancel'
+    #      f.button :submit
+    #    end
+    #
+    def wrapper(wrapper_class, &block)
+      options = {
+        :components    => [ :label_input ],
+        :label         => false,
+        :required      => false,
+        :wrapper_class => wrapper_class.to_s
+      }
+      SimpleForm::Inputs::BlockInput.new(self, nil, nil, nil, options, &block).render
+    end
+
+    # Helper method for wrapping buttons.
+    def buttons(&block)
+      wrapper :buttons, &block
+    end
+
   private
 
     # Attempt to guess the better input type given the defined options. By

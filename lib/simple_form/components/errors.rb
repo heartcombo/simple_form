@@ -30,7 +30,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        attribute_name ? object.errors[attribute_name] : []
       end
 
       def errors_on_association
