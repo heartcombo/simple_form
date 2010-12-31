@@ -3,9 +3,9 @@ require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
 
-  def with_form_for(object, *args, &block)
+  def with_form_for(object, field, *args, &block)
     with_concat_form_for(object) do |f|
-      f.input(*args, &block)
+      f.send field, *args, &block
     end
   end
 
@@ -33,9 +33,9 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
-  def with_association_for(object, *args)
+  def with_association_for(object, field, *args)
     with_concat_form_for(object) do |f|
-      f.association(*args)
+      f.send field, *args
     end
   end
 
@@ -51,6 +51,12 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder input is html safe' do
     simple_form_for @user do |f|
       assert f.input(:name).html_safe?
+    end
+  end
+
+  test 'builder dsl is html safe' do
+    simple_form_for @user do |f|
+      assert f.name.html_safe?
     end
   end
 
@@ -459,7 +465,9 @@ class FormBuilderTest < ActionView::TestCase
   # ASSOCIATIONS
   test 'builder should not allow creating an association input when no object exists' do
     assert_raise ArgumentError do
-      with_association_for :post, :author
+      with_concat_form_for :post do |f|
+        f.association(:author)
+      end
     end
   end
 

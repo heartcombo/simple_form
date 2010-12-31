@@ -56,8 +56,8 @@ SimpleForm was designed to be customized as you need to. Basically it's a stack 
 To start using SimpleForm you just have to use the helper it provides:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username %>
-    <%= f.input :password %>
+    <%= f.username %>
+    <%= f.password %>
     <%= f.button :submit %>
   <% end %>
 
@@ -66,46 +66,46 @@ This will generate an entire form with labels for user name and password as well
 You can overwrite the default label by passing it to the input method, add a hint or even a placeholder:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username, :label => 'Your username please' %>
-    <%= f.input :password, :hint => 'No special characters.' %>
-    <%= f.input :email, :placeholder => 'user@domain.com' %>
+    <%= f.username, :label => 'Your username please' %>
+    <%= f.password, :hint => 'No special characters.' %>
+    <%= f.email, :placeholder => 'user@domain.com' %>
     <%= f.button :submit %>
   <% end %>
 
 You can also disable labels, hints or error or configure the html of any of them:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username, :label_html => { :class => 'my_class' } %>
-    <%= f.input :password, :hint => false, :error_html => { :id => "password_error"} %>
-    <%= f.input :password_confirmation, :label => false %>
+    <%= f.username, :label_html => { :class => 'my_class' } %>
+    <%= f.password, :hint => false, :error_html => { :id => "password_error"} %>
+    <%= f.password_confirmation, :label => false %>
     <%= f.button :submit %>
   <% end %>
 
 It is also possible to pass any html attribute straight to the input, by using the :input_html option, for instance:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username, :input_html => { :class => 'special' } %>
-    <%= f.input :password, :input_html => { :maxlength => 20 } %>
-    <%= f.input :remember_me, :input_html => { :value => '1' } %>
+    <%= f.username, :input_html => { :class => 'special' } %>
+    <%= f.password, :input_html => { :maxlength => 20 } %>
+    <%= f.remember_me, :input_html => { :value => '1' } %>
     <%= f.button :submit %>
   <% end %>
 
 By default all inputs are required, which means an * is prepended to the label, but you can disable it in any input you want:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :name, :required => false %>
-    <%= f.input :username %>
-    <%= f.input :password %>
+    <%= f.name, :required => false %>
+    <%= f.username %>
+    <%= f.password %>
     <%= f.button :submit %>
   <% end %>
 
 SimpleForm also lets you overwrite the default input type it creates:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username %>
-    <%= f.input :password %>
-    <%= f.input :description, :as => :text %>
-    <%= f.input :accepts,     :as => :radio %>
+    <%= f.username %>
+    <%= f.password %>
+    <%= f.description, :as => :text %>
+    <%= f.accepts,     :as => :radio %>
     <%= f.button :submit %>
   <% end %>
 
@@ -114,14 +114,14 @@ So instead of a checkbox for the :accepts attribute, you'll have a pair of radio
 It is also possible to give the :disabled option to SimpleForm, and it'll automatically mark the wrapper as disabled with a css class, so you can style labels, hints and other components inside the wrapper as well:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username, :disabled => true, :hint => "You cannot change your username." %>
+    <%= f.username, :disabled => true, :hint => "You cannot change your username." %>
     <%= f.button :submit %>
   <% end %>
 
 SimpleForm accepts same options as their corresponding input type helper in Rails:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 90,
+    <%= f.date_of_birth, :as => :date, :start_year => Date.today.year - 90,
                                 :end_year => Date.today.year - 12, :discard_day => true,
                                 :order => [:month, :year] %>
     <%= f.button :submit %>
@@ -144,8 +144,8 @@ Any extra option passed to label, hint or error will be rendered as html option.
 And what if you want to create a select containing the age from 18 to 60 in your form? You can do it overriding the :collection option:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :user %>
-    <%= f.input :age, :collection => 18..60 %>
+    <%= f.user %>
+    <%= f.age, :collection => 18..60 %>
     <%= f.button :submit %>
   <% end %>
 
@@ -159,14 +159,14 @@ Collection inputs accepts two other options beside collections:
 
 Those methods are useful to manipulate the given collection. Both of these options also except lambda/procs incase you want to calculate the value or label in a special way eg. custom translation. All other options given are sent straight to the underlying helper. For example, you can give prompt as:
 
-  f.input :age, :collection => 18..60, :prompt => "Select your age"
+  f.age, :collection => 18..60, :prompt => "Select your age"
 
 === Priority
 
 SimpleForm also supports :time_zone and :country. When using such helpers, you can give :priority as option to select which time zones and/or countries should be given higher priority:
 
-  f.input :residence_country, :priority => [ "Brazil" ]
-  f.input :time_zone, :priority => /US/
+  f.residence_country, :priority => [ "Brazil" ]
+  f.time_zone, :priority => /US/
 
 Those values can also be configured with a default value to be used site use through the SimpleForm.country_priority and SimpleForm.time_zone_priority helpers.
 
@@ -180,8 +180,8 @@ The first step is to configure a wrapper tag:
 And now, you don't need to wrap your f.input calls anymore:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :username %>
-    <%= f.input :password %>
+    <%= f.username %>
+    <%= f.password %>
     <%= f.button :submit %>
   <% end %>
 
@@ -205,27 +205,27 @@ To deal with associations, SimpleForm can generate select inputs, a series of ra
 Now we have the user form:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :name %>
-    <%= f.association :company %>
-    <%= f.association :roles %>
+    <%= f.name %>
+    <%= f.company %>
+    <%= f.roles %>
     <%= f.button :submit %>
   <% end %>
 
 Simple enough right? This is going to render a :select input for choosing the :company, and another :select input with :multiple option for the :roles. You can of course change it, to use radios and check boxes as well:
 
-  f.association :company, :as => :radio
-  f.association :roles,   :as => :check_boxes
+  f.company, :as => :radio
+  f.roles,   :as => :check_boxes
 
 The association helper just invokes input under the hood, so all options available to :select, :radio and :check_boxes are also available to association. Additionally, you can specify the collection by hand, all together with the prompt:
 
-  f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
+  f.company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
 
 == Buttons
 
 All web forms need buttons, right? SimpleForm wraps them in the DSL, acting like a proxy:
 
   <%= simple_form_for @user do |f| %>
-    <%= f.input :name %>
+    <%= f.name %>
     <%= f.button :submit %>
   <% end %>
 
