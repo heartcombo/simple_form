@@ -291,7 +291,7 @@ module SimpleForm
     def find_association_reflection(association) #:nodoc:
       @object.class.reflect_on_association(association) if @object.class.respond_to?(:reflect_on_association)
     end
-    
+
     def method_missing(sym,*args, &block)
       if(@object && find_association_reflection(sym))
         association(sym, *args, &block)
@@ -301,17 +301,5 @@ module SimpleForm
         super
       end
     end
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
   end
 end
