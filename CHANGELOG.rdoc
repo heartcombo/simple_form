@@ -1,6 +1,9 @@
 * enhancements
   * Add :autofocus HTML5 attribute support (by github.com/jpzwarte)
 
+* deprecation
+  * removed the deprecated :remote_form_for
+
 * bug fix
   * Only add the "required" HTML 5 attribute for valid inputs, disable in selects (not allowed)
   * Fix error when using hints without an attribute (by github.com/butsjoh and github.com/rafaelfranca)
