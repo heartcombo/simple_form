@@ -28,4 +28,18 @@ module MiscHelpers
   def with_concat_form_for(object, &block)
     concat simple_form_for(object, &block)
   end
+
+  def with_concat_custom_form_for(object, &block)
+    concat custom_form_for(object, &block)
+  end
+
+  def custom_form_for(object, *args, &block)
+    simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
+  end
+end
+
+class CustomFormBuilder < SimpleForm::FormBuilder
+  def input(attribute_name, *args, &block)
+    super(attribute_name, *(args << { :input_html => { :class => 'custom' } }), &block)
+  end
 end

@@ -1,7 +1,10 @@
+require 'active_support/core_ext/class/attribute'
+
 module SimpleForm
   module MapType
-    def mappings
-      @mappings ||= {}
+    def self.extended(base)
+      base.class_attribute :mappings
+      base.mappings = {}
     end
 
     def map_type(*types)
