@@ -1,7 +1,6 @@
 module SimpleForm
   module ActionViewExtensions
-    # This modules create simple form wrappers around default form_for,
-    # fields_for and remote_form_for.
+    # This module creates simple form wrappers around default form_for and fields_for.
     #
     # Example:
     #
@@ -30,7 +29,7 @@ module SimpleForm
         result
       end
 
-      [:form_for, :fields_for, :remote_form_for].each do |helper|
+      [:form_for, :fields_for].each do |helper|
         class_eval <<-METHOD, __FILE__, __LINE__
           def simple_#{helper}(record_or_name_or_array, *args, &block)
             options = args.extract_options!
