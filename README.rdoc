@@ -370,10 +370,6 @@ SimpleForm has several configuration values. You can read and change them in the
 
   rails generate simple_form:install
 
-== TODO
-
-Please refer to TODO file.
-
 == Maintainers
 
 * José Valim (http://github.com/josevalim)
