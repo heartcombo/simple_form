@@ -9,6 +9,12 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  def with_custom_form_for(object, *args, &block)
+    with_concat_custom_form_for(object) do |f|
+      f.input(*args, &block)
+    end
+  end
+
   def with_button_for(object, *args)
     with_concat_form_for(object) do |f|
       f.button(*args)
@@ -582,5 +588,11 @@ class FormBuilderTest < ActionView::TestCase
 
     assert_select 'form ul', :count => 1
     assert_select 'form ul li', :count => 3
+  end
+
+  # CUSTOM FORM BUILDER
+  test 'custom builder should inherit mappings' do
+    with_custom_form_for @user, :email
+    assert_select 'form input[type=email]#user_email.custom'
   end
 end
