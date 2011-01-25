@@ -370,9 +370,23 @@ SimpleForm has several configuration values. You can read and change them in the
 
   rails generate simple_form:install
 
-== TODO
+== Custom form builder
 
-Please refer to TODO file.
+You can create a custom form builder that uses SimpleForm.
+
+Create a helper method that calls simple_form_for with a custom builder:
+
+  def custom_form_for(object, *args, &block)
+    simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
+  end
+
+Create a form builder class that inherits from SimpleForm::FormBuilder.
+
+  class CustomFormBuilder < SimpleForm::FormBuilder
+    def input(attribute_name, *args, &block)
+      super(attribute_name, *(args << { :input_html => { :class => 'custom' } }), &block)
+    end
+  end
 
 == Maintainers
 
