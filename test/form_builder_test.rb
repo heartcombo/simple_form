@@ -76,11 +76,27 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should allow adding custom input mappings for integer input types' do
+    swap SimpleForm, :input_mappings => { /lock_version/ => :hidden } do
+      with_form_for @user, :lock_version
+      assert_no_select 'form input#user_lock_version.integer'
+      assert_select 'form input#user_lock_version.hidden'
+    end
+  end
+
   test 'builder uses the first matching custom input map when more than one match' do
     swap SimpleForm, :input_mappings => { /count$/ => :integer, /^post_/ => :password } do
       with_form_for @user, :post_count
       assert_no_select 'form input#user_post_count.password'
       assert_select 'form input#user_post_count.numeric.integer'
+    end
+  end
+
+  test 'builder uses the custom map only for matched attributes' do
+    swap SimpleForm, :input_mappings => { /lock_version/ => :hidden } do
+      with_form_for @user, :post_count
+      assert_no_select 'form input#user_post_count.hidden'
+      assert_select 'form input#user_post_count.string'
     end
   end
 
