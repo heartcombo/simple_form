@@ -251,6 +251,10 @@ module SimpleForm
       return options[:as].to_sym if options[:as]
       return :select             if options[:collection]
 
+      custom_type = find_custom_type(attribute_name) if SimpleForm.input_mappings
+
+      return custom_type if custom_type
+
       input_type = column.try(:type)
 
       case input_type
@@ -264,16 +268,18 @@ module SimpleForm
             when /email/     then :email
             when /phone/     then :tel
             when /url/       then :url
-            else
-              SimpleForm.input_mappings.find { |match, type|
-                attribute_name.to_s =~ match
-              }.try(:last) if SimpleForm.input_mappings
           end
 
           match || input_type || file_method?(attribute_name) || :string
         else
           input_type
       end
+    end
+
+    def find_custom_type(attribute_name)
+      SimpleForm.input_mappings.find { |match, type|
+        attribute_name.to_s =~ match
+      }.try(:last)
     end
 
     # Checks if attribute is a file_method.
