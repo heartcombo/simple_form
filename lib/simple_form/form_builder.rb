@@ -250,13 +250,9 @@ module SimpleForm
     def default_input_type(attribute_name, column, options) #:nodoc:
       return options[:as].to_sym if options[:as]
       return :select             if options[:collection]
-
-      custom_type = find_custom_type(attribute_name) if SimpleForm.input_mappings
-
-      return custom_type if custom_type
+      custom_type = find_custom_type(attribute_name.to_s) and return custom_type
 
       input_type = column.try(:type)
-
       case input_type
         when :timestamp
           :datetime
@@ -278,8 +274,8 @@ module SimpleForm
 
     def find_custom_type(attribute_name)
       SimpleForm.input_mappings.find { |match, type|
-        attribute_name.to_s =~ match
-      }.try(:last)
+        attribute_name =~ match
+      }.try(:last) if SimpleForm.input_mappings
     end
 
     # Checks if attribute is a file_method.
@@ -288,15 +284,18 @@ module SimpleForm
       :file if file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
-    # Finds the database column for the given attribute
+    # Finds the database column for the given attribute.
     def find_attribute_column(attribute_name) #:nodoc:
-      @object.column_for_attribute(attribute_name) if @object.respond_to?(:column_for_attribute)
+      if @object.respond_to?(:column_for_attribute)
+        @object.column_for_attribute(attribute_name)
+      end
     end
 
-    # Find reflection related to association
+    # Find reflection related to association.
     def find_association_reflection(association) #:nodoc:
-      @object.class.reflect_on_association(association) if @object.class.respond_to?(:reflect_on_association)
+      if @object.class.respond_to?(:reflect_on_association)
+        @object.class.reflect_on_association(association)
+      end
     end
-
   end
 end
