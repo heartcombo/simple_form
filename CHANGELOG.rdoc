@@ -1,5 +1,7 @@
 * enhancements
   * Add :autofocus HTML5 attribute support (by github.com/jpzwarte)
+  * Add possibility to specify custom builder and inherit mappings (by github.com/rejeep)
+  * Make custom mappings work with all attributes types (by github.com/rafaelfranca)
 
 * deprecation
   * removed the deprecated :remote_form_for
@@ -8,6 +10,7 @@
   * Only add the "required" HTML 5 attribute for valid inputs, disable in selects (not allowed)
   * Fix error when using hints without an attribute (by github.com/butsjoh and github.com/rafaelfranca)
   * Fix messy html output for hint, error and label components (by github.com/butsjoh and github.com/rafaelfranca)
+  * Allow direct setting of for attribute on label (by github.com/Bertg)
 
 == 1.3.0
 
