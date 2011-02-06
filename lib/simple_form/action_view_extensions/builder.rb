@@ -7,7 +7,9 @@ module SimpleForm
       # Create a collection of radio inputs for the attribute. Basically this
       # helper will create a radio input associated with a label for each
       # text/value option in the collection, using value_method and text_method
-      # to convert these text/value. Based on collection_select.
+      # to convert these text/value. You can give a symbol or a proc to both
+      # value_method and text_method, that will be evaluated for each item in
+      # the collection.
       #
       # == Examples
       #
@@ -42,9 +44,11 @@ module SimpleForm
         end
       end
 
-      # Creates a collection of check boxes for each item in the collection, associated
-      # with a clickable label. Use value_method and text_method to convert items in
-      # the collection for use as text/value in check boxes.
+      # Creates a collection of check boxes for each item in the collection,
+      # associated with a clickable label. Use value_method and text_method to
+      # convert items in the collection for use as text/value in check boxes.
+      # You can give a symbol or a proc to both value_method and text_method,
+      # that will be evaluated for each item in the collection.
       #
       # == Examples
       #
