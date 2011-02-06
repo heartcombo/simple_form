@@ -2,6 +2,7 @@
   * Add :autofocus HTML5 attribute support (by github.com/jpzwarte)
   * Add possibility to specify custom builder and inherit mappings (by github.com/rejeep)
   * Make custom mappings work with all attributes types (by github.com/rafaelfranca)
+  * Add support for procs/lambdas in text/value methods for collection_select
 
 * deprecation
   * removed the deprecated :remote_form_for
