@@ -186,6 +186,14 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_avatar.file'
   end
 
+  test 'builder should generate file for attributes that are real db columns but have file methods' do
+    @user.home_picture = mock("file")
+    @user.home_picture.expects(:respond_to?).with(:mounted_as).returns(true)
+
+    with_form_for @user, :home_picture
+    assert_select 'form input#user_home_picture.file'
+  end
+
   test 'build should generate select if a collection is given' do
     with_form_for @user, :age, :collection => 1..60
     assert_select 'form select#user_age.select'

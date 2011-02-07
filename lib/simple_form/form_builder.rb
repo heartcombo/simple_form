@@ -257,16 +257,16 @@ module SimpleForm
         when :timestamp
           :datetime
         when :string, nil
-          match = case attribute_name.to_s
+          case attribute_name.to_s
             when /password/  then :password
             when /time_zone/ then :time_zone
             when /country/   then :country
             when /email/     then :email
             when /phone/     then :tel
             when /url/       then :url
+            else
+              file_method?(attribute_name) || input_type || :string
           end
-
-          match || input_type || file_method?(attribute_name) || :string
         else
           input_type
       end
