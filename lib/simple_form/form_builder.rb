@@ -265,33 +265,30 @@ module SimpleForm
             when /phone/     then :tel
             when /url/       then :url
             else
-              file_method?(attribute_name) || input_type || :string
+              file_method?(attribute_name) ? :file : (input_type || :string)
           end
         else
           input_type
       end
     end
 
-    def find_custom_type(attribute_name)
+    def find_custom_type(attribute_name) #:nodoc:
       SimpleForm.input_mappings.find { |match, type|
         attribute_name =~ match
       }.try(:last) if SimpleForm.input_mappings
     end
 
-    # Checks if attribute is a file_method.
     def file_method?(attribute_name) #:nodoc:
       file = @object.send(attribute_name) if @object.respond_to?(attribute_name)
-      :file if file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
+      file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
-    # Finds the database column for the given attribute.
     def find_attribute_column(attribute_name) #:nodoc:
       if @object.respond_to?(:column_for_attribute)
         @object.column_for_attribute(attribute_name)
       end
     end
 
-    # Find reflection related to association.
     def find_association_reflection(association) #:nodoc:
       if @object.class.respond_to?(:reflect_on_association)
         @object.class.reflect_on_association(association)
