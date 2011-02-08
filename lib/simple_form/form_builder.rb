@@ -254,21 +254,21 @@ module SimpleForm
 
       input_type = column.try(:type)
       case input_type
-        when :timestamp
-          :datetime
-        when :string, nil
-          case attribute_name.to_s
-            when /password/  then :password
-            when /time_zone/ then :time_zone
-            when /country/   then :country
-            when /email/     then :email
-            when /phone/     then :tel
-            when /url/       then :url
-            else
-              file_method?(attribute_name) ? :file : (input_type || :string)
-          end
+      when :timestamp
+        :datetime
+      when :string, nil
+        case attribute_name.to_s
+        when /password/  then :password
+        when /time_zone/ then :time_zone
+        when /country/   then :country
+        when /email/     then :email
+        when /phone/     then :tel
+        when /url/       then :url
         else
-          input_type
+          file_method?(attribute_name) ? :file : (input_type || :string)
+        end
+      else
+        input_type
       end
     end
 
