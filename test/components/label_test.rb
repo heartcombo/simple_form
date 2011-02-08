@@ -205,7 +205,7 @@ class LabelTest < ActionView::TestCase
     with_label_for :project, :description, :string, :required => false
     assert_no_select 'label.required[for=project_description]'
   end
-  
+
   test 'label should add chosen label class' do
     swap SimpleForm, :label_class => :my_custom_class do
       with_label_for @user, :name, :string
