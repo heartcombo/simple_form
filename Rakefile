@@ -1,8 +1,10 @@
 # encoding: UTF-8
-require 'rake'
+
+require 'bundler'
+Bundler::GemHelper.install_tasks
+
 require 'rake/testtask'
 require 'rake/rdoctask'
-require File.join(File.dirname(__FILE__), 'lib', 'simple_form', 'version')
 
 desc 'Default: run unit tests.'
 task :default => :test

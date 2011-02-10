@@ -260,47 +260,49 @@ module SimpleForm
     def default_input_type(attribute_name, column, options) #:nodoc:
       return options[:as].to_sym if options[:as]
       return :select             if options[:collection]
+      custom_type = find_custom_type(attribute_name.to_s) and return custom_type
 
       input_type = column.try(:type)
-
       case input_type
-        when :timestamp
-          :datetime
-        when :string, nil
-          match = case attribute_name.to_s
-            when /password/  then :password
-            when /time_zone/ then :time_zone
-            when /country/   then :country
-            when /email/     then :email
-            when /phone/     then :tel
-            when /url/       then :url
-            else
-              SimpleForm.input_mappings.find { |match, type|
-                attribute_name.to_s =~ match
-              }.try(:last) if SimpleForm.input_mappings
-          end
-
-          match || input_type || file_method?(attribute_name) || :string
+      when :timestamp
+        :datetime
+      when :string, nil
+        case attribute_name.to_s
+        when /password/  then :password
+        when /time_zone/ then :time_zone
+        when /country/   then :country
+        when /email/     then :email
+        when /phone/     then :tel
+        when /url/       then :url
         else
-          input_type
+          file_method?(attribute_name) ? :file : (input_type || :string)
+        end
+      else
+        input_type
       end
     end
 
-    # Checks if attribute is a file_method.
+    def find_custom_type(attribute_name) #:nodoc:
+      SimpleForm.input_mappings.find { |match, type|
+        attribute_name =~ match
+      }.try(:last) if SimpleForm.input_mappings
+    end
+
     def file_method?(attribute_name) #:nodoc:
       file = @object.send(attribute_name) if @object.respond_to?(attribute_name)
-      :file if file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
+      file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
-    # Finds the database column for the given attribute
     def find_attribute_column(attribute_name) #:nodoc:
-      @object.column_for_attribute(attribute_name) if @object.respond_to?(:column_for_attribute)
+      if @object.respond_to?(:column_for_attribute)
+        @object.column_for_attribute(attribute_name)
+      end
     end
 
-    # Find reflection related to association
     def find_association_reflection(association) #:nodoc:
-      @object.class.reflect_on_association(association) if @object.class.respond_to?(:reflect_on_association)
+      if @object.class.respond_to?(:reflect_on_association)
+        @object.class.reflect_on_association(association)
+      end
     end
-
   end
 end

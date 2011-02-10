@@ -40,7 +40,7 @@ class User
 
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :description, :created_at, :updated_at,
     :credit_limit, :age, :password, :delivery_time, :born_at, :special_company_id, :country, :url, :tag_ids,
-    :avatar, :email, :status, :residence_country, :phone_number, :post_count
+    :avatar, :home_picture, :email, :status, :residence_country, :phone_number, :post_count, :lock_version
 
   def initialize(options={})
     options.each do |key, value|
@@ -70,6 +70,8 @@ class User
       when :delivery_time then :time
       when :created_at    then :datetime
       when :updated_at    then :timestamp
+      when :lock_version  then :integer
+      when :home_picture  then :string
     end
     Column.new(attribute, column_type, limit)
   end
