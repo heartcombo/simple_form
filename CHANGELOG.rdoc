@@ -1,7 +1,11 @@
 == master
 
 * enhancements
+  * Adding label class configuration option (by github.com/reu)
   * Improve i18n lookup (labels/hints/placeholders) for nested models
+
+* bug fix
+  * Fix for file attributes automatic detection, to work with virtual attributes
 
 == 1.3.1
 
