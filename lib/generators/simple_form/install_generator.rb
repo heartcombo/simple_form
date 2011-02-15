@@ -4,6 +4,7 @@ module SimpleForm
       desc "Copy SimpleForm default files"
       source_root File.expand_path('../templates', __FILE__)
       class_option :template_engine
+      class_option :orm
 
       def copy_initializers
         copy_file 'simple_form.rb', 'config/initializers/simple_form.rb'
