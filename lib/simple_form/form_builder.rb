@@ -129,20 +129,7 @@ module SimpleForm
       options[:as] ||= :select
       options[:collection] ||= reflection.klass.all(reflection.options.slice(:conditions, :order))
 
-      attribute = case reflection.macro
-        when :belongs_to
-          reflection.options[:foreign_key] || :"#{reflection.name}_id"
-        when :has_one
-          raise ":has_one association are not supported by f.association"
-        else
-          if options[:as] == :select
-            html_options = options[:input_html] ||= {}
-            html_options[:size]   ||= 5
-            html_options[:multiple] = true unless html_options.key?(:multiple)
-          end
-
-          :"#{reflection.name.to_s.singularize}_ids"
-      end
+      attribute = find_attribute_column_by_reflection(reflection, options)
 
       input(attribute, options.merge(:reflection => reflection))
     end
@@ -292,6 +279,23 @@ module SimpleForm
     def find_association_reflection(association) #:nodoc:
       if @object.class.respond_to?(:reflect_on_association)
         @object.class.reflect_on_association(association)
+      end
+    end
+
+    def find_attribute_column_by_reflection(reflection, options)
+      case reflection.macro
+      when :belongs_to
+        reflection.options[:foreign_key] || :"#{reflection.name}_id"
+      when :has_one
+        raise ":has_one association are not supported by f.association"
+      else
+        if options[:as] == :select
+          html_options = options[:input_html] ||= {}
+          html_options[:size]   ||= 5
+          html_options[:multiple] = true unless html_options.key?(:multiple)
+        end
+
+        :"#{reflection.name.to_s.singularize}_ids"
       end
     end
   end
