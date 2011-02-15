@@ -463,6 +463,13 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'input should mark the checked value when using boolean and radios' do
+    @user.active = false
+    with_input_for @user, :active, :radio
+    assert_no_select 'input[type=radio][value=true][checked]'
+    assert_select 'input[type=radio][value=false][checked]'
+  end
+
   test 'input should generate a boolean select with options by default for select types' do
     with_input_for @user, :active, :select
     assert_select 'select.select#user_active'
@@ -495,6 +502,13 @@ class InputTest < ActionView::TestCase
     @user.age = 18
     with_input_for @user, :age, :select, :collection => 18..60
     assert_select 'select option[selected=selected]', '18'
+  end
+
+  test 'input should mark the selected value when using booleans and select' do
+    @user.active = false
+    with_input_for @user, :active, :select
+    assert_no_select 'select option[selected][value=true]', 'Yes'
+    assert_select 'select option[selected][value=false]', 'No'
   end
 
   test 'input should set the correct value when using a collection that includes floats' do
