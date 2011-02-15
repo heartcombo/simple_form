@@ -16,6 +16,8 @@ require 'action_view/test_case'
 $:.unshift File.expand_path("../../lib", __FILE__)
 require 'simple_form'
 
+require 'simple_form/orm/active_record'
+
 Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 
