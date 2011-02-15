@@ -1,6 +1,9 @@
 module SimpleForm
   module Orm
     module ActiveRecord
+
+      private
+
       def find_attribute_column_by_reflection(reflection, options)
         case reflection.macro
         when :belongs_to
