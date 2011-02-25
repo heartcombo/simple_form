@@ -99,10 +99,10 @@ module SimpleForm
       #   end
       def simple_fields_for(*args, &block)
         options = args.extract_options!
-        if self.class < SimpleForm::FormBuilder
-          options[:builder] = self.class
+        if self.class < ActionView::Helpers::FormBuilder
+          options[:builder] ||= self.class
         else
-          options[:builder] = SimpleForm::FormBuilder
+          options[:builder] ||= SimpleForm::FormBuilder
         end
         fields_for(*(args << options), &block)
       end
