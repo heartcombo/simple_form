@@ -104,8 +104,8 @@ class LabelTest < ActionView::TestCase
     } } ) do
       with_concat_form_for @user do |f|
         concat f.input :name
-        concat(f.simple_fields_for :company do |company_form|
-          concat company_form.input :name
+        concat(f.simple_fields_for(:company) do |company_form|
+          concat(company_form.input :name)
         end)
       end
 
@@ -123,8 +123,8 @@ class LabelTest < ActionView::TestCase
     } } ) do
       with_concat_form_for @user do |f|
         concat f.input :name
-        concat(f.simple_fields_for :company do |company_form|
-          concat company_form.input :name
+        concat(f.simple_fields_for(:company) do |company_form|
+          concat(company_form.input :name)
         end)
       end
 
