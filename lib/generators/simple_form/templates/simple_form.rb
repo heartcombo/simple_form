@@ -10,7 +10,7 @@ SimpleForm.setup do |config|
   # CSS class to add to all hint tags.
   # config.hint_class = :hint
 
-  # Default tag used on errors.
+  # CSS class used on errors.
   # config.error_class = :error
 
   # Default tag used on errors.

@@ -96,6 +96,43 @@ class LabelTest < ActionView::TestCase
     end
   end
 
+  test 'label should do correct i18n lookup for nested models with nested translation' do
+    @user.company = Company.new(1, 'Empresa')
+
+    store_translations(:en, :simple_form => { :labels => {
+      :user => { :name => 'Usuario', :company => { :name => 'Nome da empresa' } }
+    } } ) do
+      with_concat_form_for @user do |f|
+        concat f.input :name
+        concat(f.simple_fields_for(:company) do |company_form|
+          concat(company_form.input :name)
+        end)
+      end
+
+      assert_select 'label[for=user_name]', /Usuario/
+      assert_select 'label[for=user_company_attributes_name]', /Nome da empresa/
+    end
+  end
+
+  test 'label should do correct i18n lookup for nested models with no nested translation' do
+    @user.company = Company.new(1, 'Empresa')
+
+    store_translations(:en, :simple_form => { :labels => {
+      :user    => { :name => 'Usuario' },
+      :company => { :name => 'Nome da empresa' }
+    } } ) do
+      with_concat_form_for @user do |f|
+        concat f.input :name
+        concat(f.simple_fields_for(:company) do |company_form|
+          concat(company_form.input :name)
+        end)
+      end
+
+      assert_select 'label[for=user_name]', /Usuario/
+      assert_select 'label[for=user_company_attributes_name]', /Nome da empresa/
+    end
+  end
+
   test 'label should have css class from type' do
     with_label_for @user, :name, :string
     assert_select 'label.string'
