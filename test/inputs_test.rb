@@ -129,6 +129,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!][type=text]'
   end
 
+  test 'input should map password field to password attribute' do
+    with_input_for @user, :password, :password
+    assert_select 'input[name=\'user[password]\'][id=user_password][value=not_a_real_password][type=password]'
+  end
+
   test 'input should use default text size for decimal attributes' do
     with_input_for @user, :credit_limit, :decimal
     assert_select 'input.decimal[size=50]'
