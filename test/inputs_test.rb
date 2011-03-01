@@ -144,6 +144,16 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[size=50]'
   end
 
+  test 'input should use default text size for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select 'input[type=password].password[size=50]'
+  end
+
+  test 'input should get maxlength from column definition for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select 'input[type=password].password[maxlength=100]'
+  end
+
   test 'input should not generate placeholder by default' do
     with_input_for @user, :name, :string
     assert_no_select 'input[placeholder]'
