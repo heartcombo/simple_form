@@ -9,7 +9,6 @@ module SimpleForm
       map_type :file,     :to => :file_field
 
       def input
-        input_html_options[:size] ||= SimpleForm.default_input_size
         @builder.send(input_method, attribute_name, input_html_options)
       end
 
