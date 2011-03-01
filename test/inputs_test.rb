@@ -297,6 +297,11 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'input should use default text size for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select 'input[type=password].password[size=50]'
+  end
+
   # HiddenInput
   test 'input should generate a hidden field' do
     with_input_for @user, :name, :hidden
