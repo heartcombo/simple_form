@@ -5,13 +5,13 @@ module SimpleForm
     extend MapType
     include SimpleForm::Inputs
 
-    map_type :password, :text, :file,              :to => SimpleForm::Inputs::MappingInput
-    map_type :string, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
-    map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
-    map_type :select, :radio, :check_boxes,        :to => SimpleForm::Inputs::CollectionInput
-    map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
-    map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
-    map_type :boolean,                             :to => SimpleForm::Inputs::BooleanInput
+    map_type :text, :file,                                    :to => SimpleForm::Inputs::MappingInput
+    map_type :string, :password, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
+    map_type :integer, :decimal, :float,                      :to => SimpleForm::Inputs::NumericInput
+    map_type :select, :radio, :check_boxes,                   :to => SimpleForm::Inputs::CollectionInput
+    map_type :date, :time, :datetime,                         :to => SimpleForm::Inputs::DateTimeInput
+    map_type :country, :time_zone,                            :to => SimpleForm::Inputs::PriorityInput
+    map_type :boolean,                                        :to => SimpleForm::Inputs::BooleanInput
 
     # Basic input helper, combines all components in the stack to generate
     # input html based on options the user define and some guesses through
