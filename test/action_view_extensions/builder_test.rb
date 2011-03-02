@@ -6,6 +6,13 @@ class BuilderTest < ActionView::TestCase
     concat form_for(object, &block)
   end
 
+  def with_custom_form_for(object, *args, &block)
+    with_concat_custom_form_for(object) do |f|
+      assert f.instance_of?(CustomFormBuilder)
+      yield f
+    end
+  end
+
   def with_collection_radio(object, attribute, collection, value_method, text_method, options={}, html_options={})
     with_concat_form_for(object) do |f|
       f.collection_radio attribute, collection, value_method, text_method, options, html_options
@@ -270,6 +277,22 @@ class BuilderTest < ActionView::TestCase
     with_concat_form_for(@user) do |f|
       f.simple_fields_for(:posts) do |posts_form|
         assert posts_form.instance_of?(SimpleForm::FormBuilder)
+      end
+    end
+  end
+
+  test 'fields for yields an instance of CustomBuilder if main builder is a CustomBuilder' do
+    with_custom_form_for(:user) do |f|
+      f.simple_fields_for(:company) do |company|
+        assert company.instance_of?(CustomFormBuilder)
+      end
+    end
+  end
+
+  test 'fields for yields an instance of FormBuilder if it was set in options' do
+    with_custom_form_for(:user) do |f|
+      f.simple_fields_for(:company, :builder => SimpleForm::FormBuilder) do |company|
+        assert company.instance_of?(SimpleForm::FormBuilder)
       end
     end
   end
