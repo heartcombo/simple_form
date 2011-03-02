@@ -13,11 +13,6 @@ module SimpleForm
 
     private
 
-      def input_method
-        self.class.mappings[input_type] or
-          raise("Could not find method for #{input_type.inspect}")
-      end
-
       def has_placeholder?
         (text? || password?) && placeholder_present?
       end
