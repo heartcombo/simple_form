@@ -189,6 +189,11 @@ module SimpleForm
         action = action.to_sym
         ACTIONS[action] || action
       end
+
+      def input_method
+        self.class.mappings[input_type] or
+          raise("Could not find method for #{input_type.inspect}")
+      end
     end
   end
 end
