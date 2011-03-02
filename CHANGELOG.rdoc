@@ -3,6 +3,7 @@
 * enhancements
   * Adding label class configuration option (by github.com/reu)
   * Improve i18n lookup (labels/hints/placeholders) for nested models
+  * Use the given custom builder with simple_fields_for (by github.com/giniedp)
 
 * bug fix
   * Fix for file attributes automatic detection, to work with virtual attributes
