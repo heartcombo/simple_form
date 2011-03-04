@@ -61,12 +61,16 @@ module SimpleForm
       def components_list
         options[:components] || SimpleForm.components
       end
-
+      
       def attribute_required?
         if !options[:required].nil?
           options[:required]
         elsif has_validators?
-          (attribute_validators + reflection_validators).any? { |v| v.kind == :presence }
+          if defined?(ActiveRecord)
+            (attribute_validators + reflection_validators).any? { |v| v.kind == :presence }
+          elsif defined?(DataMapper)
+            (attribute_validators + reflection_validators).any? {|v| v.instance_of?(DataMapper::Validations::PresenceValidator)}
+          end
         else
           attribute_required_by_default?
         end
@@ -82,11 +86,19 @@ module SimpleForm
       end
 
       def has_validators?
-        attribute_name && object.class.respond_to?(:validators_on)
+        if defined?(ActiveRecord)
+          attribute_name && object.class.respond_to?(:validators_on)
+        elsif defined?(DataMapper)
+          attribute_name && object.class.respond_to?(:validators)
+        end
       end
 
       def attribute_validators
-        object.class.validators_on(attribute_name)
+        if defined?(ActiveRecord)
+          object.class.validators_on(attribute_name)
+        elsif defined?(DataMapper)
+          object.class.validators.contexts[:default].find_all {|v| v.field_name == attribute_name}
+        end
       end
 
       def reflection_validators
