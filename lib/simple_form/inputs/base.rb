@@ -43,7 +43,7 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class]
+        [input_type, required_class, SimpleForm.input_class]
       end
 
       def render

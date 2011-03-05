@@ -54,7 +54,10 @@ SimpleForm.setup do |config|
 
   # You can define the class to use on all labels. Default is nil.
   # config.label_class = nil
-
+  
+  # You can define the class to use on all inputs. Default is nil.
+  # config.input_class = nil
+  
   # Whether attributes are required by default (or not). Default is true.
   # config.required_by_default = true
 
