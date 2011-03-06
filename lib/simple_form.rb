@@ -87,6 +87,10 @@ module SimpleForm
   mattr_accessor :input_class
   @@input_class = nil
 
+  # You can define the class to use on all buttons. Default is nil.
+  mattr_accessor :button_class
+  @@button_class = nil
+  
   # Whether attributes are required by default (or not).
   mattr_accessor :required_by_default
   @@required_by_default = true

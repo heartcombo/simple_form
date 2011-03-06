@@ -157,7 +157,7 @@ module SimpleForm
     #
     def button(type, *args, &block)
       options = args.extract_options!
-      options[:class] = "button #{options[:class]}".strip
+      options[:class] = "button #{options[:class]} #{SimpleForm.button_class}".strip
       args << options
       if respond_to?("#{type}_button")
         send("#{type}_button", *args, &block)
