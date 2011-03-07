@@ -64,7 +64,7 @@ SimpleForm.setup do |config|
   # config.input_mappings = { /count/ => :integer }
 
   # Collection of methods to detect if a file type was given.
-  # config.file_methods = [ :file?, :public_filename ]
+  # config.file_methods = [ :mounted_as, :file?, :public_filename ]
 
   # Default priority for time_zone inputs.
   # config.time_zone_priority = nil
