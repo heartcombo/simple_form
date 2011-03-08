@@ -6,7 +6,7 @@ module SimpleForm
       end
 
       def label_input
-        (options[:label] == false ? "" : label) + tag('br') + input
+        (options[:label] == false ? "" : label) + input
       end
     end
   end
