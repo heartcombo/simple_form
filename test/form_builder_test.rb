@@ -214,6 +214,13 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # COMMON OPTIONS
+  test 'builder should add chosen form class' do
+    swap SimpleForm, :form_class => :my_custom_class do
+      with_form_for @user, :name
+      assert_select 'form.my_custom_class'
+    end
+  end
+
   test 'builder should allow passing options to input' do
     with_form_for @user, :name, :input_html => { :class => 'my_input', :id => 'my_input' }
     assert_select 'form input#my_input.my_input.string'
