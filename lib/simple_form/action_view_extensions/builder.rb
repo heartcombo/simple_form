@@ -31,9 +31,11 @@ module SimpleForm
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
       #
-      #   * collection_wrapper_tag => the tag to wrap the entire collection.
+      #   * collection_wrapper_tag  => the tag to wrap the entire collection.
+      #                             
+      #   * item_wrapper_tag        => the tag to wrap each item in the collection.
       #
-      #   * item_wrapper_tag       => the tag to wrap each item in the collection.
+      #   * collection_wrapper_html => html options to apply the tag that wraps the entire colleciton
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
