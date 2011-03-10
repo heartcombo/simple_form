@@ -663,6 +663,11 @@ class InputTest < ActionView::TestCase
     assert_select 'select.required'
     assert_no_select 'select[required]'
   end
+  
+  test 'collection input with wrapper should accept html options' do
+    with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos'], :collection_wrapper_tag => :ul, :item_wrapper_tag => :li, :collection_wrapper_html => {:class => 'foo', :id => 'bar'}
+    assert_select 'ul.foo#bar'
+  end
 
   # With no object
   test 'input should be generated properly when object is not present' do

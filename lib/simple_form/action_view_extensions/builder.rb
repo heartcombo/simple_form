@@ -139,8 +139,9 @@ module SimpleForm
       end
 
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
-        collection_wrapper_tag = options[:collection_wrapper_tag] || SimpleForm.collection_wrapper_tag
-        item_wrapper_tag       = options[:item_wrapper_tag] || SimpleForm.item_wrapper_tag
+        collection_wrapper_tag         = options[:collection_wrapper_tag] || SimpleForm.collection_wrapper_tag
+        item_wrapper_tag               = options[:item_wrapper_tag] || SimpleForm.item_wrapper_tag
+        collection_wrapper_tag_options = options[:collection_wrapper_html] || {}
 
         rendered_collection = collection.map do |item|
           value = value_for_collection(item, value_method)
@@ -152,7 +153,7 @@ module SimpleForm
           item_wrapper_tag ? @template.content_tag(item_wrapper_tag, rendered_item) : rendered_item
         end.join.html_safe
 
-        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection) : rendered_collection
+        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection, collection_wrapper_tag_options) : rendered_collection
       end
 
       def value_for_collection(item, value) #:nodoc:
