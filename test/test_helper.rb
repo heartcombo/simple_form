@@ -58,6 +58,7 @@ class ActionView::TestCase
       :description => 'Hello!',
       :created_at => Time.now,
       :age => 19,
+      :amount => 15,
       :company => 1
     }.merge(options))
 

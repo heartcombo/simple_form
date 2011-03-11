@@ -40,7 +40,8 @@ class User
 
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :description, :created_at, :updated_at,
     :credit_limit, :age, :password, :delivery_time, :born_at, :special_company_id, :country, :url, :tag_ids,
-    :avatar, :home_picture, :email, :status, :residence_country, :phone_number, :post_count, :lock_version
+    :avatar, :home_picture, :email, :status, :residence_country, :phone_number, :post_count, :lock_version,
+    :amount
 
   def initialize(options={})
     options.each do |key, value|
@@ -72,6 +73,7 @@ class User
       when :updated_at    then :timestamp
       when :lock_version  then :integer
       when :home_picture  then :string
+      when :amount        then :integer
     end
     Column.new(attribute, column_type, limit)
   end
@@ -124,6 +126,18 @@ class ValidatingUser < User
     :greater_than_or_equal_to => 18,
     :less_than_or_equal_to => 99,
     :only_integer => true
+  validates_numericality_of :amount,
+    :greater_than => :min_amount,
+    :less_than => :max_amount,
+    :only_integer => true
+
+  def min_amount
+    10
+  end
+
+  def max_amount
+    100
+  end
 end
 
 class OtherValidatingUser < User
@@ -131,5 +145,9 @@ class OtherValidatingUser < User
   validates_numericality_of :age,
     :greater_than => 17,
     :less_than => 100,
+    :only_integer => true
+  validates_numericality_of :amount,
+    :greater_than => Proc.new { |user| user.age },
+    :less_than => Proc.new { |user| user.age + 100},
     :only_integer => true
 end
