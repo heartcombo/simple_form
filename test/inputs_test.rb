@@ -204,12 +204,44 @@ class InputTest < ActionView::TestCase
     assert_select 'input[min=18]'
   end
 
+  test 'input should infer min value from integer attributes with greater than validation using symbol' do
+    with_input_for @validating_user, :amount, :float
+    assert_no_select 'input[min]'
+
+    with_input_for @validating_user, :amount, :integer
+    assert_select 'input[min=11]'
+  end
+
+  test 'input should infer min value from integer attributes with greater than validation using proc' do
+    with_input_for @other_validating_user, :amount, :float
+    assert_no_select 'input[min]'
+
+    with_input_for @other_validating_user, :amount, :integer
+    assert_select 'input[min=20]'
+  end
+
   test 'input should infer max value from attributes with less than validation' do
     with_input_for @other_validating_user, :age, :float
     assert_no_select 'input[max]'
 
     with_input_for @other_validating_user, :age, :integer
     assert_select 'input[max=99]'
+  end
+
+  test 'input should infer max value from attributes with less than validation using symbol' do
+    with_input_for @validating_user, :amount, :float
+    assert_no_select 'input[max]'
+
+    with_input_for @validating_user, :amount, :integer
+    assert_select 'input[max=99]'
+  end
+
+  test 'input should infer max value from attributes with less than validation using proc' do
+    with_input_for @other_validating_user, :amount, :float
+    assert_no_select 'input[max]'
+
+    with_input_for @other_validating_user, :amount, :integer
+    assert_select 'input[max=118]'
   end
 
   test 'input should infer step value only from integer attribute' do
