@@ -35,7 +35,7 @@ module SimpleForm
 
       def minimum_value(validator_options)
         if integer? && validator_options.key?(:greater_than)
-          sanitize_validator_option(validator_options[:greater_than]) + 1
+          evaluate_validator_option(validator_options[:greater_than]) + 1
         else
           validator_options[:greater_than_or_equal_to]
         end
@@ -43,7 +43,7 @@ module SimpleForm
 
       def maximum_value(validator_options)
         if integer? && validator_options.key?(:less_than)
-          sanitize_validator_option(validator_options[:less_than]) - 1
+          evaluate_validator_option(validator_options[:less_than]) - 1
         else
           validator_options[:less_than_or_equal_to]
         end
@@ -55,7 +55,7 @@ module SimpleForm
 
       private
 
-      def sanitize_validator_option(option)
+      def evaluate_validator_option(option)
         return option if option.is_a?(Numeric)
         return object.send(option) if option.is_a?(Symbol)
         return option.call(object) if option.respond_to?(:call)
