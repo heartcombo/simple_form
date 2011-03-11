@@ -664,9 +664,16 @@ class InputTest < ActionView::TestCase
     assert_no_select 'select[required]'
   end
   
-  test 'collection input with wrapper should accept html options' do
-    with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos'], :collection_wrapper_tag => :ul, :item_wrapper_tag => :li, :collection_wrapper_html => {:class => 'foo', :id => 'bar'}
-    assert_select 'ul.foo#bar'
+  test 'collection input with collection_wrapper_tag set in config should be able to be removed by passing false' do
+    SimpleForm.collection_wrapper_tag = :ul
+    with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos'], :collection_wrapper_tag => false
+    assert_no_select 'ul'
+  end
+  
+  test 'collection input with item_wrapper_tag set in config should be able to be removed by passing false' do
+    SimpleForm.item_wrapper_tag = :li
+    with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos'], :item_wrapper_tag => false
+    assert_no_select 'li'
   end
 
   # With no object
