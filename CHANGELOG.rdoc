@@ -9,6 +9,7 @@
 
 * bug fix
   * Fix for file attributes automatic detection, to work with virtual attributes
+  * Fix for numeric fields validation options using symbols and procs
 
 == 1.3.1
 
