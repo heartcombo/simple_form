@@ -212,12 +212,28 @@ class InputTest < ActionView::TestCase
     assert_select 'input[min=11]'
   end
 
+  test 'input should infer min value from integer attributes with greater than or equal to validation using symbol' do
+    with_input_for @validating_user, :attempts, :float
+    assert_select 'input[min=1]'
+
+    with_input_for @validating_user, :attempts, :integer
+    assert_select 'input[min=1]'
+  end
+
   test 'input should infer min value from integer attributes with greater than validation using proc' do
     with_input_for @other_validating_user, :amount, :float
     assert_no_select 'input[min]'
 
     with_input_for @other_validating_user, :amount, :integer
     assert_select 'input[min=20]'
+  end
+
+  test 'input should infer min value from integer attributes with greater than or equal to validation using proc' do
+    with_input_for @other_validating_user, :attempts, :float
+    assert_select 'input[min=19]'
+
+    with_input_for @other_validating_user, :attempts, :integer
+    assert_select 'input[min=19]'
   end
 
   test 'input should infer max value from attributes with less than validation' do
@@ -236,12 +252,28 @@ class InputTest < ActionView::TestCase
     assert_select 'input[max=99]'
   end
 
+  test 'input should infer max value from attributes with less than or equal to validation using symbol' do
+    with_input_for @validating_user, :attempts, :float
+    assert_select 'input[max=100]'
+
+    with_input_for @validating_user, :attempts, :integer
+    assert_select 'input[max=100]'
+  end
+
   test 'input should infer max value from attributes with less than validation using proc' do
     with_input_for @other_validating_user, :amount, :float
     assert_no_select 'input[max]'
 
     with_input_for @other_validating_user, :amount, :integer
     assert_select 'input[max=118]'
+  end
+
+  test 'input should infer max value from attributes with less than or equal to validation using proc' do
+    with_input_for @other_validating_user, :attempts, :float
+    assert_select 'input[max=119]'
+
+    with_input_for @other_validating_user, :attempts, :integer
+    assert_select 'input[max=119]'
   end
 
   test 'input should infer step value only from integer attribute' do

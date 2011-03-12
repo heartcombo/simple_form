@@ -37,7 +37,7 @@ module SimpleForm
         if integer? && validator_options.key?(:greater_than)
           evaluate_validator_option(validator_options[:greater_than]) + 1
         else
-          validator_options[:greater_than_or_equal_to]
+          evaluate_validator_option(validator_options[:greater_than_or_equal_to])
         end
       end
 
@@ -45,7 +45,7 @@ module SimpleForm
         if integer? && validator_options.key?(:less_than)
           evaluate_validator_option(validator_options[:less_than]) - 1
         else
-          validator_options[:less_than_or_equal_to]
+          evaluate_validator_option(validator_options[:less_than_or_equal_to])
         end
       end
 
