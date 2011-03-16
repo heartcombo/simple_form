@@ -6,6 +6,7 @@
   * Use the given custom builder with simple_fields_for (by github.com/giniedp)
   * Add slim form generator (by github.com/fagiani)
   * Add form_class configuration option (by github.com/fagiani)
+  * Default step of "any" for number input with non integer attributes (by github.com/fedesoria)
 
 * bug fix
   * Fix for file attributes automatic detection, to work with virtual attributes
