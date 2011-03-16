@@ -4,7 +4,7 @@ module SimpleForm
       def input
         input_html_options[:type] ||= "number"
         input_html_options[:size] ||= SimpleForm.default_input_size
-        input_html_options[:step] ||= 1 if integer?
+        input_html_options[:step] ||= integer? ? 1 : "any"
         infer_attributes_from_validations!
         @builder.text_field(attribute_name, input_html_options)
       end
