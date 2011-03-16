@@ -276,9 +276,9 @@ class InputTest < ActionView::TestCase
     assert_select 'input[max=119]'
   end
 
-  test 'input should infer step value only from integer attribute' do
+  test 'input should have step value of any except for integer attribute' do
     with_input_for @validating_user, :age, :float
-    assert_no_select 'input[step]'
+    assert_select 'input[step="any"]'
 
     with_input_for @validating_user, :age, :integer
     assert_select 'input[step=1]'
