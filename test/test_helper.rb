@@ -49,8 +49,7 @@ class ActionView::TestCase
       :id => 1,
       :name => 'New in Simple Form!',
       :description => 'Hello!',
-      :created_at => Time.now,
-      :password => 'not_a_real_password'
+      :created_at => Time.now
     }.merge(options))
 
     @validating_user = ValidatingUser.new({

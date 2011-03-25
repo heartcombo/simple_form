@@ -129,9 +129,9 @@ class InputTest < ActionView::TestCase
     assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!][type=text]'
   end
 
-  test 'input should map password field to password attribute' do
+  test 'input should generate a password field for password attributes' do
     with_input_for @user, :password, :password
-    assert_select 'input[name=\'user[password]\'][id=user_password][value=not_a_real_password][type=password]'
+    assert_select 'input[type=password].password[name=\'user[password]\']#user_password'
   end
 
   test 'input should use default text size for decimal attributes' do
@@ -167,6 +167,11 @@ class InputTest < ActionView::TestCase
   test 'input should accept the placeholder option' do
     with_input_for @user, :name, :string, :placeholder => 'Put in some text'
     assert_select 'input.string[placeholder=Put in some text]'
+  end
+
+  test 'input should generate a password field for password attributes that accept placeholder' do
+    with_input_for @user, :password, :password, :placeholder => 'Password Confirmation'
+    assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
   end
 
   test 'input should use i18n to translate placeholder text' do
@@ -346,16 +351,6 @@ class InputTest < ActionView::TestCase
   test 'input should generate a text area for text attributes that accept placeholder' do
     with_input_for @user, :description, :text, :placeholder => 'Put in some text'
     assert_select 'textarea.text[placeholder=Put in some text]'
-  end
-
-  test 'input should generate a password field for password attributes' do
-    with_input_for @user, :password, :password
-    assert_select 'input[type=password].password#user_password'
-  end
-
-  test 'input should generate a password field for password attributes that accept placeholder' do
-    with_input_for @user, :password, :password, :placeholder => 'Password Confirmation'
-    assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
   end
 
   test 'input should generate a file field' do
