@@ -70,6 +70,14 @@ module SimpleForm
   # You can define the class to use on all wrappers. Default is input.
   mattr_accessor :wrapper_class
   @@wrapper_class = :input
+  
+  # You can wrap the actual inputs in a pre-defined tag. Default is nothing.
+  mattr_accessor :input_wrapper_tag
+  @@input_wrapper_tag = nil
+  
+  # You can define the class to use on the wrapper around the actual inputs. Default is input_field.
+  mattr_accessor :input_wrapper_class
+  @@input_wrapper_class = :input_field
 
   # You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
   mattr_accessor :wrapper_error_class

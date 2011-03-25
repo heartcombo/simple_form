@@ -376,6 +376,27 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :name
     assert_select 'form div.input.required.string.field_with_errors'
   end
+  
+  test 'builder support wrapping inputs with a specific tag' do
+    swap SimpleForm, :input_wrapper_tag => :div do
+      with_form_for @user, :name
+      assert_select 'form div.input div>input#user_name.string'
+    end
+  end
+  
+  test 'builder inputs wrapper tag adds default css class' do
+    swap SimpleForm, :input_wrapper_tag => :div do
+      with_form_for @user, :name
+      assert_select 'form div.input div.input_field>input#user_name.string'
+    end
+  end
+  
+  test 'builder inputs wrapper tag css class can be set via config' do
+    swap SimpleForm, :input_wrapper_tag => :div, :input_wrapper_class => 'foo' do
+      with_form_for @user, :name
+      assert_select 'form div.input div.foo>input#user_name.string'
+    end
+  end
 
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
