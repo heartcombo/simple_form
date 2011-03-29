@@ -36,10 +36,22 @@ module MiscHelpers
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end
+
+  def custom_mapping_form_for(object, *args, &block)
+    simple_form_for(object, *(args << { :builder => CustomMapTypeFormBuilder }), &block)
+  end
+  
+  def with_concat_custom_mapping_form_for(object, &block)
+    concat custom_mapping_form_for(object, &block)
+  end
 end
 
 class CustomFormBuilder < SimpleForm::FormBuilder
   def input(attribute_name, *args, &block)
     super(attribute_name, *(args << { :input_html => { :class => 'custom' } }), &block)
   end
+end
+
+class CustomMapTypeFormBuilder < SimpleForm::FormBuilder
+  map_type :custom_type, :to => SimpleForm::Inputs::StringInput
 end

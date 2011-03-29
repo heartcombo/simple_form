@@ -1,11 +1,6 @@
 require 'test_helper'
 
-class BuilderTest < ActionView::TestCase
-
-  def with_concat_form_for(object, &block)
-    concat form_for(object, &block)
-  end
-
+class BuilderTest < ActionView::TestCase    
   def with_custom_form_for(object, *args, &block)
     with_concat_custom_form_for(object) do |f|
       assert f.instance_of?(CustomFormBuilder)
@@ -24,7 +19,7 @@ class BuilderTest < ActionView::TestCase
       f.collection_check_boxes attribute, collection, value_method, text_method, options, html_options
     end
   end
-
+  
   # COLLECTION RADIO
   test 'collection radio accepts a collection and generate inputs from value method' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
@@ -296,4 +291,22 @@ class BuilderTest < ActionView::TestCase
       end
     end
   end
+
+  test 'form with CustomMapTypeFormBuilder should use custom map type builder' do
+    with_concat_custom_mapping_form_for(:user) do |user|
+      assert user.instance_of?(CustomMapTypeFormBuilder)
+    end
+  end
+  
+  test 'form with CustomMapTypeFormBuilder should use custom mapping' do
+    with_concat_custom_mapping_form_for(:user) do |user|
+      assert_equal SimpleForm::Inputs::StringInput, user.class.mappings[:custom_type]
+    end
+  end
+  
+  test 'form without CustomMapTypeFormBuilder should not use custom mapping' do
+    with_concat_form_for(:user) do |user|
+      assert_equal nil, user.class.mappings[:custom_type]
+    end
+  end  
 end
