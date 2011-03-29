@@ -38,6 +38,7 @@ module SimpleForm
 
       # Check if :include_blank must be included by default.
       def skip_include_blank?
+        SimpleForm.include_blank_for_select_by_default == false ||
         (options.keys & [:prompt, :include_blank, :default, :selected]).any? ||
           options[:input_html].try(:[], :multiple)
       end

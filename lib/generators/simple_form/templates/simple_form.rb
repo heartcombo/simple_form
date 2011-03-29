@@ -80,4 +80,8 @@ SimpleForm.setup do |config|
 
   # When false, do not use translations for labels, hints or placeholders.
   # config.translate = true
+
+ # Should select fields have a blank option/prompt by default?
+ # Defaults to true.
+ # config.include_blank_for_select_by_default = true
 end

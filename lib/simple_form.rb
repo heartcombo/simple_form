@@ -118,6 +118,11 @@ module SimpleForm
   mattr_accessor :translate
   @@translate = true
 
+  # Should select fields have a blank option/prompt by default?
+  # Defaults to true.
+  mattr_accessor :include_blank_for_select_by_default
+  @@include_blank_for_select_by_default = true
+
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
