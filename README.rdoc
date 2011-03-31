@@ -377,7 +377,8 @@ You can create a custom form builder that uses SimpleForm.
 Create a helper method that calls simple_form_for with a custom builder:
 
   def custom_form_for(object, *args, &block)
-    simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
+    options = args.extract_options!
+    simple_form_for(object, *(args << options.merge(:builder => CustomFormBuilder)), &block)
   end
 
 Create a form builder class that inherits from SimpleForm::FormBuilder.
@@ -396,3 +397,4 @@ Create a form builder class that inherits from SimpleForm::FormBuilder.
 == License
 
 MIT License. Copyright 2010 Plataforma Tecnologia. http://blog.plataformatec.com.br
+
