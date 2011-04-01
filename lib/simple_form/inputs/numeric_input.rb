@@ -2,10 +2,10 @@ module SimpleForm
   module Inputs
     class NumericInput < Base
       def input
-        input_html_options[:type] ||= "number"
+        input_html_options[:type] ||= "number" if SimpleForm.use_html5
         input_html_options[:size] ||= SimpleForm.default_input_size
-        input_html_options[:step] ||= integer? ? 1 : "any"
-        infer_attributes_from_validations!
+        input_html_options[:step] ||= integer? ? 1 : "any" if SimpleForm.use_html5
+        infer_attributes_from_validations! if SimpleForm.use_html5
         @builder.text_field(attribute_name, input_html_options)
       end
 
@@ -16,7 +16,7 @@ module SimpleForm
     protected
 
       def has_placeholder?
-        placeholder_present?
+        SimpleForm.use_html5 && placeholder_present?
       end
 
       def infer_attributes_from_validations!

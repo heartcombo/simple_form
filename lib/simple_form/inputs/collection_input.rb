@@ -32,7 +32,7 @@ module SimpleForm
 
       # Select components does not allow the required html tag.
       def has_required?
-        super && input_type != :select
+        super && input_type != :select && SimpleForm.use_html5
       end
 
       # Check if :include_blank must be included by default.
