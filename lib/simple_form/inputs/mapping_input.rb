@@ -14,7 +14,7 @@ module SimpleForm
     private
 
       def has_placeholder?
-        (text? || password?) && placeholder_present?
+        (text? || password?) && placeholder_present? && SimpleForm.use_html5
       end
 
       def password?

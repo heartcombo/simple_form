@@ -364,6 +364,22 @@ It's also possible to translate buttons, using Rails' built-in I18n support:
 
 There are other options that can be configured through I18n API, such as required text and boolean. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
 
+== HTML 5 Notice
+
+By default, simple_form will generate input field types and attributes that are supported in HTML5, but are considered
+invalid HTML for older document types HTML4 or XHTML1.0. The HTML5 extensions include the new field types such as email, number, search, url,
+tel, and the new attributes such as required, autofocus, maxlength, min, max, step.
+
+Most browsers will not care, but some of the newer ones, in particular Chrome 10, uses the required
+attribute to force an input into a field and will prevent form submission without it. Depending on the design of
+the site this may or may not be desired. In many cases it can break existing UI's.
+
+The following configuration option permits disabling all HTML5 extensions:
+
+   SimpleForm.use_html5 = false  # default is true
+
+You can do this in the configuration block, generated in the following section.
+
 == Configuration
 
 SimpleForm has several configuration values. You can read and change them in the initializer created by SimpleForm, so if you haven't executed the command below yet, please do:

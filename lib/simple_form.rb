@@ -118,6 +118,12 @@ module SimpleForm
   mattr_accessor :translate
   @@translate = true
 
+  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes (e.g. required) are used
+  # or not. True by default.
+  # Having this on in non-HTML5 compliant sites can cause odd behavior in HTML5-aware browsers such as Chrome.
+  mattr_accessor :use_html5
+  @@use_html5 = true
+
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
