@@ -13,6 +13,18 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form.simple_form'
   end
 
+  test 'simple form should not use default browser validations if specified in the configuration options' do
+    SimpleForm.disable_browser_validations = true
+    concat(simple_form_for(:user) do |f| end)
+    assert_select 'form[novalidate="novalidate"]'
+  end
+
+  test 'simple form should use default browser validations by default' do
+    SimpleForm.disable_browser_validations = false
+    concat(simple_form_for(:user) do |f| end)
+    assert_select 'form[novalidate="novalidate"]', false
+  end
+
   test 'simple form should add object name as css class to form when object is not present' do
     concat(simple_form_for(:user) do |f| end)
     assert_select 'form.simple_form.user'

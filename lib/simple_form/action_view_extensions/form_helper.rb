@@ -40,6 +40,7 @@ module SimpleForm
               else dom_class(record_or_name_or_array)
             end
             options[:html] ||= {}
+            options[:html][:novalidate] = SimpleForm.disable_browser_validations
             options[:html][:class] = "\#{SimpleForm.form_class} \#{css_class} \#{options[:html][:class]}".strip
 
             with_custom_field_error_proc do
