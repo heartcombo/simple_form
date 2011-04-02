@@ -11,6 +11,11 @@ module SimpleForm
   autoload :Inputs,            'simple_form/inputs'
   autoload :MapType,           'simple_form/map_type'
 
+
+  # Allow browsers to use default validations.
+  mattr_accessor :disable_browser_validations
+  @@disable_browser_validations = false
+
   # Default tag used on hints.
   mattr_accessor :hint_tag
   @@hint_tag = :span
