@@ -126,12 +126,12 @@ class InputTest < ActionView::TestCase
   # StringInput
   test 'input should map text field to string attribute' do
     with_input_for @user, :name, :string
-    assert_select 'input[name=\'user[name]\'][id=user_name][value=New in Simple Form!][type=text]'
+    assert_select "input#user_name[type=text][name='user[name]'][value=New in Simple Form!]"
   end
 
   test 'input should generate a password field for password attributes' do
     with_input_for @user, :password, :password
-    assert_select 'input[type=password].password[name=\'user[password]\']#user_password'
+    assert_select "input#user_password.password[type=password][name='user[password]']"
   end
 
   test 'input should use default text size for decimal attributes' do
@@ -151,12 +151,12 @@ class InputTest < ActionView::TestCase
 
   test 'input should use default text size for password attributes' do
     with_input_for @user, :password, :password
-    assert_select 'input[type=password].password[size=50]'
+    assert_select 'input.password[type=password][size=50]'
   end
 
   test 'input should get maxlength from column definition for password attributes' do
     with_input_for @user, :password, :password
-    assert_select 'input[type=password].password[maxlength=100]'
+    assert_select 'input.password[type=password][maxlength=100]'
   end
 
   test 'input should not generate placeholder by default' do
