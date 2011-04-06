@@ -246,7 +246,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form ul input[type=checkbox][value=false]#user_active_false'
   end
 
-  test 'collection check box wrap the collection by default' do
+  test 'collection check box does not wrap the collection by default' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
     assert_no_select 'form ul'
