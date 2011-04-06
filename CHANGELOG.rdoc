@@ -14,6 +14,7 @@
   * Fix for numeric fields validation options using symbols and procs
   * Fix password attributes to add size and maxlength options the same way as string (by github.com/fedesoria)
   * Fix bug with custom form builders and new mappings being added to the superclass builder (by github.com/rdvdijk)
+  * Fix HTML validation issue with collection_check_boxes
 
 == 1.3.1
 
