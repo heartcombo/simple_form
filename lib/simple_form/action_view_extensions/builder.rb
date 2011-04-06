@@ -39,8 +39,8 @@ module SimpleForm
         render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
-          radio = radio_button(attribute, value, default_html_options)
-          collection_label(attribute, value, radio, text, :class => "collection_radio")
+          radio_button(attribute, value, default_html_options) +
+            label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio")
         end
       end
 
@@ -83,8 +83,8 @@ module SimpleForm
         ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
 
-          check_box = check_box(attribute, default_html_options, value, '')
-          collection_label(attribute, value, check_box, text, :class => "collection_check_boxes")
+          check_box(attribute, default_html_options, value, '') +
+            label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
         end
       end
 
@@ -108,11 +108,6 @@ module SimpleForm
       end
 
     private
-
-      # Wraps the given component in a label, for better accessibility with collections.
-      def collection_label(attribute, value, component_tag, label_text, html_options) #:nodoc:
-        label(sanitize_attribute_name(attribute, value), component_tag << label_text.to_s, html_options)
-      end
 
       # Generate default options for collection helpers, such as :checked and
       # :disabled.

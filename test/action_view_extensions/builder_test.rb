@@ -118,10 +118,17 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form li input[type=radio][value=false]#user_active_false'
   end
 
-  test 'collection radio does not wrap items by default' do
+  test 'collection radio wrap items in a div tag by default' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
-    assert_no_select 'form li'
+    assert_select 'form div input[type=radio][value=true]#user_active_true + label'
+    assert_select 'form div input[type=radio][value=false]#user_active_false + label'
+  end
+
+  test 'collection radio does not wrap input inside the label' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+
+    assert_no_select 'form label input[type=radio][value=true]#user_active_true'
   end
 
   # COLLECTION CHECK BOX
@@ -239,7 +246,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form ul input[type=checkbox][value=false]#user_active_false'
   end
 
-  test 'collection check box does not wrap the collection by default' do
+  test 'collection check box wrap the collection by default' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
     assert_no_select 'form ul'
@@ -261,10 +268,17 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form li input[type=checkbox][value=false]#user_active_false'
   end
 
-  test 'collection check box does not wrap items by default' do
+  test 'collection check box wrap items in a div by default' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
-    assert_no_select 'form li'
+    assert_select 'form div input[type=checkbox][value=true]#user_active_true + label'
+    assert_select 'form div input[type=checkbox][value=false]#user_active_false + label'
+  end
+
+  test 'collection check box does not wrap input inside the label' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+
+    assert_no_select 'form label input[type=checkbox][value=true]#user_active_truel'
   end
 
   # SIMPLE FIELDS
