@@ -61,7 +61,7 @@ module SimpleForm
 
   # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
   mattr_accessor :item_wrapper_tag
-  @@item_wrapper_tag = :div
+  @@item_wrapper_tag = :span
 
   # You can wrap all inputs in a pre-defined tag. Default is a div.
   mattr_accessor :wrapper_tag

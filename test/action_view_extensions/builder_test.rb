@@ -118,17 +118,17 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form li input[type=radio][value=false]#user_active_false'
   end
 
-  test 'collection radio wrap items in a div tag by default' do
+  test 'collection radio wrap items in a span tag by default' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form div input[type=radio][value=true]#user_active_true + label'
-    assert_select 'form div input[type=radio][value=false]#user_active_false + label'
+    assert_select 'form span input[type=radio][value=true]#user_active_true + label'
+    assert_select 'form span input[type=radio][value=false]#user_active_false + label'
   end
 
   test 'collection radio does not wrap input inside the label' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
-    assert_no_select 'form label input[type=radio][value=true]#user_active_true'
+    assert_no_select 'form label input'
   end
 
   # COLLECTION CHECK BOX
@@ -268,17 +268,17 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form li input[type=checkbox][value=false]#user_active_false'
   end
 
-  test 'collection check box wrap items in a div by default' do
+  test 'collection check box wrap items in a span tag by default' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form div input[type=checkbox][value=true]#user_active_true + label'
-    assert_select 'form div input[type=checkbox][value=false]#user_active_false + label'
+    assert_select 'form span input[type=checkbox][value=true]#user_active_true + label'
+    assert_select 'form span input[type=checkbox][value=false]#user_active_false + label'
   end
 
   test 'collection check box does not wrap input inside the label' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
-    assert_no_select 'form label input[type=checkbox][value=true]#user_active_truel'
+    assert_no_select 'form label input'
   end
 
   # SIMPLE FIELDS
