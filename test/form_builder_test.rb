@@ -626,4 +626,22 @@ class FormBuilderTest < ActionView::TestCase
     with_custom_form_for @user, :email
     assert_select 'form input[type=email]#user_email.custom'
   end
+
+  test 'form with CustomMapTypeFormBuilder should use custom map type builder' do
+    with_concat_custom_mapping_form_for(:user) do |user|
+      assert user.instance_of?(CustomMapTypeFormBuilder)
+    end
+  end
+
+  test 'form with CustomMapTypeFormBuilder should use custom mapping' do
+    with_concat_custom_mapping_form_for(:user) do |user|
+      assert_equal SimpleForm::Inputs::StringInput, user.class.mappings[:custom_type]
+    end
+  end
+
+  test 'form without CustomMapTypeFormBuilder should not use custom mapping' do
+    with_concat_form_for(:user) do |user|
+      assert_nil user.class.mappings[:custom_type]
+    end
+  end
 end
