@@ -4,9 +4,6 @@ SimpleForm.setup do |config|
   # any of them, change the order, or even add your own components to the stack.
   # config.components = [ :placeholder, :label_input, :hint, :error ]
 
-  # Allow browsers to use default validations.
-  # config.disable_browser_validations = false
-
   # Default tag used on hints.
   # config.hint_tag = :span
 
@@ -63,6 +60,9 @@ SimpleForm.setup do |config|
 
   # Whether attributes are required by default (or not). Default is true.
   # config.required_by_default = true
+
+  # Tell browsers whether to use default HTML5 validations (novalidate option). Default is enabled.
+  # config.disable_browser_validations = false
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
