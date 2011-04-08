@@ -95,6 +95,12 @@ module SimpleForm
   mattr_accessor :disable_browser_validations
   @@disable_browser_validations = false
 
+  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes (e.g. required) are used
+  # or not. True by default.
+  # Having this on in non-HTML5 compliant sites can cause odd behavior in HTML5-aware browsers such as Chrome.
+  mattr_accessor :use_html5
+  @@use_html5 = true
+
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
   @@file_methods = [ :mounted_as, :file?, :public_filename ]
@@ -121,12 +127,6 @@ module SimpleForm
   # It is a small performance improvement if you are not using such features.
   mattr_accessor :translate
   @@translate = true
-
-  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes (e.g. required) are used
-  # or not. True by default.
-  # Having this on in non-HTML5 compliant sites can cause odd behavior in HTML5-aware browsers such as Chrome.
-  mattr_accessor :use_html5
-  @@use_html5 = true
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
