@@ -376,7 +376,11 @@ the site this may or may not be desired. In many cases it can break existing UI'
 
 The following configuration option permits disabling all HTML5 extensions:
 
-   SimpleForm.use_html5 = false  # default is true
+  SimpleForm.use_html5 = false  # default is true
+
+Or you can use the following configuration to disable only the browser validation:
+
+  SimpleForm.disable_browser_validations = true  # default is false
 
 You can do this in the configuration block, generated in the following section.
 
