@@ -27,7 +27,7 @@ module SimpleForm
       end
 
       def has_placeholder?
-        placeholder_present? && SimpleForm.use_html5
+        placeholder_present?
       end
 
       def string?

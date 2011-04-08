@@ -197,19 +197,6 @@ class InputTest < ActionView::TestCase
     end
   end
 
-  test 'when not using HTML5, input should not show placeholder attribute' do
-    SimpleForm.use_html5 = false
-
-    store_translations(:en, :simple_form => { :placeholders => { :user => {
-      :name => 'Name goes here'
-    } } }) do
-      with_input_for @user, :name, :string
-      assert_no_select 'input.string[placeholder]'
-    end
-
-    SimpleForm.use_html5 = true
-  end
-
   [:email, :url, :search, :tel].each do |type|
     test "input should allow type #{type}" do
       with_input_for @user, :name, type
@@ -376,13 +363,6 @@ class InputTest < ActionView::TestCase
     SimpleForm.use_html5 = true
   end
 
-  test 'when not using HTML5 input should not use placeholder attribute' do
-    SimpleForm.use_html5 = false
-    with_input_for @user, :age, :integer, :placeholder => "Please enter"
-    assert_no_select "input[placeholder]"
-    SimpleForm.use_html5 = true
-  end
-
   [:integer, :float, :decimal].each do |type|
     test "#{type} input should infer min value from attributes with greater than or equal validation" do
       with_input_for @validating_user, :age, type
@@ -411,13 +391,6 @@ class InputTest < ActionView::TestCase
   test 'input should generate a text area for text attributes that accept placeholder' do
     with_input_for @user, :description, :text, :placeholder => 'Put in some text'
     assert_select 'textarea.text[placeholder=Put in some text]'
-  end
-
-  test 'when not using HTML5 input should not generate placeholder attribute for text area' do
-    SimpleForm.use_html5 = false
-    with_input_for @user, :description, :text, :placeholder => 'Put in some text'
-    assert_no_select 'textarea.text[placeholder]'
-    SimpleForm.use_html5 = true
   end
 
   test 'input should generate a file field' do

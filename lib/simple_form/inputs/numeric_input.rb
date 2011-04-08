@@ -16,7 +16,7 @@ module SimpleForm
     protected
 
       def has_placeholder?
-        SimpleForm.use_html5 && placeholder_present?
+        placeholder_present?
       end
 
       def infer_attributes_from_validations!
