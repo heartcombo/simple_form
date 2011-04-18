@@ -40,8 +40,8 @@ SimpleForm.setup do |config|
   # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
   # config.collection_wrapper_tag = nil
 
-  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
-  # config.item_wrapper_tag = nil
+  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to span.
+  # config.item_wrapper_tag = :span
 
   # Series of attemps to detect a default label method for collection.
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
