@@ -388,6 +388,15 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select '.hint'
   end
 
+  test 'builder input_only should allow overriding default input type' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :name, :as => :text
+    end
+
+    assert_no_select 'input#user_name'
+    assert_select 'textarea#user_name.text'
+  end
+
   test 'builder should allow passing options to input tag' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, :id => 'name_input', :class => 'name'
@@ -398,10 +407,11 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should generate an input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
-      f.input_field :name
+      f.input_field :name, :as => :integer, :class => 'name'
     end
 
-    assert_no_select 'input.string[input_html]'
+    assert_no_select 'input.integer[input_html]'
+    assert_no_select 'input.integer[as]'
   end
 
   # WITHOUT OBJECT

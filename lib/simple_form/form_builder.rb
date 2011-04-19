@@ -106,8 +106,8 @@ module SimpleForm
     #        name="user[name]" size="100" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
-      options[:input_html] = options.dup
-      options.merge!({:components => [:input], :wrapper => false})
+      options[:input_html] = options.except(:as)
+      options.merge!(:components => [:input], :wrapper => false)
       input(attribute_name, options)
     end
 
