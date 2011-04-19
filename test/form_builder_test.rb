@@ -388,7 +388,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select '.hint'
   end
 
-  test 'builder should allow passign options to input tag' do
+  test 'builder should allow passing options to input tag' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, :id => 'name_input', :class => 'name'
     end
