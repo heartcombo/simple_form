@@ -9,6 +9,7 @@
   * Default step of "any" for number input with non integer attributes (by github.com/fedesoria)
   * Add option to disable HTML5 browser validations on all forms (by github.com/coryschires)
   * Add option to disable all HTML5 extensions (by github.com/wolframarnold)
+  * Add input_field helper to form builder (by github.com/jeroenhouben)
 
 * bug fix
   * Fix for file attributes automatic detection, to work with virtual attributes
