@@ -383,9 +383,9 @@ class FormBuilderTest < ActionView::TestCase
       f.input_only :name
     end
     assert_select 'form > input.required.string'
-    assert_select 'div.string', false
-    assert_select 'label', false
-    assert_select '.hint', false
+    assert_no_select 'div.string'
+    assert_no_select 'label'
+    assert_no_select '.hint'
   end
 
   # WITHOUT OBJECT
