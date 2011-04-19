@@ -127,17 +127,17 @@ SimpleForm accepts same options as their corresponding input type helper in Rail
     <%= f.button :submit %>
   <% end %>
 
-SimpleForm also allows you using label, hint and error helpers it provides:
+SimpleForm also allows you using label, hint, input_field and error helpers it provides:
 
   <%= simple_form_for @user do |f| %>
     <%= f.label :username %>
-    <%= f.text_field :username %>
+    <%= f.input_field :username %>
     <%= f.error :username, :id => 'user_name_error' %>
     <%= f.hint 'No special characters, please!' %>
     <%= f.submit 'Save' %>
   <% end %>
 
-Any extra option passed to label, hint or error will be rendered as html option.
+Any extra option passed to label, hint, input_field or error will be rendered as html option.
 
 === Collections
 
