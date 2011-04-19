@@ -90,6 +90,22 @@ module SimpleForm
       end
     end
     alias :attribute :input
+    
+    # Helper for outputting only the input tag, no wrapper, errors, label etc
+    #
+    # == Examples
+    #
+    #   simple_form_for @user do |f|
+    #     f.input_only :name
+    #   end
+    #
+    def input_only(attribute_name, options={})
+      options.merge!({:components => [:input], :wrapper => false})
+      column     = find_attribute_column(attribute_name)
+      input_type = default_input_type(attribute_name, column, options)
+      klass      = self.class.mappings[input_type] || self.class.const_get("#{input_type.to_s.camelize}Input")
+      klass.new(self, attribute_name, column, input_type, options).render
+    end
 
     # Helper for dealing with association selects/radios, generating the
     # collection automatically. It's just a wrapper to input, so all options

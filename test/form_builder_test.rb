@@ -377,6 +377,17 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form div.input.required.string.field_with_errors'
   end
 
+  # ONLY THE INPUT TAG
+  test "builder input_only should only render the input tag, nothing else" do
+    with_concat_form_for(@user) do |f|
+      f.input_only :name
+    end
+    assert_select 'form > input.required.string'
+    assert_select 'div.string', false
+    assert_select 'label', false
+    assert_select '.hint', false
+  end
+
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name
