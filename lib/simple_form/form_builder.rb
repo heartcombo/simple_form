@@ -91,13 +91,18 @@ module SimpleForm
     end
     alias :attribute :input
 
-    # Helper for outputting only the input tag, no wrapper, errors, label etc
+    # Creates a input tag for the given attribute.
     #
     # == Examples
     #
     #   simple_form_for @user do |f|
     #     f.input_field :name
     #   end
+    #
+    # This is the output html (only the input portion, not the form):
+    #
+    #     <input class="string required" id="user_name" maxlength="100"
+    #        name="user[name]" size="100" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
       options.merge!({:components => [:input], :wrapper => false})
