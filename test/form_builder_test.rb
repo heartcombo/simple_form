@@ -388,6 +388,22 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select '.hint'
   end
 
+  test 'builder should allow passign options to input tag' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :name, :id => 'name_input', :class => 'name'
+    end
+
+    assert_select 'input.string.name#name_input'
+  end
+
+  test 'builder should generate an input tag with a clean HTML' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :name
+    end
+
+    assert_no_select 'input.string[input_html]'
+  end
+
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name

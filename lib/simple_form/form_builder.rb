@@ -91,7 +91,8 @@ module SimpleForm
     end
     alias :attribute :input
 
-    # Creates a input tag for the given attribute.
+    # Creates a input tag for the given attribute. All the given options
+    # are sent as :input_html.
     #
     # == Examples
     #
@@ -105,6 +106,7 @@ module SimpleForm
     #        name="user[name]" size="100" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
+      options[:input_html] = options.dup
       options.merge!({:components => [:input], :wrapper => false})
       input(attribute_name, options)
     end
