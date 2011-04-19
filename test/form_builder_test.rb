@@ -380,7 +380,7 @@ class FormBuilderTest < ActionView::TestCase
   # ONLY THE INPUT TAG
   test "builder input_only should only render the input tag, nothing else" do
     with_concat_form_for(@user) do |f|
-      f.input_only :name
+      f.input_field :name
     end
     assert_select 'form > input.required.string'
     assert_no_select 'div.string'

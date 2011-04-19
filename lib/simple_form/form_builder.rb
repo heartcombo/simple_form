@@ -96,10 +96,10 @@ module SimpleForm
     # == Examples
     #
     #   simple_form_for @user do |f|
-    #     f.input_only :name
+    #     f.input_field :name
     #   end
     #
-    def input_only(attribute_name, options={})
+    def input_field(attribute_name, options={})
       options.merge!({:components => [:input], :wrapper => false})
       input(attribute_name, options)
     end
