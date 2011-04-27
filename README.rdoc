@@ -440,5 +440,5 @@ Create a form builder class that inherits from SimpleForm::FormBuilder.
 
 == License
 
-MIT License. Copyright 2010 Plataforma Tecnologia. http://blog.plataformatec.com.br
+MIT License. Copyright 2011 Plataforma Tecnologia. http://blog.plataformatec.com.br
 
