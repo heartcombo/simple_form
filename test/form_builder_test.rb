@@ -27,6 +27,12 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  def with_full_error_for(object, *args)
+    with_concat_form_for(object) do |f|
+      f.full_error(*args)
+    end
+  end
+
   def with_hint_for(object, *args)
     with_concat_form_for(object) do |f|
       f.hint(*args)
@@ -453,6 +459,22 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder should allow passing options to error tag' do
     with_error_for @user, :name, :id => 'name_error'
     assert_select 'span.error#name_error', "can't be blank"
+  end
+
+  # FULL ERRORS
+  test 'builder should generate an full error tag for the attribute' do
+    with_full_error_for @user, :name
+    assert_select 'span.error', "Super User Name! can't be blank"
+  end
+
+  test 'builder should generate an full  error tag with a clean HTML' do
+    with_full_error_for @user, :name
+    assert_no_select 'span.error[error_html]'
+  end
+
+  test 'builder should allow passing options to full error tag' do
+    with_full_error_for @user, :name, :id => 'name_error', :prefix => "Your name"
+    assert_select 'span.error#name_error', "Your name can't be blank"
   end
 
   # HINTS

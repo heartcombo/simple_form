@@ -11,6 +11,7 @@
   * Add option to disable all HTML5 extensions (by github.com/wolframarnold)
   * Add input_field helper to form builder (by github.com/jeroenhouben)
   * Allow inputs to be discovered on demand by placing them at app/inputs (a la formtastic)
+  * Add full_error on that shows the error with the attribute name
 
 * bug fix
   * Fix for file attributes automatic detection, to work with virtual attributes

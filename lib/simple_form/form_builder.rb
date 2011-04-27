@@ -204,6 +204,24 @@ module SimpleForm
       SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).error
     end
 
+    # Return the error but also considering its name. This is used
+    # when errors for a hidden field need to be shown.
+    #
+    # == Examples
+    #
+    #    f.full_error :token #=> <span class="error">Token is invalid</span>
+    #
+    def full_error(attribute_name, options={})
+      prefix = options.delete(:prefix) || if object.class.respond_to?(:human_attribute_name)
+        object.class.human_attribute_name(attribute_name.to_s)
+      else
+        attribute_name.to_s.humanize
+      end
+
+      options[:error_prefix] = prefix
+      error(attribute_name, options)
+    end
+
     # Creates a hint tag for the given attribute. Accepts a symbol indicating
     # an attribute for I18n lookup or a string. All the given options are sent
     # as :hint_html.
