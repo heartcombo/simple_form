@@ -349,8 +349,7 @@ module SimpleForm
     def mapping_override(klass) #:nodoc:
       name = klass.name
       if name =~ /^SimpleForm::Inputs/
-        attempt = "#{name.split("::").last}Input"
-        attempt_mapping attempt, Object
+        attempt_mapping name.split("::").last, Object
       end
     end
 
