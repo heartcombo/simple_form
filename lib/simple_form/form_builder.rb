@@ -13,6 +13,10 @@ module SimpleForm
     map_type :country, :time_zone,                            :to => SimpleForm::Inputs::PriorityInput
     map_type :boolean,                                        :to => SimpleForm::Inputs::BooleanInput
 
+    def self.discovery_cache
+      @discovery_cache ||= {}
+    end
+
     # Basic input helper, combines all components in the stack to generate
     # input html based on options the user define and some guesses through
     # database column information. By default a call to input will generate
@@ -85,8 +89,7 @@ module SimpleForm
       if block_given?
         SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
       else
-        klass = self.class.mappings[input_type] || self.class.const_get("#{input_type.to_s.camelize}Input")
-        klass.new(self, attribute_name, column, input_type, options).render
+        find_mapping(input_type).new(self, attribute_name, column, input_type, options).render
       end
     end
     alias :attribute :input
@@ -312,6 +315,52 @@ module SimpleForm
     def find_association_reflection(association) #:nodoc:
       if @object.class.respond_to?(:reflect_on_association)
         @object.class.reflect_on_association(association)
+      end
+    end
+
+    # Attempts to find a mapping. It follows the following rules:
+    #
+    # 1) It tries to find a registered mapping, if succeeds:
+    #    a) If a mapping is found, try to find an alternative as #{mapping}Input
+    #    b) Or use the found mapping
+    # 2) If not, fallbacks to #{input_type}Input
+    # 3) If not, fallbacks to SimpleForm::Inputs::#{input_type}
+    def find_mapping(input_type) #:nodoc:
+      discovery_cache[input_type] ||=
+        if mapping = self.class.mappings[input_type]
+          mapping_override(mapping) || mapping
+        else
+          camelized = "#{input_type.to_s.camelize}Input"
+          attempt_mapping(camelized, Object) || attempt_mapping(camelized, self.class) ||
+            raise("No input found for #{input_type}")
+        end
+    end
+
+    # If cache_discovery is enabled, use the class level cache that persists
+    # between requests, otherwise use the instance one.
+    def discovery_cache #:nodoc:
+      if SimpleForm.cache_discovery
+        self.class.discovery_cache
+      else
+        @discovery_cache ||= {}
+      end
+    end
+
+    def mapping_override(klass) #:nodoc:
+      name = klass.name
+      if name =~ /^SimpleForm::Inputs/
+        attempt = "#{name.split("::").last}Input"
+        attempt_mapping attempt, Object
+      end
+    end
+
+    def attempt_mapping(mapping, at) #:nodoc:
+      return if SimpleForm.inputs_discovery == false && at == Object
+
+      begin
+        at.const_get(mapping)
+      rescue NameError => e
+        e.message =~ /#{mapping}$/ ? nil : raise
       end
     end
   end

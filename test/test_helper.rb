@@ -13,6 +13,12 @@ require 'action_view/template'
 require 'active_support/core_ext/module/deprecation'
 require 'action_view/test_case'
 
+module Rails
+  def self.env
+    ActiveSupport::StringInquirer.new("test")
+  end
+end
+
 $:.unshift File.expand_path("../../lib", __FILE__)
 require 'simple_form'
 

@@ -128,6 +128,14 @@ module SimpleForm
   mattr_accessor :translate
   @@translate = true
 
+  # Automatically discover new inputs in Rails' autoload path.
+  mattr_accessor :inputs_discovery
+  @@inputs_discovery = true
+
+  # Cache simple form inputs discovery
+  mattr_accessor :cache_discovery
+  @@cache_discovery = !Rails.env.development?
+
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
