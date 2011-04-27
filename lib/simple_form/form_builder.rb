@@ -212,13 +212,12 @@ module SimpleForm
     #    f.full_error :token #=> <span class="error">Token is invalid</span>
     #
     def full_error(attribute_name, options={})
-      prefix = options.delete(:prefix) || if object.class.respond_to?(:human_attribute_name)
+      options[:error_prefix] ||= if object.class.respond_to?(:human_attribute_name)
         object.class.human_attribute_name(attribute_name.to_s)
       else
         attribute_name.to_s.humanize
       end
 
-      options[:error_prefix] = prefix
       error(attribute_name, options)
     end
 

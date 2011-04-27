@@ -473,7 +473,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should allow passing options to full error tag' do
-    with_full_error_for @user, :name, :id => 'name_error', :prefix => "Your name"
+    with_full_error_for @user, :name, :id => 'name_error', :error_prefix => "Your name"
     assert_select 'span.error#name_error', "Your name can't be blank"
   end
 
