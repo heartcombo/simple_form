@@ -302,6 +302,30 @@ SimpleForm comes with a lot of default mappings:
   country               country select          string with name matching "country"
   time_zone             time zone select        string with name matching "time_zone"
 
+== Custom inputs
+
+It is very easy to add custom inputs to SimpleForm. For instance, if you want to add a custom input that extends the string one, you just need to add this file:
+
+    # app/inputs/currency_input.rb
+    class CurrencyInput < SimpleForm::Inputs::StringInput
+      def input
+        "$ #{super}".html_safe
+      end
+    end
+
+And use it in your views:
+
+    f.input :money, :as => :currency
+
+You can also redefine existing SimpleForm inputs by creating a new class with the same name. For instance, if you want to wrap date/time/datetime in a div, you can do:
+
+    # app/inputs/date_time_input.rb
+    class DateTimeInput < SimpleForm::Inputs::DateTimeInput
+      def input
+        "<div>#{super}</div>".html_safe
+      end
+    end
+
 == I18n
 
 SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. To customize your forms you can create a locale file like this:
