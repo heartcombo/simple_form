@@ -339,7 +339,7 @@ module SimpleForm
     # Attempts to find a mapping. It follows the following rules:
     #
     # 1) It tries to find a registered mapping, if succeeds:
-    #    a) If a mapping is found, try to find an alternative as #{mapping}Input
+    #    a) Try to find an alternative with the same name in the Object scope
     #    b) Or use the found mapping
     # 2) If not, fallbacks to #{input_type}Input
     # 3) If not, fallbacks to SimpleForm::Inputs::#{input_type}
