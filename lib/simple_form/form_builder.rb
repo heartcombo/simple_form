@@ -156,7 +156,7 @@ module SimpleForm
         when :belongs_to
           reflection.options[:foreign_key] || :"#{reflection.name}_id"
         when :has_one
-          raise ":has_one association are not supported by f.association"
+          raise ":has_one associations are not supported by f.association"
         else
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
@@ -165,6 +165,12 @@ module SimpleForm
           end
 
           :"#{reflection.name.to_s.singularize}_ids"
+      end
+
+      # Force the association to be preloaded for performance.
+      if options[:preload] != false && object.respond_to?(association)
+        target = object.send(association)
+        target.to_a if target.respond_to?(:to_a)
       end
 
       input(attribute, options.merge(:reflection => reflection))

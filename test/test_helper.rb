@@ -66,7 +66,7 @@ class ActionView::TestCase
       :age => 19,
       :amount => 15,
       :attempts => 1,
-      :company => 1
+      :company => [1]
     }.merge(options))
 
     @other_validating_user = OtherValidatingUser.new({
