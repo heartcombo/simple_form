@@ -428,8 +428,9 @@ Create a helper method that calls simple_form_for with a custom builder:
 Create a form builder class that inherits from SimpleForm::FormBuilder.
 
   class CustomFormBuilder < SimpleForm::FormBuilder
-    def input(attribute_name, *args, &block)
-      super(attribute_name, *(args << { :input_html => { :class => 'custom' } }), &block)
+    def input(attribute_name, options = {}, &block)
+      options[:input_html].merge! :class => 'custom'
+      super
     end
   end
 
