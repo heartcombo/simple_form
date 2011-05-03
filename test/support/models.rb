@@ -61,6 +61,9 @@ class User
   def company_attributes=(*)
   end
 
+  def tags_attributes=(*)
+  end
+
   def column_for_attribute(attribute)
     column_type, limit = case attribute.to_sym
       when :name, :status, :password then [:string, 100]
