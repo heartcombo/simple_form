@@ -1,6 +1,6 @@
 module SimpleForm
   class ErrorNotification
-    delegate :object, :object_name, :template, :to => :@builder
+    delegate :object, :object_name, :template, :error, :to => :@builder
     include SimpleForm::HasErrors
 
     def initialize(builder, options)
@@ -11,7 +11,7 @@ module SimpleForm
 
     def render
       if has_errors?
-        template.content_tag(error_notification_tag, error_message, html_options)
+        template.content_tag(error_notification_tag, error_message, html_options) + error(:base)
       end
     end
 

@@ -25,6 +25,12 @@ class ErrorNotificationTest < ActionView::TestCase
     assert_select 'p.error_notification', 'Some errors were found, please take a look:'
   end
 
+  test "error notification prints message for error on :base" do
+    @validating_user.errors.add :base, "too many users"
+    with_error_notification_for @validating_user
+    assert_select 'span.error', "too many users"
+  end
+
   test 'error notification uses I18n based on model to generate the notification message' do
     store_translations(:en, :simple_form => { :error_notification => { :user =>
       'Alguns erros foram encontrados para o usuário:'
