@@ -347,7 +347,7 @@ module SimpleForm
     #    a) Try to find an alternative with the same name in the Object scope
     #    b) Or use the found mapping
     # 2) If not, fallbacks to #{input_type}Input
-    # 3) If not, fallbacks to SimpleForm::Inputs::#{input_type}
+    # 3) If not, fallbacks to SimpleForm::Inputs::#{input_type}Input
     def find_mapping(input_type) #:nodoc:
       discovery_cache[input_type] ||=
         if mapping = self.class.mappings[input_type]
