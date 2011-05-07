@@ -157,7 +157,7 @@ Collection inputs accepts two other options beside collections:
 
 * value_method => the value method to be applied to the collection to retrieve the value
 
-Those methods are useful to manipulate the given collection. Both of these options also except lambda/procs incase you want to calculate the value or label in a special way eg. custom translation. All other options given are sent straight to the underlying helper. For example, you can give prompt as:
+Those methods are useful to manipulate the given collection. Both of these options also except lambda/procs in case you want to calculate the value or label in a special way eg. custom translation. All other options given are sent straight to the underlying helper. For example, you can give prompt as:
 
   f.input :age, :collection => 18..60, :prompt => "Select your age"
 
