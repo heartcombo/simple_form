@@ -40,7 +40,7 @@ module MiscHelpers
   def custom_mapping_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomMapTypeFormBuilder }), &block)
   end
-  
+
   def with_concat_custom_mapping_form_for(object, &block)
     concat custom_mapping_form_for(object, &block)
   end
