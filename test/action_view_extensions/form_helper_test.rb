@@ -19,7 +19,7 @@ class FormHelperTest < ActionView::TestCase
   end
 
   test 'simple form should not use default browser validations if specified in the configuration options' do
-    swap SimpleForm, :disable_browser_validations => true do
+    swap SimpleForm, :browser_validations => false do
       concat(simple_form_for(:user) do |f| end)
       assert_select 'form[novalidate="novalidate"]'
     end
