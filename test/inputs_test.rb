@@ -98,10 +98,10 @@ class InputTest < ActionView::TestCase
   end
 
   test "when not using HTML5, it does not generate autofocus attribute" do
-    SimpleForm.html5 = false
-    with_input_for @user, :name, :string, :autofocus => true
-    assert_no_select 'input.string[autofocus]'
-    SimpleForm.html5 = true
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :name, :string, :autofocus => true
+      assert_no_select 'input.string[autofocus]'
+    end
   end
 
   test 'input should render components according to an optional :components option' do
@@ -167,10 +167,10 @@ class InputTest < ActionView::TestCase
   end
 
   test 'when not using HTML5, does not show maxlength attribute' do
-    SimpleForm.html5 = false
-    with_input_for @user, :password, :password
-    assert_no_select 'input[type=password][maxlength]'
-    SimpleForm.html5 = true
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :password, :password
+      assert_no_select 'input[type=password][maxlength]'
+    end
   end
 
   test 'input should not generate placeholder by default' do
@@ -205,10 +205,10 @@ class InputTest < ActionView::TestCase
     end
 
     test "input should not allow type #{type} if HTML5 compatibility is disabled" do
-      SimpleForm.html5 = false
-      with_input_for @user, :name, type
-      assert_no_select "input[type=#{type}]"
-      SimpleForm.html5 = true
+      swap SimpleForm, :html5 => false do
+        with_input_for @user, :name, type
+        assert_no_select "input[type=#{type}]"
+      end
     end
   end
 
@@ -347,20 +347,20 @@ class InputTest < ActionView::TestCase
 
   # Numeric input but HTML5 disabled
   test ' when not using HTML5 input should not generate field with type number and use text instead' do
-    SimpleForm.html5 = false
-    with_input_for @user, :age, :integer
-    assert_no_select "input[type=number]"
-    assert_no_select "input#user_age[text]"
-    SimpleForm.html5 = true
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :age, :integer
+      assert_no_select "input[type=number]"
+      assert_no_select "input#user_age[text]"
+    end
   end
 
   test 'when not using HTML5 input should not use min or max or step attributes' do
-    SimpleForm.html5 = false
-    with_input_for @validating_user, :age, :integer
-    assert_no_select "input[min]"
-    assert_no_select "input[max]"
-    assert_no_select "input[step]"
-    SimpleForm.html5 = true
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :age, :integer
+      assert_no_select "input[min]"
+      assert_no_select "input[max]"
+      assert_no_select "input[step]"
+    end
   end
 
   [:integer, :float, :decimal].each do |type|
@@ -773,11 +773,11 @@ class InputTest < ActionView::TestCase
   end
 
   test 'when not using HTML5, collection input with radio type should not generate required html attribute' do
-    SimpleForm.html5 = false
-    with_input_for @user, :name, :radio, :collection => ['Jose' , 'Carlos']
-    assert_select 'input[type=radio].required'
-    assert_no_select 'input[type=radio][required]'
-    SimpleForm.html5 = true
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :name, :radio, :collection => ['Jose' , 'Carlos']
+      assert_select 'input[type=radio].required'
+      assert_no_select 'input[type=radio][required]'
+    end
   end
 
   test 'collection input with select type should not generate invalid required html attribute' do
