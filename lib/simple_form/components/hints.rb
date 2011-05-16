@@ -11,6 +11,12 @@ module SimpleForm
 
       def hint_text
         @hint_text ||= options[:hint] || translate(:hints)
+        # options[:hint_html_safe] is true OR (options[:hint_html_safe] was not defined AND SimpleForm.hint_html_safe is true)
+        if options[:hint_html_safe] || (options[:hint_html_safe].nil? && SimpleForm.hint_html_safe)
+          @hint_text.try(:html_safe)
+        else
+          @hint_text
+        end
       end
 
       def hint_html_options

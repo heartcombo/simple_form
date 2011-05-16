@@ -71,4 +71,14 @@ class HintTest < ActionView::TestCase
     with_hint_for @user, :name, :string, :hint => 'Yay!', :hint_html => { :id => 'hint', :class => 'yay' }
     assert_select 'span#hint.hint.yay'
   end
+
+  test 'hint should be able to render HTML when hint_html_safe == true' do
+    with_hint_for @user, :name, :string, :hint => '<span id="inner_hint">Inside</span>', :hint_html_safe => true
+    assert_select 'span span#inner_hint'
+  end
+
+  test 'hint should not render HTML when hint_html_safe == false or nil' do
+    with_hint_for @user, :name, :string, :hint => '<span id="inner_hint">Inside</span>'
+    assert_no_select 'span span#inner_hint'
+  end
 end

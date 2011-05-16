@@ -411,6 +411,20 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'when SimpleForm.hint_html_safe = false but overriden by view options[:hint_html_safe] = true' do
+    swap SimpleForm, :hint_html_safe => false do
+      with_input_for @user, :name, :string, :hint => '<span id="inner_hint">Inner</span>', :hint_html_safe => true
+      assert_select 'span span#inner_hint'
+    end
+  end
+
+  test 'when SimpleForm.hint_html_safe = true and view options[:hint_html_safe] was not defined' do
+    swap SimpleForm, :hint_html_safe => true do
+      with_input_for @user, :name, :string, :hint => '<span id="inner_hint">Inner</span>'
+      assert_select 'span span#inner_hint'
+    end
+  end
+
   # HiddenInput
   test 'input should generate a hidden field' do
     with_input_for @user, :name, :hidden
