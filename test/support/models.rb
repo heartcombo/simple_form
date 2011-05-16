@@ -39,7 +39,7 @@ class User
   include ActiveModel::Conversion
 
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :description, :created_at, :updated_at,
-    :credit_limit, :age, :password, :delivery_time, :born_at, :special_company_id, :country, :url, :tag_ids,
+    :credit_limit, :age, :password, :delivery_time, :born_at, :special_company_id, :country, :url, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number, :post_count, :lock_version,
     :amount, :attempts
 
@@ -58,6 +58,9 @@ class User
   end
 
   def company_attributes=(*)
+  end
+  
+  def tags_attributes=(*)
   end
 
   def column_for_attribute(attribute)
