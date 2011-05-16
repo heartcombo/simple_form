@@ -8,8 +8,8 @@ module SimpleForm
 
       def input
         input_html_options[:size]      ||= [limit, SimpleForm.default_input_size].compact.min
-        input_html_options[:maxlength] ||= limit if limit && SimpleForm.use_html5
-        if password? || SimpleForm.use_html5
+        input_html_options[:maxlength] ||= limit if limit && SimpleForm.html5
+        if password? || SimpleForm.html5
           input_html_options[:type]    ||= input_type unless string?
         end
 

@@ -67,7 +67,7 @@ SimpleForm.setup do |config|
   # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes (e.g. required) are used
   # or not. True by default.
   # Having this on in non-HTML5 compliant sites can cause odd behavior in HTML5-aware browsers such as Chrome.
-  # config.use_html5 = true
+  # config.html5 = true
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
