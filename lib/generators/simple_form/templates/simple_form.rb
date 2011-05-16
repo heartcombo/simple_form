@@ -10,6 +10,10 @@ SimpleForm.setup do |config|
   # CSS class to add to all hint tags.
   # config.hint_class = :hint
 
+  # Default html safeness of hints
+  # Setting this to true will render all hints as HTML
+  # config.hint_html_safe = false
+
   # CSS class used on errors.
   # config.error_class = :error
 

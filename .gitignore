@@ -1,2 +1,4 @@
 .bundle/
 pkg/
+*.swp
+**/*.swp

@@ -19,6 +19,11 @@ module SimpleForm
   mattr_accessor :hint_class
   @@hint_class = :hint
 
+  # Default hint html safeness
+  # Setting this to true will render hints as HTML
+  mattr_accessor :hint_html_safe
+  @@hint_html_safe = false
+
   # Default tag used on errors.
   mattr_accessor :error_tag
   @@error_tag = :span
