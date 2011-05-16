@@ -127,17 +127,18 @@ SimpleForm accepts same options as their corresponding input type helper in Rail
     <%= f.button :submit %>
   <% end %>
 
-SimpleForm also allows you using label, hint, input_field and error helpers it provides:
+SimpleForm also allows you to use label, hint, input_field, error and full_error helpers it provides (please take a look at the rdocs for each method for more info):
 
   <%= simple_form_for @user do |f| %>
     <%= f.label :username %>
     <%= f.input_field :username %>
-    <%= f.error :username, :id => 'user_name_error' %>
     <%= f.hint 'No special characters, please!' %>
+    <%= f.error :username, :id => 'user_name_error' %>
+    <%= f.full_error :token %>
     <%= f.submit 'Save' %>
   <% end %>
 
-Any extra option passed to label, hint, input_field or error will be rendered as html option.
+Any extra option passed to these methods will be rendered as html option.
 
 === Collections
 
@@ -326,6 +327,26 @@ You can also redefine existing SimpleForm inputs by creating a new class with th
       end
     end
 
+== Custom form builder
+
+You can create a custom form builder that uses SimpleForm.
+
+Create a helper method that calls simple_form_for with a custom builder:
+
+  def custom_form_for(object, *args, &block)
+    options = args.extract_options!
+    simple_form_for(object, *(args << options.merge(:builder => CustomFormBuilder)), &block)
+  end
+
+Create a form builder class that inherits from SimpleForm::FormBuilder.
+
+  class CustomFormBuilder < SimpleForm::FormBuilder
+    def input(attribute_name, options = {}, &block)
+      options[:input_html].merge! :class => 'custom'
+      super
+    end
+  end
+
 == I18n
 
 SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. To customize your forms you can create a locale file like this:
@@ -412,30 +433,11 @@ SimpleForm has several configuration values. You can read and change them in the
 
   rails generate simple_form:install
 
-== Custom form builder
-
-You can create a custom form builder that uses SimpleForm.
-
-Create a helper method that calls simple_form_for with a custom builder:
-
-  def custom_form_for(object, *args, &block)
-    options = args.extract_options!
-    simple_form_for(object, *(args << options.merge(:builder => CustomFormBuilder)), &block)
-  end
-
-Create a form builder class that inherits from SimpleForm::FormBuilder.
-
-  class CustomFormBuilder < SimpleForm::FormBuilder
-    def input(attribute_name, options = {}, &block)
-      options[:input_html].merge! :class => 'custom'
-      super
-    end
-  end
-
 == Maintainers
 
-* José Valim (http://github.com/josevalim)
-* Carlos Antonio da Silva (http://github.com/carlosantoniodasilva)
+* José Valim (https://github.com/josevalim)
+* Carlos Antonio da Silva (https://github.com/carlosantoniodasilva)
+* Rafael Mendonça França (https://github.com/rafaelfranca)
 
 == License
 
