@@ -91,13 +91,14 @@ module SimpleForm
   mattr_accessor :required_by_default
   @@required_by_default = true
 
-  # Tell browsers whether to use default HTML5 validations.
+  # Tell browsers whether to use default HTML5 validations (novalidate option).
   mattr_accessor :browser_validations
   @@browser_validations = true
 
-  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes (e.g. required) are used
-  # or not. True by default.
-  # Having this on in non-HTML5 compliant sites can cause odd behavior in HTML5-aware browsers such as Chrome.
+  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes
+  # (e.g. required) are used or not. True by default.
+  # Having this on in non-HTML5 compliant sites can cause odd behavior in
+  # HTML5-aware browsers such as Chrome.
   mattr_accessor :html5
   @@html5 = true
 

@@ -164,13 +164,13 @@ module SimpleForm
             html_options[:multiple] = true unless html_options.key?(:multiple)
           end
 
-          :"#{reflection.name.to_s.singularize}_ids"
-      end
+          # Force the association to be preloaded for performance.
+          if options[:preload] != false && object.respond_to?(association)
+            target = object.send(association)
+            target.to_a if target.respond_to?(:to_a)
+          end
 
-      # Force the association to be preloaded for performance.
-      if options[:preload] != false && object.respond_to?(association)
-        target = object.send(association)
-        target.to_a if target.respond_to?(:to_a)
+          :"#{reflection.name.to_s.singularize}_ids"
       end
 
       input(attribute, options.merge(:reflection => reflection))
