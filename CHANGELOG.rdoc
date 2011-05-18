@@ -1,4 +1,4 @@
-== master
+== 1.4.0
 
 * enhancements
   * Add label class configuration option (by github.com/reu)
