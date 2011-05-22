@@ -169,7 +169,8 @@ module SimpleForm
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
       end
 
-      # Extract the model names from the object_name mess.
+      # Extract the model names from the object_name mess, ignoring numeric and
+      # explicit child indexes.
       #
       # Example:
       #
@@ -177,9 +178,10 @@ module SimpleForm
       # ["route", "blocks", "blocks_learning_object", "foo"]
       #
       def lookup_model_names
-        object_name.to_s.scan(/([a-zA-Z_]+)/).flatten.map do |x|
-          x.gsub('_attributes', '')
-        end
+        child_index = @builder.options[:child_index]
+        names = object_name.to_s.scan(/([a-zA-Z_]+)/).flatten
+        names.delete(child_index) if child_index
+        names.each { |name| name.gsub!('_attributes', '') }
       end
 
       # The action to be used in lookup.
