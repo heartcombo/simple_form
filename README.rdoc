@@ -275,6 +275,13 @@ Creates a collection of check boxes with labels associated (same API as collecti
   <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
   <label class="collection_check_box" for="user_options_false">No</label>
 
+To use this with associations in your model, you can do the following:
+
+  form_for @user do |f|
+    f.collection_check_boxes :role_ids, Role.all, :id, :name # using :roles here is not going to work.
+  end
+
+
 == Mappings/Inputs available
 
 SimpleForm comes with a lot of default mappings:
