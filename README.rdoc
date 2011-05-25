@@ -232,6 +232,16 @@ All web forms need buttons, right? SimpleForm wraps them in the DSL, acting like
 
 The above will simply call submit. You choose to use it or not, it's just a question of taste.
 
+== Wrapping Rails Form Helpers
+
+Say you wanted to use a rails form helper but still wrap it in SimpleForm goodness? You can, by calling input with a block like so:
+
+  <%= f.input :role do %>
+    <%= f.select :role, Role.all.map { |r| [r.name, r.id, { :class => r.company.id }] }, :include_blank => true %>
+  <% end %>
+
+In the above example, we're taking advantage of Rails 3's select method that allows us to pass in a hash of additional attributes for each option.
+
 == Extra helpers
 
 SimpleForm also comes with some extra helpers you can use inside rails default forms without relying on simple_form_for helper. They are listed below.
