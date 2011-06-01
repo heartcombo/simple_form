@@ -136,10 +136,11 @@ module SimpleForm
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
         collection_wrapper_tag = options[:collection_wrapper_tag] || SimpleForm.collection_wrapper_tag
         item_wrapper_tag       = options[:item_wrapper_tag] || SimpleForm.item_wrapper_tag
+        label_text_override    = options[:label_text] || SimpleForm.label_text
 
         rendered_collection = collection.map do |item|
           value = value_for_collection(item, value_method)
-          text  = value_for_collection(item, text_method)
+          text  = label_text_override.call(value_for_collection(item, text_method), "")
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
           rendered_item = yield value, text, default_html_options
