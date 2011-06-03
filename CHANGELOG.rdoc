@@ -4,6 +4,7 @@
   * Do not use required='required' when browser validations are turned off
   * Sanitize HMTL attributes in error and hint helpers when options are present
   * Improve i18n lookup by ignoring explicit child index given to form builder (tests by github.com/rywall)
+  * Fixes the form specific validation option if specified on the form itself (by github.com/medihack)
 
 == 1.4.0
 
