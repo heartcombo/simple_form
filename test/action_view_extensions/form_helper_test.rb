@@ -25,6 +25,11 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
+  test 'simple form should use the form specific validation option if specified on the form itself' do
+    concat(simple_form_for(:user, :html => {:novalidate => true}) do |f| end)
+    assert_select 'form[novalidate="novalidate"]'
+  end
+
   test 'simple form should add object name as css class to form when object is not present' do
     concat(simple_form_for(:user) do |f| end)
     assert_select 'form.simple_form.user'
