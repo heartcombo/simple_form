@@ -456,6 +456,14 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'span.error[error_html]'
   end
 
+  test 'builder should generate an error tag with a clean HTML when errors options are present' do
+    with_error_for @user, :name, :error_tag => :p, :error_prefix => 'Name', :error_method => :first
+    assert_no_select 'p.error[error_html]'
+    assert_no_select 'p.error[error_tag]'
+    assert_no_select 'p.error[error_prefix]'
+    assert_no_select 'p.error[error_method]'
+  end
+
   test 'builder should allow passing options to error tag' do
     with_error_for @user, :name, :id => 'name_error'
     assert_select 'span.error#name_error', "can't be blank"
@@ -499,6 +507,13 @@ class FormBuilderTest < ActionView::TestCase
     with_hint_for @validating_user, 'Hello World!'
     assert_no_select 'span.hint[hint]'
     assert_no_select 'span.hint[hint_html]'
+  end
+
+  test 'builder should generate a hint componet tag with a clean HTML when hint_tag option is present' do
+    with_hint_for @user, 'Hello World!', :hint_tag => :p
+    assert_no_select 'p.hint[hint]'
+    assert_no_select 'p.hint[hint_html]'
+    assert_no_select 'p.hint[hint_tag]'
   end
 
   test 'builder should allow passing options to hint tag' do
