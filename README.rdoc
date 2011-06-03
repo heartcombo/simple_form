@@ -442,6 +442,10 @@ If you want to have all other HTML 5 features, such as the new field types, you 
 
 This option adds a new `novalidate` property to the form, instructing it to skip all HTML 5 validation. The inputs will still be generated with the required and other attributes, that might help you to use some generic javascript validation.
 
+You can also add `novalidate` to a specific form by setting the option on the form itself:
+
+  <%= simple_form_for(resource, :html => {:novalidate => true}) do |form| %>
+
 Please notice that any of the configurations above will disable the `placeholder` component, which is an HTML 5 feature. We believe most of the newest browsers are handling this attribute fine, and if they aren't, any plugin you use would take of using the placeholder attribute to do it. However, you can disable it if you want, by removing the placeholder component from the components list in SimpleForm configuration file.
 
 == Configuration
