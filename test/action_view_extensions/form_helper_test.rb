@@ -26,13 +26,13 @@ class FormHelperTest < ActionView::TestCase
   end
 
   test 'a form specific disabled validation option should override the default enabled browser validation configuration option' do
-    concat(simple_form_for(:user, :html => {:novalidate => true}) do |f| end)
+    concat(simple_form_for(:user, :html => { :novalidate => true }) do |f| end)
     assert_select 'form[novalidate="novalidate"]'
   end
 
   test 'a form specific enabled validation option should override the disabled browser validation configuration option' do
     swap SimpleForm, :browser_validations => false do
-      concat(simple_form_for(:user, :html => {:novalidate => false}) do |f| end)
+      concat(simple_form_for(:user, :html => { :novalidate => false }) do |f| end)
       assert_no_select 'form[novalidate]'
     end
   end
