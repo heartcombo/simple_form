@@ -42,7 +42,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_radio[for=user_active_no]', 'No'
   end
 
-  test 'colection radio should sanitize collection values for labels correctly' do
+  test 'collection radio should sanitize collection values for labels correctly' do
     with_collection_radio @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
     assert_select 'label.collection_radio[for=user_name_099]', '$0.99'
     assert_select 'label.collection_radio[for=user_name_199]', '$1.99'
@@ -130,6 +130,14 @@ class BuilderTest < ActionView::TestCase
 
     assert_no_select 'form label input'
   end
+  
+  test 'collection radio should use custom wrapper for label text correctly' do
+    swap SimpleForm, :label_text => lambda {|label, required| "<span>#{required} #{label}</span>".html_safe } do
+      with_collection_radio @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+      assert_select 'label.collection_radio[for=user_name_099] span', '$0.99'
+      assert_select 'label.collection_radio[for=user_name_199] span', '$1.99'
+    end
+  end
 
   # COLLECTION CHECK BOX
   test 'collection check box accepts a collection and generate a serie of checkboxes for value method' do
@@ -156,7 +164,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_check_boxes[for=user_active_no]', 'No'
   end
 
-  test 'colection check box should sanitize collection values for labels correctly' do
+  test 'collection check box should sanitize collection values for labels correctly' do
     with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
     assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
     assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
@@ -279,6 +287,14 @@ class BuilderTest < ActionView::TestCase
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
     assert_no_select 'form label input'
+  end
+  
+  test 'collection check boxes should use custom wrapper for label text correctly' do
+    swap SimpleForm, :label_text => lambda {|label, required| "<span>#{required} #{label}</span>".html_safe } do
+      with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+      assert_select 'label.collection_check_boxes[for=user_name_099] span', '$0.99'
+      assert_select 'label.collection_check_boxes[for=user_name_199] span', '$1.99'
+    end
   end
 
   # SIMPLE FIELDS
