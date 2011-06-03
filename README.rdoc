@@ -135,7 +135,7 @@ SimpleForm also allows you to use label, hint, input_field, error and full_error
     <%= f.hint 'No special characters, please!' %>
     <%= f.error :username, :id => 'user_name_error' %>
     <%= f.full_error :token %>
-    <%= f.submit 'Save' %>
+    <%= f.submit, 'Save' %>
   <% end %>
 
 Any extra option passed to these methods will be rendered as html option.
