@@ -52,7 +52,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # All
-  test 'nested simple fields should yields an instance of FormBuilder' do
+  test 'nested simple fields should yield an instance of FormBuilder' do
     simple_form_for :user do |f|
       f.simple_fields_for :posts do |posts_form|
         assert posts_form.instance_of?(SimpleForm::FormBuilder)
@@ -90,7 +90,7 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
-  test 'builder uses the first matching custom input map when more than one match' do
+  test 'builder uses the first matching custom input map when more than one matches' do
     swap SimpleForm, :input_mappings => { /count$/ => :integer, /^post_/ => :password } do
       with_form_for @user, :post_count
       assert_no_select 'form input#user_post_count.password'
@@ -574,7 +574,7 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
-  test 'builder association with a block call simple_fields_for' do
+  test 'builder association with a block calls simple_fields_for' do
     simple_form_for @user do |f|
       f.association :posts do |posts_form|
         assert posts_form.instance_of?(SimpleForm::FormBuilder)
@@ -593,7 +593,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_equal 3, calls
   end
 
-  test 'builder association mark input as required based both association and attribute' do
+  test 'builder association marks input as required based on both association and attribute' do
     swap SimpleForm, :required_by_default => false do
       with_association_for @validating_user, :company, :collection => []
       assert_select 'label.required'
@@ -610,7 +610,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select option[value=3]', 'Tag 3'
   end
 
-  test 'builder does not preload collection association if preload false' do
+  test 'builder does not preload collection association if preload is false' do
     value = @user.company
     value.expects(:to_a).never
     with_association_for @user, :company, :preload => false
@@ -620,7 +620,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select option[value=3]', 'Company 3'
   end
 
-  test 'builder does not preload non collection association' do
+  test 'builder does not preload non-collection association' do
     value = @user.company
     value.expects(:to_a).never
     with_association_for @user, :company, :preload => false
