@@ -338,6 +338,20 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input.optional#user_name'
   end
 
+  test 'builder input should not be required when ActiveModel::Validations is included and if option is present' do
+    with_form_for @validating_user, :age
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_age'
+  end
+
+  test 'builder input should not be required when ActiveModel::Validations is included and unless option is present' do
+    with_form_for @validating_user, :amount
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_amount'
+  end
+
   # WRAPPERS
   test 'builder support wrapping around an specific tag' do
     swap SimpleForm, :wrapper_tag => :p do

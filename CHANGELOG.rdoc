@@ -1,5 +1,8 @@
 == master
 
+* enhancements
+  * ignore required attribute when conditional validations are present
+
 * bug fix
   * Do not use required='required' when browser validations are turned off
   * Sanitize HMTL attributes in error and hint helpers when options are present

@@ -66,7 +66,9 @@ module SimpleForm
         if !options[:required].nil?
           options[:required]
         elsif has_validators?
-          (attribute_validators + reflection_validators).any? { |v| v.kind == :presence }
+          (attribute_validators + reflection_validators).any? do |v|
+            v.kind == :presence && !conditional_validators?(v)
+          end
         else
           attribute_required_by_default?
         end
@@ -91,6 +93,10 @@ module SimpleForm
 
       def reflection_validators
         reflection ? object.class.validators_on(reflection.name) : []
+      end
+
+      def conditional_validators?(validator)
+        validator.options.include?(:if) || validator.options.include?(:unless)
       end
 
       def attribute_required_by_default?

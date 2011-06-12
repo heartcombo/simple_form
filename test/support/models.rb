@@ -127,6 +127,8 @@ class ValidatingUser < User
   include ActiveModel::Validations
   validates :name, :presence => true
   validates :company, :presence => true
+  validates :age, :presence => true, :if => Proc.new { |user| user.name }
+  validates :amount, :presence => true, :unless => Proc.new { |user| user.age }
   validates_numericality_of :age,
     :greater_than_or_equal_to => 18,
     :less_than_or_equal_to => 99,
