@@ -1,4 +1,4 @@
-== master
+== 1.4.1
 
 * enhancements
   * ignore required attribute when conditional validations are present
