@@ -43,7 +43,7 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class]
+        [input_type, required_class, protected_class].compact
       end
 
       def render
@@ -57,6 +57,17 @@ module SimpleForm
       end
 
     protected
+
+      def attribute_protected?
+        return false unless SimpleForm.use_attr_protected
+        return false unless object && object.class && attribute_name
+        object.class.respond_to?(:protected_attributes) &&
+         object.class.protected_attributes.include?(attribute_name.to_s)
+      end
+      
+      def protected_class
+        attribute_protected? ? SimpleForm.attr_protected_class : nil
+      end
 
       def components_list
         options[:components] || SimpleForm.components
@@ -118,9 +129,13 @@ module SimpleForm
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
       end
+      
+      def protected_and_disabled?
+        SimpleForm.disable_when_attr_protected && attribute_protected?
+      end
 
       def disabled?
-        options[:disabled]
+        protected_and_disabled? || options[:disabled]
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,

@@ -37,7 +37,10 @@ end
 class User
   extend ActiveModel::Naming
   include ActiveModel::Conversion
-
+  include ActiveModel::MassAssignmentSecurity
+  
+  attr_protected :name
+  
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :age,
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,

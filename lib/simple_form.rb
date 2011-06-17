@@ -133,6 +133,21 @@ module SimpleForm
   mattr_accessor :inputs_discovery
   @@inputs_discovery = true
 
+  # Automatically discover attributes that are currently protected.
+  # Default is false.
+  mattr_accessor :use_attr_protected
+  @@use_attr_protected = false
+
+  # You can define the class to use when an attribute is attr_protected
+  # (and use_attr_protected enabled).  Default is protected.
+  mattr_accessor :attr_protected_class
+  @@attr_protected_class = :protected
+
+  # Disables the input for any protected attribute, if :use_attr_protected
+  # is enabled.  Default is true.
+  mattr_accessor :disable_when_attr_protected
+  @@disable_when_attr_protected = true
+
   # Cache simple form inputs discovery
   mattr_accessor :cache_discovery
   @@cache_discovery = !Rails.env.development?
