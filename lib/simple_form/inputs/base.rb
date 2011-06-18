@@ -59,10 +59,9 @@ module SimpleForm
     protected
 
       def attribute_protected?
-        return false unless SimpleForm.use_attr_protected
-        return false unless object && object.class && attribute_name
-        object.class.respond_to?(:protected_attributes) &&
-         object.class.protected_attributes.include?(attribute_name.to_s)
+        SimpleForm.use_attr_protected &&
+          object.class.respond_to?(:protected_attributes) &&
+          object.class.protected_attributes.include?(attribute_name.to_s)
       end
       
       def protected_class
@@ -135,7 +134,7 @@ module SimpleForm
       end
 
       def disabled?
-        protected_and_disabled? || options[:disabled]
+        options[:disabled] || protected_and_disabled?
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,
