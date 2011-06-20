@@ -128,18 +128,15 @@ module SimpleForm
         if authorizer.is_a?(Hash) && authorizer.has_key?(:default)
           authorizer = authorizer[:default]
         end
-        
         authorizer
       end
       
       def class_uses_whitelist?
-        class_active_authorizer &&
-          class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::WhiteList)
+        class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::WhiteList)
       end
 
       def class_uses_blacklist?
-        class_active_authorizer &&
-          class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::BlackList)
+        class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::BlackList)
       end
 
       def attribute_whitelisted?
