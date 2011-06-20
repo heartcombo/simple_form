@@ -119,24 +119,37 @@ module SimpleForm
         html_options
       end
       
+      def class_active_authorizer
+        return nil unless object.class.respond_to?(:active_authorizer)
+        authorizer = object.class.active_authorizer
+        
+        # Rails 3.1 support
+        # active_authorizer returns a hash where key is :role, use :default
+        if authorizer.is_a?(Hash) && authorizer.has_key?(:default)
+          authorizer = authorizer[:default]
+        end
+        
+        authorizer
+      end
+      
       def class_uses_whitelist?
-        object.class.respond_to?(:accessible_attributes) &&
-          object.class.accessible_attributes.any?
+        class_active_authorizer &&
+          class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::WhiteList)
       end
 
       def class_uses_blacklist?
-        object.class.respond_to?(:protected_attributes) &&
-          object.class.protected_attributes.any?
-        end
+        class_active_authorizer &&
+          class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::BlackList)
+      end
 
       def attribute_whitelisted?
         class_uses_whitelist? &&
-          object.class.accessible_attributes.include?(attribute_name.to_s)
+          class_active_authorizer.include?(attribute_name.to_s)
       end
 
       def attribute_blacklisted?
         class_uses_blacklist? &&
-          object.class.protected_attributes.include?(attribute_name.to_s)
+          class_active_authorizer.include?(attribute_name.to_s)
       end
 
       def attribute_protected?
