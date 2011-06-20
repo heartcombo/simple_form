@@ -137,20 +137,21 @@ module SimpleForm
   mattr_accessor :cache_discovery
   @@cache_discovery = !Rails.env.development?
 
-  # Determines whether an attribute is attr_protected will be checked.
+  # Determines whether an attribute is "protected" from mass-assignment
+  # (either not whitelisted or explicitly blacklisted)
   # If true, then the input can add a CSS class. Default is false.
-  mattr_accessor :use_attr_protected
-  @@use_attr_protected = false
+  mattr_accessor :use_protected
+  @@use_protected = false
 
-  # You can define the class to use when an attribute is attr_protected
-  # (and :use_attr_protected is enabled).  Default is protected.
-  mattr_accessor :attr_protected_class
-  @@attr_protected_class = :protected
+  # You can define the class to use when an attribute is "protected" from
+  # mass-assignment (and :use_protected is enabled).  Default is protected.
+  mattr_accessor :protected_class
+  @@protected_class = :protected
 
-  # Disables the input for any attr_protected attribute, if
-  # :use_attr_protected is enabled.  Default is true.
-  mattr_accessor :disable_when_attr_protected
-  @@disable_when_attr_protected = true
+  # Disables the input for any attribute "protected" from mass-assignent,
+  # if :use_protected is enabled.  Default is true.
+  mattr_accessor :disable_when_protected
+  @@disable_when_protected = true
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.

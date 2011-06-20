@@ -57,17 +57,7 @@ module SimpleForm
       end
 
     protected
-
-      def attribute_protected?
-        SimpleForm.use_attr_protected &&
-          object.class.respond_to?(:protected_attributes) &&
-          object.class.protected_attributes.include?(attribute_name.to_s)
-      end
-      
-      def protected_class
-        attribute_protected? ? SimpleForm.attr_protected_class : nil
-      end
-
+    
       def components_list
         options[:components] || SimpleForm.components
       end
@@ -129,8 +119,38 @@ module SimpleForm
         html_options
       end
       
+      def class_uses_whitelist?
+        object.class.respond_to?(:accessible_attributes) &&
+          object.class.accessible_attributes.any?
+      end
+
+      def class_uses_blacklist?
+        object.class.respond_to?(:protected_attributes) &&
+          object.class.protected_attributes.any?
+        end
+
+      def attribute_whitelisted?
+        class_uses_whitelist? &&
+          object.class.accessible_attributes.include?(attribute_name.to_s)
+      end
+
+      def attribute_blacklisted?
+        class_uses_blacklist? &&
+          object.class.protected_attributes.include?(attribute_name.to_s)
+      end
+
+      def attribute_protected?
+        return false unless SimpleForm.use_protected
+        # whitelist (attr_accessible), if used it has priority (like in Rails)
+        class_uses_whitelist? ? !attribute_whitelisted? : attribute_blacklisted?
+      end
+
+      def protected_class
+        attribute_protected? ? SimpleForm.protected_class : nil
+      end
+
       def protected_and_disabled?
-        SimpleForm.disable_when_attr_protected && attribute_protected?
+        SimpleForm.disable_when_protected && attribute_protected?
       end
 
       def disabled?

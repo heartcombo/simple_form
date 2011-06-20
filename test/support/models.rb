@@ -37,9 +37,6 @@ end
 class User
   extend ActiveModel::Naming
   include ActiveModel::Conversion
-  include ActiveModel::MassAssignmentSecurity
-  
-  attr_protected :name
   
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :age,
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
@@ -128,6 +125,8 @@ end
 
 class ValidatingUser < User
   include ActiveModel::Validations
+  include ActiveModel::MassAssignmentSecurity
+  attr_protected :name
   validates :name, :presence => true
   validates :company, :presence => true
   validates :age, :presence => true, :if => Proc.new { |user| user.name }
@@ -164,6 +163,8 @@ end
 
 class OtherValidatingUser < User
   include ActiveModel::Validations
+  include ActiveModel::MassAssignmentSecurity
+  attr_accessible :status
   validates_numericality_of :age,
     :greater_than => 17,
     :less_than => 100,
