@@ -434,6 +434,17 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'input.integer[as]'
   end
 
+  test 'builder collection input_field should generate input tag with a clean HTML' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :status, :collection => ['Open', 'Closed'], :class => 'status', :label_method => :to_s, :value_method => :to_s
+    end
+
+    assert_no_select 'select.status[input_html]'
+    assert_no_select 'select.status[collection]'
+    assert_no_select 'select.status[label_method]'
+    assert_no_select 'select.status[value_method]'
+  end
+
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name
