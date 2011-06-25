@@ -90,4 +90,17 @@ SimpleForm.setup do |config|
 
   # When false, do not use translations for labels, hints or placeholders.
   # config.translate = true
+  
+  # When true, any attribute "protected" from mass-assignment will include
+  # an extra CSS class on the "protected" input. Default is false.
+  # config.use_protected = true
+
+  # CSS class to add to the "protected" input if the option
+  # use_protected is enabled.  Default is protected.
+  # config.protected_class = :protected
+
+  # When true (and use_protected is enabled), any "protected" input
+  # will be disabled.  Default is true (but default for use_protected=false).
+  # config.disable_when_protected = true
+
 end

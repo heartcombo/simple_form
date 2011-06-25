@@ -43,7 +43,7 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class]
+        [input_type, required_class, protected_class].compact
       end
 
       def render
@@ -57,7 +57,7 @@ module SimpleForm
       end
 
     protected
-
+    
       def components_list
         options[:components] || SimpleForm.components
       end
@@ -118,9 +118,53 @@ module SimpleForm
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
       end
+      
+      def class_active_authorizer
+        return nil unless object.class.respond_to?(:active_authorizer)
+        authorizer = object.class.active_authorizer
+        
+        # Rails 3.1 support
+        # active_authorizer returns a hash where key is :role, use :default
+        if authorizer.is_a?(Hash) && authorizer.has_key?(:default)
+          authorizer = authorizer[:default]
+        end
+        authorizer
+      end
+      
+      def class_uses_whitelist?
+        class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::WhiteList)
+      end
+
+      def class_uses_blacklist?
+        class_active_authorizer.is_a?(ActiveModel::MassAssignmentSecurity::BlackList)
+      end
+
+      def attribute_whitelisted?
+        class_uses_whitelist? &&
+          class_active_authorizer.include?(attribute_name.to_s)
+      end
+
+      def attribute_blacklisted?
+        class_uses_blacklist? &&
+          class_active_authorizer.include?(attribute_name.to_s)
+      end
+
+      def attribute_protected?
+        return false unless SimpleForm.use_protected
+        # whitelist (attr_accessible), if used it has priority (like in Rails)
+        class_uses_whitelist? ? !attribute_whitelisted? : attribute_blacklisted?
+      end
+
+      def protected_class
+        attribute_protected? ? SimpleForm.protected_class : nil
+      end
+
+      def protected_and_disabled?
+        SimpleForm.disable_when_protected && attribute_protected?
+      end
 
       def disabled?
-        options[:disabled]
+        options[:disabled] || protected_and_disabled?
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,
