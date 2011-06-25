@@ -12,4 +12,13 @@ class MockController
   def url_for(*args)
     "http://example.com"
   end
+
+  def url_helpers
+    self
+  end
+
+  def hash_for_user_path(*args); end
+  def hash_for_validating_user_path(*args); end
+  def hash_for_other_validating_user_path(*args); end
+  def hash_for_users_path(*args); end
 end

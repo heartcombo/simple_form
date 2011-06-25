@@ -29,27 +29,31 @@ module SimpleForm
         result
       end
 
-      [:form_for, :fields_for].each do |helper|
-        class_eval <<-METHOD, __FILE__, __LINE__
-          def simple_#{helper}(record_or_name_or_array, *args, &block)
-            options = args.extract_options!
-            options[:builder] ||= SimpleForm::FormBuilder
-            css_class = case record_or_name_or_array
-              when String, Symbol then record_or_name_or_array.to_s
-              when Array then dom_class(record_or_name_or_array.last)
-              else dom_class(record_or_name_or_array)
-            end
-            options[:html] ||= {}
-            unless options[:html].key?(:novalidate)
-              options[:html][:novalidate] = !SimpleForm.browser_validations
-            end
-            options[:html][:class] = "\#{SimpleForm.form_class} \#{css_class} \#{options[:html][:class]}".strip
+      def simple_form_for(record, options={}, &block)
+        options[:builder] ||= SimpleForm::FormBuilder
+        css_class = case record
+                    when String, Symbol then record.to_s
+                    when Array then dom_class(record.last)
+                    else dom_class(record)
+                    end
+        options[:html] ||= {}
+        unless options[:html].key?(:novalidate)
+          options[:html][:novalidate] = !SimpleForm.browser_validations
+        end
+        options[:html][:class] = "#{SimpleForm.form_class} #{css_class} #{options[:html][:class]}".strip
 
-            with_custom_field_error_proc do
-              #{helper}(record_or_name_or_array, *(args << options), &block)
-            end
-          end
-        METHOD
+        with_custom_field_error_proc do
+          form_for(record, options, &block)
+        end
+      end
+
+      def simple_fields_for(record_name, record_object = nil, options = {}, &block)
+        options, record_object = record_object, nil if record_object.is_a?(Hash)
+        options[:builder] ||= SimpleForm::FormBuilder
+
+        with_custom_field_error_proc do
+          fields_for(record_name, record_object, options, &block)
+        end
       end
     end
   end
