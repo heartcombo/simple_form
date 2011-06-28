@@ -79,6 +79,10 @@ module SimpleForm
   mattr_accessor :label_text
   @@label_text = lambda { |label, required| "#{required} #{label}" }
 
+  # You can set whether or not the label includes the input type in it's class.
+  mattr_accessor :include_type_in_label_class
+  @@include_type_in_label_class = true
+    
   # You can define the class to use on all labels. Default is nil.
   mattr_accessor :label_class
   @@label_class = nil
