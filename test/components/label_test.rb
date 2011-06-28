@@ -153,16 +153,18 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'label should have css class from type' do
-    with_label_for @user, :name, :string
-    assert_select 'label.string'
-    with_label_for @user, :description, :text
-    assert_select 'label.text'
-    with_label_for @user, :age, :integer
-    assert_select 'label.integer'
-    with_label_for @user, :born_at, :date
-    assert_select 'label.date'
-    with_label_for @user, :created_at, :datetime
-    assert_select 'label.datetime'
+    if SimpleForm.include_type_in_label_class
+      with_label_for @user, :name, :string
+      assert_select 'label.string'
+      with_label_for @user, :description, :text
+      assert_select 'label.text'
+      with_label_for @user, :age, :integer
+      assert_select 'label.integer'
+      with_label_for @user, :born_at, :date
+      assert_select 'label.date'
+      with_label_for @user, :created_at, :datetime
+      assert_select 'label.datetime'
+    end
   end
 
   test 'label should obtain required from ActiveModel::Validations when it is included' do

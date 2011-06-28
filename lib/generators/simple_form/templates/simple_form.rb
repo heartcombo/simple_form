@@ -52,6 +52,9 @@ SimpleForm.setup do |config|
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
 
+  # You can set whether or not the label includes the input type in it's class.
+  # config.include_type_in_label_class = true
+
   # You can define the class to use on all labels. Default is nil.
   # config.label_class = nil
 
