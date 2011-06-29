@@ -800,7 +800,7 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string.required#project_name'
   end
 
-  test 'input as radio should be generated properly when object is not present ' do
+  test 'input as radio should  be generated properly when object is not present ' do
     with_input_for :project, :name, :radio
     assert_select 'input.radio#project_name_true'
     assert_select 'input.radio#project_name_false'
@@ -809,5 +809,11 @@ class InputTest < ActionView::TestCase
   test 'input as select with collection should be generated properly when object is not present' do
     with_input_for :project, :name, :select, :collection => ['Jose', 'Carlos']
     assert_select 'select.select#project_name'
+  end
+
+  # Speech text input
+  test 'input should render the default speech attributes' do
+    with_input_for @user, :name, :speech
+    assert_select "input[type=text][x-webkit-speech][speech][lang=en][x-webkit-grammar=builtin:search]"
   end
 end
