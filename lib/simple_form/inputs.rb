@@ -10,5 +10,6 @@ module SimpleForm
     autoload :NumericInput,    'simple_form/inputs/numeric_input'
     autoload :PriorityInput,   'simple_form/inputs/priority_input'
     autoload :StringInput,     'simple_form/inputs/string_input'
+    autoload :SpeechStringInput, 'simple_form/inputs/speech_string_input'
   end
 end
