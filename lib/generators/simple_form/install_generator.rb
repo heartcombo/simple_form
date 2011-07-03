@@ -5,12 +5,8 @@ module SimpleForm
       source_root File.expand_path('../templates', __FILE__)
       class_option :template_engine
 
-      def copy_initializers
-        copy_file 'simple_form.rb', 'config/initializers/simple_form.rb'
-      end
-
-      def copy_locale_file
-        copy_file 'en.yml', 'config/locales/simple_form.en.yml'
+      def copy_config
+        directory 'config'
       end
 
       def copy_scaffold_template
