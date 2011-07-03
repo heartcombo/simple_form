@@ -152,28 +152,23 @@ module SimpleForm
       options[:as] ||= :select
       options[:collection] ||= reflection.klass.all(reflection.options.slice(:conditions, :order))
 
-      attribute = case reflection.macro
-        when :belongs_to
-          reflection.options[:foreign_key] || :"#{reflection.name}_id"
-        when :has_one
-          raise ":has_one associations are not supported by f.association"
-        else
-          if options[:as] == :select
-            html_options = options[:input_html] ||= {}
-            html_options[:size]   ||= 5
-            html_options[:multiple] = true unless html_options.key?(:multiple)
-          end
+      attribute = find_attribute_column_by_reflection reflection
 
-          # Force the association to be preloaded for performance.
-          if options[:preload] != false && object.respond_to?(association)
-            target = object.send(association)
-            target.to_a if target.respond_to?(:to_a)
-          end
-
-          :"#{reflection.name.to_s.singularize}_ids"
+      if options[:as] == :select
+        html_options = options[:input_html] ||= {}
+        html_options[:size]   ||= 5
+        html_options[:multiple] = true unless html_options.key?(:multiple)
       end
 
+      preload_association_for_performance options, object, association
       input(attribute, options.merge(:reflection => reflection))
+    end
+
+    def preload_association_for_performance options, object, association
+      if options[:preload] != false && object.respond_to?(association)
+        target = object.send(association)
+        target.to_a if target.respond_to?(:to_a)
+      end
     end
 
     # Creates a button:

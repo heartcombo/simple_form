@@ -1,5 +1,10 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
+  # ==> ORM Configuration
+  # Load and configure the ORM. Supports :active_record default.
+  # Other ORMs: :mongoid.
+  require 'simple_form/orm/<%= options[:orm] %>'
+
   # Components used by the form builder to generate a complete input. You can remove
   # any of them, change the order, or even add your own components to the stack.
   # config.components = [ :placeholder, :label_input, :hint, :error ]
