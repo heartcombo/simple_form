@@ -141,6 +141,7 @@ class ValidatingUser < User
     :greater_than_or_equal_to => :min_attempts,
     :less_than_or_equal_to => :max_attempts,
     :only_integer => true
+  validates_length_of :name, :maximum => 25
 
   def min_amount
     10

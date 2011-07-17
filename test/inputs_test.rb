@@ -166,6 +166,13 @@ class InputTest < ActionView::TestCase
     assert_select 'input.password[type=password][maxlength=100]'
   end
 
+  test 'when not using HTML5, should infer maxlength column definition from validation when present' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :name, :string
+      assert_select 'input.string[maxlength=25]'
+    end
+  end
+
   test 'when not using HTML5, does not show maxlength attribute' do
     swap SimpleForm, :html5 => false do
       with_input_for @user, :password, :password
