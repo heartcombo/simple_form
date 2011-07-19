@@ -58,4 +58,15 @@ class FormHelperTest < ActionView::TestCase
       assert f.instance_of?(SimpleForm::FormBuilder)
     end)
   end
+
+  test 'fields for with a hash like model yeilds an instance of FormBuilder' do
+    @hash_backed_author = HashBackedAuthor.new
+
+    concat(simple_fields_for(:author, @hash_backed_author) do |f|
+      assert f.instance_of?(SimpleForm::FormBuilder)
+      f.input :name
+    end)
+
+    assert_select "input[name='author[name]'][value='hash backed author']"
+  end
 end

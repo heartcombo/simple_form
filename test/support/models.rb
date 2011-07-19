@@ -174,3 +174,14 @@ class OtherValidatingUser < User
     :less_than_or_equal_to => Proc.new { |user| user.age + 100},
     :only_integer => true
 end
+
+class HashBackedAuthor < Hash
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+
+  def persisted?; false; end
+
+  def name
+    'hash backed author'
+  end
+end

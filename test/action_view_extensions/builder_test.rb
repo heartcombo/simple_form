@@ -290,6 +290,19 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
+  test 'fields for with a hash like model yeilds an instance of FormBuilder' do
+    @hash_backed_author = HashBackedAuthor.new
+
+    with_concat_form_for(:user) do |f|
+      f.simple_fields_for(:author, @hash_backed_author) do |author|
+        assert author.instance_of?(SimpleForm::FormBuilder)
+        author.input :name
+      end
+    end
+
+    assert_select "input[name='user[author][name]'][value='hash backed author']"
+  end
+
   test 'fields for yields an instance of CustomBuilder if main builder is a CustomBuilder' do
     with_custom_form_for(:user) do |f|
       f.simple_fields_for(:company) do |company|
