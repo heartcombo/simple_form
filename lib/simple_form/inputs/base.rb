@@ -18,7 +18,7 @@ module SimpleForm
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options
 
-      delegate :template, :object, :object_name, :to => :@builder
+      delegate :template, :object, :object_name, :required_fields, :to => :@builder
 
       def initialize(builder, attribute_name, column, input_type, options = {})
         @builder            = builder
@@ -65,10 +65,8 @@ module SimpleForm
       def attribute_required?
         if !options[:required].nil?
           options[:required]
-        elsif has_validators?
-          (attribute_validators + reflection_validators).any? do |v|
-            v.kind == :presence && !conditional_validators?(v)
-          end
+        elsif required_fields.include?(attribute_name)
+					true
         else
           attribute_required_by_default?
         end
@@ -83,21 +81,13 @@ module SimpleForm
         options[:autofocus]
       end
 
-      def has_validators?
-        attribute_name && object.class.respond_to?(:validators_on)
-      end
+			def has_validators?
+				attribute_name && object.class.respond_to?(:validators_on)
+			end
 
-      def attribute_validators
-        object.class.validators_on(attribute_name)
-      end
-
-      def reflection_validators
-        reflection ? object.class.validators_on(reflection.name) : []
-      end
-
-      def conditional_validators?(validator)
-        validator.options.include?(:if) || validator.options.include?(:unless)
-      end
+			def attribute_validators
+				object.class.validators_on(attribute_name)
+			end
 
       def attribute_required_by_default?
         SimpleForm.required_by_default

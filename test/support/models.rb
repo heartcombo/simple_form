@@ -6,6 +6,8 @@ Association = Struct.new(:klass, :name, :macro, :options)
 class Company < Struct.new(:id, :name)
   extend ActiveModel::Naming
   include ActiveModel::Conversion
+  include ActiveModel::Validations
+	include AttributeNamesMethods
 
   def self.all(options={})
     all = (1..3).map{|i| Company.new(i, "Company #{i}")}
@@ -23,6 +25,7 @@ class Company < Struct.new(:id, :name)
   def persisted?
     true
   end
+
 end
 
 class Tag < Company
@@ -37,6 +40,8 @@ end
 class User
   extend ActiveModel::Naming
   include ActiveModel::Conversion
+  include ActiveModel::Validations
+	include AttributeNamesMethods
 
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :age,
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
@@ -124,7 +129,6 @@ class User
 end
 
 class ValidatingUser < User
-  include ActiveModel::Validations
   validates :name, :presence => true
   validates :company, :presence => true
   validates :age, :presence => true, :if => Proc.new { |user| user.name }
@@ -160,7 +164,6 @@ class ValidatingUser < User
 end
 
 class OtherValidatingUser < User
-  include ActiveModel::Validations
   validates_numericality_of :age,
     :greater_than => 17,
     :less_than => 100,

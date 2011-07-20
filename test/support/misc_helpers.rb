@@ -55,3 +55,17 @@ end
 class CustomMapTypeFormBuilder < SimpleForm::FormBuilder
   map_type :custom_type, :to => SimpleForm::Inputs::StringInput
 end
+
+module AttributeNamesMethods
+	def attr_accessor(*attrs)
+		@attributes ||= []
+		attrs.each do |a|
+			@attributes << a
+			super(a)
+		end
+	end
+
+	def attributes
+		@attributes || []
+	end
+end

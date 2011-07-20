@@ -385,5 +385,27 @@ module SimpleForm
         e.message =~ /#{mapping}$/ ? nil : raise
       end
     end
+
+		def required_fields
+			return [] if !object || object.kind_of?(Hash)
+			return @required_fields if @required_fields
+			current_action = object.respond_to?(:persisted?) && object.persisted? ? :update : :create
+			if current_action == :create
+				record = object.class.new
+			elsif current_action == :update
+				record = object.dup
+			else 
+				raise "Invalid Action"
+			end
+			#The following line is not ideal, but the only way I could get tests to pass.
+			fields_to_blank = object.class._validators.collect{|v| v.first}.flatten.uniq
+			#The below code works assuming real ActiveRecord objects
+			#fields_to_blank = record.attributes.keys - ["id", "created_at", "updated_at", "deleted_at"]
+			fields_to_blank.each do |f|
+				record.send((f.to_s + "=").to_sym, "")
+			end
+			record.valid?
+			@required_fields = record.errors.keys 
+		end
   end
 end
