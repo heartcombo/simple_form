@@ -96,10 +96,10 @@ module SimpleForm
           return validator.options[:minimum] > 0 if validator.options.has_key?(:minimum)
           return false
         when :format
-					return if false if validator.options[:allow_nil]
-					return if false if validator.options[:allow_blank]
-          return if false if validator.options[:with] && "" =~ validator.options[:with]
-          return if false if validator.options[:without] && "" !~ validator.options[:without]
+					return false if validator.options[:allow_nil]
+					return false if validator.options[:allow_blank]
+          return false if validator.options[:with] && "" =~ validator.options[:with]
+          return false if validator.options[:without] && "" !~ validator.options[:without]
           return true
         when :presence
           return true
