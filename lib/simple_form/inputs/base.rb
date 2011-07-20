@@ -18,7 +18,7 @@ module SimpleForm
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options
 
-      delegate :template, :object, :object_name, :to => :@builder
+      delegate :template, :object, :object_name, :required_fields, :to => :@builder
 
       def initialize(builder, attribute_name, column, input_type, options = {})
         @builder            = builder
@@ -65,10 +65,8 @@ module SimpleForm
       def attribute_required?
         if !options[:required].nil?
           options[:required]
-        elsif has_validators?
-          (attribute_validators + reflection_validators).any? do |v|
-						[ :presence, :length, :format, :inclusion, :exclusion, :numericality ].include?(v.kind) && !conditional_validators?(v) && validator_excludes_empty_strings?(v)
-          end
+        elsif required_fields.include?(attribute_name)
+					true
         else
           attribute_required_by_default?
         end
@@ -83,64 +81,13 @@ module SimpleForm
         options[:autofocus]
       end
 
-      def has_validators?
-        attribute_name && object.class.respond_to?(:validators_on)
-      end
+			def has_validators?
+				attribute_name && object.class.respond_to?(:validators_on)
+			end
 
-      def validator_excludes_empty_strings?(validator)
-				case validator.kind
-        when :length
-					return false if validator.options[:allow_nil]
-					return false if validator.options[:allow_blank]
-          return validator.options[:is] != 0 if validator.options.has_key?(:is)
-          return validator.options[:minimum] > 0 if validator.options.has_key?(:minimum)
-          return false
-        when :format
-					return false if validator.options[:allow_nil]
-					return false if validator.options[:allow_blank]
-          return false if validator.options[:with] && "" =~ validator.options[:with]
-          return false if validator.options[:without] && "" !~ validator.options[:without]
-          return true
-        when :presence
-          return true
-        when :inclusion
-					return false if validator.options[:allow_nil]
-					return false if validator.options[:allow_blank]
-					enum = validator.options[:in]
-					inclusions = enum.respond_to?(:call) ? enum.call(object) : enum
-          if inclusions.is_a?(Range)
-            return !inclusions.cover?("")
-          else
-            return !inclusions.include?("")
-          end
-        when :exclusion
-					return false if validator.options[:allow_nil]
-					return false if validator.options[:allow_blank]
-					enum = validator.options[:in]
-					exclusions = enum.respond_to?(:call) ? enum.call(object) : enum
-          if exclusions.is_a?(Range)
-            return exclusions.cover?("")
-          else
-            return exclusions.include?("")
-          end
-				when :numericality
-					return !validator.options[:allow_nil]
-        else
-          return false
-        end
-      end
-
-      def attribute_validators
-        object.class.validators_on(attribute_name)
-      end
-
-      def reflection_validators
-        reflection ? object.class.validators_on(reflection.name) : []
-      end
-
-      def conditional_validators?(validator)
-        validator.options.include?(:if) || validator.options.include?(:unless)
-      end
+			def attribute_validators
+				object.class.validators_on(attribute_name)
+			end
 
       def attribute_required_by_default?
         SimpleForm.required_by_default
