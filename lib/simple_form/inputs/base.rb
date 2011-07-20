@@ -90,22 +90,22 @@ module SimpleForm
       def validator_excludes_empty_strings?(validator)
 				case validator.kind
         when :length
-					return false validator.options[:allow_nil]
-					return false validator.options[:allow_blank]
+					return false if validator.options[:allow_nil]
+					return false if validator.options[:allow_blank]
           return validator.options[:is] != 0 if validator.options.has_key?(:is)
           return validator.options[:minimum] > 0 if validator.options.has_key?(:minimum)
           return false
         when :format
-					return false validator.options[:allow_nil]
-					return false validator.options[:allow_blank]
-          return false if validator.options[:with] && "" =~ validator.options[:with]
-          return false if validator.options[:without] && "" !~ validator.options[:without]
+					return if false if validator.options[:allow_nil]
+					return if false if validator.options[:allow_blank]
+          return if false if validator.options[:with] && "" =~ validator.options[:with]
+          return if false if validator.options[:without] && "" !~ validator.options[:without]
           return true
         when :presence
           return true
         when :inclusion
-					return false validator.options[:allow_nil]
-					return false validator.options[:allow_blank]
+					return false if validator.options[:allow_nil]
+					return false if validator.options[:allow_blank]
 					enum = validator.options[:in]
 					inclusions = enum.respond_to?(:call) ? enum.call(object) : enum
           if inclusions.is_a?(Range)
@@ -114,8 +114,8 @@ module SimpleForm
             return !inclusions.include?("")
           end
         when :exclusion
-					return false validator.options[:allow_nil]
-					return false validator.options[:allow_blank]
+					return false if validator.options[:allow_nil]
+					return false if validator.options[:allow_blank]
 					enum = validator.options[:in]
 					exclusions = enum.respond_to?(:call) ? enum.call(object) : enum
           if exclusions.is_a?(Range)
