@@ -1,3 +1,12 @@
+== 1.4.3.dev
+
+* enhancements
+  * Simplified generator by using directory action (by github.com/rupert654)
+  * Support for `maxlength` on string inputs inferred from validation (by github.com/srbartlett)
+
+* bug fix
+  * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
+
 == 1.4.2
 
 * enhancements
