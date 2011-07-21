@@ -8,8 +8,7 @@ module SimpleForm
 
       def input
         input_html_options[:size]      ||= [limit, SimpleForm.default_input_size].compact.min
-        preferred_max_length = maximum_length_from_validation
-        input_html_options[:maxlength] ||= preferred_max_length if preferred_max_length
+        input_html_options[:maxlength] ||= maximum_length_from_validation
         input_html_options[:maxlength] ||= limit if limit && SimpleForm.html5
         if password? || SimpleForm.html5
           input_html_options[:type]    ||= input_type unless string?
@@ -43,7 +42,7 @@ module SimpleForm
         return unless has_validators?
 
         length_validator = find_length_validator or return
-        length_validator.options[:maximum] if length_validator.options.key? :maximum
+        length_validator.options[:maximum]
       end
 
       def find_length_validator
