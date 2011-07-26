@@ -134,8 +134,8 @@ module SimpleForm
       end
 
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
-        collection_wrapper_tag = options[:collection_wrapper_tag] || SimpleForm.collection_wrapper_tag
-        item_wrapper_tag       = (defined? options[:item_wrapper_tag]) ? options[:item_wrapper_tag] : SimpleForm.item_wrapper_tag
+        collection_wrapper_tag = (options[:collection_wrapper_tag] || options[:collection_wrapper_tag] === false) ? options[:collection_wrapper_tag] : SimpleForm.collection_wrapper_tag
+        item_wrapper_tag = (options[:item_wrapper_tag] || options[:item_wrapper_tag] === false) ? options[:item_wrapper_tag] : SimpleForm.item_wrapper_tag
 
         rendered_collection = collection.map do |item|
           value = value_for_collection(item, value_method)
