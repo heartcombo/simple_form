@@ -12,6 +12,11 @@ class FormHelperTest < ActionView::TestCase
     concat(simple_form_for(:user) do |f| end)
     assert_select 'form.simple_form'
   end
+  
+  test 'simple form should not add object class to form if skip_model_class is true' do
+    concat(simple_form_for(:user, :skip_model_class => true) do |f| end)
+    assert_no_select 'form.user'
+  end
 
   test 'simple form should use default browser validations by default' do
     concat(simple_form_for(:user) do |f| end)
