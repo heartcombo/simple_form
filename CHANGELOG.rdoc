@@ -3,6 +3,7 @@
 * enhancements
   * Simplified generator by using directory action (by github.com/rupert654)
   * Support for `maxlength` on string inputs inferred from validation (by github.com/srbartlett)
+  * Change form css class handling to only add the dom class when one is not given to the form call (by github.com/patrick99e99).
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
