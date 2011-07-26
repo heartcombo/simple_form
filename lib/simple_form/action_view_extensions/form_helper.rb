@@ -31,19 +31,24 @@ module SimpleForm
 
       def simple_form_for(record, options={}, &block)
         options[:builder] ||= SimpleForm::FormBuilder
-        css_class = case record
-                    when String, Symbol then record.to_s
-                    when Array then dom_class(record.last)
-                    else dom_class(record)
-                    end
         options[:html] ||= {}
         unless options[:html].key?(:novalidate)
           options[:html][:novalidate] = !SimpleForm.browser_validations
         end
-        options[:html][:class] = "#{SimpleForm.form_class} #{css_class} #{options[:html][:class]}".strip
-
+        options[:html][:class] = [SimpleForm.form_class, css_class(record, options[:html])].compact.join(" ")
         with_custom_field_error_proc do
           form_for(record, options, &block)
+        end
+      end
+      
+      def css_class(record, html_options)
+        if html_options.key?(:class)
+          html_options[:class]
+        elsif record.is_a?(String) || record.is_a?(Symbol)
+          record
+        else
+          record = record.last if record.is_a?(Array)
+          dom_class(record)
         end
       end
 
