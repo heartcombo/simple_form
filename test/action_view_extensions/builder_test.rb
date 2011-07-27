@@ -97,10 +97,21 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio does not wrap the collection in the explicitly false collection wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false, :item_wrapper_tag => false
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
 
-    assert_select 'form > input[type=radio][value=true]#user_active_true'
-    assert_select 'form > input[type=radio][value=false]#user_active_false'
+      assert_no_select 'form ul'
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'collection radio does not wrap the collection in the explicitly nil collection wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => nil
+
+      assert_no_select 'form ul'
+      assert_no_select 'form ul'
+    end
   end
 
   test 'collection radio does not wrap the collection by default' do
@@ -128,8 +139,15 @@ class BuilderTest < ActionView::TestCase
   test 'collection radio does not wrap each label/radio in the explicitly false item wrapper tag' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
 
-    assert_select 'form > input[type=radio][value=true]#user_active_true'
-    assert_select 'form > input[type=radio][value=false]#user_active_false'
+    assert_no_select 'form span input[type=radio][value=true]#user_active_true'
+    assert_no_select 'form span input[type=radio][value=false]#user_active_false'
+  end
+
+  test 'collection radio does not wrap each label/radio in the explicitly nil item wrapper tag' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => nil
+
+    assert_no_select 'form span input[type=radio][value=true]#user_active_true'
+    assert_no_select 'form span input[type=radio][value=false]#user_active_false'
   end
 
   test 'collection radio wrap items in a span tag by default' do
