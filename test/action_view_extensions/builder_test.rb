@@ -364,4 +364,27 @@ class BuilderTest < ActionView::TestCase
       end
     end
   end
+  
+  test 'fields for wraps item in the configured wrapper tag' do
+    swap SimpleForm, :wrapper_tag => :em do
+      with_concat_form_for :user do |f|
+        f.input :name
+      end
+    end
+    assert_select 'form em input'
+  end
+  
+  test 'fields for wraps item in the given wrapper tag' do
+    with_concat_form_for :user do |f|
+      f.input :name, :wrapper_tag => :em
+    end
+    assert_select 'form em input#user_name'
+  end
+  
+  test 'fields for does not wrap item in the explicitly fasle given wrapper tag' do
+    with_concat_form_for :user do |f|
+      f.input :name, :wrapper_tag => false
+    end
+    assert_select 'form > input'
+  end
 end

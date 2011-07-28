@@ -10,7 +10,7 @@ module SimpleForm
       end
 
       def wrapper_tag
-        options[:wrapper_tag] || SimpleForm.wrapper_tag
+        (options[:wrapper_tag] || options[:wrapper_tag] === false) ? options[:wrapper_tag] : SimpleForm.wrapper_tag
       end
 
       def wrapper_class
