@@ -7,6 +7,7 @@
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
+  * Fix bug that doesn't remove the item_wrapper_tag or the collection_wrapper_tag on collection inputs when nil or false value is passed to these options (by gitbub.com/dw2)
 
 == 1.4.2
 
