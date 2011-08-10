@@ -42,7 +42,7 @@ class User
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
-    :post_count, :lock_version, :amount, :attempts
+    :post_count, :lock_version, :amount, :attempts, :action
 
   def initialize(options={})
     options.each do |key, value|
@@ -79,6 +79,7 @@ class User
       when :home_picture  then :string
       when :amount        then :integer
       when :attempts      then :integer
+      when :action        then :string  
     end
     Column.new(attribute, column_type, limit)
   end
@@ -129,6 +130,7 @@ class ValidatingUser < User
   validates :company, :presence => true
   validates :age, :presence => true, :if => Proc.new { |user| user.name }
   validates :amount, :presence => true, :unless => Proc.new { |user| user.age }
+  validates :action, :presence => true, :on => :create
   validates_numericality_of :age,
     :greater_than_or_equal_to => 18,
     :less_than_or_equal_to => 99,
