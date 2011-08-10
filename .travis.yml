@@ -2,6 +2,9 @@ script: "git submodule update --init && bundle exec rake test"
 rvm:
   - 1.8.7
   - 1.9.2
+  - 1.9.3
+  - ruby-head
   - ree
   - jruby
-  - rubinius
+  - rbx
+  - rbx-2.0
