@@ -146,6 +146,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input.decimal[size=50]'
   end
 
+  test 'input should get maxlength from options before defaulting to column definition for string sttributes' do
+    with_input_for @user, :name, :string, :maxlength => 10
+    assert_select 'input.string[maxlength=10]'
+  end
+
   test 'input should get maxlength from column definition for string attributes' do
     with_input_for @user, :name, :string
     assert_select 'input.string[maxlength=100]'
