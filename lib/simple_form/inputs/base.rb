@@ -67,7 +67,7 @@ module SimpleForm
           options[:required]
         elsif has_validators?
           (attribute_validators + reflection_validators).any? do |v|
-            v.kind == :presence && !conditional_validators?(v)
+            v.kind == :presence && !conditional_validators?(v) && action_validators?(v)            
           end
         else
           attribute_required_by_default?
@@ -96,8 +96,12 @@ module SimpleForm
       end
 
       def conditional_validators?(validator)
-        validator.options.include?(:if) || validator.options.include?(:unless)
+        validator.options.include?(:if) || validator.options.include?(:unless) 
       end
+
+      def action_validators?(validator)
+         validator.options.include?(:on) ? ACTIONS[validator.options[:on].to_sym] == lookup_action : true
+      end  
 
       def attribute_required_by_default?
         SimpleForm.required_by_default

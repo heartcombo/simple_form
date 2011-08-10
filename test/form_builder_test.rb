@@ -345,6 +345,22 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input.optional#validating_user_age'
   end
 
+  test 'builder input should be required when validation is on create' do
+    @controller.action_name = "new"
+    with_form_for @validating_user, :action
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_action'
+  end
+
+  test 'builder input should not be required when validation is on other action' do
+    @controller.action_name = "edit"
+    with_form_for @validating_user, :action
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_action'
+  end
+
   test 'builder input should not be required when ActiveModel::Validations is included and unless option is present' do
     with_form_for @validating_user, :amount
     assert_no_select 'input.required'
