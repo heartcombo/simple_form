@@ -100,7 +100,7 @@ module SimpleForm
       end
 
       def action_validators?(validator)
-         validator.options.include?(:on) ? ACTIONS[validator.options[:on]] == template.controller.action_name.to_sym : true
+         validator.options.include?(:on) ? ACTIONS[validator.options[:on].to_sym] == template.controller.action_name.to_sym : true
       end  
 
       def attribute_required_by_default?
