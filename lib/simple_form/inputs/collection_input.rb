@@ -55,7 +55,12 @@ module SimpleForm
           value ||= common_method_for[:value]
         end
 
-        [label, value]
+        if SimpleForm.translate && [label, value] == [:to_s, :to_s]
+          translate_collection
+          [:first, :last]
+        else
+          [label, value]
+        end
       end
 
       def detect_common_display_methods
@@ -81,6 +86,10 @@ module SimpleForm
         (collection_classes & [
           String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
         ]).any?
+      end
+
+      def translate_collection
+        collection.map! {|value| [translate(:options, value.to_s), value.to_s]}
       end
     end
   end

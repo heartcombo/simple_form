@@ -174,6 +174,7 @@ module SimpleForm
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
         end
         lookups << :"#{reflection_or_attribute_name}"
+        lookups.map! {|lookup| :"#{lookup}.#{default}"} if namespace == :options
         lookups << default
 
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
