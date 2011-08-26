@@ -141,9 +141,9 @@ class InputTest < ActionView::TestCase
     assert_select "input#user_password.password[type=password][name='user[password]']"
   end
 
-  test 'input should use default text size for decimal attributes' do
+  test 'input should not use size attribute for decimal attributes' do
     with_input_for @user, :credit_limit, :decimal
-    assert_select 'input.decimal[size=50]'
+    assert_no_select 'input.decimal[size]'
   end
 
   test 'input should get maxlength from column definition for string attributes' do
