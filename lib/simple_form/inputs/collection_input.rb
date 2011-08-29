@@ -89,7 +89,7 @@ module SimpleForm
       end
 
       def translate_collection
-        collection.map! {|value| [translate(:options, value.to_s), value.to_s]}
+        @collection = @collection.map {|value| [translate(:options, value.to_s), value.to_s]}
       end
     end
   end
