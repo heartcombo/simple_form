@@ -5,6 +5,7 @@
   * Support for `maxlength` on string inputs inferred from validation (by github.com/srbartlett)
   * Change form css class handling to only add the dom class when one is not given to the form call (by github.com/patrick99e99)
   * Support for required attributs when action validations are present (by github.com/csegura)
+  * Don't ganerate `size` attribute for numeric input (by github.com/jasonmp85)
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
