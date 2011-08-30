@@ -13,6 +13,10 @@ module SimpleForm
 
     private
 
+      def has_maxlength?
+        text?
+      end
+
       def has_placeholder?
         (text? || password?) && placeholder_present?
       end

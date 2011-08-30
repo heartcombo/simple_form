@@ -398,6 +398,23 @@ class InputTest < ActionView::TestCase
     assert_select 'textarea.text[placeholder=Put in some text]'
   end
 
+  test 'input should get maxlength from column definition for text attributes' do
+    with_input_for @user, :description, :text
+    assert_select 'textarea.text[maxlength=200]'
+  end
+
+  test 'input should infer maxlength column definition from validation when present for text attributes' do
+    with_input_for @validating_user, :description, :text
+    assert_select 'textarea.text[maxlength=50]'
+  end
+
+  test 'when not using HTML5, does not show maxlength attribute for text attributes' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :description, :text
+      assert_no_select 'textarea.text[maxlength]'
+    end
+  end
+
   test 'input should generate a file field' do
     with_input_for @user, :name, :file
     assert_select 'input#user_name[type=file]'

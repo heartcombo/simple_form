@@ -45,7 +45,7 @@ module SimpleForm
 
   # Components used by the form builder.
   mattr_accessor :components
-  @@components = [ :placeholder, :label_input, :hint, :error ]
+  @@components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
 
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods

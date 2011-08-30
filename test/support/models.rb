@@ -67,7 +67,7 @@ class User
   def column_for_attribute(attribute)
     column_type, limit = case attribute.to_sym
       when :name, :status, :password then [:string, 100]
-      when :description   then :text
+      when :description   then [:text, 200]
       when :age           then :integer
       when :credit_limit  then [:decimal, 15]
       when :active        then :boolean
@@ -144,6 +144,7 @@ class ValidatingUser < User
     :less_than_or_equal_to => :max_attempts,
     :only_integer => true
   validates_length_of :name, :maximum => 25
+  validates_length_of :description, :maximum => 50
 
   def min_amount
     10

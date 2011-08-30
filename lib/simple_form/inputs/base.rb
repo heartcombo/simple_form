@@ -14,6 +14,7 @@ module SimpleForm
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Wrapper
+      include SimpleForm::Components::Maxlength
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options
