@@ -217,6 +217,10 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :born_at, :as => :string
     assert_no_select 'form select'
     assert_select 'form input#user_born_at.string'
+
+    with_form_for @user, :age, :as => :range
+    assert_no_select 'form .input.integer'
+    assert_select 'form input#user_age.range'
   end
 
   # COMMON OPTIONS
