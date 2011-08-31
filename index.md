@@ -53,7 +53,7 @@ if you want to use it with Rails 2.3 you should check this branch:
 
 <http://github.com/plataformatec/simple_form/tree/v1.0>
 
-## Usage
+## Basic usage
 
 SimpleForm was designed to be customized as you need to. Basically it's a stack of components that are invoked to create a complete html input for you, which by default contains label, hints, errors and the input itself. It does not aim to create a lot of different logic from the default Rails form helpers, as they do a great work by themselves. Instead, SimpleForm acts as a DSL and just maps your input type (retrieved from the column definition in the database) to an specific helper method.
 
@@ -65,130 +65,7 @@ To start using SimpleForm you just have to use the helper it provides:
       <%= f.button :submit %>
     <% end %>
 
-This will generate an entire form with labels for user name and password as well, and render errors by default when you render the form with invalid data (after submitting for example).
-
-You can overwrite the default label by passing it to the input method, add a hint or even a placeholder:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :username, :label => 'Your username please' %>
-      <%= f.input :password, :hint => 'No special characters.' %>
-      <%= f.input :email, :placeholder => 'user@domain.com' %>
-      <%= f.button :submit %>
-    <% end %>
-
-You can also disable labels, hints or error or configure the html of any of them:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :username, :label_html => { :class => 'my_class' } %>
-      <%= f.input :password, :hint => false, :error_html => { :id => "password_error"} %>
-      <%= f.input :password_confirmation, :label => false %>
-      <%= f.button :submit %>
-    <% end %>
-
-It is also possible to pass any html attribute straight to the input, by using the :input_html option, for instance:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :username, :input_html => { :class => 'special' } %>
-      <%= f.input :password, :input_html => { :maxlength => 20 } %>
-      <%= f.input :remember_me, :input_html => { :value => '1' } %>
-      <%= f.button :submit %>
-    <% end %>
-
-By default all inputs are required, which means an * is prepended to the label, but you can disable it in any input you want:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :name, :required => false %>
-      <%= f.input :username %>
-      <%= f.input :password %>
-      <%= f.button :submit %>
-    <% end %>
-
-SimpleForm also lets you overwrite the default input type it creates:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :username %>
-      <%= f.input :password %>
-      <%= f.input :description, :as => :text %>
-      <%= f.input :accepts,     :as => :radio %>
-      <%= f.button :submit %>
-    <% end %>
-
-So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no labels and a text area instead of a text field for the description. You can also render boolean attributes using :as => :select to show a dropdown.
-
-It is also possible to give the :disabled option to SimpleForm, and it'll automatically mark the wrapper as disabled with a css class, so you can style labels, hints and other components inside the wrapper as well:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :username, :disabled => true, :hint => "You cannot change your username." %>
-      <%= f.button :submit %>
-    <% end %>
-
-SimpleForm accepts same options as their corresponding input type helper in Rails:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 90,
-                                :end_year => Date.today.year - 12, :discard_day => true,
-                                :order => [:month, :year] %>
-      <%= f.button :submit %>
-    <% end %>
-
-SimpleForm also allows you to use label, hint, input_field, error and full_error helpers it provides (please take a look at the rdocs for each method for more info):
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.label :username %>
-      <%= f.input_field :username %>
-      <%= f.hint 'No special characters, please!' %>
-      <%= f.error :username, :id => 'user_name_error' %>
-      <%= f.full_error :token %>
-      <%= f.submit 'Save' %>
-    <% end %>
-
-Any extra option passed to these methods will be rendered as html option.
-
-### Collections
-
-And what if you want to create a select containing the age from 18 to 60 in your form? You can do it overriding the :collection option:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :user %>
-      <%= f.input :age, :collection => 18..60 %>
-      <%= f.button :submit %>
-    <% end %>
-
-Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option. Other types of collection are :radio and :check_boxes. Those are added by SimpleForm to Rails set of form helpers (read Extra Helpers session below for more information).
-
-Collection inputs accepts two other options beside collections:
-
-* label_method => the label method to be applied to the collection to retrieve the label
-
-* value_method => the value method to be applied to the collection to retrieve the value
-
-Those methods are useful to manipulate the given collection. Both of these options also except lambda/procs in case you want to calculate the value or label in a special way eg. custom translation. All other options given are sent straight to the underlying helper. For example, you can give prompt as:
-
-    f.input :age, :collection => 18..60, :prompt => "Select your age"
-
-### Priority
-
-SimpleForm also supports :time_zone and :country. When using such helpers, you can give :priority as option to select which time zones and/or countries should be given higher priority:
-
-    f.input :residence_country, :priority => [ "Brazil" ]
-    f.input :time_zone, :priority => /US/
-
-Those values can also be configured with a default value to be used site use through the SimpleForm.country_priority and SimpleForm.time_zone_priority helpers.
-
-### Wrapper
-
-SimpleForm allows you to add a wrapper which contains the label, error, hint and input.
-The first step is to configure a wrapper tag:
-
-    SimpleForm.wrapper_tag = :p
-
-And now, you don't need to wrap your f.input calls anymore:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :username %>
-      <%= f.input :password %>
-      <%= f.button :submit %>
-    <% end %>
+[More](/usage.html)
 
 ## Associations
 
@@ -216,85 +93,7 @@ Now we have the user form:
       <%= f.button :submit %>
     <% end %>
 
-Simple enough right? This is going to render a :select input for choosing the :company, and another :select input with :multiple option for the :roles. You can of course change it, to use radios and check boxes as well:
-
-    f.association :company, :as => :radio
-    f.association :roles,   :as => :check_boxes
-
-The association helper just invokes input under the hood, so all options available to :select, :radio and :check_boxes are also available to association. Additionally, you can specify the collection by hand, all together with the prompt:
-
-    f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
-
-## Buttons
-
-All web forms need buttons, right? SimpleForm wraps them in the DSL, acting like a proxy:
-
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :name %>
-      <%= f.button :submit %>
-    <% end %>
-
-The above will simply call submit. You choose to use it or not, it's just a question of taste.
-
-## Wrapping Rails Form Helpers
-
-Say you wanted to use a rails form helper but still wrap it in SimpleForm goodness? You can, by calling input with a block like so:
-
-    <%= f.input :role do %>
-      <%= f.select :role, Role.all.map { |r| [r.name, r.id, { :class => r.company.id }] }, :include_blank => true %>
-    <% end %>
-
-In the above example, we're taking advantage of Rails 3's select method that allows us to pass in a hash of additional attributes for each option.
-
-## Extra helpers
-
-SimpleForm also comes with some extra helpers you can use inside rails default forms without relying on simple_form_for helper. They are listed below.
-
-### Simple Fields For
-
-Wrapper to use simple form inside a default rails form
-
-    form_for @user do |f|
-      f.simple_fields_for :posts do |posts_form|
-        # Here you have all simple_form methods available
-        posts_form.input :title
-      end
-    end
-
-### Collection Radio
-
-Creates a collection of radio inputs with labels associated (same API as collection_select):
-
-    form_for @user do |f|
-      f.collection_radio :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
-    end
-
-    <input id="user_options_true" name="user[options]" type="radio" value="true" />
-    <label class="collection_radio" for="user_options_true">Yes</label>
-    <input id="user_options_false" name="user[options]" type="radio" value="false" />
-    <label class="collection_radio" for="user_options_false">No</label>
-
-### Collection Check Box
-
-Creates a collection of check boxes with labels associated (same API as collection_select):
-
-    form_for @user do |f|
-      f.collection_check_boxes :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
-    end
-
-    <input name="user[options][]" type="hidden" value="" />
-    <input id="user_options_true" name="user[options][]" type="checkbox" value="true" />
-    <label class="collection_check_box" for="user_options_true">Yes</label>
-    <input name="user[options][]" type="hidden" value="" />
-    <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
-    <label class="collection_check_box" for="user_options_false">No</label>
-
-To use this with associations in your model, you can do the following:
-
-    form_for @user do |f|
-      f.collection_check_boxes :role_ids, Role.all, :id, :name # using :roles here is not going to work.
-    end
-
+[More](/associations.html)
 
 ## Mappings/Inputs available
 
@@ -324,50 +123,6 @@ SimpleForm comes with a lot of default mappings:
   country               country select          string with name matching "country"
   time_zone             time zone select        string with name matching "time_zone"
 
-## Custom inputs
-
-It is very easy to add custom inputs to SimpleForm. For instance, if you want to add a custom input that extends the string one, you just need to add this file:
-
-    # app/inputs/currency_input.rb
-    class CurrencyInput < SimpleForm::Inputs::Base
-      def input
-        "$ #{@builder.text_field(attribute_name, input_html_options)}".html_safe
-      end
-    end
-
-And use it in your views:
-
-    f.input :money, :as => :currency
-
-You can also redefine existing SimpleForm inputs by creating a new class with the same name. For instance, if you want to wrap date/time/datetime in a div, you can do:
-
-     # app/inputs/date_time_input.rb
-     class DateTimeInput < SimpleForm::Inputs::DateTimeInput
-       def input
-         "<div>#{super}</div>".html_safe
-       end
-     end
-
-## Custom form builder
-
-You can create a custom form builder that uses SimpleForm.
-
-Create a helper method that calls simple_form_for with a custom builder:
-
-    def custom_form_for(object, *args, &block)
-      options = args.extract_options!
-      simple_form_for(object, *(args << options.merge(:builder => CustomFormBuilder)), &block)
-    end
-
-Create a form builder class that inherits from SimpleForm::FormBuilder.
-
-    class CustomFormBuilder < SimpleForm::FormBuilder
-      def input(attribute_name, options = {}, &block)
-        options[:input_html].merge! :class => 'custom'
-        super
-      end
-    end
-
 ## I18n
 
 SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. To customize your forms you can create a locale file like this:
@@ -389,74 +144,13 @@ SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. 
 
 And your forms will use this information to render the components for you.
 
-SimpleForm also lets you be more specific, separating lookups through actions for labels, hints and placeholders. Let's say you want a different label for new and edit actions, the locale file would be something like:
-
-    en:
-      simple_form:
-        labels:
-          user:
-            username: 'User name'
-            password: 'Password'
-            edit:
-              username: 'Change user name'
-              password: 'Change password'
-
-This way SimpleForm will figure out the right translation for you, based on the action being rendered. And to be a little bit DRYer with your locale file, you can skip the model information inside it:
-
-    en:
-      simple_form:
-        labels:
-          username: 'User name'
-          password: 'Password'
-        hints:
-          username: 'User name to sign in.'
-          password: 'No special characters, please.'
-        placeholders:
-          username: 'Your username'
-          password: '****'
-
-SimpleForm will always look for a default attribute translation if no specific is found inside the model key. In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found for labels.
-
-Finally, you can also overwrite any label, hint or placeholder inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
-
-It's also possible to translate buttons, using Rails' built-in I18n support:
-
-    en:
-      helpers:
-        submit:
-          user:
-            create: "Add %{model}"
-            update: "Save Changes"
-
-There are other options that can be configured through I18n API, such as required text and boolean. Be sure to check our locale file or the one copied to your application after you run "rails generate simple_form:install".
+[More](/i18n.html)
 
 ## HTML 5 Notice
 
 By default, SimpleForm will generate input field types and attributes that are supported in HTML5, but are considered invalid HTML for older document types such as HTML4 or XHTML1.0. The HTML5 extensions include the new field types such as email, number, search, url, tel, and the new attributes such as required, autofocus, maxlength, min, max, step.
 
-Most browsers will not care, but some of the newer ones - in particular Chrome 10+ - use the required attribute to force a value into an input and will prevent form submission without it. Depending on the design of the application this may or may not be desired. In many cases it can break existing UI's.
-
-It is possible to disable all HTML 5 extensions in SimpleForm with the following configuration:
-
-    SimpleForm.html5 = false # default is true
-
-If you want to have all other HTML 5 features, such as the new field types, you can disable only the browser validation:
-
-    SimpleForm.browser_validations = false # default is true
-
-This option adds a new `novalidate` property to the form, instructing it to skip all HTML 5 validation. The inputs will still be generated with the required and other attributes, that might help you to use some generic javascript validation.
-
-You can also add `novalidate` to a specific form by setting the option on the form itself:
-
-    <%= simple_form_for(resource, :html => {:novalidate => true}) do |form| %>
-
-Please notice that any of the configurations above will disable the `placeholder` component, which is an HTML 5 feature. We believe most of the newest browsers are handling this attribute fine, and if they aren't, any plugin you use would take of using the placeholder attribute to do it. However, you can disable it if you want, by removing the placeholder component from the components list in SimpleForm configuration file.
-
-## Configuration
-
-SimpleForm has several configuration values. You can read and change them in the initializer created by SimpleForm, so if you haven't executed the command below yet, please do:
-
-    rails generate simple_form:install
+[More](/html5.html)
 
 ## Maintainers
 
@@ -466,4 +160,4 @@ SimpleForm has several configuration values. You can read and change them in the
 
 ## License
 
-MIT License. Copyright 2011 Plataforma Tecnologia. http://blog.plataformatec.com.br
+MIT License. Copyright 2011 [Plataforma Tecnologia](http://blog.plataformatec.com.br).
