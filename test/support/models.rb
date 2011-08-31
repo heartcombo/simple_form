@@ -177,6 +177,8 @@ class OtherValidatingUser < User
     :greater_than_or_equal_to => Proc.new { |user| user.age },
     :less_than_or_equal_to => Proc.new { |user| user.age + 100},
     :only_integer => true
+
+  validates_format_of :country, :with => /\w+/
 end
 
 class HashBackedAuthor < Hash
