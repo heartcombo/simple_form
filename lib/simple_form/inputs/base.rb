@@ -125,7 +125,7 @@ module SimpleForm
       end
 
       def disabled?
-        options[:disabled] === true
+        options[:disabled] == true
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,
