@@ -151,6 +151,11 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[maxlength=100]'
   end
 
+  test 'input should not get maxlength from column without size definition for string attributes' do
+    with_input_for @user, :action, :string
+    assert_no_select 'input.string[maxlength]'
+  end
+
   test 'input should get size from column definition for string attributes respecting maximum value' do
     with_input_for @user, :name, :string
     assert_select 'input.string[size=50]'
@@ -175,6 +180,13 @@ class InputTest < ActionView::TestCase
     swap SimpleForm, :html5 => false do
       with_input_for @user, :password, :password
       assert_no_select 'input[type=password][maxlength]'
+    end
+  end
+
+  test 'when not using HTML5, does not show maxlength attribute with validating lenght attribute' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :name, :string
+      assert_no_select 'input.string[maxlength]'
     end
   end
 
@@ -438,6 +450,14 @@ class InputTest < ActionView::TestCase
       assert_no_select 'textarea.text[maxlength]'
     end
   end
+
+  test 'when not using HTML5, does not show maxlength attribute with validating lenght text attribute' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :name, :string
+      assert_no_select 'input.string[maxlength]'
+    end
+  end
+
 
   test 'input should generate a file field' do
     with_input_for @user, :name, :file

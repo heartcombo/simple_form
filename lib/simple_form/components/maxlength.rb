@@ -2,10 +2,11 @@ module SimpleForm
   module Components
     module Maxlength
       def maxlength
-        if has_maxlength?
+        if SimpleForm.html5 && has_maxlength?
           input_html_options[:maxlength] ||= maximum_length_from_validation
-          input_html_options[:maxlength] ||= limit if limit && SimpleForm.html5
+          input_html_options[:maxlength] ||= limit
         end
+
         nil
       end
 
