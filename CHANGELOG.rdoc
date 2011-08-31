@@ -7,6 +7,7 @@
   * Support for required attributs when action validations are present (by github.com/csegura)
   * Don't generate `size` attribute for numeric input (by github.com/jasonmp85)
   * Support for `maxlength` on text area inputs inferred from validation
+  * Support for `pattern` on text field inferred from validation
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
