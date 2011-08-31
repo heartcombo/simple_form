@@ -456,7 +456,6 @@ SimpleForm has several configuration values. You can read and change them in the
 
 == Maintainers
 
-* José Valim (https://github.com/josevalim)
 * Carlos Antonio da Silva (https://github.com/carlosantoniodasilva)
 * Rafael Mendonça França (https://github.com/rafaelfranca)
 
