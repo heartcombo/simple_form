@@ -458,7 +458,6 @@ class InputTest < ActionView::TestCase
     end
   end
 
-
   test 'input should generate a file field' do
     with_input_for @user, :name, :file
     assert_select 'input#user_name[type=file]'

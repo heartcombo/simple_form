@@ -79,7 +79,7 @@ class User
       when :home_picture  then :string
       when :amount        then :integer
       when :attempts      then :integer
-      when :action        then :string  
+      when :action        then :string
     end
     Column.new(attribute, column_type, limit)
   end
