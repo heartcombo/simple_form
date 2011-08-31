@@ -720,6 +720,22 @@ class InputTest < ActionView::TestCase
     assert_select 'select option[value=2]', 'Carlos'
   end
 
+  test 'input should disable the anothers components when the option is a object' do
+    with_input_for @user, :description, :select, :collection => ["Jose", "Carlos"], :disabled => true
+    assert_no_select 'select option[value=Jose][disabled=disabled]', 'Jose'
+    assert_no_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
+    assert_select 'select[disabled=disabled]'
+    assert_select 'div.disabled'
+  end
+
+  test 'input should not disable the anothers components when the option is a object' do
+    with_input_for @user, :description, :select, :collection => ["Jose", "Carlos"], :disabled => 'Jose'
+    assert_select 'select option[value=Jose][disabled=disabled]', 'Jose'
+    assert_no_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
+    assert_no_select 'select[disabled=disabled]'
+    assert_no_select 'div.disabled'
+  end
+
   test 'input should allow overriding collection for radio types' do
     with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'
