@@ -6,6 +6,7 @@ layout: default
 
 SimpleForm comes with a lot of default mappings:
 
+<pre>
   Mapping               Input                   Column Type
 
   boolean               check box               boolean
@@ -29,3 +30,4 @@ SimpleForm comes with a lot of default mappings:
   check_boxes           collection check box    has_many/has_and_belongs_to_many associations
   country               country select          string with name matching "country"
   time_zone             time zone select        string with name matching "time_zone"
+</pre>
