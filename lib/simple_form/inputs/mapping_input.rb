@@ -18,11 +18,7 @@ module SimpleForm
       end
 
       def has_placeholder?
-        (text? || password?) && placeholder_present?
-      end
-
-      def password?
-        input_type == :password
+        text? && placeholder_present?
       end
 
       def text?
