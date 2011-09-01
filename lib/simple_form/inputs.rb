@@ -9,7 +9,7 @@ module SimpleForm
     autoload :MappingInput,    'simple_form/inputs/mapping_input'
     autoload :NumericInput,    'simple_form/inputs/numeric_input'
     autoload :PriorityInput,   'simple_form/inputs/priority_input'
-    autoload :RangeInput,      'simple_form/inputs/range_input'
+    #autoload :RangeInput,      'simple_form/inputs/range_input'
     autoload :StringInput,     'simple_form/inputs/string_input'
   end
 end
