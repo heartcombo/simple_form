@@ -10,6 +10,7 @@ module SimpleForm
   autoload :I18nCache,         'simple_form/i18n_cache'
   autoload :Inputs,            'simple_form/inputs'
   autoload :MapType,           'simple_form/map_type'
+  autoload :Renderer,          'simple_form/renderer'
 
   # Default tag used on hints.
   mattr_accessor :hint_tag

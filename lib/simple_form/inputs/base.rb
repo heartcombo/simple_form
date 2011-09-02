@@ -1,3 +1,6 @@
+# TODO: Remove this once refactoring is done
+require 'simple_form/renderer'
+
 module SimpleForm
   module Inputs
     class Base
@@ -64,8 +67,8 @@ module SimpleForm
       def render
         content = "".html_safe
         components_list.each do |component|
-          next if options[component] == false
-          rendered = send(component)
+          next if options[component.namespace] == false
+          rendered = component.render(self)
           content.safe_concat rendered.to_s if rendered
         end
         wrap(content)
@@ -82,7 +85,13 @@ module SimpleForm
       end
 
       def components_list
-        options[:components] || SimpleForm.components
+        (options[:components] || SimpleForm.components).map do |component|
+          if component == :error
+            SimpleForm::Renderer.new(:error, :error, :tag => SimpleForm.error_tag, :class => SimpleForm.error_class)
+          else
+            component
+          end
+        end
       end
 
       def has_autofocus?

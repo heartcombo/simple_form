@@ -210,7 +210,11 @@ module SimpleForm
       options[:error_html] = options.except(:error_tag, :error_prefix, :error_method)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).error
+      SimpleForm::Renderer.new(
+        :error,
+        :error,
+        :tag => SimpleForm.error_tag, :class => SimpleForm.error_class
+      ).render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
     # Return the error but also considering its name. This is used

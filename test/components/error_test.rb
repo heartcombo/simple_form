@@ -2,10 +2,10 @@ require 'test_helper'
 
 class ErrorTest < ActionView::TestCase
 
-  def with_error_for(object, attribute_name, type, options={}, &block)
+  def with_error_for(object, attribute_name, type, options={})
     with_concat_form_for(object) do |f|
       options[:reflection] = Association.new(Company, :company, {}) if options.delete(:setup_association)
-      SimpleForm::Inputs::Base.new(f, attribute_name, nil, type, options).error.to_s
+      f.error attribute_name, options.merge(:as => type)
     end
   end
 
@@ -45,7 +45,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'error should be able to pass html options' do
-    with_error_for @user, :name, :string, :error_html => { :id => 'error', :class => 'yay' }
+    with_error_for @user, :name, :string, :id => 'error', :class => 'yay'
     assert_select 'span#error.error.yay'
   end
 

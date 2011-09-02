@@ -7,8 +7,14 @@ module SimpleForm
         enabled_error
       end
 
-      def error_tag
-        options[:error_tag] || SimpleForm.error_tag
+    protected
+
+      def enabled_error
+        error_text if has_errors?
+      end
+
+      def disabled_error
+        nil
       end
 
       def error_text
@@ -21,20 +27,6 @@ module SimpleForm
 
       def error_method
         options[:error_method] || SimpleForm.error_method
-      end
-
-      def error_html_options
-        html_options_for(:error, [SimpleForm.error_class])
-      end
-
-    protected
-
-      def enabled_error
-        template.content_tag(error_tag, error_text, error_html_options) if has_errors?
-      end
-
-      def disabled_error
-        nil
       end
 
       def errors
