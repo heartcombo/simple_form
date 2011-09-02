@@ -1,18 +1,18 @@
 module SimpleForm
   module Wrappers
     class Many
+      include Enumerable
+
       attr_reader :namespace, :defaults, :components
 
       def initialize(namespace, *args)
-        options = args.extract_options!
-        @tag    = options[:tag]
-        @class  = Array.wrap(options[:class])
-
+        @defaults   = args.extract_options!
         @namespace  = namespace
         @components = args
+        @defaults[:class] = Array.wrap(@defaults[:class])
       end
 
-      def render(input)
+      def render(input, components = self.components)
         content = "".html_safe
         options = input.options
 
@@ -25,15 +25,24 @@ module SimpleForm
         wrap(input, options, content)
       end
 
+      def each
+        @components.each { |c| yield(c) }
+      end
+
       private
 
       def wrap(input, options, content)
-        tag = options[:"#{namespace}_tag"]  || @tag
+        tag = options[:"#{namespace}_tag"] || @defaults[:tag]
         return content unless tag
 
+        klass = html_classes(input, options)
         opts  = options[:"#{namespace}_html"] || {}
-        opts[:class] = (@class << opts[:class]).join(' ').strip unless @class.empty?
+        opts[:class] = (klass << opts[:class]).join(' ').strip unless klass.empty?
         input.template.content_tag(tag, content, opts)
+      end
+
+      def html_classes(input, options)
+        @defaults[:class].dup
       end
     end
   end

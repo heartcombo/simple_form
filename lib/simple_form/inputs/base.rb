@@ -18,7 +18,6 @@ module SimpleForm
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
-      include SimpleForm::Components::Wrapper
 
       # Enables certain components support to the given input.
       def self.enable(*args)
@@ -61,14 +60,21 @@ module SimpleForm
         [input_type, required_class]
       end
 
-      def render
-        content = "".html_safe
-        components_list.each do |component|
-          next if options[component.namespace] == false
-          rendered = component.render(self)
-          content.safe_concat rendered.to_s if rendered
-        end
-        wrap(content)
+      def disabled?
+        options[:disabled] == true
+      end
+
+      # Whether this input is valid for HTML 5 required attribute.
+      def has_required?
+        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
+      end
+
+      def has_autofocus?
+        options[:autofocus]
+      end
+
+      def has_validators?
+        attribute_name && object.class.respond_to?(:validators_on)
       end
 
       private
@@ -79,14 +85,6 @@ module SimpleForm
 
       def limit
         column && column.limit
-      end
-
-      def components_list
-        if components = options[:components]
-          SimpleForm::Wrappers.wrap(components)
-        else
-          SimpleForm.components
-        end
       end
 
       def has_autofocus?
@@ -103,10 +101,6 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
-      end
-
-      def disabled?
-        options[:disabled] == true
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,

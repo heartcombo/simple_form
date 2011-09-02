@@ -90,9 +90,9 @@ module SimpleForm
       input_type = default_input_type(attribute_name, column, options)
 
       if block_given?
-        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
+        SimpleForm.components.render SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)
       else
-        find_mapping(input_type).new(self, attribute_name, column, input_type, options).render
+        SimpleForm.components.render find_mapping(input_type).new(self, attribute_name, column, input_type, options)
       end
     end
     alias :attribute :input
