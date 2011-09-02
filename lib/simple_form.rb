@@ -55,6 +55,14 @@ module SimpleForm
   mattr_accessor :collection_value_methods
   @@collection_value_methods = [ :id, :to_s ]
 
+  # Tag to wrap input element into
+  mattr_accessor :input_wrapper_tag
+  @@input_wrapper_tag = nil
+
+  # Input wrapper's class
+  mattr_accessor :input_wrapper_class
+  @@input_wrapper_class = :input_field
+
   # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
   mattr_accessor :collection_wrapper_tag
   @@collection_wrapper_tag = nil

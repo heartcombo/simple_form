@@ -376,10 +376,24 @@ class FormBuilderTest < ActionView::TestCase
       assert_select 'form p input#user_name.string'
     end
   end
-  
+
+  test 'builder support input element wrapping around specified tag' do
+    swap SimpleForm, :input_wrapper_tag => :p do
+      with_form_for @user, :name
+      assert_select 'form div.input p input'
+    end
+  end
+
+  test 'builder input wrapping tag allows custom css class to be set' do
+    swap SimpleForm, :input_wrapper_tag => :p, :input_wrapper_class => 'custom' do
+      with_form_for @user, :name
+      assert_select 'form div.input p.custom input'
+    end
+  end
+
   test 'builder support no wrapping when wrapper is false' do
-    with_form_for @user, :name, :wrapper => false	
-    assert_select 'form > label[for=user_name]'	
+    with_form_for @user, :name, :wrapper => false
+    assert_select 'form > label[for=user_name]'
     assert_select 'form > input#user_name.string'
   end
 
@@ -418,6 +432,7 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :name
     assert_select 'form div.input.required.string.field_with_errors'
   end
+
 
   # ONLY THE INPUT TAG
   test "builder input_field should only render the input tag, nothing else" do
