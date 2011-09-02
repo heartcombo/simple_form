@@ -28,6 +28,7 @@ module SimpleForm
         @input_type         = input_type
         @reflection         = options.delete(:reflection)
         @options            = options
+        @required           = calculate_required
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:required]  = true if has_required? # Don't make this conditional on HTML5 here, because we want the CSS class to be set
           o[:disabled]  = true if disabled?
@@ -47,10 +48,6 @@ module SimpleForm
         [input_type, required_class]
       end
 
-      def limit
-        column && column.limit
-      end
-
       def render
         content = "".html_safe
         components_list.each do |component|
@@ -63,11 +60,19 @@ module SimpleForm
 
     protected
 
+      def limit
+        column && column.limit
+      end
+
       def components_list
         options[:components] || SimpleForm.components
       end
 
       def attribute_required?
+        @required
+      end
+
+      def calculate_required
         if !options[:required].nil?
           options[:required]
         elsif has_validators?
