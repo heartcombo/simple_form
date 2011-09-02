@@ -47,6 +47,10 @@ module SimpleForm
         [input_type, required_class]
       end
 
+      def limit
+        column && column.limit
+      end
+
       def render
         content = "".html_safe
         components_list.each do |component|
