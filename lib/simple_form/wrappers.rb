@@ -3,11 +3,10 @@ module SimpleForm
     autoload :Many,      'simple_form/wrappers/many'
     autoload :Root,      'simple_form/wrappers/root'
     autoload :Single,    'simple_form/wrappers/single'
-    autoload :Anonym,    'simple_form/wrappers/anonym'
 
     # TODO: Test the anonym case
     def self.find(name)
-      SimpleForm.components.find { |c| c.namespace == name } || SingleForm::Wrappers::Anonym.new(name)
+      SimpleForm.components.find { |c| c.namespace == name } || SingleForm::Wrappers::Many.new(name, name)
     end
 
     def self.wrap(array)

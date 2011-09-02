@@ -25,6 +25,16 @@ module MiscHelpers
     end
   end
 
+  # Temporary hack to deal with components
+  def swap!(*args)
+    swap(*args) do
+      SimpleForm.components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
+      yield
+    end
+  ensure
+    SimpleForm.components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
+  end
+
   def with_concat_form_for(object, &block)
     concat simple_form_for(object, &block)
   end

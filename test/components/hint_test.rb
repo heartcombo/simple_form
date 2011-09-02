@@ -20,11 +20,9 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint uses the current component tag set' do
-    swap SimpleForm, :hint_tag => :p do
-      swap SimpleForm, :components => [:hint] do
-        with_hint_for @user, :name, :string, :hint => 'Use with care...'
-        assert_select 'p.hint', 'Use with care...'
-      end
+    swap! SimpleForm, :hint_tag => :p do
+      with_hint_for @user, :name, :string, :hint => 'Use with care...'
+      assert_select 'p.hint', 'Use with care...'
     end
   end
 

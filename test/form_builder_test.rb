@@ -402,7 +402,7 @@ class FormBuilderTest < ActionView::TestCase
   # WRAPPERS
 
   test 'builder support wrapping around an specific tag' do
-    swap SimpleForm, :wrapper_tag => :p do
+    swap! SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name
       assert_select 'form p label[for=user_name]'
       assert_select 'form p input#user_name.string'
@@ -416,7 +416,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder wrapping tag adds default css classes' do
-    swap SimpleForm, :wrapper_tag => :p do
+    swap! SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name
       assert_select 'form p.input.required.string'
 
@@ -426,7 +426,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder wrapping tag allow custom options to be given' do
-    swap SimpleForm, :wrapper_tag => :p do
+    swap! SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name, :wrapper_html => { :id => "super_cool", :class => 'yay' }
       assert_select 'form p#super_cool.required.string.yay'
     end

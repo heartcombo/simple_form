@@ -1,10 +1,13 @@
 module SimpleForm
   module Inputs
     class HiddenInput < Base
-      def render
+      def label; "" end
+      def error; end
+      def hint;  end
+
+      def input
         @builder.hidden_field(attribute_name, input_html_options)
       end
-      alias :input :render
 
       private
 
