@@ -250,7 +250,9 @@ module SimpleForm
         column      = find_attribute_column(attribute_name)
         input_type  = default_input_type(attribute_name, column, options)
       end
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).hint
+
+      SimpleForm::Wrappers.find(:hint).
+        render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
     # Creates a default label tag for the given attribute. You can give a label

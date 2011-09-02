@@ -5,7 +5,7 @@ class HintTest < ActionView::TestCase
   def with_hint_for(object, attribute_name, type, options={}, &block)
     with_concat_form_for(object) do |f|
       options[:reflection] = Association.new(Company, :company, {}) if options.delete(:setup_association)
-      SimpleForm::Inputs::Base.new(f, attribute_name, nil, type, options).hint.to_s
+      f.hint attribute_name, options.merge(:as => type)
     end
   end
 
@@ -21,8 +21,10 @@ class HintTest < ActionView::TestCase
 
   test 'hint uses the current component tag set' do
     swap SimpleForm, :hint_tag => :p do
-      with_hint_for @user, :name, :string, :hint => 'Use with care...'
-      assert_select 'p.hint', 'Use with care...'
+      swap SimpleForm, :components => [:hint] do
+        with_hint_for @user, :name, :string, :hint => 'Use with care...'
+        assert_select 'p.hint', 'Use with care...'
+      end
     end
   end
 
@@ -68,7 +70,7 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint should be able to pass html options' do
-    with_hint_for @user, :name, :string, :hint => 'Yay!', :hint_html => { :id => 'hint', :class => 'yay' }
+    with_hint_for @user, :name, :string, :hint => 'Yay!', :id => 'hint', :class => 'yay'
     assert_select 'span#hint.hint.yay'
   end
 end
