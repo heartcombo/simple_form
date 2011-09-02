@@ -2,6 +2,18 @@ require 'action_view'
 require 'simple_form/action_view_extensions/form_helper'
 require 'simple_form/action_view_extensions/builder'
 
+# TODO: This is temporary while we refactor some stuff.
+class Symbol
+  def render(input)
+    input.send(self)
+  end
+
+  def namespace
+    self
+  end
+end
+
+
 module SimpleForm
   autoload :Components,        'simple_form/components'
   autoload :ErrorNotification, 'simple_form/error_notification'
@@ -10,7 +22,7 @@ module SimpleForm
   autoload :I18nCache,         'simple_form/i18n_cache'
   autoload :Inputs,            'simple_form/inputs'
   autoload :MapType,           'simple_form/map_type'
-  autoload :Renderer,          'simple_form/renderer'
+  autoload :Wrappers,          'simple_form/wrappers'
 
   # Default tag used on hints.
   mattr_accessor :hint_tag
@@ -43,10 +55,6 @@ module SimpleForm
   # ID to add for error notification helper.
   mattr_accessor :error_notification_id
   @@error_notification_id = nil
-
-  # Components used by the form builder.
-  mattr_accessor :components
-  @@components = [ :placeholder, :label_input, :hint, :error ]
 
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
@@ -143,4 +151,14 @@ module SimpleForm
   def self.setup
     yield self
   end
+
+  ## DEPRECATED STUFF
+
+  def self.components=(array)
+    @@components = SimpleForm::Wrappers.wrap(array)
+  end
+
+  # Components used by the form builder.
+  mattr_reader :components
+  self.components = [ :placeholder, :label_input, :hint, :error ]
 end

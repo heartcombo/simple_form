@@ -1,6 +1,3 @@
-# TODO: Remove this once refactoring is done
-require 'simple_form/renderer'
-
 module SimpleForm
   module Inputs
     class Base
@@ -85,12 +82,10 @@ module SimpleForm
       end
 
       def components_list
-        (options[:components] || SimpleForm.components).map do |component|
-          if component == :error
-            SimpleForm::Renderer.new(:error, :error, :tag => SimpleForm.error_tag, :class => SimpleForm.error_class)
-          else
-            component
-          end
+        if components = options[:components]
+          SimpleForm::Wrappers.wrap(components)
+        else
+          SimpleForm.components
         end
       end
 
