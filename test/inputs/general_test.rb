@@ -85,13 +85,6 @@ class InputTest < ActionView::TestCase
     assert_select 'select.datetime:not([autofocus])'
   end
 
-  test "when not using HTML5, it does not generate autofocus attribute" do
-    swap SimpleForm, :html5 => false do
-      with_input_for @user, :name, :string, :autofocus => true
-      assert_no_select 'input.string[autofocus]'
-    end
-  end
-
   # BooleanInput
   test 'input should generate a checkbox by default for boolean attributes' do
     with_input_for @user, :active, :boolean
