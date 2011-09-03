@@ -5,6 +5,10 @@ module SimpleForm
         enabled_error
       end
 
+      def has_errors?
+        object && object.respond_to?(:errors) && errors.present?
+      end
+
     protected
 
       def enabled_error
@@ -13,10 +17,6 @@ module SimpleForm
 
       def disabled_error
         nil
-      end
-
-      def has_errors?
-        object && object.respond_to?(:errors) && errors.present?
       end
 
       def error_text

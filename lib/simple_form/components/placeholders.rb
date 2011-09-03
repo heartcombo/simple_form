@@ -5,19 +5,19 @@ module SimpleForm
         nil # This component is disabled by default.
       end
 
+      def has_placeholder?
+        options[:placeholder] != false && placeholder_text.present?
+      end
+
       private
 
       def enabled_placeholder
-        input_html_options[:placeholder] ||= placeholder_text if placeholder_present?
+        input_html_options[:placeholder] ||= placeholder_text if has_placeholder?
         nil
       end
 
       def disabled_placeholder
         nil
-      end
-
-      def placeholder_present?
-        options[:placeholder] != false && placeholder_text.present?
       end
 
       def placeholder_text

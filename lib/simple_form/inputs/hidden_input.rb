@@ -1,9 +1,7 @@
 module SimpleForm
   module Inputs
     class HiddenInput < Base
-      def label; "" end
-      def error; end
-      def hint;  end
+      disable :label, :error, :hint
 
       def input
         @builder.hidden_field(attribute_name, input_html_options)
