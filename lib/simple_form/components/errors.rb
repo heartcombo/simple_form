@@ -1,7 +1,7 @@
 module SimpleForm
   module Components
     module Errors
-      include SimpleForm::HasErrors
+      include SimpleForm::Helpers::HasErrors
 
       def error
         template.content_tag(error_tag, error_text, error_html_options) if has_errors?

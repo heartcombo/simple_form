@@ -1,7 +1,7 @@
 module SimpleForm
   class ErrorNotification
     delegate :object, :object_name, :template, :to => :@builder
-    include SimpleForm::HasErrors
+    include SimpleForm::Helpers::HasErrors
 
     def initialize(builder, options)
       @builder = builder

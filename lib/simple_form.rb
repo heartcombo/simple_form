@@ -6,7 +6,6 @@ module SimpleForm
   autoload :Components,        'simple_form/components'
   autoload :ErrorNotification, 'simple_form/error_notification'
   autoload :FormBuilder,       'simple_form/form_builder'
-  autoload :HasErrors,         'simple_form/has_errors'
   autoload :Helpers,           'simple_form/helpers'
   autoload :I18nCache,         'simple_form/i18n_cache'
   autoload :Inputs,            'simple_form/inputs'
