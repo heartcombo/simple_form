@@ -16,6 +16,7 @@
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
   * Fix bug that doesn't remove the item_wrapper_tag or the collection_wrapper_tag on collection inputs when nil or false value is passed to these options (by gitbub.com/dw2)
   * Fix bug that disable the entire select and wrapper when `disabled` option is a string or array
+  * Fix bug when using label/value methods as procs together with disabled/selected options as procs for select inputs
 
 == 1.4.2
 
