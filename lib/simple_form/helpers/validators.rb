@@ -25,7 +25,7 @@ module SimpleForm
 
       def action_validator_match?(validator)
         return true if !validator.options.include?(:on)
-        
+
         case validator.options[:on]
         when :save
           true
@@ -34,6 +34,10 @@ module SimpleForm
         when :update
           object.persisted?
         end
+      end
+
+      def find_validator(validator)
+        attribute_validators.find { |v| validator === v }
       end
     end
   end

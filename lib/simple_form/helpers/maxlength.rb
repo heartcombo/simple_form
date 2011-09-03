@@ -17,7 +17,7 @@ module SimpleForm
       end
 
       def find_length_validator
-        attribute_validators.find { |v| ActiveModel::Validations::LengthValidator === v }
+        find_validator(ActiveModel::Validations::LengthValidator)
       end
     end
   end

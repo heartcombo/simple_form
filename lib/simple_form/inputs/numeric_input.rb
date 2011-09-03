@@ -50,7 +50,7 @@ module SimpleForm
       end
 
       def find_numericality_validator
-        attribute_validators.find { |v| ActiveModel::Validations::NumericalityValidator === v }
+        find_validator(ActiveModel::Validations::NumericalityValidator)
       end
 
       def evaluate_validator_option(option)

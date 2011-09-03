@@ -3,7 +3,7 @@ module SimpleForm
     # Helper methods for pattern.
     module Pattern #:nodoc:
       private
-      
+
       def add_pattern!
         input_html_options[:pattern] ||= pattern_source if options[:pattern]
       end
@@ -21,7 +21,7 @@ module SimpleForm
       end
 
       def pattern_validator
-        @pattern_validator ||= attribute_validators.find { |v| ActiveModel::Validations::FormatValidator === v }
+        @pattern_validator ||= find_validator(ActiveModel::Validations::FormatValidator)
       end
     end
   end
