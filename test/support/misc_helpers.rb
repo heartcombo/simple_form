@@ -28,11 +28,11 @@ module MiscHelpers
   # Temporary hack to deal with components.
   def swap!(*args)
     swap(*args) do
-      SimpleForm.deprecated_components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
+      SimpleForm.deprecated_components = [ :placeholder, :label_input, :hint, :error ]
       yield
     end
   ensure
-    SimpleForm.deprecated_components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
+    SimpleForm.deprecated_components = [ :placeholder, :label_input, :hint, :error ]
   end
 
   def with_concat_form_for(object, &block)

@@ -1,7 +1,6 @@
 module SimpleForm
   module Helpers
     module HasErrors
-      private
 
       def errors
         object.errors
