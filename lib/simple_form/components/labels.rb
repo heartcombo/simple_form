@@ -1,9 +1,7 @@
 module SimpleForm
   module Components
     module Labels
-      def self.included(base)
-        base.extend ClassMethods
-      end
+      extend ActiveSupport::Concern
 
       module ClassMethods #:nodoc:
         def translate_required_html
