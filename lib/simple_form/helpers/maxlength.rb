@@ -2,11 +2,14 @@ module SimpleForm
   module Helpers
     # Helper methods for maxlength.
     module Maxlength #:nodoc:
+      def has_maxlength?
+        SimpleForm.html5
+      end
 
       private
 
       def add_maxlength!
-        input_html_options[:maxlength] ||= maximum_length_from_validation || limit if SimpleForm.html5
+        input_html_options[:maxlength] ||= maximum_length_from_validation || limit if has_maxlength?
       end
 
       def maximum_length_from_validation

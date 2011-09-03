@@ -60,7 +60,7 @@ module SimpleForm
         [input_type, required_class]
       end
 
-      def disabled?
+      def has_disabled?
         options[:disabled] == true
       end
 
