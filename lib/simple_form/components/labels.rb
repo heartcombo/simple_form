@@ -24,7 +24,7 @@ module SimpleForm
       end
 
       def label
-        @builder.label(label_target, label_text, label_html_options)
+        enabled_label
       end
 
       def label_text
@@ -42,6 +42,14 @@ module SimpleForm
       end
 
     protected
+
+      def enabled_label
+        @builder.label(label_target, label_text, label_html_options)
+      end
+
+      def disabled_label
+        ""
+      end
 
       def raw_label_text #:nodoc:
         options[:label] || label_translation

@@ -22,7 +22,11 @@ module SimpleForm
 
       # Enables certain components support to the given input.
       def self.enable(*args)
-        args.each { |m| alias_method m, :"active_#{m}" }
+        args.each { |m| alias_method m, :"enabled_#{m}" }
+      end
+
+      def self.disable(*args)
+        args.each { |m| alias_method m, :"disabled_#{m}" }
       end
 
       attr_reader :attribute_name, :column, :input_type, :reflection,

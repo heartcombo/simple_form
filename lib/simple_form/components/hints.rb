@@ -2,7 +2,17 @@ module SimpleForm
   module Components
     module Hints
       def hint
+        enabled_hint
+      end
+
+      private
+
+      def enabled_hint
         template.content_tag(hint_tag, hint_text, hint_html_options) unless hint_text.blank?
+      end
+
+      def disabled_hint
+        nil
       end
 
       def hint_tag

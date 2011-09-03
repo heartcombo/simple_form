@@ -4,7 +4,7 @@ module SimpleForm
       include SimpleForm::Helpers::HasErrors
 
       def error
-        template.content_tag(error_tag, error_text, error_html_options) if has_errors?
+        enabled_error
       end
 
       def error_tag
@@ -28,6 +28,14 @@ module SimpleForm
       end
 
     protected
+
+      def enabled_error
+        template.content_tag(error_tag, error_text, error_html_options) if has_errors?
+      end
+
+      def disabled_error
+        nil
+      end
 
       def errors
         @errors ||= (errors_on_attribute + errors_on_association).compact
