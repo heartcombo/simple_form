@@ -6,7 +6,8 @@ module SimpleForm
     include SimpleForm::Inputs
 
     map_type :text, :file,                                    :to => SimpleForm::Inputs::MappingInput
-    map_type :string, :password, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
+    map_type :string, :email, :search, :tel, :url,            :to => SimpleForm::Inputs::StringInput
+    map_type :password,                                       :to => SimpleForm::Inputs::PasswordInput
     map_type :integer, :decimal, :float,                      :to => SimpleForm::Inputs::NumericInput
     map_type :select, :radio, :check_boxes,                   :to => SimpleForm::Inputs::CollectionInput
     map_type :date, :time, :datetime,                         :to => SimpleForm::Inputs::DateTimeInput

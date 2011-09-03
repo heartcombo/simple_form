@@ -340,25 +340,6 @@ class InputTest < ActionView::TestCase
     assert_select 'input[pattern="\w+"]'
   end
 
-  test 'input should infer pattern from attributes when it is present as a password' do
-    with_input_for @other_validating_user, :country, :password
-    assert_select 'input[pattern="\w+"]'
-  end
-
-  test 'input should not add pattern from attributes when html5 are turned off' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @other_validating_user, :country, :password
-      assert_no_select 'input[pattern="\w+"]'
-    end
-  end
-
-  test 'input should not add pattern from attributes when browser validations are turned off' do
-    swap SimpleForm, :browser_validations => false do
-      with_input_for @other_validating_user, :country, :password
-      assert_no_select 'input[pattern="\w+"]'
-    end
-  end
-
   test 'input should have step value of any except for integer attribute' do
     with_input_for @validating_user, :age, :float
     assert_select 'input[step="any"]'

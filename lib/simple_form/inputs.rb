@@ -8,6 +8,7 @@ module SimpleForm
     autoload :HiddenInput,     'simple_form/inputs/hidden_input'
     autoload :MappingInput,    'simple_form/inputs/mapping_input'
     autoload :NumericInput,    'simple_form/inputs/numeric_input'
+    autoload :PasswordInput,   'simple_form/inputs/password_input'
     autoload :PriorityInput,   'simple_form/inputs/priority_input'
     autoload :StringInput,     'simple_form/inputs/string_input'
   end
