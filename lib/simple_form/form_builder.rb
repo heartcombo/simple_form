@@ -5,7 +5,8 @@ module SimpleForm
     extend MapType
     include SimpleForm::Inputs
 
-    map_type :text, :file,                                    :to => SimpleForm::Inputs::MappingInput
+    map_type :text,                                           :to => SimpleForm::Inputs::TextInput
+    map_type :file,                                           :to => SimpleForm::Inputs::FileInput
     map_type :string, :email, :search, :tel, :url,            :to => SimpleForm::Inputs::StringInput
     map_type :password,                                       :to => SimpleForm::Inputs::PasswordInput
     map_type :integer, :decimal, :float,                      :to => SimpleForm::Inputs::NumericInput

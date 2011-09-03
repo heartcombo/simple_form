@@ -6,7 +6,7 @@ module SimpleForm
       end
       alias :input :render
 
-    protected
+      private
 
       def attribute_required?
         false

@@ -2,12 +2,15 @@ module SimpleForm
   module Components
     module Placeholders
       def placeholder
-        input_html_options[:placeholder] ||= placeholder_text if has_placeholder?
+        # This components is disabled by default.
         nil
       end
 
-      def has_placeholder?
-        false
+      private
+
+      def active_placeholder
+        input_html_options[:placeholder] ||= placeholder_text if placeholder_present?
+        nil
       end
 
       def placeholder_present?
@@ -15,7 +18,7 @@ module SimpleForm
       end
 
       def placeholder_text
-        @placeholder ||= options[:placeholder] || translate(:placeholders)
+        @placeholder_text ||= options[:placeholder] || translate(:placeholders)
       end
     end
   end

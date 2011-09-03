@@ -9,7 +9,7 @@ module SimpleForm
         input + (options[:label] == false ? "" : label)
       end
 
-    protected
+      private
 
       # Booleans are not required by default because in most of the cases
       # it makes no sense marking them as required. The only exception is

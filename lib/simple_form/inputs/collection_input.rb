@@ -24,7 +24,7 @@ module SimpleForm
         options
       end
 
-    protected
+      private
 
       def collection
         @collection ||= (options.delete(:collection) || self.class.boolean_collection).to_a

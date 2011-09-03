@@ -1,6 +1,8 @@
 module SimpleForm
   module Inputs
     class NumericInput < Base
+      enable :placeholder
+
       def input
         input_html_options[:type] ||= "number" if SimpleForm.html5
         input_html_options[:size] ||= nil
@@ -13,11 +15,7 @@ module SimpleForm
         super.unshift("numeric")
       end
 
-    protected
-
-      def has_placeholder?
-        placeholder_present?
-      end
+      private
 
       def infer_attributes_from_validations!
         return unless has_validators?
@@ -52,8 +50,6 @@ module SimpleForm
       def find_numericality_validator
         attribute_validators.find { |v| ActiveModel::Validations::NumericalityValidator === v }
       end
-
-      private
 
       def evaluate_validator_option(option)
         return option if option.is_a?(Numeric)
