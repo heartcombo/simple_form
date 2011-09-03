@@ -4,10 +4,12 @@
   * Simplified generator by using directory action (by github.com/rupert654)
   * Support for `maxlength` on string inputs inferred from validation (by github.com/srbartlett)
   * Change form css class handling to only add the dom class when one is not given to the form call (by github.com/patrick99e99)
-  * Support for required attributs when action validations are present (by github.com/csegura)
+  * Support for required attributes when action validations are present (by github.com/csegura)
   * Don't generate `size` attribute for numeric input (by github.com/jasonmp85)
   * Support for `maxlength` on text area inputs inferred from validation
-  * Support for `pattern` on text field inferred from validation
+  * Support for `pattern` on text field inferred from validation when :pattern is true
+  * Break Text, Password and File into their own inputs
+  * Support easy enabling and disabling of components for specific inputs
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
