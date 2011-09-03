@@ -335,9 +335,20 @@ class InputTest < ActionView::TestCase
     assert_select 'input[max=119]'
   end
 
-  test 'input should infer pattern from attributes when it is present' do
-    with_input_for @other_validating_user, :country, :string
+  test 'input should infer pattern from attributes when pattern is true' do
+    with_input_for @other_validating_user, :country, :string, :pattern => true
     assert_select 'input[pattern="\w+"]'
+  end
+
+  test 'input should use given pattern from attributes' do
+    with_input_for @other_validating_user, :country, :string, :pattern => "\\d+"
+    assert_select 'input[pattern="\d+"]'
+  end
+
+  test 'input should fail if pattern is true but no pattern exists' do
+    assert_raise RuntimeError do
+      with_input_for @other_validating_user, :name, :string, :pattern => true
+    end
   end
 
   test 'input should have step value of any except for integer attribute' do

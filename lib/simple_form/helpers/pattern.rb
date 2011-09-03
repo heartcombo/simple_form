@@ -5,16 +5,19 @@ module SimpleForm
       private
       
       def add_pattern!
-        input_html_options[:pattern] ||= pattern_source if validate_pattern?
-      end
-
-      def validate_pattern?
-        has_validators? && SimpleForm.html5 &&
-          SimpleForm.browser_validations && pattern_validator.present?
+        input_html_options[:pattern] ||= pattern_source if options[:pattern]
       end
 
       def pattern_source
-        pattern_validator.options[:with].source
+        if options[:pattern] == true
+          if has_validators? && pattern_validator
+            pattern_validator.options[:with].source
+          else
+            raise "Could not find format validator for #{attribute_name}"
+          end
+        else
+          options[:pattern]
+        end
       end
 
       def pattern_validator
