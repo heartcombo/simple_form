@@ -117,7 +117,7 @@ module SimpleForm
         [:checked, :selected, :disabled].each do |option|
           next unless options[option]
 
-          accept = if options[option].is_a?(Proc)
+          accept = if options[option].respond_to?(:call)
             options[option].call(item)
           else
             Array(options[option]).include?(value)
