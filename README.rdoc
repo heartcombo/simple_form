@@ -311,6 +311,7 @@ SimpleForm comes with a lot of default mappings:
   integer               number field            integer
   float                 number field            float
   decimal               number field            decimal
+  range                 range field             -
   datetime              datetime select         datetime/timestamp
   date                  date select             date
   time                  time select             time

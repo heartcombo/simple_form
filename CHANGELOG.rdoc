@@ -10,6 +10,7 @@
   * Support for `pattern` on text field inferred from validation when :pattern is true
   * Break Text, Password and File into their own inputs
   * Support easy enabling and disabling of components for specific inputs
+  * Add HTML5 range input
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
