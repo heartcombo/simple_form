@@ -12,21 +12,9 @@ module SimpleForm
   autoload :MapType,           'simple_form/map_type'
   autoload :Wrappers,          'simple_form/wrappers'
 
-  # Default tag used on hints.
-  mattr_accessor :hint_tag
-  @@hint_tag = :span
-
-  # CSS class to add to all hint tags.
-  mattr_accessor :hint_class
-  @@hint_class = :hint
-
-  # Default tag used on errors.
-  mattr_accessor :error_tag
-  @@error_tag = :span
-
-  # CSS class to add to all error tags.
-  mattr_accessor :error_class
-  @@error_class = :error
+  # The wrapper object.
+  mattr_accessor :wrapper
+  @@wrapper = nil
 
   # Method used to tidy up errors.
   mattr_accessor :error_method
@@ -59,18 +47,6 @@ module SimpleForm
   # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
   mattr_accessor :item_wrapper_tag
   @@item_wrapper_tag = :span
-
-  # You can wrap all inputs in a pre-defined tag. Default is a div.
-  mattr_accessor :wrapper_tag
-  @@wrapper_tag = :div
-
-  # You can define the class to use on all wrappers. Default is input.
-  mattr_accessor :wrapper_class
-  @@wrapper_class = :input
-
-  # You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
-  mattr_accessor :wrapper_error_class
-  @@wrapper_error_class = :field_with_errors
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
@@ -140,13 +116,54 @@ module SimpleForm
     yield self
   end
 
-  ## DEPRECATED STUFF
+  ## DEPRECATED METHODS SINCE 2.0
+
+  # Default tag used on hints.
+  mattr_accessor :hint_tag
+  @@hint_tag = :span
+
+  # CSS class to add to all hint tags.
+  mattr_accessor :hint_class
+  @@hint_class = :hint
+
+  # Default tag used on errors.
+  mattr_accessor :error_tag
+  @@error_tag = :span
+
+  # CSS class to add to all error tags.
+  mattr_accessor :error_class
+  @@error_class = :error
+
+  # You can wrap all inputs in a pre-defined tag. Default is a div.
+  mattr_accessor :wrapper_tag
+  @@wrapper_tag = :div
+
+  # You can define the class to use on all wrappers. Default is input.
+  mattr_accessor :wrapper_class
+  @@wrapper_class = :input
+
+  # You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
+  mattr_accessor :wrapper_error_class
+  @@wrapper_error_class = :field_with_errors
 
   def self.components=(array)
-    @@components = SimpleForm::Wrappers.wrap(array)
+    self.wrapper = Wrappers::Root.new(
+      array.map do |item|
+        case item
+        when :error
+          Wrappers::Single.new(:error, :tag => SimpleForm.error_tag, :class => SimpleForm.error_class)
+        when :hint
+          Wrappers::Single.new(:hint,  :tag => SimpleForm.hint_tag,  :class => SimpleForm.hint_class)
+        else
+          item
+        end
+      end,
+      :tag => SimpleForm.wrapper_tag,
+      :class => SimpleForm.wrapper_class,
+      :error_class => SimpleForm.wrapper_error_class
+    )
   end
 
   # Components used by the form builder.
-  mattr_reader :components
   self.components = [ :placeholder, :label_input, :hint, :error ]
 end

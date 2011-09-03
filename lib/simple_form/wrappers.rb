@@ -6,26 +6,7 @@ module SimpleForm
 
     # TODO: Test the many case
     def self.find(name)
-      SimpleForm.components.find { |c| c.to_sym == name } || SingleForm::Wrappers::Many.new(name, [name])
-    end
-
-    # TODO: Get rid of this once we remove components completely
-    def self.wrap(array)
-      Root.new(
-        array.map do |item|
-          case item
-          when :error
-            Single.new(:error, :tag => SimpleForm.error_tag, :class => SimpleForm.error_class)
-          when :hint
-            Single.new(:hint,  :tag => SimpleForm.hint_tag,  :class => SimpleForm.hint_class)
-          else
-            item
-          end
-        end,
-        :tag => SimpleForm.wrapper_tag,
-        :class => SimpleForm.wrapper_class,
-        :error_class => SimpleForm.wrapper_error_class
-      )
+      SimpleForm.wrapper.find { |c| c.to_sym == name } || SingleForm::Wrappers::Many.new(name, [name])
     end
   end
 end
