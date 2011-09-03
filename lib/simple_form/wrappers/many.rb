@@ -4,6 +4,7 @@ module SimpleForm
       include Enumerable
 
       attr_reader :namespace, :defaults, :components
+      alias :to_sym :namespace
 
       def initialize(namespace, *args)
         @defaults   = args.extract_options!
@@ -18,7 +19,7 @@ module SimpleForm
 
         components.each do |component|
           next if options[component] == false
-          rendered = component.render(input)
+          rendered = component.respond_to?(:render) ? component.render(input) : input.send(component)
           content.safe_concat rendered.to_s if rendered
         end
 

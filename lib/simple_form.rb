@@ -2,18 +2,6 @@ require 'action_view'
 require 'simple_form/action_view_extensions/form_helper'
 require 'simple_form/action_view_extensions/builder'
 
-# TODO: This is temporary while we refactor some stuff.
-class Symbol
-  def render(input)
-    input.send(self)
-  end
-
-  def namespace
-    self
-  end
-end
-
-
 module SimpleForm
   autoload :Components,        'simple_form/components'
   autoload :ErrorNotification, 'simple_form/error_notification'
