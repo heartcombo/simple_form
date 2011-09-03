@@ -1,5 +1,13 @@
 module SimpleForm
   module Wrappers
+    # A wrapper is an object that holds several components and render them.
+    # A component may either be a symbol or any object that responds to `render`.
+    # This API allows inputs/components to be easily wrapped, removing the
+    # need to modify the code only to wrap input in an extra tag.
+    #
+    # `Many` represents a wrapper around several components at the same time.
+    # It may optionally receive a namespace, allowing it to be configured
+    # on demand on input generation.
     class Many
       include Enumerable
 
@@ -33,6 +41,8 @@ module SimpleForm
       private
 
       def wrap(input, options, content)
+        return content if options[namespace] == false
+
         tag = (namespace && options[:"#{namespace}_tag"]) || @defaults[:tag]
         return content unless tag
 

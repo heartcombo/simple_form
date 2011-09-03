@@ -1,5 +1,6 @@
 module SimpleForm
   module Wrappers
+    # `Single` is an optimization for a wrapper that has only one component.
     class Single < Many
       def initialize(name, options={})
         super(name, [name], options)

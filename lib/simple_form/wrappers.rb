@@ -9,6 +9,7 @@ module SimpleForm
       SimpleForm.components.find { |c| c.to_sym == name } || SingleForm::Wrappers::Many.new(name, [name])
     end
 
+    # TODO: Get rid of this once we remove components completely
     def self.wrap(array)
       Root.new(
         array.map do |item|

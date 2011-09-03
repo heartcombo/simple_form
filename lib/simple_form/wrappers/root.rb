@@ -1,16 +1,13 @@
 module SimpleForm
   module Wrappers
+    # `Root` is the root wrapper for all components. It is special cased to
+    # always have a namespace and to add special html classes.
     class Root < Many
       def initialize(*args)
         super(:wrapper, *args)
       end
 
       private
-
-      def wrap(input, options, content)
-        return content if options[:wrapper] == false
-        super
-      end
 
       def html_classes(input, options)
         css = options[:wrapper_class] ? Array.wrap(options[:wrapper_class]) : @defaults[:class]
