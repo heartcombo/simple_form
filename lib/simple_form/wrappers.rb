@@ -6,8 +6,9 @@ module SimpleForm
     autoload :Single,    'simple_form/wrappers/single'
 
     # TODO: Test the many case
+    # TODO: Test nested wrappers
     def self.find(name)
-      SimpleForm.wrapper.find { |c| c.to_sym == name } || SingleForm::Wrappers::Many.new(name, [name])
+      SimpleForm.wrapper.find(name) || SingleForm::Wrappers::Many.new(name, [name])
     end
   end
 end

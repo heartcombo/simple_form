@@ -9,8 +9,6 @@ module SimpleForm
     # It may optionally receive a namespace, allowing it to be configured
     # on demand on input generation.
     class Many
-      include Enumerable
-
       attr_reader :namespace, :defaults, :components
       alias :to_sym :namespace
 
@@ -34,8 +32,18 @@ module SimpleForm
         wrap(input, options, content)
       end
 
-      def each
-        @components.each { |c| yield(c) }
+      def find(name)
+        return self if namespace == name
+
+        @components.each do |c|
+          if c.is_a?(Symbol)
+            return nil if c == namespace
+          elsif value = c.find(name)
+            return value
+          end
+        end
+
+        nil
       end
 
       private
