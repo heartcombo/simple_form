@@ -106,7 +106,7 @@ module SimpleForm
     #
     def input_field(attribute_name, options={})
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
-      SimpleForm::Wrappers::Root.new(:input, :wrapper => false).render find_input(attribute_name, options)
+      SimpleForm::Wrappers::Root.new([:input], :wrapper => false).render find_input(attribute_name, options)
     end
 
     # Helper for dealing with association selects/radios, generating the

@@ -1,8 +1,8 @@
 module SimpleForm
   module Wrappers
     class Single < Many
-      def initialize(name, options)
-        super(name, name, options)
+      def initialize(name, options={})
+        super(name, [name], options)
       end
 
       def render(input)

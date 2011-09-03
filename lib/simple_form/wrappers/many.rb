@@ -6,10 +6,10 @@ module SimpleForm
       attr_reader :namespace, :defaults, :components
       alias :to_sym :namespace
 
-      def initialize(namespace, *args)
-        @defaults   = args.extract_options!
+      def initialize(namespace, components, defaults={})
         @namespace  = namespace
-        @components = args
+        @components = components
+        @defaults   = defaults
         @defaults[:class] = Array.wrap(@defaults[:class])
       end
 
@@ -33,7 +33,7 @@ module SimpleForm
       private
 
       def wrap(input, options, content)
-        tag = options[:"#{namespace}_tag"] || @defaults[:tag]
+        tag = (namespace && options[:"#{namespace}_tag"]) || @defaults[:tag]
         return content unless tag
 
         klass = html_classes(input, options)
