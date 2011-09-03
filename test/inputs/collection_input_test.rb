@@ -245,6 +245,14 @@ class CollectionInputTest < ActionView::TestCase
     end
   end
 
+  test 'when not using browser validations, input should not generate required html attribute' do
+    swap SimpleForm, :browser_validations => false do
+      with_input_for @user, :name, :string
+      assert_select 'input[type=text].required'
+      assert_no_select 'input[type=text][required]'
+    end
+  end
+
   test 'collection input with select type should not generate invalid required html attribute' do
     with_input_for @user, :name, :select, :collection => ['Jose' , 'Carlos']
     assert_select 'select.required'
