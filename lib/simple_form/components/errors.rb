@@ -1,8 +1,6 @@
 module SimpleForm
   module Components
     module Errors
-      include SimpleForm::Helpers::HasErrors
-
       def error
         enabled_error
       end
@@ -15,6 +13,10 @@ module SimpleForm
 
       def disabled_error
         nil
+      end
+
+      def has_errors?
+        object && object.respond_to?(:errors) && errors.present?
       end
 
       def error_text

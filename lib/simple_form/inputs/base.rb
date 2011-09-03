@@ -64,17 +64,8 @@ module SimpleForm
         options[:disabled] == true
       end
 
-      # Whether this input is valid for HTML 5 required attribute.
-      def has_required?
-        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
-      end
-
       def has_autofocus?
         options[:autofocus]
-      end
-
-      def has_validators?
-        attribute_name && object.class.respond_to?(:validators_on)
       end
 
       private
@@ -85,10 +76,6 @@ module SimpleForm
 
       def limit
         column && column.limit
-      end
-
-      def has_autofocus?
-        options[:autofocus]
       end
 
       # Find reflection name when available, otherwise use attribute
