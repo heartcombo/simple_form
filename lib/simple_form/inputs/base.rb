@@ -18,7 +18,7 @@ module SimpleForm
 
       # Enables certain components support to the given input.
       def self.enable(*args)
-        args.each { |m| class_eval "def #{m}; active_#{m}; end" }
+        args.each { |m| alias_method m, :"active_#{m}" }
       end
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
