@@ -130,7 +130,11 @@ class ValidatingUser < User
   validates :company, :presence => true
   validates :age, :presence => true, :if => Proc.new { |user| user.name }
   validates :amount, :presence => true, :unless => Proc.new { |user| user.age }
-  validates :action, :presence => true, :on => :create
+
+  validates :action,            :presence => true, :on => :create
+  validates :credit_limit,      :presence => true, :on => :save
+  validates :phone_number,      :presence => true, :on => :update
+
   validates_numericality_of :age,
     :greater_than_or_equal_to => 18,
     :less_than_or_equal_to => 99,

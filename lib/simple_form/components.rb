@@ -6,6 +6,5 @@ module SimpleForm
     autoload :Labels,       'simple_form/components/labels'
     autoload :Placeholders, 'simple_form/components/placeholders'
     autoload :Wrapper,      'simple_form/components/wrapper'
-    autoload :Maxlength,    'simple_form/components/maxlength'
   end
 end

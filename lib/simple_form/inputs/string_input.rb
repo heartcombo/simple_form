@@ -1,12 +1,13 @@
 module SimpleForm
   module Inputs
     class StringInput < Base
-      enable :maxlength, :placeholder
+      enable :placeholder
 
       def input
-        input_html_options[:size]      ||= [limit, SimpleForm.default_input_size].compact.min
-        input_html_options[:pattern]   ||= pattern_validator if validate_pattern?
-        input_html_options[:type]      ||= input_type if SimpleForm.html5 && !string?
+        input_html_options[:type] ||= input_type if SimpleForm.html5 && !string?
+        add_maxlength!
+        add_pattern!
+        add_size!
         @builder.text_field(attribute_name, input_html_options)
       end
 
@@ -14,23 +15,10 @@ module SimpleForm
         string? ? super : super.unshift("string")
       end
 
-    protected
+      private
 
       def string?
         input_type == :string
-      end
-
-      def validate_pattern?
-        return unless has_validators?
-        SimpleForm.html5 && SimpleForm.browser_validations && find_pattern_validator.present?
-      end
-
-      def pattern_validator
-        find_pattern_validator.options[:with].source
-      end
-
-      def find_pattern_validator
-        attribute_validators.find { |v| ActiveModel::Validations::FormatValidator === v }
       end
     end
   end

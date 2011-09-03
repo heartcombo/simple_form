@@ -9,12 +9,16 @@ module SimpleForm
         :update => :edit
       }
 
+      include SimpleForm::Helpers::Required
+      include SimpleForm::Helpers::Validators
+      include SimpleForm::Helpers::Maxlength
+      include SimpleForm::Helpers::Pattern
+
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Wrapper
-      include SimpleForm::Components::Maxlength
 
       # Enables certain components support to the given input.
       def self.enable(*args)
@@ -63,7 +67,11 @@ module SimpleForm
         wrap(content)
       end
 
-    protected
+      private
+
+      def add_size!
+        input_html_options[:size] ||= [limit, SimpleForm.default_input_size].compact.min
+      end
 
       def limit
         column && column.limit
@@ -73,57 +81,8 @@ module SimpleForm
         options[:components] || SimpleForm.components
       end
 
-      def attribute_required?
-        @required
-      end
-
-      def calculate_required
-        if !options[:required].nil?
-          options[:required]
-        elsif has_validators?
-          (attribute_validators + reflection_validators).any? do |v|
-            v.kind == :presence && !conditional_validators?(v) && action_validators?(v)
-          end
-        else
-          attribute_required_by_default?
-        end
-      end
-
-      # Whether this input is valid for HTML 5 required attribute.
-      def has_required?
-        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
-      end
-
       def has_autofocus?
         options[:autofocus]
-      end
-
-      def has_validators?
-        attribute_name && object.class.respond_to?(:validators_on)
-      end
-
-      def attribute_validators
-        object.class.validators_on(attribute_name)
-      end
-
-      def reflection_validators
-        reflection ? object.class.validators_on(reflection.name) : []
-      end
-
-      def conditional_validators?(validator)
-        validator.options.include?(:if) || validator.options.include?(:unless)
-      end
-
-      def action_validators?(validator)
-        !validator.options.include?(:on) || ACTIONS[validator.options[:on].to_sym] == lookup_action
-      end
-
-      def attribute_required_by_default?
-        SimpleForm.required_by_default
-      end
-
-      def required_class
-        attribute_required? ? :required : :optional
       end
 
       # Find reflection name when available, otherwise use attribute
@@ -215,11 +174,6 @@ module SimpleForm
         return unless action
         action = action.to_sym
         ACTIONS[action] || action
-      end
-
-      def input_method
-        self.class.mappings[input_type] or
-          raise("Could not find method for #{input_type.inspect}")
       end
     end
   end

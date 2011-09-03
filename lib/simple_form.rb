@@ -7,6 +7,7 @@ module SimpleForm
   autoload :ErrorNotification, 'simple_form/error_notification'
   autoload :FormBuilder,       'simple_form/form_builder'
   autoload :HasErrors,         'simple_form/has_errors'
+  autoload :Helpers,           'simple_form/helpers'
   autoload :I18nCache,         'simple_form/i18n_cache'
   autoload :Inputs,            'simple_form/inputs'
   autoload :MapType,           'simple_form/map_type'
@@ -45,7 +46,7 @@ module SimpleForm
 
   # Components used by the form builder.
   mattr_accessor :components
-  @@components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
+  @@components = [ :placeholder, :label_input, :hint, :error ]
 
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods

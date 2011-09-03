@@ -1,18 +1,12 @@
 module SimpleForm
-  module Components
-    module Maxlength
-      def maxlength
-        # This components is disabled by default.
-        nil
-      end
+  module Helpers
+    # Helper methods for maxlength.
+    module Maxlength #:nodoc:
 
       private
 
-      def active_maxlength
-        if SimpleForm.html5
-          input_html_options[:maxlength] ||= maximum_length_from_validation || limit
-        end
-        nil
+      def add_maxlength!
+        input_html_options[:maxlength] ||= maximum_length_from_validation || limit if SimpleForm.html5
       end
 
       def maximum_length_from_validation

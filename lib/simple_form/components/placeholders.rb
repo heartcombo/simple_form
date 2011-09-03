@@ -2,8 +2,7 @@ module SimpleForm
   module Components
     module Placeholders
       def placeholder
-        # This components is disabled by default.
-        nil
+        nil # This components is disabled by default.
       end
 
       private

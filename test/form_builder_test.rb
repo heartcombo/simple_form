@@ -338,27 +338,13 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input.optional#user_name'
   end
 
+  # VALIDATORS :if :unless
+
   test 'builder input should not be required when ActiveModel::Validations is included and if option is present' do
     with_form_for @validating_user, :age
     assert_no_select 'input.required'
     assert_no_select 'input[required]'
     assert_select 'input.optional#validating_user_age'
-  end
-
-  test 'builder input should be required when validation is on create' do
-    @controller.action_name = "new"
-    with_form_for @validating_user, :action
-    assert_select 'input.required'
-    assert_select 'input[required]'
-    assert_select 'input.required[required]#validating_user_action'
-  end
-
-  test 'builder input should not be required when validation is on other action' do
-    @controller.action_name = "edit"
-    with_form_for @validating_user, :action
-    assert_no_select 'input.required'
-    assert_no_select 'input[required]'
-    assert_select 'input.optional#validating_user_action'
   end
 
   test 'builder input should not be required when ActiveModel::Validations is included and unless option is present' do
@@ -368,7 +354,53 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input.optional#validating_user_amount'
   end
 
+  # VALIDATORS :on
+
+  test 'builder input should be required when validation is on create and is not persisted' do
+    @validating_user.new_record!
+    with_form_for @validating_user, :action
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_action'
+  end
+
+  test 'builder input should not be required when validation is on create and is persisted' do
+    with_form_for @validating_user, :action
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_action'
+  end
+
+  test 'builder input should be required when validation is on save' do
+    with_form_for @validating_user, :credit_limit
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_credit_limit'
+
+    @validating_user.new_record!
+    with_form_for @validating_user, :credit_limit
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_credit_limit'
+  end
+
+  test 'builder input should be required when validation is on update and is persisted' do
+    with_form_for @validating_user, :phone_number
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_phone_number'
+  end
+
+  test 'builder input should not be required when validation is on update and is not persisted' do
+    @validating_user.new_record!
+    with_form_for @validating_user, :phone_number
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_phone_number'
+  end
+
   # WRAPPERS
+
   test 'builder support wrapping around an specific tag' do
     swap SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name
