@@ -114,7 +114,7 @@ module SimpleForm
       def default_html_options_for_collection(item, value, options, html_options) #:nodoc:
         html_options = html_options.dup
 
-        [:checked, :disabled].each do |option|
+        [:checked, :selected, :disabled].each do |option|
           next unless options[option]
 
           accept = if options[option].is_a?(Proc)
@@ -171,8 +171,15 @@ class ActionView::Helpers::FormBuilder
       collection = collection.map do |item|
         value = value_for_collection(item, value_method)
         text  = value_for_collection(item, text_method)
-        [value, text]
+
+        default_html_options = default_html_options_for_collection(item, value, options, html_options)
+        disabled = value if default_html_options[:disabled]
+        selected = value if default_html_options[:selected]
+
+        [value, text, selected, disabled]
       end
+      options[:disabled] = collection.map(&:pop).compact
+      options[:selected] = collection.map(&:pop).compact
       value_method, text_method = :first, :last
     end
 

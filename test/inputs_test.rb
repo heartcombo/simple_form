@@ -799,6 +799,46 @@ class InputTest < ActionView::TestCase
     assert_no_select 'div.disabled'
   end
 
+  test 'input should allow disabled options with a lambda for collection select' do
+    with_input_for @user, :name, :select, :collection => ["Carlos", "Antonio"],
+      :disabled => lambda { |x| x == "Carlos" }
+    assert_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
+    assert_select 'select option[value=Antonio]', 'Antonio'
+    assert_no_select 'select option[value=Antonio][disabled]'
+  end
+
+  test 'input should allow disabled and label method with lambdas for collection select' do
+    with_input_for @user, :name, :select, :collection => ["Carlos", "Antonio"],
+      :disabled => lambda { |x| x == "Carlos" }, :label_method => lambda { |x| x.upcase }
+    assert_select 'select option[value=Carlos][disabled=disabled]', 'CARLOS'
+    assert_select 'select option[value=Antonio]', 'ANTONIO'
+    assert_no_select 'select option[value=Antonio][disabled]'
+  end
+
+  test 'input should allow a non lambda disabled option with lambda label method for collections' do
+    with_input_for @user, :name, :select, :collection => ["Carlos", "Antonio"],
+      :disabled => "Carlos", :label_method => lambda { |x| x.upcase }
+    assert_select 'select option[value=Carlos][disabled=disabled]', 'CARLOS'
+    assert_select 'select option[value=Antonio]', 'ANTONIO'
+    assert_no_select 'select option[value=Antonio][disabled]'
+  end
+
+  test 'input should allow selected and label method with lambdas for collection select' do
+    with_input_for @user, :name, :select, :collection => ["Carlos", "Antonio"],
+      :selected => lambda { |x| x == "Carlos" }, :label_method => lambda { |x| x.upcase }
+    assert_select 'select option[value=Carlos][selected=selected]', 'CARLOS'
+    assert_select 'select option[value=Antonio]', 'ANTONIO'
+    assert_no_select 'select option[value=Antonio][selected]'
+  end
+
+  test 'input should allow a non lambda selected option with lambda label method for collection select' do
+    with_input_for @user, :name, :select, :collection => ["Carlos", "Antonio"],
+      :selected => "Carlos", :label_method => lambda { |x| x.upcase }
+    assert_select 'select option[value=Carlos][selected=selected]', 'CARLOS'
+    assert_select 'select option[value=Antonio]', 'ANTONIO'
+    assert_no_select 'select option[value=Antonio][selected]'
+  end
+
   test 'input should allow overriding collection for radio types' do
     with_input_for @user, :name, :radio, :collection => ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'
