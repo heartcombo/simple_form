@@ -116,6 +116,20 @@ module SimpleForm
     yield self
   end
 
+  def self.components(options={})
+    builder = SimpleForm::Wrappers::Builder.new
+    yield builder
+    self.wrapper = SimpleForm::Wrappers::Root.new(builder.to_a, options)
+  end
+
+  components :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
+    b.use :placeholder
+    b.use :maxlength
+    b.use :label_input
+    b.use :hint,  :tag => :span, :class => :hint
+    b.use :error, :tag => :span, :class => :error
+  end
+
   ## DEPRECATED METHODS SINCE 2.0
 
   # Default tag used on hints.
@@ -146,6 +160,7 @@ module SimpleForm
   mattr_accessor :wrapper_error_class
   @@wrapper_error_class = :field_with_errors
 
+  # Define new components using the old array syntax.
   def self.components=(array)
     self.wrapper = Wrappers::Root.new(
       array.map do |item|
@@ -163,7 +178,4 @@ module SimpleForm
       :error_class => SimpleForm.wrapper_error_class
     )
   end
-
-  # Components used by the form builder.
-  self.components = [ :placeholder, :label_input, :hint, :error ]
 end
