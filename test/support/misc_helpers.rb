@@ -35,14 +35,6 @@ module MiscHelpers
     SimpleForm.deprecated_components = [ :placeholder, :label_input, :hint, :error ]
   end
 
-  def with_concat_form_for(object, &block)
-    concat simple_form_for(object, &block)
-  end
-
-  def with_concat_custom_form_for(object, &block)
-    concat custom_form_for(object, &block)
-  end
-
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end
@@ -51,8 +43,28 @@ module MiscHelpers
     simple_form_for(object, *(args << { :builder => CustomMapTypeFormBuilder }), &block)
   end
 
+  def with_concat_form_for(object, &block)
+    concat simple_form_for(object, &block)
+  end
+
+  def with_concat_custom_form_for(object, &block)
+    concat custom_form_for(object, &block)
+  end
+
   def with_concat_custom_mapping_form_for(object, &block)
     concat custom_mapping_form_for(object, &block)
+  end
+
+  def with_form_for(object, *args, &block)
+    with_concat_form_for(object) do |f|
+      f.input(*args, &block)
+    end
+  end
+
+  def with_input_for(object, attribute_name, type, options={})
+    with_concat_form_for(object) do |f|
+      f.input(attribute_name, options.merge(:as => type))
+    end
   end
 end
 

@@ -1,0 +1,102 @@
+# encoding: UTF-8
+require 'test_helper'
+
+class StringInputTest < ActionView::TestCase
+  test 'input should map text field to string attribute' do
+    with_input_for @user, :name, :string
+    assert_select "input#user_name[type=text][name='user[name]'][value=New in Simple Form!]"
+  end
+
+  test 'input should generate a password field for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select "input#user_password.password[type=password][name='user[password]']"
+  end
+
+  test 'input should not use size attribute for decimal attributes' do
+    with_input_for @user, :credit_limit, :decimal
+    assert_no_select 'input.decimal[size]'
+  end
+
+  test 'input should get maxlength from column definition for string attributes' do
+    with_input_for @user, :name, :string
+    assert_select 'input.string[maxlength=100]'
+  end
+
+  test 'input should not get maxlength from column without size definition for string attributes' do
+    with_input_for @user, :action, :string
+    assert_no_select 'input.string[maxlength]'
+  end
+
+  test 'input should get size from column definition for string attributes respecting maximum value' do
+    with_input_for @user, :name, :string
+    assert_select 'input.string[size=50]'
+  end
+
+  test 'input should use default text size for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select 'input.password[type=password][size=50]'
+  end
+
+  test 'input should get maxlength from column definition for password attributes' do
+    with_input_for @user, :password, :password
+    assert_select 'input.password[type=password][maxlength=100]'
+  end
+
+  test 'input should infer maxlength column definition from validation when present' do
+    with_input_for @validating_user, :name, :string
+    assert_select 'input.string[maxlength=25]'
+  end
+
+  test 'when not using HTML5, does not show maxlength attribute' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :password, :password
+      assert_no_select 'input[type=password][maxlength]'
+    end
+  end
+
+  test 'when not using HTML5, does not show maxlength attribute with validating lenght attribute' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :name, :string
+      assert_no_select 'input.string[maxlength]'
+    end
+  end
+
+  test 'input should not generate placeholder by default' do
+    with_input_for @user, :name, :string
+    assert_no_select 'input[placeholder]'
+  end
+
+  test 'input should accept the placeholder option' do
+    with_input_for @user, :name, :string, :placeholder => 'Put in some text'
+    assert_select 'input.string[placeholder=Put in some text]'
+  end
+
+  test 'input should generate a password field for password attributes that accept placeholder' do
+    with_input_for @user, :password, :password, :placeholder => 'Password Confirmation'
+    assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
+  end
+
+  test 'input should use i18n to translate placeholder text' do
+    store_translations(:en, :simple_form => { :placeholders => { :user => {
+      :name => 'Name goes here'
+    } } }) do
+      with_input_for @user, :name, :string
+      assert_select 'input.string[placeholder=Name goes here]'
+    end
+  end
+
+  [:email, :url, :search, :tel].each do |type|
+    test "input should allow type #{type}" do
+      with_input_for @user, :name, type
+      assert_select "input.string.#{type}"
+      assert_select "input[type=#{type}]"
+    end
+
+    test "input should not allow type #{type} if HTML5 compatibility is disabled" do
+      swap SimpleForm, :html5 => false do
+        with_input_for @user, :name, type
+        assert_no_select "input[type=#{type}]"
+      end
+    end
+  end
+end

@@ -1,18 +1,11 @@
 require 'test_helper'
 
-# Tests for form discovery
 class DiscoveryTest < ActionView::TestCase
-  def with_form_for(object, *args, &block)
-    with_concat_form_for(object) do |f|
-      f.input(*args, &block)
-    end
-  end
-
   # Setup new inputs and remove them after the test.
   def discovery(value=false)
     swap SimpleForm, :cache_discovery => value do
       begin
-        load "discovery_inputs.rb"
+        load "support/discovery_inputs.rb"
         yield
       ensure
         SimpleForm::FormBuilder.discovery_cache.clear

@@ -1,6 +1,5 @@
 require 'test_helper'
 
-# Tests for f.input with required attribute
 class RequiredTest < ActionView::TestCase
   def with_form_for(object, *args, &block)
     with_concat_form_for(object) do |f|
