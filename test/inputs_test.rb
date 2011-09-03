@@ -229,6 +229,22 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'input should infer pattern from attributes when pattern is true' do
+    with_input_for @other_validating_user, :country, :string, :pattern => true
+    assert_select 'input[pattern="\w+"]'
+  end
+
+  test 'input should use given pattern from attributes' do
+    with_input_for @other_validating_user, :country, :string, :pattern => "\\d+"
+    assert_select 'input[pattern="\d+"]'
+  end
+
+  test 'input should fail if pattern is true but no pattern exists' do
+    assert_raise RuntimeError do
+      with_input_for @other_validating_user, :name, :string, :pattern => true
+    end
+  end
+
   # NumericInput
   test 'input should generate an integer text field for integer attributes ' do
     with_input_for @user, :age, :integer
@@ -335,22 +351,6 @@ class InputTest < ActionView::TestCase
     assert_select 'input[max=119]'
   end
 
-  test 'input should infer pattern from attributes when pattern is true' do
-    with_input_for @other_validating_user, :country, :string, :pattern => true
-    assert_select 'input[pattern="\w+"]'
-  end
-
-  test 'input should use given pattern from attributes' do
-    with_input_for @other_validating_user, :country, :string, :pattern => "\\d+"
-    assert_select 'input[pattern="\d+"]'
-  end
-
-  test 'input should fail if pattern is true but no pattern exists' do
-    assert_raise RuntimeError do
-      with_input_for @other_validating_user, :name, :string, :pattern => true
-    end
-  end
-
   test 'input should have step value of any except for integer attribute' do
     with_input_for @validating_user, :age, :float
     assert_select 'input[step="any"]'
@@ -378,24 +378,6 @@ class InputTest < ActionView::TestCase
     end
   end
 
-  # Numeric input but HTML5 disabled
-  test ' when not using HTML5 input should not generate field with type number and use text instead' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @user, :age, :integer
-      assert_no_select "input[type=number]"
-      assert_no_select "input#user_age[text]"
-    end
-  end
-
-  test 'when not using HTML5 input should not use min or max or step attributes' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @validating_user, :age, :integer
-      assert_no_select "input[min]"
-      assert_no_select "input[max]"
-      assert_no_select "input[step]"
-    end
-  end
-
   [:integer, :float, :decimal].each do |type|
     test "#{type} input should infer min value from attributes with greater than or equal validation" do
       with_input_for @validating_user, :age, type
@@ -405,6 +387,84 @@ class InputTest < ActionView::TestCase
     test "#{type} input should infer the max value from attributes with less than or equal to validation" do
       with_input_for @validating_user, :age, type
       assert_select 'input[max=99]'
+    end
+  end
+
+  # Numeric input but HTML5 disabled
+  test 'when not using HTML5 input should not generate field with type number and use text instead' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :age, :integer
+      assert_no_select "input[type=number]"
+      assert_select "input#user_age[type=text]"
+    end
+  end
+
+  test 'when not using HTML5 input should not use min or max or step attributes for numeric type' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :age, :integer
+      assert_no_select "input[min]"
+      assert_no_select "input[max]"
+      assert_no_select "input[step]"
+    end
+  end
+
+  # RangeInput
+  test 'range input generates a input type range, based on numeric input' do
+    with_input_for @user, :age, :range
+    assert_select "input#user_age.range[type=range]"
+  end
+
+  test 'range input does not generate placeholder' do
+    with_input_for @user, :age, :range, :placeholder => "Select your age"
+    assert_select "input[type=range]"
+    assert_no_select "input[placeholder]"
+  end
+
+  test 'range input allows givin min and max attributes' do
+    with_input_for @user, :age, :range, :input_html => { :min => 10, :max => 50 }
+    assert_select "input[type=range][min=10][max=50]"
+  end
+
+  test 'range input infers min and max attributes from validations' do
+    with_input_for @validating_user, :age, :range
+    assert_select "input[type=range][min=18][max=99]"
+  end
+
+  test 'range input add default step attribute' do
+    with_input_for @validating_user, :age, :range
+    assert_select "input[type=range][step=1]"
+  end
+
+  test 'range input allows givin a step through input html options' do
+    with_input_for @validating_user, :age, :range, :input_html => { :step => 2 }
+    assert_select "input[type=range][step=2]"
+  end
+
+  test 'range input should not generate min attribute by default' do
+    with_input_for @user, :age, :range
+    assert_no_select 'input[min]'
+  end
+
+  test 'range input should not generate max attribute by default' do
+    with_input_for @user, :age, :range
+    assert_no_select 'input[max]'
+  end
+
+  # RangeInput iwth HTML5 disabled
+  test 'when not using HTML5, range input does not generate field with range type, and use text instead' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @user, :age, :range
+      assert_no_select "input[type=number]"
+      assert_select "input[type=text]"
+    end
+  end
+
+  test 'when not using HTML5, range input should not use min or max or step attributes' do
+    swap SimpleForm, :html5 => false do
+      with_input_for @validating_user, :age, :range
+      assert_no_select "input[min]"
+      assert_no_select "input[max]"
+      assert_no_select "input[step]"
     end
   end
 

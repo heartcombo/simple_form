@@ -10,6 +10,7 @@ module SimpleForm
     map_type :string, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
     map_type :password,                            :to => SimpleForm::Inputs::PasswordInput
     map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
+    map_type :range,                               :to => SimpleForm::Inputs::RangeInput
     map_type :select, :radio, :check_boxes,        :to => SimpleForm::Inputs::CollectionInput
     map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
     map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput

@@ -10,7 +10,9 @@ module SimpleForm
     autoload :NumericInput,    'simple_form/inputs/numeric_input'
     autoload :PasswordInput,   'simple_form/inputs/password_input'
     autoload :PriorityInput,   'simple_form/inputs/priority_input'
-    autoload :TextInput,       'simple_form/inputs/text_input'
+    autoload :PasswordInput,   'simple_form/inputs/password_input'
+    autoload :RangeInput,      'simple_form/inputs/range_input'
     autoload :StringInput,     'simple_form/inputs/string_input'
+    autoload :TextInput,       'simple_form/inputs/text_input'
   end
 end
