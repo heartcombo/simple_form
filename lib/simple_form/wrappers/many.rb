@@ -12,7 +12,7 @@ module SimpleForm
         @defaults[:class] = Array.wrap(@defaults[:class])
       end
 
-      def render(input, components = self.components)
+      def render(input)
         content = "".html_safe
         options = input.options
 

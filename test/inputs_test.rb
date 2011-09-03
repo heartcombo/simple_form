@@ -104,32 +104,6 @@ class InputTest < ActionView::TestCase
     end
   end
 
-  test 'input should render components according to an optional :components option' do
-    with_input_for @user, :name, :string, :components => [:input, :label]
-    assert_select 'input + label'
-
-    with_input_for @user, :age, :integer, :components => [:input, :label]
-    assert_select 'input + label'
-
-    with_input_for @user, :active, :boolean, :components => [:label, :input]
-    assert_select 'label + input'
-
-    with_input_for @user, :description, :text, :components => [:input, :label]
-    assert_select 'textarea + label'
-
-    with_input_for @user, :password, :password, :components => [:input, :label]
-    assert_select 'input + label'
-
-    with_input_for @user, :name, :file, :components => [:input, :label]
-    assert_select 'input + label'
-
-    with_input_for @user, :country, :country, :components => [:input, :label]
-    assert_select 'select + label'
-
-    with_input_for @user, :time_zone, :time_zone, :components => [:input, :label]
-    assert_select 'select + label'
-  end
-
   # StringInput
   test 'input should map text field to string attribute' do
     with_input_for @user, :name, :string

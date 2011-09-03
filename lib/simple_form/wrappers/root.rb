@@ -5,14 +5,6 @@ module SimpleForm
         super(:wrapper, *args)
       end
 
-      def render(input)
-        if components = input.options[:components]
-          super(input, SimpleForm::Wrappers.wrap(components))
-        else
-          super
-        end
-      end
-
       private
 
       def wrap(input, options, content)

@@ -86,14 +86,7 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      column     = find_attribute_column(attribute_name)
-      input_type = default_input_type(attribute_name, column, options)
-
-      if block_given?
-        SimpleForm.components.render SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)
-      else
-        SimpleForm.components.render find_mapping(input_type).new(self, attribute_name, column, input_type, options)
-      end
+      SimpleForm.components.render find_input(attribute_name, options, &block)
     end
     alias :attribute :input
 
@@ -113,8 +106,7 @@ module SimpleForm
     #
     def input_field(attribute_name, options={})
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
-      options.merge!(:components => [:input], :wrapper => false)
-      input(attribute_name, options)
+      SimpleForm::Wrappers::Root.new(:input, :wrapper => false).render find_input(attribute_name, options)
     end
 
     # Helper for dealing with association selects/radios, generating the
@@ -295,6 +287,18 @@ module SimpleForm
     end
 
   private
+
+    # Find an input based on the attribute name.
+    def find_input(attribute_name, options={}, &block) #:nodoc:
+      column     = find_attribute_column(attribute_name)
+      input_type = default_input_type(attribute_name, column, options)
+
+      if block_given?
+        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)
+      else
+        find_mapping(input_type).new(self, attribute_name, column, input_type, options)
+      end
+    end
 
     # Attempt to guess the better input type given the defined options. By
     # default alwayls fallback to the user :as option, or to a :select when a
