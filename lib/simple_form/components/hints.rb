@@ -8,7 +8,7 @@ module SimpleForm
       private
 
       def enabled_hint
-        (options[:hint] || translate(:hints)).presence
+        (options.delete(:hint) || translate(:hints)).presence
       end
 
       def disabled_hint

@@ -234,7 +234,7 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
-      options[:hint_html] = options.except(:hint_tag)
+      options[:hint_html] = options.except(:hint_tag, :hint)
       if attribute_name.is_a?(String)
         options[:hint] = attribute_name
         attribute_name, column, input_type = nil, nil, nil

@@ -1,8 +1,8 @@
 # encoding: UTF-8
 require 'test_helper'
 
+# Tests for all different kinds of inputs.
 class InputTest < ActionView::TestCase
-
   setup do
     SimpleForm::Inputs::CollectionInput.reset_i18n_cache :boolean_collection
   end

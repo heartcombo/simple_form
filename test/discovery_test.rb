@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Tests for form discovery
 class DiscoveryTest < ActionView::TestCase
   def with_form_for(object, *args, &block)
     with_concat_form_for(object) do |f|
