@@ -4,7 +4,7 @@ module SimpleForm
       enable :placeholder
 
       def input
-        input_html_options[:size] ||= nil
+        add_size!
         if SimpleForm.html5
           input_html_options[:type] ||= "number"
           input_html_options[:step] ||= integer? ? 1 : "any"
@@ -18,6 +18,11 @@ module SimpleForm
       end
 
       private
+
+      # Rails adds the size attr by default, if the :size key does not exist.
+      def add_size!
+        input_html_options[:size] ||= nil
+      end
 
       def infer_attributes_from_validations!
         return unless has_validators?
