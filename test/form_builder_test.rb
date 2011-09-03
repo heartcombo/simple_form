@@ -2,7 +2,6 @@
 require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
-
   def with_form_for(object, *args, &block)
     with_concat_form_for(object) do |f|
       f.input(*args, &block)
@@ -339,7 +338,6 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # VALIDATORS :if :unless
-
   test 'builder input should not be required when ActiveModel::Validations is included and if option is present' do
     with_form_for @validating_user, :age
     assert_no_select 'input.required'
@@ -355,7 +353,6 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # VALIDATORS :on
-
   test 'builder input should be required when validation is on create and is not persisted' do
     @validating_user.new_record!
     with_form_for @validating_user, :action
@@ -400,7 +397,6 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # WRAPPERS
-
   test 'builder support wrapping around an specific tag' do
     swap! SimpleForm, :wrapper_tag => :p do
       with_form_for @user, :name
@@ -451,7 +447,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form div.input.required.string.field_with_errors'
   end
 
-  # ONLY THE INPUT TAG
+  # INPUT FIELD
   test "builder input_field should only render the input tag, nothing else" do
     with_concat_form_for(@user) do |f|
       f.input_field :name
@@ -825,65 +821,6 @@ class FormBuilderTest < ActionView::TestCase
   test 'form without CustomMapTypeFormBuilder should not use custom mapping' do
     with_concat_form_for(:user) do |user|
       assert_nil user.class.mappings[:custom_type]
-    end
-  end
-
-  # DISCOVERY
-  # Setup new inputs and remove them after the test.
-  def discovery(value=false)
-    swap SimpleForm, :cache_discovery => value do
-      begin
-        load "discovery_inputs.rb"
-        yield
-      ensure
-        SimpleForm::FormBuilder.discovery_cache.clear
-        Object.send :remove_const, :StringInput
-        Object.send :remove_const, :NumericInput
-        Object.send :remove_const, :CustomizedInput
-      end
-    end
-  end
-
-  test 'builder should not discover new inputs if cached' do
-    with_form_for @user, :name
-    assert_select 'form input#user_name.string'
-
-    discovery(true) do
-      with_form_for @user, :name
-      assert_no_select 'form section input#user_name.string'
-    end
-  end
-
-  test 'builder should discover new inputs' do
-    discovery do
-      with_form_for @user, :name, :as => :customized
-      assert_select 'form section input#user_name.string'
-    end
-  end
-
-  test 'builder should not discover new inputs if discovery is off' do
-    with_form_for @user, :name
-    assert_select 'form input#user_name.string'
-
-    swap SimpleForm, :inputs_discovery => false do
-      discovery do
-        with_form_for @user, :name
-        assert_no_select 'form section input#user_name.string'
-      end
-    end
-  end
-
-  test 'builder should discover new inputs from mappings if not cached' do
-    discovery do
-      with_form_for @user, :name
-      assert_select 'form section input#user_name.string'
-    end
-  end
-
-  test 'builder should discover new inputs from internal fallbacks if not cached' do
-    discovery do
-      with_form_for @user, :age
-      assert_select 'form section input#user_age.numeric.integer'
     end
   end
 end

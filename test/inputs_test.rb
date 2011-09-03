@@ -449,7 +449,7 @@ class InputTest < ActionView::TestCase
     assert_select 'input.boolean + label.boolean.optional'
   end
 
-  # MappingInput
+  # TextInput
   test 'input should generate a text area for text attributes' do
     with_input_for @user, :description, :text
     assert_select 'textarea.text#user_description'
@@ -484,6 +484,7 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  # FileInput
   test 'input should generate a file field' do
     with_input_for @user, :name, :file
     assert_select 'input#user_name[type=file]'
