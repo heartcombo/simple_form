@@ -2,12 +2,6 @@
 require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
-  def with_form_for(object, *args, &block)
-    with_concat_form_for(object) do |f|
-      f.input(*args, &block)
-    end
-  end
-
   def with_custom_form_for(object, *args, &block)
     with_concat_custom_form_for(object) do |f|
       f.input(*args, &block)

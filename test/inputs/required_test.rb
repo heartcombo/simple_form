@@ -1,12 +1,6 @@
 require 'test_helper'
 
 class RequiredTest < ActionView::TestCase
-  def with_form_for(object, *args, &block)
-    with_concat_form_for(object) do |f|
-      f.input(*args, &block)
-    end
-  end
-
   # REQUIRED AND PRESENCE VALIDATION
   test 'builder input should obtain required from ActiveModel::Validations when it is included' do
     with_form_for @validating_user, :name

@@ -75,18 +75,27 @@ class ErrorTest < ActionView::TestCase
 
   # FULL ERRORS
 
-  test 'builder should generate an full error tag for the attribute' do
+  test 'full error should generate an full error tag for the attribute' do
     with_full_error_for @user, :name
     assert_select 'span.error', "Super User Name! can't be blank"
   end
 
-  test 'builder should generate an full  error tag with a clean HTML' do
+  test 'full error should generate an full  error tag with a clean HTML' do
     with_full_error_for @user, :name
     assert_no_select 'span.error[error_html]'
   end
 
-  test 'builder should allow passing options to full error tag' do
+  test 'full error should allow passing options to full error tag' do
     with_full_error_for @user, :name, :id => 'name_error', :error_prefix => "Your name"
     assert_select 'span.error#name_error', "Your name can't be blank"
+  end
+
+  # CUSTOM WRAPPERS
+
+  test 'error with custom wrappers works' do
+    swap SimpleForm, :wrapper => custom_wrapper do
+      with_error_for @user, :name
+      assert_select 'span.omg_error', "can't be blank"
+    end
   end
 end

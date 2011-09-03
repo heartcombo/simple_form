@@ -25,7 +25,21 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper
+    SimpleForm.build :tag => :section, :class => "custom_wrapper" do |b|
+      b.use :another, :tag => :div, :class => "another_wrapper" do |ba|
+        ba.use :label
+        ba.use :input
+      end
+      b.use :error_wrapper, :tag => :div, :class => "error_wrapper" do |be|
+        be.use :error, :tag => :span, :class => "omg_error"
+      end
+      b.use :hint, :tag => :span, :class => "omg_hint"
+    end
+  end
+
   # Temporary hack to deal with components.
+  # TODO: Remove this and tests that uses this once we remove components
   def swap!(*args)
     swap(*args) do
       SimpleForm.deprecated_components = [ :placeholder, :label_input, :hint, :error ]

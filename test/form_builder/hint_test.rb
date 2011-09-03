@@ -103,4 +103,13 @@ class HintTest < ActionView::TestCase
     with_hint_for :project, :name, :hint => 'Test without object'
     assert_select 'span.hint', 'Test without object'
   end
+
+  # Custom wrappers
+
+  test 'hint with custom wrappers works' do
+    swap SimpleForm, :wrapper => custom_wrapper do
+      with_hint_for @user, :name, :hint => "can't be blank"
+      assert_select 'span.omg_hint', "can't be blank"
+    end
+  end
 end

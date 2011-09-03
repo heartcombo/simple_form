@@ -1,12 +1,6 @@
 require 'test_helper'
 
 class WrapperTest < ActionView::TestCase
-  def with_form_for(object, *args, &block)
-    with_concat_form_for(object) do |f|
-      f.input(*args, &block)
-    end
-  end
-
   test 'wrapper should not have error class for attribute without errors' do
     with_form_for @user, :active
     assert_no_select 'div.field_with_errors'
@@ -85,5 +79,27 @@ class WrapperTest < ActionView::TestCase
   test 'wrapper should allow wrapper class to be given on demand' do
     with_form_for @user, :name, :wrapper_class => :wrapper
     assert_select 'form div.wrapper.required.string'
+  end
+
+  # Custom wrapper test
+
+  test 'custom wrappers works' do
+    swap SimpleForm, :wrapper => custom_wrapper do
+      with_form_for @user, :name, :hint => "cool"
+      assert_select "section.custom_wrapper div.another_wrapper label"
+      assert_select "section.custom_wrapper div.another_wrapper input.string"
+      assert_no_select "section.custom_wrapper div.another_wrapper span.omg_error"
+      assert_select "section.custom_wrapper div.error_wrapper span.omg_error"
+      assert_select "section.custom_wrapper > span.omg_hint", "cool"
+    end
+  end
+
+  test 'custom wrappers can be turned off' do
+    swap SimpleForm, :wrapper => custom_wrapper do
+      with_form_for @user, :name, :another => false
+      assert_no_select "section.custom_wrapper div.another_wrapper label"
+      assert_no_select "section.custom_wrapper div.another_wrapper input.string"
+      assert_select "section.custom_wrapper div.error_wrapper span.omg_error"
+    end
   end
 end
