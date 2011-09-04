@@ -22,7 +22,7 @@ module SimpleForm
 
     def initialize(*) #:nodoc:
       super
-      @wrapper = SimpleForm.wrapper(options.delete(:wrapper) || :default)
+      @wrapper = SimpleForm.wrapper(options[:wrapper] || :default)
     end
 
     # Basic input helper, combines all components in the stack to generate
@@ -91,7 +91,14 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      wrapper.render find_input(attribute_name, options, &block)
+      chosen =
+        if name = options[:wrapper]
+          name.is_a?(Symbol) ? SimpleForm.wrapper(name) : name
+        else
+          wrapper
+        end
+
+      chosen.render find_input(attribute_name, options, &block)
     end
     alias :attribute :input
 

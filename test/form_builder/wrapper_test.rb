@@ -20,10 +20,10 @@ class WrapperTest < ActionView::TestCase
     with_form_for @user, :active
     assert_no_select 'div.disabled'
   end
-  
+
   test 'wrapper should support no wrapping when wrapper is false' do
-    with_form_for @user, :name, :wrapper => false	
-    assert_select 'form > label[for=user_name]'	
+    with_form_for @user, :name, :wrapper => false
+    assert_select 'form > label[for=user_name]'
     assert_select 'form > input#user_name.string'
   end
 
@@ -69,6 +69,36 @@ class WrapperTest < ActionView::TestCase
       assert_no_select "section.custom_wrapper div.another_wrapper label"
       assert_no_select "section.custom_wrapper div.another_wrapper input.string"
       assert_select "section.custom_wrapper div.error_wrapper span.omg_error"
+    end
+  end
+
+  test 'custom wrappers on a form basis' do
+    swap_wrapper :another do
+      concat simple_form_for(@user) { |f|
+        f.input :name
+      }
+
+      assert_no_select "section.custom_wrapper div.another_wrapper label"
+      assert_no_select "section.custom_wrapper div.another_wrapper input.string"
+
+      concat simple_form_for(@user, :wrapper => :another) { |f|
+        f.input :name
+      }
+
+      assert_select "section.custom_wrapper div.another_wrapper label"
+      assert_select "section.custom_wrapper div.another_wrapper input.string"
+    end
+  end
+
+  test 'custom wrappers on input basis' do
+    swap_wrapper :another do
+      with_form_for @user, :name
+      assert_no_select "section.custom_wrapper div.another_wrapper label"
+      assert_no_select "section.custom_wrapper div.another_wrapper input.string"
+
+      with_form_for @user, :name, :wrapper => :another
+      assert_select "section.custom_wrapper div.another_wrapper label"
+      assert_select "section.custom_wrapper div.another_wrapper input.string"
     end
   end
 end
