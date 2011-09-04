@@ -110,10 +110,24 @@ module SimpleForm
   mattr_accessor :cache_discovery
   @@cache_discovery = !Rails.env.development?
 
+  ## DEPRECATED METHODS
+
+  DEPRECATED = %w(hint_tag= hint_class= error_tag= error_class= wrapper_tag= wrapper_class= wrapper_error_class= components=)
+  @@deprecated = false
+
+  DEPRECATED.each do |method|
+    class_eval "def #{method}; @@deprecated = true; end"
+  end
+
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
     yield self
+
+    if @@deprecated
+      raise "[SIMPLE FORM] Your simple form initializer file is using an outdated configuration API. " <<
+        "Updating to the new API is easy and fast. Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
+    end
   end
 
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
@@ -134,89 +148,5 @@ module SimpleForm
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint
     b.use :error, :tag => :span, :class => :error
-  end
-
-  ## DEPRECATED METHODS SINCE 2.0
-
-  # DEPRECATED. Default tag used on hints.
-  mattr_accessor :hint_tag
-  @@hint_tag = :span
-
-  # DEPRECATED. CSS class to add to all hint tags.
-  mattr_accessor :hint_class
-  @@hint_class = :hint
-
-  # DEPRECATED. Default tag used on errors.
-  mattr_accessor :error_tag
-  @@error_tag = :span
-
-  # DEPRECATED. CSS class to add to all error tags.
-  mattr_accessor :error_class
-  @@error_class = :error
-
-  # DEPRECATED. You can wrap all inputs in a pre-defined tag. Default is a div.
-  mattr_accessor :wrapper_tag
-  @@wrapper_tag = :div
-
-  # DEPRECATED. You can define the class to use on all wrappers. Default is input.
-  mattr_accessor :wrapper_class
-  @@wrapper_class = :input
-
-  # DEPRECATED. You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
-  mattr_accessor :wrapper_error_class
-  @@wrapper_error_class = :field_with_errors
-
-  # DEPRECATED. Define components using an array.
-  def self.components=(array)
-    ActiveSupport::Deprecation.warn <<-TEXT
-Setting config.components= in SimpleForm is deprecated. SimpleForm 2.0 ships with a new components syntax which is more flexible and powerful. If your components were defined as:
-
-  config.components = [ :placeholder, :maxlength, :label_input, :hint, :error ]
-
-They can now be defined as:
-
-  config.components :tag => :div, :class => :input,
-                    :error_class => :field_with_errors do |b|
-    b.use :placeholder
-    b.use :maxlength
-    b.use :label_input
-    b.use :hint,  :tag => :span, :class => :hint
-    b.use :error, :tag => :span, :class => :error
-  end
-
-The new components syntax also allows custom wrappers:
-
-    config.components do |b|
-      b.use :placeholder
-      b.use :maxlength
-      b.use :label_input
-      b.use :tag => :div, :class => "separator" do |ba|
-        ba.use :hint,  :tag => :span, :class => :hint
-        ba.use :error, :tag => :span, :class => :error
-      end
-    end
-
-The following methods are also deprecated: wrapper_tag, wrapper_class, wrapper_error_class, error_tag, error_class, hint_tag and hint_class.
-TEXT
-
-    self.deprecated_components = array
-  end
-
-  def self.deprecated_components=(array) #:nodoc:
-    self.wrapper = Wrappers::Root.new(
-      array.map do |item|
-        case item
-        when :error
-          Wrappers::Single.new(:error, :tag => SimpleForm.error_tag, :class => SimpleForm.error_class)
-        when :hint
-          Wrappers::Single.new(:hint,  :tag => SimpleForm.hint_tag,  :class => SimpleForm.hint_class)
-        else
-          item
-        end
-      end,
-      :tag => SimpleForm.wrapper_tag,
-      :class => SimpleForm.wrapper_class,
-      :error_class => SimpleForm.wrapper_error_class
-    )
   end
 end

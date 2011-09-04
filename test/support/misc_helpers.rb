@@ -38,17 +38,6 @@ module MiscHelpers
     end
   end
 
-  # Temporary hack to deal with components.
-  # TODO: Remove this and tests that uses this once we remove components
-  def swap!(*args)
-    swap(*args) do
-      SimpleForm.deprecated_components = [ :placeholder, :label_input, :hint, :error ]
-      yield
-    end
-  ensure
-    SimpleForm.deprecated_components = [ :placeholder, :label_input, :hint, :error ]
-  end
-
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end
