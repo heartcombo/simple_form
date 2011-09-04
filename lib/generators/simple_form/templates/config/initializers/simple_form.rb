@@ -1,11 +1,10 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  # Components are used by the form builder to generate a complete input.
-  # You can remove any of them, change the order or even add your own
-  # components to the stack. The options given to the components method
-  # are used by the wrapper input. You can remove them (to remove the wrapper)
-  # or change them as needed.
-  config.components :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
+  # Wrappers are used by the form builder to generate a complete input.
+  # You can remove any component from the wrapper, change the order or even
+  # add your own to the stack. The options given to the wrappers method
+  # are used to wrap the whole input (if any exists).
+  config.wrappers :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
     b.use :placeholder
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint

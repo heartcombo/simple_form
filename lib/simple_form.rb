@@ -12,9 +12,7 @@ module SimpleForm
   autoload :MapType,           'simple_form/map_type'
   autoload :Wrappers,          'simple_form/wrappers'
 
-  # The wrapper object.
-  mattr_accessor :wrapper
-  @@wrapper = nil
+  ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
   mattr_accessor :error_method
@@ -110,7 +108,41 @@ module SimpleForm
   mattr_accessor :cache_discovery
   @@cache_discovery = !Rails.env.development?
 
-  ## DEPRECATED METHODS
+  ## WRAPPER CONFIGURATION
+  @@wrappers = {}
+
+  # Retrieves a given wrapper
+  def self.wrapper(name)
+    @@wrappers[name]
+  end
+
+  # Define a new wrapper using SimpleForm::Wrappers::Builder
+  # and store it in the given name.
+  def self.wrappers(*args, &block)
+    if block_given?
+      options          = args.extract_options!
+      name             = args.first || :default
+      @@wrappers[name] = build(options, &block)
+    else
+      @@wrappers
+    end
+  end
+
+  # Builds a new wrapper using SimpleForm::Wrappers::Builder.
+  def self.build(options={})
+    builder = SimpleForm::Wrappers::Builder.new
+    yield builder
+    SimpleForm::Wrappers::Root.new(builder.to_a, options)
+  end
+
+  wrappers :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
+    b.use :placeholder
+    b.use :label_input
+    b.use :hint,  :tag => :span, :class => :hint
+    b.use :error, :tag => :span, :class => :error
+  end
+
+  ## SETUP
 
   DEPRECATED = %w(hint_tag= hint_class= error_tag= error_class= wrapper_tag= wrapper_class= wrapper_error_class= components=)
   @@deprecated = false
@@ -128,25 +160,5 @@ module SimpleForm
       raise "[SIMPLE FORM] Your simple form initializer file is using an outdated configuration API. " <<
         "Updating to the new API is easy and fast. Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
     end
-  end
-
-  # Builds a new wrapper using SimpleForm::Wrappers::Builder.
-  def self.build(options={})
-    builder = SimpleForm::Wrappers::Builder.new
-    yield builder
-    SimpleForm::Wrappers::Root.new(builder.to_a, options)
-  end
-
-  # Build a new wrapper using SimpleForm::Wrappers::Builder and
-  # sets it as the default wrapper.
-  def self.components(*args, &block)
-    self.wrapper = build(*args, &block)
-  end
-
-  components :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
-    b.use :placeholder
-    b.use :label_input
-    b.use :hint,  :tag => :span, :class => :hint
-    b.use :error, :tag => :span, :class => :error
   end
 end

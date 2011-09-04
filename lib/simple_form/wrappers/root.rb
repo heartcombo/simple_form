@@ -7,6 +7,11 @@ module SimpleForm
         super(:wrapper, *args)
       end
 
+      # Provide a fallback if name cannot be found.
+      def find(name)
+        super || SingleForm::Wrappers::Many.new(name, [name])
+      end
+
       private
 
       def html_classes(input, options)

@@ -25,6 +25,14 @@ module MiscHelpers
     end
   end
 
+  def swap_wrapper(name=:default, wrapper=self.custom_wrapper)
+    old = SimpleForm.wrappers[name]
+    SimpleForm.wrappers[name] = wrapper
+    yield
+  ensure
+    SimpleForm.wrappers[name] = old
+  end
+
   def custom_wrapper
     SimpleForm.build :tag => :section, :class => "custom_wrapper" do |b|
       b.use :another, :tag => :div, :class => "another_wrapper" do |ba|

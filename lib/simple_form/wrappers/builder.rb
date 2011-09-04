@@ -3,7 +3,7 @@ module SimpleForm
     # Provides the builder syntax for components. The builder provides
     # only one method (called `use`) and it allows the following invocations:
     #
-    #     config.components do |b|
+    #     config.wrappers do |b|
     #       # Use a single component
     #       b.use :placeholder
     #

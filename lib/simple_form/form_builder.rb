@@ -1,6 +1,6 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object
+    attr_reader :template, :object_name, :object, :wrapper
 
     extend MapType
     include SimpleForm::Inputs
@@ -18,6 +18,11 @@ module SimpleForm
 
     def self.discovery_cache
       @discovery_cache ||= {}
+    end
+
+    def initialize(*) #:nodoc:
+      super
+      @wrapper = SimpleForm.wrapper(options.delete(:wrapper) || :default)
     end
 
     # Basic input helper, combines all components in the stack to generate
@@ -86,7 +91,7 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      SimpleForm.wrapper.render find_input(attribute_name, options, &block)
+      wrapper.render find_input(attribute_name, options, &block)
     end
     alias :attribute :input
 
@@ -202,7 +207,7 @@ module SimpleForm
       options[:error_html] = options.except(:error_tag, :error_prefix, :error_method)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
-      SimpleForm::Wrappers.find(:error).
+      wrapper.find(:error).
         render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
@@ -243,7 +248,7 @@ module SimpleForm
         input_type  = default_input_type(attribute_name, column, options)
       end
 
-      SimpleForm::Wrappers.find(:hint).
+      wrapper.find(:hint).
         render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 

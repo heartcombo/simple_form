@@ -93,7 +93,7 @@ class ErrorTest < ActionView::TestCase
   # CUSTOM WRAPPERS
 
   test 'error with custom wrappers works' do
-    swap SimpleForm, :wrapper => custom_wrapper do
+    swap_wrapper do
       with_error_for @user, :name
       assert_select 'span.omg_error', "can't be blank"
     end

@@ -53,7 +53,7 @@ class WrapperTest < ActionView::TestCase
   # Custom wrapper test
 
   test 'custom wrappers works' do
-    swap SimpleForm, :wrapper => custom_wrapper do
+    swap_wrapper do
       with_form_for @user, :name, :hint => "cool"
       assert_select "section.custom_wrapper div.another_wrapper label"
       assert_select "section.custom_wrapper div.another_wrapper input.string"
@@ -64,7 +64,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'custom wrappers can be turned off' do
-    swap SimpleForm, :wrapper => custom_wrapper do
+    swap_wrapper do
       with_form_for @user, :name, :another => false
       assert_no_select "section.custom_wrapper div.another_wrapper label"
       assert_no_select "section.custom_wrapper div.another_wrapper input.string"
