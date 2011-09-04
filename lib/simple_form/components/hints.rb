@@ -2,14 +2,12 @@ module SimpleForm
   module Components
     module Hints
       def hint
-        enabled_hint
+        (options.delete(:hint) || translate(:hints)).presence
       end
 
       private
 
-      def enabled_hint
-        (options.delete(:hint) || translate(:hints)).presence
-      end
+      alias :enabled_hint :hint
 
       def disabled_hint
         nil

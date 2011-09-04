@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     module Errors
       def error
-        enabled_error
+        error_text if has_errors?
       end
 
       def has_errors?
@@ -11,9 +11,7 @@ module SimpleForm
 
     protected
 
-      def enabled_error
-        error_text if has_errors?
-      end
+      alias :enabled_error :error
 
       def disabled_error
         nil

@@ -16,9 +16,7 @@ module SimpleForm
         nil
       end
 
-      def disabled_placeholder
-        nil
-      end
+      alias :disabled_placeholder :placeholder
 
       def placeholder_text
         @placeholder_text ||= options[:placeholder] || translate(:placeholders)

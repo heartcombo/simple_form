@@ -22,7 +22,7 @@ module SimpleForm
       end
 
       def label
-        enabled_label
+        @builder.label(label_target, label_text, label_html_options)
       end
 
       def label_text
@@ -41,9 +41,7 @@ module SimpleForm
 
     protected
 
-      def enabled_label
-        @builder.label(label_target, label_text, label_html_options)
-      end
+      alias :enabled_label :label
 
       def disabled_label
         ""
