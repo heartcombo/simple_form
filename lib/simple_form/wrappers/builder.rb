@@ -34,8 +34,10 @@ module SimpleForm
         if block_given?
           name, options = nil, name if name.is_a?(Hash)
           builder = self.class.new
+          options ||= {}
+          options[:tag] ||= :div
           yield builder
-          @components << Many.new(name, builder.to_a, options || {})
+          @components << Many.new(name, builder.to_a, options)
         elsif options
           @components << Single.new(name, options)
         else
