@@ -35,7 +35,7 @@ module MiscHelpers
 
   def custom_wrapper
     SimpleForm.build :tag => :section, :class => "custom_wrapper" do |b|
-      b.use :another, :tag => :div, :class => "another_wrapper" do |ba|
+      b.use :another, :class => "another_wrapper" do |ba|
         ba.use :label
         ba.use :input
       end
