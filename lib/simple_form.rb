@@ -130,12 +130,13 @@ module SimpleForm
 
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
   def self.build(options={})
+    options[:tag] ||= :div unless options.empty?
     builder = SimpleForm::Wrappers::Builder.new
     yield builder
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
   end
 
-  wrappers :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
+  wrappers :class => :input, :error_class => :field_with_errors do |b|
     b.use :placeholder
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint
