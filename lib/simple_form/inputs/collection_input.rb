@@ -55,18 +55,16 @@ module SimpleForm
           value ||= common_method_for[:value]
         end
 
-        if SimpleForm.translate && [label, value] == [:to_s, :to_s]
-          translate_collection
-          [:first, :last]
-        else
-          [label, value]
-        end
+       [label, value]
       end
 
       def detect_common_display_methods
         collection_classes = detect_collection_classes
 
-        if collection_classes.include?(Array)
+        if SimpleForm.translate && collection_classes == [Symbol]
+          translate_collection
+          { :label => :first, :value => :last }
+        elsif collection_classes.include?(Array)
           { :label => :first, :value => :last }
         elsif collection_includes_basic_objects?(collection_classes)
           { :label => :to_s, :value => :to_s }
