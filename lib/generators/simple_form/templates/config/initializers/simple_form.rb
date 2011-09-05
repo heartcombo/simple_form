@@ -4,7 +4,7 @@ SimpleForm.setup do |config|
   # You can remove any component from the wrapper, change the order or even
   # add your own to the stack. The options given to the wrappers method
   # are used to wrap the whole input (if any exists).
-  config.wrappers :tag => :div, :class => :input, :error_class => :field_with_errors do |b|
+  config.wrappers :class => :input, :error_class => :field_with_errors do |b|
     b.use :placeholder
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint
