@@ -8,3 +8,8 @@ rvm:
   - jruby
   - rbx
   - rbx-2.0
+notifications:
+  recipients:
+    - jose.valim@plataformatec.com.br
+    - carlos@plataformatec.com.br
+    - rafael.franca@plataformatec.com.br
