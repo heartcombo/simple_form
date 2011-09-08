@@ -82,7 +82,12 @@ module SimpleForm
       end
 
       def components_list
-        options[:components] || SimpleForm.components
+        if components = options[:components]
+          ActiveSupport::Deprecation.warn "The option :components of f.input is deprecated. Please turn off each component individually instead."
+          components
+        else
+          SimpleForm.components
+        end
       end
 
       def has_autofocus?
