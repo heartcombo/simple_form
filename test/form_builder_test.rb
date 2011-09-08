@@ -408,10 +408,10 @@ class FormBuilderTest < ActionView::TestCase
       assert_select 'form p input#user_name.string'
     end
   end
-  
+
   test 'builder support no wrapping when wrapper is false' do
-    with_form_for @user, :name, :wrapper => false	
-    assert_select 'form > label[for=user_name]'	
+    with_form_for @user, :name, :wrapper => false
+    assert_select 'form > label[for=user_name]'
     assert_select 'form > input#user_name.string'
   end
 

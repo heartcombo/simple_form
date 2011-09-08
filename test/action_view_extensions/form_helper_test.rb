@@ -46,12 +46,12 @@ class FormHelperTest < ActionView::TestCase
     concat(simple_form_for(@user) do |f| end)
     assert_select 'form.simple_form.user'
   end
-  
+
   test 'simple form should not add object class to form if css_class is specified' do
     concat(simple_form_for(:user, :html => {:class => nil}) do |f| end)
     assert_no_select 'form.user'
   end
-  
+
   test 'simple form should add custom class to form if css_class is specified' do
     concat(simple_form_for(:user, :html => {:class => 'my_class'}) do |f| end)
     assert_select 'form.my_class'
