@@ -18,7 +18,6 @@ module SimpleForm
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
-      include SimpleForm::Components::Wrapper
 
       # Enables certain components support to the given input.
       def self.enable(*args)
@@ -44,8 +43,8 @@ module SimpleForm
         @required           = calculate_required
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:required]  = true if has_required?
-          o[:disabled]  = true if disabled?
-          o[:autofocus] = true if has_autofocus? && SimpleForm.html5
+          o[:disabled]  = true if has_disabled?
+          o[:autofocus] = true if has_autofocus?
         end
       end
 
@@ -61,14 +60,12 @@ module SimpleForm
         [input_type, required_class]
       end
 
-      def render
-        content = "".html_safe
-        components_list.each do |component|
-          next if options[component] == false
-          rendered = send(component)
-          content.safe_concat rendered.to_s if rendered
-        end
-        wrap(content)
+      def has_disabled?
+        options[:disabled] == true
+      end
+
+      def has_autofocus?
+        options[:autofocus]
       end
 
       private
@@ -81,14 +78,6 @@ module SimpleForm
         column && column.limit
       end
 
-      def components_list
-        options[:components] || SimpleForm.components
-      end
-
-      def has_autofocus?
-        options[:autofocus]
-      end
-
       # Find reflection name when available, otherwise use attribute
       def reflection_or_attribute_name
         reflection ? reflection.name : attribute_name
@@ -99,10 +88,6 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
-      end
-
-      def disabled?
-        options[:disabled] == true
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,

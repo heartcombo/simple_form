@@ -5,6 +5,5 @@ module SimpleForm
     autoload :LabelInput,   'simple_form/components/label_input'
     autoload :Labels,       'simple_form/components/labels'
     autoload :Placeholders, 'simple_form/components/placeholders'
-    autoload :Wrapper,      'simple_form/components/wrapper'
   end
 end

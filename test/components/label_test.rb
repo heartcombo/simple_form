@@ -1,7 +1,8 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class LabelTest < ActionView::TestCase
+# Isolated tests for label without triggering f.label.
+class IsolatedLabelTest < ActionView::TestCase
   setup do
     SimpleForm::Inputs::Base.reset_i18n_cache :translate_required_html
   end

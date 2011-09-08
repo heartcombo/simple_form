@@ -2,10 +2,14 @@ module SimpleForm
   module Helpers
     # Helper methods for pattern.
     module Pattern #:nodoc:
+      def has_pattern?
+        options[:pattern]
+      end
+
       private
 
       def add_pattern!
-        input_html_options[:pattern] ||= pattern_source if options[:pattern]
+        input_html_options[:pattern] ||= pattern_source if has_pattern?
       end
 
       def pattern_source

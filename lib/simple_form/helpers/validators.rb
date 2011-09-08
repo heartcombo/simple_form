@@ -1,11 +1,11 @@
 module SimpleForm
   module Helpers
     module Validators
-      private
-
       def has_validators?
         attribute_name && object.class.respond_to?(:validators_on)
       end
+
+      private
 
       def attribute_validators
         object.class.validators_on(attribute_name)

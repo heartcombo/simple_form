@@ -10,22 +10,9 @@ module SimpleForm
   autoload :I18nCache,         'simple_form/i18n_cache'
   autoload :Inputs,            'simple_form/inputs'
   autoload :MapType,           'simple_form/map_type'
+  autoload :Wrappers,          'simple_form/wrappers'
 
-  # Default tag used on hints.
-  mattr_accessor :hint_tag
-  @@hint_tag = :span
-
-  # CSS class to add to all hint tags.
-  mattr_accessor :hint_class
-  @@hint_class = :hint
-
-  # Default tag used on errors.
-  mattr_accessor :error_tag
-  @@error_tag = :span
-
-  # CSS class to add to all error tags.
-  mattr_accessor :error_class
-  @@error_class = :error
+  ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
   mattr_accessor :error_method
@@ -43,10 +30,6 @@ module SimpleForm
   mattr_accessor :error_notification_id
   @@error_notification_id = nil
 
-  # Components used by the form builder.
-  mattr_accessor :components
-  @@components = [ :placeholder, :label_input, :hint, :error ]
-
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
   @@collection_label_methods = [ :to_label, :name, :title, :to_s ]
@@ -62,18 +45,6 @@ module SimpleForm
   # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
   mattr_accessor :item_wrapper_tag
   @@item_wrapper_tag = :span
-
-  # You can wrap all inputs in a pre-defined tag. Default is a div.
-  mattr_accessor :wrapper_tag
-  @@wrapper_tag = :div
-
-  # You can define the class to use on all wrappers. Default is input.
-  mattr_accessor :wrapper_class
-  @@wrapper_class = :input
-
-  # You can define the class to add to the wrapper when the field has errors. Default is field_with_errors.
-  mattr_accessor :wrapper_error_class
-  @@wrapper_error_class = :field_with_errors
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
@@ -137,9 +108,58 @@ module SimpleForm
   mattr_accessor :cache_discovery
   @@cache_discovery = !Rails.env.development?
 
+  ## WRAPPER CONFIGURATION
+  @@wrappers = {}
+
+  # Retrieves a given wrapper
+  def self.wrapper(name)
+    @@wrappers[name]
+  end
+
+  # Define a new wrapper using SimpleForm::Wrappers::Builder
+  # and store it in the given name.
+  def self.wrappers(*args, &block)
+    if block_given?
+      options          = args.extract_options!
+      name             = args.first || :default
+      @@wrappers[name] = build(options, &block)
+    else
+      @@wrappers
+    end
+  end
+
+  # Builds a new wrapper using SimpleForm::Wrappers::Builder.
+  def self.build(options={})
+    options[:tag] ||= :div unless options.empty?
+    builder = SimpleForm::Wrappers::Builder.new
+    yield builder
+    SimpleForm::Wrappers::Root.new(builder.to_a, options)
+  end
+
+  wrappers :class => :input, :error_class => :field_with_errors do |b|
+    b.use :placeholder
+    b.use :label_input
+    b.use :hint,  :tag => :span, :class => :hint
+    b.use :error, :tag => :span, :class => :error
+  end
+
+  ## SETUP
+
+  DEPRECATED = %w(hint_tag= hint_class= error_tag= error_class= wrapper_tag= wrapper_class= wrapper_error_class= components=)
+  @@deprecated = false
+
+  DEPRECATED.each do |method|
+    class_eval "def #{method}; @@deprecated = true; end"
+  end
+
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
     yield self
+
+    if @@deprecated
+      raise "[SIMPLE FORM] Your simple form initializer file is using an outdated configuration API. " <<
+        "Updating to the new API is easy and fast. Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
+    end
   end
 end

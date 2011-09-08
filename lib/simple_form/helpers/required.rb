@@ -1,6 +1,11 @@
 module SimpleForm
   module Helpers
     module Required
+      # Whether this input is valid for HTML 5 required attribute.
+      def has_required?
+        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
+      end
+
       private
 
       def attribute_required?
@@ -17,11 +22,6 @@ module SimpleForm
         else
           attribute_required_by_default?
         end
-      end
-
-      # Whether this input is valid for HTML 5 required attribute.
-      def has_required?
-        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
       end
 
       def attribute_required_by_default?

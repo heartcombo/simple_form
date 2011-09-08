@@ -1,6 +1,6 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object
+    attr_reader :template, :object_name, :object, :wrapper
 
     extend MapType
     include SimpleForm::Inputs
@@ -18,6 +18,11 @@ module SimpleForm
 
     def self.discovery_cache
       @discovery_cache ||= {}
+    end
+
+    def initialize(*) #:nodoc:
+      super
+      @wrapper = SimpleForm.wrapper(options[:wrapper] || :default)
     end
 
     # Basic input helper, combines all components in the stack to generate
@@ -86,14 +91,14 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      column     = find_attribute_column(attribute_name)
-      input_type = default_input_type(attribute_name, column, options)
+      chosen =
+        if name = options[:wrapper]
+          name.is_a?(Symbol) ? SimpleForm.wrapper(name) : name
+        else
+          wrapper
+        end
 
-      if block_given?
-        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
-      else
-        find_mapping(input_type).new(self, attribute_name, column, input_type, options).render
-      end
+      chosen.render find_input(attribute_name, options, &block)
     end
     alias :attribute :input
 
@@ -113,8 +118,7 @@ module SimpleForm
     #
     def input_field(attribute_name, options={})
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
-      options.merge!(:components => [:input], :wrapper => false)
-      input(attribute_name, options)
+      SimpleForm::Wrappers::Root.new([:input], :wrapper => false).render find_input(attribute_name, options)
     end
 
     # Helper for dealing with association selects/radios, generating the
@@ -210,7 +214,8 @@ module SimpleForm
       options[:error_html] = options.except(:error_tag, :error_prefix, :error_method)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).error
+      wrapper.find(:error).
+        render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
     # Return the error but also considering its name. This is used
@@ -241,7 +246,7 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
-      options[:hint_html] = options.except(:hint_tag)
+      options[:hint_html] = options.except(:hint_tag, :hint)
       if attribute_name.is_a?(String)
         options[:hint] = attribute_name
         attribute_name, column, input_type = nil, nil, nil
@@ -249,7 +254,9 @@ module SimpleForm
         column      = find_attribute_column(attribute_name)
         input_type  = default_input_type(attribute_name, column, options)
       end
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).hint
+
+      wrapper.find(:hint).
+        render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
     # Creates a default label tag for the given attribute. You can give a label
@@ -292,6 +299,18 @@ module SimpleForm
     end
 
   private
+
+    # Find an input based on the attribute name.
+    def find_input(attribute_name, options={}, &block) #:nodoc:
+      column     = find_attribute_column(attribute_name)
+      input_type = default_input_type(attribute_name, column, options)
+
+      if block_given?
+        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)
+      else
+        find_mapping(input_type).new(self, attribute_name, column, input_type, options)
+      end
+    end
 
     # Attempt to guess the better input type given the defined options. By
     # default alwayls fallback to the user :as option, or to a :select when a
