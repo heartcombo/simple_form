@@ -21,6 +21,11 @@ class WrapperTest < ActionView::TestCase
     assert_no_select 'div.disabled'
   end
 
+  test 'wrapper should have disabled class when input is disabled' do
+    with_form_for @user, :active, :disabled => true
+    assert_select 'div.disabled'
+  end
+
   test 'wrapper should support no wrapping when wrapper is false' do
     with_form_for @user, :name, :wrapper => false
     assert_select 'form > label[for=user_name]'

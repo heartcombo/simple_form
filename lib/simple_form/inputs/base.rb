@@ -57,11 +57,7 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class]
-      end
-
-      def has_disabled?
-        options[:disabled] == true
+        [input_type, required_class, disabled_class]
       end
 
       def has_autofocus?
@@ -69,6 +65,14 @@ module SimpleForm
       end
 
       private
+
+      def disabled_class
+        'disabled' if has_disabled?
+      end
+
+      def has_disabled?
+        options[:disabled] == true
+      end
 
       def add_size!
         input_html_options[:size] ||= [limit, SimpleForm.default_input_size].compact.min
