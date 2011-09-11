@@ -10,6 +10,7 @@ module SimpleForm
       }
 
       include SimpleForm::Helpers::Required
+      include SimpleForm::Helpers::Disabled
       include SimpleForm::Helpers::Validators
       include SimpleForm::Helpers::Maxlength
       include SimpleForm::Helpers::Pattern
@@ -65,14 +66,6 @@ module SimpleForm
       end
 
       private
-
-      def disabled_class
-        'disabled' if has_disabled?
-      end
-
-      def has_disabled?
-        options[:disabled] == true
-      end
 
       def add_size!
         input_html_options[:size] ||= [limit, SimpleForm.default_input_size].compact.min
