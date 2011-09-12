@@ -58,7 +58,7 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class, disabled_class]
+        [input_type, required_class, disabled_class].compact
       end
 
       def has_autofocus?
