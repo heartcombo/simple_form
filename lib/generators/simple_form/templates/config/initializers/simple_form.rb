@@ -23,17 +23,17 @@ SimpleForm.setup do |config|
   # ID to add for error notification helper.
   # config.error_notification_id = nil
 
-  # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
-  # config.collection_wrapper_tag = nil
-
-  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to span.
-  # config.item_wrapper_tag = :span
-
   # Series of attempts to detect a default label method for collection.
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
 
   # Series of attempts to detect a default value method for collection.
   # config.collection_value_methods = [ :id, :to_s ]
+
+  # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
+  # config.collection_wrapper_tag = nil
+
+  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to span.
+  # config.item_wrapper_tag = :span
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
@@ -57,13 +57,13 @@ SimpleForm.setup do |config|
   # HTML5-aware browsers such as Chrome.
   # config.html5 = true
 
+  # Collection of methods to detect if a file type was given.
+  # config.file_methods = [ :mounted_as, :file?, :public_filename ]
+
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
   # matches the regexp as value.
   # config.input_mappings = { /count/ => :integer }
-
-  # Collection of methods to detect if a file type was given.
-  # config.file_methods = [ :mounted_as, :file?, :public_filename ]
 
   # Default priority for time_zone inputs.
   # config.time_zone_priority = nil
@@ -76,6 +76,12 @@ SimpleForm.setup do |config|
 
   # When false, do not use translations for labels, hints or placeholders.
   # config.translate = true
+
+  # Automatically discover new inputs in Rails' autoload path.
+  # config.inputs_discovery = true
+
+  # Cache simple form inputs discovery
+  # config.cache_discovery = !Rails.env.development?
 
   # Default class for buttons
   # config.button_class = 'button'
