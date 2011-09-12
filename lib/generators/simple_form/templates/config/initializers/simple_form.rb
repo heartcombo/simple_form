@@ -76,4 +76,7 @@ SimpleForm.setup do |config|
 
   # When false, do not use translations for labels, hints or placeholders.
   # config.translate = true
+
+  # Default class for buttons
+  # config.button_class = 'button'
 end
