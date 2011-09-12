@@ -108,6 +108,10 @@ module SimpleForm
   mattr_accessor :cache_discovery
   @@cache_discovery = !Rails.env.development?
 
+  # Adds a class to each generated button, mostly for compatiblity
+  mattr_accessor :button_class
+  @@button_class = 'button'
+
   ## WRAPPER CONFIGURATION
   @@wrappers = {}
 

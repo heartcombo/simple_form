@@ -18,4 +18,11 @@ class ButtonTest < ActionView::TestCase
     with_button_for @user, :submit
     assert_select 'form input.button[type=submit][value=Create User]'
   end
+
+  test "builder should use the default class from the configuration" do
+    swap SimpleForm, :button_class => 'btn' do
+      with_button_for :post, :submit
+      assert_select 'form input.btn[type=submit][value=Save Post]'
+    end
+  end
 end
