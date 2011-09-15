@@ -298,4 +298,13 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'select option[value=Antonio]', 'ANTONIO'
     assert_no_select 'select option[value=Antonio][selected]'
   end
+
+  test 'input should not override default selection through attribute value with label method as lambda for collection select' do
+    @user.name = "Carlos"
+    with_input_for @user, :name, :select, :collection => ["Carlos", "Antonio"],
+      :label_method => lambda { |x| x.upcase }
+    assert_select 'select option[value=Carlos][selected=selected]', 'CARLOS'
+    assert_select 'select option[value=Antonio]', 'ANTONIO'
+    assert_no_select 'select option[value=Antonio][selected]'
+  end
 end

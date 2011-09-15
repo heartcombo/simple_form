@@ -178,8 +178,11 @@ class ActionView::Helpers::FormBuilder
 
         [value, text, selected, disabled]
       end
-      options[:disabled] = collection.map(&:pop).compact
-      options[:selected] = collection.map(&:pop).compact
+
+      [:disabled, :selected].each do |option|
+        option_value    = collection.map(&:pop).compact
+        options[option] = option_value if option_value.present?
+      end
       value_method, text_method = :first, :last
     end
 

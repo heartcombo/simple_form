@@ -6,6 +6,7 @@
 
 * bug fix
   * Fallback to default label when block is provided (github.com/pivotal-casebook)
+  * Do not override default selection through attribute value in collection select when label/value methods are lambdas
 
 == 1.5.0
 
