@@ -266,7 +266,7 @@ module SimpleForm
     #    f.label :name, :id => "cool_label"
     #
     def label(attribute_name, *args)
-      return super if args.first.is_a?(String)
+      return super if args.first.is_a?(String) || block_given?
       options = args.extract_options!
       options[:label_html] = options.dup
       options[:label]      = options.delete(:label)
