@@ -1,8 +1,11 @@
 == 2.0.0.dev
 
 * enhancements
+  * Add `button_class` configuration to change the class of buttons (github.com/sryche)
+  * Add `disabled` class to a disabled input
 
 * bug fix
+  * Fallback to default label when block is provided (github.com/pivotal-casebook)
 
 == 1.5.0
 
