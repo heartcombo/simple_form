@@ -2,9 +2,9 @@
 require 'test_helper'
 
 class LabelTest < ActionView::TestCase
-  def with_label_for(object, *args)
+  def with_label_for(object, *args, &block)
     with_concat_form_for(object) do |f|
-      f.label(*args)
+      f.label(*args, &block)
     end
   end
 
@@ -30,6 +30,14 @@ class LabelTest < ActionView::TestCase
 
   test 'builder should fallback to default label when string is given' do
     with_label_for @user, :name, 'Nome do usuário'
+    assert_select 'label', 'Nome do usuário'
+    assert_no_select 'label.string'
+  end
+
+  test 'builder should fallback to default label when block is given' do
+    with_label_for @user, :name do
+      'Nome do usuário'
+    end
     assert_select 'label', 'Nome do usuário'
     assert_no_select 'label.string'
   end
