@@ -112,9 +112,12 @@ module SimpleForm
     #        name="user[name]" size="100" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
+      column     = find_attribute_column(attribute_name)
+      input_type = default_input_type(attribute_name, column, options)
+
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
-      options.merge!(:label => false, :hint => false, :error => false, :wrapper => false)
-      input(attribute_name, options)
+
+      find_mapping(input_type).new(self, attribute_name, column, input_type, options).input
     end
 
     # Helper for dealing with association selects/radios, generating the
