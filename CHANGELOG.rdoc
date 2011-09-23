@@ -1,3 +1,8 @@
+== 1.5.2
+
+* bug fix
+  * Remove the internal usage of deprecated `:components`
+
 == 1.5.1
 
 * enhancements
