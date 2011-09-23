@@ -894,4 +894,37 @@ class FormBuilderTest < ActionView::TestCase
       assert_select 'form section input#user_age.numeric.integer'
     end
   end
+
+  # CUSTOM COMPONENTS
+  # Setup new components and remove them after the test.
+  def custom_component(components=[:label_input, :div])
+    swap SimpleForm, :components => components do
+      begin
+        load "custom_components.rb"
+        yield
+      ensure
+        Div.send(:undef_method, :div)
+        Object.send :remove_const, :Div
+      end
+    end
+  end
+
+  test 'builder should accept new components' do
+    custom_component do
+      with_form_for @user, :age
+      assert_select 'form input#user_age.numeric.integer'
+      assert_select 'form .custom_input'
+    end
+  end
+
+  test 'input field should render only the input' do
+    custom_component do
+      with_concat_form_for(@user) do |f|
+        f.input_field :age
+      end
+
+      assert_select 'form input#user_age.numeric.integer'
+      assert_no_select 'form .custom_input'
+    end
+  end
 end
