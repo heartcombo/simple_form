@@ -3,6 +3,7 @@
 * enhancements
   * Add `button_class` configuration to change the class of buttons (github.com/sryche)
   * Add `disabled` class to a disabled input
+  * Generate configuration file with `browser_validations` disabled
 
 * bug fix
   * Fallback to default label when block is provided (github.com/pivotal-casebook)
