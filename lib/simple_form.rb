@@ -117,11 +117,7 @@ module SimpleForm
 
   # Retrieves a given wrapper
   def self.wrapper(name)
-    if wrapper = @@wrappers[name.to_sym]
-      wrapper
-    else
-      raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
-    end
+    @@wrappers[name.to_sym] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
   end
 
   # Raised when fails to find a given wrapper name
