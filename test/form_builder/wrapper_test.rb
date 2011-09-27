@@ -112,4 +112,10 @@ class WrapperTest < ActionView::TestCase
     assert_select "section.custom_wrapper div.another_wrapper label"
     assert_select "section.custom_wrapper div.another_wrapper input.string"
   end
+
+  test 'raise error when wrapper not found' do
+    assert_raise SimpleForm::WrapperNotFound do
+      with_form_for @user, :name, :wrapper => :not_found
+    end
+  end
 end

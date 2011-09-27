@@ -117,7 +117,15 @@ module SimpleForm
 
   # Retrieves a given wrapper
   def self.wrapper(name)
-    @@wrappers[name]
+    if wrapper = @@wrappers[name]
+      wrapper
+    else
+      raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
+    end
+  end
+
+  # Raised when fails to find a given wrapper name
+  class WrapperNotFound < StandardError
   end
 
   # Define a new wrapper using SimpleForm::Wrappers::Builder
