@@ -97,6 +97,17 @@ It is also possible to pass any html attribute straight to the input, by using t
   <% end %>
 ```
 
+Since simple_form generates a wrapper div around your label and input by default, you can pass any html attribute to that wrapper as well using the :wrapper_html option, like so:
+
+```erb
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :username, :wrapper_html => { :class => 'username' } %>
+    <%= f.input :password, :wrapper_html => { :id => 'password' } %>
+    <%= f.input :remember_me, :wrapper_html => { :class => 'options' } %>
+    <%= f.button :submit %>
+  <% end %>
+```
+
 By default all inputs are required, which means an * is prepended to the label, but you can disable it in any input you want:
 
 ```erb
