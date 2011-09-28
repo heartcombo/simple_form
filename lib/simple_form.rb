@@ -117,16 +117,20 @@ module SimpleForm
 
   # Retrieves a given wrapper
   def self.wrapper(name)
-    @@wrappers[name]
+    @@wrappers[name.to_sym] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
+  end
+
+  # Raised when fails to find a given wrapper name
+  class WrapperNotFound < StandardError
   end
 
   # Define a new wrapper using SimpleForm::Wrappers::Builder
   # and store it in the given name.
   def self.wrappers(*args, &block)
     if block_given?
-      options          = args.extract_options!
-      name             = args.first || :default
-      @@wrappers[name] = build(options, &block)
+      options                 = args.extract_options!
+      name                    = args.first || :default
+      @@wrappers[name.to_sym] = build(options, &block)
     else
       @@wrappers
     end

@@ -93,7 +93,7 @@ module SimpleForm
     def input(attribute_name, options={}, &block)
       chosen =
         if name = options[:wrapper]
-          name.is_a?(Symbol) ? SimpleForm.wrapper(name) : name
+          name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
         else
           wrapper
         end
