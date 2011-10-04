@@ -1,14 +1,33 @@
-== 1.5.0.dev
+== 2.0.0.dev
+
+* enhancements
+  * Add `button_class` configuration to change the class of buttons (github.com/sryche)
+  * Add `disabled` class to a disabled input
+  * Generate configuration file with `browser_validations` disabled
+
+* bug fix
+  * Fallback to default label when block is provided (github.com/pivotal-casebook)
+  * Do not override default selection through attribute value in collection select when label/value methods are lambdas
+
+== 1.5.0
 
 * enhancements
   * Simplified generator by using directory action (by github.com/rupert654)
   * Support for `maxlength` on string inputs inferred from validation (by github.com/srbartlett)
   * Change form css class handling to only add the dom class when one is not given to the form call (by github.com/patrick99e99)
-  * Support for required attributs when action validations are present (by github.com/csegura)
+  * Support for required attributes when action validations are present (by github.com/csegura)
+  * Don't generate `size` attribute for numeric input (by github.com/jasonmp85)
+  * Support for `maxlength` on text area inputs inferred from validation
+  * Support for `pattern` on text field inferred from validation when :pattern is true
+  * Break Text, Password and File into their own inputs
+  * Support easy enabling and disabling of components for specific inputs
+  * Add HTML5 range input
 
 * bug fix
   * Fix bug when simple_fields_for is used with a hash like models and Rails 3.1
   * Fix bug that doesn't remove the item_wrapper_tag or the collection_wrapper_tag on collection inputs when nil or false value is passed to these options (by gitbub.com/dw2)
+  * Fix bug that disable the entire select and wrapper when `disabled` option is a string or array
+  * Fix bug when using label/value methods as procs together with disabled/selected options as procs for select inputs
 
 == 1.4.2
 

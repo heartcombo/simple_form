@@ -67,7 +67,7 @@ class User
   def column_for_attribute(attribute)
     column_type, limit = case attribute.to_sym
       when :name, :status, :password then [:string, 100]
-      when :description   then :text
+      when :description   then [:text, 200]
       when :age           then :integer
       when :credit_limit  then [:decimal, 15]
       when :active        then :boolean
@@ -79,7 +79,7 @@ class User
       when :home_picture  then :string
       when :amount        then :integer
       when :attempts      then :integer
-      when :action        then :string  
+      when :action        then :string
     end
     Column.new(attribute, column_type, limit)
   end
@@ -130,7 +130,11 @@ class ValidatingUser < User
   validates :company, :presence => true
   validates :age, :presence => true, :if => Proc.new { |user| user.name }
   validates :amount, :presence => true, :unless => Proc.new { |user| user.age }
-  validates :action, :presence => true, :on => :create
+
+  validates :action,            :presence => true, :on => :create
+  validates :credit_limit,      :presence => true, :on => :save
+  validates :phone_number,      :presence => true, :on => :update
+
   validates_numericality_of :age,
     :greater_than_or_equal_to => 18,
     :less_than_or_equal_to => 99,
@@ -144,6 +148,7 @@ class ValidatingUser < User
     :less_than_or_equal_to => :max_attempts,
     :only_integer => true
   validates_length_of :name, :maximum => 25
+  validates_length_of :description, :maximum => 50
 
   def min_amount
     10
@@ -176,6 +181,8 @@ class OtherValidatingUser < User
     :greater_than_or_equal_to => Proc.new { |user| user.age },
     :less_than_or_equal_to => Proc.new { |user| user.age + 100},
     :only_integer => true
+
+  validates_format_of :country, :with => /\w+/
 end
 
 class HashBackedAuthor < Hash

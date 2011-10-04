@@ -25,12 +25,25 @@ module MiscHelpers
     end
   end
 
-  def with_concat_form_for(object, &block)
-    concat simple_form_for(object, &block)
+  def swap_wrapper(name=:default, wrapper=self.custom_wrapper)
+    old = SimpleForm.wrappers[name]
+    SimpleForm.wrappers[name] = wrapper
+    yield
+  ensure
+    SimpleForm.wrappers[name] = old
   end
 
-  def with_concat_custom_form_for(object, &block)
-    concat custom_form_for(object, &block)
+  def custom_wrapper
+    SimpleForm.build :tag => :section, :class => "custom_wrapper" do |b|
+      b.use :another, :class => "another_wrapper" do |ba|
+        ba.use :label
+        ba.use :input
+      end
+      b.use :error_wrapper, :tag => :div, :class => "error_wrapper" do |be|
+        be.use :error, :tag => :span, :class => "omg_error"
+      end
+      b.use :hint, :tag => :span, :class => "omg_hint"
+    end
   end
 
   def custom_form_for(object, *args, &block)
@@ -41,8 +54,28 @@ module MiscHelpers
     simple_form_for(object, *(args << { :builder => CustomMapTypeFormBuilder }), &block)
   end
 
+  def with_concat_form_for(object, &block)
+    concat simple_form_for(object, &block)
+  end
+
+  def with_concat_custom_form_for(object, &block)
+    concat custom_form_for(object, &block)
+  end
+
   def with_concat_custom_mapping_form_for(object, &block)
     concat custom_mapping_form_for(object, &block)
+  end
+
+  def with_form_for(object, *args, &block)
+    with_concat_form_for(object) do |f|
+      f.input(*args, &block)
+    end
+  end
+
+  def with_input_for(object, attribute_name, type, options={})
+    with_concat_form_for(object) do |f|
+      f.input(attribute_name, options.merge(:as => type))
+    end
   end
 end
 

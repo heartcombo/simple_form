@@ -1,11 +1,15 @@
 module SimpleForm
   module Inputs
     class NumericInput < Base
+      enable :placeholder
+
       def input
-        input_html_options[:type] ||= "number" if SimpleForm.html5
-        input_html_options[:size] ||= SimpleForm.default_input_size
-        input_html_options[:step] ||= integer? ? 1 : "any" if SimpleForm.html5
-        infer_attributes_from_validations! if SimpleForm.html5
+        add_size!
+        if SimpleForm.html5
+          input_html_options[:type] ||= "number"
+          input_html_options[:step] ||= integer? ? 1 : "any"
+          infer_attributes_from_validations!
+        end
         @builder.text_field(attribute_name, input_html_options)
       end
 
@@ -13,10 +17,11 @@ module SimpleForm
         super.unshift("numeric")
       end
 
-    protected
+      private
 
-      def has_placeholder?
-        placeholder_present?
+      # Rails adds the size attr by default, if the :size key does not exist.
+      def add_size!
+        input_html_options[:size] ||= nil
       end
 
       def infer_attributes_from_validations!
@@ -50,15 +55,17 @@ module SimpleForm
       end
 
       def find_numericality_validator
-        attribute_validators.find { |v| ActiveModel::Validations::NumericalityValidator === v }
+        find_validator(ActiveModel::Validations::NumericalityValidator)
       end
 
-      private
-
       def evaluate_validator_option(option)
-        return option if option.is_a?(Numeric)
-        return object.send(option) if option.is_a?(Symbol)
-        return option.call(object) if option.respond_to?(:call)
+        if option.is_a?(Numeric)
+          option
+        elsif option.is_a?(Symbol)
+          object.send(option)
+        elsif option.respond_to?(:call)
+          option.call(object)
+        end
       end
     end
   end

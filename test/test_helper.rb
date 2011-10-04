@@ -89,5 +89,6 @@ class ActionView::TestCase
   alias :users_path :user_path
   alias :super_user_path :user_path
   alias :validating_user_path :user_path
+  alias :validating_users_path :user_path
   alias :other_validating_user_path :user_path
 end

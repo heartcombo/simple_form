@@ -1,1 +1,0 @@
-require 'simple_form'

@@ -1,20 +1,28 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object
+    attr_reader :template, :object_name, :object, :wrapper
 
     extend MapType
     include SimpleForm::Inputs
 
-    map_type :text, :file,                                    :to => SimpleForm::Inputs::MappingInput
-    map_type :string, :password, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
-    map_type :integer, :decimal, :float,                      :to => SimpleForm::Inputs::NumericInput
-    map_type :select, :radio, :check_boxes,                   :to => SimpleForm::Inputs::CollectionInput
-    map_type :date, :time, :datetime,                         :to => SimpleForm::Inputs::DateTimeInput
-    map_type :country, :time_zone,                            :to => SimpleForm::Inputs::PriorityInput
-    map_type :boolean,                                        :to => SimpleForm::Inputs::BooleanInput
+    map_type :text,                                :to => SimpleForm::Inputs::TextInput
+    map_type :file,                                :to => SimpleForm::Inputs::FileInput
+    map_type :string, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
+    map_type :password,                            :to => SimpleForm::Inputs::PasswordInput
+    map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
+    map_type :range,                               :to => SimpleForm::Inputs::RangeInput
+    map_type :select, :radio, :check_boxes,        :to => SimpleForm::Inputs::CollectionInput
+    map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
+    map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
+    map_type :boolean,                             :to => SimpleForm::Inputs::BooleanInput
 
     def self.discovery_cache
       @discovery_cache ||= {}
+    end
+
+    def initialize(*) #:nodoc:
+      super
+      @wrapper = SimpleForm.wrapper(options[:wrapper] || :default)
     end
 
     # Basic input helper, combines all components in the stack to generate
@@ -83,14 +91,14 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      column     = find_attribute_column(attribute_name)
-      input_type = default_input_type(attribute_name, column, options)
+      chosen =
+        if name = options[:wrapper]
+          name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
+        else
+          wrapper
+        end
 
-      if block_given?
-        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block).render
-      else
-        find_mapping(input_type).new(self, attribute_name, column, input_type, options).render
-      end
+      chosen.render find_input(attribute_name, options, &block)
     end
     alias :attribute :input
 
@@ -110,8 +118,7 @@ module SimpleForm
     #
     def input_field(attribute_name, options={})
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
-      options.merge!(:components => [:input], :wrapper => false)
-      input(attribute_name, options)
+      SimpleForm::Wrappers::Root.new([:input], :wrapper => false).render find_input(attribute_name, options)
     end
 
     # Helper for dealing with association selects/radios, generating the
@@ -186,7 +193,7 @@ module SimpleForm
     #
     def button(type, *args, &block)
       options = args.extract_options!
-      options[:class] = "button #{options[:class]}".strip
+      options[:class] = [SimpleForm.button_class, options[:class]].compact
       args << options
       if respond_to?("#{type}_button")
         send("#{type}_button", *args, &block)
@@ -207,7 +214,8 @@ module SimpleForm
       options[:error_html] = options.except(:error_tag, :error_prefix, :error_method)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).error
+      wrapper.find(:error).
+        render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
     # Return the error but also considering its name. This is used
@@ -238,7 +246,7 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
-      options[:hint_html] = options.except(:hint_tag)
+      options[:hint_html] = options.except(:hint_tag, :hint)
       if attribute_name.is_a?(String)
         options[:hint] = attribute_name
         attribute_name, column, input_type = nil, nil, nil
@@ -246,7 +254,9 @@ module SimpleForm
         column      = find_attribute_column(attribute_name)
         input_type  = default_input_type(attribute_name, column, options)
       end
-      SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).hint
+
+      wrapper.find(:hint).
+        render(SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options))
     end
 
     # Creates a default label tag for the given attribute. You can give a label
@@ -263,7 +273,7 @@ module SimpleForm
     #    f.label :name, :id => "cool_label"
     #
     def label(attribute_name, *args)
-      return super if args.first.is_a?(String)
+      return super if args.first.is_a?(String) || block_given?
       options = args.extract_options!
       options[:label_html] = options.dup
       options[:label]      = options.delete(:label)
@@ -289,6 +299,18 @@ module SimpleForm
     end
 
   private
+
+    # Find an input based on the attribute name.
+    def find_input(attribute_name, options={}, &block) #:nodoc:
+      column     = find_attribute_column(attribute_name)
+      input_type = default_input_type(attribute_name, column, options)
+
+      if block_given?
+        SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)
+      else
+        find_mapping(input_type).new(self, attribute_name, column, input_type, options)
+      end
+    end
 
     # Attempt to guess the better input type given the defined options. By
     # default alwayls fallback to the user :as option, or to a :select when a

@@ -9,11 +9,25 @@ module SimpleForm
         :update => :edit
       }
 
+      include SimpleForm::Helpers::Required
+      include SimpleForm::Helpers::Disabled
+      include SimpleForm::Helpers::Validators
+      include SimpleForm::Helpers::Maxlength
+      include SimpleForm::Helpers::Pattern
+
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
-      include SimpleForm::Components::Wrapper
+
+      # Enables certain components support to the given input.
+      def self.enable(*args)
+        args.each { |m| alias_method m, :"enabled_#{m}" }
+      end
+
+      def self.disable(*args)
+        args.each { |m| alias_method m, :"disabled_#{m}" }
+      end
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options
@@ -27,10 +41,11 @@ module SimpleForm
         @input_type         = input_type
         @reflection         = options.delete(:reflection)
         @options            = options
+        @required           = calculate_required
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
-          o[:required]  = true if has_required? # Don't make this conditional on HTML5 here, because we want the CSS class to be set
-          o[:disabled]  = true if disabled?
-          o[:autofocus] = true if has_autofocus? && SimpleForm.html5
+          o[:required]  = true if has_required?
+          o[:disabled]  = true if has_disabled?
+          o[:autofocus] = true if has_autofocus?
         end
       end
 
@@ -43,72 +58,21 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class]
-      end
-
-      def render
-        content = "".html_safe
-        components_list.each do |component|
-          next if options[component] == false
-          rendered = send(component)
-          content.safe_concat rendered.to_s if rendered
-        end
-        wrap(content)
-      end
-
-    protected
-
-      def components_list
-        options[:components] || SimpleForm.components
-      end
-
-      def attribute_required?
-        if !options[:required].nil?
-          options[:required]
-        elsif has_validators?
-          (attribute_validators + reflection_validators).any? do |v|
-            v.kind == :presence && !conditional_validators?(v) && action_validators?(v)
-          end
-        else
-          attribute_required_by_default?
-        end
-      end
-
-      # Whether this input is valid for HTML 5 required attribute.
-      def has_required?
-        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
+        [input_type, required_class, disabled_class].compact
       end
 
       def has_autofocus?
         options[:autofocus]
       end
 
-      def has_validators?
-        attribute_name && object.class.respond_to?(:validators_on)
+      private
+
+      def add_size!
+        input_html_options[:size] ||= [limit, SimpleForm.default_input_size].compact.min
       end
 
-      def attribute_validators
-        object.class.validators_on(attribute_name)
-      end
-
-      def reflection_validators
-        reflection ? object.class.validators_on(reflection.name) : []
-      end
-
-      def conditional_validators?(validator)
-        validator.options.include?(:if) || validator.options.include?(:unless)
-      end
-
-      def action_validators?(validator)
-        !validator.options.include?(:on) || ACTIONS[validator.options[:on].to_sym] == lookup_action
-      end
-
-      def attribute_required_by_default?
-        SimpleForm.required_by_default
-      end
-
-      def required_class
-        attribute_required? ? :required : :optional
+      def limit
+        column && column.limit
       end
 
       # Find reflection name when available, otherwise use attribute
@@ -121,10 +85,6 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
         html_options
-      end
-
-      def disabled?
-        options[:disabled]
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,
@@ -201,11 +161,6 @@ module SimpleForm
         return unless action
         action = action.to_sym
         ACTIONS[action] || action
-      end
-
-      def input_method
-        self.class.mappings[input_type] or
-          raise("Could not find method for #{input_type.inspect}")
       end
     end
   end

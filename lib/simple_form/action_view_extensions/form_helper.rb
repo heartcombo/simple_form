@@ -40,7 +40,7 @@ module SimpleForm
           form_for(record, options, &block)
         end
       end
-      
+
       def css_class(record, html_options)
         if html_options.key?(:class)
           html_options[:class]

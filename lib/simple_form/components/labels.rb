@@ -1,9 +1,7 @@
 module SimpleForm
   module Components
     module Labels
-      def self.included(base)
-        base.extend ClassMethods
-      end
+      extend ActiveSupport::Concern
 
       module ClassMethods #:nodoc:
         def translate_required_html
@@ -42,6 +40,12 @@ module SimpleForm
       end
 
     protected
+
+      alias :enabled_label :label
+
+      def disabled_label
+        ""
+      end
 
       def raw_label_text #:nodoc:
         options[:label] || label_translation
