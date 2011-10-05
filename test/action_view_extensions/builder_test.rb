@@ -247,6 +247,16 @@ class BuilderTest < ActionView::TestCase
     assert_no_select 'form input[type=checkbox][value=2][checked=checked]'
   end
 
+  test 'collection check box accepts selected values as :checked option and override the model values' do
+    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    @user.tag_ids = [2]
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :checked => [1, 3]
+
+    assert_select 'form input[type=checkbox][value=1][checked=checked]'
+    assert_select 'form input[type=checkbox][value=3][checked=checked]'
+    assert_no_select 'form input[type=checkbox][value=2][checked=checked]'
+  end
+
   test 'collection check box accepts multiple disabled items' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :disabled => [1, 3]
