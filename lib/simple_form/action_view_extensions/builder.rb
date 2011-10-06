@@ -147,7 +147,7 @@ module SimpleForm
           item_wrapper_tag ? @template.content_tag(item_wrapper_tag, rendered_item) : rendered_item
         end.join.html_safe
 
-        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection) : rendered_collection
+        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection, :class => SimpleForm.collection_wrapper_class) : rendered_collection
       end
 
       def value_for_collection(item, value) #:nodoc:
