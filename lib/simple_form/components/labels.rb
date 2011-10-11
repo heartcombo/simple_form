@@ -22,7 +22,11 @@ module SimpleForm
       end
 
       def label
-        @builder.label(label_target, label_text, label_html_options)
+        res = @builder.label(label_target, label_text, label_html_options)
+        if !label_html_options.key?(:for) && input_type =~ /^radio|check_boxes$/
+          res = res.sub(/\sfor="[^"]*"/, '').html_safe
+        end
+        res
       end
 
       def label_text

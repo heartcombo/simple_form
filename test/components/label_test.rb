@@ -247,6 +247,33 @@ class IsolatedLabelTest < ActionView::TestCase
     assert_select 'label[for=project_name]', /Name/
   end
 
+  test 'label should include for attribute for select collection' do
+    with_label_for @user, :sex, :select, :collection => [:male, :female]
+    assert_select 'label[for=user_sex]'
+  end
+
+  test 'label should not include for attribute for radio collection' do
+    with_label_for @user, :sex, :radio, :collection => [:male, :female]
+    assert_select 'label'
+    assert_no_select 'label[for=user_sex]'
+  end
+
+  test 'label should include for attribute for radio collection when overwritten' do
+    with_label_for @user, :sex, :radio, :collection => [:male, :female], :label_html => { :for => 'sex' }
+    assert_select 'label[for=sex]'
+  end
+
+  test 'label should not include for attribute for check box collection' do
+    with_label_for @user, :hobbies, :check_boxes, :collection => [:sports, :movies, :shopping]
+    assert_select 'label'
+    assert_no_select 'label[for=user_hobbies]'
+  end
+
+  test 'label should include for attribute for check box collection when overwritten' do
+    with_label_for @user, :hobbies, :check_boxes, :collection => [:sports, :movies, :shopping], :label_html => { :for => 'hobbies' }
+    assert_select 'label[for=hobbies]'
+  end
+
   test 'label should use i18n properly when object is not present' do
     store_translations(:en, :simple_form => { :labels => {
       :project => { :name => 'Nome' }
