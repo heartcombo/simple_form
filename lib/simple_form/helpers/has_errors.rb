@@ -4,7 +4,7 @@ module SimpleForm
       private
 
       def has_errors?
-        object && object.respond_to?(:errors) && object.errors.present?
+        object.respond_to?(:errors) && object.errors.present?
       end
     end
   end
