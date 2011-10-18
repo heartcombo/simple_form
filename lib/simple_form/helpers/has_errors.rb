@@ -3,12 +3,8 @@ module SimpleForm
     module HasErrors
       private
 
-      def errors
-        object.errors
-      end
-
       def has_errors?
-        object && object.respond_to?(:errors) && errors.present?
+        object && object.respond_to?(:errors) && object.errors.present?
       end
     end
   end
