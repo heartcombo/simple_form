@@ -139,7 +139,8 @@ module SimpleForm
 
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
         collection_wrapper_tag = options.has_key?(:collection_wrapper_tag) ? options[:collection_wrapper_tag] : SimpleForm.collection_wrapper_tag
-        collection_wrapper_class = options.has_key?(:collection_wrapper_class) ? options[:collection_wrapper_class] : SimpleForm.collection_wrapper_class
+        collection_wrapper_class = [SimpleForm.collection_wrapper_class, options[:collection_wrapper_class]].compact
+        collection_wrapper_class = nil if collection_wrapper_class.empty?
         item_wrapper_tag = options.has_key?(:item_wrapper_tag) ? options[:item_wrapper_tag] : SimpleForm.item_wrapper_tag
 
         rendered_collection = collection.map do |item|
