@@ -455,6 +455,11 @@ SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. 
         user:
           username: 'Your username'
           password: '****'
+      options:
+        user:
+          gender:
+            male: 'Male'
+            female: "Female'
 ```
 
 And your forms will use this information to render the components for you.
@@ -487,6 +492,10 @@ This way SimpleForm will figure out the right translation for you, based on the 
       placeholders:
         username: 'Your username'
         password: '****'
+      options:
+        gender:
+          male: 'Male'
+          female: "Female'
 ```
 
 SimpleForm will always look for a default attribute translation if no specific is found inside the model key. In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found for labels.

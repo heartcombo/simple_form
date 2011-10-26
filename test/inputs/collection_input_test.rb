@@ -55,6 +55,17 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'select option', 'Carlos'
   end
 
+  test 'input should allow translating collection for select types' do
+    store_translations(:en, :simple_form => { :options => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } ) do
+      with_input_for @user, :gender, :select, :collection => [:male, :female]
+      assert_select 'select.select#user_gender'
+      assert_select 'select option', 'Male'
+      assert_select 'select option', 'Female'
+    end
+  end
+
   test 'input should mark the selected value by default' do
     @user.name = "Carlos"
     with_input_for @user, :name, :select, :collection => ['Jose', 'Carlos']
@@ -145,6 +156,18 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'input[type=radio][value=Carlos]'
     assert_select 'label.collection_radio', 'Jose'
     assert_select 'label.collection_radio', 'Carlos'
+  end
+
+  test 'input should allow translation of collection for radio types' do
+    store_translations(:en, :simple_form => { :options => { :user => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } }) do
+      with_input_for @user, :gender, :radio, :collection => [:male, :female]
+      assert_select 'input[type=radio][value=male]'
+      assert_select 'input[type=radio][value=female]'
+      assert_select 'label.collection_radio', 'Male'
+      assert_select 'label.collection_radio', 'Female'
+    end
   end
 
   test 'input should mark the current radio value by default' do
