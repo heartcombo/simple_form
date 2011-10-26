@@ -161,6 +161,12 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'label.collection_radio', 'Carlos'
   end
 
+  test 'input should allow using a collection with a Proc' do
+    with_input_for @user, :name, :radio, :collection => Proc.new { ['Jose', 'Carlos' ] }
+    assert_select 'label.collection_radio', 'Jose'
+    assert_select 'label.collection_radio', 'Carlos'
+  end
+
   test 'input should allow overriding only label method for collections' do
     with_input_for @user, :name, :radio,
                           :collection => ['Jose' , 'Carlos'],
