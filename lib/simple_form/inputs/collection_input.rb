@@ -27,8 +27,10 @@ module SimpleForm
       private
 
       def collection
-        collection = (options.delete(:collection) || self.class.boolean_collection)
-        @collection ||= collection.is_a?(Proc) ? collection.call : collection.to_a
+        @collection ||= begin
+          collection = options.delete(:collection) || self.class.boolean_collection
+          collection.respond_to?(:call) ? collection.call : collection.to_a
+        end
       end
 
       # Select components does not allow the required html tag.
