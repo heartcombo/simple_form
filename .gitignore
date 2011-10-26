@@ -1,3 +1,4 @@
 .bundle/
 pkg/
+rdoc/
 Gemfile.lock
