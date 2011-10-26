@@ -31,9 +31,11 @@ module SimpleForm
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
       #
-      #   * collection_wrapper_tag => the tag to wrap the entire collection.
+      #   * collection_wrapper_tag   => the tag to wrap the entire collection.
       #
-      #   * item_wrapper_tag       => the tag to wrap each item in the collection.
+      #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
+      #
+      #   * item_wrapper_tag         => the tag to wrap each item in the collection.
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
@@ -73,9 +75,11 @@ module SimpleForm
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
       #
-      #   * collection_wrapper_tag => the tag to wrap the entire collection.
+      #   * collection_wrapper_tag   => the tag to wrap the entire collection.
       #
-      #   * item_wrapper_tag       => the tag to wrap each item in the collection.
+      #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
+      #
+      #   * item_wrapper_tag         => the tag to wrap each item in the collection.
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
@@ -135,6 +139,8 @@ module SimpleForm
 
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
         collection_wrapper_tag = options.has_key?(:collection_wrapper_tag) ? options[:collection_wrapper_tag] : SimpleForm.collection_wrapper_tag
+        collection_wrapper_class = [SimpleForm.collection_wrapper_class, options[:collection_wrapper_class]].compact
+        collection_wrapper_class = nil if collection_wrapper_class.empty?
         item_wrapper_tag = options.has_key?(:item_wrapper_tag) ? options[:item_wrapper_tag] : SimpleForm.item_wrapper_tag
 
         rendered_collection = collection.map do |item|
@@ -147,7 +153,7 @@ module SimpleForm
           item_wrapper_tag ? @template.content_tag(item_wrapper_tag, rendered_item) : rendered_item
         end.join.html_safe
 
-        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection) : rendered_collection
+        collection_wrapper_tag ? @template.content_tag(collection_wrapper_tag, rendered_collection, :class => collection_wrapper_class) : rendered_collection
       end
 
       def value_for_collection(item, value) #:nodoc:
