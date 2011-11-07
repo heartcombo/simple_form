@@ -121,7 +121,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio uses the configured class for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => :'inputs-list' do
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
       with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
       assert_select 'form ul.inputs-list input[type=radio][value=true]#user_active_true'
@@ -131,7 +131,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection radio uses the given class for collection wrapper tag' do
     swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => :'items-list'
+      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
 
       assert_select 'form ul.items-list input[type=radio][value=true]#user_active_true'
       assert_select 'form ul.items-list input[type=radio][value=false]#user_active_false'
@@ -139,8 +139,8 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio uses both configured and given classes for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => :'inputs-list' do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => :'items-list'
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
+      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
 
       assert_select 'form ul.inputs-list.items-list input[type=radio][value=true]#user_active_true'
       assert_select 'form ul.inputs-list.items-list input[type=radio][value=false]#user_active_false'
@@ -327,7 +327,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection check box uses the configured class for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => :'inputs-list' do
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
       with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
       assert_select 'form ul.inputs-list input[type=checkbox][value=true]#user_active_true'
@@ -337,7 +337,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection check box uses the given class for collection wrapper tag' do
     swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => :'items-list'
+      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
 
       assert_select 'form ul.items-list input[type=checkbox][value=true]#user_active_true'
       assert_select 'form ul.items-list input[type=checkbox][value=false]#user_active_false'
@@ -345,8 +345,8 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection check box uses both configured and given classes for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => :'inputs-list' do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => :'items-list'
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
+      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
 
       assert_select 'form ul.inputs-list.items-list input[type=checkbox][value=true]#user_active_true'
       assert_select 'form ul.inputs-list.items-list input[type=checkbox][value=false]#user_active_false'
