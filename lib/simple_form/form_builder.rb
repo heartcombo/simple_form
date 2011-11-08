@@ -2,6 +2,12 @@ module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :template, :object_name, :object, :wrapper
 
+    # When action is create or update, we still should use new and edit
+    ACTIONS = {
+      :create => :new,
+      :update => :edit
+    }
+
     extend MapType
     include SimpleForm::Inputs
 
@@ -296,6 +302,34 @@ module SimpleForm
     #
     def error_notification(options={})
       SimpleForm::ErrorNotification.new(self, options).render
+    end
+
+    # Extract the model names from the object_name mess, ignoring numeric and
+    # explicit child indexes.
+    #
+    # Example:
+    #
+    # route[blocks_attributes][0][blocks_learning_object_attributes][1][foo_attributes]
+    # ["route", "blocks", "blocks_learning_object", "foo"]
+    #
+    def lookup_model_names
+      @lookup_model_names ||= begin
+        child_index = options[:child_index]
+        names = object_name.to_s.scan(/([a-zA-Z_]+)/).flatten
+        names.delete(child_index) if child_index
+        names.each { |name| name.gsub!('_attributes', '') }
+        names.freeze
+      end
+    end
+
+    # The action to be used in lookup.
+    def lookup_action
+      @lookup_action ||= begin
+        action = template.controller.action_name
+        return unless action
+        action = action.to_sym
+        ACTIONS[action] || action
+      end
     end
 
   private

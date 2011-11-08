@@ -3,12 +3,6 @@ module SimpleForm
     class Base
       extend I18nCache
 
-      # When action is create or update, we still should use new and edit
-      ACTIONS = {
-        :create => :new,
-        :update => :edit
-      }
-
       include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Disabled
       include SimpleForm::Helpers::Validators
@@ -32,7 +26,7 @@ module SimpleForm
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options
 
-      delegate :template, :object, :object_name, :to => :@builder
+      delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, :to => :@builder
 
       def initialize(builder, attribute_name, column, input_type, options = {})
         @builder            = builder
@@ -123,7 +117,7 @@ module SimpleForm
       def translate(namespace, default='')
         return nil unless SimpleForm.translate
 
-        model_names = lookup_model_names
+        model_names = lookup_model_names.dup
         lookups     = []
 
         while !model_names.empty?
@@ -139,28 +133,6 @@ module SimpleForm
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
       end
 
-      # Extract the model names from the object_name mess, ignoring numeric and
-      # explicit child indexes.
-      #
-      # Example:
-      #
-      # route[blocks_attributes][0][blocks_learning_object_attributes][1][foo_attributes]
-      # ["route", "blocks", "blocks_learning_object", "foo"]
-      #
-      def lookup_model_names
-        child_index = @builder.options[:child_index]
-        names = object_name.to_s.scan(/([a-zA-Z_]+)/).flatten
-        names.delete(child_index) if child_index
-        names.each { |name| name.gsub!('_attributes', '') }
-      end
-
-      # The action to be used in lookup.
-      def lookup_action
-        action = template.controller.action_name
-        return unless action
-        action = action.to_sym
-        ACTIONS[action] || action
-      end
     end
   end
 end
