@@ -97,6 +97,17 @@ It is also possible to pass any html attribute straight to the input, by using t
   <% end %>
 ```
 
+If you want to pass the same :input_html to all inputs in the form (for example, a default class), you can use the :defaults option in `simple_form_for`. Specific options in :input_html will overwrite the defaults:
+
+```erb
+  <%= simple_form_for @user, :defaults => { :class => 'default_class' } do |f| %>
+    <%= f.input :username, :input_html => { :class => 'special' } %>
+    <%= f.input :password, :input_html => { :maxlength => 20 } %>
+    <%= f.input :remember_me, :input_html => { :value => '1' } %>
+    <%= f.button :submit %>
+  <% end %>
+```
+
 Since simple_form generates a wrapper div around your label and input by default, you can pass any html attribute to that wrapper as well using the :wrapper_html option, like so:
 
 ```erb

@@ -28,6 +28,7 @@ module SimpleForm
 
     def initialize(*) #:nodoc:
       super
+      @defaults = options[:defaults]
       @wrapper = SimpleForm.wrapper(options[:wrapper] || :default)
     end
 
@@ -97,6 +98,8 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
+      options = @defaults.deep_merge(options) if @defaults
+
       chosen =
         if name = options[:wrapper]
           name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
