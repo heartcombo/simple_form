@@ -32,6 +32,12 @@ class WrapperTest < ActionView::TestCase
     assert_select 'form > input#user_name.string'
   end
 
+  test 'wrapper should support no wrapping when wrapper tag is false' do
+    with_form_for @user, :name, :wrapper => custom_wrapper_without_top_level
+    assert_select 'form > label[for=user_name]'
+    assert_select 'form > input#user_name.string'
+  end
+
   test 'wrapper should wrapping tag adds required/optional css classes' do
     with_form_for @user, :name
     assert_select 'form div.input.required.string'

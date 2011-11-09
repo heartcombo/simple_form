@@ -46,6 +46,14 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_without_top_level
+    SimpleForm.build :tag => false, :class => 'custom_wrapper_without_top_level' do |b|
+      b.use :label_input
+      b.use :hint,  :tag => :span, :class => :hint
+      b.use :error, :tag => :span, :class => :error
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end
