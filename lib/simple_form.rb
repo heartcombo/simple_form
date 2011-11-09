@@ -142,7 +142,7 @@ module SimpleForm
 
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
   def self.build(options={})
-    options[:tag] ||= :div unless options.empty?
+    options[:tag] = :div if !options.empty? && options[:tag].nil?
     builder = SimpleForm::Wrappers::Builder.new
     yield builder
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
