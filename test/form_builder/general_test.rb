@@ -261,23 +261,23 @@ class FormBuilderTest < ActionView::TestCase
 
   # DEFAULT OPTIONS
   test 'builder should receive a default argument and pass it to the inputs' do
-    concat(simple_form_for(@user, :defaults => { :input_html => { :class => 'default_class' } }) do |f|
+    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
       f.input :name
-    end)
+    end
     assert_select 'input.default_class'
   end
 
   test 'builder should receive a default argument and pass it to the inputs, respecting the specific options' do
-    concat(simple_form_for(@user, :defaults => { :input_html => { :class => 'default_class' } }) do |f|
+    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
       f.input :name, :input_html => { :id => 'specific_id' }
-    end)
+    end
     assert_select 'input.default_class#specific_id'
   end
 
   test 'builder should receive a default argument and pass it to the inputs, overwriting the defaults with specific options' do
-    concat(simple_form_for(@user, :defaults => { :input_html => { :class => 'default_class', :id => 'default_id' } }) do |f|
+    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class', :id => 'default_id' } } do |f|
       f.input :name, :input_html => { :id => 'specific_id' }
-    end)
+    end
     assert_select 'input.default_class#specific_id'
   end
 
