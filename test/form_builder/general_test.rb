@@ -281,6 +281,16 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input.default_class#specific_id'
   end
 
+  test 'builder should receive a default argument and pass it to the inputs without changing the defaults' do
+    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class', :id => 'default_id' } } do |f|
+      concat(f.input :name)
+      concat(f.input :credit_limit)
+    end
+
+    assert_select "input.string.default_class[name='user[name]']"
+    assert_no_select "input.string[name='user[credit_limit]']"
+  end
+
 
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
