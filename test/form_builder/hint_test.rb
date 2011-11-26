@@ -79,6 +79,15 @@ class HintTest < ActionView::TestCase
     end
   end
 
+  test 'hint should not use i18n just with attribute to lookup translation if it is a model' do
+    store_translations(:en, :simple_form => { :hints => {
+      :company => { :name => 'Nome' }
+    } } ) do
+      with_hint_for @user, :company, :reflection => Association.new(Company, :company, {})
+      assert_no_select 'span.hint'
+    end
+  end
+
   test 'hint should use i18n just with attribute to lookup translation' do
     store_translations(:en, :simple_form => { :hints => {
       :name => 'Content of this input will be downcased...'

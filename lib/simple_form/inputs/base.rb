@@ -129,7 +129,7 @@ module SimpleForm
           lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
         end
-        lookups << :"#{reflection_or_attribute_name}"
+        lookups << :"#{attribute_name}" unless reflection
         lookups << default
 
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
