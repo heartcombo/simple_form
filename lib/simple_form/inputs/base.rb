@@ -5,6 +5,7 @@ module SimpleForm
 
       include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Disabled
+      include SimpleForm::Helpers::Readonly
       include SimpleForm::Helpers::Validators
       include SimpleForm::Helpers::Maxlength
       include SimpleForm::Helpers::Pattern
@@ -39,6 +40,7 @@ module SimpleForm
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:required]  = true if has_required?
           o[:disabled]  = true if has_disabled?
+          o[:readonly]  = true if has_readonly?
           o[:autofocus] = true if has_autofocus?
         end
       end
@@ -52,7 +54,7 @@ module SimpleForm
       end
 
       def input_html_classes
-        [input_type, required_class, disabled_class].compact
+        [input_type, required_class, disabled_class, readonly_class].compact
       end
 
       def has_autofocus?

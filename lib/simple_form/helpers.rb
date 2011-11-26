@@ -5,5 +5,6 @@ module SimpleForm
     autoload :Validators,   'simple_form/helpers/validators'
     autoload :Required,     'simple_form/helpers/required'
     autoload :Disabled,     'simple_form/helpers/disabled'
+    autoload :Readonly,     'simple_form/helpers/readonly'
   end
 end
