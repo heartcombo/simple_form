@@ -434,4 +434,14 @@ class BuilderTest < ActionView::TestCase
       end
     end
   end
+
+  test 'fields inherites wrapper option from the parent form' do
+    swap_wrapper :another do
+      simple_form_for(:user, :wrapper => :another) do |f|
+        f.simple_fields_for(:company) do |company|
+          assert_equal :another, company.options[:wrapper]
+        end
+      end
+    end
+  end
 end
