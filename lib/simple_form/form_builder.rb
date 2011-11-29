@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash/deep_dup'
+
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :template, :object_name, :object, :wrapper
@@ -98,7 +100,7 @@ module SimpleForm
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
     #
     def input(attribute_name, options={}, &block)
-      options = @defaults.deep_merge(options) if @defaults
+      options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       chosen =
         if name = options[:wrapper]
