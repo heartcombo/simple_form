@@ -22,7 +22,7 @@ module SimpleForm
       end
 
       def label
-        return template.label_tag(nil, label_html_options) { label_text } if [:check_boxes, :radio].include?(input_type)
+        return template.label_tag(nil, label_text, label_html_options) if [:check_boxes, :radio].include?(input_type)
         @builder.label(label_target, label_text, label_html_options)
       end
 
