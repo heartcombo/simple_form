@@ -1,4 +1,4 @@
-require 'active_support/core_ext/hash/deep_dup'
+require 'simple_form/core_ext/hash'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
