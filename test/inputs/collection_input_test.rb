@@ -259,10 +259,34 @@ class CollectionInputTest < ActionView::TestCase
     end
   end
 
-  test 'collection input with select type should not generate invalid required html attribute' do
-    with_input_for @user, :name, :select, :collection => ['Jose' , 'Carlos']
+  test 'collection input with select type should generate required html attribute only with blank option' do
+    with_input_for @user, :name, :select, :include_blank => true, :collection => ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_select 'select[required]'
+  end
+
+  test 'collection input with select type should not generate required html attribute without blank option' do
+    with_input_for @user, :name, :select, :include_blank => false, :collection => ['Jose' , 'Carlos']
     assert_select 'select.required'
     assert_no_select 'select[required]'
+  end
+
+  test 'collection input with select type with multiple attribute should generate required html attribute without blank option' do
+    with_input_for @user, :name, :select, :include_blank => true, :input_html => {:multiple => true}, :collection => ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_select 'select[required]'
+  end
+
+  test 'collection input with select type with multiple attribute should generate required html attribute with blank option' do
+    with_input_for @user, :name, :select, :include_blank => true, :input_html => {:multiple => true}, :collection => ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_select 'select[required]'
+  end
+
+  test 'collection input with check_boxes type should not generate required html attribute' do
+    with_input_for @user, :name, :check_boxes, :collection => ['Jose' , 'Carlos']
+    assert_select 'input.required'
+    assert_no_select 'input[required]'
   end
 
   test 'input should allow disabled options with a lambda for collection select' do

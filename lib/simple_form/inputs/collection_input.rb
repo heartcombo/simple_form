@@ -33,15 +33,19 @@ module SimpleForm
         end
       end
 
-      # Select components does not allow the required html tag.
+      # Checkbox components does not use the required html tag.
+      # See more info here - https://github.com/plataformatec/simple_form/issues/340#issuecomment-2871956
       def has_required?
-        super && input_type != :select
+        super && (input_options[:include_blank] || multiple?) && input_type != :check_boxes
       end
 
       # Check if :include_blank must be included by default.
       def skip_include_blank?
-        (options.keys & [:prompt, :include_blank, :default, :selected]).any? ||
-          options[:input_html].try(:[], :multiple)
+        (options.keys & [:prompt, :include_blank, :default, :selected]).any? || multiple?
+      end
+
+      def multiple?
+        !!options[:input_html].try(:[], :multiple)
       end
 
       # Detect the right method to find the label and value for a collection.
