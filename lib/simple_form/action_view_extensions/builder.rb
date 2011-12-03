@@ -86,7 +86,7 @@ module SimpleForm
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
-          default_html_options[:checked] = !!default_html_options[:checked] if options.has_key?(:checked)
+
           check_box(attribute, default_html_options, value, '') +
             label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
         end
@@ -123,13 +123,18 @@ module SimpleForm
         [:checked, :selected, :disabled].each do |option|
           next unless options[option]
 
+
           accept = if options[option].respond_to?(:call)
             options[option].call(item)
           else
             Array(options[option]).include?(value)
           end
 
-          html_options[option] = true if accept
+          if accept
+            html_options[option] = true
+          elsif option == :checked
+            html_options[option] = false
+          end
         end
 
         html_options
