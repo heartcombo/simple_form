@@ -48,7 +48,8 @@ module SimpleForm
           record
         else
           record = record.last if record.is_a?(Array)
-          dom_class(record)
+          action = record.respond_to?(:persisted?) && record.persisted? ? :edit : :new
+          dom_class(record, action)
         end
       end
 
