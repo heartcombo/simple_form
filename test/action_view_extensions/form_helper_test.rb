@@ -42,9 +42,15 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form.simple_form.user'
   end
 
-  test 'simple form should add object class name as css class to form' do
+  test 'simple form should add object class name with new prefix as css class to form if record is not persisted' do
+    @user.new_record!
     concat(simple_form_for(@user) do |f| end)
-    assert_select 'form.simple_form.user'
+    assert_select 'form.simple_form.new_user'
+  end
+
+  test 'simple form should add edit class prefix as css class to form if record is persisted' do
+    concat(simple_form_for(@user) do |f| end)
+    assert_select 'form.simple_form.edit_user'
   end
 
   test 'simple form should not add object class to form if css_class is specified' do
