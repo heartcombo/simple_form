@@ -4,11 +4,19 @@
   * Add `button_class` configuration to change the class of buttons (github.com/sryche)
   * Add `disabled` class to a disabled input
   * Generate configuration file with `browser_validations` disabled
+  * Add option and configuration to specify the collection wrapper class (github.com/mfila)
+  * Add proc support to `collection` option (github.com/jeffkreeftmeijer)
   * `simple_form_for` allows default options for its inputs (:defaults => {})
+  * Add `readonly` as option of input method (github.com/Untainted123)
+  * `simple_fields_for` for inherits wrapper option form the form builder (github.com/nashby)
 
 * bug fix
   * Fallback to default label when block is provided (github.com/pivotal-casebook)
   * Do not override default selection through attribute value in collection select when label/value methods are lambdas
+  * Fix i18n lookup with attributes with same name of models. Closes #149 and #364 (github.com/nashby and github.com/MarceloCajueiro)
+  * Do not generate `for` attribute for the collection label when it is a checkbox or radio. Closes #344 (github.com/nashby and github.com/mfila)
+  * Select can have required option when the `:include_blank` option is passed. Closes #340 (github.com/nashby)
+  * `:checked` option should override the existing associations on `collection_check_boxes`. Closes #341 (github.com/nashby)
 
 == 1.5.0
 
