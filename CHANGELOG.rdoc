@@ -9,6 +9,7 @@
   * `simple_form_for` allows default options for its inputs (:defaults => {})
   * Add `readonly` as option of input method (github.com/Untainted123)
   * `simple_fields_for` for inherits wrapper option form the form builder (github.com/nashby)
+  * Deprecated part of the old configuration API in favor of the wrapper API which allows you to customize your inputs in a more flexible way. A guide on update is available here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0
 
 * bug fix
   * Fallback to default label when block is provided (github.com/pivotal-casebook)
