@@ -272,7 +272,7 @@ class CollectionInputTest < ActionView::TestCase
   end
 
   test 'collection input with select type with multiple attribute should generate required html attribute without blank option' do
-    with_input_for @user, :name, :select, :include_blank => true, :input_html => {:multiple => true}, :collection => ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, :include_blank => false, :input_html => {:multiple => true}, :collection => ['Jose' , 'Carlos']
     assert_select 'select.required'
     assert_select 'select[required]'
   end
