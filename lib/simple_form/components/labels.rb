@@ -22,8 +22,11 @@ module SimpleForm
       end
 
       def label
-        return template.label_tag(nil, label_text, label_html_options) if [:check_boxes, :radio].include?(input_type)
-        @builder.label(label_target, label_text, label_html_options)
+        if input_type_should_generate_for_attribute?
+          @builder.label(label_target, label_text, label_html_options)
+        else
+          template.label_tag(nil, label_text, label_html_options)
+        end
       end
 
       def label_text
@@ -64,6 +67,10 @@ module SimpleForm
         else
           attribute_name.to_s.humanize
         end
+      end
+
+      def input_type_should_generate_for_attribute?
+        [:check_boxes, :radio].exclude?(input_type)
       end
     end
   end
