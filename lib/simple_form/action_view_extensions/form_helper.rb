@@ -21,14 +21,6 @@ module SimpleForm
         html_tag
       end
 
-      def with_custom_field_error_proc(&block)
-        @@default_field_error_proc = ::ActionView::Base.field_error_proc
-        ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
-        result = yield
-        ::ActionView::Base.field_error_proc = @@default_field_error_proc
-        result
-      end
-
       def simple_form_for(record, options={}, &block)
         options[:builder] ||= SimpleForm::FormBuilder
         options[:html] ||= {}
@@ -37,7 +29,7 @@ module SimpleForm
         end
         options[:html][:class] = [SimpleForm.form_class, simple_form_css_class(record, options[:html])].compact.join(" ")
 
-        with_custom_field_error_proc do
+        with_simple_form_field_error_proc do
           form_for(record, options, &block)
         end
       end
@@ -46,12 +38,20 @@ module SimpleForm
         options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
         options[:builder] ||= SimpleForm::FormBuilder
 
-        with_custom_field_error_proc do
+        with_simple_form_field_error_proc do
           fields_for(record_name, record_object, options, &block)
         end
       end
 
       private
+
+      def with_simple_form_field_error_proc(&block)
+        @@default_field_error_proc = ::ActionView::Base.field_error_proc
+        ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
+        result = yield
+        ::ActionView::Base.field_error_proc = @@default_field_error_proc
+        result
+      end
 
       def simple_form_css_class(record, html_options)
         if html_options.key?(:class)
