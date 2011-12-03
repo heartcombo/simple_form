@@ -70,7 +70,7 @@ module SimpleForm
       # Collection check box accepts some extra options:
       #
       #   * checked  => the value or values that should be checked initially. Accepts
-      #                 a single item or an array of items.
+      #                 a single item or an array of items. It overrides existing associations.
       #
       #   * disabled => the value or values that should be disabled. Accepts a single
       #                 item or an array of items.
@@ -86,7 +86,7 @@ module SimpleForm
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
-
+          default_html_options[:checked] = !!default_html_options[:checked] if options.has_key?(:checked)
           check_box(attribute, default_html_options, value, '') +
             label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
         end
