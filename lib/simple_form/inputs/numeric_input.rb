@@ -5,16 +5,13 @@ module SimpleForm
 
       def input
         add_size!
+        input_html_classes.unshift("numeric")
         if SimpleForm.html5
           input_html_options[:type] ||= "number"
           input_html_options[:step] ||= integer? ? 1 : "any"
           infer_attributes_from_validations!
         end
         @builder.text_field(attribute_name, input_html_options)
-      end
-
-      def input_html_classes
-        super.unshift("numeric")
       end
 
       private
@@ -27,11 +24,11 @@ module SimpleForm
       def infer_attributes_from_validations!
         return unless has_validators?
 
-        numeric_validator = find_numericality_validator or return
-        validator_options = numeric_validator.options
-
-        input_html_options[:min] ||= minimum_value(validator_options)
-        input_html_options[:max] ||= maximum_value(validator_options)
+        if numeric_validator = find_numericality_validator
+          validator_options = numeric_validator.options
+          input_html_options[:min] ||= minimum_value(validator_options)
+          input_html_options[:max] ||= maximum_value(validator_options)
+        end
       end
 
       def integer?

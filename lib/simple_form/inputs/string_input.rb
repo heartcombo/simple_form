@@ -4,13 +4,13 @@ module SimpleForm
       enable :placeholder, :maxlength, :pattern
 
       def input
-        input_html_options[:type] ||= input_type if SimpleForm.html5 && !string?
+        unless string?
+          input_html_classes.unshift("string")
+          input_html_options[:type] ||= input_type if SimpleForm.html5
+        end
+
         add_size!
         @builder.text_field(attribute_name, input_html_options)
-      end
-
-      def input_html_classes
-        string? ? super : super.unshift("string")
       end
 
       private
