@@ -1,5 +1,6 @@
 module SimpleForm
   module Components
+    # Needs to be enabled in order to do automatic lookups.
     module Pattern
       def pattern
         input_html_options[:pattern] ||= pattern_source

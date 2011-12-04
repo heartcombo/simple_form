@@ -39,6 +39,9 @@ module SimpleForm
         self.default_options = options
       end
 
+      # Always enabled.
+      enable :hint
+
       # Usually disabled, needs to be enabled explicitly passing true as option.
       disable :maxlength, :placeholder, :pattern
 
@@ -126,8 +129,6 @@ module SimpleForm
       #
       #  Take a look at our locale example file.
       def translate(namespace, default='')
-        return nil unless SimpleForm.translate
-
         model_names = lookup_model_names.dup
         lookups     = []
 

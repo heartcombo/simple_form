@@ -99,10 +99,10 @@ module SimpleForm
   mattr_accessor :default_input_size
   @@default_input_size = 50
 
-  # When off, do not use translations in hint, labels and placeholders.
-  # It is a small performance improvement if you are not using such features.
-  mattr_accessor :translate
-  @@translate = true
+  # When off, do not use translations in labels. Disabling translation in
+  # hints and placeholders can be done manually in the wrapper API.
+  mattr_accessor :translate_labels
+  @@translate_labels = true
 
   # Automatically discover new inputs in Rails' autoload path.
   mattr_accessor :inputs_discovery
@@ -165,7 +165,17 @@ module SimpleForm
   @@deprecated = false
 
   DEPRECATED.each do |method|
-    class_eval "def #{method}; @@deprecated = true; end"
+    class_eval "def self.#{method}; @@deprecated = true; end"
+  end
+
+  def self.translate=(value)
+    ActiveSupport::Deprecation.warn "SimpleForm.translate= is disabled in favor of translate_labels="
+    self.translate_labels = value
+  end
+
+  def self.translate
+    ActiveSupport::Deprecation.warn "SimpleForm.translate is disabled in favor of translate_labels"
+    self.translate_labels
   end
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install

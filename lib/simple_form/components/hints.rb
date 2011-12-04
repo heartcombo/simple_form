@@ -1,8 +1,13 @@
 module SimpleForm
   module Components
+    # Needs to be enabled in order to do automatic lookups.
     module Hints
       def hint
-        (options.delete(:hint) || translate(:hints)).presence
+        if options[:hint] == true
+          translate(:hints).presence
+        else
+          options[:hint]
+        end
       end
     end
   end

@@ -1,5 +1,6 @@
 module SimpleForm
   module Components
+    # Needs to be enabled in order to do automatic lookups.
     module Placeholders
       def placeholder
         input_html_options[:placeholder] ||= placeholder_text
