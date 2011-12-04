@@ -4,12 +4,12 @@ module SimpleForm
       extend I18nCache
 
       include SimpleForm::Helpers::Required
-      include SimpleForm::Helpers::Disabled
       include SimpleForm::Helpers::Readonly
       include SimpleForm::Helpers::Validators
       include SimpleForm::Helpers::Maxlength
       include SimpleForm::Helpers::Pattern
 
+      include SimpleForm::Components::Disabled
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
@@ -25,7 +25,7 @@ module SimpleForm
       end
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
-                  :options, :input_html_options
+                  :options, :input_html_options, :input_html_classes
 
       delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, :to => :@builder
 
@@ -37,9 +37,13 @@ module SimpleForm
         @reflection         = options.delete(:reflection)
         @options            = options
         @required           = calculate_required
+
+        # Notice that html_options_for receives a reference to input_html_classes.
+        # This means that classes added dynamically to input_html_classes will
+        # still propagate to input_html_options.
+        @input_html_classes = [input_type, required_class, readonly_class].compact
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:required]  = true if has_required?
-          o[:disabled]  = true if has_disabled?
           o[:readonly]  = true if has_readonly?
           o[:autofocus] = true if has_autofocus?
         end
@@ -51,10 +55,6 @@ module SimpleForm
 
       def input_options
         options
-      end
-
-      def input_html_classes
-        [input_type, required_class, disabled_class, readonly_class].compact
       end
 
       def has_autofocus?
@@ -79,7 +79,7 @@ module SimpleForm
       # Retrieve options for the given namespace from the options hash
       def html_options_for(namespace, extra)
         html_options = options[:"#{namespace}_html"] || {}
-        html_options[:class] = (extra << html_options[:class]).join(' ').strip if extra.present?
+        html_options[:class] = (extra << html_options[:class]) if extra.present?
         html_options
       end
 

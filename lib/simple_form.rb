@@ -149,7 +149,9 @@ module SimpleForm
   end
 
   wrappers :class => :input, :error_class => :field_with_errors do |b|
+    b.use :disabled
     b.use :placeholder
+
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint
     b.use :error, :tag => :span, :class => :error
