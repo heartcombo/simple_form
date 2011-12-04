@@ -3,8 +3,8 @@ module SimpleForm
     class Base
       extend I18nCache
 
-      include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Readonly
+      include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Validators
       include SimpleForm::Helpers::Maxlength
       include SimpleForm::Helpers::Pattern
@@ -14,6 +14,7 @@ module SimpleForm
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
+      include SimpleForm::Components::Required
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options, :input_html_classes
@@ -34,7 +35,6 @@ module SimpleForm
         # still propagate to input_html_options.
         @input_html_classes = [input_type, required_class, readonly_class].compact
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
-          o[:required]  = true if has_required?
           o[:readonly]  = true if has_readonly?
           o[:autofocus] = true if has_autofocus?
         end

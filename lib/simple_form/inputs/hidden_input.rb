@@ -9,12 +9,9 @@ module SimpleForm
       def has_errors?() false end
       def has_hint?() false end
       def has_placeholder?() false end
+      def has_required?() false end
 
       private
-
-      def attribute_required?
-        false
-      end
 
       def required_class
         nil

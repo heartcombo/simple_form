@@ -1,14 +1,9 @@
 module SimpleForm
   module Helpers
     module Required
-      # Whether this input is valid for HTML 5 required attribute.
-      def has_required?
-        attribute_required? && SimpleForm.html5 && SimpleForm.browser_validations
-      end
-
       private
 
-      def attribute_required?
+      def required_field?
         @required
       end
 
@@ -20,16 +15,18 @@ module SimpleForm
             v.kind == :presence && valid_validator?(v)
           end
         else
-          attribute_required_by_default?
+          required_by_default?
         end
       end
 
-      def attribute_required_by_default?
+      def required_by_default?
         SimpleForm.required_by_default
       end
 
+      # Do not use has_required? because we want to add the class
+      # regardless of the
       def required_class
-        attribute_required? ? :required : :optional
+        required_field? ? :required : :optional
       end
     end
   end

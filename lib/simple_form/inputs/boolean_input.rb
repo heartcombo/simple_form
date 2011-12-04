@@ -18,7 +18,7 @@ module SimpleForm
       # Booleans are not required by default because in most of the cases
       # it makes no sense marking them as required. The only exception is
       # Terms of Use usually presented at most sites sign up screen.
-      def attribute_required_by_default?
+      def required_by_default?
         false
       end
     end

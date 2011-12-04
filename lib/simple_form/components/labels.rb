@@ -56,7 +56,7 @@ module SimpleForm
 
       # Default required text when attribute is required.
       def required_label_text #:nodoc:
-        attribute_required? ? self.class.translate_required_html.dup : ''
+        required_field? ? self.class.translate_required_html.dup : ''
       end
 
       # First check labels translation and then human attribute name.
