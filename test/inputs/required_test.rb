@@ -36,6 +36,14 @@ class RequiredTest < ActionView::TestCase
     assert_select 'input.optional#user_name'
   end
 
+  test 'when not the required component the input does not have the required attribute but has the required class' do
+    swap_wrapper do
+      with_input_for @user, :name, :string
+      assert_select 'input[type=text].required'
+      assert_no_select 'input[type=text][required]'
+    end
+  end
+
   # VALIDATORS :if :unless
   test 'builder input should not be required when ActiveModel::Validations is included and if option is present' do
     with_form_for @validating_user, :age
