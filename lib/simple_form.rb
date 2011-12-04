@@ -150,6 +150,7 @@ module SimpleForm
 
   wrappers :class => :input, :error_class => :field_with_errors do |b|
     b.use :disabled
+    b.use :maxlength
     b.use :placeholder
     b.use :required
 

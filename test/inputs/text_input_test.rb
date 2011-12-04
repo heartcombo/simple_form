@@ -21,18 +21,4 @@ class TextInputTest < ActionView::TestCase
     with_input_for @validating_user, :description, :text
     assert_select 'textarea.text[maxlength=50]'
   end
-
-  test 'when not using HTML5, does not show maxlength attribute for text attributes' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @user, :description, :text
-      assert_no_select 'textarea.text[maxlength]'
-    end
-  end
-
-  test 'when not using HTML5, does not show maxlength attribute with validating lenght text attribute' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @validating_user, :name, :string
-      assert_no_select 'input.string[maxlength]'
-    end
-  end
 end

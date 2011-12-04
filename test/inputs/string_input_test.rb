@@ -47,20 +47,6 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input.string[maxlength=25]'
   end
 
-  test 'when not using HTML5, does not show maxlength attribute' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @user, :password, :password
-      assert_no_select 'input[type=password][maxlength]'
-    end
-  end
-
-  test 'when not using HTML5, does not show maxlength attribute with validating lenght attribute' do
-    swap SimpleForm, :html5 => false do
-      with_input_for @validating_user, :name, :string
-      assert_no_select 'input.string[maxlength]'
-    end
-  end
-
   test 'input should not generate placeholder by default' do
     with_input_for @user, :name, :string
     assert_no_select 'input[placeholder]'

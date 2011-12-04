@@ -3,7 +3,6 @@ module SimpleForm
     class StringInput < Base
       def input
         input_html_options[:type] ||= input_type if SimpleForm.html5 && !string?
-        add_maxlength!
         add_pattern!
         add_size!
         @builder.text_field(attribute_name, input_html_options)
