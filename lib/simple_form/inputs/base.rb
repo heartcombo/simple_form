@@ -3,11 +3,12 @@ module SimpleForm
     class Base
       extend I18nCache
 
+      include SimpleForm::Helpers::Autofocus
+      include SimpleForm::Helpers::Disabled
       include SimpleForm::Helpers::Readonly
       include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Validators
 
-      include SimpleForm::Components::Disabled
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
@@ -25,17 +26,20 @@ module SimpleForm
       self.default_options = {}
 
       def self.enable(*keys)
-        options = self.default_options.dup
-        keys.each { |key| options.delete(key) }
-        self.default_options = options
+        self.ability(keys, true)
       end
 
       def self.disable(*keys)
+        self.ability(keys, false)
+      end
+
+      def self.ability(keys, value)
         options = self.default_options.dup
-        keys.each { |key| options[key] = false }
+        keys.each { |key| options[key] = value }
         self.default_options = options
       end
 
+      # Usually disabled, needs to be enabled explicitly passing true as option.
       disable :maxlength, :placeholder, :pattern
 
       def initialize(builder, attribute_name, column, input_type, options = {})
@@ -50,9 +54,10 @@ module SimpleForm
         # Notice that html_options_for receives a reference to input_html_classes.
         # This means that classes added dynamically to input_html_classes will
         # still propagate to input_html_options.
-        @input_html_classes = [input_type, required_class, readonly_class].compact
+        @input_html_classes = [input_type, required_class, readonly_class, disabled_class].compact
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:readonly]  = true if has_readonly?
+          o[:disabled]  = true if has_disabled?
           o[:autofocus] = true if has_autofocus?
         end
       end
@@ -63,10 +68,6 @@ module SimpleForm
 
       def input_options
         options
-      end
-
-      def has_autofocus?
-        options[:autofocus]
       end
 
       private

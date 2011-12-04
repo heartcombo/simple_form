@@ -9,8 +9,12 @@ module SimpleForm
       private
 
       def maximum_length_from_validation
-        if has_validators? && (length_validator = find_length_validator)
-          length_validator.options[:maximum]
+        if options[:maxlength] == true
+          if has_validators? && (length_validator = find_length_validator)
+            length_validator.options[:maximum]
+          end
+        else
+          options[:maxlength]
         end
       end
 

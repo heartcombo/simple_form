@@ -9,8 +9,12 @@ module SimpleForm
       private
 
       def pattern_source
-        if has_validators? && (pattern_validator = find_pattern_validator)
-          pattern_validator.options[:with].source
+        if options[:pattern] == true
+          if has_validators? && (pattern_validator = find_pattern_validator)
+            pattern_validator.options[:with].source
+          end
+        else
+          options[:pattern]
         end
       end
 

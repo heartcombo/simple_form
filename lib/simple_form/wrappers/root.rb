@@ -3,8 +3,16 @@ module SimpleForm
     # `Root` is the root wrapper for all components. It is special cased to
     # always have a namespace and to add special html classes.
     class Root < Many
+      attr_reader :options
+
       def initialize(*args)
         super(:wrapper, *args)
+        @options = @defaults.except(:tag, :class, :error_class)
+      end
+
+      def render(input)
+        input.options.reverse_merge!(@options)
+        super
       end
 
       # Provide a fallback if name cannot be found.

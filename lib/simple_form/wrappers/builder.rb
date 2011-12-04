@@ -25,6 +25,16 @@ module SimpleForm
     #       end
     #     end
     #
+    # The builder also accepts default options at the root level. This is usually
+    # used if you want a component to be disabled by default:
+    #
+    #     config.wrappers :hint => false do |b|
+    #       b.use :hint
+    #       b.use :label_input
+    #     end
+    #
+    # In the example above, hint defaults to false, which means it won't automatically
+    # do the lookup anymore. It will only be triggered when :hint is explicitly set.
     class Builder
       def initialize
         @components = []
