@@ -1,6 +1,8 @@
 module SimpleForm
   module Inputs
     class NumericInput < Base
+      enable :placeholder
+
       def input
         add_size!
         if SimpleForm.html5

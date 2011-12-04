@@ -8,7 +8,9 @@ class FileInputTest < ActionView::TestCase
   end
 
   test "input should generate a file field that doesn't accept placeholder" do
-    with_input_for @user, :name, :file, :placeholder => 'Put in some text'
-    assert_no_select 'input[placeholder]'
+    store_translations(:en, :simple_form => { :placeholders => { :user => { :name => "text" } } }) do
+      with_input_for @user, :name, :file
+      assert_no_select 'input[placeholder]'
+    end
   end
 end

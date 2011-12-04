@@ -22,7 +22,6 @@ module SimpleForm
       end
 
       def label
-        return "" unless has_label?
         if input_type_should_generate_for_attribute?
           @builder.label(label_target, label_text, label_html_options)
         else
@@ -45,10 +44,6 @@ module SimpleForm
       end
 
     protected
-
-      def has_label?
-        true
-      end
 
       def raw_label_text #:nodoc:
         options[:label] || label_translation

@@ -9,8 +9,10 @@ class HiddenInputTest < ActionView::TestCase
   end
 
   test 'hint should not be generated for hidden fields' do
-    with_input_for @user, :name, :hidden, :hint => 'Use with care...'
-    assert_no_select 'span.hint'
+    store_translations(:en, :simple_form => { :hints => { :user => { :name => "text" } } }) do
+      with_input_for @user, :name, :hidden
+      assert_no_select 'span.hint'
+    end
   end
 
   test 'label should not be generated for hidden inputs' do

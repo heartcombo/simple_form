@@ -1,6 +1,8 @@
 module SimpleForm
   module Inputs
     class StringInput < Base
+      enable :placeholder, :maxlength
+
       def input
         input_html_options[:type] ||= input_type if SimpleForm.html5 && !string?
         add_pattern!

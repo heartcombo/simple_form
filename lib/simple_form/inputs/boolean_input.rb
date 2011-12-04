@@ -9,10 +9,6 @@ module SimpleForm
         input + (options[:label] == false ? "" : label)
       end
 
-      def has_placeholder?
-        false
-      end
-
       private
 
       # Booleans are not required by default because in most of the cases

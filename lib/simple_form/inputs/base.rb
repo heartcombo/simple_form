@@ -21,13 +21,30 @@ module SimpleForm
 
       delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, :to => :@builder
 
+      class_attribute :default_options
+      self.default_options = {}
+
+      def self.enable(*keys)
+        options = self.default_options.dup
+        keys.each { |key| options.delete(key) }
+        self.default_options = options
+      end
+
+      def self.disable(*keys)
+        options = self.default_options.dup
+        keys.each { |key| options[key] = false }
+        self.default_options = options
+      end
+
+      disable :maxlength, :placeholder, :pattern
+
       def initialize(builder, attribute_name, column, input_type, options = {})
         @builder            = builder
         @attribute_name     = attribute_name
         @column             = column
         @input_type         = input_type
         @reflection         = options.delete(:reflection)
-        @options            = options
+        @options            = self.class.default_options.merge(options)
         @required           = calculate_required
 
         # Notice that html_options_for receives a reference to input_html_classes.

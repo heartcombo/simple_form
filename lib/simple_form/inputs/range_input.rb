@@ -9,10 +9,6 @@ module SimpleForm
 
         super
       end
-
-      def has_placeholder?
-        false
-      end
     end
   end
 end
