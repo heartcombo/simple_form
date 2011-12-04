@@ -9,6 +9,10 @@ module SimpleForm
       def input
         template.capture(&@block)
       end
+
+      def has_placeholder?
+        false
+      end
     end
   end
 end

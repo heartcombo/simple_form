@@ -1,8 +1,6 @@
 module SimpleForm
   module Inputs
     class RangeInput < NumericInput
-      disable :placeholder
-
       def input
         if SimpleForm.html5
           input_html_options[:type] ||= "range"
@@ -10,6 +8,10 @@ module SimpleForm
         end
 
         super
+      end
+
+      def has_placeholder?
+        false
       end
     end
   end

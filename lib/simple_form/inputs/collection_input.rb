@@ -24,6 +24,10 @@ module SimpleForm
         options
       end
 
+      def has_placeholder?
+        false
+      end
+
       private
 
       def collection

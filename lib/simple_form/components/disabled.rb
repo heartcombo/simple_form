@@ -12,14 +12,6 @@ module SimpleForm
       def has_disabled?
         options[:disabled] == true
       end
-
-      private
-
-      alias :enabled_disabled :disabled
-
-      def disabled_disabled
-        nil
-      end
     end
   end
 end

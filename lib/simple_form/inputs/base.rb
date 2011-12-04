@@ -15,15 +15,6 @@ module SimpleForm
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Placeholders
 
-      # Enables certain components support to the given input.
-      def self.enable(*args)
-        args.each { |m| alias_method m, :"enabled_#{m}" }
-      end
-
-      def self.disable(*args)
-        args.each { |m| alias_method m, :"disabled_#{m}" }
-      end
-
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options, :input_html_classes
 

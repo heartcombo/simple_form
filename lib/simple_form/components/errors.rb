@@ -11,12 +11,6 @@ module SimpleForm
 
     protected
 
-      alias :enabled_error :error
-
-      def disabled_error
-        nil
-      end
-
       def error_text
         if options[:error_prefix]
           options[:error_prefix] + " " + errors.send(error_method)

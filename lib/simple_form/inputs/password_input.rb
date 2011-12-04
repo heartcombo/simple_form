@@ -1,8 +1,6 @@
 module SimpleForm
   module Inputs
     class PasswordInput < Base
-      enable :placeholder
-
       def input
         add_size!
         add_maxlength!

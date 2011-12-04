@@ -10,11 +10,11 @@ module SimpleForm
         options[:priority] || SimpleForm.send(:"#{input_type}_priority")
       end
 
-    protected
-
       def has_required?
         false
       end
+
+    protected
 
       def skip_include_blank?
         super || input_priority.present?
