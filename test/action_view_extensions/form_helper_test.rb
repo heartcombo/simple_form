@@ -37,7 +37,7 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
-  test 'simple form should add object name as css class to form when object is not present and the :as option is not given' do
+  test 'simple form should add object name as css class to form when object is not present' do
     concat(simple_form_for(:user) do |f| end)
     assert_select 'form.simple_form.user'
   end
@@ -45,7 +45,6 @@ class FormHelperTest < ActionView::TestCase
   test 'simple form should add :as option as css class to form when object is not present' do
     concat(simple_form_for(:user, :as => 'superuser') do |f| end)
     assert_select 'form.simple_form.superuser'
-    assert_no_select 'form.simple_form.user'
   end
 
   test 'simple form should add object class name with new prefix as css class to form if record is not persisted' do
@@ -57,7 +56,7 @@ class FormHelperTest < ActionView::TestCase
   test 'simple form should add :as option with new prefix as css class to form if record is not persisted' do
     @user.new_record!
     concat(simple_form_for(@user, :as => 'superuser') do |f| end)
-    assert_select 'form.simple_form.superuser_new'
+    assert_select 'form.simple_form.new_superuser'
   end
 
   test 'simple form should add edit class prefix as css class to form if record is persisted' do
@@ -67,16 +66,16 @@ class FormHelperTest < ActionView::TestCase
 
   test 'simple form should add :as options with edit prefix as css class to form if record is persisted' do
     concat(simple_form_for(@user, :as => 'superuser') do |f| end)
-    assert_select 'form.simple_form.superuser_edit'
+    assert_select 'form.simple_form.edit_superuser'
   end
 
   test 'simple form should not add object class to form if css_class is specified' do
-    concat(simple_form_for(:user, :html => { :class => nil }) do |f| end)
+    concat(simple_form_for(:user, :html => {:class => nil}) do |f| end)
     assert_no_select 'form.user'
   end
 
   test 'simple form should add custom class to form if css_class is specified' do
-    concat(simple_form_for(:user, :html => { :class => 'my_class' }) do |f| end)
+    concat(simple_form_for(:user, :html => {:class => 'my_class'}) do |f| end)
     assert_select 'form.my_class'
   end
 
