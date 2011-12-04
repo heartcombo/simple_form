@@ -7,7 +7,7 @@ module SimpleForm
       end
 
       def has_required?
-        required_field?
+        required_field? && SimpleForm.browser_validations
       end
     end
   end

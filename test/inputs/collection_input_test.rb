@@ -243,6 +243,14 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'input[type=radio][required]'
   end
 
+  test 'when not using browser validations, input should not generate required html attribute' do
+    swap SimpleForm, :browser_validations => false do
+      with_input_for @user, :name, :string
+      assert_select 'input[type=text].required'
+      assert_no_select 'input[type=text][required]'
+    end
+  end
+
   test 'collection input with select type should generate required html attribute only with blank option' do
     with_input_for @user, :name, :select, :include_blank => true, :collection => ['Jose' , 'Carlos']
     assert_select 'select.required'
