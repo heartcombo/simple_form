@@ -144,6 +144,7 @@ module SimpleForm
   wrappers :class => :input, :error_class => :field_with_errors do |b|
     b.use :html5
 
+    b.use :min_max
     b.use :maxlength
     b.use :placeholder
     b.use :required

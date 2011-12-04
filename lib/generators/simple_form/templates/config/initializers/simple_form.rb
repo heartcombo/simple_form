@@ -10,14 +10,16 @@ SimpleForm.setup do |config|
     b.use :html5
 
     ## Extensions
-    # Calculate maxlength from validations for string inputs
-    b.use :maxlength
-    # Automatically use translation to retrieve a placeholder
+    # Calculates maxlength from length validations automatically for string inputs
+    # b.use :maxlength
+    # Calculates pattern from format validations automatically for string inputs
+    # b.use :pattern
+    # Calculates min and max from length validations automatically for numeric inputs
+    # b.use :min_max
+    # Calculates placeholders automatically from I18n
     b.use :placeholder
-    # Add the HTML5 required attribute to the input
+    # Calculates required from presence validations automatically
     b.use :required
-    # Add a pattern from format validations for string inputs
-    b.use :pattern
 
     ## Inputs
     b.use :label_input

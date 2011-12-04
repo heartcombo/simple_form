@@ -13,6 +13,7 @@ module SimpleForm
       include SimpleForm::Components::Hints
       include SimpleForm::Components::HTML5
       include SimpleForm::Components::LabelInput
+      include SimpleForm::Components::MinMax
       include SimpleForm::Components::Maxlength
       include SimpleForm::Components::Pattern
       include SimpleForm::Components::Placeholders
@@ -44,7 +45,7 @@ module SimpleForm
       enable :hint
 
       # Usually disabled, needs to be enabled explicitly passing true as option.
-      disable :maxlength, :placeholder, :pattern
+      disable :maxlength, :placeholder, :pattern, :min_max
 
       def initialize(builder, attribute_name, column, input_type, options = {})
         super
@@ -54,7 +55,7 @@ module SimpleForm
         @column             = column
         @input_type         = input_type
         @reflection         = options.delete(:reflection)
-        @options            = self.class.default_options.merge(options)
+        @options            = options.reverse_merge!(self.class.default_options)
         @required           = calculate_required
 
         # Notice that html_options_for receives a reference to input_html_classes.
