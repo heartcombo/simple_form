@@ -45,7 +45,7 @@ module SimpleForm
 
       private
 
-      def with_simple_form_field_error_proc(&block)
+      def with_simple_form_field_error_proc
         @@default_field_error_proc = ::ActionView::Base.field_error_proc
         ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
         result = yield
