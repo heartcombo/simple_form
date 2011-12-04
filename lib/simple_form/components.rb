@@ -6,6 +6,7 @@ module SimpleForm
     autoload :LabelInput,   'simple_form/components/label_input'
     autoload :Labels,       'simple_form/components/labels'
     autoload :Maxlength,    'simple_form/components/maxlength'
+    autoload :Pattern,      'simple_form/components/pattern'
     autoload :Placeholders, 'simple_form/components/placeholders'
     autoload :Required,     'simple_form/components/required'
   end

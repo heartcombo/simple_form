@@ -153,6 +153,7 @@ module SimpleForm
     b.use :maxlength
     b.use :placeholder
     b.use :required
+    b.use :pattern
 
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint

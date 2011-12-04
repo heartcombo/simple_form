@@ -62,6 +62,16 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
   end
 
+  test 'input should infer pattern from attributes when pattern is true' do
+    with_input_for @other_validating_user, :country, :string
+    assert_select 'input[pattern="\w+"]'
+  end
+
+  test 'input should use given pattern from attributes' do
+    with_input_for @other_validating_user, :country, :string, :input_html => { :pattern => "\\d+" }
+    assert_select 'input[pattern="\d+"]'
+  end
+
   test 'input should use i18n to translate placeholder text' do
     store_translations(:en, :simple_form => { :placeholders => { :user => {
       :name => 'Name goes here'

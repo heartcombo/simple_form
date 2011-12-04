@@ -6,13 +6,13 @@ module SimpleForm
       include SimpleForm::Helpers::Readonly
       include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Validators
-      include SimpleForm::Helpers::Pattern
 
       include SimpleForm::Components::Disabled
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Maxlength
+      include SimpleForm::Components::Pattern
       include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Required
 
