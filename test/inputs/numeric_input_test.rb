@@ -136,7 +136,7 @@ class NumericInputTest < ActionView::TestCase
 
   # Numeric input but HTML5 disabled
   test ' when not using HTML5 input should not generate field with type number and use text instead' do
-    swap SimpleForm, :html5 => false do
+    swap_wrapper do
       with_input_for @user, :age, :integer
       assert_no_select "input[type=number]"
       assert_no_select "input#user_age[text]"
@@ -144,8 +144,9 @@ class NumericInputTest < ActionView::TestCase
   end
 
   test 'when not using HTML5 input should not use min or max or step attributes' do
-    swap SimpleForm, :html5 => false do
+    swap_wrapper do
       with_input_for @validating_user, :age, :integer
+      assert_no_select "input[type=number]"
       assert_no_select "input[min]"
       assert_no_select "input[max]"
       assert_no_select "input[step]"

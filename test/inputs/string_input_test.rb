@@ -96,8 +96,9 @@ class StringInputTest < ActionView::TestCase
     end
 
     test "input should not allow type #{type} if HTML5 compatibility is disabled" do
-      swap SimpleForm, :html5 => false do
+      swap_wrapper do
         with_input_for @user, :name, type
+        assert_select "input[type=text]"
         assert_no_select "input[type=#{type}]"
       end
     end

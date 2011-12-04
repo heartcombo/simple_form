@@ -11,6 +11,7 @@ module SimpleForm
 
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
+      include SimpleForm::Components::HTML5
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Maxlength
       include SimpleForm::Components::Pattern
@@ -46,6 +47,8 @@ module SimpleForm
       disable :maxlength, :placeholder, :pattern
 
       def initialize(builder, attribute_name, column, input_type, options = {})
+        super
+
         @builder            = builder
         @attribute_name     = attribute_name
         @column             = column

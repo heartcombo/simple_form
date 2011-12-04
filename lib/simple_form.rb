@@ -70,13 +70,6 @@ module SimpleForm
   mattr_accessor :browser_validations
   @@browser_validations = true
 
-  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes
-  # (e.g. required) are used or not. True by default.
-  # Having this on in non-HTML5 compliant sites can cause odd behavior in
-  # HTML5-aware browsers such as Chrome.
-  mattr_accessor :html5
-  @@html5 = true
-
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
   @@file_methods = [ :mounted_as, :file?, :public_filename ]
@@ -149,6 +142,8 @@ module SimpleForm
   end
 
   wrappers :class => :input, :error_class => :field_with_errors do |b|
+    b.use :html5
+
     b.use :maxlength
     b.use :placeholder
     b.use :required
@@ -161,11 +156,12 @@ module SimpleForm
 
   ## SETUP
 
-  DEPRECATED = %w(hint_tag= hint_class= error_tag= error_class= wrapper_tag= wrapper_class= wrapper_error_class= components=)
+  DEPRECATED = %w(hint_tag hint_class error_tag error_class wrapper_tag wrapper_class wrapper_error_class components html5)
   @@deprecated = false
 
   DEPRECATED.each do |method|
-    class_eval "def self.#{method}; @@deprecated = true; end"
+    class_eval "def self.#{method}=(*); @@deprecated = true; end"
+    class_eval "def self.#{method}; ActiveSupport::Deprecation.warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
   end
 
   def self.translate=(value)

@@ -8,6 +8,7 @@ module SimpleForm
   module Components
     autoload :Errors,       'simple_form/components/errors'
     autoload :Hints,        'simple_form/components/hints'
+    autoload :HTML5,        'simple_form/components/html5'
     autoload :LabelInput,   'simple_form/components/label_input'
     autoload :Labels,       'simple_form/components/labels'
     autoload :Maxlength,    'simple_form/components/maxlength'

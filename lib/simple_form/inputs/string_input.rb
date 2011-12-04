@@ -6,7 +6,7 @@ module SimpleForm
       def input
         unless string?
           input_html_classes.unshift("string")
-          input_html_options[:type] ||= input_type if SimpleForm.html5
+          input_html_options[:type] ||= input_type if html5?
         end
 
         add_size!

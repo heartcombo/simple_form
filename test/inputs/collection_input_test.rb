@@ -243,6 +243,14 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'input[type=radio][required]'
   end
 
+  test 'when not using html5, input should not generate required html attribute' do
+    swap_wrapper do
+      with_input_for @user, :name, :string
+      assert_select 'input[type=text].required'
+      assert_no_select 'input[type=text][required]'
+    end
+  end
+
   test 'when not using browser validations, input should not generate required html attribute' do
     swap SimpleForm, :browser_validations => false do
       with_input_for @user, :name, :string

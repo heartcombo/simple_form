@@ -6,7 +6,7 @@ module SimpleForm
       def input
         add_size!
         input_html_classes.unshift("numeric")
-        if SimpleForm.html5
+        if html5?
           input_html_options[:type] ||= "number"
           input_html_options[:step] ||= integer? ? 1 : "any"
           infer_attributes_from_validations!
