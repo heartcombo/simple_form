@@ -3,9 +3,23 @@ SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a complete input.
   # You can remove any component from the wrapper, change the order or even
   # add your own to the stack. The options given to the wrappers method
-  # are used to wrap the whole input (if any exists).
+  # are used to wrap the whole input.
   config.wrappers :class => :input, :error_class => :field_with_errors do |b|
+    ## Configuration
+    # Determines whether to use HTML5 inputs (:email, :url, :search, :tel).
+    b.use :html5
+
+    ## Extensions
+    # Calculate maxlength from validations for string inputs
+    b.use :maxlength
+    # Automatically use translation to retrieve a placeholder
     b.use :placeholder
+    # Add the HTML5 required attribute to the input
+    b.use :required
+    # Add a pattern from format validations for string inputs
+    b.use :pattern
+
+    ## Inputs
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint
     b.use :error, :tag => :span, :class => :error
@@ -54,12 +68,6 @@ SimpleForm.setup do |config|
   # Default is enabled.
   config.browser_validations = false
 
-  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes
-  # (e.g. required) are used or not. True by default.
-  # Having this on in non-HTML5 compliant sites can cause odd behavior in
-  # HTML5-aware browsers such as Chrome.
-  # config.html5 = true
-
   # Collection of methods to detect if a file type was given.
   # config.file_methods = [ :mounted_as, :file?, :public_filename ]
 
@@ -77,8 +85,8 @@ SimpleForm.setup do |config|
   # Default size for text inputs.
   # config.default_input_size = 50
 
-  # When false, do not use translations for labels, hints or placeholders.
-  # config.translate = true
+  # When false, do not use translations for labels.
+  # config.translate_labels = true
 
   # Automatically discover new inputs in Rails' autoload path.
   # config.inputs_discovery = true
