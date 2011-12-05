@@ -6,7 +6,7 @@ module SimpleForm
       end
 
       def disabled_class
-        "disabled" if has_disabled?
+        :disabled if has_disabled?
       end
     end
   end

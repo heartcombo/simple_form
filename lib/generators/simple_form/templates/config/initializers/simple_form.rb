@@ -5,23 +5,19 @@ SimpleForm.setup do |config|
   # add your own to the stack. The options given to the wrappers method
   # are used to wrap the whole input.
   config.wrappers :class => :input, :error_class => :field_with_errors do |b|
-    ## Configuration
-    # Determines whether to use HTML5 inputs (:email, :url, :search, :tel).
-    b.use :html5
-
     ## Extensions
+    # Determines whether to use HTML5 (:email, :url, :search, :tel) and required attributes
+    b.use :html5
     # Calculates maxlength from length validations automatically for string inputs
     # b.use :maxlength
     # Calculates pattern from format validations automatically for string inputs
     # b.use :pattern
     # Calculates min and max from length validations automatically for numeric inputs
     # b.use :min_max
-    # Calculates readonly automatically from the readonly attributes
+    # Calculates readonly automatically from readonly attributes
     # b.use :readonly
     # Calculates placeholders automatically from I18n
     b.use :placeholder
-    # Calculates required from presence validations automatically
-    b.use :required
 
     ## Inputs
     b.use :label_input
