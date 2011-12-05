@@ -976,6 +976,21 @@ class InputTest < ActionView::TestCase
     assert_no_select 'select[required]'
   end
 
+  # GroupedCollectionInput
+  test 'input should have grouped options' do
+    with_input_for @user, :name, :select,
+                   :collection => [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
+                   :group_method => :last, :group_label_method => :first
+    assert_select 'select.select#user_name'
+    assert_select 'select optgroup[label=Authors]'
+    assert_select 'select option', 'Jose'
+    assert_select 'select option', 'Carlos'
+    assert_select 'select optgroup[label=General]'
+    assert_select 'select option', 'Bob'
+    assert_select 'select option', 'John'
+    # TODO: Should we test that options are nested in their optgroup?
+  end
+
   # With no object
   test 'input should be generated properly when object is not present' do
     with_input_for :project, :name, :string
