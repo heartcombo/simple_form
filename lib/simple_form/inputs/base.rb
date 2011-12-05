@@ -20,7 +20,7 @@ module SimpleForm
       include SimpleForm::Components::Readonly
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
-                  :options, :input_html_options, :input_html_classes
+                  :options, :input_html_options, :input_html_classes, :html_classes
 
       delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, :to => :@builder
 
@@ -61,7 +61,8 @@ module SimpleForm
         # Notice that html_options_for receives a reference to input_html_classes.
         # This means that classes added dynamically to input_html_classes will
         # still propagate to input_html_options.
-        @input_html_classes = [input_type, required_class, readonly_class, disabled_class].compact
+        @html_classes       = [input_type, required_class, readonly_class, disabled_class].compact
+        @input_html_classes = @html_classes.dup
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:readonly]  = true if has_readonly?
           o[:disabled]  = true if has_disabled?

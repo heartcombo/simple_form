@@ -188,6 +188,12 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#my_input.my_input.string'
   end
 
+  test 'builder should not propagate input options to wrapper' do
+    with_form_for @user, :name, :input_html => { :class => 'my_input', :id => 'my_input' }
+    assert_no_select 'form div.input.my_input.string'
+    assert_select 'form input#my_input.my_input.string'
+  end
+
   test 'builder should generate a input with label' do
     with_form_for @user, :name
     assert_select 'form label.string[for=user_name]', /Name/
