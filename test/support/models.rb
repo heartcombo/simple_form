@@ -42,7 +42,7 @@ class User
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
-    :post_count, :lock_version, :amount, :attempts, :action
+    :post_count, :lock_version, :amount, :attempts, :action, :credit_card
 
   def initialize(options={})
     options.each do |key, value|
@@ -80,6 +80,7 @@ class User
       when :amount        then :integer
       when :attempts      then :integer
       when :action        then :string
+      when :credit_card   then :string
     end
     Column.new(attribute, column_type, limit)
   end
@@ -121,6 +122,10 @@ class User
         :company_id => ["must be valid"]
       )
     end
+  end
+
+  def self.readonly_attributes
+    [:credit_card]
   end
 end
 
