@@ -17,6 +17,10 @@
     For more informations see [this comment](https://github.com/plataformatec/simple_form/issues/360#issuecomment-3000780).
     ([@nashby](https://github.com/nashby))
 
+### deprecation
+  * Deprecate the `translate` configuration in favor of `translate_labels`
+  * Deprecate the `html5` configuration in favor of a new `html5` component
+
 ### bug fix
   * Fix i18n lookup with attributes with same name of models.
     Closes [#149](https://github.com/plataformatec/simple_form/issues/149)
