@@ -4,7 +4,7 @@ module SimpleForm
       private
 
       def readonly_class
-        'readonly' if has_readonly?
+        :readonly if has_readonly?
       end
 
       def has_readonly?

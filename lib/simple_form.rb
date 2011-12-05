@@ -149,6 +149,7 @@ module SimpleForm
     b.use :placeholder
     b.use :required
     b.use :pattern
+    b.use :readonly
 
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint

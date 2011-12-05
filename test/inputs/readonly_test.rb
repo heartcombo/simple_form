@@ -35,4 +35,27 @@ class ReadonlyTest < ActionView::TestCase
     with_input_for @user, :created_at, :datetime
     assert_select 'select.datetime:not(.readonly[readonly])'
   end
+
+  test 'input should generate readonly attribute when the field is readonly and the object is persisted' do
+    with_input_for @user, :credit_card, :string
+    assert_select 'input.string.readonly[readonly]'
+  end
+
+  test 'input should not generate readonly attribute when the field is readonly and the object is not persisted' do
+    @user.new_record!
+    with_input_for @user, :credit_card, :string
+    assert_no_select 'input.string.readonly[readonly]'
+  end
+
+  test 'input should not generate readonly attribute when the field is not readonly and the object is persisted' do
+    with_input_for @user, :name, :string
+    assert_no_select 'input.string.readonly[readonly]'
+  end
+
+  test 'input should not generate readonly attribute when the component is not used' do
+    swap_wrapper do
+      with_input_for @user, :credit_card, :string
+      assert_no_select 'input.string.readonly[readonly]'
+    end
+  end
 end
