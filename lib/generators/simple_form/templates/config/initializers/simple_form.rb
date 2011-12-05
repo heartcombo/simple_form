@@ -16,6 +16,8 @@ SimpleForm.setup do |config|
     # b.use :pattern
     # Calculates min and max from length validations automatically for numeric inputs
     # b.use :min_max
+    # Calculates readonly automatically from the readonly attributes
+    # b.use :readonly
     # Calculates placeholders automatically from I18n
     b.use :placeholder
     # Calculates required from presence validations automatically

@@ -16,6 +16,7 @@
     This is not backward compatible with the previous versions of SimpleForm.
     For more informations see [this comment](https://github.com/plataformatec/simple_form/issues/360#issuecomment-3000780).
     ([@nashby](https://github.com/nashby))
+  * Add a readonly component that does automatically readonly lookup from object
 
 ### bug fix
   * Fix i18n lookup with attributes with same name of models.
