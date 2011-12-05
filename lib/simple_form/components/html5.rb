@@ -16,7 +16,10 @@ module SimpleForm
       end
 
       def has_required?
-        required_field?
+        # We need to check browser_validations because
+        # some browsers are still checking required even
+        # if novalidate was given.
+        required_field? && SimpleForm.browser_validations
       end
     end
   end
