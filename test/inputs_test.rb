@@ -978,17 +978,20 @@ class InputTest < ActionView::TestCase
 
   # GroupedCollectionInput
   test 'input should have grouped options' do
-    with_input_for @user, :name, :select,
+    with_input_for @user, :name, :grouped_select,
                    :collection => [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
                    :group_method => :last, :group_label_method => :first
-    assert_select 'select.select#user_name'
-    assert_select 'select optgroup[label=Authors]'
-    assert_select 'select option', 'Jose'
-    assert_select 'select option', 'Carlos'
-    assert_select 'select optgroup[label=General]'
-    assert_select 'select option', 'Bob'
-    assert_select 'select option', 'John'
-    # TODO: Should we test that options are nested in their optgroup?
+    assert_select 'select.grouped_select#user_name' do
+      assert_select 'optgroup[label=Authors]' do
+        assert_select 'option', 'Jose'
+        assert_select 'option', 'Carlos'
+      end
+
+      assert_select 'optgroup[label=General]' do
+        assert_select 'option', 'Bob'
+        assert_select 'option', 'John'
+      end
+    end
   end
 
   # With no object
