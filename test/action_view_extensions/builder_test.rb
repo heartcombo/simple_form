@@ -407,6 +407,12 @@ class BuilderTest < ActionView::TestCase
     assert_no_select 'form label input'
   end
 
+  test 'collection check box uses label class for checkbox labels' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :label_class => 'my_checkbox_class'
+
+    assert_select 'form label[class=my_checkbox_class]'
+  end
+
   # SIMPLE FIELDS
   test 'simple fields for is available and yields an instance of FormBuilder' do
     with_concat_form_for(@user) do |f|
