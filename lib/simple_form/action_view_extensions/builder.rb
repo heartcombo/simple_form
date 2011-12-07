@@ -36,13 +36,14 @@ module SimpleForm
       #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
+      #   * label_class              => the class to use for each radio button label.
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           radio_button(attribute, value, default_html_options) +
-            label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio")
+            label(sanitize_attribute_name(attribute, value), text, :class => options[:label_class] || "collection_radio")
         end
       end
 

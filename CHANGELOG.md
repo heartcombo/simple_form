@@ -17,7 +17,7 @@
     For more informations see [this comment](https://github.com/plataformatec/simple_form/issues/360#issuecomment-3000780).
     ([@nashby](https://github.com/nashby))
   * Add a readonly component that does automatically readonly lookup from object
-  * Add `label_class` option for collection_check_boxes. ([@jroes](https://github.com/jroes))
+  * Add `label_class` option for collection_check_boxes and collection_radio. ([@jroes](https://github.com/jroes))
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`

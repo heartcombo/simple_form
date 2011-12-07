@@ -198,6 +198,12 @@ class BuilderTest < ActionView::TestCase
     assert_no_select 'form label input'
   end
 
+ test 'collection radio uses label class for radio button labels' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :label_class => 'my_radio_class'
+
+    assert_select 'form label[class=my_radio_class]'
+  end
+
   # COLLECTION CHECK BOX
   test 'collection check box accepts a collection and generate a serie of checkboxes for value method' do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
