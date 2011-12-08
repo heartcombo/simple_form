@@ -120,7 +120,7 @@ module SimpleForm
       #   simple_form.{namespace}.{model}.{nested}.{attribute}
       #   simple_form.{namespace}.{nested}.{action}.{attribute}
       #   simple_form.{namespace}.{nested}.{attribute}
-      #   simple_form.{namespace}.{attribute}
+      #   simple_form.{namespace}.defaults.{attribute}
       #
       #  Example:
       #
@@ -144,7 +144,7 @@ module SimpleForm
           lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
         end
-        lookups << :"#{attribute_name}" unless reflection
+        lookups << :"defaults.#{attribute_name}" unless reflection
         lookups << default
 
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence

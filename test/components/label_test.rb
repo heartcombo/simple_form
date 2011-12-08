@@ -73,7 +73,7 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'input should use i18n based only on attribute to lookup translation' do
-    store_translations(:en, :simple_form => { :labels => { :age => 'Idade' } } ) do
+    store_translations(:en, :simple_form => { :labels => { :defaults => {:age => 'Idade'} } } ) do
       with_label_for @user, :age, :integer
       assert_select 'label[for=user_age]', /Idade/
     end
@@ -81,7 +81,7 @@ class IsolatedLabelTest < ActionView::TestCase
 
   test 'input should not use i18n label if translate is false' do
     swap SimpleForm, :translate_labels => false do
-      store_translations(:en, :simple_form => { :labels => { :age => 'Idade' } } ) do
+      store_translations(:en, :simple_form => { :labels => { :defaults => {:age => 'Idade'} } } ) do
         with_label_for @user, :age, :integer
         assert_select 'label[for=user_age]', /Age/
       end
