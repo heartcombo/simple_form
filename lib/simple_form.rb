@@ -161,10 +161,10 @@ module SimpleForm
   ## SETUP
 
   DEPRECATED = %w(hint_tag hint_class error_tag error_class wrapper_tag wrapper_class wrapper_error_class components html5)
-  @@deprecated = false
+  @@deprecated = []
 
   DEPRECATED.each do |method|
-    class_eval "def self.#{method}=(*); @@deprecated = true; end"
+    class_eval "def self.#{method}=(*); @@deprecated << :#{method}=; end"
     class_eval "def self.#{method}; ActiveSupport::Deprecation.warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
   end
 
@@ -183,9 +183,10 @@ module SimpleForm
   def self.setup
     yield self
 
-    if @@deprecated
-      raise "[SIMPLE FORM] Your simple form initializer file is using an outdated configuration API. " <<
-        "Updating to the new API is easy and fast. Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
+    unless @@deprecated.empty?
+      raise "[SIMPLE FORM] Your simple form initializer file is using the following methods: #{@@deprecated.to_sentence}. " <<
+        "Those methods are part of the outdated configuration API. Updating to the new API is easy and fast. " <<
+        "Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
     end
   end
 end
