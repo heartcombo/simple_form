@@ -216,10 +216,10 @@ SimpleForm also supports :time_zone and :country. When using such helpers, you c
 
 Those values can also be configured with a default value to be used site use through the SimpleForm.country_priority and SimpleForm.time_zone_priority helpers.
 
-Note: While using country_select if you want to restrict to only a subset of countries then you may use the :collection option
+Note: While using country_select if you want to restrict to only a subset of countries for a specific drop down then you may use the :collection option:
 
 ```ruby
-  f.input :residence_country, :priority => [ "Brazil" ], :collection => [ "Australia", "Brazil", "New Zealand"]
+  f.input :shipping_country, :priority => [ "Brazil" ], :collection => [ "Australia", "Brazil", "New Zealand"]
 ```
 
 ### Wrapper
