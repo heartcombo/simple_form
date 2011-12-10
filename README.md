@@ -490,25 +490,30 @@ SimpleForm also lets you be more specific, separating lookups through actions fo
             password: 'Change password'
 ```
 
-This way SimpleForm will figure out the right translation for you, based on the action being rendered. And to be a little bit DRYer with your locale file, you can skip the model information inside it:
+This way SimpleForm will figure out the right translation for you, based on the action being rendered. And to be a little bit DRYer with your locale file, you can specify defaults for all models under the 'defaults' key:
 
 ```yaml
   en:
     simple_form:
       labels:
-        username: 'User name'
-        password: 'Password'
+        defaults:
+          username: 'User name'
+          password: 'Password'
+          new:
+            username: 'Choose a user name'
       hints:
-        username: 'User name to sign in.'
-        password: 'No special characters, please.'
+        defaults:
+          username: 'User name to sign in.'
+          password: 'No special characters, please.'
       placeholders:
-        username: 'Your username'
-        password: '****'
+        defaults:
+          username: 'Your username'
+          password: '****'
 ```
 
-SimpleForm will always look for a default attribute translation if no specific is found inside the model key. In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found for labels.
+SimpleForm will always look for a default attribute translation under the "defaults" key if no specific is found inside the model key.Note that this syntax is different from 1.x. To migrate to the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".
 
-Finally, you can also overwrite any label, hint or placeholder inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
+In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found for labels. Finally, you can also overwrite any label, hint or placeholder inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
 
 It's also possible to translate buttons, using Rails' built-in I18n support:
 
