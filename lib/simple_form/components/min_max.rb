@@ -2,8 +2,6 @@ module SimpleForm
   module Components
     module MinMax
       def min_max
-        return unless has_validators?
-
         if numeric_validator = find_numericality_validator
           validator_options = numeric_validator.options
           input_html_options[:min] ||= minimum_value(validator_options)

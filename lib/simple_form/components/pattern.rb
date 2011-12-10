@@ -11,7 +11,7 @@ module SimpleForm
 
       def pattern_source
         if options[:pattern] == true
-          if has_validators? && (pattern_validator = find_pattern_validator)
+          if pattern_validator = find_pattern_validator
             pattern_validator.options[:with].source
           end
         else

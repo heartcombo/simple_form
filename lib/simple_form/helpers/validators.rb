@@ -37,7 +37,7 @@ module SimpleForm
       end
 
       def find_validator(validator)
-        attribute_validators.find { |v| validator === v }
+        attribute_validators.find { |v| validator === v } if has_validators?
       end
     end
   end
