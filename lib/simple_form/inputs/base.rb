@@ -13,8 +13,8 @@ module SimpleForm
       include SimpleForm::Components::Hints
       include SimpleForm::Components::HTML5
       include SimpleForm::Components::LabelInput
-      include SimpleForm::Components::MinMax
       include SimpleForm::Components::Maxlength
+      include SimpleForm::Components::MinMax
       include SimpleForm::Components::Pattern
       include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Readonly
@@ -149,7 +149,6 @@ module SimpleForm
 
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
       end
-
     end
   end
 end

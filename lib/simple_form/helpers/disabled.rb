@@ -1,6 +1,8 @@
 module SimpleForm
   module Helpers
     module Disabled
+      private
+
       def has_disabled?
         options[:disabled] == true
       end
