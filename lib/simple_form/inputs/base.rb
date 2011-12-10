@@ -105,7 +105,7 @@ module SimpleForm
       #
       #   simple_form.{namespace}.{model}.{action}.{attribute}
       #   simple_form.{namespace}.{model}.{attribute}
-      #   simple_form.{namespace}.{attribute}
+      #   simple_form.{namespace}.defaults.{attribute}
       #
       #  Namespace is used for :labels and :hints.
       #
@@ -144,7 +144,8 @@ module SimpleForm
           lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
         end
-        lookups << :"defaults.#{attribute_name}" unless reflection
+        lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
+        lookups << :"defaults.#{attribute_name}"
         lookups << default
 
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
