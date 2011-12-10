@@ -4,7 +4,7 @@ module SimpleForm
     module Hints
       def hint
         if options[:hint] == true
-          translate(:hints).presence
+          translate(:hints)
         else
           options[:hint]
         end

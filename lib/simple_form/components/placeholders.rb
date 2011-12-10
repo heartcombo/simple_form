@@ -9,7 +9,7 @@ module SimpleForm
 
       def placeholder_text
         if options[:placeholder] == true
-          translate(:placeholders).presence
+          translate(:placeholders)
         else
           options[:placeholder]
         end
