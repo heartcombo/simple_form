@@ -12,11 +12,7 @@ module SimpleForm
     protected
 
       def error_text
-        if options[:error_prefix]
-          options[:error_prefix] + " " + errors.send(error_method)
-        else
-          errors.send(error_method)
-        end
+        "#{options[:error_prefix]} #{errors.send(error_method)}".lstrip
       end
 
       def error_method
