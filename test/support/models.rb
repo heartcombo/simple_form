@@ -45,6 +45,7 @@ class User
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card
 
   def initialize(options={})
+    @new_record = false
     options.each do |key, value|
       send("#{key}=", value)
     end if options
@@ -55,7 +56,7 @@ class User
   end
 
   def persisted?
-    !(@new_record || false)
+    !@new_record
   end
 
   def company_attributes=(*)
