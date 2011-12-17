@@ -6,7 +6,7 @@ class MockController
   end
 
   def action_name
-    @action_name || "edit"
+    defined?(@action_name) ? @action_name : "edit"
   end
 
   def url_for(*args)
