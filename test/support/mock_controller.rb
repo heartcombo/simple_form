@@ -1,5 +1,5 @@
 class MockController
-  attr_accessor :action_name
+  attr_writer :action_name
 
   def _routes
     self
