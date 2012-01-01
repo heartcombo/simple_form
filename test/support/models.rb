@@ -189,6 +189,7 @@ class OtherValidatingUser < User
     :only_integer => true
 
   validates_format_of :country, :with => /\w+/
+  validates_format_of :name, :with => Proc.new { /\w+/ }
 end
 
 class HashBackedAuthor < Hash

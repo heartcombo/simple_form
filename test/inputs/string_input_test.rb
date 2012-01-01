@@ -67,6 +67,11 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input[pattern="\w+"]'
   end
 
+  test 'input should infer pattern from attributes using proc' do
+    with_input_for @other_validating_user, :name, :string
+    assert_select 'input[pattern="\w+"]'
+  end
+
   test 'input should infer pattern from attributes when pattern is true when default is false' do
     swap_wrapper do
       with_input_for @other_validating_user, :country, :string
