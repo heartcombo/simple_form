@@ -155,6 +155,7 @@ class ValidatingUser < User
     :only_integer => true
   validates_length_of :name, :maximum => 25
   validates_length_of :description, :maximum => 50
+  validates_length_of :action, :maximum => 10, :tokenizer => lambda { |str| str.scan(/\w+/) }
 
   def min_amount
     10

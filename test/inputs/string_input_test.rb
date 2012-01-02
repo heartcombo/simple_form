@@ -47,6 +47,11 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input.string[maxlength=25]'
   end
 
+  test 'input should not get maxlength from validation when tokenizer present' do
+    with_input_for @validating_user, :action, :string
+    assert_no_select 'input.string[maxlength]'
+  end
+
   test 'input should not generate placeholder by default' do
     with_input_for @user, :name, :string
     assert_no_select 'input[placeholder]'
