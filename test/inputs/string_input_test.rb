@@ -52,6 +52,11 @@ class StringInputTest < ActionView::TestCase
     assert_no_select 'input.string[maxlength]'
   end
 
+  test 'input should get maxlength from validation when :is option present' do
+    with_input_for @validating_user, :home_picture, :string
+    assert_select 'input.string[maxlength=12]'
+  end
+
   test 'input should not generate placeholder by default' do
     with_input_for @user, :name, :string
     assert_no_select 'input[placeholder]'
