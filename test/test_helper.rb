@@ -62,6 +62,7 @@ class ActionView::TestCase
       :id => 1,
       :name => 'New in Simple Form!',
       :description => 'Hello!',
+      :home_picture => 'Home picture',
       :created_at => Time.now,
       :age => 19,
       :amount => 15,

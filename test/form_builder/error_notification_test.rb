@@ -11,6 +11,7 @@ class ErrorNotificationTest < ActionView::TestCase
 
   test 'error notification is not generated when the object has no error' do
     assert @validating_user.valid?
+
     with_error_notification_for @validating_user
     assert_no_select 'p.error_notification'
   end
