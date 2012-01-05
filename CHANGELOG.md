@@ -17,6 +17,8 @@
     For more informations see [this comment](https://github.com/plataformatec/simple_form/issues/360#issuecomment-3000780).
     ([@nashby](https://github.com/nashby))
   * Add a readonly component that does automatically readonly lookup from object
+  * Add support for proc or lambda as option for format validator ([@nashby](https://github.com/nashby))
+  * Handle validates_length_of :is option in maxlength ([@nashby](https://github.com/nashby))
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`
@@ -34,6 +36,8 @@
     Closes [#340](https://github.com/plataformatec/simple_form/issues/340). ([@nashby](https://github.com/nashby))
   * `:checked` option should override the existing associations on `collection_check_boxes`.
     Closes [#341](https://github.com/plataformatec/simple_form/issues/341). ([@nashby](https://github.com/nashby))
+  * Move default attribute translations out of root - use "defaults" key instead
+    Closes [#384](https://github.com/plataformatec/simple_form/issues/384). (Ram Dobson)
 
 ## 1.5.2
 
