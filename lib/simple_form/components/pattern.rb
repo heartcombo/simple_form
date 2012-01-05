@@ -24,10 +24,10 @@ module SimpleForm
       end
 
       def evaluate_format_validator_option(option)
-        if option.is_a?(Regexp)
-          option
-        elsif option.respond_to?(:call)
+        if option.respond_to?(:call)
           option.call(object)
+        else
+          option
         end
       end
     end
