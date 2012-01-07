@@ -195,7 +195,7 @@ Collections can be arrays or ranges, and when a :collection is given the :select
 
 Collection inputs accepts two other options beside collections:
 
-* label_method => the label method to be applied to the collection to retrieve the label
+* label_method => the label method to be applied to the collection to retrieve the label (use this instead of the text_method option in collection_select)
 
 * value_method => the value method to be applied to the collection to retrieve the value
 
