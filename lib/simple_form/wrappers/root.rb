@@ -26,6 +26,7 @@ module SimpleForm
         css = options[:wrapper_class] ? Array.wrap(options[:wrapper_class]) : @defaults[:class]
         css += input.html_classes
         css << (options[:wrapper_error_class] || @defaults[:error_class]) if input.has_errors?
+        css << (options[:wrapper_hint_class] || @defaults[:hint_class]) if input.hint
         css
       end
     end

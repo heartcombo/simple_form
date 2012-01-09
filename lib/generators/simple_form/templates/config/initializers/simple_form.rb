@@ -4,7 +4,7 @@ SimpleForm.setup do |config|
   # You can remove any component from the wrapper, change the order or even
   # add your own to the stack. The options given to the wrappers method
   # are used to wrap the whole input.
-  config.wrappers :class => :input, :error_class => :field_with_errors do |b|
+  config.wrappers :class => :input, :hint_class => :field_with_hint, :error_class => :field_with_errors do |b|
     ## Extensions
     # Determines whether to use HTML5 (:email, :url, :search, :tel) and required attributes
     b.use :html5
