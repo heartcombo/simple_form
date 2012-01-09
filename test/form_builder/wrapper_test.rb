@@ -16,6 +16,11 @@ class WrapperTest < ActionView::TestCase
     assert_select 'div.field_with_errors'
   end
 
+  test 'wrapper should add hint class for attribute with a hint' do
+    with_form_for @user, :name, :hint => 'hint'
+    assert_select 'div.field_with_hint'
+  end
+
   test 'wrapper should not have disabled class by default' do
     with_form_for @user, :active
     assert_no_select 'div.disabled'
