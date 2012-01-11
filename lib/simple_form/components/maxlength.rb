@@ -29,8 +29,11 @@ module SimpleForm
       def has_tokenizer?(length_validator)
         tokenizer = length_validator.options[:tokenizer]
 
+        # TODO: Remove this check when we drop Rails 3.0 support
         if ActiveModel::Validations::LengthValidator.const_defined?(:DEFAULT_TOKENIZER)
           tokenizer && tokenizer != ActiveModel::Validations::LengthValidator::DEFAULT_TOKENIZER
+        else
+          tokenizer
         end
       end
     end
