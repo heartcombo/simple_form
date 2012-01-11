@@ -72,6 +72,11 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
   end
 
+  test 'input should not infer pattern from attributes by default' do
+    with_input_for @other_validating_user, :country, :string
+    assert_no_select 'input[pattern="\w+"]'
+  end
+
   test 'input should infer pattern from attributes' do
     with_input_for @other_validating_user, :country, :string, :pattern => true
     assert_select 'input[pattern="\w+"]'
