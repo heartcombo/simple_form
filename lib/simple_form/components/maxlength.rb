@@ -31,6 +31,8 @@ module SimpleForm
 
         if ActiveModel::Validations::LengthValidator.const_defined?(:DEFAULT_TOKENIZER)
           tokenizer && tokenizer != ActiveModel::Validations::LengthValidator::DEFAULT_TOKENIZER
+        else
+          tokenizer
         end
       end
     end
