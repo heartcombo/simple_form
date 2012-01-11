@@ -12,10 +12,9 @@ Gem::Specification.new do |s|
   s.description = "Forms made easy!"
   s.authors     = ['José Valim', 'Carlos Antônio']
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
+  s.test_files    = Dir["test/**/*"]
   s.test_files   -= Dir["test/support/country_select/**/*"]
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   s.rubyforge_project = "simple_form"
