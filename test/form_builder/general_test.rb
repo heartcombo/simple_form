@@ -287,7 +287,6 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'input.default_class#specific_id'
   end
 
-
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name

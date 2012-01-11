@@ -7,7 +7,7 @@ module SimpleForm
 
       def initialize(*args)
         super(:wrapper, *args)
-        @options = @defaults.except(:tag, :class, :error_class)
+        @options = @defaults.except(:tag, :class, :error_class, :hint_class)
       end
 
       def render(input)
