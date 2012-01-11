@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = "contact@plataformatec.com.br"
   s.homepage    = "http://github.com/plataformatec/simple_form"
   s.description = "Forms made easy!"
-  s.authors     = ['José Valim', 'Carlos Antônio']
+  s.authors     = ['José Valim', 'Carlos Antônio', 'Rafael França']
 
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.test_files    = Dir["test/**/*"]
