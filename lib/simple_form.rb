@@ -106,7 +106,7 @@ module SimpleForm
 
   # Cache simple form inputs discovery
   mattr_accessor :cache_discovery
-  @@cache_discovery = !Rails.env.development?
+  @@cache_discovery = defined?(Rails) && !Rails.env.development?
 
   # Adds a class to each generated button, mostly for compatiblity
   mattr_accessor :button_class
