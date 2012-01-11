@@ -28,16 +28,14 @@ module SimpleForm
       self.default_options = {}
 
       def self.enable(*keys)
-        self.ability(keys, true)
+        options = self.default_options.dup
+        keys.each { |key| options.delete(key) }
+        self.default_options = options
       end
 
       def self.disable(*keys)
-        self.ability(keys, false)
-      end
-
-      def self.ability(keys, value)
         options = self.default_options.dup
-        keys.each { |key| options[key] = value }
+        keys.each { |key| options[key] = false }
         self.default_options = options
       end
 

@@ -36,14 +36,30 @@ module SimpleForm
     # In the example above, hint defaults to false, which means it won't automatically
     # do the lookup anymore. It will only be triggered when :hint is explicitly set.
     class Builder
-      def initialize
+      def initialize(options)
+        @options    = options
         @components = []
       end
 
-      def use(name, options=nil)
+      def use(name, options=nil, &block)
+        add(name, options, &block)
+      end
+
+      def optional(name, options=nil, &block)
+        @options[name] = false
+        add(name, options, &block)
+      end
+
+      def to_a
+        @components
+      end
+
+      private
+
+      def add(name, options)
         if block_given?
           name, options = nil, name if name.is_a?(Hash)
-          builder = self.class.new
+          builder = self.class.new(@options)
           options ||= {}
           options[:tag] = :div if options[:tag].nil?
           yield builder
@@ -53,10 +69,6 @@ module SimpleForm
         else
           @components << name
         end
-      end
-
-      def to_a
-        @components
       end
     end
   end

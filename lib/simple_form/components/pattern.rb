@@ -10,12 +10,11 @@ module SimpleForm
       private
 
       def pattern_source
-        if options[:pattern] == true
-          if pattern_validator = find_pattern_validator
-            evaluate_format_validator_option(pattern_validator.options[:with]).source
-          end
-        else
-          options[:pattern]
+        pattern = options[:pattern]
+        if pattern.is_a?(String)
+          pattern
+        elsif pattern_validator = find_pattern_validator
+          evaluate_format_validator_option(pattern_validator.options[:with]).source
         end
       end
 

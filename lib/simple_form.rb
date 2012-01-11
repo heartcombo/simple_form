@@ -139,7 +139,7 @@ module SimpleForm
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
   def self.build(options={})
     options[:tag] = :div if options[:tag].nil?
-    builder = SimpleForm::Wrappers::Builder.new
+    builder = SimpleForm::Wrappers::Builder.new(options)
     yield builder
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
   end
@@ -150,8 +150,8 @@ module SimpleForm
     b.use :min_max
     b.use :maxlength
     b.use :placeholder
-    b.use :pattern
-    b.use :readonly
+    b.optional :pattern
+    b.optional :readonly
 
     b.use :label_input
     b.use :hint,  :tag => :span, :class => :hint

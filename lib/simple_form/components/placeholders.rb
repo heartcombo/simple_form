@@ -8,11 +8,8 @@ module SimpleForm
       end
 
       def placeholder_text
-        if options[:placeholder] == true
-          translate(:placeholders)
-        else
-          options[:placeholder]
-        end
+        placeholder = options[:placeholder]
+        placeholder.is_a?(String) ? placeholder : translate(:placeholders)
       end
     end
   end

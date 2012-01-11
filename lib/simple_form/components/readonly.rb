@@ -7,7 +7,6 @@ module SimpleForm
           input_html_options[:readonly] ||= true
           input_html_classes << :readonly
         end
-
         nil
       end
 

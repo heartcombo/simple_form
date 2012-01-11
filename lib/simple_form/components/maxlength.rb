@@ -10,13 +10,14 @@ module SimpleForm
       private
 
       def maximum_length_from_validation
-        if options[:maxlength] == true
+        maxlength = options[:maxlength]
+        if maxlength.is_a?(String) || maxlength.is_a?(Integer)
+          maxlength
+        else
           length_validator = find_length_validator
           if length_validator && !length_validator.options[:tokenizer]
             length_validator.options[:is] || length_validator.options[:maximum]
           end
-        else
-          options[:maxlength]
         end
       end
 

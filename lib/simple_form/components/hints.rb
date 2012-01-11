@@ -3,10 +3,9 @@ module SimpleForm
     # Needs to be enabled in order to do automatic lookups.
     module Hints
       def hint
-        @hint ||= if options[:hint] == true
-          translate(:hints)
-        else
-          options[:hint]
+        @hint ||= begin
+          hint = options[:hint]
+          hint.is_a?(String) ? hint : translate(:hints)
         end
       end
 

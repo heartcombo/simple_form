@@ -37,13 +37,13 @@ class ReadonlyTest < ActionView::TestCase
   end
 
   test 'input should generate readonly attribute when the field is readonly and the object is persisted' do
-    with_input_for @user, :credit_card, :string
+    with_input_for @user, :credit_card, :string, :readonly => :lookup
     assert_select 'input.string.readonly[readonly]'
   end
 
   test 'input should not generate readonly attribute when the field is readonly and the object is not persisted' do
     @user.new_record!
-    with_input_for @user, :credit_card, :string
+    with_input_for @user, :credit_card, :string, :readonly => :lookup
     assert_no_select 'input.string.readonly[readonly]'
   end
 
