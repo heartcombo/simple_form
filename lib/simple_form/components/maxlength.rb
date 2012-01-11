@@ -15,7 +15,8 @@ module SimpleForm
           maxlength
         else
           length_validator = find_length_validator
-          if length_validator && !length_validator.options[:tokenizer]
+
+          if length_validator && !has_tokenizer?(length_validator)
             length_validator.options[:is] || length_validator.options[:maximum]
           end
         end
@@ -23,6 +24,14 @@ module SimpleForm
 
       def find_length_validator
         find_validator(ActiveModel::Validations::LengthValidator)
+      end
+
+      def has_tokenizer?(length_validator)
+        tokenizer = length_validator.options[:tokenizer]
+
+        if ActiveModel::Validations::LengthValidator.const_defined?(:DEFAULT_TOKENIZER)
+          tokenizer && tokenizer != ActiveModel::Validations::LengthValidator::DEFAULT_TOKENIZER
+        end
       end
     end
   end
