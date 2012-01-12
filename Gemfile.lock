@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     simple_form (2.0.0.dev)
-      actionpack (>= 3.0.0.rc, < 4.0)
-      activemodel (>= 3.0.0.rc, < 4.0)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
 
 GEM
   remote: http://rubygems.org/
@@ -62,6 +62,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack (>= 3.2.0.rc)
+  activemodel (>= 3.2.0.rc)
   mocha
   rake
   rdoc
