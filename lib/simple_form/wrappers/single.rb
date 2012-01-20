@@ -8,9 +8,7 @@ module SimpleForm
 
       def render(input)
         options = input.options
-        if options[namespace] == false
-          nil
-        else
+        if options[namespace] != false
           content = input.send(namespace)
           wrap(input, options, content) if content
         end
