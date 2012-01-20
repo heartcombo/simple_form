@@ -13,7 +13,7 @@ module SimpleForm
         else
           content = input.send(namespace)
           wrap(input, options, content) if content
-        end        
+        end
       end
     end
   end
