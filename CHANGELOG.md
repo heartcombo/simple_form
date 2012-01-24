@@ -20,8 +20,8 @@
   * Add support for proc or lambda as option for format validator ([@nashby](https://github.com/nashby))
   * Handle validates_length_of :is option in maxlength ([@nashby](https://github.com/nashby))
   * Add field_with_hint css class to the wrapper when the input has a hint, similar to field_with_errors ([@nashby](https://github.com/nashby))
-  * Add :grouped_select input type, mapping to Rails grouped_collection_select helper ([semaperepelitsa](https://github.com/semaperepelitsa))
-  * Add automatic translation of options for collection inputs given a collection of symbols ([klobuczek](https://github.com/klobuczek))
+  * Add :grouped_select input type, mapping to Rails grouped_collection_select helper ([@semaperepelitsa](https://github.com/semaperepelitsa))
+  * Add automatic translation of options for collection inputs given a collection of symbols ([@klobuczek](https://github.com/klobuczek))
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`
@@ -40,7 +40,7 @@
   * `:checked` option should override the existing associations on `collection_check_boxes`.
     Closes [#341](https://github.com/plataformatec/simple_form/issues/341). ([@nashby](https://github.com/nashby))
   * Move default attribute translations out of root - use "defaults" key instead
-    Closes [#384](https://github.com/plataformatec/simple_form/issues/384). (Ram Dobson)
+    Closes [#384](https://github.com/plataformatec/simple_form/issues/384). ([@fringd](https://github.com/fringd))
 
 ## 1.5.2
 
