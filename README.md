@@ -484,6 +484,11 @@ SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. 
         user:
           username: 'Your username'
           password: '****'
+      options:
+        user:
+          gender:
+            male: 'Male'
+            female: "Female'
 ```
 
 And your forms will use this information to render the components for you.
@@ -521,6 +526,10 @@ This way SimpleForm will figure out the right translation for you, based on the 
         defaults:
           username: 'Your username'
           password: '****'
+      options:
+        gender:
+          male: 'Male'
+          female: "Female'
 ```
 
 SimpleForm will always look for a default attribute translation under the "defaults" key if no specific is found inside the model key.Note that this syntax is different from 1.x. To migrate to the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".

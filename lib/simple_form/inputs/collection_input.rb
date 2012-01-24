@@ -66,7 +66,10 @@ module SimpleForm
       end
 
       def detect_common_display_methods(collection_classes = detect_collection_classes)
-        if collection_classes.include?(Array)
+        if collection_classes == [Symbol]
+          translate_collection
+          { :label => :first, :value => :last }
+        elsif collection_classes.include?(Array)
           { :label => :first, :value => :last }
         elsif collection_includes_basic_objects?(collection_classes)
           { :label => :to_s, :value => :to_s }
@@ -86,6 +89,10 @@ module SimpleForm
         (collection_classes & [
           String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
         ]).any?
+      end
+
+      def translate_collection
+        @collection = collection.map {|value| [translate(:options, value.to_s), value.to_s]}
       end
     end
   end

@@ -42,7 +42,7 @@ class User
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
-    :post_count, :lock_version, :amount, :attempts, :action, :credit_card
+    :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender
 
   def initialize(options={})
     @new_record = false
