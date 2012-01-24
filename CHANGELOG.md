@@ -21,6 +21,7 @@
   * Handle validates_length_of :is option in maxlength ([@nashby](https://github.com/nashby))
   * Add field_with_hint css class to the wrapper when the input has a hint, similar to field_with_errors ([@nashby](https://github.com/nashby))
   * Add :grouped_select input type, mapping to Rails grouped_collection_select helper ([semaperepelitsa](https://github.com/semaperepelitsa))
+  * Add automatic translation of options for collection inputs given a collection of symbols ([klobuczek](https://github.com/klobuczek))
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`

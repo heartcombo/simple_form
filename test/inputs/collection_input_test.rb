@@ -55,6 +55,28 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'select option', 'Carlos'
   end
 
+  test 'input should do automatic collection translation for select types using defaults key' do
+    store_translations(:en, :simple_form => { :options => { :defaults => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :select, :collection => [:male, :female]
+      assert_select 'select.select#user_gender'
+      assert_select 'select option', 'Male'
+      assert_select 'select option', 'Female'
+    end
+  end
+
+  test 'input should do automatic collection translation for select types using specific object key' do
+    store_translations(:en, :simple_form => { :options => { :user => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :select, :collection => [:male, :female]
+      assert_select 'select.select#user_gender'
+      assert_select 'select option', 'Male'
+      assert_select 'select option', 'Female'
+    end
+  end
+
   test 'input should mark the selected value by default' do
     @user.name = "Carlos"
     with_input_for @user, :name, :select, :collection => ['Jose', 'Carlos']
@@ -145,6 +167,30 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'input[type=radio][value=Carlos]'
     assert_select 'label.collection_radio', 'Jose'
     assert_select 'label.collection_radio', 'Carlos'
+  end
+
+  test 'input should do automatic collection translation for radio types using defaults key' do
+    store_translations(:en, :simple_form => { :options => { :defaults => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :radio, :collection => [:male, :female]
+      assert_select 'input[type=radio][value=male]'
+      assert_select 'input[type=radio][value=female]'
+      assert_select 'label.collection_radio', 'Male'
+      assert_select 'label.collection_radio', 'Female'
+    end
+  end
+
+  test 'input should do automatic collection translation for radio types using specific object key' do
+    store_translations(:en, :simple_form => { :options => { :user => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :radio, :collection => [:male, :female]
+      assert_select 'input[type=radio][value=male]'
+      assert_select 'input[type=radio][value=female]'
+      assert_select 'label.collection_radio', 'Male'
+      assert_select 'label.collection_radio', 'Female'
+    end
   end
 
   test 'input should mark the current radio value by default' do
@@ -279,6 +325,30 @@ class CollectionInputTest < ActionView::TestCase
     with_input_for @user, :name, :check_boxes, :collection => ['Jose' , 'Carlos']
     assert_select 'input.required'
     assert_no_select 'input[required]'
+  end
+
+  test 'input should do automatic collection translation for check_box types using defaults key' do
+    store_translations(:en, :simple_form => { :options => { :defaults => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :check_boxes, :collection => [:male, :female]
+      assert_select 'input[type=checkbox][value=male]'
+      assert_select 'input[type=checkbox][value=female]'
+      assert_select 'label.collection_check_boxes', 'Male'
+      assert_select 'label.collection_check_boxes', 'Female'
+    end
+  end
+
+  test 'input should do automatic collection translation for check_box types using specific object key' do
+    store_translations(:en, :simple_form => { :options => { :user => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :check_boxes, :collection => [:male, :female]
+      assert_select 'input[type=checkbox][value=male]'
+      assert_select 'input[type=checkbox][value=female]'
+      assert_select 'label.collection_check_boxes', 'Male'
+      assert_select 'label.collection_check_boxes', 'Female'
+    end
   end
 
   test 'input should allow disabled options with a lambda for collection select' do
