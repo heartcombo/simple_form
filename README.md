@@ -484,11 +484,6 @@ SimpleForm uses all power of I18n API to lookup labels, hints and placeholders. 
         user:
           username: 'Your username'
           password: '****'
-      options:
-        user:
-          gender:
-            male: 'Male'
-            female: "Female'
 ```
 
 And your forms will use this information to render the components for you.
@@ -526,15 +521,31 @@ This way SimpleForm will figure out the right translation for you, based on the 
         defaults:
           username: 'Your username'
           password: '****'
-      options:
-        gender:
-          male: 'Male'
-          female: "Female'
 ```
 
 SimpleForm will always look for a default attribute translation under the "defaults" key if no specific is found inside the model key.Note that this syntax is different from 1.x. To migrate to the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".
 
 In addition, SimpleForm will fallback to default human_attribute_name from Rails when no other translation is found for labels. Finally, you can also overwrite any label, hint or placeholder inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
+
+SimpleForm also has support for translating options in collection helpers. For instance, given a User with a `:gender` attribute, you might want to create a select box showing translated labels that would post either `male` or `female` as value. With SimpleForm you could create an input like this:
+
+```ruby
+  f.input :gender, :collection => [:male, :female]
+```
+
+And SimpleForm will try a lookup like this in your locale file, to find the right labels to show:
+
+```yaml
+  en:
+    simple_form:
+      options:
+        user:
+          gender:
+            male: 'Male'
+            female: "Female'
+```
+
+You can also use the `defaults` key as you would do with labels, hints and placeholders. It is important to notice that SimpleForm will only do the lookup for options if you give a collection composed of symbols only. This is to avoid constant lookups to I18n.
 
 It's also possible to translate buttons, using Rails' built-in I18n support:
 
