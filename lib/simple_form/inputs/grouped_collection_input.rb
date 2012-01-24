@@ -27,7 +27,7 @@ module SimpleForm
         label = options.delete(:group_label_method)
 
         unless label
-          common_method_for = detect_common_display_methods( detect_collection_classes(group_collection) )
+          common_method_for = detect_common_display_methods(detect_collection_classes(group_collection))
           label = common_method_for[:label]
         end
 
