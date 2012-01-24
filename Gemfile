@@ -2,6 +2,7 @@ source :rubygems
 
 gemspec
 
+gem 'railties', '~> 3.2.0'
 gem 'activemodel', '~> 3.2.0'
 gem 'actionpack', '~> 3.2.0'
 gem 'rake'

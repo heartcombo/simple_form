@@ -44,6 +44,66 @@ SimpleForm.setup do |config|
     b.use :error, :tag => :span, :class => :error
   end
 
+  <% if options.bootstrap? %>
+  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
+  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
+  # to learn about the different styles for forms and inputs,
+  # buttons and other elements.
+  config.wrappers :bootstrap, :tag => 'fieldset', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :tag => 'div', :class => 'controls' do |ba|
+      ba.use :input
+      ba.use :error, :tag => 'span', :class => 'help-inline'
+      ba.use :hint,  :tag => 'p', :class => 'help-block'
+    end
+  end
+
+  config.wrappers :checkbox, :tag => 'fieldset', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :tag => 'div', :class => 'controls' do |ba|
+      ba.use :tag => 'label', :class => 'checkbox' do |bb|
+        bb.use :input
+      end
+      ba.use :error, :tag => 'span', :class => 'help-inline'
+      ba.use :hint,  :tag => 'p', :class => 'help-block'
+    end
+  end
+
+  config.wrappers :inline_checkbox, :tag => 'span', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :input
+    b.use :label_text
+    b.use :error, :tag => 'span', :class => 'help-inline'
+    b.use :hint,  :tag => 'p', :class => 'help-block'
+  end
+
+  config.wrappers :prepend, :tag => 'fieldset', :class => "control-group", :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :hint,  :tag => 'span', :class => 'help-block'
+    b.use :tag => 'div', :class => 'controls' do |input|
+      input.use :tag => 'div', :class => 'input-prepend' do |prepend|
+        prepend.use :input
+      end
+      input.use :error, :tag => 'span', :class => 'help-inline'
+    end
+  end
+
+  config.wrappers :append, :tag => 'fieldset', :class => "control-group", :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :hint,  :tag => 'span', :class => 'help-block'
+    b.use :tag => 'div', :class => 'controls' do |input|
+      input.use :tag => 'div', :class => 'input-append' do |append|
+        append.use :input
+      end
+      input.use :error, :tag => 'span', :class => 'help-inline'
+    end
+  end
+  <% end %>
+
   # Method used to tidy up errors.
   # config.error_method = :first
 
