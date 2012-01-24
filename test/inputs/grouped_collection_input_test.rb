@@ -20,6 +20,24 @@ class GroupedCollectionInputTest < ActionView::TestCase
     end
   end
 
+  test 'grouped collection accepts proc as collection' do
+    with_input_for @user, :tag_ids, :grouped_select,
+      :collection => Proc.new { [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]] },
+      :group_method => :last
+
+    assert_select 'select.grouped_select#user_tag_ids' do
+      assert_select 'optgroup[label=Authors]' do
+        assert_select 'option', 'Jose'
+        assert_select 'option', 'Carlos'
+      end
+
+      assert_select 'optgroup[label=General]' do
+        assert_select 'option', 'Bob'
+        assert_select 'option', 'John'
+      end
+    end
+  end
+
   test 'grouped collection accepts hash collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
       :collection => { 'Authors' => ['Jose', 'Carlos'], 'General' => ['Bob', 'John'] },

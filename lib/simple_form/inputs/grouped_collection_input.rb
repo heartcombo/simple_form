@@ -11,7 +11,10 @@ module SimpleForm
       private
 
       def grouped_collection
-        @grouped_collection ||= options.delete(:collection)
+        @grouped_collection ||= begin
+          grouped_collection = options.delete(:collection)
+          grouped_collection.respond_to?(:call) ? grouped_collection.call : grouped_collection.to_a
+        end
       end
 
       # Sample collection
