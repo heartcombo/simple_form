@@ -193,7 +193,7 @@ And what if you want to create a select containing the age from 18 to 60 in your
 
 Collections can be arrays or ranges, and when a :collection is given the :select input will be rendered by default, so we don't need to pass the :as => :select option. Other types of collection are :radio and :check_boxes. Those are added by SimpleForm to Rails set of form helpers (read Extra Helpers session below for more information).
 
-Collection inputs accepts two other options beside collections:
+Collection inputs accept two other options beside collections:
 
 * label_method => the label method to be applied to the collection to retrieve the label (use this instead of the text_method option in collection_select)
 
@@ -204,6 +204,18 @@ Those methods are useful to manipulate the given collection. Both of these optio
 ```ruby
   f.input :age, :collection => 18..60, :prompt => "Select your age"
 ```
+
+It is also possible to create grouped collection selects, that will use the html `optgroup` tags, like this:
+
+```ruby
+  f.input :country_id, :collection => @continents, :as => :grouped_select, :group_method => :countries
+```
+
+Grouped collection inputs accept the same `:label_method` and `:value_method` options, which will be used to retrieve label/value attributes for the `option` tags. Besides that, you can give:
+
+* group_method => the method to be called on the given collection to generate the options for each group (required)
+
+* group_label_method => the label method to be applied on the given collection to retrieve the label for the `optgroup` (SimpleForm will attempt to guess the best one the same way it does with `:label_method`)
 
 ### Priority
 

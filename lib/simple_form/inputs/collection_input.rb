@@ -65,9 +65,7 @@ module SimpleForm
         [label, value]
       end
 
-      def detect_common_display_methods
-        collection_classes = detect_collection_classes
-
+      def detect_common_display_methods(collection_classes = detect_collection_classes)
         if collection_classes.include?(Array)
           { :label => :first, :value => :last }
         elsif collection_includes_basic_objects?(collection_classes)
@@ -80,8 +78,8 @@ module SimpleForm
         end
       end
 
-      def detect_collection_classes
-        collection.map { |e| e.class }.uniq
+      def detect_collection_classes(some_collection = collection)
+        some_collection.map { |e| e.class }.uniq
       end
 
       def collection_includes_basic_objects?(collection_classes)

@@ -26,12 +26,12 @@ class Company < Struct.new(:id, :name)
 end
 
 class Tag < Company
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-
   def self.all(options={})
     (1..3).map{|i| Tag.new(i, "Tag #{i}")}
   end
+end
+
+class TagGroup < Struct.new(:id, :name, :tags)
 end
 
 class User
