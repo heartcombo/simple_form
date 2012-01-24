@@ -601,4 +601,4 @@ SimpleForm has several configuration values. You can read and change them in the
 
 ## License
 
-MIT License. Copyright 2011 Plataforma Tecnologia. http://blog.plataformatec.com.br
+MIT License. Copyright 2012 Plataforma Tecnologia. http://blog.plataformatec.com.br
