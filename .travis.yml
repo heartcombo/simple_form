@@ -2,7 +2,6 @@ script: "git submodule update --init && bundle exec rake test"
 before_install: gem update --system
 rvm:
   - 1.9.3
-  - ruby-head
   - ree
   - jruby
 gemfile:
