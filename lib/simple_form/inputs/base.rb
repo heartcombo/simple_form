@@ -144,7 +144,6 @@ module SimpleForm
         end
         lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
         lookups << :"defaults.#{attribute_name}"
-        lookups.map! {|lookup| :"#{lookup}.#{default}"} if namespace == :options
         lookups << default
 
         I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
