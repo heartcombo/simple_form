@@ -173,7 +173,7 @@ module SimpleForm
 
       attribute = case reflection.macro
         when :belongs_to
-          reflection.options[:foreign_key] || :"#{reflection.name}_id"
+          (reflection.respond_to?(:options) && reflection.options[:foreign_key]) || :"#{reflection.name}_id"
         when :has_one
           raise ":has_one associations are not supported by f.association"
         else
