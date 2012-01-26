@@ -90,6 +90,9 @@ SimpleForm.setup do |config|
   #   :inline => input + label
   #   :nested => label > input
   config.boolean_style = :nested
+
+  # Default class for buttons
+  config.button_class = 'btn'
   <% else %>
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
@@ -98,6 +101,9 @@ SimpleForm.setup do |config|
   #   :inline => input + label
   #   :nested => label > input
   config.boolean_style = :inline
+
+  # Default class for buttons
+  # config.button_class = 'button'
 <% end %>
   # Method used to tidy up errors.
   # config.error_method = :first
@@ -167,7 +173,4 @@ SimpleForm.setup do |config|
 
   # Cache simple form inputs discovery
   # config.cache_discovery = !Rails.env.development?
-
-  # Default class for buttons
-  # config.button_class = 'button'
 end
