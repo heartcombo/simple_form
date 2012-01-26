@@ -64,8 +64,8 @@ module SimpleForm
   # Define the way to render checkboxes with labels. Defaults to :inline.
   #   :inline => input + label
   #   :nested => label > input
-  mattr_accessor :checkbox_style
-  @@checkbox_style = :inline
+  mattr_accessor :boolean_style
+  @@boolean_style = :inline
 
   # You can define the class to use on all forms. Default is simple_form.
   mattr_accessor :form_class

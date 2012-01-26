@@ -121,7 +121,7 @@ SimpleForm.setup do |config|
   # Define the way to render checkboxes with labels. Defaults to :inline.
   #   :inline => input + label
   #   :nested => label > input
-  # config.checkbox_style = :inline
+  # config.boolean_style = :inline
 
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form

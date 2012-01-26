@@ -14,28 +14,28 @@ class BooleanInputTest < ActionView::TestCase
     assert_no_select 'label'
   end
 
-  test 'input uses inline checkbox style by default' do
+  test 'input uses inline boolean style by default' do
     with_input_for @user, :active, :boolean
     assert_select 'input.boolean + label.boolean.optional'
     assert_no_select 'label > input'
   end
 
-  test 'input allows changing default checkbox style config to nested, generating a default label' do
-    swap SimpleForm, :checkbox_style => :nested do
+  test 'input allows changing default boolean style config to nested, generating a default label' do
+    swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean
       assert_select 'label > input.boolean'
       assert_no_select 'label.boolean'
     end
   end
 
-  test 'input accepts changing checkbox style through given options' do
-    with_input_for @user, :active, :boolean, :checkbox_style => :nested
+  test 'input accepts changing boolean style through given options' do
+    with_input_for @user, :active, :boolean, :boolean_style => :nested
     assert_select 'label > input.boolean'
     assert_no_select 'label.boolean'
   end
 
   test 'input with nested style allows disabling label' do
-    swap SimpleForm, :checkbox_style => :nested do
+    swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean, :label => false
       assert_select 'input.boolean'
       assert_no_select 'label'

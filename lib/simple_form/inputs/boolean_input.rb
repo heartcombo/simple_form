@@ -18,7 +18,7 @@ module SimpleForm
       private
 
       def nested_style?
-        options[:checkbox_style] || SimpleForm.checkbox_style == :nested
+        options[:boolean_style] || SimpleForm.boolean_style == :nested
       end
 
       # Booleans are not required by default because in most of the cases
