@@ -6,10 +6,20 @@ module SimpleForm
       end
 
       def label_input
-        input + (options[:label] == false ? "" : label)
+        if options[:label] == false
+          input
+        elsif nested_style?
+          @builder.label(attribute_name) { input }
+        else
+          input + label
+        end
       end
 
       private
+
+      def nested_style?
+        options[:checkbox_style] || SimpleForm.checkbox_style == :nested
+      end
 
       # Booleans are not required by default because in most of the cases
       # it makes no sense marking them as required. The only exception is
