@@ -44,7 +44,6 @@ SimpleForm.setup do |config|
     b.use :hint,  :tag => :span, :class => :hint
     b.use :error, :tag => :span, :class => :error
   end
-
   <% if options.bootstrap? %>
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
   # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
@@ -106,7 +105,6 @@ SimpleForm.setup do |config|
     end
   end
   <% end %>
-
   # Method used to tidy up errors.
   # config.error_method = :first
 
