@@ -45,18 +45,6 @@ SimpleForm.setup do |config|
     b.use :error, :tag => :span, :class => :error
   end
 <% if options.bootstrap? %>
-  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
-  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
-  # to learn about the different styles for forms and inputs,
-  # buttons and other elements.
-  config.default_wrapper = :bootstrap
-
-  # Define the way to render check boxes / radio buttons with labels.
-  # Defaults to :nested for bootstrap config.
-  #   :inline => input + label
-  #   :nested => label > input
-  config.boolean_style = :nested
-
   config.wrappers :bootstrap, :tag => 'fieldset', :class => 'control-group', :error_class => 'error' do |b|
     b.use :placeholder
     b.use :label, :class => 'control-label'
@@ -90,6 +78,18 @@ SimpleForm.setup do |config|
       input.use :error, :tag => 'span', :class => 'help-inline'
     end
   end
+
+  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
+  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
+  # to learn about the different styles for forms and inputs,
+  # buttons and other elements.
+  config.default_wrapper = :bootstrap
+
+  # Define the way to render check boxes / radio buttons with labels.
+  # Defaults to :nested for bootstrap config.
+  #   :inline => input + label
+  #   :nested => label > input
+  config.boolean_style = :nested
   <% else %>
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
