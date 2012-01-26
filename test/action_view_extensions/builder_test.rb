@@ -8,15 +8,15 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-  def with_collection_radio(object, attribute, collection, value_method, text_method, options={}, html_options={})
+  def with_collection_radio(object, attribute, collection, value_method, text_method, options={}, html_options={}, &block)
     with_concat_form_for(object) do |f|
-      f.collection_radio attribute, collection, value_method, text_method, options, html_options
+      f.collection_radio attribute, collection, value_method, text_method, options, html_options, &block
     end
   end
 
-  def with_collection_check_boxes(object, attribute, collection, value_method, text_method, options={}, html_options={})
+  def with_collection_check_boxes(object, attribute, collection, value_method, text_method, options={}, html_options={}, &block)
     with_concat_form_for(object) do |f|
-      f.collection_check_boxes attribute, collection, value_method, text_method, options, html_options
+      f.collection_check_boxes attribute, collection, value_method, text_method, options, html_options, &block
     end
   end
 
@@ -146,7 +146,17 @@ class BuilderTest < ActionView::TestCase
   test 'collection radio does not wrap input inside the label' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
+    assert_select 'form input[type=radio] + label'
     assert_no_select 'form label input'
+  end
+
+  test 'collection radio accepts a block to render the radio and label as required' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s do |label_for, text, value, html_options|
+      label(:user, label_for, text) { radio_button(:user, :active, value, html_options) }
+    end
+
+    assert_select 'form label[for=user_active_true] > input#user_active_true[type=radio]'
+    assert_select 'form label[for=user_active_false] > input#user_active_false[type=radio]'
   end
 
   # COLLECTION CHECK BOX
@@ -323,7 +333,17 @@ class BuilderTest < ActionView::TestCase
   test 'collection check box does not wrap input inside the label' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
+    assert_select 'form input[type=checkbox] + label'
     assert_no_select 'form label input'
+  end
+
+  test 'collection check box accepts a block to render the radio and label as required' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s do |label_for, text, value, html_options|
+      label(:user, label_for, text) { check_box(:user, :active, html_options, value) }
+    end
+
+    assert_select 'form label[for=user_active_true] > input#user_active_true[type=checkbox]'
+    assert_select 'form label[for=user_active_false] > input#user_active_false[type=checkbox]'
   end
 
   # SIMPLE FIELDS
