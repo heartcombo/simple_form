@@ -15,14 +15,12 @@ module SimpleForm
       def input
         label_method, value_method = detect_collection_methods
         @builder.send(:"collection_#{input_type}", attribute_name, collection,
-                      value_method, label_method, input_options, input_html_options,
-                      &collection_block_for_nested_boolean_style)
+                      value_method, label_method, input_options, input_html_options)
       end
 
       def input_options
         options = super
         options[:include_blank] = true unless skip_include_blank?
-        apply_default_collection_options!(options) if check_boxes? || radio?
         options
       end
 
@@ -35,10 +33,8 @@ module SimpleForm
         end
       end
 
-      # Checkbox components does not use the required html tag.
-      # See more info here - https://github.com/plataformatec/simple_form/issues/340#issuecomment-2871956
       def has_required?
-        super && (input_options[:include_blank] || multiple?) && !check_boxes?
+        super && (input_options[:include_blank] || multiple?)
       end
 
       # Check if :include_blank must be included by default.
@@ -48,14 +44,6 @@ module SimpleForm
 
       def multiple?
         !!options[:input_html].try(:[], :multiple)
-      end
-
-      def check_boxes?
-        input_type == :check_boxes
-      end
-
-      def radio?
-        input_type == :radio
       end
 
       def apply_default_collection_options!(options)
@@ -68,20 +56,6 @@ module SimpleForm
         options[:collection_wrapper_class] = [
           options[:collection_wrapper_class], SimpleForm.collection_wrapper_class
         ].compact.presence
-      end
-
-      def collection_block_for_nested_boolean_style
-        return unless nested_boolean_style?
-
-        if check_boxes?
-          proc do |label_for, text, value, html_options|
-            @builder.label(label_for, text) { @builder.check_box(attribute_name, html_options, value) }
-          end
-        elsif radio?
-          proc do |label_for, text, value, html_options|
-            @builder.label(label_for, text) { @builder.radio_button(attribute_name, value, html_options) }
-          end
-        end
       end
 
       # Detect the right method to find the label and value for a collection.

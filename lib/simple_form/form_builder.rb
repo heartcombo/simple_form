@@ -19,7 +19,9 @@ module SimpleForm
     map_type :password,                            :to => SimpleForm::Inputs::PasswordInput
     map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
     map_type :range,                               :to => SimpleForm::Inputs::RangeInput
-    map_type :select, :radio, :check_boxes,        :to => SimpleForm::Inputs::CollectionInput
+    map_type :check_boxes,                         :to => SimpleForm::Inputs::CollectionCheckBoxesInput
+    map_type :radio,                               :to => SimpleForm::Inputs::CollectionRadioInput
+    map_type :select,                              :to => SimpleForm::Inputs::CollectionInput
     map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionInput
     map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
     map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
