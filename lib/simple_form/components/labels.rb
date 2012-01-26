@@ -43,7 +43,7 @@ module SimpleForm
         label_options
       end
 
-    protected
+      protected
 
       def raw_label_text #:nodoc:
         options[:label] || label_translation

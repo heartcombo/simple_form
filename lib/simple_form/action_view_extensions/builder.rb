@@ -121,7 +121,7 @@ module SimpleForm
         fields_for(*(args << options), &block)
       end
 
-    private
+      private
 
       # Generate default options for collection helpers, such as :checked and
       # :disabled.

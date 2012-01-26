@@ -10,7 +10,7 @@ module SimpleForm
         options[:priority] || SimpleForm.send(:"#{input_type}_priority")
       end
 
-    protected
+      protected
 
       def has_required?
         false

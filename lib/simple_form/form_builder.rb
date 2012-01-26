@@ -340,7 +340,7 @@ module SimpleForm
       end
     end
 
-  private
+    private
 
     # Find an input based on the attribute name.
     def find_input(attribute_name, options={}, &block) #:nodoc:
