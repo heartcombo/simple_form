@@ -28,10 +28,18 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
-  test 'input accepts changing boolean style through given options' do
+  test 'input accepts changing boolean style to nested through given options' do
     with_input_for @user, :active, :boolean, :boolean_style => :nested
     assert_select 'label > input.boolean'
     assert_no_select 'label.boolean'
+  end
+
+  test 'input accepts changing boolean style to inline through given options, when default is nested' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :boolean, :boolean_style => :inline
+      assert_select 'input.boolean + label.boolean'
+      assert_no_select 'label > input'
+    end
   end
 
   test 'input with nested style allows disabling label' do
