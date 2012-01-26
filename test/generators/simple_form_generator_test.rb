@@ -4,6 +4,7 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
   tests SimpleForm::Generators::InstallGenerator
   destination File.expand_path('../../tmp', __FILE__)
   setup :prepare_destination
+  teardown { rm_rf(destination_root) }
 
   test 'generates example locale file' do
     run_generator
