@@ -61,26 +61,6 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :checkbox, :tag => 'fieldset', :class => 'control-group', :error_class => 'error' do |b|
-    b.use :placeholder
-    b.use :label, :class => 'control-label'
-    b.use :tag => 'div', :class => 'controls' do |ba|
-      ba.use :tag => 'label', :class => 'checkbox' do |bb|
-        bb.use :input
-      end
-      ba.use :error, :tag => 'span', :class => 'help-inline'
-      ba.use :hint,  :tag => 'p', :class => 'help-block'
-    end
-  end
-
-  config.wrappers :inline_checkbox, :tag => 'span', :error_class => 'error' do |b|
-    b.use :placeholder
-    b.use :input
-    b.use :label_text
-    b.use :error, :tag => 'span', :class => 'help-inline'
-    b.use :hint,  :tag => 'p', :class => 'help-block'
-  end
-
   config.wrappers :prepend, :tag => 'fieldset', :class => "control-group", :error_class => 'error' do |b|
     b.use :placeholder
     b.use :label, :class => 'control-label'
