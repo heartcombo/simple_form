@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class CollectionRadioInput < CollectionSelectInput
+    class CollectionRadioInput < CollectionInput
       def input
         label_method, value_method = detect_collection_methods
 
