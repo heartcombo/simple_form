@@ -86,6 +86,10 @@ module SimpleForm
         column && column.limit
       end
 
+      def nested_boolean_style?
+        options.fetch(:boolean_style, SimpleForm.boolean_style) == :nested
+      end
+
       # Find reflection name when available, otherwise use attribute
       def reflection_or_attribute_name
         reflection ? reflection.name : attribute_name

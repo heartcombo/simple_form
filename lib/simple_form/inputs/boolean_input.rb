@@ -8,7 +8,7 @@ module SimpleForm
       def label_input
         if options[:label] == false
           input
-        elsif nested_style?
+        elsif nested_boolean_style?
           @builder.label(attribute_name) { input }
         else
           input + label
@@ -16,10 +16,6 @@ module SimpleForm
       end
 
       private
-
-      def nested_style?
-        options.fetch(:boolean_style, SimpleForm.boolean_style) == :nested
-      end
 
       # Booleans are not required by default because in most of the cases
       # it makes no sense marking them as required. The only exception is

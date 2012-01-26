@@ -499,6 +499,16 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'form span input[type=radio]', :count => 2
   end
 
+  test 'input radio respects the nested boolean style config, generating nested label > input' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :radio
+
+      assert_select 'label[for=user_active_true] > input#user_active_true[type=radio]'
+      assert_select 'label[for=user_active_false] > input#user_active_false[type=radio]'
+      assert_no_select 'label.collection_radio'
+    end
+  end
+
   test 'input check boxes does not wrap the collection by default' do
     with_input_for @user, :active, :check_boxes
 
@@ -604,5 +614,15 @@ class CollectionInputTest < ActionView::TestCase
     with_input_for @user, :active, :check_boxes
 
     assert_select 'form span input[type=checkbox]', :count => 2
+  end
+
+  test 'input check boxes respects the nested boolean style config, generating nested label > input' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'label[for=user_active_true] > input#user_active_true[type=checkbox]'
+      assert_select 'label[for=user_active_false] > input#user_active_false[type=checkbox]'
+      assert_no_select 'label.collection_radio'
+    end
   end
 end
