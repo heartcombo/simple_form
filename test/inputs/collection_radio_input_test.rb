@@ -26,6 +26,17 @@ class CollectionRadioInputTest < ActionView::TestCase
     end
   end
 
+  test 'input radio should not include for attribute by default' do
+    with_input_for @user, :gender, :radio, :collection => [:male, :female]
+    assert_select 'label'
+    assert_no_select 'label[for=user_gender]'
+  end
+
+  test 'input radio should include for attribute when giving as html option' do
+    with_input_for @user, :gender, :radio, :collection => [:male, :female], :label_html => { :for => 'gender' }
+    assert_select 'label[for=gender]'
+  end
+
   test 'input should mark the checked value when using boolean and radios' do
     @user.active = false
     with_input_for @user, :active, :radio

@@ -41,6 +41,13 @@ module SimpleForm
       def nested_boolean_style_item_tag(value, html_options)
         @builder.radio_button(attribute_name, value, html_options)
       end
+
+      # Do not attempt to generate label[for] attributes by default, unless an
+      # explicit html option is given. This avoids generating labels pointing to
+      # non existent fields.
+      def generate_label_for_attribute?
+        false
+      end
     end
   end
 end

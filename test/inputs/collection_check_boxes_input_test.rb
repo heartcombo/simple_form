@@ -6,6 +6,17 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     SimpleForm::Inputs::CollectionCheckBoxesInput.reset_i18n_cache :boolean_collection
   end
 
+  test 'input check boxes should not include for attribute by default' do
+    with_input_for @user, :gender, :check_boxes, :collection => [:male, :female]
+    assert_select 'label'
+    assert_no_select 'label[for=user_gender]'
+  end
+
+  test 'input check boxes should include for attribute when giving as html option' do
+    with_input_for @user, :gender, :check_boxes, :collection => [:male, :female], :label_html => { :for => 'gender' }
+    assert_select 'label[for=gender]'
+  end
+
   test 'collection input with check_boxes type should not generate required html attribute' do
     with_input_for @user, :name, :check_boxes, :collection => ['Jose' , 'Carlos']
     assert_select 'input.required'
