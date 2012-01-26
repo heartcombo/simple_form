@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class CollectionCheckBoxesInput < CollectionSelectInput
+    class CollectionCheckBoxesInput < CollectionRadioInput
       def input
         label_method, value_method = detect_collection_methods
 
@@ -8,12 +8,6 @@ module SimpleForm
           attribute_name, collection, value_method, label_method,
           input_options, input_html_options, &collection_block_for_nested_boolean_style
         )
-      end
-
-      def input_options
-        options = super
-        apply_default_collection_options!(options)
-        options
       end
 
       private

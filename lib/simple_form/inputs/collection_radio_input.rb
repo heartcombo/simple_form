@@ -16,7 +16,19 @@ module SimpleForm
         options
       end
 
-      private
+      protected
+
+      def apply_default_collection_options!(options)
+        unless options.key?(:item_wrapper_tag)
+          options[:item_wrapper_tag] = SimpleForm.item_wrapper_tag
+        end
+        unless options.key?(:collection_wrapper_tag)
+          options[:collection_wrapper_tag] = SimpleForm.collection_wrapper_tag
+        end
+        options[:collection_wrapper_class] = [
+          options[:collection_wrapper_class], SimpleForm.collection_wrapper_class
+        ].compact.presence
+      end
 
       def collection_block_for_nested_boolean_style
         return unless nested_boolean_style?

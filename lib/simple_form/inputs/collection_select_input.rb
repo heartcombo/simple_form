@@ -46,18 +46,6 @@ module SimpleForm
         !!options[:input_html].try(:[], :multiple)
       end
 
-      def apply_default_collection_options!(options)
-        unless options.key?(:item_wrapper_tag)
-          options[:item_wrapper_tag] = SimpleForm.item_wrapper_tag
-        end
-        unless options.key?(:collection_wrapper_tag)
-          options[:collection_wrapper_tag] = SimpleForm.collection_wrapper_tag
-        end
-        options[:collection_wrapper_class] = [
-          options[:collection_wrapper_class], SimpleForm.collection_wrapper_class
-        ].compact.presence
-      end
-
       # Detect the right method to find the label and value for a collection.
       # If no label or value method are defined, will attempt to find them based
       # on default label and value methods that can be configured through
