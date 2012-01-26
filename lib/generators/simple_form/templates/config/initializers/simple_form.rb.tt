@@ -93,7 +93,7 @@ SimpleForm.setup do |config|
 
   # Default class for buttons
   config.button_class = 'btn'
-  <% else %>
+<% else %>
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
 
