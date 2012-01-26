@@ -123,4 +123,18 @@ class StringInputTest < ActionView::TestCase
       end
     end
   end
+
+  test 'input strips extra spaces from class html attribute with default classes' do
+    with_input_for @user, :name, :string
+    assert_select "input[class='string required']"
+    assert_no_select "input[class='string required ']"
+    assert_no_select "input[class=' string required']"
+  end
+
+  test 'input strips extra spaces from class html attribute when giving a custom class' do
+    with_input_for @user, :name, :string, :input_html => { :class => "my_input" }
+    assert_select "input[class='string required my_input']"
+    assert_no_select "input[class='string required my_input ']"
+    assert_no_select "input[class=' string required my_input']"
+  end
 end
