@@ -22,6 +22,11 @@
   * Add field_with_hint css class to the wrapper when the input has a hint, similar to field_with_errors ([@nashby](https://github.com/nashby))
   * Add :grouped_select input type, mapping to Rails grouped_collection_select helper ([@semaperepelitsa](https://github.com/semaperepelitsa))
   * Add automatic translation of options for collection inputs given a collection of symbols ([@klobuczek](https://github.com/klobuczek))
+  * Add `:boolean_style` config to change how check boxes and radios will be displayed.
+    Options are `:inline = input + label` (default) and `:nested = label > input`.
+  * Add possibility to give a block to `collection_radio` and `collection_check_boxes`,
+    to generate custom label and input structure. It is used internally with the :nested
+    option for `:boolean_style`, and is useful to allow some more customization if required.
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`

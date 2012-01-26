@@ -22,6 +22,17 @@ module SimpleForm
       #   <input id="user_options_false" name="user[options]" type="radio" value="false" />
       #   <label class="collection_radio" for="user_options_false">No</label>
       #
+      # It is also possible to give a block that should generate the radio +
+      # label. To wrap the radio with the label, for instance:
+      #
+      #   form_for @user do |f|
+      #     f.collection_radio(
+      #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #     ) do |label_for, text, value, html_options|
+      #       f.label(label_for) { f.radio_button(attribute, value, html_options) + text }
+      #     end
+      #   end
+      #
       # == Options
       #
       # Collection radio accepts some extra options:
@@ -36,6 +47,8 @@ module SimpleForm
       #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
+      #
+      #   * a block                  => to generate the label + radio or any other component.
       #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
@@ -69,6 +82,17 @@ module SimpleForm
       #   <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
       #   <label class="collection_check_boxes" for="user_options_false">No</label>
       #
+      # It is also possible to give a block that should generate the check box +
+      # label. To wrap the check box with the label, for instance:
+      #
+      #   form_for @user do |f|
+      #     f.collection_check_boxes(
+      #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #     ) do |label_for, text, value, html_options|
+      #       f.label(label_for) { f.check_box(attribute, html_options, value, '') + text }
+      #     end
+      #   end
+      #
       # == Options
       #
       # Collection check box accepts some extra options:
@@ -84,6 +108,8 @@ module SimpleForm
       #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
+      #
+      #   * a block                  => to generate the label + check box or any other component.
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
