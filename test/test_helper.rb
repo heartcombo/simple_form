@@ -22,6 +22,9 @@ end
 $:.unshift File.expand_path("../../lib", __FILE__)
 require 'simple_form'
 
+require "rails/generators/test_case"
+require 'generators/simple_form/install_generator'
+
 Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 I18n.default_locale = :en
 

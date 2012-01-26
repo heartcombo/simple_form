@@ -32,7 +32,7 @@ module SimpleForm
     def initialize(*) #:nodoc:
       super
       @defaults = options[:defaults]
-      @wrapper  = SimpleForm.wrapper(options[:wrapper] || :default)
+      @wrapper  = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
     end
 
     # Basic input helper, combines all components in the stack to generate

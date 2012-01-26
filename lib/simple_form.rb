@@ -113,6 +113,9 @@ module SimpleForm
   @@button_class = 'button'
 
   ## WRAPPER CONFIGURATION
+  # The default wrapper to be used by the FormBuilder.
+  mattr_accessor :default_wrapper
+  @@default_wrapper = :default
   @@wrappers = {}
 
   # Retrieves a given wrapper
