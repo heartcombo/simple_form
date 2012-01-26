@@ -338,6 +338,27 @@ form_for @user do |f|
 end
 ```
 
+Simple Fields For takes a child_index option, allowing for multiple fields for the same object.
+
+This is useful when iterating over a form in more than one place in a page and synchronising the index, where the default behaviour is to increment the index ad infinitum. A concrete example would be iterating horizontally in a table.
+
+```ruby
+form_for @user do |f|
+  @user.posts.each do |post|
+
+    # list of post title fields
+    f.simple_fields_for :posts, post, child_index: 0 do |posts_form|
+      posts_form.input :title
+    end
+
+    # list of post content fields
+    f.simple_fields_for :posts, post, child_index: 0 do |posts_form|
+      posts_form.input :content
+    end
+  end
+end
+```
+
 ### Collection Radio
 
 Creates a collection of radio inputs with labels associated (same API as collection_select):
