@@ -61,8 +61,8 @@ module SimpleForm
   mattr_accessor :label_class
   @@label_class = nil
 
-  # Define the way to render checkboxes with labels. Defaults to :inline.
-  #   :inline => input + label
+  # Define the way to render check boxes / radio buttons with labels.
+  #   :inline => input + label (default)
   #   :nested => label > input
   mattr_accessor :boolean_style
   @@boolean_style = :inline
