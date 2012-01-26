@@ -21,8 +21,8 @@ module SimpleForm
     map_type :range,                               :to => SimpleForm::Inputs::RangeInput
     map_type :check_boxes,                         :to => SimpleForm::Inputs::CollectionCheckBoxesInput
     map_type :radio,                               :to => SimpleForm::Inputs::CollectionRadioInput
-    map_type :select,                              :to => SimpleForm::Inputs::CollectionInput
-    map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionInput
+    map_type :select,                              :to => SimpleForm::Inputs::CollectionSelectInput
+    map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionSelectInput
     map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
     map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
     map_type :boolean,                             :to => SimpleForm::Inputs::BooleanInput

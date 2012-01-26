@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class CollectionCheckBoxesInput < CollectionInput
+    class CollectionCheckBoxesInput < CollectionSelectInput
       def input
         label_method, value_method = detect_collection_methods
 

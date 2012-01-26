@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class CollectionInput < Base
+    class CollectionSelectInput < Base
       # Default boolean collection for use with selects/radios when no
       # collection is given. Always fallback to this boolean collection.
       # Texts can be translated using i18n in "simple_form.yes" and

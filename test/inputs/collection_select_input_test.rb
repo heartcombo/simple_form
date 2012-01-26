@@ -1,9 +1,9 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class CollectionInputTest < ActionView::TestCase
+class CollectionSelectInputTest < ActionView::TestCase
   setup do
-    SimpleForm::Inputs::CollectionInput.reset_i18n_cache :boolean_collection
+    SimpleForm::Inputs::CollectionSelectInput.reset_i18n_cache :boolean_collection
   end
 
   test 'input should generate boolean radio buttons by default for radio types' do

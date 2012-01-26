@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class GroupedCollectionInputTest < ActionView::TestCase
+class GroupedCollectionSelectInputTest < ActionView::TestCase
   test 'grouped collection accepts array collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
       :collection => [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
