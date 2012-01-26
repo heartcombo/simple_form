@@ -296,4 +296,13 @@ class IsolatedLabelTest < ActionView::TestCase
       assert_select 'label.my_custom_class'
     end
   end
+
+  test 'label strips extra classes even when label_class is nil' do
+    swap SimpleForm, :label_class => nil do
+      with_label_for @user, :name, :string
+      assert_select "label[class='string required']"
+      assert_no_select "label[class='string required ']"
+      assert_no_select "label[class=' string required']"
+    end
+  end
 end
