@@ -80,109 +80,47 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form input[type=radio][value=false].radio#user_active_false'
   end
 
-  test 'collection radio wraps the collection in the configured collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s
-
-      assert_select 'form ul input[type=radio][value=true]#user_active_true'
-      assert_select 'form ul input[type=radio][value=false]#user_active_false'
-    end
-  end
-
   test 'collection radio wraps the collection in the given collection wrapper tag' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
 
-    assert_select 'form ul input[type=radio][value=true]#user_active_true'
-    assert_select 'form ul input[type=radio][value=false]#user_active_false'
+    assert_select 'form ul input[type=radio]', :count => 2
   end
 
-  test 'collection radio does not wrap the collection in the explicitly false collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
-
-      assert_no_select 'form ul'
-      assert_no_select 'form ul'
-    end
-  end
-
-  test 'collection radio does not wrap the collection in the explicitly nil collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => nil
-
-      assert_no_select 'form ul'
-      assert_no_select 'form ul'
-    end
-  end
-
-  test 'collection radio does not wrap the collection by default' do
+  test 'collection radio does not render any wrapper tag by default' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
+    assert_select 'form input[type=radio]', :count => 2
     assert_no_select 'form ul'
   end
 
-  test 'collection radio uses the configured class for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s
+  test 'collection radio does not wrap the collection when given falsy values' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
 
-      assert_select 'form ul.inputs-list input[type=radio][value=true]#user_active_true'
-      assert_select 'form ul.inputs-list input[type=radio][value=false]#user_active_false'
-    end
+    assert_select 'form input[type=radio]', :count => 2
+    assert_no_select 'form ul'
   end
 
   test 'collection radio uses the given class for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+      :collection_wrapper_tag => :ul, :collection_wrapper_class => "items-list"
 
-      assert_select 'form ul.items-list input[type=radio][value=true]#user_active_true'
-      assert_select 'form ul.items-list input[type=radio][value=false]#user_active_false'
-    end
+    assert_select 'form ul.items-list input[type=radio]', :count => 2
   end
 
-  test 'collection radio uses both configured and given classes for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
+  test 'collection radio uses no class for collection wrapper tag when no wrapper tag is given' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+      :collection_wrapper_class => "items-list"
 
-      assert_select 'form ul.inputs-list.items-list input[type=radio][value=true]#user_active_true'
-      assert_select 'form ul.inputs-list.items-list input[type=radio][value=false]#user_active_false'
-    end
+    assert_select 'form input[type=radio]', :count => 2
+    assert_no_select 'form ul'
+    assert_no_select '.items-list'
   end
 
   test 'collection radio uses no class for collection wrapper tag by default' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
 
-      assert_no_select 'form ul[class]'
-    end
-  end
-
-  test 'collection radio wraps each label/radio in the configured item wrapper tag' do
-    swap SimpleForm, :item_wrapper_tag => :li do
-      with_collection_radio @user, :active, [true, false], :to_s, :to_s
-
-      assert_select 'form li input[type=radio][value=true]#user_active_true'
-      assert_select 'form li input[type=radio][value=false]#user_active_false'
-    end
-  end
-
-  test 'collection radio wraps each label/radio in the given item wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
-
-    assert_select 'form li input[type=radio][value=true]#user_active_true'
-    assert_select 'form li input[type=radio][value=false]#user_active_false'
-  end
-
-  test 'collection radio does not wrap each label/radio in the explicitly false item wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
-
-    assert_no_select 'form span input[type=radio][value=true]#user_active_true'
-    assert_no_select 'form span input[type=radio][value=false]#user_active_false'
-  end
-
-  test 'collection radio does not wrap each label/radio in the explicitly nil item wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => nil
-
-    assert_no_select 'form span input[type=radio][value=true]#user_active_true'
-    assert_no_select 'form span input[type=radio][value=false]#user_active_false'
+    assert_select 'form ul'
+    assert_no_select 'form ul[class]'
   end
 
   test 'collection radio wrap items in a span tag by default' do
@@ -190,6 +128,19 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form span input[type=radio][value=true]#user_active_true + label'
     assert_select 'form span input[type=radio][value=false]#user_active_false + label'
+  end
+
+  test 'collection radio wraps each item in the given item wrapper tag' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+
+    assert_select 'form li input[type=radio]', :count => 2
+  end
+
+  test 'collection radio does not wrap each item when given explicitly falsy value' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
+
+    assert_select 'form input[type=radio]'
+    assert_no_select 'form span input[type=radio]'
   end
 
   test 'collection radio does not wrap input inside the label' do
@@ -307,98 +258,66 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_check_boxes[for=user_post_tag_ids_2]', 'Tag 2'
   end
 
-  test 'collection check box wraps the collection in the configured collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
-
-      assert_select 'form ul input[type=checkbox][value=true]#user_active_true'
-      assert_select 'form ul input[type=checkbox][value=false]#user_active_false'
-    end
-  end
-
-  test 'collection check box wraps the collection in the given collection wrapper tag' do
+  test 'collection check boxes wraps the collection in the given collection wrapper tag' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
 
-    assert_select 'form ul input[type=checkbox][value=true]#user_active_true'
-    assert_select 'form ul input[type=checkbox][value=false]#user_active_false'
+    assert_select 'form ul input[type=checkbox]', :count => 2
   end
 
-  test 'collection check box does not wrap the collection in the explicitly false collection wrapper tag' do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false, :item_wrapper_tag => false
-
-    assert_select 'form > input[type=checkbox][value=true]#user_active_true'
-    assert_select 'form > input[type=checkbox][value=false]#user_active_false'
-  end
-
-  test 'collection check box does not wrap the collection by default' do
+  test 'collection check boxes does not render any wrapper tag by default' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
+    assert_select 'form input[type=checkbox]', :count => 2
     assert_no_select 'form ul'
   end
 
-  test 'collection check box uses the configured class for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+  test 'collection check boxes does not wrap the collection when given falsy values' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
 
-      assert_select 'form ul.inputs-list input[type=checkbox][value=true]#user_active_true'
-      assert_select 'form ul.inputs-list input[type=checkbox][value=false]#user_active_false'
-    end
+    assert_select 'form input[type=checkbox]', :count => 2
+    assert_no_select 'form ul'
   end
 
-  test 'collection check box uses the given class for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
+  test 'collection check boxes uses the given class for collection wrapper tag' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
+      :collection_wrapper_tag => :ul, :collection_wrapper_class => "items-list"
 
-      assert_select 'form ul.items-list input[type=checkbox][value=true]#user_active_true'
-      assert_select 'form ul.items-list input[type=checkbox][value=false]#user_active_false'
-    end
+    assert_select 'form ul.items-list input[type=checkbox]', :count => 2
   end
 
-  test 'collection check box uses both configured and given classes for collection wrapper tag' do
-    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_class => 'items-list'
+  test 'collection check boxes uses no class for collection wrapper tag when no wrapper tag is given' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
+      :collection_wrapper_class => "items-list"
 
-      assert_select 'form ul.inputs-list.items-list input[type=checkbox][value=true]#user_active_true'
-      assert_select 'form ul.inputs-list.items-list input[type=checkbox][value=false]#user_active_false'
-    end
+    assert_select 'form input[type=checkbox]', :count => 2
+    assert_no_select 'form ul'
+    assert_no_select '.items-list'
   end
 
-  test 'collection check box uses no class for collection wrapper tag by default' do
-    swap SimpleForm, :collection_wrapper_tag => :ul do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
+  test 'collection check boxes uses no class for collection wrapper tag by default' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
 
-      assert_no_select 'form ul[class]'
-    end
+    assert_select 'form ul'
+    assert_no_select 'form ul[class]'
   end
 
-  test 'collection check box wraps each label/radio in the configured item wrapper tag' do
-    swap SimpleForm, :item_wrapper_tag => :li do
-      with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
-
-      assert_select 'form li input[type=checkbox][value=true]#user_active_true'
-      assert_select 'form li input[type=checkbox][value=false]#user_active_false'
-    end
-  end
-
-  test 'collection check box wraps each label/radio in the given item wrapper tag' do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
-
-    assert_select 'form li input[type=checkbox][value=true]#user_active_true'
-    assert_select 'form li input[type=checkbox][value=false]#user_active_false'
-  end
-
-  test 'collection check box does not wrapp each label/radio in the explicitly false item wrapper tag' do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
-
-    assert_select 'form > input[type=checkbox][value=true]#user_active_true'
-    assert_select 'form > input[type=checkbox][value=false]#user_active_false'
-  end
-
-  test 'collection check box wrap items in a span tag by default' do
+  test 'collection check boxes wrap items in a span tag by default' do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form span input[type=checkbox][value=true]#user_active_true + label'
-    assert_select 'form span input[type=checkbox][value=false]#user_active_false + label'
+    assert_select 'form span input[type=checkbox]', :count => 2
+  end
+
+  test 'collection check boxes wraps each item in the given item wrapper tag' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+
+    assert_select 'form li input[type=checkbox]', :count => 2
+  end
+
+  test 'collection check boxes does not wrap each item when given explicitly falsy value' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
+
+    assert_select 'form input[type=checkbox]'
+    assert_no_select 'form span input[type=checkbox]'
   end
 
   test 'collection check box does not wrap input inside the label' do

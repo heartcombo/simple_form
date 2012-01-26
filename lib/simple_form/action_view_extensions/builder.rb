@@ -145,7 +145,7 @@ module SimpleForm
       end
 
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
-        item_wrapper_tag = options.fetch(:item_wrapper_tag, SimpleForm.item_wrapper_tag)
+        item_wrapper_tag = options.fetch(:item_wrapper_tag, :span)
 
         rendered_collection = collection.map do |item|
           value = value_for_collection(item, value_method)
@@ -164,11 +164,11 @@ module SimpleForm
         value.respond_to?(:call) ? value.call(item) : item.send(value)
       end
 
-      def wrap_rendered_collection(collection, options) #:nodoc:
-        wrapper_tag = options.fetch(:collection_wrapper_tag, SimpleForm.collection_wrapper_tag)
+      def wrap_rendered_collection(collection, options)
+        wrapper_tag = options[:collection_wrapper_tag]
 
         if wrapper_tag
-          wrapper_class = [SimpleForm.collection_wrapper_class, options[:collection_wrapper_class]].compact.presence
+          wrapper_class = options[:collection_wrapper_class]
           @template.content_tag(wrapper_tag, collection, :class => wrapper_class)
         else
           collection

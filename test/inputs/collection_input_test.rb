@@ -391,4 +391,218 @@ class CollectionInputTest < ActionView::TestCase
     assert_select 'select option[value=Antonio]', 'ANTONIO'
     assert_no_select 'select option[value=Antonio][selected]'
   end
+
+  test 'input radio does not wrap the collection by default' do
+    with_input_for @user, :active, :radio
+
+    assert_select 'form input[type=radio]', :count => 2
+    assert_no_select 'form ul'
+  end
+
+  test 'input radio wraps the collection in the configured collection wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :radio
+
+      assert_select 'form ul input[type=radio]', :count => 2
+    end
+  end
+
+  test 'input radio does not wrap the collection when configured with falsy values' do
+    swap SimpleForm, :collection_wrapper_tag => false do
+      with_input_for @user, :active, :radio
+
+      assert_select 'form input[type=radio]', :count => 2
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'input radio allows overriding the collection wrapper tag at input level' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :radio, :collection_wrapper_tag => :section
+
+      assert_select 'form section input[type=radio]', :count => 2
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'input radio allows disabling the collection wrapper tag at input level' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :radio, :collection_wrapper_tag => false
+
+      assert_select 'form input[type=radio]', :count => 2
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'input radio renders the wrapper tag with the configured wrapper class' do
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
+      with_input_for @user, :active, :radio
+
+      assert_select 'form ul.inputs-list input[type=radio]', :count => 2
+    end
+  end
+
+  test 'input radio allows giving wrapper class at input level only' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :radio, :collection_wrapper_class => 'items-list'
+
+      assert_select 'form ul.items-list input[type=radio]', :count => 2
+    end
+  end
+
+  test 'input radio uses both configured and given wrapper classes for wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
+      with_input_for @user, :active, :radio, :collection_wrapper_class => 'items-list'
+
+      assert_select 'form ul.inputs-list.items-list input[type=radio]', :count => 2
+    end
+  end
+
+  test 'input radio wraps each item in the configured item wrapper tag' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_input_for @user, :active, :radio
+
+      assert_select 'form li input[type=radio]', :count => 2
+    end
+  end
+
+  test 'input radio does not wrap items when configured with falsy values' do
+    swap SimpleForm, :item_wrapper_tag => false do
+      with_input_for @user, :active, :radio
+
+      assert_select 'form input[type=radio]', :count => 2
+      assert_no_select 'form li'
+    end
+  end
+
+  test 'input radio allows overriding the item wrapper tag at input level' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_input_for @user, :active, :radio, :item_wrapper_tag => :dl
+
+      assert_select 'form dl input[type=radio]', :count => 2
+      assert_no_select 'form li'
+    end
+  end
+
+  test 'input radio allows disabling the item wrapper tag at input level' do
+    swap SimpleForm, :item_wrapper_tag => :ul do
+      with_input_for @user, :active, :radio, :item_wrapper_tag => false
+
+      assert_select 'form input[type=radio]', :count => 2
+      assert_no_select 'form li'
+    end
+  end
+
+  test 'input radio wraps items in a span tag by default' do
+    with_input_for @user, :active, :radio
+
+    assert_select 'form span input[type=radio]', :count => 2
+  end
+
+  test 'input check boxes does not wrap the collection by default' do
+    with_input_for @user, :active, :check_boxes
+
+    assert_select 'form input[type=checkbox]', :count => 2
+    assert_no_select 'form ul'
+  end
+
+  test 'input check boxes wraps the collection in the configured collection wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'form ul input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes does not wrap the collection when configured with falsy values' do
+    swap SimpleForm, :collection_wrapper_tag => false do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'form input[type=checkbox]', :count => 2
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'input check boxes allows overriding the collection wrapper tag at input level' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :check_boxes, :collection_wrapper_tag => :section
+
+      assert_select 'form section input[type=checkbox]', :count => 2
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'input check boxes allows disabling the collection wrapper tag at input level' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :check_boxes, :collection_wrapper_tag => false
+
+      assert_select 'form input[type=checkbox]', :count => 2
+      assert_no_select 'form ul'
+    end
+  end
+
+  test 'input check boxes renders the wrapper tag with the configured wrapper class' do
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'form ul.inputs-list input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes allows giving wrapper class at input level only' do
+    swap SimpleForm, :collection_wrapper_tag => :ul do
+      with_input_for @user, :active, :check_boxes, :collection_wrapper_class => 'items-list'
+
+      assert_select 'form ul.items-list input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes uses both configured and given wrapper classes for wrapper tag' do
+    swap SimpleForm, :collection_wrapper_tag => :ul, :collection_wrapper_class => 'inputs-list' do
+      with_input_for @user, :active, :check_boxes, :collection_wrapper_class => 'items-list'
+
+      assert_select 'form ul.inputs-list.items-list input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes wraps each item in the configured item wrapper tag' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'form li input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes does not wrap items when configured with falsy values' do
+    swap SimpleForm, :item_wrapper_tag => false do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'form input[type=checkbox]', :count => 2
+      assert_no_select 'form li'
+    end
+  end
+
+  test 'input check boxes allows overriding the item wrapper tag at input level' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_input_for @user, :active, :check_boxes, :item_wrapper_tag => :dl
+
+      assert_select 'form dl input[type=checkbox]', :count => 2
+      assert_no_select 'form li'
+    end
+  end
+
+  test 'input check boxes allows disabling the item wrapper tag at input level' do
+    swap SimpleForm, :item_wrapper_tag => :ul do
+      with_input_for @user, :active, :check_boxes, :item_wrapper_tag => false
+
+      assert_select 'form input[type=checkbox]', :count => 2
+      assert_no_select 'form li'
+    end
+  end
+
+  test 'input check boxes wraps items in a span tag by default' do
+    with_input_for @user, :active, :check_boxes
+
+    assert_select 'form span input[type=checkbox]', :count => 2
+  end
 end

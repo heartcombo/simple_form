@@ -21,6 +21,7 @@ module SimpleForm
       def input_options
         options = super
         options[:include_blank] = true unless skip_include_blank?
+        apply_default_collection_options!(options) if check_boxes? || radio?
         options
       end
 
@@ -36,7 +37,7 @@ module SimpleForm
       # Checkbox components does not use the required html tag.
       # See more info here - https://github.com/plataformatec/simple_form/issues/340#issuecomment-2871956
       def has_required?
-        super && (input_options[:include_blank] || multiple?) && input_type != :check_boxes
+        super && (input_options[:include_blank] || multiple?) && !check_boxes?
       end
 
       # Check if :include_blank must be included by default.
@@ -46,6 +47,26 @@ module SimpleForm
 
       def multiple?
         !!options[:input_html].try(:[], :multiple)
+      end
+
+      def check_boxes?
+        input_type == :check_boxes
+      end
+
+      def radio?
+        input_type == :radio
+      end
+
+      def apply_default_collection_options!(options)
+        unless options.key?(:item_wrapper_tag)
+          options[:item_wrapper_tag] = SimpleForm.item_wrapper_tag
+        end
+        unless options.key?(:collection_wrapper_tag)
+          options[:collection_wrapper_tag] = SimpleForm.collection_wrapper_tag
+        end
+        options[:collection_wrapper_class] = [
+          options[:collection_wrapper_class], SimpleForm.collection_wrapper_class
+        ].compact.presence
       end
 
       # Detect the right method to find the label and value for a collection.
