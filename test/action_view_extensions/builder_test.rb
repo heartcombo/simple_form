@@ -183,6 +183,18 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label[for=user_active_false] > input#user_active_false[type=radio]'
   end
 
+  test 'collection_radio helper is deprecated in favor of collection_radio_buttons' do
+    assert_deprecated "[SIMPLE_FORM] The `collection_radio` helper is deprecated, " \
+      "please use `collection_radio_buttons` instead" do
+      with_concat_form_for(@user) do |f|
+        f.collection_radio :active, [true, false], :to_s, :to_s
+      end
+    end
+
+    assert_select 'input[type=radio][value=true]'
+    assert_select 'input[type=radio][value=false]'
+  end
+
   # COLLECTION CHECK BOX
   test 'collection check box accepts a collection and generate a serie of checkboxes for value method' do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]

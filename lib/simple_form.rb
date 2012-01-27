@@ -178,17 +178,21 @@ module SimpleForm
 
   DEPRECATED.each do |method|
     class_eval "def self.#{method}=(*); @@deprecated << :#{method}=; end"
-    class_eval "def self.#{method}; ActiveSupport::Deprecation.warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
+    class_eval "def self.#{method}; deprecation_warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
   end
 
   def self.translate=(value)
-    ActiveSupport::Deprecation.warn "SimpleForm.translate= is disabled in favor of translate_labels="
+    deprecation_warn "SimpleForm.translate= is disabled in favor of translate_labels="
     self.translate_labels = value
   end
 
   def self.translate
-    ActiveSupport::Deprecation.warn "SimpleForm.translate is disabled in favor of translate_labels"
+    deprecation_warn "SimpleForm.translate is disabled in favor of translate_labels"
     self.translate_labels
+  end
+
+  def self.deprecation_warn(message)
+    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] #{message}", caller
   end
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install

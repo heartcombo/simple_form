@@ -48,6 +48,8 @@ module SimpleForm
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
       #
+      #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
+      #
       #   * a block                  => to generate the label + radio or any other component.
       #
       def collection_radio_buttons(attribute, collection, value_method, text_method, options={}, html_options={})
@@ -61,6 +63,13 @@ module SimpleForm
               label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio_buttons")
           end
         end
+      end
+
+      # deprecated
+      def collection_radio(*args, &block)
+        SimpleForm.deprecation_warn "The `collection_radio` helper is deprecated, " \
+          "please use `collection_radio_buttons` instead."
+        collection_radio_buttons(*args, &block)
       end
 
       # Creates a collection of check boxes for each item in the collection,
@@ -108,6 +117,8 @@ module SimpleForm
       #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
+      #
+      #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
       #
       #   * a block                  => to generate the label + check box or any other component.
       #

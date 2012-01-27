@@ -6,6 +6,15 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     SimpleForm::Inputs::CollectionRadioButtonsInput.reset_i18n_cache :boolean_collection
   end
 
+  test 'input :as => :radio is deprecated in favor of :as => :radio_buttons' do
+    assert_deprecated "[SIMPLE_FORM] Using `:as => :radio` as " \
+          "input type is deprecated, please change it to `:as => :radio_buttons`." do
+      with_input_for @user, :active, :radio
+    end
+
+    assert_select 'input[type=radio].radio_buttons', :count => 2
+  end
+
   test 'input should generate boolean radio buttons by default for radio types' do
     with_input_for @user, :active, :radio_buttons
     assert_select 'input[type=radio][value=true].radio_buttons#user_active_true'
