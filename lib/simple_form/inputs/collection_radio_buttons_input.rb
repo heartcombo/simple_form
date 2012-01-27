@@ -46,8 +46,12 @@ module SimpleForm
         return unless nested_boolean_style?
 
         proc do |label_for, text, value, html_options|
-          @builder.radio_button(attribute_name, value, html_options) + text
+          build_nested_boolean_style_item_tag(text, value, html_options)
         end
+      end
+
+      def build_nested_boolean_style_item_tag(text, value, html_options)
+        @builder.radio_button(attribute_name, value, html_options) + text
       end
 
       def item_wrapper_class
