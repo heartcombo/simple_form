@@ -27,6 +27,9 @@
   * Add possibility to give a block to `collection_radio` and `collection_check_boxes`,
     to generate custom label and input structure. It is used internally with the :nested
     option for `:boolean_style`, and is useful to allow some more customization if required.
+  * Do not generate hidden check box field when using nested boolean style, as it is considered
+    invalid markup in HTML5. This will only work in Rails > 3.2.1 (not released at this time).
+    More info in [#215](https://github.com/plataformatec/simple_form/issues/215)
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`

@@ -10,7 +10,7 @@ module SimpleForm
       end
 
       def nested_boolean_style_item_tag(value, html_options)
-        @builder.check_box(attribute_name, html_options, value)
+        @builder.check_box(attribute_name, html_options, value, nil)
       end
     end
   end
