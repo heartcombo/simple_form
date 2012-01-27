@@ -29,6 +29,14 @@ class RequiredTest < ActionView::TestCase
     end
   end
 
+  test 'when not using browser validations, input should not generate required html attribute' do
+    swap SimpleForm, :browser_validations => false do
+      with_input_for @user, :name, :string
+      assert_select 'input[type=text].required'
+      assert_no_select 'input[type=text][required]'
+    end
+  end
+
   test 'builder input should allow disabling required when ActiveModel::Validations is not included' do
     with_form_for @user, :name, :required => false
     assert_no_select 'input.required'

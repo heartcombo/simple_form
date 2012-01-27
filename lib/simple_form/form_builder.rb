@@ -19,8 +19,10 @@ module SimpleForm
     map_type :password,                            :to => SimpleForm::Inputs::PasswordInput
     map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
     map_type :range,                               :to => SimpleForm::Inputs::RangeInput
-    map_type :select, :radio, :check_boxes,        :to => SimpleForm::Inputs::CollectionInput
-    map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionInput
+    map_type :check_boxes,                         :to => SimpleForm::Inputs::CollectionCheckBoxesInput
+    map_type :radio,                               :to => SimpleForm::Inputs::CollectionRadioInput
+    map_type :select,                              :to => SimpleForm::Inputs::CollectionSelectInput
+    map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionSelectInput
     map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
     map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
     map_type :boolean,                             :to => SimpleForm::Inputs::BooleanInput
@@ -338,7 +340,7 @@ module SimpleForm
       end
     end
 
-  private
+    private
 
     # Find an input based on the attribute name.
     def find_input(attribute_name, options={}, &block) #:nodoc:

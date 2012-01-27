@@ -9,7 +9,7 @@ module SimpleForm
         object && object.respond_to?(:errors) && errors.present?
       end
 
-    protected
+      protected
 
       def error_text
         "#{options[:error_prefix]} #{errors.send(error_method)}".lstrip

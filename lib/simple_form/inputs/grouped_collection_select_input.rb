@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class GroupedCollectionInput < CollectionInput
+    class GroupedCollectionSelectInput < CollectionInput
       def input
         label_method, value_method = detect_collection_methods
         @builder.grouped_collection_select(attribute_name, grouped_collection,

@@ -61,6 +61,12 @@ module SimpleForm
   mattr_accessor :label_class
   @@label_class = nil
 
+  # Define the way to render check boxes / radio buttons with labels.
+  #   :inline => input + label (default)
+  #   :nested => label > input
+  mattr_accessor :boolean_style
+  @@boolean_style = :inline
+
   # You can define the class to use on all forms. Default is simple_form.
   mattr_accessor :form_class
   @@form_class = :simple_form
