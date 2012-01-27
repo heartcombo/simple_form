@@ -45,13 +45,17 @@ module SimpleForm
   mattr_accessor :collection_wrapper_tag
   @@collection_wrapper_tag = nil
 
-  # You can define the class to use on all collection wrappers. Defaulting to none.
+  # You can define the class to use on all collection wrappers, defaulting to none.
   mattr_accessor :collection_wrapper_class
   @@collection_wrapper_class = nil
 
   # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
   mattr_accessor :item_wrapper_tag
-  @@item_wrapper_tag = :span
+  @@item_wrapper_tag = nil
+
+  # You can define the class to use on all item wrappers, defaulting to none.
+  mattr_accessor :item_wrapper_class
+  @@item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text

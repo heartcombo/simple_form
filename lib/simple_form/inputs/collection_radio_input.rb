@@ -22,6 +22,10 @@ module SimpleForm
         unless options.key?(:item_wrapper_tag)
           options[:item_wrapper_tag] = SimpleForm.item_wrapper_tag
         end
+        options[:item_wrapper_class] = [
+          item_wrapper_class, options[:item_wrapper_class], SimpleForm.item_wrapper_class
+        ].compact.presence
+
         unless options.key?(:collection_wrapper_tag)
           options[:collection_wrapper_tag] = SimpleForm.collection_wrapper_tag
         end
@@ -30,16 +34,16 @@ module SimpleForm
         ].compact.presence
       end
 
+      def item_wrapper_class
+        "radio"
+      end
+
       def collection_block_for_nested_boolean_style
         return unless nested_boolean_style?
 
         proc do |label_for, text, value, html_options|
-          @builder.label(label_for) { nested_boolean_style_item_tag(value, html_options) + text }
+          @builder.radio_button(attribute_name, value, html_options) + text
         end
-      end
-
-      def nested_boolean_style_item_tag(value, html_options)
-        @builder.radio_button(attribute_name, value, html_options)
       end
 
       # Do not attempt to generate label[for] attributes by default, unless an

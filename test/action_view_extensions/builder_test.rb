@@ -143,6 +143,30 @@ class BuilderTest < ActionView::TestCase
     assert_no_select 'form span input[type=radio]'
   end
 
+  test 'collection radio uses the given class for item wrapper tag' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+      :item_wrapper_tag => :li, :item_wrapper_class => "inline"
+
+    assert_select "form li.inline input[type=radio]", :count => 2
+  end
+
+  test 'collection radio uses no class for item wrapper tag when no wrapper tag is given' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+      :item_wrapper_tag => nil, :item_wrapper_class => "inline"
+
+    assert_select 'form input[type=radio]', :count => 2
+    assert_no_select 'form li'
+    assert_no_select '.inline'
+  end
+
+  test 'collection radio uses no class for item wrapper tag by default' do
+    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+      :item_wrapper_tag => :li
+
+    assert_select "form li", :count => 2
+    assert_no_select "form li[class]"
+  end
+
   test 'collection radio does not wrap input inside the label' do
     with_collection_radio @user, :active, [true, false], :to_s, :to_s
 
@@ -328,6 +352,30 @@ class BuilderTest < ActionView::TestCase
 
     assert_select 'form input[type=checkbox]'
     assert_no_select 'form span input[type=checkbox]'
+  end
+
+  test 'collection check boxes uses the given class for item wrapper tag' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
+      :item_wrapper_tag => :li, :item_wrapper_class => "inline"
+
+    assert_select "form li.inline input[type=checkbox]", :count => 2
+  end
+
+  test 'collection check boxes uses no class for item wrapper tag when no wrapper tag is given' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
+      :item_wrapper_tag => nil, :item_wrapper_class => "inline"
+
+    assert_select 'form input[type=checkbox]', :count => 2
+    assert_no_select 'form li'
+    assert_no_select '.inline'
+  end
+
+  test 'collection check boxes uses no class for item wrapper tag by default' do
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
+      :item_wrapper_tag => :li
+
+    assert_select "form li", :count => 2
+    assert_no_select "form li[class]"
   end
 
   test 'collection check box does not wrap input inside the label' do
