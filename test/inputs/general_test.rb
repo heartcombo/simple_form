@@ -57,9 +57,9 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input as radio should be generated properly when object is not present ' do
-    with_input_for :project, :name, :radio
-    assert_select 'input.radio#project_name_true'
-    assert_select 'input.radio#project_name_false'
+    with_input_for :project, :name, :radio_buttons
+    assert_select 'input.radio_buttons#project_name_true'
+    assert_select 'input.radio_buttons#project_name_false'
   end
 
   test 'input as select with collection should be generated properly when object is not present' do

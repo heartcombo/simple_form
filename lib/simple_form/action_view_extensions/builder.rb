@@ -14,19 +14,19 @@ module SimpleForm
       # == Examples
       #
       #   form_for @user do |f|
-      #     f.collection_radio :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #     f.collection_radio_buttons :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
       #   end
       #
       #   <input id="user_options_true" name="user[options]" type="radio" value="true" />
-      #   <label class="collection_radio" for="user_options_true">Yes</label>
+      #   <label class="collection_radio_buttons" for="user_options_true">Yes</label>
       #   <input id="user_options_false" name="user[options]" type="radio" value="false" />
-      #   <label class="collection_radio" for="user_options_false">No</label>
+      #   <label class="collection_radio_buttons" for="user_options_false">No</label>
       #
       # It is also possible to give a block that should generate the radio +
       # label. To wrap the radio with the label, for instance:
       #
       #   form_for @user do |f|
-      #     f.collection_radio(
+      #     f.collection_radio_buttons(
       #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
       #     ) do |label_for, text, value, html_options|
       #       f.label(label_for) { f.radio_button(attribute, value, html_options) + text }
@@ -50,7 +50,7 @@ module SimpleForm
       #
       #   * a block                  => to generate the label + radio or any other component.
       #
-      def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
+      def collection_radio_buttons(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
@@ -58,7 +58,7 @@ module SimpleForm
             yield sanitize_attribute_name(attribute, value), text, value, default_html_options
           else
             radio_button(attribute, value, default_html_options) +
-              label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio")
+              label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio_buttons")
           end
         end
       end
@@ -217,8 +217,8 @@ class ActionView::Helpers::FormBuilder
   include SimpleForm::ActionViewExtensions::Builder
 
   # Override default Rails collection_select helper to handle lambdas/procs in
-  # text and value methods, so it works the same way as collection_radio and
-  # collection_check_boxes in SimpleForm. If none of text/value methods is a
+  # text and value methods, so it works the same way as collection_radio_buttons
+  # and collection_check_boxes in SimpleForm. If none of text/value methods is a
   # callable object, then it just delegates back to original collection select.
   #
   alias :original_collection_select :collection_select

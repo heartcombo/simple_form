@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class CollectionCheckBoxesInput < CollectionRadioInput
+    class CollectionCheckBoxesInput < CollectionRadioButtonsInput
       protected
 
       # Checkbox components do not use the required html tag.

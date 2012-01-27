@@ -8,9 +8,9 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-  def with_collection_radio(object, attribute, collection, value_method, text_method, options={}, html_options={}, &block)
+  def with_collection_radio_buttons(object, attribute, collection, value_method, text_method, options={}, html_options={}, &block)
     with_concat_form_for(object) do |f|
-      f.collection_radio attribute, collection, value_method, text_method, options, html_options, &block
+      f.collection_radio_buttons attribute, collection, value_method, text_method, options, html_options, &block
     end
   end
 
@@ -22,34 +22,34 @@ class BuilderTest < ActionView::TestCase
 
   # COLLECTION RADIO
   test 'collection radio accepts a collection and generate inputs from value method' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s
 
     assert_select 'form input[type=radio][value=true]#user_active_true'
     assert_select 'form input[type=radio][value=false]#user_active_false'
   end
 
   test 'collection radio accepts a collection and generate inputs from label method' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form label.collection_radio[for=user_active_true]', 'true'
-    assert_select 'form label.collection_radio[for=user_active_false]', 'false'
+    assert_select 'form label.collection_radio_buttons[for=user_active_true]', 'true'
+    assert_select 'form label.collection_radio_buttons[for=user_active_false]', 'false'
   end
 
   test 'collection radio handles camelized collection values for labels correctly' do
-    with_collection_radio @user, :active, ['Yes', 'No'], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, ['Yes', 'No'], :to_s, :to_s
 
-    assert_select 'form label.collection_radio[for=user_active_yes]', 'Yes'
-    assert_select 'form label.collection_radio[for=user_active_no]', 'No'
+    assert_select 'form label.collection_radio_buttons[for=user_active_yes]', 'Yes'
+    assert_select 'form label.collection_radio_buttons[for=user_active_no]', 'No'
   end
 
   test 'colection radio should sanitize collection values for labels correctly' do
-    with_collection_radio @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
-    assert_select 'label.collection_radio[for=user_name_099]', '$0.99'
-    assert_select 'label.collection_radio[for=user_name_199]', '$1.99'
+    with_collection_radio_buttons @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
+    assert_select 'label.collection_radio_buttons[for=user_name_099]', '$0.99'
+    assert_select 'label.collection_radio_buttons[for=user_name_199]', '$1.99'
   end
 
   test 'collection radio accepts checked item' do
-    with_collection_radio @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
+    with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
 
     assert_select 'form input[type=radio][value=true][checked=checked]'
     assert_no_select 'form input[type=radio][value=false][checked=checked]'
@@ -57,7 +57,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection radio accepts multiple disabled items' do
     collection = [[1, true], [0, false], [2, 'other']]
-    with_collection_radio @user, :active, collection, :last, :first, :disabled => [true, false]
+    with_collection_radio_buttons @user, :active, collection, :last, :first, :disabled => [true, false]
 
     assert_select 'form input[type=radio][value=true][disabled=disabled]'
     assert_select 'form input[type=radio][value=false][disabled=disabled]'
@@ -66,7 +66,7 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection radio accepts single disable item' do
     collection = [[1, true], [0, false]]
-    with_collection_radio @user, :active, collection, :last, :first, :disabled => true
+    with_collection_radio_buttons @user, :active, collection, :last, :first, :disabled => true
 
     assert_select 'form input[type=radio][value=true][disabled=disabled]'
     assert_no_select 'form input[type=radio][value=false][disabled=disabled]'
@@ -74,41 +74,41 @@ class BuilderTest < ActionView::TestCase
 
   test 'collection radio accepts html options as input' do
     collection = [[1, true], [0, false]]
-    with_collection_radio @user, :active, collection, :last, :first, {}, :class => 'radio'
+    with_collection_radio_buttons @user, :active, collection, :last, :first, {}, :class => 'special-radio'
 
-    assert_select 'form input[type=radio][value=true].radio#user_active_true'
-    assert_select 'form input[type=radio][value=false].radio#user_active_false'
+    assert_select 'form input[type=radio][value=true].special-radio#user_active_true'
+    assert_select 'form input[type=radio][value=false].special-radio#user_active_false'
   end
 
   test 'collection radio wraps the collection in the given collection wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
 
     assert_select 'form ul input[type=radio]', :count => 2
   end
 
   test 'collection radio does not render any wrapper tag by default' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s
 
     assert_select 'form input[type=radio]', :count => 2
     assert_no_select 'form ul'
   end
 
   test 'collection radio does not wrap the collection when given falsy values' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
 
     assert_select 'form input[type=radio]', :count => 2
     assert_no_select 'form ul'
   end
 
   test 'collection radio uses the given class for collection wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
       :collection_wrapper_tag => :ul, :collection_wrapper_class => "items-list"
 
     assert_select 'form ul.items-list input[type=radio]', :count => 2
   end
 
   test 'collection radio uses no class for collection wrapper tag when no wrapper tag is given' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
       :collection_wrapper_class => "items-list"
 
     assert_select 'form input[type=radio]', :count => 2
@@ -117,41 +117,41 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio uses no class for collection wrapper tag by default' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
 
     assert_select 'form ul'
     assert_no_select 'form ul[class]'
   end
 
   test 'collection radio wrap items in a span tag by default' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s
 
     assert_select 'form span input[type=radio][value=true]#user_active_true + label'
     assert_select 'form span input[type=radio][value=false]#user_active_false + label'
   end
 
   test 'collection radio wraps each item in the given item wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
 
     assert_select 'form li input[type=radio]', :count => 2
   end
 
   test 'collection radio does not wrap each item when given explicitly falsy value' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
 
     assert_select 'form input[type=radio]'
     assert_no_select 'form span input[type=radio]'
   end
 
   test 'collection radio uses the given class for item wrapper tag' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
       :item_wrapper_tag => :li, :item_wrapper_class => "inline"
 
     assert_select "form li.inline input[type=radio]", :count => 2
   end
 
   test 'collection radio uses no class for item wrapper tag when no wrapper tag is given' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
       :item_wrapper_tag => nil, :item_wrapper_class => "inline"
 
     assert_select 'form input[type=radio]', :count => 2
@@ -160,7 +160,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio uses no class for item wrapper tag by default' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s,
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
       :item_wrapper_tag => :li
 
     assert_select "form li", :count => 2
@@ -168,14 +168,14 @@ class BuilderTest < ActionView::TestCase
   end
 
   test 'collection radio does not wrap input inside the label' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s
 
     assert_select 'form input[type=radio] + label'
     assert_no_select 'form label input'
   end
 
   test 'collection radio accepts a block to render the radio and label as required' do
-    with_collection_radio @user, :active, [true, false], :to_s, :to_s do |label_for, text, value, html_options|
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s do |label_for, text, value, html_options|
       label(:user, label_for, text) { radio_button(:user, :active, value, html_options) }
     end
 

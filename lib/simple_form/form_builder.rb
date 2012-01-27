@@ -20,7 +20,7 @@ module SimpleForm
     map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
     map_type :range,                               :to => SimpleForm::Inputs::RangeInput
     map_type :check_boxes,                         :to => SimpleForm::Inputs::CollectionCheckBoxesInput
-    map_type :radio,                               :to => SimpleForm::Inputs::CollectionRadioInput
+    map_type :radio_buttons,                       :to => SimpleForm::Inputs::CollectionRadioButtonsInput
     map_type :select,                              :to => SimpleForm::Inputs::CollectionSelectInput
     map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionSelectInput
     map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
@@ -88,8 +88,8 @@ module SimpleForm
     #
     # == Collection
     #
-    # When playing with collections (:radio and :select inputs), you have three extra
-    # options:
+    # When playing with collections (:radio_buttons, :check_boxes and :select
+    # inputs), you have three extra options:
     #
     #   :collection => use to determine the collection to generate the radio or select
     #
