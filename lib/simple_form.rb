@@ -51,7 +51,7 @@ module SimpleForm
 
   # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
   mattr_accessor :item_wrapper_tag
-  @@item_wrapper_tag = nil
+  @@item_wrapper_tag = :span
 
   # You can define the class to use on all item wrappers, defaulting to none.
   mattr_accessor :item_wrapper_class

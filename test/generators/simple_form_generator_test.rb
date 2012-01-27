@@ -14,13 +14,13 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
   test 'generates the simple_form initializer' do
     run_generator
     assert_file 'config/initializers/simple_form.rb',
-      /config\.default_wrapper = :default/, /config\.boolean_style = :inline/
+      /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
   end
 
   test 'generates the simple_form initializer with the bootstrap wrappers' do
     run_generator %w(--bootstrap)
     assert_file 'config/initializers/simple_form.rb', /config\.wrappers :bootstrap/,
-      /config\.default_wrapper = :bootstrap/, /config\.boolean_style = :nested/
+      /config\.default_wrapper = :bootstrap/
   end
 
   %W(erb haml slim).each do |engine|
