@@ -22,6 +22,17 @@ module SimpleForm
       #   <input id="user_options_false" name="user[options]" type="radio" value="false" />
       #   <label class="collection_radio" for="user_options_false">No</label>
       #
+      # It is also possible to give a block that should generate the radio +
+      # label. To wrap the radio with the label, for instance:
+      #
+      #   form_for @user do |f|
+      #     f.collection_radio(
+      #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #     ) do |label_for, text, value, html_options|
+      #       f.label(label_for) { f.radio_button(attribute, value, html_options) + text }
+      #     end
+      #   end
+      #
       # == Options
       #
       # Collection radio accepts some extra options:
@@ -37,12 +48,18 @@ module SimpleForm
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
       #
+      #   * a block                  => to generate the label + radio or any other component.
+      #
       def collection_radio(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
-          radio_button(attribute, value, default_html_options) +
-            label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio")
+          if block_given?
+            yield sanitize_attribute_name(attribute, value), text, value, default_html_options
+          else
+            radio_button(attribute, value, default_html_options) +
+              label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio")
+          end
         end
       end
 
@@ -65,6 +82,17 @@ module SimpleForm
       #   <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
       #   <label class="collection_check_boxes" for="user_options_false">No</label>
       #
+      # It is also possible to give a block that should generate the check box +
+      # label. To wrap the check box with the label, for instance:
+      #
+      #   form_for @user do |f|
+      #     f.collection_check_boxes(
+      #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+      #     ) do |label_for, text, value, html_options|
+      #       f.label(label_for) { f.check_box(attribute, html_options, value, '') + text }
+      #     end
+      #   end
+      #
       # == Options
       #
       # Collection check box accepts some extra options:
@@ -81,14 +109,20 @@ module SimpleForm
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
       #
+      #   * a block                  => to generate the label + check box or any other component.
+      #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
 
-          check_box(attribute, default_html_options, value, '') +
-            label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
+          if block_given?
+            yield sanitize_attribute_name(attribute, value), text, value, default_html_options
+          else
+            check_box(attribute, default_html_options, value, '') +
+              label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
+          end
         end
       end
 
@@ -113,7 +147,7 @@ module SimpleForm
         fields_for(*(args << options), &block)
       end
 
-    private
+      private
 
       # Generate default options for collection helpers, such as :checked and
       # :disabled.
@@ -145,7 +179,7 @@ module SimpleForm
       end
 
       def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
-        item_wrapper_tag = options.key?(:item_wrapper_tag) ? options[:item_wrapper_tag] : SimpleForm.item_wrapper_tag
+        item_wrapper_tag = options.fetch(:item_wrapper_tag, :span)
 
         rendered_collection = collection.map do |item|
           value = value_for_collection(item, value_method)
@@ -165,10 +199,10 @@ module SimpleForm
       end
 
       def wrap_rendered_collection(collection, options)
-        wrapper_tag = options.key?(:collection_wrapper_tag) ? options[:collection_wrapper_tag] : SimpleForm.collection_wrapper_tag
+        wrapper_tag = options[:collection_wrapper_tag]
 
         if wrapper_tag
-          wrapper_class = [SimpleForm.collection_wrapper_class, options[:collection_wrapper_class]].compact.presence
+          wrapper_class = options[:collection_wrapper_class]
           @template.content_tag(wrapper_tag, collection, :class => wrapper_class)
         else
           collection

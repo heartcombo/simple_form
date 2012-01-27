@@ -13,9 +13,8 @@ module SimpleForm
       end
 
       def input
-        label_method, value_method = detect_collection_methods
-        @builder.send(:"collection_#{input_type}", attribute_name, collection,
-                      value_method, label_method, input_options, input_html_options)
+        raise NotImplementedError,
+          "input should be implemented by classes inheriting from CollectionInput"
       end
 
       def input_options
@@ -33,10 +32,8 @@ module SimpleForm
         end
       end
 
-      # Checkbox components does not use the required html tag.
-      # See more info here - https://github.com/plataformatec/simple_form/issues/340#issuecomment-2871956
       def has_required?
-        super && (input_options[:include_blank] || multiple?) && input_type != :check_boxes
+        super && (input_options[:include_blank] || multiple?)
       end
 
       # Check if :include_blank must be included by default.
@@ -101,3 +98,4 @@ module SimpleForm
     end
   end
 end
+

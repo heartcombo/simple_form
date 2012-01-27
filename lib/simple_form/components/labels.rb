@@ -22,7 +22,7 @@ module SimpleForm
       end
 
       def label
-        if input_type_should_generate_for_attribute?
+        if generate_label_for_attribute?
           @builder.label(label_target, label_text, label_html_options)
         else
           template.label_tag(nil, label_text, label_html_options)
@@ -38,12 +38,12 @@ module SimpleForm
       end
 
       def label_html_options
-        label_options = html_options_for(:label, [input_type, required_class, SimpleForm.label_class])
+        label_options = html_options_for(:label, [input_type, required_class, SimpleForm.label_class].compact)
         label_options[:for] = options[:input_html][:id] if options.key?(:input_html) && options[:input_html].key?(:id)
         label_options
       end
 
-    protected
+      protected
 
       def raw_label_text #:nodoc:
         options[:label] || label_translation
@@ -65,8 +65,8 @@ module SimpleForm
         end
       end
 
-      def input_type_should_generate_for_attribute?
-        [:check_boxes, :radio].exclude?(input_type)
+      def generate_label_for_attribute?
+        true
       end
     end
   end
