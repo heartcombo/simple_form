@@ -6,6 +6,13 @@ module SimpleForm
       class_option :template_engine, :desc => 'Template engine to be invoked (erb, haml or slim).'
       class_option :bootstrap, :type => :boolean, :desc => 'Add the Twitter Bootstrap wrappers to the SimpleForm initializer.'
 
+      def info_bootstrap
+        return if options.bootstrap?
+        puts "Simple Form 2 supports Twitter bootstrap. In case you want to " \
+          "generate bootstrap configuration, please re-run this " \
+          "generator passing --bootstrap as option."
+      end
+
       def copy_config
         directory 'config'
       end
