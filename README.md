@@ -51,8 +51,8 @@ with following command:
 
   `rails plugin install git://github.com/rails/country_select.git`
 
-And you are ready to go. Since this branch aims Rails 3 support,
-if you want to use it with Rails 2.3 you should check this branch:
+And you are ready to go. Since this branch aims Rails 3 support, if you want to use it with
+Rails 2.3 you should check this branch:
 
   `http://github.com/plataformatec/simple_form/tree/v1.0`
 
@@ -77,7 +77,8 @@ To start using **SimpleForm** you just have to use the helper it provides:
 This will generate an entire form with labels for user name and password as well, and render errors
 by default when you render the form with invalid data (after submitting for example).
 
-You can overwrite the default label by passing it to the input method, add a hint or even a placeholder:
+You can overwrite the default label by passing it to the input method. You can also add a hint or
+even a placeholder:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -88,18 +89,20 @@ You can overwrite the default label by passing it to the input method, add a hin
 <% end %>
 ```
 
-You can also disable labels, hints or error or configure the html of any of them:
+In some cases you may want to disable labels, hints or error. Or you may wan to configure the html
+of any of them:
 
 ```erb
 <%= simple_form_for @user do |f| %>
   <%= f.input :username, :label_html => { :class => 'my_class' } %>
-  <%= f.input :password, :hint => false, :error_html => { :id => "password_error"} %>
+  <%= f.input :password, :hint => false, :error_html => { :id => 'password_error'} %>
   <%= f.input :password_confirmation, :label => false %>
   <%= f.button :submit %>
 <% end %>
 ```
 
-It is also possible to pass any html attribute straight to the input, by using the :input_html option, for instance:
+It is also possible to pass any html attribute straight to the input, by using the `:input_html`
+option, for instance:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -123,8 +126,8 @@ overwrite the defaults:
 <% end %>
 ```
 
-Since simple_form generates a wrapper div around your label and input by default, you can pass any
-html attribute to that wrapper as well using the :wrapper_html option, like so:
+Since **SimpleForm** generates a wrapper div around your label and input by default, you can pass
+any html attribute to that wrapper as well using the `:wrapper_html` option, like so:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -159,17 +162,17 @@ it in any input you want:
 <% end %>
 ```
 
-So instead of a checkbox for the :accepts attribute, you'll have a pair of radio buttons with yes/no
+So instead of a checkbox for the *accepts* attribute, you'll have a pair of radio buttons with yes/no
 labels and a text area instead of a text field for the description. You can also render boolean
-attributes using :as => :select to show a dropdown.
+attributes using `:as => :select` to show a dropdown.
 
-It is also possible to give the :disabled option to **SimpleForm**, and it'll automatically mark the
-wrapper as disabled with a css class, so you can style labels, hints and other components inside
+It is also possible to give the `:disabled` option to **SimpleForm**, and it'll automatically mark
+the wrapper as disabled with a css class, so you can style labels, hints and other components inside
 the wrapper as well:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, :disabled => true, :hint => "You cannot change your username." %>
+  <%= f.input :username, :disabled => true, :hint => 'You cannot change your username.' %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -185,7 +188,7 @@ the wrapper as well:
 <% end %>
 ```
 
-**SimpleForm** also allows you to use label, hint, input_field, error and full_error helpers it provides
+**SimpleForm** also allows you to use label, hint, input_field, error and full_error helpers
 (please take a look at the rdocs for each method for more info):
 
 ```erb
@@ -204,7 +207,7 @@ Any extra option passed to these methods will be rendered as html option.
 ### Collections
 
 And what if you want to create a select containing the age from 18 to 60 in your form? You can do it
-overriding the :collection option:
+overriding the `:collection` option:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -214,17 +217,17 @@ overriding the :collection option:
 <% end %>
 ```
 
-Collections can be arrays or ranges, and when a :collection is given the :select input will be
-rendered by default, so we don't need to pass the :as => :select option. Other types of collection
-are :radio_buttons and :check_boxes. Those are added by **SimpleForm** to Rails set of form helpers (read Extra
-Helpers session below for more information).
+Collections can be arrays or ranges, and when a `:collection` is given the `:select` input will be
+rendered by default, so we don't need to pass the `:as => :select` option. Other types of collection
+are `:radio_buttons` and `:check_boxes`. Those are added by **SimpleForm** to Rails set of form
+helpers (read Extra Helpers session below for more information).
 
 Collection inputs accept two other options beside collections:
 
-* label_method => the label method to be applied to the collection to retrieve the label (use this
-  instead of the text_method option in collection_select)
+* _label_method_ => the label method to be applied to the collection to retrieve the label (use this
+  instead of the `text_method` option in `collection_select`)
 
-* value_method => the value method to be applied to the collection to retrieve the value
+* _value_method_ => the value method to be applied to the collection to retrieve the value
 
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
@@ -235,7 +238,7 @@ can give prompt as:
 f.input :age, :collection => 18..60, :prompt => "Select your age"
 ```
 
-It is also possible to create grouped collection selects, that will use the html `optgroup` tags, like this:
+It is also possible to create grouped collection selects, that will use the html *optgroup* tags, like this:
 
 ```ruby
 f.input :country_id, :collection => @continents, :as => :grouped_select, :group_method => :countries
@@ -244,16 +247,17 @@ f.input :country_id, :collection => @continents, :as => :grouped_select, :group_
 Grouped collection inputs accept the same `:label_method` and `:value_method` options, which will be
 used to retrieve label/value attributes for the `option` tags. Besides that, you can give:
 
-* group_method => the method to be called on the given collection to generate the options for each group (required)
+* _group_method_ => the method to be called on the given collection to generate the options for
+  each group (required)
 
-* group_label_method => the label method to be applied on the given collection to retrieve the label
-  for the `optgroup` (**SimpleForm** will attempt to guess the best one the same way it does with
+* _group_label_method_ => the label method to be applied on the given collection to retrieve the label
+  for the _optgroup_ (**SimpleForm** will attempt to guess the best one the same way it does with
   `:label_method`)
 
 ### Priority
 
-**SimpleForm** also supports :time_zone and :country. When using such helpers, you can give :priority as
-option to select which time zones and/or countries should be given higher priority:
+**SimpleForm** also supports `:time_zone` and `:country`. When using such helpers, you can give
+`:priority` as option to select which time zones and/or countries should be given higher priority:
 
 ```ruby
 f.input :residence_country, :priority => [ "Brazil" ]
@@ -263,8 +267,8 @@ f.input :time_zone, :priority => /US/
 Those values can also be configured with a default value to be used site use through the
 `SimpleForm.country_priority` and `SimpleForm.time_zone_priority` helpers.
 
-Note: While using country_select if you want to restrict to only a subset of countries for a specific
-drop down then you may use the :collection option:
+Note: While using `country_select` if you want to restrict to only a subset of countries for a specific
+drop down then you may use the `:collection` option:
 
 ```ruby
 f.input :shipping_country, :priority => [ "Brazil" ], :collection => [ "Australia", "Brazil", "New Zealand"]
@@ -279,7 +283,7 @@ The first step is to configure a wrapper tag:
 SimpleForm.wrapper_tag = :p
 ```
 
-And now, you don't need to wrap your f.input calls anymore:
+And now, you don't need to wrap your `f.input` calls anymore:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -321,18 +325,18 @@ Now we have the user form:
 <% end %>
 ```
 
-Simple enough right? This is going to render a :select input for choosing the :company, and another
-:select input with :multiple option for the :roles. You can of course change it, to use radios buttons
-and check boxes as well:
+Simple enough right? This is going to render a `:select` input for choosing the `:company`, and another
+`:select` input with `:multiple` option for the `:roles`. You can of course change it, to use radios
+buttons and check boxes as well:
 
 ```ruby
 f.association :company, :as => :radio_buttons
 f.association :roles,   :as => :check_boxes
 ```
 
-The association helper just invokes input under the hood, so all options available to :select,
-:radio_buttons and :check_boxes are also available to association. Additionally, you can specify the
-collection by hand, all together with the prompt:
+The association helper just invokes input under the hood, so all options available to `:select`,
+`:radio_buttons` and `:check_boxes` are also available to association. Additionally, you can specify
+the collection by hand, all together with the prompt:
 
 ```ruby
 f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
@@ -368,7 +372,7 @@ hash of additional attributes for each option.
 ## Extra helpers
 
 **SimpleForm** also comes with some extra helpers you can use inside rails default forms without relying
-on simple_form_for helper. They are listed below.
+on `simple_form_for` helper. They are listed below.
 
 ### Simple Fields For
 
@@ -385,7 +389,7 @@ end
 
 ### Collection Radio Buttons
 
-Creates a collection of radio inputs with labels associated (same API as collection_select):
+Creates a collection of radio inputs with labels associated (same API as `collection_select`):
 
 ```ruby
 form_for @user do |f|
@@ -402,7 +406,7 @@ end
 
 ### Collection Check Box
 
-Creates a collection of check boxes with labels associated (same API as collection_select):
+Creates a collection of check boxes with labels associated (same API as `collection_select`):
 
 ```ruby
 form_for @user do |f|
@@ -494,7 +498,7 @@ end
 
 You can create a custom form builder that uses **SimpleForm**.
 
-Create a helper method that calls simple_form_for with a custom builder:
+Create a helper method that calls `simple_form_for` with a custom builder:
 
 ```ruby
 def custom_form_for(object, *args, &block)
@@ -503,7 +507,7 @@ def custom_form_for(object, *args, &block)
 end
 ```
 
-Create a form builder class that inherits from SimpleForm::FormBuilder.
+Create a form builder class that inherits from `SimpleForm::FormBuilder`.
 
 ```ruby
 class CustomFormBuilder < SimpleForm::FormBuilder
@@ -623,7 +627,7 @@ en:
 
 There are other options that can be configured through I18n API, such as required text and boolean.
 Be sure to check our locale file or the one copied to your application after you run
-"rails generate simple_form:install".
+`rails generate simple_form:install`.
 
 ## HTML 5 Notice
 
