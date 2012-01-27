@@ -34,7 +34,7 @@ module SimpleForm
         return unless nested_boolean_style?
 
         proc do |label_for, text, value, html_options|
-          @builder.label(label_for, text) { nested_boolean_style_item_tag(value, html_options) }
+          @builder.label(label_for) { nested_boolean_style_item_tag(value, html_options) + text }
         end
       end
 

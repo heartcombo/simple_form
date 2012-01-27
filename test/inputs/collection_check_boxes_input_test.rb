@@ -159,7 +159,9 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
       with_input_for @user, :active, :check_boxes
 
       assert_select 'label[for=user_active_true] > input#user_active_true[type=checkbox]'
+      assert_select 'label[for=user_active_true]', 'Yes'
       assert_select 'label[for=user_active_false] > input#user_active_false[type=checkbox]'
+      assert_select 'label[for=user_active_false]', 'No'
       assert_no_select 'label.collection_radio'
     end
   end

@@ -252,7 +252,9 @@ class CollectionRadioInputTest < ActionView::TestCase
       with_input_for @user, :active, :radio
 
       assert_select 'label[for=user_active_true] > input#user_active_true[type=radio]'
+      assert_select 'label[for=user_active_true]', 'Yes'
       assert_select 'label[for=user_active_false] > input#user_active_false[type=radio]'
+      assert_select 'label[for=user_active_false]', 'No'
       assert_no_select 'label.collection_radio'
     end
   end
