@@ -9,7 +9,7 @@ module SimpleForm
         if options[:label] == false
           input
         elsif nested_boolean_style?
-          @builder.label(attribute_name) { input }
+          @builder.label(label_target, label_html_options) { input + label_text }
         else
           input + label
         end
