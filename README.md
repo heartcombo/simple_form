@@ -675,6 +675,7 @@ by SimpleForm, so if you haven't executed the command below yet, please do:
 
 ## Maintainers
 
+* José Valim (https://github.com/josevalim)
 * Carlos Antonio da Silva (https://github.com/carlosantoniodasilva)
 * Rafael Mendonça França (https://github.com/rafaelfranca)
 
