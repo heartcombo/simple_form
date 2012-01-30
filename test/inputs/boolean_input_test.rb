@@ -49,7 +49,26 @@ class BooleanInputTest < ActionView::TestCase
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean, :label => false
       assert_select 'input.boolean'
-      assert_no_select 'label'
+      assert_no_select 'label.boolean'
+    end
+  end
+
+  test 'input boolean works using :input only in wrapper config (no label_input)' do
+    swap_wrapper do
+      with_input_for @user, :active, :boolean
+
+      assert_select 'label.boolean + input[type=hidden] + input.boolean'
+      assert_no_select 'label.checkbox'
+    end
+  end
+
+  test 'input boolean with nested style works using :input only in wrapper config (no label_input), adding the extra "checkbox" label wrapper' do
+    swap_wrapper do
+      swap SimpleForm, :boolean_style => :nested do
+        with_input_for @user, :active, :boolean
+
+        assert_select 'label.boolean + label.checkbox > input.boolean'
+      end
     end
   end
 end

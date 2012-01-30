@@ -2,7 +2,11 @@ module SimpleForm
   module Inputs
     class BooleanInput < Base
       def input
-        build_check_box
+        if nested_boolean_style?
+          template.label_tag(nil, :class => "checkbox") { build_check_box(nil) }
+        else
+          build_check_box
+        end
       end
 
       def label_input
