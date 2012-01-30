@@ -28,7 +28,8 @@
     to generate custom label and input structure. It is used internally with the :nested
     option for `:boolean_style`, and is useful to allow some more customization if required.
   * Do not generate hidden check box field when using nested boolean style, as it is considered
-    invalid markup in HTML5. This will only work in Rails > 3.2.1 (not released at this time).
+    invalid markup in HTML5. This will work by default in Rails > 3.2.1 (not released at this time),
+    and is backported inside SimpleForm builder extensions.
     More info in [#215](https://github.com/plataformatec/simple_form/issues/215)
   * Add `item_wrapper_class` configuration option for collection radio buttons / check boxes inputs.
 

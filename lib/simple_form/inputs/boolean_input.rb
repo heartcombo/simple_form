@@ -3,7 +3,10 @@ module SimpleForm
     class BooleanInput < Base
       def input
         if nested_boolean_style?
-          template.label_tag(nil, :class => "checkbox") { build_check_box(nil) }
+          build_hidden_field_for_checkbox <<
+            template.label_tag(nil, :class => "checkbox") {
+              build_check_box_without_hidden_field
+            }
         else
           build_check_box
         end
@@ -13,7 +16,10 @@ module SimpleForm
         if options[:label] == false
           input
         elsif nested_boolean_style?
-          @builder.label(label_target, label_html_options) { build_check_box(nil) + label_text }
+          build_hidden_field_for_checkbox <<
+            @builder.label(label_target, label_html_options) {
+              build_check_box_without_hidden_field + label_text
+            }
         else
           input + label
         end
@@ -22,10 +28,26 @@ module SimpleForm
       private
 
       # Build a checkbox tag using default unchecked value. This allows us to
-      # reuse the method for nested boolean style, but with nil unchecked value,
-      # which won't generate the hidden checkbox (only in Rails > 3.2.1).
+      # reuse the method for nested boolean style, but with no unchecked value,
+      # which won't generate the hidden checkbox. This is the default functionality
+      # in Rails > 3.2.1, and is backported in SimpleForm AV helpers.
       def build_check_box(unchecked_value='0')
         @builder.check_box(attribute_name, input_html_options, '1', unchecked_value)
+      end
+
+      # Build a checkbox without generating the hidden field. See
+      # #build_hidden_field_for_checkbox for more info.
+      def build_check_box_without_hidden_field
+        build_check_box(nil)
+      end
+
+      # Create a hidden field for the current checkbox, so we can simulate Rails
+      # functionality with hidden + checkbox, but under a nested context, where
+      # we need the hidden field to be *outside* the label (otherwise it
+      # generates invalid html - html5 only).
+      def build_hidden_field_for_checkbox
+        @builder.hidden_field(attribute_name, :value => '0', :id => nil,
+                              :disabled => input_html_options[:disabled])
       end
 
       # Booleans are not required by default because in most of the cases

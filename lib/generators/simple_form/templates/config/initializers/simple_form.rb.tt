@@ -84,7 +84,6 @@ SimpleForm.setup do |config|
   # to learn about the different styles for forms and inputs,
   # buttons and other elements.
   config.default_wrapper = :bootstrap
-
 <% else %>
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
