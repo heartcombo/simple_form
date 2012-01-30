@@ -154,7 +154,7 @@ SimpleForm also lets you overwrite the default input type it creates:
   <%= f.input :username %>
   <%= f.input :password %>
   <%= f.input :description, :as => :text %>
-  <%= f.input :accepts,     :as => :radio %>
+  <%= f.input :accepts,     :as => :radio_buttons %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -216,7 +216,7 @@ overriding the :collection option:
 
 Collections can be arrays or ranges, and when a :collection is given the :select input will be
 rendered by default, so we don't need to pass the :as => :select option. Other types of collection
-are :radio and :check_boxes. Those are added by SimpleForm to Rails set of form helpers (read Extra
+are :radio_buttons and :check_boxes. Those are added by SimpleForm to Rails set of form helpers (read Extra
 Helpers session below for more information).
 
 Collection inputs accept two other options beside collections:
@@ -291,7 +291,7 @@ And now, you don't need to wrap your f.input calls anymore:
 
 ## Associations
 
-To deal with associations, SimpleForm can generate select inputs, a series of radios or check boxes.
+To deal with associations, SimpleForm can generate select inputs, a series of radios buttons or check boxes.
 Lets see how it works: imagine you have a user model that belongs to a company and has_and_belongs_to_many
 roles. The structure would be something like:
 
@@ -322,17 +322,17 @@ Now we have the user form:
 ```
 
 Simple enough right? This is going to render a :select input for choosing the :company, and another
-:select input with :multiple option for the :roles. You can of course change it, to use radios and
-check boxes as well:
+:select input with :multiple option for the :roles. You can of course change it, to use radios buttons
+and check boxes as well:
 
 ```ruby
-f.association :company, :as => :radio
+f.association :company, :as => :radio_buttons
 f.association :roles,   :as => :check_boxes
 ```
 
-The association helper just invokes input under the hood, so all options available to :select, :radio
-and :check_boxes are also available to association. Additionally, you can specify the collection by
-hand, all together with the prompt:
+The association helper just invokes input under the hood, so all options available to :select,
+:radio_buttons and :check_boxes are also available to association. Additionally, you can specify the
+collection by hand, all together with the prompt:
 
 ```ruby
 f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
@@ -383,21 +383,21 @@ form_for @user do |f|
 end
 ```
 
-### Collection Radio
+### Collection Radio Buttons
 
 Creates a collection of radio inputs with labels associated (same API as collection_select):
 
 ```ruby
 form_for @user do |f|
-  f.collection_radio :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+  f.collection_radio_buttons :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
 end
 ```
 
 ```html
 <input id="user_options_true" name="user[options]" type="radio" value="true" />
-<label class="collection_radio" for="user_options_true">Yes</label>
+<label class="collection_radio_buttons" for="user_options_true">Yes</label>
 <input id="user_options_false" name="user[options]" type="radio" value="false" />
-<label class="collection_radio" for="user_options_false">No</label>
+<label class="collection_radio_buttons" for="user_options_false">No</label>
 ```
 
 ### Collection Check Box
@@ -432,30 +432,30 @@ end
 SimpleForm comes with a lot of default mappings:
 
 ```
-Mapping               Input                   Column Type
+Mapping               Input                         Column Type
 
-boolean               check box               boolean
-string                text field              string
-email                 email field             string with name matching "email"
-url                   url field               string with name matching "url"
-tel                   tel field               string with name matching "phone"
-password              password field          string with name matching "password"
-search                search                  -
-text                  text area               text
-file                  file field              string, responding to file methods
-hidden                hidden field            -
-integer               number field            integer
-float                 number field            float
-decimal               number field            decimal
-range                 range field             -
-datetime              datetime select         datetime/timestamp
-date                  date select             date
-time                  time select             time
-select                collection select       belongs_to/has_many/has_and_belongs_to_many associations
-radio                 collection radio        belongs_to
-check_boxes           collection check box    has_many/has_and_belongs_to_many associations
-country               country select          string with name matching "country"
-time_zone             time zone select        string with name matching "time_zone"
+boolean               check box                     boolean
+string                text field                    string
+email                 email field                   string with name matching "email"
+url                   url field                     string with name matching "url"
+tel                   tel field                     string with name matching "phone"
+password              password field                string with name matching "password"
+search                search                        -
+text                  text area                     text
+file                  file field                    string, responding to file methods
+hidden                hidden field                  -
+integer               number field                  integer
+float                 number field                  float
+decimal               number field                  decimal
+range                 range field                   -
+datetime              datetime select               datetime/timestamp
+date                  date select                   date
+time                  time select                   time
+select                collection select             belongs_to/has_many/has_and_belongs_to_many associations
+radio_buttons         collection radio buttons      belongs_to
+check_boxes           collection check boxes        has_many/has_and_belongs_to_many associations
+country               country select                string with name matching "country"
+time_zone             time zone select              string with name matching "time_zone"
 ```
 
 ## Custom inputs
