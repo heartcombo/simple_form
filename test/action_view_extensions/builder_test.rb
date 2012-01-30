@@ -200,9 +200,15 @@ class BuilderTest < ActionView::TestCase
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
 
-    assert_select "form input[type=hidden][name='user[tag_ids][]'][value=]"
     assert_select 'form input#user_tag_ids_1[type=checkbox][value=1]'
     assert_select 'form input#user_tag_ids_2[type=checkbox][value=2]'
+  end
+
+  test 'collection check box generates only one hidden field for the entire collection, to ensure something will be sent back to the server when posting an empty collection' do
+    collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
+    with_collection_check_boxes @user, :tag_ids, collection, :id, :name
+
+    assert_select "form input[type=hidden][name='user[tag_ids][]'][value=]", :count => 1
   end
 
   test 'collection check box accepts a collection and generate a serie of checkboxes with labels for label method' do

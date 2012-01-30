@@ -53,7 +53,7 @@ module SimpleForm
       #   * a block                  => to generate the label + radio or any other component.
       #
       def collection_radio_buttons(attribute, collection, value_method, text_method, options={}, html_options={})
-        render_collection(
+        rendered_collection = render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           if block_given?
@@ -63,6 +63,8 @@ module SimpleForm
               label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio_buttons")
           end
         end
+
+        wrap_rendered_collection(rendered_collection, options)
       end
 
       # deprecated
@@ -123,7 +125,7 @@ module SimpleForm
       #   * a block                  => to generate the label + check box or any other component.
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
-        render_collection(
+        rendered_collection = render_collection(
           attribute, collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
@@ -131,10 +133,17 @@ module SimpleForm
           if block_given?
             yield sanitize_attribute_name(attribute, value), text, value, default_html_options
           else
-            check_box(attribute, default_html_options, value, '') +
+            check_box(attribute, default_html_options, value, nil) +
               label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
           end
         end
+
+        # Prepend a hidden field to make sure something will be sent back to the
+        # server if all checkboxes are unchecked. :multiple option generates the
+        # right name with [] appended.
+        hidden = hidden_field(attribute, :value => '', :id => nil, :multiple => true)
+
+        wrap_rendered_collection(hidden + rendered_collection, options)
       end
 
       # Wrapper for using simple form inside a default rails form.
@@ -193,7 +202,7 @@ module SimpleForm
         item_wrapper_tag   = options.fetch(:item_wrapper_tag, :span)
         item_wrapper_class = options[:item_wrapper_class]
 
-        rendered_collection = collection.map do |item|
+        collection.map do |item|
           value = value_for_collection(item, value_method)
           text  = value_for_collection(item, text_method)
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
@@ -202,8 +211,6 @@ module SimpleForm
 
           item_wrapper_tag ? @template.content_tag(item_wrapper_tag, rendered_item, :class => item_wrapper_class) : rendered_item
         end.join.html_safe
-
-        wrap_rendered_collection(rendered_collection, options)
       end
 
       def value_for_collection(item, value) #:nodoc:
