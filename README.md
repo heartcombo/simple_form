@@ -37,6 +37,117 @@ by **SimpleForm**, so if you haven't executed the command below yet, please do:
 
   `rails generate simple_form:install`
 
+### The wrappers API
+
+With **SimpleForm** you can configure how your components will be renderized using the wrappers API.
+The syntax looks like this:
+
+```ruby
+config.wrappers :tag => :div, :class => :input,
+                :error_class => :field_with_errors do |b|
+
+  # Form extensions
+  b.use :html5
+  b.optional :pattern
+  b.use :maxlength
+  b.use :placeholder
+  b.use :readonly
+
+  # Form components
+  b.use :label_input
+  b.use :hint,  :tag => :span, :class => :hint
+  b.use :error, :tag => :span, :class => :error
+end
+```
+
+The _Form components_ will generate the form tags like labels, inputs, hints or errors contents.
+
+The _Form extensions_ are used to generate some attributes or perform some lookups on the model to
+add extra informations to your components.
+
+You can create new _Form components_ using the wrappers API as in the following example:
+
+```ruby
+config.wrappers do |b|
+  b.use :placeholder
+  b.use :label_input
+  b.use :tag => :div, :class => 'separator' do |ba|
+    ba.use :hint,  :tag => :span, :class => :hint
+    ba.use :error, :tag => :span, :class => :error
+  end
+end
+```
+
+this will wrap the hint and error components with one tag `div` using the class `'separator'`.
+
+If you want to customize the custon _Form components_ on demand you can give it a name like this:
+
+```ruby
+config.wrappers do |b|
+  b.use :placeholder
+  b.use :label_input
+  b.use :my_wrapper, :tag => :div, :class => 'separator' do |ba|
+    ba.use :hint,  :tag => :span, :class => :hint
+    ba.use :error, :tag => :span, :class => :error
+  end
+end
+```
+
+and now you can pass options to your `input` calls to customize the `:my_wrapper` _Form component_.
+
+```ruby
+# Completely turns off the custom wrapper
+f.input :name, :my_wrapper => false
+
+# Configure the html
+f.input :name, :my_wrapper_html => { :id => 'special_id' }
+
+# Configure the tag
+f.input :name, :my_wrapper_tag => :p
+```
+
+You can also define more the one wrapper and pick one to render in a specific form or input.
+To define another wrapper you have to give it a name, as the follow:
+
+```ruby
+config.wrappers :small do |b|
+  b.use :placeholder
+  b.use :label_input
+end
+```
+
+and use it in this way
+
+```ruby
+# Specifying to whole form
+simple_form_for @user, :wrapper => :small do |f|
+  f.input :name
+end
+
+# Specifying to one input
+simple_form_for @user do |f|
+  f.input :name, :wrapper => :small
+end
+```
+
+**SimpleForm** also allows you to use optional elements. For instance, let's suppose you want to use
+hints or placeholders, but you don't want them to be generated automatically. You can set their
+default values to `false` or use the `optional` method:
+
+```ruby
+config.wrappers :placeholder => false do |b|
+  b.use :placeholder
+  b.use :label_input
+  b.use :tag => :div, :class => 'separator' do |ba|
+    ba.optional :hint,  :tag => :span, :class => :hint
+    ba.use :error, :tag => :span, :class => :error
+  end
+end
+```
+
+By setting it to `false`, a placeholder will only be generated when `:placeholder => true` is
+explicitly used. The same for hint.
+
 ## Usage
 
 **SimpleForm** was designed to be customized as you need to. Basically it's a stack of components that
