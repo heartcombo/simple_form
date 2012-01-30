@@ -8,22 +8,22 @@ which we are thankful for and should make you feel right at home.
 
 ## Installation
 
-Install the gem:
-
-`gem install simple_form`
-
 Add it to your Gemfile:
 
-`gem "simple_form"`
+`gem 'simple_form'`
+
+Run the following command to install it:
+
+`bundle install`
 
 Run the generator:
 
 `rails generate simple_form:install`
 
-Also, if you want to use the country select, you will need the *country_select* plugin, install
-with following command:
+Also, if you want to use the country select, you will need the
+[country_select gem](https://rubygems.org/gems/country_select), add it to your Gemfile:
 
-`rails plugin install git://github.com/rails/country_select.git`
+`gem 'country_select'`
 
 And you are ready to go. Since this branch aims Rails 3 support, if you want to use it with
 Rails 2.3 you should check this branch:
