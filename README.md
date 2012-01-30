@@ -47,14 +47,14 @@ to do that you have to use the `bootstrap` options in the install generator, lik
 You have to be sure that you added a copy of the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
 assets on your application.
 
-For more informations see the output of the generator and our
+For more information see the output of the generator and our
 [example application](https://github.com/rafaelfranca/simple_form-bootstrap) code.
 
 You can see how it works using [this link](http://simple-form-bootstrap.herokuapp.com/).
 
 ### The wrappers API
 
-With **SimpleForm** you can configure how your components will be renderized using the wrappers API.
+With **SimpleForm** you can configure how your components will be rendered using the wrappers API.
 The syntax looks like this:
 
 ```ruby
@@ -78,7 +78,7 @@ end
 The _Form components_ will generate the form tags like labels, inputs, hints or errors contents.
 
 The _Form extensions_ are used to generate some attributes or perform some lookups on the model to
-add extra informations to your components.
+add extra information to your components.
 
 You can create new _Form components_ using the wrappers API as in the following example:
 
@@ -93,9 +93,9 @@ config.wrappers do |b|
 end
 ```
 
-this will wrap the hint and error components with one tag `div` using the class `'separator'`.
+this will wrap the hint and error components within a `div` tag using the class `'separator'`.
 
-If you want to customize the custon _Form components_ on demand you can give it a name like this:
+If you want to customize the custom _Form components_ on demand you can give it a name like this:
 
 ```ruby
 config.wrappers do |b|
@@ -121,7 +121,7 @@ f.input :name, :my_wrapper_html => { :id => 'special_id' }
 f.input :name, :my_wrapper_tag => :p
 ```
 
-You can also define more the one wrapper and pick one to render in a specific form or input.
+You can also define more than one wrapper and pick one to render in a specific form or input.
 To define another wrapper you have to give it a name, as the follow:
 
 ```ruby
@@ -390,7 +390,7 @@ The first step is to configure a wrapper tag:
 SimpleForm.wrapper_tag = :p
 ```
 
-And now, you don't need to wrap your `f.input` calls anymore:
+And now, you no longer need to wrap your `f.input` calls anymore:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -432,8 +432,8 @@ Now we have the user form:
 <% end %>
 ```
 
-Simple enough right? This is going to render a `:select` input for choosing the `:company`, and another
-`:select` input with `:multiple` option for the `:roles`. You can of course change it, to use radios
+Simple enough, right? This is going to render a `:select` input for choosing the `:company`, and another
+`:select` input with `:multiple` option for the `:roles`. You can, of course, change it to use radio
 buttons and check boxes as well:
 
 ```ruby
@@ -441,7 +441,7 @@ f.association :company, :as => :radio_buttons
 f.association :roles,   :as => :check_boxes
 ```
 
-The association helper just invokes input under the hood, so all options available to `:select`,
+The association helper just invokes `input` under the hood, so all options available to `:select`,
 `:radio_buttons` and `:check_boxes` are also available to association. Additionally, you can specify
 the collection by hand, all together with the prompt:
 
