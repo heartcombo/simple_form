@@ -37,6 +37,21 @@ created by **SimpleForm**, so if you haven't executed the command below yet, ple
 
 `rails generate simple_form:install`
 
+### Twitter Bootstrap
+
+**SimpleForm** 2.0 can be easily integrate to the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
+to do that you have to use the `bootstrap` options in the install generator, like this:
+
+`rails generate simple_form:install --bootstrap`
+
+You have to be sure that you added a copy of the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
+assets on your application.
+
+For more informations see the output of the generator and our
+[example application](https://github.com/rafaelfranca/simple_form-bootstrap) code.
+
+You can see how it works using [this link](http://simple-form-bootstrap.herokuapp.com/).
+
 ### The wrappers API
 
 With **SimpleForm** you can configure how your components will be renderized using the wrappers API.
@@ -787,7 +802,6 @@ possible to help us fixing the possible bug. We also encourage you to help even 
 sending us a pull request.
 
 https://github.com/plataformatec/simple_form/issues
-
 
 ## Maintainers
 
