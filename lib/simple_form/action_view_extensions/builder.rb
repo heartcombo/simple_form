@@ -139,9 +139,8 @@ module SimpleForm
         end
 
         # Prepend a hidden field to make sure something will be sent back to the
-        # server if all checkboxes are unchecked. :multiple option generates the
-        # right name with [] appended.
-        hidden = hidden_field(attribute, :value => '', :id => nil, :multiple => true)
+        # server if all checkboxes are unchecked.
+        hidden = template.hidden_field_tag("#{object_name}[#{attribute}][]", "", :id => nil)
 
         wrap_rendered_collection(hidden + rendered_collection, options)
       end
