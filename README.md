@@ -32,15 +32,15 @@ Rails 2.3 you should check this branch:
 
 ## Configuration
 
-**SimpleForm** has several configuration values. You can read and change them in the initializer
+**SimpleForm** has several configuration options. You can read and change them in the initializer
 created by **SimpleForm**, so if you haven't executed the command below yet, please do:
 
 `rails generate simple_form:install`
 
 ### Twitter Bootstrap
 
-**SimpleForm** 2.0 can be easily integrate to the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
-to do that you have to use the `bootstrap` options in the install generator, like this:
+**SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
+to do that you have to use the `bootstrap` option in the install generator, like this:
 
 `rails generate simple_form:install --bootstrap`
 
@@ -48,9 +48,8 @@ You have to be sure that you added a copy of the [Twitter Bootstrap](http://twit
 assets on your application.
 
 For more information see the output of the generator and our
-[example application](https://github.com/rafaelfranca/simple_form-bootstrap) code.
-
-You can see how it works using [this link](http://simple-form-bootstrap.herokuapp.com/).
+[example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
+[the live app at Heroku](http://simple-form-bootstrap.herokuapp.com/).
 
 ### The wrappers API
 
@@ -131,7 +130,7 @@ config.wrappers :small do |b|
 end
 ```
 
-and use it in this way
+and use it in this way:
 
 ```ruby
 # Specifying to whole form
@@ -154,7 +153,7 @@ config.wrappers :placeholder => false do |b|
   b.use :placeholder
   b.use :label_input
   b.use :tag => :div, :class => 'separator' do |component|
-    component.optional :hint,  :tag => :span, :class => :hint
+    component.optional :hint, :tag => :span, :class => :hint
     component.use :error, :tag => :span, :class => :error
   end
 end
@@ -196,7 +195,7 @@ even a placeholder:
 <% end %>
 ```
 
-In some cases you may want to disable labels, hints or error. Or you may wan to configure the html
+In some cases you may want to disable labels, hints or error. Or you may want to configure the html
 of any of them:
 
 ```erb
