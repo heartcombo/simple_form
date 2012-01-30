@@ -6,32 +6,6 @@ your forms. The basic goal of simple form is to not touch your way of defining t
 you find the better design for your eyes. Good part of the DSL was inherited from Formtastic,
 which we are thankful for and should make you feel right at home.
 
-## Information
-
-### Google Group
-
-If you have any questions, comments, or concerns please use the Google Group instead of the GitHub
-Issues tracker:
-
-http://groups.google.com/group/plataformatec-simpleform
-
-### RDocs
-
-You can view the **SimpleForm** documentation in RDoc format here:
-
-http://rubydoc.info/github/plataformatec/simple_form/master/frames
-
-If you need to use **SimpleForm** with Rails 2.3, you can always run `gem server` from the command line
-after you install the gem to access the old documentation.
-
-### Bug reports
-
-If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as
-possible to help us fixing the possible bug. We also encourage you to help even more by forking and
-sending us a pull request.
-
-https://github.com/plataformatec/simple_form/issues
-
 ## Installation
 
 Install the gem:
@@ -55,6 +29,13 @@ And you are ready to go. Since this branch aims Rails 3 support, if you want to 
 Rails 2.3 you should check this branch:
 
   `http://github.com/plataformatec/simple_form/tree/v1.0`
+
+## Configuration
+
+**SimpleForm** has several configuration values. You can read and change them in the initializer created
+by **SimpleForm**, so if you haven't executed the command below yet, please do:
+
+  `rails generate simple_form:install`
 
 ## Usage
 
@@ -670,12 +651,32 @@ and if they aren't, any plugin you use would take of using the placeholder attri
 However, you can disable it if you want, by removing the placeholder component from the components
 list in **SimpleForm** configuration file.
 
-## Configuration
+## Information
 
-**SimpleForm** has several configuration values. You can read and change them in the initializer created
-by **SimpleForm**, so if you haven't executed the command below yet, please do:
+### Google Group
 
-  `rails generate simple_form:install`
+If you have any questions, comments, or concerns please use the Google Group instead of the GitHub
+Issues tracker:
+
+http://groups.google.com/group/plataformatec-simpleform
+
+### RDocs
+
+You can view the **SimpleForm** documentation in RDoc format here:
+
+http://rubydoc.info/github/plataformatec/simple_form/master/frames
+
+If you need to use **SimpleForm** with Rails 2.3, you can always run `gem server` from the command line
+after you install the gem to access the old documentation.
+
+### Bug reports
+
+If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as
+possible to help us fixing the possible bug. We also encourage you to help even more by forking and
+sending us a pull request.
+
+https://github.com/plataformatec/simple_form/issues
+
 
 ## Maintainers
 
