@@ -154,15 +154,71 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     assert_select 'form span input[type=checkbox]', :count => 2
   end
 
+  test 'input check boxes renders the item wrapper tag with a default class "checkbox"' do
+    with_input_for @user, :active, :check_boxes, :item_wrapper_tag => :li
+
+    assert_select 'form li.checkbox input[type=checkbox]', :count => 2
+  end
+
+  test 'input check boxes renders the item wrapper tag with the configured item wrapper class' do
+    swap SimpleForm, :item_wrapper_tag => :li, :item_wrapper_class => 'item' do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'form li.checkbox.item input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes allows giving item wrapper class at input level only' do
+    swap SimpleForm, :item_wrapper_tag => :li do
+      with_input_for @user, :active, :check_boxes, :item_wrapper_class => 'item'
+
+      assert_select 'form li.checkbox.item input[type=checkbox]', :count => 2
+    end
+  end
+
+  test 'input check boxes uses both configured and given item wrapper classes for item wrapper tag' do
+    swap SimpleForm, :item_wrapper_tag => :li, :item_wrapper_class => 'item' do
+      with_input_for @user, :active, :check_boxes, :item_wrapper_class => 'inline'
+
+      assert_select 'form li.checkbox.item.inline input[type=checkbox]', :count => 2
+    end
+  end
+
   test 'input check boxes respects the nested boolean style config, generating nested label > input' do
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :check_boxes
 
-      assert_select 'label[for=user_active_true] > input#user_active_true[type=checkbox]'
-      assert_select 'label[for=user_active_true]', 'Yes'
-      assert_select 'label[for=user_active_false] > input#user_active_false[type=checkbox]'
-      assert_select 'label[for=user_active_false]', 'No'
-      assert_no_select 'label.collection_radio'
+      assert_select 'label.checkbox > input#user_active_true[type=checkbox]'
+      assert_select 'label.checkbox', 'Yes'
+      assert_select 'label.checkbox > input#user_active_false[type=checkbox]'
+      assert_select 'label.checkbox', 'No'
+      assert_no_select 'label.collection_radio_buttons'
+    end
+  end
+
+  test 'input check boxes with nested style overrides configured item wrapper tag, forcing the :label' do
+    swap SimpleForm, :boolean_style => :nested, :item_wrapper_tag => :li do
+      with_input_for @user, :active, :check_boxes
+
+      assert_select 'label.checkbox > input'
+      assert_no_select 'li'
+    end
+  end
+
+  test 'input check boxes with nested style overrides given item wrapper tag, forcing the :label' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :check_boxes, :item_wrapper_tag => :li
+
+      assert_select 'label.checkbox > input'
+      assert_no_select 'li'
+    end
+  end
+
+  test 'input check boxes with nested style accepts giving extra wrapper classes' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :check_boxes, :item_wrapper_class => "inline"
+
+      assert_select 'label.checkbox.inline > input'
     end
   end
 end

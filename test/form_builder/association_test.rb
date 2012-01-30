@@ -80,18 +80,18 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder allows collection radio for belongs_to associations' do
-    with_association_for @user, :company, :as => :radio
-    assert_select 'form input.radio#user_company_id_1'
-    assert_select 'form input.radio#user_company_id_2'
-    assert_select 'form input.radio#user_company_id_3'
+    with_association_for @user, :company, :as => :radio_buttons
+    assert_select 'form input.radio_buttons#user_company_id_1'
+    assert_select 'form input.radio_buttons#user_company_id_2'
+    assert_select 'form input.radio_buttons#user_company_id_3'
   end
 
   test 'builder marks the record which already belongs to the user' do
     @user.company_id = 2
-    with_association_for @user, :company, :as => :radio
-    assert_no_select 'form input.radio#user_company_id_1[checked=checked]'
-    assert_select 'form input.radio#user_company_id_2[checked=checked]'
-    assert_no_select 'form input.radio#user_company_id_3[checked=checked]'
+    with_association_for @user, :company, :as => :radio_buttons
+    assert_no_select 'form input.radio_buttons#user_company_id_1[checked=checked]'
+    assert_select 'form input.radio_buttons#user_company_id_2[checked=checked]'
+    assert_no_select 'form input.radio_buttons#user_company_id_3[checked=checked]'
   end
 
   # ASSOCIATIONS - FINDERS
@@ -115,7 +115,7 @@ class AssociationTest < ActionView::TestCase
   # ASSOCIATIONS - has_*
   test 'builder does not allow has_one associations' do
     assert_raise RuntimeError do
-      with_association_for @user, :first_company, :as => :radio
+      with_association_for @user, :first_company, :as => :radio_buttons
     end
   end
 

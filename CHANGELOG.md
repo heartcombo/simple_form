@@ -30,10 +30,14 @@
   * Do not generate hidden check box field when using nested boolean style, as it is considered
     invalid markup in HTML5. This will only work in Rails > 3.2.1 (not released at this time).
     More info in [#215](https://github.com/plataformatec/simple_form/issues/215)
+  * Add `item_wrapper_class` configuration option for collection radio buttons / check boxes inputs.
 
 ### deprecation
   * Deprecate the `translate` configuration in favor of `translate_labels`
   * Deprecate the `html5` configuration in favor of a new `html5` component
+  * Deprecate `:radio` input type in favor of `:radio_buttons`
+  * Deprecate `collection_radio` form helper in favor of `collection_radio_buttons`
+    (the label class has changed as well)
 
 ### bug fix
   * Fix i18n lookup with attributes with same name of models.

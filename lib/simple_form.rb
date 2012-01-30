@@ -45,13 +45,19 @@ module SimpleForm
   mattr_accessor :collection_wrapper_tag
   @@collection_wrapper_tag = nil
 
-  # You can define the class to use on all collection wrappers. Defaulting to none.
+  # You can define the class to use on all collection wrappers, defaulting to none.
   mattr_accessor :collection_wrapper_class
   @@collection_wrapper_class = nil
 
-  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
+  # You can wrap each item in a collection of radio/check boxes with a tag,
+  # defaulting to none. Please note that when using :boolean_style = :nested,
+  # SimpleForm will force this option to be a :label.
   mattr_accessor :item_wrapper_tag
   @@item_wrapper_tag = :span
+
+  # You can define the class to use on all item wrappers, defaulting to none.
+  mattr_accessor :item_wrapper_class
+  @@item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
@@ -174,17 +180,21 @@ module SimpleForm
 
   DEPRECATED.each do |method|
     class_eval "def self.#{method}=(*); @@deprecated << :#{method}=; end"
-    class_eval "def self.#{method}; ActiveSupport::Deprecation.warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
+    class_eval "def self.#{method}; deprecation_warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
   end
 
   def self.translate=(value)
-    ActiveSupport::Deprecation.warn "SimpleForm.translate= is disabled in favor of translate_labels="
+    deprecation_warn "SimpleForm.translate= is disabled in favor of translate_labels="
     self.translate_labels = value
   end
 
   def self.translate
-    ActiveSupport::Deprecation.warn "SimpleForm.translate is disabled in favor of translate_labels"
+    deprecation_warn "SimpleForm.translate is disabled in favor of translate_labels"
     self.translate_labels
+  end
+
+  def self.deprecation_warn(message)
+    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] #{message}", caller
   end
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install

@@ -5,7 +5,7 @@ module SimpleForm
     autoload :BooleanInput,                 'simple_form/inputs/boolean_input'
     autoload :CollectionCheckBoxesInput,    'simple_form/inputs/collection_check_boxes_input'
     autoload :CollectionInput,              'simple_form/inputs/collection_input'
-    autoload :CollectionRadioInput,         'simple_form/inputs/collection_radio_input'
+    autoload :CollectionRadioButtonsInput,  'simple_form/inputs/collection_radio_buttons_input'
     autoload :CollectionSelectInput,        'simple_form/inputs/collection_select_input'
     autoload :DateTimeInput,                'simple_form/inputs/date_time_input'
     autoload :FileInput,                    'simple_form/inputs/file_input'

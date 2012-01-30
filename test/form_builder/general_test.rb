@@ -166,9 +166,9 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select 'form input#user_name'
     assert_select 'form textarea#user_name.text'
 
-    with_form_for @user, :active, :as => :radio
+    with_form_for @user, :active, :as => :radio_buttons
     assert_no_select 'form input[type=checkbox]'
-    assert_select 'form input.radio[type=radio]', :count => 2
+    assert_select 'form input.radio_buttons[type=radio]', :count => 2
 
     with_form_for @user, :born_at, :as => :string
     assert_no_select 'form select'
