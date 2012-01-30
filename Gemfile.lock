@@ -26,6 +26,7 @@ GEM
       multi_json (~> 1.0)
     builder (3.0.0)
     columnize (0.3.6)
+    country_select (0.0.1)
     erubis (2.7.0)
     hike (1.2.1)
     i18n (0.6.0)
@@ -74,6 +75,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack (~> 3.2.0)
   activemodel (~> 3.2.0)
+  country_select
   mocha
   railties (~> 3.2.0)
   rake

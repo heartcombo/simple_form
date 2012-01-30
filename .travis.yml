@@ -1,5 +1,4 @@
-script: "git submodule update --init && bundle exec rake test"
-before_install: gem update --system
+script: "bundle exec rake test"
 rvm:
   - 1.9.3
   - ree
