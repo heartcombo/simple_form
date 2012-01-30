@@ -49,7 +49,7 @@ assets on your application.
 
 For more information see the output of the generator and our
 [example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
-[the live app at Heroku](http://simple-form-bootstrap.herokuapp.com/).
+[the live app at Heroku](http://simple-form-bootstrap.plataformatec.com.br/).
 
 ### The wrappers API
 
