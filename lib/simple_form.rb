@@ -49,7 +49,9 @@ module SimpleForm
   mattr_accessor :collection_wrapper_class
   @@collection_wrapper_class = nil
 
-  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to none.
+  # You can wrap each item in a collection of radio/check boxes with a tag,
+  # defaulting to none. Please note that when using :boolean_style = :nested,
+  # SimpleForm will force this option to be a :label.
   mattr_accessor :item_wrapper_tag
   @@item_wrapper_tag = :span
 
