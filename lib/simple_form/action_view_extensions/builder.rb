@@ -224,35 +224,67 @@ module SimpleForm
   end
 end
 
-class ActionView::Helpers::FormBuilder
-  include SimpleForm::ActionViewExtensions::Builder
+module ActionView::Helpers
+  class FormBuilder
+    include SimpleForm::ActionViewExtensions::Builder
 
-  # Override default Rails collection_select helper to handle lambdas/procs in
-  # text and value methods, so it works the same way as collection_radio_buttons
-  # and collection_check_boxes in SimpleForm. If none of text/value methods is a
-  # callable object, then it just delegates back to original collection select.
-  #
-  alias :original_collection_select :collection_select
-  def collection_select(attribute, collection, value_method, text_method, options={}, html_options={})
-    if value_method.respond_to?(:call) || text_method.respond_to?(:call)
-      collection = collection.map do |item|
-        value = value_for_collection(item, value_method)
-        text  = value_for_collection(item, text_method)
+    # Override default Rails collection_select helper to handle lambdas/procs in
+    # text and value methods, so it works the same way as collection_radio_buttons
+    # and collection_check_boxes in SimpleForm. If none of text/value methods is a
+    # callable object, then it just delegates back to original collection select.
+    #
+    alias :original_collection_select :collection_select
+    def collection_select(attribute, collection, value_method, text_method, options={}, html_options={})
+      if value_method.respond_to?(:call) || text_method.respond_to?(:call)
+        collection = collection.map do |item|
+          value = value_for_collection(item, value_method)
+          text  = value_for_collection(item, text_method)
 
-        default_html_options = default_html_options_for_collection(item, value, options, html_options)
-        disabled = value if default_html_options[:disabled]
-        selected = value if default_html_options[:selected]
+          default_html_options = default_html_options_for_collection(item, value, options, html_options)
+          disabled = value if default_html_options[:disabled]
+          selected = value if default_html_options[:selected]
 
-        [value, text, selected, disabled]
+          [value, text, selected, disabled]
+        end
+
+        [:disabled, :selected].each do |option|
+          option_value    = collection.map(&:pop).compact
+          options[option] = option_value if option_value.present?
+        end
+        value_method, text_method = :first, :last
       end
 
-      [:disabled, :selected].each do |option|
-        option_value    = collection.map(&:pop).compact
-        options[option] = option_value if option_value.present?
-      end
-      value_method, text_method = :first, :last
+      original_collection_select(attribute, collection, value_method, text_method, options, html_options)
     end
+  end
 
-    original_collection_select(attribute, collection, value_method, text_method, options, html_options)
+  # Backport Rails fix to checkbox tag element, which does not generate the
+  # hidden input when given nil as unchecked value. This is to make SimpleForm
+  # collection check boxes helper to work fine with nested boolean style, when
+  # they are wrapped in labels. Without that, clicking in the label would
+  # actually change the hidden input, instead of the checkbox.
+  # FIXME: remove when support only Rails >= 3.2.2.
+  class InstanceTag
+    def to_check_box_tag(options = {}, checked_value = "1", unchecked_value = "0")
+      options = options.stringify_keys
+      options["type"]     = "checkbox"
+      options["value"]    = checked_value
+      if options.has_key?("checked")
+        cv = options.delete "checked"
+        checked = cv == true || cv == "checked"
+      else
+        checked = self.class.check_box_checked?(value(object), checked_value)
+      end
+      options["checked"] = "checked" if checked
+      if options["multiple"]
+        add_default_name_and_id_for_value(checked_value, options)
+        options.delete("multiple")
+      else
+        add_default_name_and_id(options)
+      end
+      hidden = unchecked_value ? tag("input", "name" => options["name"], "type" => "hidden", "value" => unchecked_value, "disabled" => options["disabled"]) : ""
+      checkbox = tag("input", options)
+      (hidden + checkbox).html_safe
+    end
   end
 end
