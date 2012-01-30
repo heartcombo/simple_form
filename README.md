@@ -10,32 +10,32 @@ which we are thankful for and should make you feel right at home.
 
 Install the gem:
 
-  `gem install simple_form`
+`gem install simple_form`
 
 Add it to your Gemfile:
 
-  `gem "simple_form"`
+`gem "simple_form"`
 
 Run the generator:
 
-  `rails generate simple_form:install`
+`rails generate simple_form:install`
 
 Also, if you want to use the country select, you will need the *country_select* plugin, install
 with following command:
 
-  `rails plugin install git://github.com/rails/country_select.git`
+`rails plugin install git://github.com/rails/country_select.git`
 
 And you are ready to go. Since this branch aims Rails 3 support, if you want to use it with
 Rails 2.3 you should check this branch:
 
-  `http://github.com/plataformatec/simple_form/tree/v1.0`
+`http://github.com/plataformatec/simple_form/tree/v1.0`
 
 ## Configuration
 
-**SimpleForm** has several configuration values. You can read and change them in the initializer created
-by **SimpleForm**, so if you haven't executed the command below yet, please do:
+**SimpleForm** has several configuration values. You can read and change them in the initializer
+created by **SimpleForm**, so if you haven't executed the command below yet, please do:
 
-  `rails generate simple_form:install`
+`rails generate simple_form:install`
 
 ### The wrappers API
 
