@@ -142,7 +142,7 @@ module SimpleForm
         # server if all checkboxes are unchecked.
         hidden = template.hidden_field_tag("#{object_name}[#{attribute}][]", "", :id => nil)
 
-        wrap_rendered_collection(hidden + rendered_collection, options)
+        wrap_rendered_collection(hidden << rendered_collection, options)
       end
 
       # Wrapper for using simple form inside a default rails form.

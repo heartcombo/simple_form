@@ -3,8 +3,10 @@ module SimpleForm
     class BooleanInput < Base
       def input
         if nested_boolean_style?
-          build_hidden_field_for_checkbox +
-            template.label_tag(nil, :class => "checkbox") { build_check_box_without_hidden_field }
+          build_hidden_field_for_checkbox <<
+            template.label_tag(nil, :class => "checkbox") {
+              build_check_box_without_hidden_field
+            }
         else
           build_check_box
         end
@@ -14,8 +16,10 @@ module SimpleForm
         if options[:label] == false
           input
         elsif nested_boolean_style?
-          build_hidden_field_for_checkbox +
-            @builder.label(label_target, label_html_options) { build_check_box_without_hidden_field + label_text }
+          build_hidden_field_for_checkbox <<
+            @builder.label(label_target, label_html_options) {
+              build_check_box_without_hidden_field + label_text
+            }
         else
           input + label
         end
@@ -42,7 +46,8 @@ module SimpleForm
       # we need the hidden field to be *outside* the label (otherwise it
       # generates invalid html - html5 only).
       def build_hidden_field_for_checkbox
-        @builder.hidden_field(attribute_name, :value => '0', :id => nil)
+        @builder.hidden_field(attribute_name, :value => '0', :id => nil,
+                              :disabled => input_html_options[:disabled])
       end
 
       # Booleans are not required by default because in most of the cases

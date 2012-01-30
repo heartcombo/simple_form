@@ -29,12 +29,20 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
-  test 'input boolean generates a manual hidden field for checkbox outside the label, to recreate Rails functionality with valid html5' do
+  test 'input boolean with nested generates a manual hidden field for checkbox outside the label, to recreate Rails functionality with valid html5' do
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean
 
       assert_select "input[type=hidden][name='user[active]'] + label.boolean > input.boolean"
       assert_no_select 'input[type=checkbox] + label'
+    end
+  end
+
+  test 'input boolean with nested generates a disabled hidden field for checkbox outside the label, if the field is disabled' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :boolean, :disabled => true
+
+      assert_select "input[type=hidden][name='user[active]'][disabled] + label.boolean > input.boolean[disabled]"
     end
   end
 
