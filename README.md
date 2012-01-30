@@ -510,7 +510,7 @@ end
 <label class="collection_radio_buttons" for="user_options_false">No</label>
 ```
 
-### Collection Check Box
+### Collection Check Boxes
 
 Creates a collection of check boxes with labels associated (same API as `collection_select`):
 
