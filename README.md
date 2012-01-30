@@ -86,9 +86,9 @@ You can create new _Form components_ using the wrappers API as in the following 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.use :tag => :div, :class => 'separator' do |ba|
-    ba.use :hint,  :tag => :span, :class => :hint
-    ba.use :error, :tag => :span, :class => :error
+  b.use :tag => :div, :class => 'separator' do |component|
+    component.use :hint,  :tag => :span, :class => :hint
+    component.use :error, :tag => :span, :class => :error
   end
 end
 ```
@@ -101,9 +101,9 @@ If you want to customize the custon _Form components_ on demand you can give it 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.use :my_wrapper, :tag => :div, :class => 'separator' do |ba|
-    ba.use :hint,  :tag => :span, :class => :hint
-    ba.use :error, :tag => :span, :class => :error
+  b.use :my_wrapper, :tag => :div, :class => 'separator' do |component|
+    component.use :hint,  :tag => :span, :class => :hint
+    component.use :error, :tag => :span, :class => :error
   end
 end
 ```
@@ -153,9 +153,9 @@ default values to `false` or use the `optional` method:
 config.wrappers :placeholder => false do |b|
   b.use :placeholder
   b.use :label_input
-  b.use :tag => :div, :class => 'separator' do |ba|
-    ba.optional :hint,  :tag => :span, :class => :hint
-    ba.use :error, :tag => :span, :class => :error
+  b.use :tag => :div, :class => 'separator' do |component|
+    component.optional :hint,  :tag => :span, :class => :hint
+    component.use :error, :tag => :span, :class => :error
   end
 end
 ```
