@@ -39,17 +39,17 @@ created by **SimpleForm**, so if you haven't executed the command below yet, ple
 
 ### Twitter Bootstrap
 
-**SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
-to do that you have to use the `bootstrap` option in the install generator, like this:
+**SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap).
+To do that you have to use the `bootstrap` option in the install generator, like this:
 
 `rails generate simple_form:install --bootstrap`
 
 You have to be sure that you added a copy of the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
 assets on your application.
 
-For more information see the output of the generator and our
+For more information see the generator output, our
 [example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
-[the live app at Heroku](http://simple-form-bootstrap.plataformatec.com.br/).
+[the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
 
 ### The wrappers API
 
