@@ -54,7 +54,7 @@ module SimpleForm
       #
       def collection_radio_buttons(attribute, collection, value_method, text_method, options={}, html_options={})
         rendered_collection = render_collection(
-          attribute, collection, value_method, text_method, options, html_options
+          collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           if block_given?
             yield sanitize_attribute_name(attribute, value), text, value, default_html_options
@@ -126,7 +126,7 @@ module SimpleForm
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         rendered_collection = render_collection(
-          attribute, collection, value_method, text_method, options, html_options
+          collection, value_method, text_method, options, html_options
         ) do |value, text, default_html_options|
           default_html_options[:multiple] = true
 
@@ -197,7 +197,7 @@ module SimpleForm
         "#{attribute}_#{value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
       end
 
-      def render_collection(attribute, collection, value_method, text_method, options={}, html_options={}) #:nodoc:
+      def render_collection(collection, value_method, text_method, options={}, html_options={}) #:nodoc:
         item_wrapper_tag   = options.fetch(:item_wrapper_tag, :span)
         item_wrapper_class = options[:item_wrapper_class]
 
