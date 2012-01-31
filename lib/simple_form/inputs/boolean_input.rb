@@ -3,7 +3,7 @@ module SimpleForm
     class BooleanInput < Base
       def input
         if nested_boolean_style?
-          build_hidden_field_for_checkbox <<
+          build_hidden_field_for_checkbox +
             template.label_tag(nil, :class => "checkbox") {
               build_check_box_without_hidden_field
             }
@@ -16,7 +16,7 @@ module SimpleForm
         if options[:label] == false
           input
         elsif nested_boolean_style?
-          build_hidden_field_for_checkbox <<
+          build_hidden_field_for_checkbox +
             @builder.label(label_target, label_html_options) {
               build_check_box_without_hidden_field + label_text
             }
