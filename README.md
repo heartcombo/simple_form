@@ -3,8 +3,10 @@
 
 **SimpleForm** aims to be as flexible as possible while helping you with powerful components to create
 your forms. The basic goal of simple form is to not touch your way of defining the layout, letting
-you find the better design for your eyes. Good part of the DSL was inherited from Formtastic,
+you find the better design for your eyes. Most of the DSL was inherited from Formtastic,
 which we are thankful for and should make you feel right at home.
+
+INFO: This README is [also available in a friendly navigable format](http://simple-form.plataformatec.com.br/).
 
 ## Installation
 
@@ -50,6 +52,8 @@ assets on your application.
 For more information see the generator output, our
 [example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
 [the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
+
+**NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 or higher.
 
 ### The wrappers API
 
