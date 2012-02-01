@@ -1,4 +1,4 @@
-## 2.0.0.dev
+## 2.0.0.rc
 
 ### enhancements
   * Add `button_class` configuration to change the class of buttons. ([@sryche](https://github.com/sryche))
