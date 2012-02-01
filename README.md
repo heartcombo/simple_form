@@ -150,7 +150,7 @@ end
 
 **SimpleForm** also allows you to use optional elements. For instance, let's suppose you want to use
 hints or placeholders, but you don't want them to be generated automatically. You can set their
-default values to `false` or use the `optional` method:
+default values to `false` or use the `optional` method. Is preferible to use the `optional` syntax:
 
 ```ruby
 config.wrappers :placeholder => false do |b|
@@ -163,8 +163,8 @@ config.wrappers :placeholder => false do |b|
 end
 ```
 
-By setting it to `false`, a placeholder will only be generated when `:placeholder => true` is
-explicitly used. The same for hint.
+By setting it as `optional`, a hint will only be generated when `:hint => true` is explicitly used.
+The same for placehold.
 
 ## Usage
 
