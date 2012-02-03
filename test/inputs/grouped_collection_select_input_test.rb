@@ -20,6 +20,15 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
     end
   end
 
+  test 'grouped collection accepts empty array collection form' do
+    with_input_for @user, :tag_ids, :grouped_select,
+      :collection => [],
+      :group_method => :last
+
+    assert_select 'select.grouped_select#user_tag_ids'
+  end
+
+
   test 'grouped collection accepts proc as collection' do
     with_input_for @user, :tag_ids, :grouped_select,
       :collection => Proc.new { [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]] },
