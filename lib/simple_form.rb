@@ -29,10 +29,6 @@ module SimpleForm
   mattr_accessor :error_notification_class
   @@error_notification_class = :error_notification
 
-  # ID to add for error notification helper.
-  mattr_accessor :error_notification_id
-  @@error_notification_id = nil
-
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
   @@collection_label_methods = [ :to_label, :name, :title, :to_s ]
@@ -175,7 +171,7 @@ module SimpleForm
 
   ## SETUP
 
-  DEPRECATED = %w(hint_tag hint_class error_tag error_class wrapper_tag wrapper_class wrapper_error_class components html5)
+  DEPRECATED = %w(hint_tag hint_class error_tag error_class error_notification_id wrapper_tag wrapper_class wrapper_error_class components html5)
   @@deprecated = []
 
   DEPRECATED.each do |method|

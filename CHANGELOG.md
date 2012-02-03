@@ -9,9 +9,6 @@
   * `simple_form_for` allows default options for its inputs `:defaults => {}`.
   * Add `readonly` as option of input method. ([@Untainted123](https://github.com/Untainted123))
   * `simple_fields_for` for inherits wrapper option form the form builder. ([@nashby](https://github.com/nashby))
-  * Deprecated part of the old configuration API in favor of the wrapper API which allows you to customize your inputs
-    in a more flexible way. See [this guide](https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0)
-    to know how upgrade.
   * Use action prefix in the form css class. Closes [#360](https://github.com/plataformatec/simple_form/issues/360).
     This is not backward compatible with the previous versions of SimpleForm.
     For more informations see [this comment](https://github.com/plataformatec/simple_form/issues/360#issuecomment-3000780).
@@ -34,11 +31,15 @@
   * Add `item_wrapper_class` configuration option for collection radio buttons / check boxes inputs.
 
 ### deprecation
+  * Deprecate part of the old configuration API in favor of the wrapper API which allows you to customize your inputs
+    in a more flexible way. See [this guide](https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0)
+    to know how upgrade.
   * Deprecate the `translate` configuration in favor of `translate_labels`
   * Deprecate the `html5` configuration in favor of a new `html5` component
   * Deprecate `:radio` input type in favor of `:radio_buttons`
   * Deprecate `collection_radio` form helper in favor of `collection_radio_buttons`
     (the label class has changed as well)
+  * Remove `error_notification_id` configuration
 
 ### bug fix
   * Fix i18n lookup with attributes with same name of models.

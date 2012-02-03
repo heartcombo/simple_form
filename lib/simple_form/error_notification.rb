@@ -34,7 +34,6 @@ module SimpleForm
 
     def html_options
       @options[:class] = "#{SimpleForm.error_notification_class} #{@options[:class]}".strip
-      @options[:id] = SimpleForm.error_notification_id if SimpleForm.error_notification_id
       @options
     end
 
