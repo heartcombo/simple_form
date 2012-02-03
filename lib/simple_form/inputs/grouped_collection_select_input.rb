@@ -19,7 +19,7 @@ module SimpleForm
 
       # Sample collection
       def collection
-        @collection ||= grouped_collection.first.try(:send, group_method)
+        @collection ||= grouped_collection.first.try(:send, group_method) || []
       end
 
       def group_method
