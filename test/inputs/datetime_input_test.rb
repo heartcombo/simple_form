@@ -62,14 +62,28 @@ class DateTimeInputTest < ActionView::TestCase
     assert_select 'select.time option', 'minuto'
   end
 
-  test 'label should point to first option when date input type' do
-    with_input_for :project, :created_at, :date
-    assert_select 'label[for=project_created_at_1i]'
+  test 'label should use i18n to get target for date input type' do
+    store_translations(:en, :date => { :order => [:month, :day, :year] }) do
+      with_input_for :project, :created_at, :date
+      assert_select 'label[for=project_created_at_2i]'
+    end
   end
 
-  test 'label should point to first option when datetime input type' do
-    with_input_for :project, :created_at, :datetime
-    assert_select 'label[for=project_created_at_1i]'
+  test 'label should use i18n to get target for datetime input type' do
+    store_translations(:en, :date => { :order => [:month, :day, :year] }) do
+      with_input_for :project, :created_at, :datetime
+      assert_select 'label[for=project_created_at_2i]'
+    end
+  end
+
+  test 'label should use order to get target when date input type' do
+    with_input_for :project, :created_at, :date, :order => [:month, :year, :day]
+    assert_select 'label[for=project_created_at_2i]'
+  end
+
+  test 'label should use order to get target when datetime input type' do
+    with_input_for :project, :created_at, :datetime, :order => [:month, :year, :day]
+    assert_select 'label[for=project_created_at_2i]'
   end
 
   test 'label should point to first option when time input type' do

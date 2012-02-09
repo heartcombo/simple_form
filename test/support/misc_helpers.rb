@@ -5,6 +5,7 @@ module MiscHelpers
       yield
     ensure
       I18n.reload!
+      I18n.backend.send :init_translations
     end
   end
 
