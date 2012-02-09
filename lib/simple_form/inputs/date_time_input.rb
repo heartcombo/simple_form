@@ -12,15 +12,16 @@ module SimpleForm
       private
 
       def label_target
-        case input_type
+        position = case input_type
         when :date, :datetime
           date_order = input_options[:order] || I18n.t('date.order')
-          type = date_order.first
-          position = ActionView::Helpers::DateTimeSelector::POSITION[type]
-          "#{attribute_name}_#{position}i"
-        when :time
-          "#{attribute_name}_4i"
+          date_order.first
+        else
+          :hour
         end
+
+        position = ActionView::Helpers::DateTimeSelector::POSITION[position]
+        "#{attribute_name}_#{position}i"
       end
     end
   end
