@@ -55,7 +55,7 @@
     Closes [#341](https://github.com/plataformatec/simple_form/issues/341). ([@nashby](https://github.com/nashby))
   * Move default attribute translations out of root - use "defaults" key instead
     Closes [#384](https://github.com/plataformatec/simple_form/issues/384). ([@fringd](https://github.com/fringd))
-  * Fix label label to datetime inputs to point to first select. ([@georgehemmings](https://github.com/georgehemmings))
+  * Fix label to datetime inputs to point to first select. ([@georgehemmings](https://github.com/georgehemmings))
 
 ## 1.5.2
 
