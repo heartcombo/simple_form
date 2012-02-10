@@ -6,7 +6,11 @@ your forms. The basic goal of simple form is to not touch your way of defining t
 you find the better design for your eyes. Most of the DSL was inherited from Formtastic,
 which we are thankful for and should make you feel right at home.
 
-INFO: This README is [also available in a friendly navigable format](http://simple-form.plataformatec.com.br/).
+INFO: This README is [also available in a friendly navigable format](http://simple-form.plataformatec.com.br/)
+and refers to **SimpleForm** 2.0. If you are using **SimpleForm** in the versions 1.x, you should
+check this branch:
+
+https://github.com/plataformatec/simple_form/tree/v1.5
 
 ## Installation
 
@@ -26,11 +30,6 @@ Also, if you want to use the country select, you will need the
 [country_select gem](https://rubygems.org/gems/country_select), add it to your Gemfile:
 
 `gem 'country_select'`
-
-And you are ready to go. Since this branch aims Rails 3 support, if you want to use it with
-Rails 2.3 you should check this branch:
-
-`http://github.com/plataformatec/simple_form/tree/v1.0`
 
 ## Configuration
 
