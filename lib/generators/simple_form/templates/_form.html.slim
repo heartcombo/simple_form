@@ -2,9 +2,9 @@
   = f.error_notification
 
   .inputs
-  | <%- attributes.each do |attribute| -%>
+<%- attributes.each do |attribute| -%>
     = f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>
-  | <%- end -%>
+<%- end -%>
 
   .actions
     = f.button :submit
