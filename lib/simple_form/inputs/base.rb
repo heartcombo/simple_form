@@ -106,7 +106,7 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         css_classes << html_options[:class] if html_options.key?(:class)
         html_options[:class] = css_classes
-        html_options
+        html_options.delete_if{|key, value| value.blank?}
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,
