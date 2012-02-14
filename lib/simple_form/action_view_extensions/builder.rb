@@ -65,8 +65,8 @@ module SimpleForm
       #   form_for @user do |f|
       #     f.collection_radio_buttons(
       #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
-      #     ) do |label_for, text, value, html_options|
-      #       f.label(label_for) { f.radio_button(attribute, value, html_options) + text }
+      #     ) do |b|
+      #       b.label { b.radio_button + b.text }
       #     end
       #   end
       #
@@ -137,8 +137,8 @@ module SimpleForm
       #   form_for @user do |f|
       #     f.collection_check_boxes(
       #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
-      #     ) do |label_for, text, value, html_options|
-      #       f.label(label_for) { f.check_box(attribute, html_options, value, '') + text }
+      #     ) do |b|
+      #       b.label { b.check_box + b.text }
       #     end
       #   end
       #
