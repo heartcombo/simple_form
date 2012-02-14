@@ -500,7 +500,6 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-
   # SIMPLE FIELDS
   test 'simple fields for is available and yields an instance of FormBuilder' do
     with_concat_form_for(@user) do |f|
