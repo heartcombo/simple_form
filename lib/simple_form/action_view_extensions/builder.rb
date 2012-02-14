@@ -1,42 +1,46 @@
 module SimpleForm
   module ActionViewExtensions
+    # Base builder to handle each instance of a collection of radio buttons / check boxes.
+    # Based on (at this time upcoming) Rails 4 collection builders.
+    class BuilderBase #:nodoc:
+      attr_reader :object, :text, :value
+
+      def initialize(template_object, object_name, method_name, object,
+                     sanitized_attribute_name, text, value, input_html_options)
+        @template_object = template_object
+        @object_name = object_name
+        @method_name = method_name
+        @object = object
+        @sanitized_attribute_name = sanitized_attribute_name
+        @text = text
+        @value = value
+        @input_html_options = input_html_options
+      end
+
+      def label(label_html_options={}, &block)
+        @template_object.label(@object_name, @sanitized_attribute_name, @text, label_html_options, &block)
+      end
+    end
+
+    # Handles generating an instance of radio + label for collection_radio_buttons.
+    class RadioButtonBuilder < BuilderBase #:nodoc:
+      def radio_button(extra_html_options={})
+        html_options = extra_html_options.merge(@input_html_options)
+        @template_object.radio_button(@object_name, @method_name, @value, html_options)
+      end
+    end
+
+    # Handles generating an instance of check box + label for collection_check_boxes.
+    class CheckBoxBuilder < BuilderBase #:nodoc:
+      def check_box(extra_html_options={})
+        html_options = extra_html_options.merge(@input_html_options)
+        @template_object.check_box(@object_name, @method_name, html_options, @value, nil)
+      end
+    end
+
     # A collection of methods required by simple_form but added to rails default form.
     # This means that you can use such methods outside simple_form context.
     module Builder
-      class Builder
-        attr_reader :object, :text, :value
-
-        def initialize(template_object, object_name, method_name, object,
-                       sanitized_attribute_name, text, value, input_html_options)
-          @template_object = template_object
-          @object_name = object_name
-          @method_name = method_name
-          @object = object
-          @sanitized_attribute_name = sanitized_attribute_name
-          @text = text
-          @value = value
-          @input_html_options = input_html_options
-        end
-
-        def label(label_html_options={}, &block)
-          @template_object.label(@object_name, @sanitized_attribute_name, @text, label_html_options, &block)
-        end
-      end
-
-      class RadioButtonBuilder < Builder
-        def radio_button(extra_html_options={})
-          html_options = extra_html_options.merge(@input_html_options)
-          @template_object.radio_button(@object_name, @method_name, @value, html_options)
-        end
-      end
-
-      class CheckBoxBuilder < Builder
-        def check_box(extra_html_options={})
-          html_options = extra_html_options.merge(@input_html_options)
-          @template_object.check_box(@object_name, @method_name, html_options, @value, nil)
-        end
-      end
-
       # Create a collection of radio inputs for the attribute. Basically this
       # helper will create a radio input associated with a label for each
       # text/value option in the collection, using value_method and text_method
