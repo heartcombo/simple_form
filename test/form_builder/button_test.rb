@@ -25,4 +25,11 @@ class ButtonTest < ActionView::TestCase
       assert_select 'form input.btn[type=submit][value=Save Post]'
     end
   end
+
+  if ActionView::Helpers::FormBuilder.method_defined?(:button)
+    test "allows to use Rails button helper when available" do
+      with_button_for :post, :button, 'Save!'
+      assert_select 'form button.button[type=submit]', 'Save!'
+    end
+  end
 end

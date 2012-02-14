@@ -203,8 +203,12 @@ module SimpleForm
     #     f.button :submit
     #   end
     #
-    # It just acts as a proxy to method name given.
+    # It just acts as a proxy to method name given. We also alias original Rails
+    # button implementation (3.2 forward (to delegate to the original when
+    # calling `f.button :button`.
     #
+    # TODO: remove if condition when supporting only Rails 3.2 forward.
+    alias_method :button_button, :button if method_defined?(:button)
     def button(type, *args, &block)
       options = args.extract_options!
       options[:class] = [SimpleForm.button_class, options[:class]].compact
