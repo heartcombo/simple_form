@@ -217,13 +217,12 @@ module SimpleForm
         html_options = html_options.dup
 
         [:checked, :selected, :disabled].each do |option|
-          next unless options[option]
+          next unless current_option = options[option]
 
-
-          accept = if options[option].respond_to?(:call)
-            options[option].call(item)
+          accept = if current_option.respond_to?(:call)
+            current_option.call(item)
           else
-            Array(options[option]).include?(value)
+            Array(current_option).include?(value)
           end
 
           if accept
