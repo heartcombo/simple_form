@@ -22,8 +22,9 @@
   * Add `:boolean_style` config to change how check boxes and radios will be displayed.
     Options are `:inline = input + label` (default) and `:nested = label > input`.
   * Add possibility to give a block to `collection_radio` and `collection_check_boxes`,
-    to generate custom label and input structure. It is used internally with the :nested
-    option for `:boolean_style`, and is useful to allow some more customization if required.
+    yielding a custom builder to generate custom label and input structure. It
+    is used internally with the :nested option for `:boolean_style`, and is useful
+    to allow some more customization if required.
   * Do not generate hidden check box field when using nested boolean style, as it is considered
     invalid markup in HTML5. This will work by default in Rails > 3.2.1 (not released at this time),
     and is backported inside SimpleForm builder extensions.

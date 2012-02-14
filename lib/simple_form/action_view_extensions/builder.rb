@@ -3,6 +3,39 @@ module SimpleForm
     # A collection of methods required by simple_form but added to rails default form.
     # This means that you can use such methods outside simple_form context.
     module Builder
+      class Builder
+        attr_reader :object, :text, :value
+
+        def initialize(template_object, object_name, method_name, object,
+                       sanitized_attribute_name, text, value, input_html_options)
+          @template_object = template_object
+          @object_name = object_name
+          @method_name = method_name
+          @object = object
+          @sanitized_attribute_name = sanitized_attribute_name
+          @text = text
+          @value = value
+          @input_html_options = input_html_options
+        end
+
+        def label(label_html_options={}, &block)
+          @template_object.label(@object_name, @sanitized_attribute_name, @text, label_html_options, &block)
+        end
+      end
+
+      class RadioButtonBuilder < Builder
+        def radio_button(extra_html_options={})
+          html_options = extra_html_options.merge(@input_html_options)
+          @template_object.radio_button(@object_name, @method_name, @value, html_options)
+        end
+      end
+
+      class CheckBoxBuilder < Builder
+        def check_box(extra_html_options={})
+          html_options = extra_html_options.merge(@input_html_options)
+          @template_object.check_box(@object_name, @method_name, html_options, @value, nil)
+        end
+      end
 
       # Create a collection of radio inputs for the attribute. Basically this
       # helper will create a radio input associated with a label for each
@@ -55,12 +88,13 @@ module SimpleForm
       def collection_radio_buttons(attribute, collection, value_method, text_method, options={}, html_options={})
         rendered_collection = render_collection(
           collection, value_method, text_method, options, html_options
-        ) do |value, text, default_html_options|
+        ) do |item, value, text, default_html_options|
+          builder = instantiate_builder(RadioButtonBuilder, attribute, item, value, text, default_html_options)
+
           if block_given?
-            yield sanitize_attribute_name(attribute, value), text, value, default_html_options
+            yield builder
           else
-            radio_button(attribute, value, default_html_options) +
-              label(sanitize_attribute_name(attribute, value), text, :class => "collection_radio_buttons")
+            builder.radio_button + builder.label(:class => "collection_radio_buttons")
           end
         end
 
@@ -127,14 +161,14 @@ module SimpleForm
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
         rendered_collection = render_collection(
           collection, value_method, text_method, options, html_options
-        ) do |value, text, default_html_options|
+        ) do |item, value, text, default_html_options|
           default_html_options[:multiple] = true
+          builder = instantiate_builder(CheckBoxBuilder, attribute, item, value, text, default_html_options)
 
           if block_given?
-            yield sanitize_attribute_name(attribute, value), text, value, default_html_options
+            yield builder
           else
-            check_box(attribute, default_html_options, value, nil) +
-              label(sanitize_attribute_name(attribute, value), text, :class => "collection_check_boxes")
+            builder.check_box + builder.label(:class => "collection_check_boxes")
           end
         end
 
@@ -167,6 +201,11 @@ module SimpleForm
       end
 
       private
+
+      def instantiate_builder(builder_class, attribute, item, value, text, html_options)
+        builder_class.new(@template, object_name, attribute, item,
+                          sanitize_attribute_name(attribute, value), text, value, html_options)
+      end
 
       # Generate default options for collection helpers, such as :checked and
       # :disabled.
@@ -206,7 +245,7 @@ module SimpleForm
           text  = value_for_collection(item, text_method)
           default_html_options = default_html_options_for_collection(item, value, options, html_options)
 
-          rendered_item = yield value, text, default_html_options
+          rendered_item = yield item, value, text, default_html_options
 
           item_wrapper_tag ? @template.content_tag(item_wrapper_tag, rendered_item, :class => item_wrapper_class) : rendered_item
         end.join.html_safe

@@ -9,8 +9,8 @@ module SimpleForm
         false
       end
 
-      def build_nested_boolean_style_item_tag(text, value, html_options)
-        @builder.check_box(attribute_name, html_options, value, nil) + text
+      def build_nested_boolean_style_item_tag(collection_builder)
+        collection_builder.check_box + collection_builder.text
       end
 
       def item_wrapper_class

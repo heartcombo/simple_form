@@ -45,13 +45,11 @@ module SimpleForm
       def collection_block_for_nested_boolean_style
         return unless nested_boolean_style?
 
-        proc do |label_for, text, value, html_options|
-          build_nested_boolean_style_item_tag(text, value, html_options)
-        end
+        proc { |builder| build_nested_boolean_style_item_tag(builder) }
       end
 
-      def build_nested_boolean_style_item_tag(text, value, html_options)
-        @builder.radio_button(attribute_name, value, html_options) + text
+      def build_nested_boolean_style_item_tag(collection_builder)
+        collection_builder.radio_button + collection_builder.text
       end
 
       def item_wrapper_class
