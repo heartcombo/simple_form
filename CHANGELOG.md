@@ -57,6 +57,8 @@
   * Move default attribute translations out of root - use "defaults" key instead
     Closes [#384](https://github.com/plataformatec/simple_form/issues/384). ([@fringd](https://github.com/fringd))
   * Fix label to datetime inputs to point to first select. ([@georgehemmings](https://github.com/georgehemmings))
+  * Fix usage of f.button :button with Rails 3.2.
+    Closes [#449](https://github.com/plataformatec/simple_form/issues/449).
 
 ## 1.5.2
 
