@@ -30,6 +30,8 @@
     and is backported inside SimpleForm builder extensions.
     More info in [#215](https://github.com/plataformatec/simple_form/issues/215)
   * Add `item_wrapper_class` configuration option for collection radio buttons / check boxes inputs.
+  * Change default generator templates to use .form-inputs and .form-actions classes in wrapper divs.
+    (the latter is the default in bootstrap, so this makes it easier to integrate).
 
 ### deprecation
   * Deprecate part of the old configuration API in favor of the wrapper API which allows you to customize your inputs
