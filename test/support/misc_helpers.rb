@@ -35,22 +35,22 @@ module MiscHelpers
   def custom_wrapper
     SimpleForm.build :tag => :section, :class => "custom_wrapper", :pattern => false do |b|
       b.use :pattern
-      b.use :another, :class => "another_wrapper" do |ba|
+      b.wrapper :another, :class => "another_wrapper" do |ba|
         ba.use :label
         ba.use :input
       end
-      b.use :error_wrapper, :tag => :div, :class => "error_wrapper" do |be|
-        be.use :error, :tag => :span, :class => "omg_error"
+      b.wrapper :error_wrapper, :tag => :div, :class => "error_wrapper" do |be|
+        be.use :error, :wrap_with => { :tag => :span, :class => "omg_error" }
       end
-      b.use :hint, :tag => :span, :class => "omg_hint"
+      b.use :hint, :wrap_with => { :tag => :span, :class => "omg_hint" }
     end
   end
 
   def custom_wrapper_without_top_level
     SimpleForm.build :tag => false, :class => 'custom_wrapper_without_top_level' do |b|
       b.use :label_input
-      b.use :hint,  :tag => :span, :class => :hint
-      b.use :error, :tag => :span, :class => :error
+      b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
+      b.use :error, :wrap_with => { :tag => :span, :class => :error }
     end
   end
 
