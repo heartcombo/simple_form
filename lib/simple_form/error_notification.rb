@@ -25,7 +25,7 @@ module SimpleForm
     end
 
     def error_message
-      @message || translate_error_notification
+      (@message || translate_error_notification).html_safe
     end
 
     def error_notification_tag
