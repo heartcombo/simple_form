@@ -61,9 +61,19 @@ class ErrorNotificationTest < ActionView::TestCase
     end
   end
 
-  test 'error notification should contain HTML tags' do
-    with_error_notification_for @user, :message => 'Erro encontrado ao criar <b>usuario</b>'
-    assert_select 'p.error_notification', 'Erro encontrado ao criar usuario'
-    assert_select 'p.error_notification b', 'usuario'
+  test 'error notification can contain HTML tags' do
+    with_error_notification_for @user, :message => 'Erro encontrado ao criar <b>usuário</b>'
+    assert_select 'p.error_notification', 'Erro encontrado ao criar usuário'
+    assert_select 'p.error_notification b', 'usuário'
+  end
+
+  test 'error notification uses I18n based on model to generate the notification message and accepts HTML' do
+    store_translations(:en, :simple_form => { :error_notification => { :user =>
+      'Alguns erros foram encontrados para o <b>usuário</b>:'
+    } }) do
+      with_error_notification_for @user
+      assert_select 'p.error_notification', 'Alguns erros foram encontrados para o usuário:'
+      assert_select 'p.error_notification b', 'usuário'
+    end
   end
 end
