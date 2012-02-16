@@ -88,4 +88,14 @@ class BooleanInputTest < ActionView::TestCase
       end
     end
   end
+
+  test 'input boolean with nested style works using :label_input in wrapper config, adding "checkbox" class to label' do
+    swap_wrapper :default, self.custom_wrapper_without_top_level do
+      swap SimpleForm, :boolean_style => :nested do
+        with_input_for @user, :active, :boolean
+
+        assert_select 'input[type=hidden] + label.boolean.checkbox > input.boolean'
+      end
+    end
+  end
 end
