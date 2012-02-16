@@ -60,4 +60,10 @@ class ErrorNotificationTest < ActionView::TestCase
       assert_select 'div.error_notification'
     end
   end
+
+  test 'error notification should contain HTML tags' do
+    with_error_notification_for @user, :message => 'Erro encontrado ao criar <b>usuario</b>'
+    assert_select 'p.error_notification', 'Erro encontrado ao criar usuario'
+    assert_select 'p.error_notification b', 'usuario'
+  end
 end
