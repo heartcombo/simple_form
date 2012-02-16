@@ -38,6 +38,14 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should allow to skip input_type class' do
+    swap SimpleForm, :generate_additional_classes_for => [:label, :wrapper] do
+      with_form_for @user, :post_count
+      assert_no_select "form input#user_post_count.integer"
+      assert_select "form input#user_post_count"
+    end
+  end
+
   test 'builder should allow adding custom input mappings for integer input types' do
     swap SimpleForm, :input_mappings => { /lock_version/ => :hidden } do
       with_form_for @user, :lock_version
