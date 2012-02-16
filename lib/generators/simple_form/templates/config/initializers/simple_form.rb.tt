@@ -41,41 +41,41 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label_input
-    b.use :hint,  :tag => :span, :class => :hint
-    b.use :error, :tag => :span, :class => :error
+    b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
+    b.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 <% if options.bootstrap? %>
   config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
     b.use :placeholder
-    b.use :label, :class => 'control-label'
-    b.use :tag => 'div', :class => 'controls' do |ba|
+    b.use :label, :wrap_with => { :class => 'control-label' }
+    b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :input
-      ba.use :error, :tag => 'span', :class => 'help-inline'
-      ba.use :hint,  :tag => 'p', :class => 'help-block'
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
   end
 
   config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
     b.use :placeholder
-    b.use :label, :class => 'control-label'
-    b.use :tag => 'div', :class => 'controls' do |input|
-      input.use :tag => 'div', :class => 'input-prepend' do |prepend|
+    b.use :label, :wrap_with => { :class => 'control-label' }
+    b.wrapper :tag => 'div', :class => 'controls' do |input|
+      input.wrapper :tag => 'div', :class => 'input-prepend' do |prepend|
         prepend.use :input
       end
-      input.use :hint,  :tag => 'span', :class => 'help-block'
-      input.use :error, :tag => 'span', :class => 'help-inline'
+      input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
     end
   end
 
   config.wrappers :append, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
     b.use :placeholder
-    b.use :label, :class => 'control-label'
-    b.use :tag => 'div', :class => 'controls' do |input|
-      input.use :tag => 'div', :class => 'input-append' do |append|
+    b.use :label, :wrap_with => { :class => 'control-label' }
+    b.wrapper :tag => 'div', :class => 'controls' do |input|
+      input.wrapper :tag => 'div', :class => 'input-append' do |append|
         append.use :input
       end
-      input.use :hint,  :tag => 'span', :class => 'help-block'
-      input.use :error, :tag => 'span', :class => 'help-inline'
+      input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
     end
   end
 
