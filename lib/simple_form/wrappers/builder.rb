@@ -42,21 +42,43 @@ module SimpleForm
       end
 
       def use(name, options=nil, &block)
-        add(name, options, &block)
+        if block_given?
+          ActiveSupport::Deprecation.warn "Passing a block to use is deprecated. " \
+            "Please use wrapper instead of use."
+          return wrapper(name, options, &block)
+        end
+
+        if options && options.keys != [:wrap_with]
+          ActiveSupport::Deprecation.warn "Passing :tag, :class and others to use is deprecated. " \
+            "Please invoke b.use #{name.inspect}, :wrap_with => #{options.inspect} instead."
+          options = { :wrap_with => options }
+        end
+
+        if options && wrapper = options[:wrap_with]
+          @components << Single.new(name, wrapper)
+        else
+          @components << name
+        end
       end
 
       def optional(name, options=nil, &block)
+        if block_given?
+          ActiveSupport::Deprecation.warn "Passing a block to optional is deprecated. " \
+            "Please use wrapper instead of optional."
+          return wrapper(name, options, &block)
+        end
+
+        if options && options.keys != [:wrap_with]
+          ActiveSupport::Deprecation.warn "Passing :tag, :class and others to optional is deprecated. " \
+            "Please invoke b.optional #{name.inspect}, :wrap_with => #{options.inspect} instead."
+          options = { :wrap_with => options }
+        end
+
         @options[name] = false
-        add(name, options, &block)
+        use(name, options, &block)
       end
 
-      def to_a
-        @components
-      end
-
-      private
-
-      def add(name, options)
+      def wrapper(name, options=nil)
         if block_given?
           name, options = nil, name if name.is_a?(Hash)
           builder = self.class.new(@options)
@@ -64,11 +86,13 @@ module SimpleForm
           options[:tag] = :div if options[:tag].nil?
           yield builder
           @components << Many.new(name, builder.to_a, options)
-        elsif options
-          @components << Single.new(name, options)
         else
-          @components << name
+          raise ArgumentError, "A block is required as argument to wrapper"
         end
+      end
+
+      def to_a
+        @components
       end
     end
   end
