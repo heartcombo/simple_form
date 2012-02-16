@@ -72,8 +72,8 @@ config.wrappers :tag => :div, :class => :input,
 
   # Form components
   b.use :label_input
-  b.use :hint,  :tag => :span, :class => :hint
-  b.use :error, :tag => :span, :class => :error
+  b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
+  b.use :error, :wrap_with => { :tag => :span, :class => :error }
 end
 ```
 
@@ -88,9 +88,9 @@ You can create new _Form components_ using the wrappers API as in the following 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.use :tag => :div, :class => 'separator' do |component|
-    component.use :hint,  :tag => :span, :class => :hint
-    component.use :error, :tag => :span, :class => :error
+  b.wrapper :tag => :div, :class => 'separator' do |component|
+    component.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
+    component.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 end
 ```
@@ -103,9 +103,9 @@ If you want to customize the custom _Form components_ on demand you can give it 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.use :my_wrapper, :tag => :div, :class => 'separator' do |component|
-    component.use :hint,  :tag => :span, :class => :hint
-    component.use :error, :tag => :span, :class => :error
+  b.wrapper :my_wrapper, :tag => :div, :class => 'separator' do |component|
+    component.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
+    component.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 end
 ```
@@ -155,9 +155,9 @@ default values to `false` or use the `optional` method. Is preferible to use the
 config.wrappers :placeholder => false do |b|
   b.use :placeholder
   b.use :label_input
-  b.use :tag => :div, :class => 'separator' do |component|
-    component.optional :hint, :tag => :span, :class => :hint
-    component.use :error, :tag => :span, :class => :error
+  b.wrapper :tag => :div, :class => 'separator' do |component|
+    component.optional :hint, :wrap_with => { :tag => :span, :class => :hint }
+    component.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 end
 ```
