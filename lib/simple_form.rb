@@ -73,33 +73,9 @@ module SimpleForm
   mattr_accessor :form_class
   @@form_class = :simple_form
 
-  # Add input_type class to input. Default is true.
-  mattr_accessor :add_input_type_class_to_input
-  @@add_input_type_class_to_input = true
-
-  # Add required class to input. Default is true.
-  mattr_accessor :add_required_class_to_input
-  @@add_required_class_to_input = true
-
-  # Add readonly class to input. Defualt is true.
-  mattr_accessor :add_readonly_class_to_input
-  @@add_readonly_class_to_input = true
-
-  # Add disabled class to input. Default is true.
-  mattr_accessor :add_disabled_class_to_input
-  @@add_disabled_class_to_input = true
-
-  # Add input_type class to label. Default is true.
-  mattr_accessor :add_input_type_to_label
-  @@add_input_type_to_label = true
-
-  # Add required class to label. Default is true.
-  mattr_accessor :add_required_class_to_label
-  @@add_required_class_to_label = true
-
-  # Add input classes to wrapper. Default is true.
-  mattr_accessor :add_input_classes_to_wrapper
-  @@add_input_classes_to_wrapper = true
+  # You can define which elements should obtain additional classes
+  mattr_accessor :generate_additional_classes_for
+  @@generate_additional_classes_for = [:wrapper, :label, :input]
 
   # Whether attributes are required by default (or not).
   mattr_accessor :required_by_default

@@ -166,8 +166,8 @@ class IsolatedLabelTest < ActionView::TestCase
     assert_select 'label.datetime'
   end
 
-  test 'label should not have css class from type if add_input_type_to_label if false' do
-    swap SimpleForm, :add_input_type_to_label => false do
+  test 'label should not have css class from type when generate_additional_classes_for does not include :label' do
+    swap SimpleForm, :generate_additional_classes_for => [:wrapper, :input] do
       with_label_for @user, :name, :string
       assert_no_select 'label.string'
       with_label_for @user, :description, :text
@@ -188,8 +188,8 @@ class IsolatedLabelTest < ActionView::TestCase
     assert_select 'label.optional'
   end
 
-  test 'label should not obtain required from ActiveModel::Validations when add_required_class_to_label is false' do
-    swap SimpleForm, :add_required_class_to_label => false do
+  test 'label should not obtain required from ActiveModel::Validations when generate_additional_classes_for does not include :label' do
+    swap SimpleForm, :generate_additional_classes_for => [:wrapper, :input] do
       with_label_for @validating_user, :name, :string
       assert_no_select 'label.required'
       with_label_for @validating_user, :status, :string

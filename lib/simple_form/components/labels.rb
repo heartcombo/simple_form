@@ -38,10 +38,8 @@ module SimpleForm
       end
 
       def label_html_options
-        @label_html_classes = [input_type, required_class, SimpleForm.label_class].compact.reject do |klass|
-          klass == (input_type unless SimpleForm.add_input_type_to_label) || \
-          klass == (required_class unless SimpleForm.add_required_class_to_label)
-        end
+        @label_html_classes = SimpleForm.generate_additional_classes_for.include?(:label) ? [input_type, required_class, SimpleForm.label_class].compact : []
+
         label_options = html_options_for(:label, @label_html_classes)
         label_options[:for] = options[:input_html][:id] if options.key?(:input_html) && options[:input_html].key?(:id)
         label_options
