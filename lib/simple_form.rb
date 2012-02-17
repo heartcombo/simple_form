@@ -197,6 +197,10 @@ module SimpleForm
     ActiveSupport::Deprecation.warn "[SIMPLE_FORM] #{message}", caller
   end
 
+  def self.additional_classes_for(component)
+    generate_additional_classes_for.include?(component) ? yield : []
+  end
+
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup

@@ -33,6 +33,8 @@
   * Change default generator templates to use .form-inputs and .form-actions classes in wrapper divs.
     (the latter is the default in bootstrap, so this makes it easier to integrate).
   * Field error now accepts HTML tags ([@edison](https://github.com/edison))
+  * Add `generate_additional_classes_for` config option to selectively disable extra
+    css classes for components - wrapper, label and input. ([krzyzak](https://github.com/krzyzak))
 
 ### deprecation
   * Deprecate part of the old configuration API in favor of the wrapper API which allows you to customize your inputs

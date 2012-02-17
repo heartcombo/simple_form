@@ -59,7 +59,9 @@ module SimpleForm
         # Notice that html_options_for receives a reference to input_html_classes.
         # This means that classes added dynamically to input_html_classes will
         # still propagate to input_html_options.
-        @html_classes  = SimpleForm.generate_additional_classes_for.include?(:input) ? [input_type, required_class, readonly_class, disabled_class].compact : []
+        @html_classes = SimpleForm.additional_classes_for(:input) {
+          [input_type, required_class, readonly_class, disabled_class].compact
+        }
 
         @input_html_classes = @html_classes.dup
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
@@ -101,7 +103,7 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"] || {}
         css_classes << html_options[:class] if html_options.key?(:class)
         html_options[:class] = css_classes
-        html_options.delete_if{|key, value| value.blank?}
+        html_options
       end
 
       # Lookup translations for the given namespace using I18n, based on object name,

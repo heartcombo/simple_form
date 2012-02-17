@@ -66,6 +66,15 @@ class WrapperTest < ActionView::TestCase
     assert_select 'form div.wrapper.required.string'
   end
 
+  test 'wrapper should skip additional classes when configured' do
+    swap SimpleForm, :generate_additional_classes_for => [:input, :label] do
+      with_form_for @user, :name, :wrapper_class => :wrapper
+      assert_select 'form div.wrapper'
+      assert_no_select 'div.required'
+      assert_no_select 'div.string'
+    end
+  end
+
   # Custom wrapper test
 
   test 'custom wrappers works' do
