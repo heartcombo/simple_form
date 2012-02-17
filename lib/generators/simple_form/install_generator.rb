@@ -8,7 +8,7 @@ module SimpleForm
 
       def info_bootstrap
         return if options.bootstrap?
-        puts "Simple Form 2 supports Twitter bootstrap. In case you want to " \
+        puts "SimpleForm 2 supports Twitter bootstrap. In case you want to " \
           "generate bootstrap configuration, please re-run this " \
           "generator passing --bootstrap as option."
       end

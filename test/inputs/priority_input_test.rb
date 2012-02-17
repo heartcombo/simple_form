@@ -9,7 +9,7 @@ class PriorityInputTest < ActionView::TestCase
     assert_no_select 'select option[value=][disabled=disabled]'
   end
 
-  test 'input should generate a country select with simple form default' do
+  test 'input should generate a country select with SimpleForm default' do
     swap SimpleForm, :country_priority => [ 'Brazil' ] do
       with_input_for @user, :country, :country
       assert_select 'select option[value=][disabled=disabled]'
