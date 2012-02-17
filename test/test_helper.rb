@@ -25,7 +25,9 @@ require 'simple_form'
 require "rails/generators/test_case"
 require 'generators/simple_form/install_generator'
 
-Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/support/*.rb"].each do |file|
+  require file unless file.end_with?('discovery_inputs.rb')
+end
 I18n.default_locale = :en
 
 require 'country_select'
