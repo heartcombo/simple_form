@@ -116,7 +116,7 @@ module SimpleForm
   mattr_accessor :inputs_discovery
   @@inputs_discovery = true
 
-  # Cache simple form inputs discovery
+  # Cache SimpleForm inputs discovery
   mattr_accessor :cache_discovery
   @@cache_discovery = defined?(Rails) && !Rails.env.development?
 
@@ -207,7 +207,7 @@ module SimpleForm
     yield self
 
     unless @@deprecated.empty?
-      raise "[SIMPLE FORM] Your simple form initializer file is using the following methods: #{@@deprecated.to_sentence}. " <<
+      raise "[SIMPLE FORM] Your SimpleForm initializer file is using the following methods: #{@@deprecated.to_sentence}. " <<
         "Those methods are part of the outdated configuration API. Updating to the new API is easy and fast. " <<
         "Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
     end
