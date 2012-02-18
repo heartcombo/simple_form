@@ -109,7 +109,7 @@ class HintTest < ActionView::TestCase
   test 'hint with custom wrappers works' do
     swap_wrapper do
       with_hint_for @user, :name, :hint => "can't be blank"
-      assert_select 'span.omg_hint', "can't be blank"
+      assert_select 'div.omg_hint', "can't be blank"
     end
   end
 end

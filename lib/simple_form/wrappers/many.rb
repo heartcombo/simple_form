@@ -16,6 +16,7 @@ module SimpleForm
         @namespace  = namespace
         @components = components
         @defaults   = defaults
+        @defaults[:tag]   = :div unless @defaults.key?(:tag)
         @defaults[:class] = Array.wrap(@defaults[:class])
       end
 

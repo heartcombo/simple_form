@@ -42,7 +42,7 @@ module MiscHelpers
       b.wrapper :error_wrapper, :tag => :div, :class => "error_wrapper" do |be|
         be.use :error, :wrap_with => { :tag => :span, :class => "omg_error" }
       end
-      b.use :hint, :wrap_with => { :tag => :span, :class => "omg_hint" }
+      b.use :hint, :wrap_with => { :class => "omg_hint" }
     end
   end
 

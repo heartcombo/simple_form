@@ -84,7 +84,7 @@ class WrapperTest < ActionView::TestCase
       assert_select "section.custom_wrapper div.another_wrapper input.string"
       assert_no_select "section.custom_wrapper div.another_wrapper span.omg_error"
       assert_select "section.custom_wrapper div.error_wrapper span.omg_error"
-      assert_select "section.custom_wrapper > span.omg_hint", "cool"
+      assert_select "section.custom_wrapper > div.omg_hint", "cool"
     end
   end
 
