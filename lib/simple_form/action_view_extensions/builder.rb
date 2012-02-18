@@ -183,7 +183,7 @@ module SimpleForm
         wrap_rendered_collection(rendered_collection + hidden, options)
       end
 
-      # Wrapper for using simple form inside a default rails form.
+      # Wrapper for using SimpleForm inside a default rails form.
       # Example:
       #
       #   form_for @user do |f|

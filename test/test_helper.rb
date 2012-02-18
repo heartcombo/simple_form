@@ -51,14 +51,14 @@ class ActionView::TestCase
   def setup_new_user(options={})
     @user = User.new({
       :id => 1,
-      :name => 'New in Simple Form!',
+      :name => 'New in SimpleForm!',
       :description => 'Hello!',
       :created_at => Time.now
     }.merge(options))
 
     @validating_user = ValidatingUser.new({
       :id => 1,
-      :name => 'New in Simple Form!',
+      :name => 'New in SimpleForm!',
       :description => 'Hello!',
       :home_picture => 'Home picture',
       :created_at => Time.now,
@@ -70,7 +70,7 @@ class ActionView::TestCase
 
     @other_validating_user = OtherValidatingUser.new({
       :id => 1,
-      :name => 'New in Simple Form!',
+      :name => 'New in SimpleForm!',
       :description => 'Hello!',
       :created_at => Time.now,
       :age => 19,
