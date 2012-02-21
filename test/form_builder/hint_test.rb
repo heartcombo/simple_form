@@ -18,6 +18,13 @@ class HintTest < ActionView::TestCase
     assert_select 'span.hint', 'Use with care...'
   end
 
+  test 'hint should not modify the options hash' do
+    options = { :hint => 'Use with care...' }
+    with_hint_for @user, :name, options
+    assert_select 'span.hint', 'Use with care...'
+    assert_equal({ :hint => 'Use with care...' }, options)
+  end
+
   test 'hint should be generated cleanly with optional text' do
     with_hint_for @user, :name, :hint => 'Use with care...'
     assert_no_select 'span.hint[hint]'

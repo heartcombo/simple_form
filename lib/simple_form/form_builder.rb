@@ -131,6 +131,7 @@ module SimpleForm
     #        name="user[name]" size="100" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
+      options = options.dup
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
       SimpleForm::Wrappers::Root.new([:input], :wrapper => false).render find_input(attribute_name, options)
     end
@@ -162,6 +163,8 @@ module SimpleForm
     # From the options above, only :collection can also be supplied.
     #
     def association(association, options={}, &block)
+      options = options.dup
+
       return simple_fields_for(*[association,
         options.delete(:collection), options].compact, &block) if block_given?
 
@@ -210,7 +213,7 @@ module SimpleForm
     # TODO: remove if condition when supporting only Rails 3.2 forward.
     alias_method :button_button, :button if method_defined?(:button)
     def button(type, *args, &block)
-      options = args.extract_options!
+      options = args.extract_options!.dup
       options[:class] = [SimpleForm.button_class, options[:class]].compact
       args << options
       if respond_to?("#{type}_button")
@@ -229,6 +232,8 @@ module SimpleForm
     #    f.error :name, :id => "cool_error"
     #
     def error(attribute_name, options={})
+      options = options.dup
+
       options[:error_html] = options.except(:error_tag, :error_prefix, :error_method)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
@@ -244,6 +249,8 @@ module SimpleForm
     #    f.full_error :token #=> <span class="error">Token is invalid</span>
     #
     def full_error(attribute_name, options={})
+      options = options.dup
+
       options[:error_prefix] ||= if object.class.respond_to?(:human_attribute_name)
         object.class.human_attribute_name(attribute_name.to_s)
       else
@@ -264,6 +271,8 @@ module SimpleForm
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
+      options = options.dup
+
       options[:hint_html] = options.except(:hint_tag, :hint)
       if attribute_name.is_a?(String)
         options[:hint] = attribute_name
@@ -292,7 +301,9 @@ module SimpleForm
     #
     def label(attribute_name, *args)
       return super if args.first.is_a?(String) || block_given?
-      options = args.extract_options!
+
+      options = args.extract_options!.dup
+
       options[:label_html] = options.dup
       options[:label]      = options.delete(:label)
       options[:required]   = options.delete(:required)

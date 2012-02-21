@@ -13,6 +13,18 @@ class ButtonTest < ActionView::TestCase
     assert_select 'form input.button[type=submit][value=Save Post]'
   end
 
+  test 'builder should create buttons with options' do
+    with_button_for :post, :submit, :class => 'my_button'
+    assert_select 'form input.button.my_button[type=submit][value=Save Post]'
+  end
+
+  test 'builder should not modify the options hash' do
+    options = { :class => 'my_button' }
+    with_button_for :post, :submit, options
+    assert_select 'form input.button.my_button[type=submit][value=Save Post]'
+    assert_equal({ :class => 'my_button' }, options)
+  end
+
   test 'builder should create buttons for records' do
     @user.new_record!
     with_button_for @user, :submit

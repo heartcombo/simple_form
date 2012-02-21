@@ -29,6 +29,18 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input.string.name#name_input'
   end
 
+  test 'builder input_field should not modify the options hash' do
+    options = { :id => 'name_input', :class => 'name' }
+
+    with_concat_form_for(@user) do |f|
+      f.input_field :name, options
+    end
+
+    assert_select 'input.string.name#name_input'
+    assert_equal({ :id => 'name_input', :class => 'name' }, options)
+  end
+
+
   test 'builder input_field should generate an input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, :as => :integer, :class => 'name'

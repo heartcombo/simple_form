@@ -54,6 +54,13 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span#error.error.yay'
   end
 
+  test 'error should not modify the options hash' do
+    options = { :id => 'error', :class => 'yay' }
+    with_error_for @user, :name, options
+    assert_select 'span#error.error.yay'
+    assert_equal({ :id => 'error', :class => 'yay' }, options)
+  end
+
   test 'error should find errors on attribute and association' do
     with_error_for @user, :company_id, :as => :select,
       :error_method => :to_sentence, :reflection => Association.new(Company, :company, {})
@@ -86,7 +93,7 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.error', "Super User Name! can't be blank"
   end
 
-  test 'full error should generate an full  error tag with a clean HTML' do
+  test 'full error should generate an full error tag with a clean HTML' do
     with_full_error_for @user, :name
     assert_no_select 'span.error[error_html]'
   end
@@ -94,6 +101,13 @@ class ErrorTest < ActionView::TestCase
   test 'full error should allow passing options to full error tag' do
     with_full_error_for @user, :name, :id => 'name_error', :error_prefix => "Your name"
     assert_select 'span.error#name_error', "Your name can't be blank"
+  end
+
+  test 'full error should not modify the options hash' do
+    options = { :id => 'name_error' }
+    with_full_error_for @user, :name, options
+    assert_select 'span.error#name_error', "Super User Name! can't be blank"
+    assert_equal({ :id => 'name_error' }, options)
   end
 
   # CUSTOM WRAPPERS

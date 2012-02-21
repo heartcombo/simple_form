@@ -28,6 +28,13 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.string#name_label', /My label/
   end
 
+  test 'builder should not modify the options hash' do
+    options = { :label => 'My label', :id => 'name_label' }
+    with_label_for @user, :name, options
+    assert_select 'label.string#name_label', /My label/
+    assert_equal({ :label => 'My label', :id => 'name_label' }, options)
+  end
+
   test 'builder should fallback to default label when string is given' do
     with_label_for @user, :name, 'Nome do usuário'
     assert_select 'label', 'Nome do usuário'
