@@ -26,8 +26,9 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint should be generated cleanly with optional text' do
-    with_hint_for @user, :name, :hint => 'Use with care...'
+    with_hint_for @user, :name, :hint => 'Use with care...', :hint_tag => :span
     assert_no_select 'span.hint[hint]'
+    assert_no_select 'span.hint[hint_tag]'
     assert_no_select 'span.hint[hint_html]'
   end
 

@@ -28,6 +28,13 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.string#name_label', /My label/
   end
 
+  test 'builder label should generate label tag with clean HTML' do
+    with_label_for @user, :name, :label => 'My label', :required => true, :id => 'name_label'
+    assert_select 'label.string#name_label', /My label/
+    assert_no_select 'label[label]'
+    assert_no_select 'label[required]'
+  end
+
   test 'builder should not modify the options hash' do
     options = { :label => 'My label', :id => 'name_label' }
     with_label_for @user, :name, options

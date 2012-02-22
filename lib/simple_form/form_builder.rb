@@ -303,10 +303,8 @@ module SimpleForm
       return super if args.first.is_a?(String) || block_given?
 
       options = args.extract_options!.dup
+      options[:label_html] = options.except(:label, :required)
 
-      options[:label_html] = options.dup
-      options[:label]      = options.delete(:label)
-      options[:required]   = options.delete(:required)
       column      = find_attribute_column(attribute_name)
       input_type  = default_input_type(attribute_name, column, options)
       SimpleForm::Inputs::Base.new(self, attribute_name, column, input_type, options).label
