@@ -1,3 +1,11 @@
+## 2.0.1
+
+### bug fix
+  * Sanitaze html attributes to `label` method. ([@nashby](https://github.com/nashby)).
+  Closes [#472](https://github.com/plataformatec/simple_form/issues/472)
+  * Make `collection_check_boxes` and `collection_radio_buttons` work with local variables.
+  Closes [#474](https://github.com/plataformatec/simple_form/issues/474)
+
 ## 2.0.0
 
 ### enhancements
