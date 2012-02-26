@@ -48,6 +48,15 @@ class BuilderTest < ActionView::TestCase
     assert_select 'label.collection_radio_buttons[for=user_name_199]', '$1.99'
   end
 
+  test 'collection radio checks the correct value to local variables' do
+    user = User.new
+    user.active = false
+    with_collection_radio_buttons user, :active, [true, false], :to_s, :to_s
+
+    assert_select 'form input[type=radio][value=true]'
+    assert_select 'form input[type=radio][value=false][checked=checked]'
+  end
+
   test 'collection radio accepts checked item' do
     with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
 
@@ -275,6 +284,18 @@ class BuilderTest < ActionView::TestCase
     assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
     assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
   end
+
+  test 'collection check box checks the correct value to local variables' do
+    user = User.new
+    user.tag_ids = [1, 3]
+    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    with_collection_check_boxes user, :tag_ids, collection, :first, :last
+
+    assert_select 'form input[type=checkbox][value=1][checked=checked]'
+    assert_select 'form input[type=checkbox][value=3][checked=checked]'
+    assert_no_select 'form input[type=checkbox][value=2][checked=checked]'
+  end
+
 
   test 'collection check box accepts selected values as :checked option' do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }

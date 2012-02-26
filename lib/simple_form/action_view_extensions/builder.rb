@@ -5,10 +5,9 @@ module SimpleForm
     class BuilderBase #:nodoc:
       attr_reader :object, :text, :value
 
-      def initialize(template_object, object_name, method_name, object,
-                     sanitized_attribute_name, text, value, input_html_options)
-        @template_object = template_object
-        @object_name = object_name
+      def initialize(form_builder, method_name, object, sanitized_attribute_name, text,
+                     value, input_html_options)
+        @form_builder = form_builder
         @method_name = method_name
         @object = object
         @sanitized_attribute_name = sanitized_attribute_name
@@ -18,7 +17,7 @@ module SimpleForm
       end
 
       def label(label_html_options={}, &block)
-        @template_object.label(@object_name, @sanitized_attribute_name, @text, label_html_options, &block)
+        @form_builder.label(@sanitized_attribute_name, @text, label_html_options, &block)
       end
     end
 
@@ -26,7 +25,7 @@ module SimpleForm
     class RadioButtonBuilder < BuilderBase #:nodoc:
       def radio_button(extra_html_options={})
         html_options = extra_html_options.merge(@input_html_options)
-        @template_object.radio_button(@object_name, @method_name, @value, html_options)
+        @form_builder.radio_button(@method_name, @value, html_options)
       end
     end
 
@@ -34,7 +33,7 @@ module SimpleForm
     class CheckBoxBuilder < BuilderBase #:nodoc:
       def check_box(extra_html_options={})
         html_options = extra_html_options.merge(@input_html_options)
-        @template_object.check_box(@object_name, @method_name, html_options, @value, nil)
+        @form_builder.check_box(@method_name, html_options, @value, nil)
       end
     end
 
@@ -207,7 +206,7 @@ module SimpleForm
       private
 
       def instantiate_builder(builder_class, attribute, item, value, text, html_options)
-        builder_class.new(@template, object_name, attribute, item,
+        builder_class.new(self, attribute, item,
                           sanitize_attribute_name(attribute, value), text, value, html_options)
       end
 
