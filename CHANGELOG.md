@@ -5,6 +5,8 @@
   Closes [#472](https://github.com/plataformatec/simple_form/issues/472)
   * Make `collection_check_boxes` and `collection_radio_buttons` work with local variables.
   Closes [#474](https://github.com/plataformatec/simple_form/issues/474)
+  * Use `html5` component by default in the bootstrap generator. ([@isc](https://github.com/isc)).
+  Closes [#471](https://github.com/plataformatec/simple_form/issues/471)
 
 ## 2.0.0
 
