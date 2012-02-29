@@ -7,6 +7,7 @@ module SimpleForm
           input_html_options[:min] ||= minimum_value(validator_options)
           input_html_options[:max] ||= maximum_value(validator_options)
         end
+        nil
       end
 
       private
