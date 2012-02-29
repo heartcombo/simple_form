@@ -164,4 +164,10 @@ class NumericInputTest < ActionView::TestCase
       assert_select 'input[max=99]'
     end
   end
+
+  test 'min_max should not emit max value as bare string' do
+    with_input_for @other_validating_user, :age, :integer
+    assert_select 'div', {:count => 0, :text => %r{^99}}
+  end
+
 end
