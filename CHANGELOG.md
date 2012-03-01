@@ -1,3 +1,9 @@
+## master
+
+### bug fix
+  * Fix `min_max` component to not output maximum value. ([@julian7](https://github.com/julian7)).
+  Closes [#483](https://github.com/plataformatec/simple_form/issues/483)
+
 ## 2.0.1
 
 ### bug fix
