@@ -9,95 +9,95 @@ class FormHelperTest < ActionView::TestCase
   end
 
   test 'SimpleForm should add default class to form' do
-    concat(simple_form_for(:user) do |f| end)
+    with_concat_form_for(:user)
     assert_select 'form.simple_form'
   end
 
   test 'SimpleForm should use default browser validations by default' do
-    concat(simple_form_for(:user) do |f| end)
+    with_concat_form_for(:user)
     assert_no_select 'form[novalidate]'
   end
 
   test 'SimpleForm should not use default browser validations if specified in the configuration options' do
     swap SimpleForm, :browser_validations => false do
-      concat(simple_form_for(:user) do |f| end)
+      with_concat_form_for(:user)
       assert_select 'form[novalidate="novalidate"]'
     end
   end
 
   test 'a form specific disabled validation option should override the default enabled browser validation configuration option' do
-    concat(simple_form_for(:user, :html => { :novalidate => true }) do |f| end)
+    with_concat_form_for(:user, :html => { :novalidate => true })
     assert_select 'form[novalidate="novalidate"]'
   end
 
   test 'a form specific enabled validation option should override the disabled browser validation configuration option' do
     swap SimpleForm, :browser_validations => false do
-      concat(simple_form_for(:user, :html => { :novalidate => false }) do |f| end)
+      with_concat_form_for(:user, :html => { :novalidate => false })
       assert_no_select 'form[novalidate]'
     end
   end
 
   test 'SimpleForm should add object name as css class to form when object is not present' do
-    concat(simple_form_for(:user) do |f| end)
+    with_concat_form_for(:user, :html => { :novalidate => true })
     assert_select 'form.simple_form.user'
   end
 
   test 'SimpleForm should add :as option as css class to form when object is not present' do
-    concat(simple_form_for(:user, :as => 'superuser') do |f| end)
+    with_concat_form_for(:user, :as => 'superuser')
     assert_select 'form.simple_form.superuser'
   end
 
   test 'SimpleForm should add object class name with new prefix as css class to form if record is not persisted' do
     @user.new_record!
-    concat(simple_form_for(@user) do |f| end)
+    with_concat_form_for(@user)
     assert_select 'form.simple_form.new_user'
   end
 
   test 'SimpleForm should add :as option with new prefix as css class to form if record is not persisted' do
     @user.new_record!
-    concat(simple_form_for(@user, :as => 'superuser') do |f| end)
+    with_concat_form_for(@user, :as => 'superuser')
     assert_select 'form.simple_form.new_superuser'
   end
 
   test 'SimpleForm should add edit class prefix as css class to form if record is persisted' do
-    concat(simple_form_for(@user) do |f| end)
+    with_concat_form_for(@user)
     assert_select 'form.simple_form.edit_user'
   end
 
   test 'SimpleForm should add :as options with edit prefix as css class to form if record is persisted' do
-    concat(simple_form_for(@user, :as => 'superuser') do |f| end)
+    with_concat_form_for(@user, :as => 'superuser')
     assert_select 'form.simple_form.edit_superuser'
   end
 
   test 'SimpleForm should not add object class to form if css_class is specified' do
-    concat(simple_form_for(:user, :html => {:class => nil}) do |f| end)
+    with_concat_form_for(:user, :html => {:class => nil})
     assert_no_select 'form.user'
   end
 
   test 'SimpleForm should add custom class to form if css_class is specified' do
-    concat(simple_form_for(:user, :html => {:class => 'my_class'}) do |f| end)
+    with_concat_form_for(:user, :html => {:class => 'my_class'})
     assert_select 'form.my_class'
   end
 
   test 'pass options to SimpleForm' do
-    concat(simple_form_for(:user, :url => '/account', :html => { :id => 'my_form' }) do |f| end)
+    with_concat_form_for(:user, :url => '/account', :html => { :id => 'my_form' })
     assert_select 'form#my_form'
     assert_select 'form[action=/account]'
   end
 
   test 'fields for yields an instance of FormBuilder' do
-    concat(simple_fields_for(:user) do |f|
+    with_concat_form_for(:user) do |f|
       assert f.instance_of?(SimpleForm::FormBuilder)
-    end)
+    end
   end
 
   test 'fields for with a hash like model yeilds an instance of FormBuilder' do
     @hash_backed_author = HashBackedAuthor.new
 
-    concat(simple_fields_for(:author, @hash_backed_author) do |f|
+    with_concat_fields_for(:author, @hash_backed_author) do |f|
       assert f.instance_of?(SimpleForm::FormBuilder)
       f.input :name
-    end)
+    end
 
     assert_select "input[name='author[name]'][value='hash backed author']"
   end
