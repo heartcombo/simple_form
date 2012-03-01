@@ -63,7 +63,11 @@ module MiscHelpers
   end
 
   def with_concat_form_for(*args, &block)
-    concat simple_form_for(*args, &block)
+    concat simple_form_for(*args, &(block || proc {}))
+  end
+
+  def with_concat_fields_for(*args, &block)
+    concat simple_fields_for(*args, &block)
   end
 
   def with_concat_custom_form_for(*args, &block)
