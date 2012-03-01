@@ -6,6 +6,9 @@
 
 ## 2.0.1
 
+### enhancements
+  * Add `:inline_label` configuration to nested booleans to display text inline with checkbox. ([@ehoch](https://github.com/ehoch))
+
 ### bug fix
   * Sanitaze html attributes to `label` method. ([@nashby](https://github.com/nashby)).
   Closes [#472](https://github.com/plataformatec/simple_form/issues/472)
