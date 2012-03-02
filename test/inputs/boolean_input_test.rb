@@ -105,6 +105,4 @@ class BooleanInputTest < ActionView::TestCase
       end
     end
   end
-
-
 end

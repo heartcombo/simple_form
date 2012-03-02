@@ -1,13 +1,13 @@
-## master
+## 2.0.2 (Not released yet)
+
+### enhancements
+  * Add `:inline_label` configuration to nested booleans to display text inline with checkbox. ([@ehoch](https://github.com/ehoch))
 
 ### bug fix
   * Fix `min_max` component to not output maximum value. ([@julian7](https://github.com/julian7)).
   Closes [#483](https://github.com/plataformatec/simple_form/issues/483)
 
 ## 2.0.1
-
-### enhancements
-  * Add `:inline_label` configuration to nested booleans to display text inline with checkbox. ([@ehoch](https://github.com/ehoch))
 
 ### bug fix
   * Sanitaze html attributes to `label` method. ([@nashby](https://github.com/nashby)).
