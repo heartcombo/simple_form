@@ -1,5 +1,3 @@
-require 'ostruct'
-
 Column = Struct.new(:name, :type, :limit)
 Association = Struct.new(:klass, :name, :macro, :options)
 
