@@ -32,6 +32,8 @@ I18n.default_locale = :en
 
 require 'country_select'
 
+ActionDispatch::Assertions::NO_STRIP << "label"
+
 class ActionView::TestCase
   include MiscHelpers
   include SimpleForm::ActionViewExtensions::FormHelper
