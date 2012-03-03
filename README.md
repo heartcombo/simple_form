@@ -407,7 +407,7 @@ end
 
 **SimpleForm** comes with a lot of default mappings:
 
-```
+```text
 Mapping               Input                         Column Type
 
 boolean               check box                     boolean
