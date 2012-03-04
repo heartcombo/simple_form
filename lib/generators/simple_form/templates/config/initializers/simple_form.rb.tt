@@ -99,9 +99,9 @@ SimpleForm.setup do |config|
 
   # Default class for buttons
 <% if options.bootstrap? %>
-  config.button_class = 'btn'
-<% else %>
   config.button_class = 'btn btn-primary'
+<% else %>
+  config.button_class = 'btn'
 <% end %>
 
   # Method used to tidy up errors.
