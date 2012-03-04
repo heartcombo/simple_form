@@ -21,6 +21,17 @@ class CollectionSelectInputTest < ActionView::TestCase
     end
   end
 
+  test 'input as select should use i18n to translate select boolean options for given attribute' do
+    store_translations(:en, :simple_form => { :options => { :defaults => {
+      :active => { :yes => "I think so", :no => "I don't think so"}
+    } } } ) do
+      with_input_for @user, :active, :select
+      assert_select 'select.select#user_active'
+      assert_select 'select option[value=true]', 'I think so'
+      assert_select 'select option[value=false]', "I don't think so"
+    end
+  end
+
   test 'input should allow overriding collection for select types' do
     with_input_for @user, :name, :select, :collection => ['Jose', 'Carlos']
     assert_select 'select.select#user_name'
