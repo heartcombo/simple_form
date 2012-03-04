@@ -98,7 +98,11 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
+<% if options.bootstrap? %>
+  config.button_class = 'btn btn-primary'
+<% else %>
   config.button_class = 'btn'
+<% end %>
 
   # Method used to tidy up errors.
   # config.error_method = :first
@@ -139,7 +143,11 @@ SimpleForm.setup do |config|
   config.label_class = 'control-label'
 
   # You can define the class to use on all forms. Default is simple_form.
+<% if options.bootstrap? %>
+  config.form_class = 'simple_form form-horizontal'
+<% else %>
   # config.form_class = :simple_form
+<% end %>
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
