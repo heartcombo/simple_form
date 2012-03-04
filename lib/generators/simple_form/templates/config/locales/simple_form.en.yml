@@ -15,7 +15,7 @@ en:
     #   password: 'Password'
     #   user:
     #     new:
-    #       email: 'E-mail para efetuar o sign in.'
+    #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'
     # hints:
