@@ -5,10 +5,11 @@ module SimpleForm
       # collection is given. Always fallback to this boolean collection.
       # Texts can be translated using i18n in "simple_form.yes" and
       # "simple_form.no" keys. See the example locale file.
-      def self.boolean_collection
-        i18n_cache :boolean_collection do
-          [ [I18n.t(:"simple_form.yes", :default => 'Yes'), true],
-            [I18n.t(:"simple_form.no", :default => 'No'), false] ]
+      def boolean_collection
+        self.class.i18n_cache :boolean_collection do
+          namespace = :"simple_form.options.defaults"
+          [ [I18n.t(:"simple_form.yes", :default => [:"#{namespace}.#{attribute_name}.yes", 'Yes']), true],
+            [I18n.t(:"simple_form.no", :default => [:"#{namespace}.#{attribute_name}.no", 'No']), false] ]
         end
       end
 
@@ -27,7 +28,7 @@ module SimpleForm
 
       def collection
         @collection ||= begin
-          collection = options.delete(:collection) || self.class.boolean_collection
+          collection = options.delete(:collection) || boolean_collection
           collection.respond_to?(:call) ? collection.call : collection.to_a
         end
       end
