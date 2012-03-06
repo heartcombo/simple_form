@@ -87,6 +87,49 @@ SimpleForm.setup do |config|
   # to learn about the different styles for forms and inputs,
   # buttons and other elements.
   config.default_wrapper = :bootstrap
+<% elsif options.zurb_foundation? %>
+
+  config.wrappers :zurb, :class => "form-field",
+    :hint_class => :field_with_hint, :error_class => :error do |b|
+    ## Extensions enabled by default
+    # Any of these extensions can be disabled for a
+    # given input by passing: `f.input EXTENSION_NAME => false`.
+    # You can make any of these extensions optional by
+    # renaming `b.use` to `b.optional`.
+
+    # Determines whether to use HTML5 (:email, :url, ...)
+    # and required attributes
+    b.use :html5
+
+    # Calculates placeholders automatically from I18n
+    # You can also pass a string as f.input :placeholder => "Placeholder"
+    b.use :placeholder
+
+    ## Optional extensions
+    # They are disabled unless you pass `f.input EXTENSION_NAME => :lookup`
+    # to the input. If so, they will retrieve the values from the model
+    # if any exists. If you want to enable the lookup for any of those
+    # extensions by default, you can change `b.optional` to `b.use`.
+
+    # Calculates maxlength from length validations for string inputs
+    b.optional :maxlength
+
+    # Calculates pattern from format validations for string inputs
+    b.optional :pattern
+
+    # Calculates min and max from length validations for numeric inputs
+    b.optional :min_max
+
+    # Calculates readonly automatically from readonly attributes
+    b.optional :readonly
+
+    ## Inputs
+    b.use :label_input
+    b.use :hint, :wrap_with => {:tag=>:span, :class=>:hint}
+    b.use :error, :wrap_with => {:tag=>:small} 
+  end
+  # The default wrapper to be used by the FormBuilder.
+  config.default_wrapper = :zurb
 <% else %>
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
@@ -98,8 +141,11 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
+<% if options.zurb_foundation? %>
+  config.button_class = 'nice button'
+<% else %>
   config.button_class = 'btn'
-
+<% end %>
   # Method used to tidy up errors.
   # config.error_method = :first
 
@@ -138,8 +184,13 @@ SimpleForm.setup do |config|
   # You can define the class to use on all labels. Default is nil.
   config.label_class = 'control-label'
 
+<% if options.zurb_foundation? %>
+  # You can define the class to use on all forms. Default is simple_form
+  config.form_class = :nice
+<% else %>
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form
+<% end %>
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
@@ -177,3 +228,7 @@ SimpleForm.setup do |config|
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
 end
+
+<% if options.zurb_foundation? %>
+Dir[Rails.root.join("lib/core_ext/simple_form/**/*.rb")].each { |f| require f }
+<% end %>
