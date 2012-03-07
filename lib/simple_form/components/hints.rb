@@ -5,7 +5,7 @@ module SimpleForm
       def hint
         @hint ||= begin
           hint = options[:hint]
-          hint.is_a?(String) ? hint : translate(:hints)
+          hint.is_a?(String) ? hint.html_safe : (translate(:hints).html_safe if translate(:hints))
         end
       end
 
