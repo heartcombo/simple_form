@@ -63,6 +63,12 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form input[type=radio][value=true][checked=checked]'
     assert_no_select 'form input[type=radio][value=false][checked=checked]'
   end
+ 
+  test 'collection radio accepts checked item which has a value of false' do
+    with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, :checked => false
+    assert_no_select 'form input[type=radio][value=true][checked=checked]'
+    assert_select 'form input[type=radio][value=false][checked=checked]'
+  end
 
   test 'collection radio accepts multiple disabled items' do
     collection = [[1, true], [0, false], [2, 'other']]
