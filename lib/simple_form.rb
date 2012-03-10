@@ -159,6 +159,8 @@ module SimpleForm
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
   end
 
+  #this creates a :default wrapper that will be overridden if user configures
+  #one in config/initializers/simple_form.rb
   wrappers :class => :input, :hint_class => :field_with_hint, :error_class => :field_with_errors do |b|
     b.use :html5
 

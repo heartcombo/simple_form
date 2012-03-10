@@ -7,7 +7,8 @@ module SimpleForm
     #
     # `Many` represents a wrapper around several components at the same time.
     # It may optionally receive a namespace, allowing it to be configured
-    # on demand on input generation.
+    # on demand on input generation. The find function returns if it
+    # matches namespace
     class Many
       attr_reader :namespace, :defaults, :components
       alias :to_sym :namespace
@@ -48,8 +49,14 @@ module SimpleForm
       end
 
       private
-
+      
+      #this will wrap the content
+      #unless options for this namespace=false which is set by b.optional :namespace
+      #and user didn't explicitly set one
       def wrap(input, options, content)
+        
+        #this would be triggered if b.optional :namespace and user didn't supply :namespace explicitly
+        #in b.input :myfield, :namespace => "something"
         return content if options[namespace] == false
 
         tag = (namespace && options[:"#{namespace}_tag"]) || @defaults[:tag]
@@ -58,6 +65,8 @@ module SimpleForm
         klass = html_classes(input, options)
         opts  = options[:"#{namespace}_html"] || {}
         opts[:class] = (klass << opts[:class]).join(' ').strip unless klass.empty?
+        
+        #this outputs into @builder.template of input
         input.template.content_tag(tag, content, opts)
       end
 
