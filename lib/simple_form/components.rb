@@ -13,6 +13,7 @@ module SimpleForm
     autoload :Labels,       'simple_form/components/labels'
     autoload :MinMax,       'simple_form/components/min_max'
     autoload :Maxlength,    'simple_form/components/maxlength'
+    autoload :Minlength,    'simple_form/components/minlength'
     autoload :Pattern,      'simple_form/components/pattern'
     autoload :Placeholders, 'simple_form/components/placeholders'
     autoload :Readonly,     'simple_form/components/readonly'

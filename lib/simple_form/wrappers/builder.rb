@@ -44,7 +44,8 @@ module SimpleForm
         @options    = options
         @components = []
       end
-
+      
+      #this triggers the use of this option
       def use(name, options=nil, &block)
         if block_given?
           ActiveSupport::Deprecation.warn "Passing a block to use is deprecated. " \
@@ -84,11 +85,22 @@ module SimpleForm
 
       def wrapper(name, options=nil)
         if block_given?
+          #setting name to nil if only a hash passed in
           name, options = nil, name if name.is_a?(Hash)
+          
+          #create a builder based on current options of parent
           builder = self.class.new(@options)
+          
+          
           options ||= {}
+          #use div if nothing else supplied
           options[:tag] = :div if options[:tag].nil?
+          
+          #now run the block setup stuff (use, optional, and wrappers)
           yield builder
+          
+          #turn this builder into a Many object (wrapper for multiple @components) and 
+          #add to parent @components
           @components << Many.new(name, builder.to_a, options)
         else
           raise ArgumentError, "A block is required as argument to wrapper"

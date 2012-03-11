@@ -2,3 +2,5 @@
 pkg/
 rdoc/
 gemfiles/*.lock
+test/coverage/
+test/coverage.data
