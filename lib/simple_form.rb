@@ -166,6 +166,7 @@ module SimpleForm
 
     b.use :min_max
     b.use :maxlength
+    b.use :minlength
     b.use :placeholder
     b.optional :pattern
     b.optional :readonly

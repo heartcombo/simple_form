@@ -104,7 +104,9 @@ module SimpleForm
     #
     def input(attribute_name, options={}, &block)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
-
+      
+      #SimpleForm.wrapper(name) is a module method that 
+      # Retrieves a given wrapper
       chosen =
         if name = options[:wrapper]
           name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
@@ -374,13 +376,20 @@ module SimpleForm
     end
 
     # Attempt to guess the better input type given the defined options. By
-    # default alwayls fallback to the user :as option, or to a :select when a
+    # default always fallback to the user :as option, or to a :select when a
     # collection is given.
     def default_input_type(attribute_name, column, options) #:nodoc:
+      
+      #return user :as option if present
       return options[:as].to_sym if options[:as]
+      
+      #return select when a collection is given
       return :select             if options[:collection]
+      
+      #return any custom type assigned to SimpleForm.input_mappings 
       custom_type = find_custom_type(attribute_name.to_s) and return custom_type
-
+      
+      #grab the ActiveModel column.type and parse it from there
       input_type = column.try(:type)
       case input_type
       when :timestamp
@@ -400,7 +409,9 @@ module SimpleForm
         input_type
       end
     end
-
+    
+    #this only comes into play if the SimpleForm
+    #was initialized with/given input_mappings
     def find_custom_type(attribute_name) #:nodoc:
       SimpleForm.input_mappings.find { |match, type|
         attribute_name =~ match

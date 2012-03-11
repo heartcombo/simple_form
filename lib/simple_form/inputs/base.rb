@@ -14,6 +14,7 @@ module SimpleForm
       include SimpleForm::Components::HTML5
       include SimpleForm::Components::LabelInput
       include SimpleForm::Components::Maxlength
+      include SimpleForm::Components::Minlength
       include SimpleForm::Components::MinMax
       include SimpleForm::Components::Pattern
       include SimpleForm::Components::Placeholders
