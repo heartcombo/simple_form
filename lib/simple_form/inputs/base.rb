@@ -48,6 +48,7 @@ module SimpleForm
       def initialize(builder, attribute_name, column, input_type, options = {})
         super
 
+        options             = options.dup
         @builder            = builder
         @attribute_name     = attribute_name
         @column             = column
