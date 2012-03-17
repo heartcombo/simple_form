@@ -39,15 +39,10 @@ class ActionView::TestCase
   include SimpleForm::ActionViewExtensions::FormHelper
 
   setup :set_controller
-  setup :set_response
   setup :setup_new_user
 
   def set_controller
     @controller = MockController.new
-  end
-
-  def set_response
-    @response = MockResponse.new(self)
   end
 
   def setup_new_user(options={})
