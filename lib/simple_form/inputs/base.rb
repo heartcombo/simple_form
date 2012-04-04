@@ -87,7 +87,19 @@ module SimpleForm
       end
 
       def limit
+        decimal_or_float? ? decimal_limit : column_limit
+      end
+
+      def column_limit
         column && column.limit
+      end
+
+      def decimal_limit
+        column_limit && (column_limit + 1) #for decimal point
+      end
+
+      def decimal_or_float?
+        column && column.number? && column.type != :integer
       end
 
       def nested_boolean_style?
