@@ -1,7 +1,6 @@
-SimpleForm::Inputs::StringInput.class_eval do
-
-  alias :old_input_html_classes :input_html_classes
-  def input_html_classes
-    super + [:"input-text"]
+class StringInput < SimpleForm::Inputs::StringInput
+  def input
+    input_html_options[:class] << :"input-text"
+    super
   end
 end
