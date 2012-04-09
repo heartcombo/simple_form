@@ -631,7 +631,15 @@ config.wrappers :tag => :div, :class => :input,
 end
 ```
 
-The _Form components_ will generate the form tags like labels, inputs, hints or errors contents.
+The _Form components_ will generate the form tags like labels, inputs, hints or errors contents. The available components are:
+
+```ruby
+:label         # The <label> tag alone
+:input         # The <input> tag alone
+:label_input   # The <label> and the <input> tags
+:hint          # The hint for the input
+:error         # The error for the input
+```
 
 The _Form extensions_ are used to generate some attributes or perform some lookups on the model to
 add extra information to your components.
