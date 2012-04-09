@@ -1,5 +1,11 @@
-Column = Struct.new(:name, :type, :limit)
 Association = Struct.new(:klass, :name, :macro, :options)
+
+class Column < Struct.new(:name, :type, :limit)
+  # Returns +true+ if the column is either of type integer, float or decimal.
+  def number?
+    type == :integer || type == :float || type == :decimal
+  end
+end
 
 class Company < Struct.new(:id, :name)
   extend ActiveModel::Naming
