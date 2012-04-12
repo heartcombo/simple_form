@@ -2,10 +2,14 @@
 
 ### enhancements
   * Add `:inline_label` configuration to nested booleans to display text inline with checkbox. ([@ehoch](https://github.com/ehoch))
+  * Add html support for hints ([@findrails](https://github.com/findrails))
 
 ### bug fix
   * Fix `min_max` component to not output maximum value. ([@julian7](https://github.com/julian7)).
   Closes [#483](https://github.com/plataformatec/simple_form/issues/483)
+  * Remove leading and trailing whitespace from `label_text`
+  Closes [#492](https://github.com/plataformatec/simple_form/issues/492)
+  * Fix checked radio button issue when value is false  ([@georgehemmings](https://github.com/georgehemmings)).
 
 ## 2.0.1
 

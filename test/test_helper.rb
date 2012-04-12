@@ -32,20 +32,17 @@ I18n.default_locale = :en
 
 require 'country_select'
 
+ActionDispatch::Assertions::NO_STRIP << "label"
+
 class ActionView::TestCase
   include MiscHelpers
   include SimpleForm::ActionViewExtensions::FormHelper
 
   setup :set_controller
-  setup :set_response
   setup :setup_new_user
 
   def set_controller
     @controller = MockController.new
-  end
-
-  def set_response
-    @response = MockResponse.new(self)
   end
 
   def setup_new_user(options={})

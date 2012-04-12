@@ -305,6 +305,20 @@ class FormBuilderTest < ActionView::TestCase
     assert_no_select "input.string[name='user[credit_limit]']"
   end
 
+  test 'builder should receive a default argument and pass it to the inputs and nested form' do
+    @user.company = Company.new(1, 'Empresa')
+
+    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
+      concat(f.input :name)
+      concat(f.simple_fields_for(:company) do |company_form|
+        concat(company_form.input :name)
+      end)
+    end
+
+    assert_select "input.string.default_class[name='user[name]']"
+    assert_select "input.string.default_class[name='user[company_attributes][name]']"
+  end
+
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name
