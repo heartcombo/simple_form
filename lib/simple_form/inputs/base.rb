@@ -116,7 +116,7 @@ module SimpleForm
 
       # Retrieve options for the given namespace from the options hash
       def html_options_for(namespace, css_classes)
-        html_options = options[:"#{namespace}_html"] || {}
+        html_options = (options[:"#{namespace}_html"] || {}).dup
         css_classes << html_options[:class] if html_options.key?(:class)
         html_options[:class] = css_classes
         html_options
