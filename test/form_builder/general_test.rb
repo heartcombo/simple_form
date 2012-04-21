@@ -319,6 +319,15 @@ class FormBuilderTest < ActionView::TestCase
     assert_select "input.string.default_class[name='user[company_attributes][name]']"
   end
 
+  test 'input size and maxlength should be the column limit plus one to make room for decimal point if the user uses text instead of number for field type' do
+    with_concat_form_for @user do |f|
+      concat(f.input(:credit_limit, :as => :string))
+    end
+
+    assert_select "input[type=text][name='user[credit_limit]'][maxlength=16][size=16]"
+    assert_no_select "input[type=text][name='user[credit_limit]'][maxlength=15][size=15]"
+  end
+
   # WITHOUT OBJECT
   test 'builder should generate properly when object is not present' do
     with_form_for :project, :name
