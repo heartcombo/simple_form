@@ -99,16 +99,16 @@ class WrapperTest < ActionView::TestCase
 
   test 'custom wrappers on a form basis' do
     swap_wrapper :another do
-      concat simple_form_for(@user) { |f|
+      with_concat_form_for(@user) do |f|
         f.input :name
-      }
+      end
 
       assert_no_select "section.custom_wrapper div.another_wrapper label"
       assert_no_select "section.custom_wrapper div.another_wrapper input.string"
 
-      concat simple_form_for(@user, :wrapper => :another) { |f|
+      with_concat_form_for(@user, :wrapper => :another) do |f|
         f.input :name
-      }
+      end
 
       assert_select "section.custom_wrapper div.another_wrapper label"
       assert_select "section.custom_wrapper div.another_wrapper input.string"
