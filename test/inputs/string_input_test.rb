@@ -57,6 +57,12 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input.string[maxlength=12]'
   end
 
+  test 'input size and maxlength should be the column limit plus one to make room for decimal point' do
+    with_input_for @user, :credit_limit, :string
+
+    assert_select "input.string[maxlength=16][size=16]"
+  end
+
   test 'input should not generate placeholder by default' do
     with_input_for @user, :name, :string
     assert_no_select 'input[placeholder]'
