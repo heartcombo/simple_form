@@ -141,7 +141,7 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
-  test 'access wrappers with indfferent access' do
+  test 'do not duplicate label classes for different inputs' do
     swap_wrapper :default, self.custom_wrapper_with_label_html_option do
       with_concat_form_for(@user) do |f|
         concat f.input :name, :required => false
