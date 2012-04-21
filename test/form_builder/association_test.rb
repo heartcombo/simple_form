@@ -41,7 +41,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder preloads collection association' do
-    value = @user.tags
+    value = @user.tags = Object.new
     value.expects(:to_a).returns(value)
     with_association_for @user, :tags
     assert_select 'form select.select#user_tag_ids'
@@ -51,7 +51,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder does not preload collection association if preload is false' do
-    value = @user.company
+    value = @user.company = Object.new
     value.expects(:to_a).never
     with_association_for @user, :company, :preload => false
     assert_select 'form select.select#user_company_id'
@@ -61,7 +61,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder does not preload non-collection association' do
-    value = @user.company
+    value = @user.company = Object.new
     value.expects(:to_a).never
     with_association_for @user, :company, :preload => false
     assert_select 'form select.select#user_company_id'
