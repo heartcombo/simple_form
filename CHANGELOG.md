@@ -14,6 +14,9 @@
   Closes [#553](https://github.com/plataformatec/simple_form/issues/533).
   ([@nashby](https://github.com/nashby))
   * Fix limit and maxlength with decimal points. ([@shwoodard](https://github.com/shwoodard))
+  * Fix issue when html are duplicated.
+  Closes [#488](https://github.com/plataformatec/simple_form/issues/488).
+  ([@ebonical](https://github.com/ebonical))
 
 ## 2.0.1
 

@@ -141,6 +141,19 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'access wrappers with indfferent access' do
+    swap_wrapper :default, self.custom_wrapper_with_label_html_option do
+      with_concat_form_for(@user) do |f|
+        concat f.input :name, :required => false
+        concat f.input :email, :as => :email, :required => true
+      end
+
+      assert_select "label.string.optional.extra-label-class[for='user_name']"
+      assert_select "label.email.required.extra-label-class[for='user_email']"
+      assert_no_select "label.string.optional.extra-label-class[for='user_email']"
+    end
+  end
+
   test 'raise error when wrapper not found' do
     assert_raise SimpleForm::WrapperNotFound do
       with_form_for @user, :name, :wrapper => :not_found
