@@ -12,6 +12,7 @@ class DiscoveryTest < ActionView::TestCase
         Object.send :remove_const, :StringInput
         Object.send :remove_const, :NumericInput
         Object.send :remove_const, :CustomizedInput
+        Object.send :remove_const, :CollectionSelectInput
       end
     end
   end
@@ -56,6 +57,13 @@ class DiscoveryTest < ActionView::TestCase
     discovery do
       with_form_for @user, :age
       assert_select 'form section input#user_age.numeric.integer'
+    end
+  end
+
+  test 'new inputs can override the input_html_options' do
+    discovery do
+      with_form_for @user, :active, :as => :select
+      assert_select 'form select#user_active.select.chosen'
     end
   end
 end

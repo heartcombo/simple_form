@@ -466,6 +466,17 @@ class DateTimeInput < SimpleForm::Inputs::DateTimeInput
 end
 ```
 
+Or if you want to add a class to all the select fields you can do:
+
+```ruby
+# app/inputs/collection_select_input.rb
+class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
+  def input_html_classes
+    super.push('chosen')
+  end
+end
+```
+
 ## Custom form builder
 
 You can create a custom form builder that uses **SimpleForm**.

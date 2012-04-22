@@ -19,3 +19,9 @@ class CustomizedInput < SimpleForm::Inputs::StringInput
     :text_field
   end
 end
+
+class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
+  def input_html_classes
+    super.push('chosen')
+  end
+end
