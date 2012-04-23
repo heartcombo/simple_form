@@ -314,6 +314,37 @@ the collection by hand, all together with the prompt:
 f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
 ```
 
+### ActiveModel
+
+**SimpleForm** can also be used with any `ActiveModel`-compliant objects
+(such as created using [ActiveAttr](https://github.com/cgriego/active_attr)).
+
+The only thing you have to keep in mind is to define `<attribute>_attributes=` setter for the nested models.
+It is only required for non-`ActiveRecord` models where `accept_nested_attributes_for` is used instead.
+
+For example:
+
+```ruby
+class ReservationFee < ActiveRecord::Base
+  attr_accessor :credit_card
+  
+  # This is required by SimpleForm and Rails for non-ActiveRecord nested attributes
+  def credit_card_attributes=(attributes)
+    @credit_card = CreditCard.new(attributes)
+  end
+end
+
+class CreditCard
+  include ActiveAttr::Model
+  attribute :number
+  attribute :expiry
+  attribute :cvn
+  attribute :name
+end
+```
+
+
+
 ### Buttons
 
 All web forms need buttons, right? **SimpleForm** wraps them in the DSL, acting like a proxy:
