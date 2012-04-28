@@ -23,7 +23,7 @@ class ErrorNotificationTest < ActionView::TestCase
 
   test 'error notification is generated when the object has some error' do
     with_error_notification_for @user
-    assert_select 'p.error_notification', 'Some errors were found, please take a look:'
+    assert_select 'p.error_notification', 'Please review the problems below:'
   end
 
   test 'error notification uses I18n based on model to generate the notification message' do
