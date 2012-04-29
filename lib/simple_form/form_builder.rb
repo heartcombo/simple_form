@@ -100,7 +100,7 @@ module SimpleForm
     # == Priority
     #
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
-    # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectivelly.
+    # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectively.
     #
     def input(attribute_name, options={}, &block)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
