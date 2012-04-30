@@ -19,7 +19,9 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
 
   test 'generates the simple_form initializer with the bootstrap wrappers' do
     run_generator %w(--bootstrap)
-    assert_file 'config/initializers/simple_form.rb', /config\.wrappers :bootstrap/,
+    assert_file 'config/initializers/simple_form.rb',
+      /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
+    assert_file 'config/initializers/simple_form_bootstrap.rb', /config\.wrappers :bootstrap/,
       /config\.default_wrapper = :bootstrap/
   end
 
