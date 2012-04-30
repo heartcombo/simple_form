@@ -54,8 +54,8 @@ module SimpleForm
       end
 
       def inline_label
-        inline_label = options[:inline_label]
-        inline_label == true ? label_text : inline_label
+        inline_option = options[:inline_label]
+        inline_option == true ? label_text : inline_option
       end
 
       # Booleans are not required by default because in most of the cases
