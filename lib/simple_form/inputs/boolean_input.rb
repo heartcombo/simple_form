@@ -3,7 +3,6 @@ module SimpleForm
     class BooleanInput < Base
       def input
         if nested_boolean_style?
-          inline_label = options[:inline_label] == true ? label_text : options[:inline_label]
           build_hidden_field_for_checkbox +
             template.label_tag(nil, :class => "checkbox") {
               build_check_box_without_hidden_field + inline_label
@@ -52,6 +51,11 @@ module SimpleForm
       def build_hidden_field_for_checkbox
         @builder.hidden_field(attribute_name, :value => '0', :id => nil,
                               :disabled => input_html_options[:disabled])
+      end
+
+      def inline_label
+        inline_label = options[:inline_label]
+        inline_label == true ? label_text : inline_label
       end
 
       # Booleans are not required by default because in most of the cases
