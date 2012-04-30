@@ -1,7 +1,8 @@
-## 2.0.2 (Not released yet)
+## 2.0.2
 
 ### enhancements
-  * Add `:inline_label` configuration to nested booleans to display text inline with checkbox. ([@ehoch](https://github.com/ehoch))
+  * Add `:inline_label` option to nested booleans to display text inline with checkbox.
+  If the value is `true` it uses the default label text. ([@ehoch](https://github.com/ehoch))
   * Add html support for hints. ([@findrails](https://github.com/findrails))
 
 ### bug fix
