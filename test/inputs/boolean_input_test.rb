@@ -36,6 +36,13 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
+  test 'input boolean with nested style creates an inline label using the default label text when inline_label option set to true' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :boolean, :label => false, :inline_label => true
+      assert_select 'label.checkbox', :text => 'Active'
+    end
+  end
+
   test 'input boolean with nested generates a manual hidden field for checkbox outside the label, to recreate Rails functionality with valid html5' do
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean
