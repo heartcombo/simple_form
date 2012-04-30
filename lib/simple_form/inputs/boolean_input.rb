@@ -3,9 +3,7 @@ module SimpleForm
     class BooleanInput < Base
       def input
         if nested_boolean_style?
-          # If the inline_label option is a set to true then use the label_text as the inline_label
-          # otherwise use the specified object as the inline label (could be nil).
-          inline_label = options[:inline_label].eql?(true) ? label_text : options[:inline_label]
+          inline_label = options[:inline_label] == true ? label_text : options[:inline_label]
           build_hidden_field_for_checkbox +
             template.label_tag(nil, :class => "checkbox") {
               build_check_box_without_hidden_field + inline_label
