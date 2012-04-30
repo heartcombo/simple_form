@@ -47,6 +47,16 @@ For more information see the generator output, our
 
 **NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 or higher.
 
+### Zurb Foundation
+
+**SimpleForm** 2.0 can be easily integrated to [Zurb Foundation](http://foundation.zurb.com/).
+To do that, you have to use the 'zurb_foundation' option in the install generator, like this:
+
+`rails generate simple_form:install --zurb_foundation`
+
+You have to be sure you added a copy of the [Zurb Foundation](http://foundation.zurb.com/)
+assets on your application.
+
 ## Usage
 
 **SimpleForm** was designed to be customized as you need to. Basically it's a stack of components that
