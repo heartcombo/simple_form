@@ -14,7 +14,13 @@ module SimpleForm
       end
 
       def copy_config
-        directory 'config'
+        template "config/initializers/simple_form.rb"
+
+        if options[:bootstrap]
+          template "config/initializers/simple_form_bootstrap.rb"
+        end
+
+        directory 'config/locales'
       end
 
       def copy_scaffold_template
