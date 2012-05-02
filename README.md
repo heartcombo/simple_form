@@ -639,6 +639,12 @@ en:
             name: Name
 ```
 
+This difference exists because **SimpleForm** relies on `object_name` provided by Rails'
+FormBuilder to determine the translation path for a given object instead of `i18n_key` from the
+object itself. Thus, similarly, if a form for an `Admin::User` object is defined by calling
+`simple_form_for @admin_user, :as => :some_user`, **SimpleForm** will look for translations
+under `some_user` instead of `admin_user`.
+
 ## Configuration
 
 **SimpleForm** has several configuration options. You can read and change them in the initializer
