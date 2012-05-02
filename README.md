@@ -567,7 +567,7 @@ en:
 ```
 
 **SimpleForm** will always look for a default attribute translation under the "defaults" key if no
-specific is found inside the model key.Note that this syntax is different from 1.x. To migrate to
+specific is found inside the model key. Note that this syntax is different from 1.x. To migrate to
 the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".
 
 In addition, **SimpleForm** will fallback to default human_attribute_name from Rails when no other
@@ -613,6 +613,31 @@ en:
 There are other options that can be configured through I18n API, such as required text and boolean.
 Be sure to check our locale file or the one copied to your application after you run
 `rails generate simple_form:install`.
+
+It should be noted that translations for labels, hints and placeholders for a namespaced model, e.g.
+`Admin::User`, should be placed under `admin_user`, not under `admin/user`. This is different from
+how translations for namespaced model and attribute names are defined:
+
+```yaml
+en:
+  activerecord:
+    models:
+        admin/user: User
+    attributes:
+        admin/user:
+            name: Name
+```
+
+They should be placed under `admin/user`. Form labels, hints and placeholders for those attributes,
+though, should be placed under `admin_user`:
+
+```yaml
+en:
+  simple_form:
+    labels:
+        admin_user:
+            name: Name
+```
 
 ## Configuration
 
