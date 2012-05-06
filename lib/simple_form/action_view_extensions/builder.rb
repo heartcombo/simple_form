@@ -223,7 +223,7 @@ module SimpleForm
           accept = if current_option.respond_to?(:call)
             current_option.call(item)
           else
-            Array(current_option).include?(value)
+            Array(current_option).map(&:to_s).include?(value.to_s)
           end
 
           if accept
