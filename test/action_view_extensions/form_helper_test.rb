@@ -101,4 +101,23 @@ class FormHelperTest < ActionView::TestCase
 
     assert_select "input[name='author[name]'][value='hash backed author']"
   end
+
+  test 'custom error proc is not destructive' do
+    previous_error_proc = ActionView::Base.field_error_proc
+
+    begin
+      expected_error_proc = lambda {}
+      ActionView::Base.field_error_proc = expected_error_proc
+
+      simple_form_for :user do |f|
+        simple_fields_for 'address' do
+        end
+      end
+
+      assert_equal expected_error_proc, ActionView::Base.field_error_proc
+
+    ensure
+      ActionView::Base.field_error_proc = previous_error_proc
+    end
+  end
 end
