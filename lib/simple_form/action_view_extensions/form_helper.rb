@@ -43,10 +43,12 @@ module SimpleForm
 
       def with_simple_form_field_error_proc
         default_field_error_proc = ::ActionView::Base.field_error_proc
-        ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
-        result = yield
-        ::ActionView::Base.field_error_proc = default_field_error_proc
-        result
+        begin
+          ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
+          yield
+        ensure
+          ::ActionView::Base.field_error_proc = default_field_error_proc
+        end
       end
 
       def simple_form_css_class(record, options)
