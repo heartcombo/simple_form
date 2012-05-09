@@ -9,10 +9,6 @@ module SimpleForm
     #   end
     #
     module FormHelper
-      # based on what is done in formtastic
-      # http://github.com/justinfrench/formtastic/blob/master/lib/formtastic.rb#L1706
-      @@default_field_error_proc = nil
-
       # Override the default ActiveRecordHelper behaviour of wrapping the input.
       # This gets taken care of semantically by adding an error class to the wrapper tag
       # containing the input.
@@ -46,11 +42,13 @@ module SimpleForm
       private
 
       def with_simple_form_field_error_proc
-        @@default_field_error_proc = ::ActionView::Base.field_error_proc
-        ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
-        result = yield
-        ::ActionView::Base.field_error_proc = @@default_field_error_proc
-        result
+        default_field_error_proc = ::ActionView::Base.field_error_proc
+        begin
+          ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
+          yield
+        ensure
+          ::ActionView::Base.field_error_proc = default_field_error_proc
+        end
       end
 
       def simple_form_css_class(record, options)
