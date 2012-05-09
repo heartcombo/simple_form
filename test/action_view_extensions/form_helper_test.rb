@@ -101,4 +101,49 @@ class FormHelperTest < ActionView::TestCase
 
     assert_select "input[name='author[name]'][value='hash backed author']"
   end
+
+  test 'custom error proc is not destructive' do
+    previous_error_proc = ActionView::Base.field_error_proc
+
+    begin
+      expected_error_proc = lambda {}
+      ActionView::Base.field_error_proc = expected_error_proc
+
+      result = nil
+      simple_form_for :user do |f|
+        result = simple_fields_for 'address' do
+          'hello'
+        end
+      end
+
+      assert_equal 'hello', result
+      assert_equal expected_error_proc, ActionView::Base.field_error_proc
+
+    ensure
+      ActionView::Base.field_error_proc = previous_error_proc
+    end
+  end
+
+  test 'custom error proc survives an exception' do
+    previous_error_proc = ActionView::Base.field_error_proc
+
+    begin
+      expected_error_proc = lambda {}
+      ActionView::Base.field_error_proc = expected_error_proc
+
+      begin
+        simple_form_for :user do |f|
+          simple_fields_for 'address' do
+            raise 'an exception'
+          end
+        end
+      rescue StandardError => e
+      end
+
+      assert_equal expected_error_proc, ActionView::Base.field_error_proc
+
+    ensure
+      ActionView::Base.field_error_proc = previous_error_proc
+    end
+  end
 end
