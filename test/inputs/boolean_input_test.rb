@@ -47,7 +47,7 @@ class BooleanInputTest < ActionView::TestCase
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean
 
-      assert_select "input[type=hidden][name='user[active]'] + label.boolean > input.boolean"
+      assert_select "label.boolean + input[type=hidden][name='user[active]']"
       assert_no_select 'input[type=checkbox] + label'
     end
   end
@@ -56,7 +56,7 @@ class BooleanInputTest < ActionView::TestCase
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :boolean, :disabled => true
 
-      assert_select "input[type=hidden][name='user[active]'][disabled] + label.boolean > input.boolean[disabled]"
+      assert_select "label.boolean + input[type=hidden][name='user[active]'][disabled]"
     end
   end
 
@@ -98,7 +98,7 @@ class BooleanInputTest < ActionView::TestCase
       swap SimpleForm, :boolean_style => :nested do
         with_input_for @user, :active, :boolean
 
-        assert_select 'label.boolean + input[type=hidden] + label.checkbox > input.boolean'
+        assert_select 'label.boolean + label.checkbox > input.boolean'
       end
     end
   end
@@ -108,7 +108,7 @@ class BooleanInputTest < ActionView::TestCase
       swap SimpleForm, :boolean_style => :nested do
         with_input_for @user, :active, :boolean
 
-        assert_select 'input[type=hidden] + label.boolean.checkbox > input.boolean'
+        assert_select 'label.boolean.checkbox > input.boolean'
       end
     end
   end
