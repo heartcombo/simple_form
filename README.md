@@ -69,13 +69,14 @@ This will generate an entire form with labels for user name and password as well
 by default when you render the form with invalid data (after submitting for example).
 
 You can overwrite the default label by passing it to the input method. You can also add a hint or
-even a placeholder:
+even a placeholder. For boolean inputs, you can add an inline label as well:
 
 ```erb
 <%= simple_form_for @user do |f| %>
   <%= f.input :username, :label => 'Your username please' %>
   <%= f.input :password, :hint => 'No special characters.' %>
   <%= f.input :email, :placeholder => 'user@domain.com' %>
+  <%= f.input :remember_me, :inline_label => '<b>Yes, remember me</b>'.html_safe %>
   <%= f.button :submit %>
 <% end %>
 ```
