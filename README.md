@@ -615,6 +615,31 @@ There are other options that can be configured through I18n API, such as require
 Be sure to check our locale file or the one copied to your application after you run
 `rails generate simple_form:install`.
 
+**SimpleForm** can also use ActiveRecord's translations, so instead of this:
+
+```yaml
+en:
+  show_form:
+    labels:
+      user:
+        name: 'Name'
+```
+
+you can write this:
+
+
+```yaml
+en:
+  activerecord:
+    attributes:
+      user:
+        name: 'Name'
+```
+
+Last approach is better for sharing translations within application. For example,
+[show_for gem](https://github.com/plataformatec/show_for.git)
+also uses ActiveRecord's translations.
+
 It should be noted that translations for labels, hints and placeholders for a namespaced model, e.g.
 `Admin::User`, should be placed under `admin_user`, not under `admin/user`. This is different from
 how translations for namespaced model and attribute names are defined:
