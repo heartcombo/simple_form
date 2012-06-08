@@ -1,0 +1,12 @@
+===============================================================================
+
+Be sure to have a copy of Zurb Foundation available on your
+application, you can get it on http://foundation.zurb.com/ or
+gem install "zurb-foundation"
+
+We default to the "nice" forms. To change to normal minimalistic zurb,
+remove the "nice" from config/initializers/simple_form.rb
+
+	= simple_form_for(@user) do |form|
+
+===============================================================================

@@ -3,21 +3,24 @@ module SimpleForm
     class InstallGenerator < Rails::Generators::Base
       desc "Copy SimpleForm default files"
       source_root File.expand_path('../templates', __FILE__)
-      class_option :template_engine, :desc => 'Template engine to be invoked (erb, haml or slim).'
-      class_option :bootstrap, :type => :boolean, :desc => 'Add the Twitter Bootstrap wrappers to the SimpleForm initializer.'
+      class_option :template_engine,  :desc => 'Template engine to be invoked (erb, haml or slim).'
+      class_option :framework,        :desc => 'Framework to set defaults wrapper for (bootstrap, foundation)',
+                                      :type => :string
 
-      def info_bootstrap
-        return if options.bootstrap?
-        puts "SimpleForm 2 supports Twitter bootstrap. In case you want to " \
-          "generate bootstrap configuration, please re-run this " \
-          "generator passing --bootstrap as option."
+      def info_template
+        return if options[:framework]
+        puts  "SimpleForm supports the following frameworks: " \
+              "Twitter - [bootstrap] " \
+              "Zurb - [foundation]. " \
+              "To generate re-run this generator passing: " \
+              "--framework [name] as an option"
       end
 
       def copy_config
         template "config/initializers/simple_form.rb"
 
-        if options[:bootstrap]
-          template "config/initializers/simple_form_bootstrap.rb"
+        if options[:framework]
+          template "config/initializers/simple_form_#{options[:framework]}.rb"
         end
 
         directory 'config/locales'
@@ -29,8 +32,8 @@ module SimpleForm
       end
 
       def show_readme
-        if behavior == :invoke && options.bootstrap?
-          readme "README"
+        if behavior == :invoke && options[:framework]
+          readme "#{options[:framework]}.txt"
         end
       end
     end
