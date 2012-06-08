@@ -2,16 +2,18 @@
 SimpleForm.setup do |config|
 
   config.wrappers :foundation, :tag => 'div', :class => 'form-field', :error_class => 'error' do |b|
-    b.use :error, :wrap_with => { :tag => 'small' }
-    b.use :hint,  :wrap_with => { :tag => 'span', :class => 'hint' }
     b.use :html5
     b.use :label_input
     b.use :placeholder
+    b.use :error, :wrap_with => { :tag => 'small' }
+    b.use :hint,  :wrap_with => { :tag => 'span', :class => 'hint' }
   end
 
-  config.default_wrapper = :foundation
   config.button_class = 'button nice'
+  config.default_wrapper = :foundation
+  config.error_notification_class = 'alert-box error'
   config.form_class = 'nice'
+  config.label_class = nil
 
 end
 
