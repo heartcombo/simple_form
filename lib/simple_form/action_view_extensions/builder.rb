@@ -177,7 +177,7 @@ module SimpleForm
 
         # Append a hidden field to make sure something will be sent back to the
         # server if all checkboxes are unchecked.
-        hidden = template.hidden_field_tag("#{object_name}[#{attribute}][]", "", :id => nil)
+        hidden = @template.hidden_field_tag("#{object_name}[#{attribute}][]", "", :id => nil)
 
         wrap_rendered_collection(rendered_collection + hidden, options)
       end
