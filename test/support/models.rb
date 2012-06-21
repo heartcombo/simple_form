@@ -130,7 +130,7 @@ class User
   end
 
   def self.readonly_attributes
-    [:credit_card]
+    ["credit_card"]
   end
 end
 
