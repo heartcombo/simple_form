@@ -79,6 +79,12 @@ class AssociationTest < ActionView::TestCase
     assert_select 'form select option[value=3]', 'Company 3'
   end
 
+  test 'builder creates blank select if collection is nil' do
+    with_association_for @user, :company, :collection => nil
+    assert_select 'form select.select#user_company_id'
+    assert_no_select 'form select option[value=1]', 'Company 1'
+  end
+
   test 'builder allows collection radio for belongs_to associations' do
     with_association_for @user, :company, :as => :radio_buttons
     assert_select 'form input.radio_buttons#user_company_id_1'
