@@ -174,7 +174,9 @@ module SimpleForm
       raise "Association #{association.inspect} not found" unless reflection
 
       options[:as] ||= :select
-      options[:collection] ||= reflection.klass.all(reflection.options.slice(:conditions, :order))
+      options[:collection] ||= options.fetch(:collection) {
+        reflection.klass.all(reflection.options.slice(:conditions, :order))
+      }
 
       attribute = case reflection.macro
         when :belongs_to
