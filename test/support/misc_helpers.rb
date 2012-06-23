@@ -46,6 +46,15 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_wrapped_input
+    SimpleForm.build :tag => :div, :class => "custom_wrapper" do |b|
+      b.wrapper :tag => :div, :class => 'elem' do |component|
+        component.use :label
+        component.use :input, :wrap_with => { :tag => :div, :class => 'input' }
+      end
+    end
+  end
+
   def custom_wrapper_without_top_level
     SimpleForm.build :tag => false, :class => 'custom_wrapper_without_top_level' do |b|
       b.use :label_input
