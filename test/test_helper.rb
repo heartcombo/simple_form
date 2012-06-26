@@ -24,7 +24,6 @@ require 'simple_form'
 
 require "rails/generators/test_case"
 require 'generators/simple_form/install_generator'
-require 'generators/simple_form/utilities'
 
 Dir["#{File.dirname(__FILE__)}/support/*.rb"].each do |file|
   require file unless file.end_with?('discovery_inputs.rb')
