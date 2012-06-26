@@ -16,10 +16,10 @@ module SimpleForm
                     :type => :string
 
       def info
-        if !options[:template_framework]
+        unless options[:template_framework]
           say "SimpleForm supports:"
           say "#{frameworks.join(', ')}"
-          say 'to install a framework specifiy --framework || -b framework'
+          say 'to install a framework specifiy (--template_framework || -b) framework'
         end
       end
 
