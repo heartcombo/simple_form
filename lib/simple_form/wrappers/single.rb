@@ -17,9 +17,7 @@ module SimpleForm
       private
 
       def html_options(options)
-        return {} if [:label, :input].include?(namespace)
-
-        super
+        [:label, :input].include?(namespace) ? {} : super
       end
     end
   end
