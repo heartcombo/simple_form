@@ -41,12 +41,11 @@ class HintTest < ActionView::TestCase
     with_hint_for @user, :name, :hint => 'Yay!', :id => 'hint', :class => 'yay'
     assert_select 'span#hint.hint.yay'
   end
-  
+
   test 'hint should be output as html_safe' do
     with_hint_for @user, :name, :hint => '<b>Bold</b> and not...'
-    assert_select 'span.hint', 'Bold and not...'  
+    assert_select 'span.hint', 'Bold and not...'
   end
-  
 
   # Without attribute name
 
@@ -110,7 +109,7 @@ class HintTest < ActionView::TestCase
       assert_select 'span.hint', /My company!/
     end
   end
-  
+
   test 'hint should output translations as html_safe' do
     store_translations(:en, :simple_form => { :hints => { :user => {
       :edit => { :name => '<b>This is bold</b> and this is not...' }
@@ -119,7 +118,7 @@ class HintTest < ActionView::TestCase
       assert_select 'span.hint', 'This is bold and this is not...'
     end
   end
-  
+
 
   # No object
 
