@@ -13,6 +13,14 @@ module SimpleForm
           wrap(input, options, content) if content
         end
       end
+
+      private
+
+      def html_options(options)
+        return {} if [:label, :input].include?(namespace)
+
+        super
+      end
     end
   end
 end
