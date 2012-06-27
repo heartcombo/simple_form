@@ -130,8 +130,11 @@ any html attribute to that wrapper as well using the `:wrapper_html` option, lik
 <% end %>
 ```
 
-By default all inputs are required, which means an * is prepended to the label, but you can disable
-it in any input you want:
+Required fields are marked with an * prepended to their labels.
+
+By default all inputs are required. When the form object has `presence` validations attached to its fields, **SimpleForm** tells required and optional fields apart. For performance reasons, this detection is skipped on validations that make use of conditional options, such as `:if` and `:unless`.
+
+And of course, the `required` property of any input can be overwritten as needed:
 
 ```erb
 <%= simple_form_for @user do |f| %>
