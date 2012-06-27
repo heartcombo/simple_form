@@ -210,6 +210,14 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should not propagate label options to wrapper with custom wrapper' do
+    swap_wrapper :default, self.custom_wrapper_with_wrapped_label do
+      with_form_for @user, :name, :label_html => { :class => 'my_label' }
+      assert_no_select 'form div.label.my_label'
+      assert_select 'form label.my_label.string'
+    end
+  end
+
   test 'builder should generate a input with label' do
     with_form_for @user, :name
     assert_select 'form label.string[for=user_name]', /Name/
