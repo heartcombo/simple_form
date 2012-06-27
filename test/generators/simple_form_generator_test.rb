@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class SimpleFormGeneratorTest < Rails::Generators::TestCase
+  include SimpleForm::Generators::Utilities
+  extend  SimpleForm::Generators::Utilities
+
   tests SimpleForm::Generators::InstallGenerator
   destination File.expand_path('../../tmp', __FILE__)
   setup :prepare_destination
@@ -17,15 +20,15 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
       /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
   end
 
-  test 'generates the simple_form initializer with the bootstrap wrappers' do
-    run_generator %w(--bootstrap)
-    assert_file 'config/initializers/simple_form.rb',
-      /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
-    assert_file 'config/initializers/simple_form_bootstrap.rb', /config\.wrappers :bootstrap/,
-      /config\.default_wrapper = :bootstrap/
+  frameworks.each do |framework|
+    test "generates the simple_form initializer with the #{framework} wrappers" do
+      run_generator ['-b', framework]
+      assert_file "config/initializers/simple_form_#{framework}.rb", /config\.wrappers :#{framework}/,
+        /config\.default_wrapper = :#{framework}/
+    end
   end
 
-  %W(erb haml slim).each do |engine|
+  engines.each do |engine|
     test "generates the scaffold template when using #{engine}" do
       run_generator ['-e', engine]
       assert_file "lib/templates/#{engine}/scaffold/_form.html.#{engine}"
