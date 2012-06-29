@@ -181,6 +181,13 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
+  test 'label should not generate empty css class' do
+    swap SimpleForm, :generate_additional_classes_for => [:wrapper, :input] do
+      with_label_for @user, :name, :string
+      assert_no_select 'label[class]'
+    end
+  end
+
   test 'label should obtain required from ActiveModel::Validations when it is included' do
     with_label_for @validating_user, :name, :string
     assert_select 'label.required'

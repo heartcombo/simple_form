@@ -119,7 +119,7 @@ module SimpleForm
         html_options = options[:"#{namespace}_html"]
         html_options = html_options ? html_options.dup : {}
         css_classes << html_options[:class] if html_options.key?(:class)
-        html_options[:class] = css_classes
+        html_options[:class] = css_classes unless css_classes.empty?
         html_options
       end
 

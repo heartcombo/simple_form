@@ -72,6 +72,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_without_class
+    SimpleForm.build :tag => :div, :wrapper_html => { :id => 'custom_wrapper_without_class' } do |b|
+      b.use :label_input
+    end
+  end
+
   def custom_wrapper_with_label_html_option
     SimpleForm.build :tag => :div, :class => "custom_wrapper", :label_html => { :class => 'extra-label-class' } do |b|
       b.use :label_input

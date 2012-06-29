@@ -66,4 +66,12 @@ class InputTest < ActionView::TestCase
     with_input_for :project, :name, :select, :collection => ['Jose', 'Carlos']
     assert_select 'select.select#project_name'
   end
+  
+  test 'input should not generate empty css class' do
+    swap SimpleForm, :generate_additional_classes_for => [:wrapper, :label] do
+      with_input_for :project, :name, :string
+      assert_no_select 'input#project_name[class]'
+    end
+  end
+  
 end

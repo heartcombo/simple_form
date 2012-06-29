@@ -75,6 +75,15 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'wrapper should not generate empty css class' do
+    swap SimpleForm, :generate_additional_classes_for => [:input, :label] do
+      swap_wrapper :default, custom_wrapper_without_class do
+        with_form_for @user, :name
+        assert_no_select 'div#custom_wrapper_without_class[class]'
+      end
+    end
+  end
+
   # Custom wrapper test
 
   test 'custom wrappers works' do
