@@ -31,21 +31,18 @@ Also, if you want to use the country select, you will need the
 
 `gem 'country_select'`
 
-### Twitter Bootstrap
+### Frameworks
 
-**SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap).
-To do that you have to use the `bootstrap` option in the install generator, like this:
+**SimpleForm** currently supports:
+* Zurb [Foundation](http://foundation.zurb.com)
+* Twitter [Bootstrap](http://twitter.github.com/bootstrap) **2.0+**
+ * [Example application code](https://github.com/rafaelfranca/simple_form-bootstrap)
+ * [Live example app](http://simple-form-bootstrap.plataformatec.com.br/)
 
-`rails generate simple_form:install --bootstrap`
+To utilize a framework invoke the SimpleForm generator with the
+framework name only, 'twitter bootstrap' becomes 'bootstrap'
 
-You have to be sure that you added a copy of the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
-assets on your application.
-
-For more information see the generator output, our
-[example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
-[the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
-
-**NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 or higher.
+`rails generate simple_form:install --framework #{framework}`
 
 ## Usage
 
