@@ -153,7 +153,8 @@ module SimpleForm
       #
       #   * collection_wrapper_tag   => the tag to wrap the entire collection.
       #
-      #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
+      #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag. This option
+      #                                 is ignored if the :collection_wrapper_tag option is blank.
       #
       #   * item_wrapper_tag         => the tag to wrap each item in the collection.
       #
