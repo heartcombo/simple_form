@@ -467,7 +467,7 @@ instance, if you want to wrap date/time/datetime in a div, you can do:
 # app/inputs/date_time_input.rb
 class DateTimeInput < SimpleForm::Inputs::DateTimeInput
   def input
-    content_tag(:div, super)
+    template.content_tag(:div, super)
   end
 end
 ```
