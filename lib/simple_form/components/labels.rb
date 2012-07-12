@@ -30,7 +30,8 @@ module SimpleForm
       end
 
       def label_text
-        SimpleForm.label_text.call(raw_label_text, required_label_text).strip.html_safe
+        lt = options[:label_text] || SimpleForm.label_text
+        lt.call(raw_label_text, required_label_text).strip.html_safe
       end
 
       def label_target
