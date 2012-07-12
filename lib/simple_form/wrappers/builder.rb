@@ -40,14 +40,24 @@ module SimpleForm
     # In the example above, hint defaults to false, which means it won't automatically
     # do the lookup anymore. It will only be triggered when :hint is explicitly set.
     class Builder
+
       def initialize(options)
         @options    = options
         @components = []
       end
 
       def use(name, options=nil, &block)
-        if options && wrapper = options[:wrap_with]
-          @components << Single.new(name, wrapper)
+        if options && (SimpleForm::FormBuilder::ATTRIBUTE_COMPONENTS.include?(name) \
+                   && !(options.except(:wrap_with).keys.empty?))
+          raise ArgumentError, "Invalid options #{options.except(:wrap_with).keys.inspect} passed to #{name}."
+        end
+
+        if options && options[:wrap_with]
+          @options[:"#{name}_html"] = options.except(:wrap_with)
+          @components << Single.new(name, options[:wrap_with])
+        elsif options
+          @options[:"#{name}_html"] = options
+          @components << name
         else
           @components << name
         end

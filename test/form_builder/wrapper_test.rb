@@ -172,6 +172,52 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'single element without wrap_with applies options to component tags' do
+    swap_wrapper :default, custom_wrapper_with_no_wrapping_tag do
+      with_form_for @user, :name
+      assert_select "div.custom_wrapper div.elem input.input_class_yo"
+      assert_select "div.custom_wrapper div.elem input.other_class_yo"
+      assert_select "div.custom_wrapper div.elem input.string"
+      assert_select "div.custom_wrapper div.elem label[data-yo='yo']"
+      assert_select "div.custom_wrapper div.elem span.custom_yo", :text => "custom"
+      assert_select "div.custom_wrapper div.elem label.both_yo"
+      assert_select "div.custom_wrapper div.elem input.both_yo"
+    end
+  end
+
+  test 'single element with wrap with and component options applies to both' do
+    swap_wrapper :default, custom_wrapper_with_wrapping_tag_and_component_options do
+      with_form_for @user, :name
+      assert_no_select "div.custom_wrapper > input"
+      assert_select "div.custom_wrapper div.wrap input.input_class_yo"
+      assert_select "div.custom_wrapper div.wrap input.other_class_yo"
+    end
+  end
+
+  test 'adding any option to tag components on the input ignores them' do
+    with_concat_form_for @user do |f|
+      concat f.input :name, :invalid => 'thing'
+    end
+    assert_no_select "input[invalid]"
+  end
+
+  test 'adding any option to tag components in wrapper makes html attributes' do
+    swap_wrapper :default, custom_wrapper_with_wrapping_tag_and_invalid_attributes do
+      with_input_for @user, :name, :string, :other_invalid => 'other_thing'
+      assert_select "input.input_class_yo"
+      assert_select "input[invalid='thing']"
+      assert_no_select "input[other_invalid]"
+    end
+  end
+
+  test 'adding invalid options to non-tag components raises an exception' do
+    assert_raise ArgumentError, "Invalid options [:class] passed to placeholder." do
+      swap_wrapper :default, custom_wrapper_with_invalid_options do
+        with_form_for @user, :name
+      end
+    end
+  end
+
   test 'do not duplicate label classes for different inputs' do
     swap_wrapper :default, self.custom_wrapper_with_label_html_option do
       with_concat_form_for(@user) do |f|

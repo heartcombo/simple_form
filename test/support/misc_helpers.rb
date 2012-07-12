@@ -68,6 +68,37 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_no_wrapping_tag
+    SimpleForm.build :tag => :div, :class => "custom_wrapper" do |b|
+      b.wrapper :tag => :div, :class => 'elem' do |component|
+        component.use :input, :class => ['input_class_yo', 'other_class_yo']
+        component.use :label, :"data-yo" => 'yo'
+        component.use :label_input, :class => 'both_yo'
+        component.use :custom_component, :class => 'custom_yo'
+      end
+    end
+  end
+
+  def custom_wrapper_with_wrapping_tag_and_component_options
+    SimpleForm.build :tag => :div, :class => 'custom_wrapper' do |b|
+      b.use :input, :class => ['input_class_yo', 'other_class_yo'], 
+        :wrap_with => { :tag => :div, :class => 'wrap' }
+    end
+  end
+
+  def custom_wrapper_with_wrapping_tag_and_invalid_attributes
+    SimpleForm.build :tag => :div, :class => "custom_wrapper" do |b|
+      b.use :input, :class => 'input_class_yo', :invalid => 'thing'
+    end
+  end
+
+  def custom_wrapper_with_invalid_options
+    SimpleForm.build :tag => :div, :class => "custom_wrapper" do |b|
+      b.use :placeholder, :class => 'no_effect'
+      b.use :input
+    end
+  end
+
   def custom_wrapper_with_wrapped_input
     SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
       b.wrapper tag: :div, class: 'elem' do |component|
@@ -158,3 +189,16 @@ end
 class CustomMapTypeFormBuilder < SimpleForm::FormBuilder
   map_type :custom_type, to: SimpleForm::Inputs::StringInput
 end
+
+module SimpleForm::Components::CustomComponent
+  def custom_component
+    @custom_component ||= begin
+       custom_options = options[:custom_component_html]
+       template.content_tag(:span, custom_options) do
+         "custom".html_safe
+       end
+    end
+  end
+end
+
+SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::CustomComponent)

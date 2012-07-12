@@ -8,6 +8,8 @@ module SimpleForm
       end
 
       def label_input
+        input_html_options.merge! options.fetch(:label_input_html, {})
+        label_html_options.merge! options.fetch(:label_input_html, {})
         options[:label] == false ? input : (label + input)
       end
     end

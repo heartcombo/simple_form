@@ -38,6 +38,7 @@ module SimpleForm
       end
 
       def label_html_options
+        return @label_options if @label_options
         label_html_classes = SimpleForm.additional_classes_for(:label) {
           [input_type, required_class, SimpleForm.label_class].compact
         }
@@ -46,7 +47,7 @@ module SimpleForm
         if options.key?(:input_html) && options[:input_html].key?(:id)
           label_options[:for] = options[:input_html][:id]
         end
-        label_options
+        @label_options = label_options
       end
 
       protected
