@@ -1,3 +1,28 @@
+## 2.1.0.dev
+
+### enhancements
+
+  * Use separate config file to do bootstrap specific configuration.
+  ([@nashby](https://github.com/nashby))
+
+### bug fix
+  * Boolean hidden field now respects `:name` attribute when nested.
+  ([@amiel](https://github.com/amiel)).
+  Closes [#619](https://github.com/plataformatec/simple_form/issues/619)
+  * Prevent generation of `class=""`. ([@pkmiec](https://github.com/pkmiec))
+  * Fix namespace html propagation to single wrapper of `label` and `input`
+  * Association creates blank select if `:colocetion` is `nil`.
+  ([@nashby](https://github.com/nashby)).
+  Closes [#595](https://github.com/plataformatec/simple_form/issues/595)
+  * Fix readonly attribute check. ([@retoo](https://github.com/retoo))
+  * Fix error when `collection_check_boxes` used with `form_for` instead of `simple_form_for`.
+  ([@RohanM](https://github.com/RohanM))
+  * Ensure ActionView::Base.field_error_proc is preserved when exceptions occur within
+  `with_simple_form_field_error_proc`.
+  ([@jim](https://github.com/jim))
+  * Handle array of strings in `:checked` option.
+  ([@nashby](https://github.com/nashby))
+
 ## 2.0.2
 
 ### enhancements
