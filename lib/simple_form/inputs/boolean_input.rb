@@ -50,7 +50,8 @@ module SimpleForm
       # generates invalid html - html5 only).
       def build_hidden_field_for_checkbox
         @builder.hidden_field(attribute_name, :value => '0', :id => nil,
-                              :disabled => input_html_options[:disabled])
+                              :disabled => input_html_options[:disabled],
+                              :name => input_html_options[:name])
       end
 
       def inline_label
