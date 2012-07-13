@@ -84,6 +84,13 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
+  test 'input with nested style allows customizing input_html' do
+    swap SimpleForm, :boolean_style => :nested do
+      with_input_for @user, :active, :boolean, :input_html => { :name => 'active_user' }
+      assert_select "input[type=hidden][name=active_user] + label.boolean > input.boolean[name=active_user]"
+    end
+  end
+
   test 'input boolean works using :input only in wrapper config (no label_input)' do
     swap_wrapper do
       with_input_for @user, :active, :boolean
