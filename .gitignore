@@ -2,3 +2,5 @@
 pkg/
 rdoc/
 gemfiles/*.lock
+.idea
+.rvmrc
