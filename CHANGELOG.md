@@ -6,6 +6,9 @@
   ([@nashby](https://github.com/nashby))
 
 ### bug fix
+  * Allow to add additional classes only for wrapper.
+  ([@nashby](https://github.com/nashby)).
+  Closes [#629](https://github.com/plataformatec/simple_form/issues/629)
   * Boolean hidden field now respects `:name` attribute when nested.
   ([@amiel](https://github.com/amiel)).
   Closes [#619](https://github.com/plataformatec/simple_form/issues/619)
