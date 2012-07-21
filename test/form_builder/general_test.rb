@@ -46,6 +46,15 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should allow to add additional classes only for wrapper' do
+    swap SimpleForm, :generate_additional_classes_for => [:wrapper] do
+      with_form_for @user, :post_count
+      assert_no_select "form input#user_post_count.string"
+      assert_no_select "form label#user_post_count.string"
+      assert_select "form div.input.string"
+    end
+  end
+
   test 'builder should allow adding custom input mappings for integer input types' do
     swap SimpleForm, :input_mappings => { /lock_version/ => :hidden } do
       with_form_for @user, :lock_version
