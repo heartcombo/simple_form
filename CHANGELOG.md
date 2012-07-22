@@ -9,6 +9,10 @@
 ## 2.1.0.dev
 
 ### enhancements
+  * `input_field` supports components that don't generate tags
+    as `:min_max`, `:maxlength`, `:placeholder`, `:pattern`, `:readonly`.
+    Closes[#362](https://github.com/plataformatec/simple_form/issues/632).
+    ([@nashby](https://github.com/nashby))
   * support for Rails eager loading.
     Closes [#478](https://github.com/plataformatec/simple_form/issues/478).
   * generate required attribute for `date_time` input.
