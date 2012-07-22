@@ -50,6 +50,51 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select 'input.integer[as]'
   end
 
+  test 'builder input_field should use i18n to translate placeholder text' do
+    store_translations(:en, :simple_form => { :placeholders => { :user => {
+      :name => 'Name goes here'
+    } } }) do
+
+      with_concat_form_for(@user) do |f|
+        f.input_field :name
+      end
+
+      assert_select 'input.string[placeholder=Name goes here]'
+    end
+  end
+
+  test 'builder input_field should use min_max component' do
+    with_concat_form_for(@other_validating_user) do |f|
+      f.input_field :age, :as => :integer
+    end
+
+    assert_select 'input[min=18]'
+  end
+
+  test 'builder input_field should use pattern component' do
+    with_concat_form_for(@other_validating_user) do |f|
+      f.input_field :country, :as => :string
+    end
+
+    assert_select 'input[pattern="\w+"]'
+  end
+
+  test 'builder input_field should use readonly component' do
+    with_concat_form_for(@other_validating_user) do |f|
+      f.input_field :age, :as => :integer, :readonly => true
+    end
+
+    assert_select 'input.integer.readonly[readonly]'
+  end
+
+  test 'builder input_field should use maxlength component' do
+    with_concat_form_for(@validating_user) do |f|
+      f.input_field :name, :as => :string
+    end
+
+    assert_select 'input.string[maxlength=25]'
+  end
+
   test 'builder collection input_field should generate input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
       f.input_field :status, :collection => ['Open', 'Closed'], :class => 'status', :label_method => :to_s, :value_method => :to_s
