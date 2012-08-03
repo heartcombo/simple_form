@@ -23,7 +23,10 @@ module SimpleForm
         unless options[:html].key?(:novalidate)
           options[:html][:novalidate] = !SimpleForm.browser_validations
         end
-        options[:html][:class] = [SimpleForm.form_class, simple_form_css_class(record, options)].compact.join(" ")
+        html_classes = []
+        html_classes << SimpleForm.form_class unless options[:html].key?(:class!)
+        html_classes << simple_form_css_class(record, options)
+        options[:html][:class] = html_classes.compact.join(" ")
 
         with_simple_form_field_error_proc do
           form_for(record, options, &block)
@@ -57,6 +60,8 @@ module SimpleForm
 
         if html_options.key?(:class)
           html_options[:class]
+        elsif html_options.key?(:class!)
+          html_options.delete(:class!)
         elsif record.is_a?(String) || record.is_a?(Symbol)
           as || record
         else

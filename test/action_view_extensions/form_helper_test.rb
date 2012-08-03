@@ -79,6 +79,11 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form.my_class'
   end
 
+  test 'SimpleForm should override form class if class! is specified' do
+    with_concat_form_for(:user, :html => {:class! => 'only_class'})
+    assert_select "form[class='only_class']"
+  end
+
   test 'pass options to SimpleForm' do
     with_concat_form_for(:user, :url => '/account', :html => { :id => 'my_form' })
     assert_select 'form#my_form'
