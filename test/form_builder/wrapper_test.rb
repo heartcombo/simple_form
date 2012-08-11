@@ -168,4 +168,14 @@ class WrapperTest < ActionView::TestCase
       with_form_for @user, :name, :wrapper => :not_found
     end
   end
+
+  test 'use wrapper for specified in config mapping' do
+    swap_wrapper :another do
+      swap SimpleForm, :wrapper_mappings => { :string => :another } do
+        with_form_for @user, :name
+        assert_select "section.custom_wrapper div.another_wrapper label"
+        assert_select "section.custom_wrapper div.another_wrapper input.string"
+      end
+    end
+  end
 end
