@@ -596,7 +596,7 @@ en:
       user:
         gender:
           male: 'Male'
-          female: "Female'
+          female: 'Female'
 ```
 
 You can also use the `defaults` key as you would do with labels, hints and placeholders. It is
