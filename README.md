@@ -847,6 +847,7 @@ https://github.com/plataformatec/simple_form/issues
 * José Valim (https://github.com/josevalim)
 * Carlos Antonio da Silva (https://github.com/carlosantoniodasilva)
 * Rafael Mendonça França (https://github.com/rafaelfranca)
+* Vasiliy Ermolovich (https://github.com/nashby)
 
 ## License
 
