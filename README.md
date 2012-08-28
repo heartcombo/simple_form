@@ -53,7 +53,7 @@ For more information see the generator output, our
 are invoked to create a complete html input for you, which by default contains label, hints, errors
 and the input itself. It does not aim to create a lot of different logic from the default Rails
 form helpers, as they do a great work by themselves. Instead, **SimpleForm** acts as a DSL and just
-maps your input type (retrieved from the column definition in the database) to an specific helper method.
+maps your input type (retrieved from the column definition in the database) to a specific helper method.
 
 To start using **SimpleForm** you just have to use the helper it provides:
 
