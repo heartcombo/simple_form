@@ -34,8 +34,8 @@ module SimpleForm
       # reuse the method for nested boolean style, but with no unchecked value,
       # which won't generate the hidden checkbox. This is the default functionality
       # in Rails > 3.2.1, and is backported in SimpleForm AV helpers.
-      def build_check_box(unchecked_value='0')
-        @builder.check_box(attribute_name, input_html_options, '1', unchecked_value)
+      def build_check_box(unchecked_value = unchecked_value)
+        @builder.check_box(attribute_name, input_html_options, checked_value, unchecked_value)
       end
 
       # Build a checkbox without generating the hidden field. See
@@ -49,7 +49,7 @@ module SimpleForm
       # we need the hidden field to be *outside* the label (otherwise it
       # generates invalid html - html5 only).
       def build_hidden_field_for_checkbox
-        @builder.hidden_field(attribute_name, :value => '0', :id => nil,
+        @builder.hidden_field(attribute_name, :value => unchecked_value, :id => nil,
                               :disabled => input_html_options[:disabled],
                               :name => input_html_options[:name])
       end
@@ -64,6 +64,14 @@ module SimpleForm
       # Terms of Use usually presented at most sites sign up screen.
       def required_by_default?
         false
+      end
+
+      def checked_value
+        options.fetch(:checked_value, '1')
+      end
+
+      def unchecked_value
+        options.fetch(:unchecked_value, '0')
       end
     end
   end
