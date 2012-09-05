@@ -24,7 +24,7 @@ module SimpleForm
           options[:html][:novalidate] = !SimpleForm.browser_validations
         end
         if options[:html].key?(:only_class)
-          options[:class] = options[:html].delete(:only_class)
+          options[:html][:class] = options[:html].delete(:only_class)
           class_array = []
         else
           class_array = [SimpleForm.form_class]
