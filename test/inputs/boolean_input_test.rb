@@ -14,6 +14,24 @@ class BooleanInputTest < ActionView::TestCase
     assert_no_select 'label'
   end
 
+  test 'input uses custom checked value' do
+    @user.action = 'on'
+    with_input_for @user, :action, :boolean, :checked_value => 'on', :unchecked_value => 'off'
+    assert_select 'input[type=checkbox][value=on][checked=checked]'
+  end
+
+  test 'input uses custom unchecked value' do
+    @user.action = 'off'
+    with_input_for @user, :action, :boolean, :checked_value => 'on', :unchecked_value => 'off'
+    assert_select 'input[type=checkbox][value=on]'
+    assert_no_select 'input[checked=checked][value=on]'
+  end
+
+  test 'input generates hidden input with custom unchecked value' do
+    with_input_for @user, :action, :boolean, :checked_value => 'on', :unchecked_value => 'off'
+    assert_select 'input[type=hidden][value=off]'
+  end
+
   test 'input uses inline boolean style by default' do
     with_input_for @user, :active, :boolean
     assert_select 'input.boolean + label.boolean.optional'
