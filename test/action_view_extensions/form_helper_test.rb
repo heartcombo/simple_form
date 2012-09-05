@@ -79,6 +79,12 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form.my_class'
   end
 
+  test 'SimpleForm should remove the default class add custom class to form if css_only_class is specified' do
+    with_concat_form_for(:user, :html => {:only_class => 'my_class'})
+    assert_no_select 'form.simple_form'
+    assert_select 'form.my_class'
+  end
+
   test 'pass options to SimpleForm' do
     with_concat_form_for(:user, :url => '/account', :html => { :id => 'my_form' })
     assert_select 'form#my_form'
