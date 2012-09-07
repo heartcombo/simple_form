@@ -1,7 +1,9 @@
 ## 2.1.0.dev
 
 ### enhancements
-
+  * Allow to specify custom wrappers for input types.
+  ([@nashby](https://github.com/nashby))
+  Closes [#636](https://github.com/plataformatec/simple_form/issues/636)
   * Use separate config file to do bootstrap specific configuration.
   ([@nashby](https://github.com/nashby))
 

@@ -104,15 +104,16 @@ module SimpleForm
     #
     def input(attribute_name, options={}, &block)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
+      input = find_input(attribute_name, options, &block)
 
       chosen =
-        if name = options[:wrapper]
+        if name = options[:wrapper] || find_wrapper_mapping(input.input_type)
           name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
         else
           wrapper
         end
 
-      chosen.render find_input(attribute_name, options, &block)
+      chosen.render input
     end
     alias :attribute :input
 
@@ -442,6 +443,10 @@ module SimpleForm
           attempt_mapping(camelized, Object) || attempt_mapping(camelized, self.class) ||
             raise("No input found for #{input_type}")
         end
+    end
+
+    def find_wrapper_mapping(input_type)
+      SimpleForm.wrapper_mappings && SimpleForm.wrapper_mappings[input_type]
     end
 
     # If cache_discovery is enabled, use the class level cache that persists

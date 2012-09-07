@@ -95,6 +95,12 @@ module SimpleForm
   mattr_accessor :input_mappings
   @@input_mappings = nil
 
+  # Custom wrappers for input types. This should be a hash containing an input
+  # type as key and the wrapper that will be used for all inputs with specified type.
+  # e.g { :string => :string_wrapper, :boolean => :boolean_wrapper }
+  mattr_accessor :wrapper_mappings
+  @@wrapper_mappings = nil
+
   # Default priority for time_zone inputs.
   mattr_accessor :time_zone_priority
   @@time_zone_priority = nil
