@@ -10,7 +10,7 @@
 ### bug fix
   * Allow to specify checked and uncked values for boolean input
   ([@nashby](https://github.com/nashby)).
-  Closes [#643](https://github.com/plataformatec/simple_form/issues/629)
+  Closes [#643](https://github.com/plataformatec/simple_form/issues/643)
   * Allow to add additional classes only for wrapper.
   ([@nashby](https://github.com/nashby)).
   Closes [#629](https://github.com/plataformatec/simple_form/issues/629)
