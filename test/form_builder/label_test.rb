@@ -68,4 +68,14 @@ class LabelTest < ActionView::TestCase
       assert_select 'label.integer[for=user_age]', "Age:"
     end
   end
+
+  test 'configuration allow set label text for wrappers' do
+    swap_wrapper :default, self.custom_wrapper_with_label_text do
+      with_concat_form_for(@user) do |f|
+        concat f.input :age
+      end
+      assert_select "label.integer[for=user_age]", "**Age**"
+    end
+  end
+
 end
