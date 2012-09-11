@@ -92,9 +92,7 @@ class FormHelperTest < ActionView::TestCase
   end
 
   test 'fields for with a hash like model yeilds an instance of FormBuilder' do
-    @hash_backed_author = HashBackedAuthor.new
-
-    with_concat_fields_for(:author, @hash_backed_author) do |f|
+    with_concat_fields_for(:author, HashBackedAuthor.new) do |f|
       assert f.instance_of?(SimpleForm::FormBuilder)
       f.input :name
     end
