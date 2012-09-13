@@ -120,7 +120,7 @@ class AssociationTest < ActionView::TestCase
 
   # ASSOCIATIONS - has_*
   test 'builder does not allow has_one associations' do
-    assert_raise RuntimeError do
+    assert_raise ArgumentError do
       with_association_for @user, :first_company, :as => :radio_buttons
     end
   end

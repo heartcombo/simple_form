@@ -183,7 +183,7 @@ module SimpleForm
         when :belongs_to
           (reflection.respond_to?(:options) && reflection.options[:foreign_key]) || :"#{reflection.name}_id"
         when :has_one
-          raise ":has_one associations are not supported by f.association"
+          raise ArgumentError, ":has_one associations are not supported by f.association"
         else
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
