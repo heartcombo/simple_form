@@ -19,7 +19,7 @@
   Closes [#619](https://github.com/plataformatec/simple_form/issues/619)
   * Prevent generation of `class=""`. ([@pkmiec](https://github.com/pkmiec))
   * Fix namespace html propagation to single wrapper of `label` and `input`
-  * Association creates blank select if `:colocetion` is `nil`.
+  * Association creates blank select if `:collection` is `nil`.
   ([@nashby](https://github.com/nashby)).
   Closes [#595](https://github.com/plataformatec/simple_form/issues/595)
   * Fix readonly attribute check. ([@retoo](https://github.com/retoo))
