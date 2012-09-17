@@ -318,6 +318,12 @@ the collection by hand, all together with the prompt:
 f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
 ```
 
+In case you want to declare different labels and values:
+
+```ruby
+f.association :company, :label_method => :company_name, :value_method => :id, :include_blank => false %>
+```
+
 ### Buttons
 
 All web forms need buttons, right? **SimpleForm** wraps them in the DSL, acting like a proxy:
