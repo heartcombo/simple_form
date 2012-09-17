@@ -301,6 +301,12 @@ Now we have the user form:
 <% end %>
 ```
 
+In case you want to declare different labels and values:
+
+```ruby
+f.association :company, :label_method => :company_name, :value_method => :id, :include_blank => false %>
+```
+
 Simple enough, right? This is going to render a `:select` input for choosing the `:company`, and another
 `:select` input with `:multiple` option for the `:roles`. You can, of course, change it to use radio
 buttons and check boxes as well:
