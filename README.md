@@ -321,7 +321,7 @@ f.association :company, :collection => Company.active.all(:order => 'name'), :pr
 In case you want to declare different labels and values:
 
 ```ruby
-f.association :company, :label_method => :company_name, :value_method => :id, :include_blank => false %>
+f.association :company, :label_method => :company_name, :value_method => :id, :include_blank => false
 ```
 
 ### Buttons
