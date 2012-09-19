@@ -8,7 +8,7 @@ SimpleForm aims to be as flexible as possible while helping you with powerful co
 
 Install the gem:
 
-  gem install simple_form --version=1.0.2
+  gem install simple_form --version=1.0.4
 
 Configure simple_form gem inside your app:
 
