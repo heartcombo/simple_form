@@ -1,4 +1,4 @@
-## 2.1.0.dev
+## 2.0.3
 
 ### enhancements
   * Allow to specify custom wrappers for input types.
