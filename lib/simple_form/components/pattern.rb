@@ -19,7 +19,7 @@ module SimpleForm
       end
 
       def find_pattern_validator
-        find_validator(ActiveModel::Validations::FormatValidator)
+        find_validator(:format)
       end
 
       def evaluate_format_validator_option(option)

@@ -23,7 +23,7 @@ module SimpleForm
       end
 
       def find_length_validator
-        find_validator(ActiveModel::Validations::LengthValidator)
+        find_validator(:length)
       end
 
       def has_tokenizer?(length_validator)

@@ -33,7 +33,7 @@ module SimpleForm
       end
 
       def find_numericality_validator
-        find_validator(ActiveModel::Validations::NumericalityValidator)
+        find_validator(:numericality)
       end
 
       def evaluate_numericality_validator_option(option)
