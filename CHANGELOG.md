@@ -1,5 +1,9 @@
 ## 2.1.0.dev
 
+### bug fix
+  * Fix escaping issue in `label_input` component
+  ([@allomov](https://github.com/allomov))
+
 ## 2.0.3
 
 ### enhancements
