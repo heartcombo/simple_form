@@ -8,7 +8,7 @@ module SimpleForm
       end
 
       def label_input
-        (options[:label] == false ? "" : label) + input
+        options[:label] == false ? input : (label + input)
       end
     end
   end
