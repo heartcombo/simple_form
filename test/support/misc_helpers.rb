@@ -90,7 +90,6 @@ module MiscHelpers
     end
   end
 
-
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end
