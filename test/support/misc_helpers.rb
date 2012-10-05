@@ -84,6 +84,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_wrapped_label_input
+    SimpleForm.build :tag => :section, :class => "custom_wrapper", :pattern => false do |b|
+      b.use :label_input, :wrap_with => { :tag => :div, :class => :field }
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end
