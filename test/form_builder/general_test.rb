@@ -238,8 +238,8 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should be able to disable the label for an input and return a html safe string' do
-    with_form_for @validating_user, :age, :label => false, :wrapper => custom_wrapper_with_wrapped_label_input
-    assert_select 'form input[type=text]'
+    with_form_for @user, :name, :label => false, :wrapper => custom_wrapper_with_wrapped_label_input
+    assert_select 'form input#user_name'
   end
 
   test 'builder should use custom label' do
