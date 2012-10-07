@@ -11,6 +11,16 @@ class WrapperTest < ActionView::TestCase
     assert_no_select 'div.field_with_errors'
   end
 
+  test 'wrapper should add the attribute name class' do
+    with_form_for @user, :name
+    assert_select 'div.user_name'
+  end
+
+  test 'wrapper should add the association name class' do
+    with_form_for @user, :company
+    assert_select 'div.user_company'
+  end
+
   test 'wrapper should add error class for attribute with errors' do
     with_form_for @user, :name
     assert_select 'div.field_with_errors'
@@ -72,6 +82,7 @@ class WrapperTest < ActionView::TestCase
       assert_select 'form div.wrapper'
       assert_no_select 'div.required'
       assert_no_select 'div.string'
+      assert_no_select 'div.user_name'
     end
   end
 

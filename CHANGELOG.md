@@ -1,5 +1,10 @@
 ## 2.1.0.dev
 
+### enhancements
+  * Generates additional wrapper class based on object + attribute name.
+    ([@lucasmazza](https://github/lucasmazza))
+    Closes [#576](https://github.com/plataformatec/simple_form/issues/576).
+
 ### bug fix
   * Fix escaping issue in `label_input` component
   ([@allomov](https://github.com/allomov))

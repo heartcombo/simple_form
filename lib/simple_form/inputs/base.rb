@@ -82,6 +82,10 @@ module SimpleForm
         @additional_classes ||= [input_type, required_class, readonly_class, disabled_class].compact
       end
 
+      def input_class
+        "#{object_name}_#{reflection_or_attribute_name}"
+      end
+
       private
 
       def add_size!
@@ -113,7 +117,7 @@ module SimpleForm
 
       # Find reflection name when available, otherwise use attribute
       def reflection_or_attribute_name
-        reflection ? reflection.name : attribute_name
+        @reflection_or_attribute_name ||= reflection ? reflection.name : attribute_name
       end
 
       # Retrieve options for the given namespace from the options hash
