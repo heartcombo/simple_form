@@ -83,7 +83,7 @@ module SimpleForm
       end
 
       def input_class
-        "#{object_name}_#{reflection_or_attribute_name}"
+        "#{lookup_model_names.join("_")}_#{reflection_or_attribute_name}"
       end
 
       private
