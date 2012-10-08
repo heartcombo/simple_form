@@ -1,3 +1,10 @@
+## 2.0.4
+
+### bug fix
+
+  * Remove invalid files from the gem package.
+  Closes [#673](https://github.com/plataformatec/simple_form/issues/673)
+
 ## 2.0.3
 
 ### enhancements
