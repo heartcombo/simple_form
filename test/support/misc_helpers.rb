@@ -90,6 +90,15 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_namespaced_component
+    SimpleForm.build :tag => :div, :class => "custom_wrapper" do |b|
+      b.use :input
+      b.wrapper :error, :tag => :div, :class => 'error' do |component|
+        component.use :error
+      end
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *(args << { :builder => CustomFormBuilder }), &block)
   end

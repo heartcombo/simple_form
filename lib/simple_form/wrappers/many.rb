@@ -21,16 +21,18 @@ module SimpleForm
       end
 
       def render(input)
-        content = "".html_safe
-        options = input.options
+        if should_render?(input)
+          content = "".html_safe
+          options = input.options
 
-        components.each do |component|
-          next if options[component] == false
-          rendered = component.respond_to?(:render) ? component.render(input) : input.send(component)
-          content.safe_concat rendered.to_s if rendered
+          components.each do |component|
+            next if options[component] == false
+            rendered = component.respond_to?(:render) ? component.render(input) : input.send(component)
+            content.safe_concat rendered.to_s if rendered
+          end
+
+          wrap(input, options, content)
         end
-
-        wrap(input, options, content)
       end
 
       def find(name)
@@ -48,6 +50,11 @@ module SimpleForm
       end
 
       private
+
+      def should_render?(input)
+        return true unless (namespace && input.respond_to?(namespace))
+        input.send(namespace).present?
+      end
 
       def wrap(input, options, content)
         return content if options[namespace] == false
