@@ -200,4 +200,18 @@ class WrapperTest < ActionView::TestCase
       end
     end
   end
+
+  test 'namespaced components when the input responds to namespace and returns nil' do
+    swap_wrapper :default, self.custom_wrapper_with_namespaced_component do
+      with_form_for @user, :active
+      assert_no_select "div.error"
+    end
+  end
+
+  test 'namespaced components when the input either does not respond to namespace or it is not nil' do
+    swap_wrapper :default, self.custom_wrapper_with_namespaced_component do
+      with_form_for @user, :name
+      assert_select "div.error"
+    end
+  end
 end
