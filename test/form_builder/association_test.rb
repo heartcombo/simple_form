@@ -180,4 +180,14 @@ class AssociationTest < ActionView::TestCase
     assert_equal({ :as => :check_boxes, :collection_wrapper_tag => :ul, :item_wrapper_tag => :li},
                  options)
   end
+
+  test 'builder association uses i18n under defaults namespace to lookup translation' do
+    store_translations(:en, :simple_form => {
+      :labels => {:defaults => {:company => 'Plataformatec' } }
+    }) do
+      with_association_for @user, :company, :required => false
+
+      assert_select 'form label', 'Plataformatec'
+    end
+  end
 end
