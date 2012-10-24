@@ -6,6 +6,9 @@
     Closes [#576](https://github.com/plataformatec/simple_form/issues/576).
 
 ### bug fix
+  * Fix default I18n lookup for association input.
+  ([@nashby](https://github.com/nashby))
+  Closes [#679](https://github.com/plataformatec/simple_form/issues/679).
   * Fix escaping issue in `label_input` component
   ([@allomov](https://github.com/allomov))
 
