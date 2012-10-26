@@ -38,7 +38,7 @@ class IsolatedLabelTest < ActionView::TestCase
     @controller.action_name = "new"
     store_translations(:en, :simple_form => { :labels => { :user => {
       :new => { :description => 'Nova descrição' }
-    } } } ) do
+    } } }) do
       with_label_for @user, :description, :text
       assert_select 'label[for=user_description]', /Nova descrição/
     end
@@ -48,7 +48,7 @@ class IsolatedLabelTest < ActionView::TestCase
     @controller.action_name = "create"
     store_translations(:en, :simple_form => { :labels => { :user => {
       :new => { :description => 'Nova descrição' }
-    } } } ) do
+    } } }) do
       with_label_for @user, :description, :text
       assert_select 'label[for=user_description]', /Nova descrição/
     end
@@ -66,34 +66,44 @@ class IsolatedLabelTest < ActionView::TestCase
   test 'label should use i18n based on model and attribute to lookup translation' do
     store_translations(:en, :simple_form => { :labels => { :user => {
       :description => 'Descrição'
-    } } } ) do
+    } } }) do
       with_label_for @user, :description, :text
       assert_select 'label[for=user_description]', /Descrição/
     end
   end
 
-  test 'input should use i18n under defaults to lookup translation' do
-    store_translations(:en, :simple_form => { :labels => { :defaults => {:age => 'Idade'} } } ) do
+  test 'label should use i18n under defaults to lookup translation' do
+    store_translations(:en, :simple_form => { :labels => { :defaults => { :age => 'Idade' } } }) do
       with_label_for @user, :age, :integer
       assert_select 'label[for=user_age]', /Idade/
     end
   end
 
-  test 'input should not use i18n label if translate is false' do
+  test 'label should not use i18n label if translate is false' do
     swap SimpleForm, :translate_labels => false do
-      store_translations(:en, :simple_form => { :labels => { :defaults => {:age => 'Idade'} } } ) do
+      store_translations(:en, :simple_form => { :labels => { :defaults => { :age => 'Idade' } } }) do
         with_label_for @user, :age, :integer
         assert_select 'label[for=user_age]', /Age/
       end
     end
   end
 
-  test 'label should use i18n with lookup for association name' do
+  test 'label uses i18n with lookup for association name' do
     store_translations(:en, :simple_form => { :labels => {
       :user => { :company => 'My company!' }
-    } } ) do
+    } }) do
       with_label_for @user, :company_id, :string, :setup_association => true
       assert_select 'label[for=user_company_id]', /My company!/
+    end
+  end
+
+  test 'label uses i18n under defaults namespace to lookup for association name' do
+    store_translations(:en, :simple_form => { :labels => {
+      :defaults => { :company => 'Plataformatec' }
+    } }) do
+      with_label_for @user, :company, :string, :setup_association => true
+
+      assert_select 'form label', /Plataformatec/
     end
   end
 
@@ -102,7 +112,7 @@ class IsolatedLabelTest < ActionView::TestCase
 
     store_translations(:en, :simple_form => { :labels => {
       :user => { :name => 'Usuario', :company => { :name => 'Nome da empresa' } }
-    } } ) do
+    } }) do
       with_concat_form_for @user do |f|
         concat f.input :name
         concat(f.simple_fields_for(:company) do |company_form|
@@ -121,7 +131,7 @@ class IsolatedLabelTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :labels => {
       :user    => { :name => 'Usuario' },
       :company => { :name => 'Nome da empresa' }
-    } } ) do
+    } }) do
       with_concat_form_for @user do |f|
         concat f.input :name
         concat(f.simple_fields_for(:company) do |company_form|
@@ -140,7 +150,7 @@ class IsolatedLabelTest < ActionView::TestCase
     store_translations(:en, :simple_form => { :labels => {
       :user => { :name => 'Usuario' },
       :tags => { :name => 'Nome da empresa' }
-    } } ) do
+    } }) do
       with_concat_form_for @user do |f|
         concat f.input :name
         concat(f.simple_fields_for(:tags, :child_index => "new_index") do |tags_form|
@@ -232,21 +242,21 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'label should use i18n to find required text' do
-    store_translations(:en, :simple_form => { :required => { :text => 'campo requerido' }}) do
+    store_translations(:en, :simple_form => { :required => { :text => 'campo requerido' } }) do
       with_label_for @user, :name, :string
       assert_select 'form label abbr[title=campo requerido]', '*'
     end
   end
 
   test 'label should use i18n to find required mark' do
-    store_translations(:en, :simple_form => { :required => { :mark => '*-*' }}) do
+    store_translations(:en, :simple_form => { :required => { :mark => '*-*' } }) do
       with_label_for @user, :name, :string
       assert_select 'form label abbr', '*-*'
     end
   end
 
   test 'label should use i18n to find required string tag' do
-    store_translations(:en, :simple_form => { :required => { :html => '<span class="required" title="requerido">*</span>' }}) do
+    store_translations(:en, :simple_form => { :required => { :html => '<span class="required" title="requerido">*</span>' } }) do
       with_label_for @user, :name, :string
       assert_no_select 'form label abbr'
       assert_select 'form label span.required[title=requerido]', '*'
@@ -264,7 +274,7 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'label should allow overwriting of for attribute with input_html not containing id' do
-    with_label_for @user, :name, :string, :label_html => { :for => 'my_new_id' }, :input_html => {:class => 'foo'}
+    with_label_for @user, :name, :string, :label_html => { :for => 'my_new_id' }, :input_html => { :class => 'foo' }
     assert_select 'label[for=my_new_id]'
   end
 
@@ -286,7 +296,7 @@ class IsolatedLabelTest < ActionView::TestCase
   test 'label should use i18n properly when object is not present' do
     store_translations(:en, :simple_form => { :labels => {
       :project => { :name => 'Nome' }
-    } } ) do
+    } }) do
       with_label_for :project, :name, :string
       assert_select 'label[for=project_name]', /Nome/
     end
