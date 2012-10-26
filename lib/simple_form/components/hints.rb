@@ -11,7 +11,7 @@ module SimpleForm
       end
 
       def has_hint?
-        hint.present?
+        options[:hint] != false && hint.present?
       end
     end
   end

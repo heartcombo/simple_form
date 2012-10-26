@@ -264,6 +264,8 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should be able to disable a hint even if it exists in i18n' do
     store_translations(:en, :simple_form => { :hints => { :name => 'Hint test' } }) do
+      SimpleForm::Inputs::Base.any_instance.expects(:hint).never
+
       with_form_for @user, :name, :hint => false
       assert_no_select 'span.hint'
     end
