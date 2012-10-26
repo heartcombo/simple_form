@@ -6,6 +6,12 @@
     Closes [#576](https://github.com/plataformatec/simple_form/issues/576).
 
 ### bug fix
+  * Do not lookup for hints if it was explicitly given false.
+  After #405 we added hint classes for the wrappers, but this has forced the
+  loading of the hint text doing I18n lookups, even though it was explicitly
+  given false. This checks for the option in `#has_hint?`, avoiding the lookup
+  in such cases. This issues has been caught with #627, thanks to
+  ([@shwoodard](https://github.com/shwoodard)).
   * Fix default I18n lookup for association input.
   ([@nashby](https://github.com/nashby))
   Closes [#679](https://github.com/plataformatec/simple_form/issues/679).
