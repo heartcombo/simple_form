@@ -47,6 +47,16 @@ For more information see the generator output, our
 
 **NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 or higher.
 
+### Zurb Foundation 3
+
+To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:
+
+`rails generate simple_form:install --foundation`
+
+Please note that the Foundation wrapper does not support the `:hint` option by default. In order to enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`. You will need to provide your own CSS styles for hints.
+
+Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/rails.php).
+
 ## Usage
 
 **SimpleForm** was designed to be customized as you need to. Basically it's a stack of components that
