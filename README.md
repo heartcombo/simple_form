@@ -53,6 +53,8 @@ To generate wrappers that are compatible with [Zurb Foundation 3](http://foundat
 
 `rails generate simple_form:install --foundation`
 
+Please note that the Foundation wrapper does not support the `:hint` option by default. In order to enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`. You will need to provide your own CSS styles for hints.
+
 Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/rails.php).
 
 ## Usage
