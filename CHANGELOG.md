@@ -1,6 +1,8 @@
 ## 2.1.0.dev
 
 ### enhancements
+  * Add Zurb Foundation 3 integration.
+    ([@balexand](https://github/balexand))
   * Generates additional wrapper class based on object + attribute name.
     ([@lucasmazza](https://github/lucasmazza))
     Closes [#576](https://github.com/plataformatec/simple_form/issues/576).
