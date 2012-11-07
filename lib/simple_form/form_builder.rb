@@ -445,7 +445,7 @@ module SimpleForm
         end
     end
 
-    def find_wrapper_mapping(input_type)
+    def find_wrapper_mapping(input_type) #:nodoc:
       SimpleForm.wrapper_mappings && SimpleForm.wrapper_mappings[input_type]
     end
 
