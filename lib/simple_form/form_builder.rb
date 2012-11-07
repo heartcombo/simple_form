@@ -472,7 +472,7 @@ module SimpleForm
       begin
         at.const_get(mapping)
       rescue NameError => e
-        e.message =~ /#{mapping}$/ ? nil : raise
+        raise if e.message !~ /#{mapping}$/
       end
     end
   end
