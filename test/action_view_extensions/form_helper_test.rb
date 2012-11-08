@@ -69,6 +69,11 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form.simple_form.edit_superuser'
   end
 
+  test 'SimpleForm should add last object name as css class to form when there is array of objects' do
+    with_concat_form_for([Company.new, @user])
+    assert_select 'form.simple_form.edit_user'
+  end
+
   test 'SimpleForm should not add object class to form if css_class is specified' do
     with_concat_form_for(:user, :html => {:class => nil})
     assert_no_select 'form.user'

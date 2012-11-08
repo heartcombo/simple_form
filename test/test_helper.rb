@@ -82,6 +82,11 @@ class ActionView::TestCase
   def user_path(*args)
     '/users'
   end
+
+  def company_user_path(*args)
+    '/company/users'
+  end
+
   alias :users_path :user_path
   alias :super_user_path :user_path
   alias :validating_user_path :user_path
