@@ -60,7 +60,7 @@ module SimpleForm
         elsif record.is_a?(String) || record.is_a?(Symbol)
           as || record
         else
-          record = record.last if record.is_a?(Array)
+          record = record.last if record.respond_to?(:last)
           action = record.respond_to?(:persisted?) && record.persisted? ? :edit : :new
           as ? "#{action}_#{as}" : dom_class(record, action)
         end
