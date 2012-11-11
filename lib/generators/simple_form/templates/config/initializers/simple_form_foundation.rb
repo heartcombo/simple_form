@@ -15,6 +15,9 @@ SimpleForm.setup do |config|
     # b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
   end
 
+  # CSS class for buttons
+  config.button_class = 'button'
+
   # CSS class to add for error notification helper.
   config.error_notification_class = 'alert-box alert'
 
