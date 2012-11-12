@@ -307,7 +307,7 @@ module ActionView::Helpers
 
     def extract_selected_and_disabled_and_call_procs(selected, collection)
       selected, disabled = extract_selected_and_disabled selected
-      selected_disabled = { selected: selected, disabled: disabled }
+      selected_disabled = { :selected => selected, :disabled => disabled }
 
       selected_disabled.each do |key, check|
         if check.is_a? Proc
