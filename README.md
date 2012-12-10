@@ -1,5 +1,5 @@
 # SimpleForm - Rails forms made easy.
-[![Build Status](https://secure.travis-ci.org/plataformatec/simple_form.png)](http://travis-ci.org/plataformatec/simple_form)
+[![Build Status](https://secure.travis-ci.org/plataformatec/simple_form.png?branch=master)](http://travis-ci.org/plataformatec/simple_form)
 
 **SimpleForm** aims to be as flexible as possible while helping you with powerful components to create
 your forms. The basic goal of SimpleForm is to not touch your way of defining the layout, letting
