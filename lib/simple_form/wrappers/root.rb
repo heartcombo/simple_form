@@ -23,7 +23,7 @@ module SimpleForm
       private
 
       def html_classes(input, options)
-        css = options[:wrapper_class] ? Array.wrap(options[:wrapper_class]) : @defaults[:class]
+        css = options[:wrapper_class] ? Array(options[:wrapper_class]) : @defaults[:class]
         css += SimpleForm.additional_classes_for(:wrapper) do
           input.additional_classes + [input.input_class]
         end
