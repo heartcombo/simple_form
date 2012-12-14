@@ -1,4 +1,4 @@
-require 'active_support/core_ext/object/deep_dup.rb'
+require 'active_support/core_ext/object/deep_dup'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
