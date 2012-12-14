@@ -1,4 +1,4 @@
-require 'simple_form/core_ext/hash'
+require 'active_support/core_ext/object/deep_dup.rb'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -213,8 +213,7 @@ module SimpleForm
     # button implementation (3.2 forward (to delegate to the original when
     # calling `f.button :button`.
     #
-    # TODO: remove if condition when supporting only Rails 3.2 forward.
-    alias_method :button_button, :button if method_defined?(:button)
+    alias_method :button_button, :button
     def button(type, *args, &block)
       options = args.extract_options!.dup
       options[:class] = [SimpleForm.button_class, options[:class]].compact
