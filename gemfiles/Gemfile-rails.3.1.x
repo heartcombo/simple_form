@@ -8,5 +8,5 @@ gem 'activemodel', '~> 3.1.0'
 gem 'actionpack', '~> 3.1.0'
 gem 'rake'
 gem 'rdoc'
-gem 'mocha', :require => false
+gem 'mocha', '~> 0.12.0', :require => false
 gem 'tzinfo'
