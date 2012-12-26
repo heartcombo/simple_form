@@ -306,49 +306,65 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # DEFAULT OPTIONS
-  test 'builder should receive a default argument and pass it to the inputs' do
-    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
-      f.input :name
+  [:input, :input_field].each do |method|
+    test "builder should receive a default argument and pass it to the inputs when calling '#{method}'" do
+      with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
+        f.send(method, :name)
+      end
+      assert_select 'input.default_class'
     end
-    assert_select 'input.default_class'
+
+    test "builder should receive a default argument and pass it to the inputs without changing the defaults when calling '#{method}'" do
+      with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class', :id => 'default_id' } } do |f|
+        concat(f.send(method, :name))
+        concat(f.send(method, :credit_limit))
+      end
+
+      assert_select "input.string.default_class[name='user[name]']"
+      assert_no_select "input.string[name='user[credit_limit]']"
+    end
+
+    test "builder should receive a default argument and pass it to the inputs and nested form when calling '#{method}'" do
+      @user.company = Company.new(1, 'Empresa')
+
+      with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
+        concat(f.send(method, :name))
+        concat(f.simple_fields_for(:company) do |company_form|
+          concat(company_form.send(method, :name))
+        end)
+      end
+
+      assert_select "input.string.default_class[name='user[name]']"
+      assert_select "input.string.default_class[name='user[company_attributes][name]']"
+    end
   end
 
-  test 'builder should receive a default argument and pass it to the inputs, respecting the specific options' do
+  test "builder should receive a default argument and pass it to the inputs when calling 'input', respecting the specific options" do
     with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
       f.input :name, :input_html => { :id => 'specific_id' }
     end
     assert_select 'input.default_class#specific_id'
   end
 
-  test 'builder should receive a default argument and pass it to the inputs, overwriting the defaults with specific options' do
+  test "builder should receive a default argument and pass it to the inputs when calling 'input_field', respecting the specific options" do
+    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
+      f.input_field :name, :id => 'specific_id'
+    end
+    assert_select 'input.default_class#specific_id'
+  end
+
+  test "builder should receive a default argument and pass it to the inputs when calling 'input', overwriting the defaults with specific options" do
     with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class', :id => 'default_id' } } do |f|
       f.input :name, :input_html => { :id => 'specific_id' }
     end
     assert_select 'input.default_class#specific_id'
   end
 
-  test 'builder should receive a default argument and pass it to the inputs without changing the defaults' do
+  test "builder should receive a default argument and pass it to the inputs when calling 'input_field', overwriting the defaults with specific options" do
     with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class', :id => 'default_id' } } do |f|
-      concat(f.input :name)
-      concat(f.input :credit_limit)
+      f.input_field :name, :id => 'specific_id'
     end
-
-    assert_select "input.string.default_class[name='user[name]']"
-    assert_no_select "input.string[name='user[credit_limit]']"
-  end
-
-  test 'builder should receive a default argument and pass it to the inputs and nested form' do
-    @user.company = Company.new(1, 'Empresa')
-
-    with_concat_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f|
-      concat(f.input :name)
-      concat(f.simple_fields_for(:company) do |company_form|
-        concat(company_form.input :name)
-      end)
-    end
-
-    assert_select "input.string.default_class[name='user[name]']"
-    assert_select "input.string.default_class[name='user[company_attributes][name]']"
+    assert_select 'input.default_class#specific_id'
   end
 
   # WITHOUT OBJECT
