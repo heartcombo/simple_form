@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/rails.git
-  revision: ceedec7edcadbad824f58e84bc2c1eddbe8539ce
+  revision: 42d9b480121e15a15cddd2015a1e60a0f9e0f953
   branch: master
   specs:
     actionpack (4.0.0.beta)

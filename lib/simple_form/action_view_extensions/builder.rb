@@ -71,17 +71,7 @@ module SimpleForm
       include CollectionExtensions
 
       def render
-        rendered_collection = render_collection do |item, value, text, default_html_options|
-          builder = instantiate_builder(RadioButtonBuilder, item, value, text, default_html_options)
-
-          if block_given?
-            yield builder
-          else
-            render_component(builder)
-          end
-        end
-
-        wrap_rendered_collection(rendered_collection, @options)
+        wrap_rendered_collection(super, @options)
       end
 
       private
@@ -95,22 +85,7 @@ module SimpleForm
       include CollectionExtensions
 
       def render
-        rendered_collection = render_collection do |item, value, text, default_html_options|
-          default_html_options[:multiple] = true
-          builder = instantiate_builder(CheckBoxBuilder, item, value, text, default_html_options)
-
-          if block_given?
-            yield builder
-          else
-            render_component(builder)
-          end
-        end
-
-        # Append a hidden field to make sure something will be sent back to the
-        # server if all check boxes are unchecked.
-        hidden = @template_object.hidden_field_tag("#{tag_name}[]", "", :id => nil)
-
-        wrap_rendered_collection(rendered_collection + hidden, @options)
+        wrap_rendered_collection(super, @options)
       end
 
       private
@@ -227,7 +202,6 @@ module ActionView::Helpers
     #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
     #
     #   * a block                  => to generate the label + check box or any other component.
-    #
     def collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
       SimpleForm::Tags::CollectionCheckBoxes.new(@object_name, method, @template, collection, value_method, text_method, objectify_options(options), @default_options.merge(html_options)).render(&block)
     end
