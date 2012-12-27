@@ -37,26 +37,8 @@ end
 
 module SimpleForm
   module Tags
-    class CollectionRadioButtons < ActionView::Helpers::Tags::CollectionRadioButtons
-      def render
-        rendered_collection = render_collection do |item, value, text, default_html_options|
-          builder = instantiate_builder(RadioButtonBuilder, item, value, text, default_html_options)
-
-          if block_given?
-            yield builder
-          else
-            render_component(builder)
-          end
-        end
-
-        wrap_rendered_collection(rendered_collection, @options)
-      end
-
+    module CollectionExtensions
       private
-
-      def render_component(builder)
-        builder.radio_button + builder.label(:class => "collection_radio_buttons")
-      end
 
       def render_collection
         item_wrapper_tag   = @options.fetch(:item_wrapper_tag, :span)
@@ -85,7 +67,33 @@ module SimpleForm
       end
     end
 
+    class CollectionRadioButtons < ActionView::Helpers::Tags::CollectionRadioButtons
+      include CollectionExtensions
+
+      def render
+        rendered_collection = render_collection do |item, value, text, default_html_options|
+          builder = instantiate_builder(RadioButtonBuilder, item, value, text, default_html_options)
+
+          if block_given?
+            yield builder
+          else
+            render_component(builder)
+          end
+        end
+
+        wrap_rendered_collection(rendered_collection, @options)
+      end
+
+      private
+
+      def render_component(builder)
+        builder.radio_button + builder.label(:class => "collection_radio_buttons")
+      end
+    end
+
     class CollectionCheckBoxes < ActionView::Helpers::Tags::CollectionCheckBoxes
+      include CollectionExtensions
+
       def render
         rendered_collection = render_collection do |item, value, text, default_html_options|
           default_html_options[:multiple] = true
@@ -109,32 +117,6 @@ module SimpleForm
 
       def render_component(builder)
         builder.check_box + builder.label(:class => "collection_check_boxes")
-      end
-
-      def render_collection
-        item_wrapper_tag   = @options.fetch(:item_wrapper_tag, :span)
-        item_wrapper_class = @options[:item_wrapper_class]
-
-        @collection.map do |item|
-          value = value_for_collection(item, @value_method)
-          text  = value_for_collection(item, @text_method)
-          default_html_options = default_html_options_for_collection(item, value)
-
-          rendered_item = yield item, value, text, default_html_options
-
-          item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, :class => item_wrapper_class) : rendered_item
-        end.join.html_safe
-      end
-
-      def wrap_rendered_collection(collection, options)
-        wrapper_tag = options[:collection_wrapper_tag]
-
-        if wrapper_tag
-          wrapper_class = options[:collection_wrapper_class]
-          @template_object.content_tag(wrapper_tag, collection, :class => wrapper_class)
-        else
-          collection
-        end
       end
     end
   end
