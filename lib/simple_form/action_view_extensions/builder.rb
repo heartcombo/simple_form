@@ -49,11 +49,11 @@ module SimpleForm
         end.join.html_safe
       end
 
-      def wrap_rendered_collection(collection, options)
-        wrapper_tag = options[:collection_wrapper_tag]
+      def wrap_rendered_collection(collection)
+        wrapper_tag = @options[:collection_wrapper_tag]
 
         if wrapper_tag
-          wrapper_class = options[:collection_wrapper_class]
+          wrapper_class = @options[:collection_wrapper_class]
           @template_object.content_tag(wrapper_tag, collection, :class => wrapper_class)
         else
           collection
@@ -65,7 +65,7 @@ module SimpleForm
       include CollectionExtensions
 
       def render
-        wrap_rendered_collection(super, @options)
+        wrap_rendered_collection(super)
       end
 
       private
@@ -79,7 +79,7 @@ module SimpleForm
       include CollectionExtensions
 
       def render
-        wrap_rendered_collection(super, @options)
+        wrap_rendered_collection(super)
       end
 
       private
