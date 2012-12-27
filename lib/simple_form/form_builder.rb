@@ -362,12 +362,6 @@ module SimpleForm
       column     = find_attribute_column(attribute_name)
       input_type = default_input_type(attribute_name, column, options)
 
-      if input_type == :radio
-        SimpleForm.deprecation_warn "Using `:as => :radio` as input type is " \
-          "deprecated, please change it to `:as => :radio_buttons`."
-        input_type = :radio_buttons
-      end
-
       if block_given?
         SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)
       else

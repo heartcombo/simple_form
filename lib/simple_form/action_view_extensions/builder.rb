@@ -3,12 +3,6 @@ module SimpleForm
     # A collection of methods required by simple_form but added to rails default form.
     # This means that you can use such methods outside simple_form context.
     module Builder
-      # deprecated
-      def collection_radio(*args, &block)
-        SimpleForm.deprecation_warn "The `collection_radio` helper is deprecated, " \
-          "please use `collection_radio_buttons` instead."
-        collection_radio_buttons(*args, &block)
-      end
 
       # Wrapper for using SimpleForm inside a default rails form.
       # Example:

@@ -1,3 +1,9 @@
+## 3.0.0.dev
+
+### enhancements
+  * Support to Rails 4.
+  * Removed deprecated methods.
+
 ## 2.1.0.dev
 
 ### enhancements
