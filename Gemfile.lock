@@ -31,6 +31,13 @@ GIT
       rdoc (~> 3.4)
       thor (>= 0.15.4, < 2.0)
 
+GIT
+  remote: git://github.com/stefanpenner/country_select.git
+  revision: b7a47862d16a2bd7c1cb0029b82771fe76ac7c65
+  branch: master
+  specs:
+    country_select (1.0.1)
+
 PATH
   remote: .
   specs:
@@ -42,7 +49,6 @@ GEM
   remote: http://rubygems.org/
   specs:
     builder (3.1.4)
-    country_select (1.0.1)
     erubis (2.7.0)
     i18n (0.6.1)
     json (1.7.5)
@@ -66,8 +72,8 @@ PLATFORMS
 DEPENDENCIES
   actionpack (>= 4.0.0.beta, < 4.1)!
   activemodel (>= 4.0.0.beta, < 4.1)!
-  country_select
   journey!
+  country_select!
   mocha
   railties (>= 4.0.0.beta, < 4.1)!
   rake
