@@ -2,7 +2,7 @@ source :rubygems
 
 gemspec
 
-gem 'country_select', github: 'stefanpenner/country_select', branch: 'master'
+gem 'country_select', '~> 1.1.1'
 gem 'railties', '>= 4.0.0.beta', '< 4.1', github: 'rails/rails', branch: 'master'
 gem 'activemodel', '>= 4.0.0.beta', '< 4.1', github: 'rails/rails', branch: 'master'
 gem 'actionpack', '>= 4.0.0.beta', '< 4.1', github: 'rails/rails', branch: 'master'

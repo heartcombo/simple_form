@@ -25,13 +25,6 @@ GIT
       rdoc (~> 3.4)
       thor (>= 0.15.4, < 2.0)
 
-GIT
-  remote: git://github.com/stefanpenner/country_select.git
-  revision: 71982f948d2109b3ede73ce15be6ec3697ea9ca2
-  branch: master
-  specs:
-    country_select (1.0.1)
-
 PATH
   remote: .
   specs:
@@ -44,6 +37,7 @@ GEM
   specs:
     atomic (1.0.1)
     builder (3.1.4)
+    country_select (1.1.1)
     erubis (2.7.0)
     i18n (0.6.1)
     json (1.7.5)
@@ -69,7 +63,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack (>= 4.0.0.beta, < 4.1)!
   activemodel (>= 4.0.0.beta, < 4.1)!
-  country_select!
+  country_select (~> 1.1.1)
   mocha
   railties (>= 4.0.0.beta, < 4.1)!
   rake
