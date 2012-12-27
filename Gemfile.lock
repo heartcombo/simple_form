@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/stefanpenner/country_select.git
-  revision: b7a47862d16a2bd7c1cb0029b82771fe76ac7c65
+  revision: 71982f948d2109b3ede73ce15be6ec3697ea9ca2
   branch: master
   specs:
     country_select (1.0.1)
