@@ -3,6 +3,8 @@
 ### enhancements
   * Support to Rails 4.
   * Removed deprecated methods.
+  * SimpleForm no longer sets the `size` attribute automatically and the `default_input_size` setting
+  is now deprecated.
 
 ## 2.1.0.dev
 

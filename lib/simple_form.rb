@@ -109,9 +109,9 @@ module SimpleForm
   mattr_accessor :country_priority
   @@country_priority = nil
 
-  # Maximum size allowed for inputs.
+  # DEPRECATED: Maximum size allowed for inputs.
   mattr_accessor :default_input_size
-  @@default_input_size = 50
+  @@default_input_size = nil
 
   # When off, do not use translations in labels. Disabling translation in
   # hints and placeholders can be done manually in the wrapper API.
@@ -184,6 +184,10 @@ module SimpleForm
   end
 
   ## SETUP
+
+  def self.default_input_size=(*)
+    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.default_input_size= is deprecated and has no effect", caller
+  end
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.

@@ -88,10 +88,6 @@ module SimpleForm
 
       private
 
-      def add_size!
-        input_html_options[:size] ||= [limit, SimpleForm.default_input_size].compact.min
-      end
-
       def limit
         if column
           decimal_or_float? ? decimal_limit : column_limit

@@ -131,7 +131,6 @@ class AssociationTest < ActionView::TestCase
   test 'builder creates a select with multiple options for collection associations' do
     with_association_for @user, :tags
     assert_select 'form select.select#user_tag_ids'
-    assert_select 'form select[multiple=multiple][size=5]'
     assert_select 'form select option[value=1]', 'Tag 1'
     assert_select 'form select option[value=2]', 'Tag 2'
     assert_select 'form select option[value=3]', 'Tag 3'

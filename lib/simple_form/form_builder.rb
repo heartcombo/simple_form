@@ -56,7 +56,7 @@ module SimpleForm
     #       <abbr title="required">*</abbr> Super User Name!
     #     </label>
     #     <input class="string required" id="user_name" maxlength="100"
-    #        name="user[name]" size="100" type="text" value="Carlos" />
+    #        name="user[name]" type="text" value="Carlos" />
     #     <span class="hint">My hint</span>
     #     <span class="error">can't be blank</span>
     #
@@ -129,7 +129,7 @@ module SimpleForm
     # This is the output html (only the input portion, not the form):
     #
     #     <input class="string required" id="user_name" maxlength="100"
-    #        name="user[name]" size="100" type="text" value="Carlos" />
+    #        name="user[name]" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
       options = options.dup
@@ -189,7 +189,6 @@ module SimpleForm
         else
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
-            html_options[:size]   ||= 5
             html_options[:multiple] = true unless html_options.key?(:multiple)
           end
 

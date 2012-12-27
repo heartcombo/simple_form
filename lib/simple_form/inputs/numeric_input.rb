@@ -4,7 +4,6 @@ module SimpleForm
       enable :placeholder, :min_max
 
       def input
-        add_size!
         input_html_classes.unshift("numeric")
         if html5?
           input_html_options[:type] ||= "number"
@@ -14,11 +13,6 @@ module SimpleForm
       end
 
       private
-
-      # Rails adds the size attr by default, if the :size key does not exist.
-      def add_size!
-        input_html_options[:size] ||= nil
-      end
     end
   end
 end
