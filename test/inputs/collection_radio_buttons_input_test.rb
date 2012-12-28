@@ -286,6 +286,14 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     end
   end
 
+  test 'input radio allows giving class for label of item in the collection' do
+    swap SimpleForm, :item_wrapper_tag => :li, :item_wrapper_class => 'item' do
+      with_input_for @user, :active, :radio_buttons, :item_label_class => 'hogehoge'
+
+      assert_select 'label.collection_radio_buttons.hogehoge'
+    end
+  end
+
   test 'input radio respects the nested boolean style config, generating nested label > input' do
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :radio_buttons

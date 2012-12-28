@@ -184,6 +184,14 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     end
   end
 
+  test 'input check boxes allows giving class for label of item in the collection' do
+    swap SimpleForm, :item_wrapper_tag => :li, :item_wrapper_class => 'item' do
+      with_input_for @user, :active, :check_boxes, :item_label_class => 'hogehoge'
+
+      assert_select 'label.collection_check_boxes.hogehoge'
+    end
+  end
+
   test 'input check boxes respects the nested boolean style config, generating nested label > input' do
     swap SimpleForm, :boolean_style => :nested do
       with_input_for @user, :active, :check_boxes

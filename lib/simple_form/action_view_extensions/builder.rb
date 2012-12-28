@@ -86,6 +86,8 @@ module SimpleForm
       #
       #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
       #
+      #   * item_label_class         => the CSS class to use for label of item in the collection.
+      #
       #   * a block                  => to generate the label + radio or any other component.
       #
       def collection_radio_buttons(attribute, collection, value_method, text_method, options={}, html_options={})
@@ -97,7 +99,8 @@ module SimpleForm
           if block_given?
             yield builder
           else
-            builder.radio_button + builder.label(:class => "collection_radio_buttons")
+            item_label_class = options[:item_label_class]
+            builder.radio_button + builder.label(:class => "collection_radio_buttons #{item_label_class}".strip)
           end
         end
 
@@ -160,6 +163,8 @@ module SimpleForm
       #
       #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
       #
+      #   * item_label_class         => the CSS class to use for label of item in the collection.
+      #
       #   * a block                  => to generate the label + check box or any other component.
       #
       def collection_check_boxes(attribute, collection, value_method, text_method, options={}, html_options={})
@@ -172,7 +177,8 @@ module SimpleForm
           if block_given?
             yield builder
           else
-            builder.check_box + builder.label(:class => "collection_check_boxes")
+            item_label_class = options[:item_label_class]
+            builder.check_box + builder.label(:class => "collection_check_boxes #{item_label_class}".strip)
           end
         end
 
