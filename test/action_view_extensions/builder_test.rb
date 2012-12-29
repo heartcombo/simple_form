@@ -584,7 +584,7 @@ class BuilderTest < ActionView::TestCase
   test 'fields don\'t inherites wrapper option from the parent form' do
     swap_wrapper :another do
       simple_form_for(:user, :wrapper => :another) do |f|
-        f.simple_fields_for(:company, wrapper: false) do |company|
+        f.simple_fields_for(:company, :wrapper => false) do |company|
           assert_not_equal :another, company.options[:wrapper]
         end
       end
