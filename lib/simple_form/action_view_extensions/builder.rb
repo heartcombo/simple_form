@@ -192,17 +192,13 @@ module SimpleForm
       #       posts_form.input :title
       #     end
       #   end
-      def simple_fields_for(*args, &block)
-        options = args.extract_options!
-        options[:wrapper]  ||= self.options[:wrapper]
-        options[:defaults] ||= self.options[:defaults]
-
+      def simple_fields_for(record_name, record_object = nil, options = {}, &block)
         if self.class < ActionView::Helpers::FormBuilder
           options[:builder] ||= self.class
         else
           options[:builder] ||= SimpleForm::FormBuilder
         end
-        fields_for(*(args << options), &block)
+        fields_for(record_name, record_object, options, &block)
       end
 
       private
