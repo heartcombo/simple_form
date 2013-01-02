@@ -15,9 +15,7 @@ module SimpleForm
     autoload :Components
     autoload :ErrorNotification
     autoload :FormBuilder
-    autoload :I18nCache
     autoload :Inputs
-    autoload :MapType
   end
 
   ## CONFIGURATION OPTIONS
