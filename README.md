@@ -867,4 +867,4 @@ https://github.com/plataformatec/simple_form/issues
 
 ## License
 
-MIT License. Copyright 2012 Plataformatec. http://plataformatec.com.br
+MIT License. Copyright 2009-2013 Plataformatec. http://plataformatec.com.br
