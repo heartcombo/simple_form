@@ -5,9 +5,9 @@
     ([@svendahlstrand](https://github.com/svendahlstrand))
     Closes [#623](https://github.com/plataformatec/simple_form/issues/623).
   * Add Zurb Foundation 3 integration.
-    ([@balexand](https://github/balexand))
+    ([@balexand](https://github.com/balexand))
   * Generates additional wrapper class based on object + attribute name.
-    ([@lucasmazza](https://github/lucasmazza))
+    ([@lucasmazza](https://github.com/lucasmazza))
     Closes [#576](https://github.com/plataformatec/simple_form/issues/576).
   * Allow `input_field` to work with `:defaults` options.
     ([@smidwap](https://github.com/smidwap))
