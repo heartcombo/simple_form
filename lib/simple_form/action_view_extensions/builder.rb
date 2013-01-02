@@ -15,7 +15,7 @@ module SimpleForm
       #   end
       def simple_fields_for(*args, &block)
         options = args.extract_options!
-        options[:wrapper]  ||= self.options[:wrapper]
+        options[:wrapper] = self.options[:wrapper] if options[:wrapper].nil?
         options[:defaults] ||= self.options[:defaults]
 
         if self.class < ActionView::Helpers::FormBuilder
