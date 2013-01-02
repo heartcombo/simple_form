@@ -6,14 +6,25 @@ require 'active_support/core_ext/hash/except'
 require 'active_support/core_ext/hash/reverse_merge'
 
 module SimpleForm
-  autoload :Components,        'simple_form/components'
-  autoload :ErrorNotification, 'simple_form/error_notification'
-  autoload :FormBuilder,       'simple_form/form_builder'
-  autoload :Helpers,           'simple_form/helpers'
-  autoload :I18nCache,         'simple_form/i18n_cache'
-  autoload :Inputs,            'simple_form/inputs'
-  autoload :MapType,           'simple_form/map_type'
-  autoload :Wrappers,          'simple_form/wrappers'
+  extend ActiveSupport::Autoload
+
+  autoload :Helpers
+  autoload :Wrappers
+
+  eager_autoload do
+    autoload :Components
+    autoload :ErrorNotification
+    autoload :FormBuilder
+    autoload :I18nCache
+    autoload :Inputs
+    autoload :MapType
+  end
+
+  def self.eager_load!
+    super
+    SimpleForm::Inputs.eager_load!
+    SimpleForm::Components.eager_load!
+  end
 
   ## CONFIGURATION OPTIONS
 
@@ -195,3 +206,5 @@ module SimpleForm
     yield self
   end
 end
+
+require 'simple_form/railtie' if defined?(Rails)
