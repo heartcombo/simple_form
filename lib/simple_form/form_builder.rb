@@ -1,4 +1,5 @@
 require 'active_support/core_ext/object/deep_dup'
+require 'simple_form/map_type'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder

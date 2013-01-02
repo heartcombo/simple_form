@@ -1,3 +1,5 @@
+require 'simple_form/i18n_cache'
+
 module SimpleForm
   module Inputs
     class Base
