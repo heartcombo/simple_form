@@ -1,6 +1,9 @@
 ## 2.1.0.dev
 
 ### enhancements
+  * `grouped_collection_select` now accepts proc/lambda as label and value method.
+    ([@svendahlstrand](https://github.com/svendahlstrand))
+    Closes [#623](https://github.com/plataformatec/simple_form/issues/623).
   * Add Zurb Foundation 3 integration.
     ([@balexand](https://github/balexand))
   * Generates additional wrapper class based on object + attribute name.
