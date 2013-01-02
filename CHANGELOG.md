@@ -1,6 +1,8 @@
 ## 2.0.5.dev
 
 ### bug fix
+  * Allow `simple_fields_for` override the `:wrapper` option of the parent.
+  ([@achempion](https://github.com/achempion))
   * Do not lookup for hints if it was explicitly given false.
   After #405 we added hint classes for the wrappers, but this has forced the
   loading of the hint text doing I18n lookups, even though it was explicitly
