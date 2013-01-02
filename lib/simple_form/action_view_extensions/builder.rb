@@ -277,34 +277,48 @@ end
 module ActionView::Helpers
   class FormBuilder
     include SimpleForm::ActionViewExtensions::Builder
+  end
 
-    # Override default Rails collection_select helper to handle lambdas/procs in
+  module FormOptionsHelper
+    # Override Rails options_from_collection_for_select to handle lambdas/procs in
     # text and value methods, so it works the same way as collection_radio_buttons
     # and collection_check_boxes in SimpleForm. If none of text/value methods is a
     # callable object, then it just delegates back to original collection select.
-    #
-    alias :original_collection_select :collection_select
-    def collection_select(attribute, collection, value_method, text_method, options={}, html_options={})
+    # FIXME: remove when support only Rails 4.0 forward
+    #        https://github.com/rails/rails/commit/9035324367526af0300477a58b6d3efc15d1a5a8
+    alias :original_options_from_collection_for_select :options_from_collection_for_select
+    def options_from_collection_for_select(collection, value_method, text_method, selected = nil)
       if value_method.respond_to?(:call) || text_method.respond_to?(:call)
         collection = collection.map do |item|
           value = value_for_collection(item, value_method)
           text  = value_for_collection(item, text_method)
 
-          default_html_options = default_html_options_for_collection(item, value, options, html_options)
-          disabled = value if default_html_options[:disabled]
-          selected = value if default_html_options[:selected]
-
-          [value, text, selected, disabled]
+          [value, text]
         end
 
-        [:disabled, :selected].each do |option|
-          option_value    = collection.map(&:pop).compact
-          options[option] = option_value if option_value.present?
-        end
         value_method, text_method = :first, :last
+        selected = extract_selected_and_disabled_and_call_procs selected, collection
       end
 
-      original_collection_select(attribute, collection, value_method, text_method, options, html_options)
+      original_options_from_collection_for_select collection, value_method, text_method, selected
+    end
+
+    private
+
+    def extract_selected_and_disabled_and_call_procs(selected, collection)
+      selected, disabled = extract_selected_and_disabled selected
+      selected_disabled = { :selected => selected, :disabled => disabled }
+
+      selected_disabled.each do |key, check|
+        if check.is_a? Proc
+          values = collection.map { |option| option.first if check.call(option.first) }
+          selected_disabled[key] = values
+        end
+      end
+    end
+
+    def value_for_collection(item, value) #:nodoc:
+      value.respond_to?(:call) ? value.call(item) : item.send(value)
     end
   end
 
