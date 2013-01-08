@@ -99,8 +99,7 @@ module SimpleForm
           if block_given?
             yield builder
           else
-            item_label_class = options[:item_label_class]
-            builder.radio_button + builder.label(:class => "collection_radio_buttons #{item_label_class}".strip)
+            builder.radio_button + builder.label(:class => "collection_radio_buttons #{options[:item_label_class]}".strip)
           end
         end
 
@@ -177,8 +176,7 @@ module SimpleForm
           if block_given?
             yield builder
           else
-            item_label_class = options[:item_label_class]
-            builder.check_box + builder.label(:class => "collection_check_boxes #{item_label_class}".strip)
+            builder.check_box + builder.label(:class => "collection_check_boxes #{options[:item_label_class]}".strip)
           end
         end
 
