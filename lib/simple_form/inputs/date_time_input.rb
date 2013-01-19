@@ -5,10 +5,6 @@ module SimpleForm
         @builder.send(:"#{input_type}_select", attribute_name, input_options, input_html_options)
       end
 
-      def has_required?
-        false
-      end
-
       private
 
       def label_target

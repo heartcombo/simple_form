@@ -91,9 +91,9 @@ class DateTimeInputTest < ActionView::TestCase
     assert_select 'label[for=project_created_at_4i]'
   end
 
-  test 'date time input should not generate invalid required html attribute' do
+  test 'date time input should generate required html attribute' do
     with_input_for @user, :delivery_time, :time, :required => true
     assert_select 'select.required'
-    assert_no_select 'select[required]'
+    assert_select 'select[required]'
   end
 end
