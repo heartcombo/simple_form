@@ -9,6 +9,9 @@
 ## 2.1.0.dev
 
 ### enhancements
+  * generate required attribute for `date_time` input.
+    ([@nashby](https://github.com/nashby))
+    Closes [#730](https://github.com/plataformatec/simple_form/issues/730).
   * `grouped_collection_select` now accepts proc/lambda as label and value method.
     ([@svendahlstrand](https://github.com/svendahlstrand))
     Closes [#623](https://github.com/plataformatec/simple_form/issues/623).
