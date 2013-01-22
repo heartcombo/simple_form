@@ -425,6 +425,28 @@ form_for @user do |f|
 end
 ```
 
+#### Collection (Radio Buttons + Check Boxes) Options
+  * `checked` - the value that should be checked initially.
+  * `disabled` - the value or values that should be disabled. Accepts a single item or an array of items.
+  * `collection_wrapper_tag` - the tag to wrap the entire collection.
+  * `collection_wrapper_class` - the CSS class to use for `collection_wrapper_tag`.
+  * `item_wrapper_tag` - the tag to wrap each item in the collection.
+  * `item_wrapper_class` - the CSS class to use for `item_wrapper_tag`.
+  * `item_label_class` - the CSS class to use for label of item in the collection.
+
+##### A `block` as an option
+Generate the label + radio or any other component.
+
+```ruby
+form_for @user do |f|
+  f.collection_check_boxes(
+    :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+  ) do |b|
+    b.label { b.check_box + b.text }
+  end
+end
+```
+
 ## Mappings/Inputs available
 
 **SimpleForm** comes with a lot of default mappings:
