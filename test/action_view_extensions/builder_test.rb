@@ -252,10 +252,10 @@ class BuilderTest < ActionView::TestCase
       concat f.hidden_field :name
     end
 
-    assert_select 'label.true[for=user_active_true]', text: 'true', count: 1 do
+    assert_select 'label.true[for=user_active_true]', :text => 'true', :count => 1 do
       assert_select 'input#user_active_true[type=radio]'
     end
-    assert_select 'label.false[for=user_active_false]', text: 'false', count: 1 do
+    assert_select 'label.false[for=user_active_false]', :text => 'false', :count => 1 do
       assert_select 'input#user_active_false[type=radio]'
     end
   end
@@ -563,10 +563,10 @@ class BuilderTest < ActionView::TestCase
       concat f.hidden_field :name
     end
 
-    assert_select 'label.true[for=user_active_true]', text: 'true', count: 1 do
+    assert_select 'label.true[for=user_active_true]', :text => 'true', :count => 1 do
       assert_select 'input#user_active_true[type=checkbox]'
     end
-    assert_select 'label.false[for=user_active_false]', text: 'false', count: 1 do
+    assert_select 'label.false[for=user_active_false]', :text => 'false', :count => 1 do
       assert_select 'input#user_active_false[type=checkbox]'
     end
   end
