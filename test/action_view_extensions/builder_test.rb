@@ -242,6 +242,24 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
+  test "collection radio with block helpers does not leak the template" do
+    with_concat_form_for(@user) do |f|
+      collection_input =  f.collection_radio_buttons :active, [true, false], :to_s, :to_s do |b|
+        b.label(:class => b.object) { b.radio_button + b.text }
+      end
+      concat collection_input
+
+      concat f.hidden_field :name
+    end
+
+    assert_select 'label.true[for=user_active_true]', text: 'true', count: 1 do
+      assert_select 'input#user_active_true[type=radio]'
+    end
+    assert_select 'label.false[for=user_active_false]', text: 'false', count: 1 do
+      assert_select 'input#user_active_false[type=radio]'
+    end
+  end
+
   test "collection_radio helper is deprecated in favor of collection_radio_buttons" do
     assert_deprecated "[SIMPLE_FORM] The `collection_radio` helper is deprecated, " \
       "please use `collection_radio_buttons` instead" do
@@ -531,6 +549,24 @@ class BuilderTest < ActionView::TestCase
       assert_select 'input#user_active_true[type=checkbox]'
     end
     assert_select 'label.false[for=user_active_false]', 'false' do
+      assert_select 'input#user_active_false[type=checkbox]'
+    end
+  end
+
+  test "collection check boxes with block helpers does not leak the template" do
+    with_concat_form_for(@user) do |f|
+      collection_input =  f.collection_check_boxes :active, [true, false], :to_s, :to_s do |b|
+        b.label(:class => b.object) { b.check_box + b.text }
+      end
+      concat collection_input
+
+      concat f.hidden_field :name
+    end
+
+    assert_select 'label.true[for=user_active_true]', text: 'true', count: 1 do
+      assert_select 'input#user_active_true[type=checkbox]'
+    end
+    assert_select 'label.false[for=user_active_false]', text: 'false', count: 1 do
       assert_select 'input#user_active_false[type=checkbox]'
     end
   end
