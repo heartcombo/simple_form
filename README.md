@@ -16,27 +16,37 @@ https://github.com/plataformatec/simple_form/tree/v1.5
 
 Add it to your Gemfile:
 
-`gem 'simple_form'`
+```ruby
+gem 'simple_form'
+```
 
 Run the following command to install it:
 
-`bundle install`
+```console
+bundle install
+```
 
 Run the generator:
 
-`rails generate simple_form:install`
+```console
+rails generate simple_form:install
+```
 
 Also, if you want to use the country select, you will need the
 [country_select gem](https://rubygems.org/gems/country_select), add it to your Gemfile:
 
-`gem 'country_select'`
+```ruby
+gem 'country_select'
+```
 
 ### Twitter Bootstrap
 
 **SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap).
 To do that you have to use the `bootstrap` option in the install generator, like this:
 
-`rails generate simple_form:install --bootstrap`
+```console
+rails generate simple_form:install --bootstrap
+```
 
 You have to be sure that you added a copy of the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
 assets on your application.
@@ -51,7 +61,9 @@ For more information see the generator output, our
 
 To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:
 
-`rails generate simple_form:install --foundation`
+```console
+rails generate simple_form:install --foundation
+```
 
 Please note that the Foundation wrapper does not support the `:hint` option by default. In order to enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`. You will need to provide your own CSS styles for hints.
 
