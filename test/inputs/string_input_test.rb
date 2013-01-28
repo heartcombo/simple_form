@@ -12,11 +12,6 @@ class StringInputTest < ActionView::TestCase
     assert_select "input#user_password.password[type=password][name='user[password]']"
   end
 
-  test 'input should not use size attribute for decimal attributes' do
-    with_input_for @user, :credit_limit, :decimal
-    assert_no_select 'input.decimal[size]'
-  end
-
   test 'input should get maxlength from column definition for string attributes' do
     with_input_for @user, :name, :string
     assert_select 'input.string[maxlength=100]'
@@ -25,16 +20,6 @@ class StringInputTest < ActionView::TestCase
   test 'input should not get maxlength from column without size definition for string attributes' do
     with_input_for @user, :action, :string
     assert_no_select 'input.string[maxlength]'
-  end
-
-  test 'input should get size from column definition for string attributes respecting maximum value' do
-    with_input_for @user, :name, :string
-    assert_select 'input.string[size=50]'
-  end
-
-  test 'input should use default text size for password attributes' do
-    with_input_for @user, :password, :password
-    assert_select 'input.password[type=password][size=50]'
   end
 
   test 'input should get maxlength from column definition for password attributes' do
@@ -57,10 +42,10 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input.string[maxlength=12]'
   end
 
-  test 'input size and maxlength should be the column limit plus one to make room for decimal point' do
+  test 'input maxlength should be the column limit plus one to make room for decimal point' do
     with_input_for @user, :credit_limit, :string
 
-    assert_select "input.string[maxlength=16][size=16]"
+    assert_select "input.string[maxlength=16]"
   end
 
   test 'input should not generate placeholder by default' do
