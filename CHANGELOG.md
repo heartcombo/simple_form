@@ -9,6 +9,8 @@
 ## 2.1.0.dev
 
 ### enhancements
+  * support for Rails eager loading.
+    Closes [#478](https://github.com/plataformatec/simple_form/issues/478).
   * generate required attribute for `date_time` input.
     ([@nashby](https://github.com/nashby))
     Closes [#730](https://github.com/plataformatec/simple_form/issues/730).
