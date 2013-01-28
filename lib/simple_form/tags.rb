@@ -14,7 +14,7 @@ module SimpleForm
 
           rendered_item = yield item, value, text, default_html_options
 
-          item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, :class => item_wrapper_class) : rendered_item
+          item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, class: item_wrapper_class) : rendered_item
         end.join.html_safe
       end
 
@@ -23,7 +23,7 @@ module SimpleForm
 
         if wrapper_tag
           wrapper_class = @options[:collection_wrapper_class]
-          @template_object.content_tag(wrapper_tag, collection, :class => wrapper_class)
+          @template_object.content_tag(wrapper_tag, collection, class: wrapper_class)
         else
           collection
         end
@@ -40,7 +40,7 @@ module SimpleForm
       private
 
       def render_component(builder)
-        builder.radio_button + builder.label(:class => "collection_radio_buttons")
+        builder.radio_button + builder.label(class: "collection_radio_buttons")
       end
     end
 
@@ -54,7 +54,7 @@ module SimpleForm
       private
 
       def render_component(builder)
-        builder.check_box + builder.label(:class => "collection_check_boxes")
+        builder.check_box + builder.label(class: "collection_check_boxes")
       end
     end
   end

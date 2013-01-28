@@ -6,18 +6,18 @@ module SimpleForm
       module ClassMethods #:nodoc:
         def translate_required_html
           i18n_cache :translate_required_html do
-            I18n.t(:"simple_form.required.html", :default =>
+            I18n.t(:"simple_form.required.html", default:
               %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>]
             )
           end
         end
 
         def translate_required_text
-          I18n.t(:"simple_form.required.text", :default => 'required')
+          I18n.t(:"simple_form.required.text", default: 'required')
         end
 
         def translate_required_mark
-          I18n.t(:"simple_form.required.mark", :default => '*')
+          I18n.t(:"simple_form.required.mark", default: '*')
         end
       end
 

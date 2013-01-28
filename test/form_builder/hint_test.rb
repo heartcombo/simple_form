@@ -14,36 +14,36 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint should be generated with optional text' do
-    with_hint_for @user, :name, :hint => 'Use with care...'
+    with_hint_for @user, :name, hint: 'Use with care...'
     assert_select 'span.hint', 'Use with care...'
   end
 
   test 'hint should not modify the options hash' do
-    options = { :hint => 'Use with care...' }
+    options = { hint: 'Use with care...' }
     with_hint_for @user, :name, options
     assert_select 'span.hint', 'Use with care...'
-    assert_equal({ :hint => 'Use with care...' }, options)
+    assert_equal({ hint: 'Use with care...' }, options)
   end
 
   test 'hint should be generated cleanly with optional text' do
-    with_hint_for @user, :name, :hint => 'Use with care...', :hint_tag => :span
+    with_hint_for @user, :name, hint: 'Use with care...', hint_tag: :span
     assert_no_select 'span.hint[hint]'
     assert_no_select 'span.hint[hint_tag]'
     assert_no_select 'span.hint[hint_html]'
   end
 
   test 'hint uses the current component tag set' do
-    with_hint_for @user, :name, :hint => 'Use with care...', :hint_tag => :p
+    with_hint_for @user, :name, hint: 'Use with care...', hint_tag: :p
     assert_select 'p.hint', 'Use with care...'
   end
 
   test 'hint should be able to pass html options' do
-    with_hint_for @user, :name, :hint => 'Yay!', :id => 'hint', :class => 'yay'
+    with_hint_for @user, :name, hint: 'Yay!', id: 'hint', class: 'yay'
     assert_select 'span#hint.hint.yay'
   end
 
   test 'hint should be output as html_safe' do
-    with_hint_for @user, :name, :hint => '<b>Bold</b> and not...'
+    with_hint_for @user, :name, hint: '<b>Bold</b> and not...'
     assert_select 'span.hint', 'Bold and not...'
   end
 
@@ -61,22 +61,22 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint without attribute name uses the current component tag set' do
-    with_hint_for @user, 'Hello World!', :hint_tag => :p
+    with_hint_for @user, 'Hello World!', hint_tag: :p
     assert_no_select 'p.hint[hint]'
     assert_no_select 'p.hint[hint_html]'
     assert_no_select 'p.hint[hint_tag]'
   end
 
   test 'hint without attribute name should be able to pass html options' do
-    with_hint_for @user, 'Yay', :id => 'hint', :class => 'yay'
+    with_hint_for @user, 'Yay', id: 'hint', class: 'yay'
     assert_select 'span#hint.hint.yay', 'Yay'
   end
 
   # I18n
 
   test 'hint should use i18n based on model, action, and attribute to lookup translation' do
-    store_translations(:en, :simple_form => { :hints => { :user => {
-      :edit => { :name => 'Content of this input will be truncated...' }
+    store_translations(:en, simple_form: { hints: { user: {
+      edit: { name: 'Content of this input will be truncated...' }
     } } }) do
       with_hint_for @user, :name
       assert_select 'span.hint', 'Content of this input will be truncated...'
@@ -84,8 +84,8 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint should use i18n with model and attribute to lookup translation' do
-    store_translations(:en, :simple_form => { :hints => { :user => {
-      :name => 'Content of this input will be capitalized...'
+    store_translations(:en, simple_form: { hints: { user: {
+      name: 'Content of this input will be capitalized...'
     } } }) do
       with_hint_for @user, :name
       assert_select 'span.hint', 'Content of this input will be capitalized...'
@@ -93,8 +93,8 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint should use i18n under defaults namespace to lookup translation' do
-    store_translations(:en, :simple_form => {
-      :hints => {:defaults => {:name => 'Content of this input will be downcased...' } }
+    store_translations(:en, simple_form: {
+      hints: {defaults: {name: 'Content of this input will be downcased...' } }
     }) do
       with_hint_for @user, :name
       assert_select 'span.hint', 'Content of this input will be downcased...'
@@ -102,17 +102,17 @@ class HintTest < ActionView::TestCase
   end
 
   test 'hint should use i18n with lookup for association name' do
-    store_translations(:en, :simple_form => { :hints => {
-      :user => { :company => 'My company!' }
+    store_translations(:en, simple_form: { hints: {
+      user: { company: 'My company!' }
     } } ) do
-      with_hint_for @user, :company_id, :as => :string, :reflection => Association.new(Company, :company, {})
+      with_hint_for @user, :company_id, as: :string, reflection: Association.new(Company, :company, {})
       assert_select 'span.hint', /My company!/
     end
   end
 
   test 'hint should output translations as html_safe' do
-    store_translations(:en, :simple_form => { :hints => { :user => {
-      :edit => { :name => '<b>This is bold</b> and this is not...' }
+    store_translations(:en, simple_form: { hints: { user: {
+      edit: { name: '<b>This is bold</b> and this is not...' }
     } } }) do
       with_hint_for @user, :name
       assert_select 'span.hint', 'This is bold and this is not...'
@@ -123,7 +123,7 @@ class HintTest < ActionView::TestCase
   # No object
 
   test 'hint should generate properly when object is not present' do
-    with_hint_for :project, :name, :hint => 'Test without object'
+    with_hint_for :project, :name, hint: 'Test without object'
     assert_select 'span.hint', 'Test without object'
   end
 
@@ -131,7 +131,7 @@ class HintTest < ActionView::TestCase
 
   test 'hint with custom wrappers works' do
     swap_wrapper do
-      with_hint_for @user, :name, :hint => "can't be blank"
+      with_hint_for @user, :name, hint: "can't be blank"
       assert_select 'div.omg_hint', "can't be blank"
     end
   end

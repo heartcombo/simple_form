@@ -8,26 +8,26 @@ module SimpleForm
 
     # When action is create or update, we still should use new and edit
     ACTIONS = {
-      :create => :new,
-      :update => :edit
+      create: :new,
+      update: :edit
     }
 
     extend MapType
     include SimpleForm::Inputs
 
-    map_type :text,                                :to => SimpleForm::Inputs::TextInput
-    map_type :file,                                :to => SimpleForm::Inputs::FileInput
-    map_type :string, :email, :search, :tel, :url, :to => SimpleForm::Inputs::StringInput
-    map_type :password,                            :to => SimpleForm::Inputs::PasswordInput
-    map_type :integer, :decimal, :float,           :to => SimpleForm::Inputs::NumericInput
-    map_type :range,                               :to => SimpleForm::Inputs::RangeInput
-    map_type :check_boxes,                         :to => SimpleForm::Inputs::CollectionCheckBoxesInput
-    map_type :radio_buttons,                       :to => SimpleForm::Inputs::CollectionRadioButtonsInput
-    map_type :select,                              :to => SimpleForm::Inputs::CollectionSelectInput
-    map_type :grouped_select,                      :to => SimpleForm::Inputs::GroupedCollectionSelectInput
-    map_type :date, :time, :datetime,              :to => SimpleForm::Inputs::DateTimeInput
-    map_type :country, :time_zone,                 :to => SimpleForm::Inputs::PriorityInput
-    map_type :boolean,                             :to => SimpleForm::Inputs::BooleanInput
+    map_type :text,                                to: SimpleForm::Inputs::TextInput
+    map_type :file,                                to: SimpleForm::Inputs::FileInput
+    map_type :string, :email, :search, :tel, :url, to: SimpleForm::Inputs::StringInput
+    map_type :password,                            to: SimpleForm::Inputs::PasswordInput
+    map_type :integer, :decimal, :float,           to: SimpleForm::Inputs::NumericInput
+    map_type :range,                               to: SimpleForm::Inputs::RangeInput
+    map_type :check_boxes,                         to: SimpleForm::Inputs::CollectionCheckBoxesInput
+    map_type :radio_buttons,                       to: SimpleForm::Inputs::CollectionRadioButtonsInput
+    map_type :select,                              to: SimpleForm::Inputs::CollectionSelectInput
+    map_type :grouped_select,                      to: SimpleForm::Inputs::GroupedCollectionSelectInput
+    map_type :date, :time, :datetime,              to: SimpleForm::Inputs::DateTimeInput
+    map_type :country, :time_zone,                 to: SimpleForm::Inputs::PriorityInput
+    map_type :boolean,                             to: SimpleForm::Inputs::BooleanInput
 
     def self.discovery_cache
       @discovery_cache ||= {}
@@ -49,7 +49,7 @@ module SimpleForm
     #
     #   # Imagine @user has error "can't be blank" on name
     #   simple_form_for @user do |f|
-    #     f.input :name, :hint => 'My hint'
+    #     f.input :name, hint: 'My hint'
     #   end
     #
     # This is the output html (only the input portion, not the form):
@@ -67,15 +67,15 @@ module SimpleForm
     #
     # You have some options for the input to enable/disable some functions:
     #
-    #   :as => allows you to define the input type you want, for instance you
+    #   as: allows you to define the input type you want, for instance you
     #          can use it to generate a text field for a date column.
     #
-    #   :required => defines whether this attribute is required or not. True
+    #   required: defines whether this attribute is required or not. True
     #               by default.
     #
     # The fact SimpleForm is built in components allow the interface to be unified.
     # So, for instance, if you need to disable :hint for a given input, you can pass
-    # :hint => false. The same works for :error, :label and :wrapper.
+    # hint: false. The same works for :error, :label and :wrapper.
     #
     # Besides the html for any component can be changed. So, if you want to change
     # the label html you just need to give a hash to :label_html. To configure the
@@ -86,18 +86,18 @@ module SimpleForm
     # Some inputs, as datetime, time and select allow you to give extra options, like
     # prompt and/or include blank. Such options are given in plainly:
     #
-    #    f.input :created_at, :include_blank => true
+    #    f.input :created_at, include_blank: true
     #
     # == Collection
     #
     # When playing with collections (:radio_buttons, :check_boxes and :select
     # inputs), you have three extra options:
     #
-    #   :collection => use to determine the collection to generate the radio or select
+    #   collection: use to determine the collection to generate the radio or select
     #
-    #   :label_method => the method to apply on the array collection to get the label
+    #   label_method: the method to apply on the array collection to get the label
     #
-    #   :value_method => the method to apply on the array collection to get the value
+    #   value_method: the method to apply on the array collection to get the value
     #
     # == Priority
     #
@@ -138,7 +138,7 @@ module SimpleForm
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
-      SimpleForm::Wrappers::Root.new([:input], :wrapper => false).render find_input(attribute_name, options)
+      SimpleForm::Wrappers::Root.new([:input], wrapper: false).render find_input(attribute_name, options)
     end
 
     # Helper for dealing with association selects/radios, generating the
@@ -152,7 +152,7 @@ module SimpleForm
     #     f.association :company          # Company.all
     #   end
     #
-    #   f.association :company, :collection => Company.all(:order => 'name')
+    #   f.association :company, collection: Company.all(order: 'name')
     #   # Same as using :order option, but overriding collection
     #
     # == Block
@@ -203,7 +203,7 @@ module SimpleForm
           :"#{reflection.name.to_s.singularize}_ids"
       end
 
-      input(attribute, options.merge(:reflection => reflection))
+      input(attribute, options.merge(reflection: reflection))
     end
 
     # Creates a button:
@@ -234,7 +234,7 @@ module SimpleForm
     # == Examples
     #
     #    f.error :name
-    #    f.error :name, :id => "cool_error"
+    #    f.error :name, id: "cool_error"
     #
     def error(attribute_name, options={})
       options = options.dup
@@ -272,7 +272,7 @@ module SimpleForm
     # == Examples
     #
     #    f.hint :name # Do I18n lookup
-    #    f.hint :name, :id => "cool_hint"
+    #    f.hint :name, id: "cool_hint"
     #    f.hint "Don't forget to accept this"
     #
     def hint(attribute_name, options={})
@@ -299,10 +299,10 @@ module SimpleForm
     #
     #    f.label :name                     # Do I18n lookup
     #    f.label :name, "Name"             # Same behavior as Rails, do not add required tag
-    #    f.label :name, :label => "Name"   # Same as above, but adds required tag
+    #    f.label :name, label: "Name"   # Same as above, but adds required tag
     #
-    #    f.label :name, :required => false
-    #    f.label :name, :id => "cool_label"
+    #    f.label :name, required: false
+    #    f.label :name, id: "cool_label"
     #
     def label(attribute_name, *args)
       return super if args.first.is_a?(String) || block_given?
@@ -323,8 +323,8 @@ module SimpleForm
     # == Examples
     #
     #    f.error_notification
-    #    f.error_notification :message => 'Something went wrong'
-    #    f.error_notification :id => 'user_error_message', :class => 'form_error'
+    #    f.error_notification message: 'Something went wrong'
+    #    f.error_notification id: 'user_error_message', class: 'form_error'
     #
     def error_notification(options={})
       SimpleForm::ErrorNotification.new(self, options).render

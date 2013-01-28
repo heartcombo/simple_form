@@ -3,7 +3,7 @@ require 'test_helper'
 class DiscoveryTest < ActionView::TestCase
   # Setup new inputs and remove them after the test.
   def discovery(value=false)
-    swap SimpleForm, :cache_discovery => value do
+    swap SimpleForm, cache_discovery: value do
       begin
         load "support/discovery_inputs.rb"
         yield
@@ -29,7 +29,7 @@ class DiscoveryTest < ActionView::TestCase
 
   test 'builder should discover new inputs' do
     discovery do
-      with_form_for @user, :name, :as => :customized
+      with_form_for @user, :name, as: :customized
       assert_select 'form section input#user_name.string'
     end
   end
@@ -38,7 +38,7 @@ class DiscoveryTest < ActionView::TestCase
     with_form_for @user, :name
     assert_select 'form input#user_name.string'
 
-    swap SimpleForm, :inputs_discovery => false do
+    swap SimpleForm, inputs_discovery: false do
       discovery do
         with_form_for @user, :name
         assert_no_select 'form section input#user_name.string'
@@ -62,7 +62,7 @@ class DiscoveryTest < ActionView::TestCase
 
   test 'new inputs can override the input_html_options' do
     discovery do
-      with_form_for @user, :active, :as => :select
+      with_form_for @user, :active, as: :select
       assert_select 'form select#user_active.select.chosen'
     end
   end

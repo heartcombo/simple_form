@@ -1,6 +1,6 @@
 module SimpleForm
   class ErrorNotification
-    delegate :object, :object_name, :template, :to => :@builder
+    delegate :object, :object_name, :template, to: :@builder
 
     def initialize(builder, options)
       @builder = builder
@@ -42,7 +42,7 @@ module SimpleForm
       lookups << :"#{object_name}"
       lookups << :default_message
       lookups << "Please review the problems below:"
-      I18n.t(lookups.shift, :scope => :"simple_form.error_notification", :default => lookups)
+      I18n.t(lookups.shift, scope: :"simple_form.error_notification", default: lookups)
     end
   end
 end

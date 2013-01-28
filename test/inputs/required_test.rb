@@ -10,9 +10,9 @@ class RequiredTest < ActionView::TestCase
   end
 
   test 'builder input should allow overriding required when ActiveModel::Validations is included' do
-    with_form_for @validating_user, :name, :required => false
+    with_form_for @validating_user, :name, required: false
     assert_select 'input.optional#validating_user_name'
-    with_form_for @validating_user, :status, :required => true
+    with_form_for @validating_user, :status, required: true
     assert_select 'input.required[required]#validating_user_status'
   end
 
@@ -22,7 +22,7 @@ class RequiredTest < ActionView::TestCase
   end
 
   test 'builder input should not be required by default when ActiveModel::Validations is not included if option is set to false' do
-    swap SimpleForm, :required_by_default => false do
+    swap SimpleForm, required_by_default: false do
       with_form_for @user, :name
       assert_select 'input.optional#user_name'
       assert_no_select 'input[required]'
@@ -30,7 +30,7 @@ class RequiredTest < ActionView::TestCase
   end
 
   test 'when not using browser validations, input should not generate required html attribute' do
-    swap SimpleForm, :browser_validations => false do
+    swap SimpleForm, browser_validations: false do
       with_input_for @user, :name, :string
       assert_select 'input[type=text].required'
       assert_no_select 'input[type=text][required]'
@@ -38,7 +38,7 @@ class RequiredTest < ActionView::TestCase
   end
 
   test 'builder input should allow disabling required when ActiveModel::Validations is not included' do
-    with_form_for @user, :name, :required => false
+    with_form_for @user, :name, required: false
     assert_no_select 'input.required'
     assert_no_select 'input[required]'
     assert_select 'input.optional#user_name'

@@ -117,7 +117,7 @@
   * Generate configuration file with `browser_validations` disabled.
   * Add option and configuration to specify the collection wrapper class. ([@mfila](https://github.com/mfila))
   * Add proc support to `collection` option. ([@jeffkreeftmeijer](https://github.com/jeffkreeftmeijer))
-  * `simple_form_for` allows default options for its inputs `:defaults => {}`.
+  * `simple_form_for` allows default options for its inputs `defaults: {}`.
   * Add `readonly` as option of input method. ([@Untainted123](https://github.com/Untainted123))
   * `simple_fields_for` for inherits wrapper option form the form builder. ([@nashby](https://github.com/nashby))
   * Use action prefix in the form css class. Closes [#360](https://github.com/plataformatec/simple_form/issues/360).

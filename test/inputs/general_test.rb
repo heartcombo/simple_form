@@ -16,52 +16,52 @@ class InputTest < ActionView::TestCase
   end
 
   test 'string input should generate autofocus attribute when autofocus option is true' do
-    with_input_for @user, :name, :string, :autofocus => true
+    with_input_for @user, :name, :string, autofocus: true
     assert_select 'input.string[autofocus]'
   end
 
   test 'text input should generate autofocus attribute when autofocus option is true' do
-    with_input_for @user, :description, :text, :autofocus => true
+    with_input_for @user, :description, :text, autofocus: true
     assert_select 'textarea.text[autofocus]'
   end
 
   test 'numeric input should generate autofocus attribute when autofocus option is true' do
-    with_input_for @user, :age, :integer, :autofocus => true
+    with_input_for @user, :age, :integer, autofocus: true
     assert_select 'input.integer[autofocus]'
   end
 
   test 'date input should generate autofocus attribute when autofocus option is true' do
-    with_input_for @user, :born_at, :date, :autofocus => true
+    with_input_for @user, :born_at, :date, autofocus: true
     assert_select 'select.date[autofocus]'
   end
 
   test 'datetime input should generate autofocus attribute when autofocus option is true' do
-    with_input_for @user, :created_at, :datetime, :autofocus => true
+    with_input_for @user, :created_at, :datetime, autofocus: true
     assert_select 'select.datetime[autofocus]'
   end
 
   test 'string input should generate autofocus attribute when autofocus option is false' do
-    with_input_for @user, :name, :string, :autofocus => false
+    with_input_for @user, :name, :string, autofocus: false
     assert_no_select 'input.string[autofocus]'
   end
 
   test 'text input should generate autofocus attribute when autofocus option is false' do
-    with_input_for @user, :description, :text, :autofocus => false
+    with_input_for @user, :description, :text, autofocus: false
     assert_no_select 'textarea.text[autofocus]'
   end
 
   test 'numeric input should generate autofocus attribute when autofocus option is false' do
-    with_input_for @user, :age, :integer, :autofocus => false
+    with_input_for @user, :age, :integer, autofocus: false
     assert_no_select 'input.integer[autofocus]'
   end
 
   test 'date input should generate autofocus attribute when autofocus option is false' do
-    with_input_for @user, :born_at, :date, :autofocus => false
+    with_input_for @user, :born_at, :date, autofocus: false
     assert_no_select 'select.date[autofocus]'
   end
 
   test 'datetime input should generate autofocus attribute when autofocus option is false' do
-    with_input_for @user, :created_at, :datetime, :autofocus => false
+    with_input_for @user, :created_at, :datetime, autofocus: false
     assert_no_select 'select.datetime[autofocus]'
   end
 
@@ -103,12 +103,12 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input as select with collection should be generated properly when object is not present' do
-    with_input_for :project, :name, :select, :collection => ['Jose', 'Carlos']
+    with_input_for :project, :name, :select, collection: ['Jose', 'Carlos']
     assert_select 'select.select#project_name'
   end
 
   test 'input should not generate empty css class' do
-    swap SimpleForm, :generate_additional_classes_for => [:wrapper, :label] do
+    swap SimpleForm, generate_additional_classes_for: [:wrapper, :label] do
       with_input_for :project, :name, :string
       assert_no_select 'input#project_name[class]'
     end

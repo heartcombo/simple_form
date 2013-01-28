@@ -7,7 +7,7 @@ require 'rake/testtask'
 require 'rdoc/task'
 
 desc 'Default: run unit tests.'
-task :default => :test
+task default: :test
 
 desc 'Test the simple_form plugin.'
 Rake::TestTask.new(:test) do |t|

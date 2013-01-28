@@ -73,8 +73,8 @@ module SimpleForm
   @@label_class = nil
 
   # Define the way to render check boxes / radio buttons with labels.
-  #   :inline => input + label (default)
-  #   :nested => label > input
+  #   inline: input + label (default)
+  #   nested: label > input
   mattr_accessor :boolean_style
   @@boolean_style = :inline
 
@@ -106,7 +106,7 @@ module SimpleForm
 
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
-  # e.g { :string => :string_wrapper, :boolean => :boolean_wrapper }
+  # e.g { string: :string_wrapper, boolean: :boolean_wrapper }
   mattr_accessor :wrapper_mappings
   @@wrapper_mappings = nil
 
@@ -174,7 +174,7 @@ module SimpleForm
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
   end
 
-  wrappers :class => :input, :hint_class => :field_with_hint, :error_class => :field_with_errors do |b|
+  wrappers class: :input, hint_class: :field_with_hint, error_class: :field_with_errors do |b|
     b.use :html5
 
     b.use :min_max
@@ -184,8 +184,8 @@ module SimpleForm
     b.optional :readonly
 
     b.use :label_input
-    b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
-    b.use :error, :wrap_with => { :tag => :span, :class => :error }
+    b.use :hint,  wrap_with: { tag: :span, class: :hint }
+    b.use :error, wrap_with: { tag: :span, class: :error }
   end
 
   def self.additional_classes_for(component)

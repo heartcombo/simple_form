@@ -7,8 +7,8 @@ module SimpleForm
       # "simple_form.no" keys. See the example locale file.
       def self.boolean_collection
         i18n_cache :boolean_collection do
-          [ [I18n.t(:"simple_form.yes", :default => 'Yes'), true],
-            [I18n.t(:"simple_form.no", :default => 'No'), false] ]
+          [ [I18n.t(:"simple_form.yes", default: 'Yes'), true],
+            [I18n.t(:"simple_form.no", default: 'No'), false] ]
         end
       end
 
@@ -66,14 +66,14 @@ module SimpleForm
         collection_translated = translate_collection if collection_classes == [Symbol]
 
         if collection_translated || collection_classes.include?(Array)
-          { :label => :first, :value => :last }
+          { label: :first, value: :last }
         elsif collection_includes_basic_objects?(collection_classes)
-          { :label => :to_s, :value => :to_s }
+          { label: :to_s, value: :to_s }
         else
           sample = collection.first || collection.last
 
-          { :label => SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) },
-            :value => SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) } }
+          { label: SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) },
+            value: SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) } }
         end
       end
 

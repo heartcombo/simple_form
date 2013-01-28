@@ -14,7 +14,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'builder should generate a label for the boolean attrbiute' do
-    with_label_for @user, :name, :as => :boolean
+    with_label_for @user, :name, as: :boolean
     assert_select 'label.boolean[for=user_name]', /Name/
     assert_no_select 'label[as=boolean]'
   end
@@ -30,22 +30,22 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'builder should allow passing options to label tag' do
-    with_label_for @user, :name, :label => 'My label', :id => 'name_label'
+    with_label_for @user, :name, label: 'My label', id: 'name_label'
     assert_select 'label.string#name_label', /My label/
   end
 
   test 'builder label should generate label tag with clean HTML' do
-    with_label_for @user, :name, :label => 'My label', :required => true, :id => 'name_label'
+    with_label_for @user, :name, label: 'My label', required: true, id: 'name_label'
     assert_select 'label.string#name_label', /My label/
     assert_no_select 'label[label]'
     assert_no_select 'label[required]'
   end
 
   test 'builder should not modify the options hash' do
-    options = { :label => 'My label', :id => 'name_label' }
+    options = { label: 'My label', id: 'name_label' }
     with_label_for @user, :name, options
     assert_select 'label.string#name_label', /My label/
-    assert_equal({ :label => 'My label', :id => 'name_label' }, options)
+    assert_equal({ label: 'My label', id: 'name_label' }, options)
   end
 
   test 'builder should fallback to default label when string is given' do
@@ -63,7 +63,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'builder allows label order to be changed' do
-    swap SimpleForm, :label_text => lambda { |l, r| "#{l}:" } do
+    swap SimpleForm, label_text: lambda { |l, r| "#{l}:" } do
       with_label_for @user, :age
       assert_select 'label.integer[for=user_age]', "Age:"
     end

@@ -10,7 +10,7 @@ class PriorityInputTest < ActionView::TestCase
   end
 
   test 'input should generate a country select with SimpleForm default' do
-    swap SimpleForm, :country_priority => [ 'Brazil' ] do
+    swap SimpleForm, country_priority: [ 'Brazil' ] do
       with_input_for @user, :country, :country
       assert_select 'select option[value=][disabled=disabled]'
     end
@@ -24,13 +24,13 @@ class PriorityInputTest < ActionView::TestCase
   end
 
   test 'input should generate a time zone select field with default' do
-    with_input_for @user, :time_zone, :time_zone, :default => 'Brasilia'
+    with_input_for @user, :time_zone, :time_zone, default: 'Brasilia'
     assert_select 'select option[value=Brasilia][selected=selected]'
     assert_no_select 'select option[value=]'
   end
 
   test 'input should generate a time zone select using options priority' do
-    with_input_for @user, :time_zone, :time_zone, :priority => /Brasilia/
+    with_input_for @user, :time_zone, :time_zone, priority: /Brasilia/
     assert_select 'select option[value=][disabled=disabled]'
     assert_no_select 'select option[value=]', /^$/
   end

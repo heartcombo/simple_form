@@ -112,7 +112,7 @@ class User
       when :first_company
         Association.new(Company, association, :has_one, {})
       when :special_company
-        Association.new(Company, association, :belongs_to, { :conditions => { :id => 1 } })
+        Association.new(Company, association, :belongs_to, { conditions: { id: 1 } })
     end
   end
 
@@ -120,11 +120,11 @@ class User
     @errors ||= begin
       hash = Hash.new { |h,k| h[k] = [] }
       hash.merge!(
-        :name => ["can't be blank"],
-        :description => ["must be longer than 15 characters"],
-        :age => ["is not a number", "must be greater than 18"],
-        :company => ["company must be present"],
-        :company_id => ["must be valid"]
+        name: ["can't be blank"],
+        description: ["must be longer than 15 characters"],
+        age: ["is not a number", "must be greater than 18"],
+        company: ["company must be present"],
+        company_id: ["must be valid"]
       )
     end
   end
@@ -136,31 +136,31 @@ end
 
 class ValidatingUser < User
   include ActiveModel::Validations
-  validates :name, :presence => true
-  validates :company, :presence => true
-  validates :age, :presence => true, :if => Proc.new { |user| user.name }
-  validates :amount, :presence => true, :unless => Proc.new { |user| user.age }
+  validates :name, presence: true
+  validates :company, presence: true
+  validates :age, presence: true, if: Proc.new { |user| user.name }
+  validates :amount, presence: true, unless: Proc.new { |user| user.age }
 
-  validates :action,            :presence => true, :on => :create
-  validates :credit_limit,      :presence => true, :on => :save
-  validates :phone_number,      :presence => true, :on => :update
+  validates :action,            presence: true, on: :create
+  validates :credit_limit,      presence: true, on: :save
+  validates :phone_number,      presence: true, on: :update
 
   validates_numericality_of :age,
-    :greater_than_or_equal_to => 18,
-    :less_than_or_equal_to => 99,
-    :only_integer => true
+    greater_than_or_equal_to: 18,
+    less_than_or_equal_to: 99,
+    only_integer: true
   validates_numericality_of :amount,
-    :greater_than => :min_amount,
-    :less_than => :max_amount,
-    :only_integer => true
+    greater_than: :min_amount,
+    less_than: :max_amount,
+    only_integer: true
   validates_numericality_of :attempts,
-    :greater_than_or_equal_to => :min_attempts,
-    :less_than_or_equal_to => :max_attempts,
-    :only_integer => true
-  validates_length_of :name, :maximum => 25
-  validates_length_of :description, :maximum => 50
-  validates_length_of :action, :maximum => 10, :tokenizer => lambda { |str| str.scan(/\w+/) }
-  validates_length_of :home_picture, :is => 12
+    greater_than_or_equal_to: :min_attempts,
+    less_than_or_equal_to: :max_attempts,
+    only_integer: true
+  validates_length_of :name, maximum: 25
+  validates_length_of :description, maximum: 50
+  validates_length_of :action, maximum: 10, tokenizer: lambda { |str| str.scan(/\w+/) }
+  validates_length_of :home_picture, is: 12
 
   def min_amount
     10
@@ -182,20 +182,20 @@ end
 class OtherValidatingUser < User
   include ActiveModel::Validations
   validates_numericality_of :age,
-    :greater_than => 17,
-    :less_than => 100,
-    :only_integer => true
+    greater_than: 17,
+    less_than: 100,
+    only_integer: true
   validates_numericality_of :amount,
-    :greater_than => Proc.new { |user| user.age },
-    :less_than => Proc.new { |user| user.age + 100},
-    :only_integer => true
+    greater_than: Proc.new { |user| user.age },
+    less_than: Proc.new { |user| user.age + 100},
+    only_integer: true
   validates_numericality_of :attempts,
-    :greater_than_or_equal_to => Proc.new { |user| user.age },
-    :less_than_or_equal_to => Proc.new { |user| user.age + 100},
-    :only_integer => true
+    greater_than_or_equal_to: Proc.new { |user| user.age },
+    less_than_or_equal_to: Proc.new { |user| user.age + 100},
+    only_integer: true
 
-  validates_format_of :country, :with => /\w+/
-  validates_format_of :name, :with => Proc.new { /\w+/ }
+  validates_format_of :country, with: /\w+/
+  validates_format_of :name, with: Proc.new { /\w+/ }
 end
 
 class HashBackedAuthor < Hash

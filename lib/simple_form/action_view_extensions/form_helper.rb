@@ -5,7 +5,7 @@ module SimpleForm
     # Example:
     #
     #   simple_form_for @user do |f|
-    #     f.input :name, :hint => 'My hint'
+    #     f.input :name, hint: 'My hint'
     #   end
     #
     module FormHelper

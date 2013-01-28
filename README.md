@@ -95,10 +95,10 @@ even a placeholder. For boolean inputs, you can add an inline label as well:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, :label => 'Your username please' %>
-  <%= f.input :password, :hint => 'No special characters.' %>
-  <%= f.input :email, :placeholder => 'user@domain.com' %>
-  <%= f.input :remember_me, :inline_label => 'Yes, remember me' %>
+  <%= f.input :username, label: 'Your username please' %>
+  <%= f.input :password, hint: 'No special characters.' %>
+  <%= f.input :email, placeholder: 'user@domain.com' %>
+  <%= f.input :remember_me, inline_label: 'Yes, remember me' %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -108,9 +108,9 @@ of any of them:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, :label_html => { :class => 'my_class' } %>
-  <%= f.input :password, :hint => false, :error_html => { :id => 'password_error'} %>
-  <%= f.input :password_confirmation, :label => false %>
+  <%= f.input :username, label_html: { class: 'my_class' } %>
+  <%= f.input :password, hint: false, error_html: { id: 'password_error'} %>
+  <%= f.input :password_confirmation, label: false %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -120,9 +120,9 @@ option, for instance:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, :input_html => { :class => 'special' } %>
-  <%= f.input :password, :input_html => { :maxlength => 20 } %>
-  <%= f.input :remember_me, :input_html => { :value => '1' } %>
+  <%= f.input :username, input_html: { class: 'special' } %>
+  <%= f.input :password, input_html: { maxlength: 20 } %>
+  <%= f.input :remember_me, input_html: { value: '1' } %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -132,10 +132,10 @@ you can use the `:defaults` option in `simple_form_for`. Specific options in `in
 overwrite the defaults:
 
 ```erb
-<%= simple_form_for @user, :defaults => { :input_html => { :class => 'default_class' } } do |f| %>
-  <%= f.input :username, :input_html => { :class => 'special' } %>
-  <%= f.input :password, :input_html => { :maxlength => 20 } %>
-  <%= f.input :remember_me, :input_html => { :value => '1' } %>
+<%= simple_form_for @user, defaults: { input_html: { class: 'default_class' } } do |f| %>
+  <%= f.input :username, input_html: { class: 'special' } %>
+  <%= f.input :password, input_html: { maxlength: 20 } %>
+  <%= f.input :remember_me, input_html: { value: '1' } %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -145,9 +145,9 @@ any html attribute to that wrapper as well using the `:wrapper_html` option, lik
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, :wrapper_html => { :class => 'username' } %>
-  <%= f.input :password, :wrapper_html => { :id => 'password' } %>
-  <%= f.input :remember_me, :wrapper_html => { :class => 'options' } %>
+  <%= f.input :username, wrapper_html: { class: 'username' } %>
+  <%= f.input :password, wrapper_html: { id: 'password' } %>
+  <%= f.input :remember_me, wrapper_html: { class: 'options' } %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -160,7 +160,7 @@ And of course, the `required` property of any input can be overwritten as needed
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :name, :required => false %>
+  <%= f.input :name, required: false %>
   <%= f.input :username %>
   <%= f.input :password %>
   <%= f.button :submit %>
@@ -173,15 +173,15 @@ And of course, the `required` property of any input can be overwritten as needed
 <%= simple_form_for @user do |f| %>
   <%= f.input :username %>
   <%= f.input :password %>
-  <%= f.input :description, :as => :text %>
-  <%= f.input :accepts,     :as => :radio_buttons %>
+  <%= f.input :description, as: :text %>
+  <%= f.input :accepts,     as: :radio_buttons %>
   <%= f.button :submit %>
 <% end %>
 ```
 
 So instead of a checkbox for the *accepts* attribute, you'll have a pair of radio buttons with yes/no
 labels and a text area instead of a text field for the description. You can also render boolean
-attributes using `:as => :select` to show a dropdown.
+attributes using `as: :select` to show a dropdown.
 
 It is also possible to give the `:disabled` option to **SimpleForm**, and it'll automatically mark
 the wrapper as disabled with a css class, so you can style labels, hints and other components inside
@@ -189,7 +189,7 @@ the wrapper as well:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, :disabled => true, :hint => 'You cannot change your username.' %>
+  <%= f.input :username, disabled: true, hint: 'You cannot change your username.' %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -198,9 +198,9 @@ the wrapper as well:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 90,
-                              :end_year => Date.today.year - 12, :discard_day => true,
-                              :order => [:month, :year] %>
+  <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year - 12, discard_day: true,
+                              order: [:month, :year] %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -213,7 +213,7 @@ the wrapper as well:
   <%= f.label :username %>
   <%= f.input_field :username %>
   <%= f.hint 'No special characters, please!' %>
-  <%= f.error :username, :id => 'user_name_error' %>
+  <%= f.error :username, id: 'user_name_error' %>
   <%= f.full_error :token %>
   <%= f.submit 'Save' %>
 <% end %>
@@ -229,13 +229,13 @@ overriding the `:collection` option:
 ```erb
 <%= simple_form_for @user do |f| %>
   <%= f.input :user %>
-  <%= f.input :age, :collection => 18..60 %>
+  <%= f.input :age, collection: 18..60 %>
   <%= f.button :submit %>
 <% end %>
 ```
 
 Collections can be arrays or ranges, and when a `:collection` is given the `:select` input will be
-rendered by default, so we don't need to pass the `:as => :select` option. Other types of collection
+rendered by default, so we don't need to pass the `as: :select` option. Other types of collection
 are `:radio_buttons` and `:check_boxes`. Those are added by **SimpleForm** to Rails set of form
 helpers (read Extra Helpers session below for more information).
 
@@ -252,13 +252,13 @@ translation. All other options given are sent straight to the underlying helper.
 can give prompt as:
 
 ```ruby
-f.input :age, :collection => 18..60, :prompt => "Select your age"
+f.input :age, collection: 18..60, prompt: "Select your age"
 ```
 
 It is also possible to create grouped collection selects, that will use the html *optgroup* tags, like this:
 
 ```ruby
-f.input :country_id, :collection => @continents, :as => :grouped_select, :group_method => :countries
+f.input :country_id, collection: @continents, as: :grouped_select, group_method: :countries
 ```
 
 Grouped collection inputs accept the same `:label_method` and `:value_method` options, which will be
@@ -277,8 +277,8 @@ used to retrieve label/value attributes for the `option` tags. Besides that, you
 `:priority` as option to select which time zones and/or countries should be given higher priority:
 
 ```ruby
-f.input :residence_country, :priority => [ "Brazil" ]
-f.input :time_zone, :priority => /US/
+f.input :residence_country, priority: [ "Brazil" ]
+f.input :time_zone, priority: /US/
 ```
 
 Those values can also be configured with a default value to be used site use through the
@@ -288,7 +288,7 @@ Note: While using `country_select` if you want to restrict to only a subset of c
 drop down then you may use the `:collection` option:
 
 ```ruby
-f.input :shipping_country, :priority => [ "Brazil" ], :collection => [ "Australia", "Brazil", "New Zealand"]
+f.input :shipping_country, priority: [ "Brazil" ], collection: [ "Australia", "Brazil", "New Zealand"]
 ```
 
 ### Associations
@@ -328,8 +328,8 @@ Simple enough, right? This is going to render a `:select` input for choosing the
 buttons and check boxes as well:
 
 ```ruby
-f.association :company, :as => :radio_buttons
-f.association :roles,   :as => :check_boxes
+f.association :company, as: :radio_buttons
+f.association :roles,   as: :check_boxes
 ```
 
 The association helper just invokes `input` under the hood, so all options available to `:select`,
@@ -337,13 +337,13 @@ The association helper just invokes `input` under the hood, so all options avail
 the collection by hand, all together with the prompt:
 
 ```ruby
-f.association :company, :collection => Company.active.all(:order => 'name'), :prompt => "Choose a Company"
+f.association :company, collection: Company.active.all(order: 'name'), prompt: "Choose a Company"
 ```
 
 In case you want to declare different labels and values:
 
 ```ruby
-f.association :company, :label_method => :company_name, :value_method => :id, :include_blank => false
+f.association :company, label_method: :company_name, value_method: :id, include_blank: false
 ```
 
 ### Buttons
@@ -366,7 +366,7 @@ calling input with a block like so:
 
 ```erb
 <%= f.input :role do %>
-  <%= f.select :role, Role.all.map { |r| [r.name, r.id, { :class => r.company.id }] }, :include_blank => true %>
+  <%= f.select :role, Role.all.map { |r| [r.name, r.id, { class: r.company.id }] }, include_blank: true %>
 <% end %>
 ```
 
@@ -485,7 +485,7 @@ end
 And use it in your views:
 
 ```ruby
-f.input :money, :as => :currency
+f.input :money, as: :currency
 ```
 
 You can also redefine existing **SimpleForm** inputs by creating a new class with the same name. For
@@ -520,7 +520,7 @@ Create a helper method that calls `simple_form_for` with a custom builder:
 ```ruby
 def custom_form_for(object, *args, &block)
   options = args.extract_options!
-  simple_form_for(object, *(args << options.merge(:builder => CustomFormBuilder)), &block)
+  simple_form_for(object, *(args << options.merge(builder: CustomFormBuilder)), &block)
 end
 ```
 
@@ -529,7 +529,7 @@ Create a form builder class that inherits from `SimpleForm::FormBuilder`.
 ```ruby
 class CustomFormBuilder < SimpleForm::FormBuilder
   def input(attribute_name, options = {}, &block)
-    options[:input_html].merge! :class => 'custom'
+    options[:input_html].merge! class: 'custom'
     super
   end
 end
@@ -612,7 +612,7 @@ that would post either `male` or `female` as value. With **SimpleForm** you coul
 like this:
 
 ```ruby
-f.input :gender, :collection => [:male, :female]
+f.input :gender, collection: [:male, :female]
 ```
 
 And **SimpleForm** will try a lookup like this in your locale file, to find the right labels to show:
@@ -674,7 +674,7 @@ en:
 This difference exists because **SimpleForm** relies on `object_name` provided by Rails'
 FormBuilder to determine the translation path for a given object instead of `i18n_key` from the
 object itself. Thus, similarly, if a form for an `Admin::User` object is defined by calling
-`simple_form_for @admin_user, :as => :some_user`, **SimpleForm** will look for translations
+`simple_form_for @admin_user, as: :some_user`, **SimpleForm** will look for translations
 under `some_user` instead of `admin_user`.
 
 ## Configuration
@@ -690,8 +690,8 @@ With **SimpleForm** you can configure how your components will be rendered using
 The syntax looks like this:
 
 ```ruby
-config.wrappers :tag => :div, :class => :input,
-                :error_class => :field_with_errors do |b|
+config.wrappers tag: :div, class: :input,
+                error_class: :field_with_errors do |b|
 
   # Form extensions
   b.use :html5
@@ -702,8 +702,8 @@ config.wrappers :tag => :div, :class => :input,
 
   # Form components
   b.use :label_input
-  b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
-  b.use :error, :wrap_with => { :tag => :span, :class => :error }
+  b.use :hint,  wrap_with: { tag: :span, class: :hint }
+  b.use :error, wrap_with: { tag: :span, class: :error }
 end
 ```
 
@@ -726,9 +726,9 @@ You can create new _Form components_ using the wrappers API as in the following 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.wrapper :tag => :div, :class => 'separator' do |component|
-    component.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
-    component.use :error, :wrap_with => { :tag => :span, :class => :error }
+  b.wrapper tag: :div, class: 'separator' do |component|
+    component.use :hint,  wrap_with: { tag: :span, class: :hint }
+    component.use :error, wrap_with: { tag: :span, class: :error }
   end
 end
 ```
@@ -741,9 +741,9 @@ If you want to customize the custom _Form components_ on demand you can give it 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.wrapper :my_wrapper, :tag => :div, :class => 'separator' do |component|
-    component.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
-    component.use :error, :wrap_with => { :tag => :span, :class => :error }
+  b.wrapper :my_wrapper, tag: :div, class: 'separator' do |component|
+    component.use :hint,  wrap_with: { tag: :span, class: :hint }
+    component.use :error, wrap_with: { tag: :span, class: :error }
   end
 end
 ```
@@ -752,13 +752,13 @@ and now you can pass options to your `input` calls to customize the `:my_wrapper
 
 ```ruby
 # Completely turns off the custom wrapper
-f.input :name, :my_wrapper => false
+f.input :name, my_wrapper: false
 
 # Configure the html
-f.input :name, :my_wrapper_html => { :id => 'special_id' }
+f.input :name, my_wrapper_html: { id: 'special_id' }
 
 # Configure the tag
-f.input :name, :my_wrapper_tag => :p
+f.input :name, my_wrapper_tag: :p
 ```
 
 You can also define more than one wrapper and pick one to render in a specific form or input.
@@ -775,13 +775,13 @@ and use it in this way:
 
 ```ruby
 # Specifying to whole form
-simple_form_for @user, :wrapper => :small do |f|
+simple_form_for @user, wrapper: :small do |f|
   f.input :name
 end
 
 # Specifying to one input
 simple_form_for @user do |f|
-  f.input :name, :wrapper => :small
+  f.input :name, wrapper: :small
 end
 ```
 
@@ -790,17 +790,17 @@ hints or placeholders, but you don't want them to be generated automatically. Yo
 default values to `false` or use the `optional` method. Is preferible to use the `optional` syntax:
 
 ```ruby
-config.wrappers :placeholder => false do |b|
+config.wrappers placeholder: false do |b|
   b.use :placeholder
   b.use :label_input
-  b.wrapper :tag => :div, :class => 'separator' do |component|
-    component.optional :hint, :wrap_with => { :tag => :span, :class => :hint }
-    component.use :error, :wrap_with => { :tag => :span, :class => :error }
+  b.wrapper tag: :div, class: 'separator' do |component|
+    component.optional :hint, wrap_with: { tag: :span, class: :hint }
+    component.use :error, wrap_with: { tag: :span, class: :error }
   end
 end
 ```
 
-By setting it as `optional`, a hint will only be generated when `:hint => true` is explicitly used.
+By setting it as `optional`, a hint will only be generated when `hint: true` is explicitly used.
 The same for placehold.
 
 ## HTML 5 Notice
@@ -835,7 +835,7 @@ help you to use some generic javascript validation.
 You can also add `novalidate` to a specific form by setting the option on the form itself:
 
 ```erb
-<%= simple_form_for(resource, :html => {:novalidate => true}) do |form| %>
+<%= simple_form_for(resource, html: {novalidate: true}) do |form| %>
 ```
 
 Please notice that any of the configurations above will disable the `placeholder` component,

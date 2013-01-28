@@ -14,7 +14,7 @@ class InputFieldTest < ActionView::TestCase
 
   test 'builder input_field should allow overriding default input type' do
     with_concat_form_for(@user) do |f|
-      f.input_field :name, :as => :text
+      f.input_field :name, as: :text
     end
 
     assert_no_select 'input#user_name'
@@ -23,27 +23,27 @@ class InputFieldTest < ActionView::TestCase
 
   test 'builder input_field should allow passing options to input tag' do
     with_concat_form_for(@user) do |f|
-      f.input_field :name, :id => 'name_input', :class => 'name'
+      f.input_field :name, id: 'name_input', class: 'name'
     end
 
     assert_select 'input.string.name#name_input'
   end
 
   test 'builder input_field should not modify the options hash' do
-    options = { :id => 'name_input', :class => 'name' }
+    options = { id: 'name_input', class: 'name' }
 
     with_concat_form_for(@user) do |f|
       f.input_field :name, options
     end
 
     assert_select 'input.string.name#name_input'
-    assert_equal({ :id => 'name_input', :class => 'name' }, options)
+    assert_equal({ id: 'name_input', class: 'name' }, options)
   end
 
 
   test 'builder input_field should generate an input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
-      f.input_field :name, :as => :integer, :class => 'name'
+      f.input_field :name, as: :integer, class: 'name'
     end
 
     assert_no_select 'input.integer[input_html]'
@@ -52,7 +52,7 @@ class InputFieldTest < ActionView::TestCase
 
   test 'builder collection input_field should generate input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
-      f.input_field :status, :collection => ['Open', 'Closed'], :class => 'status', :label_method => :to_s, :value_method => :to_s
+      f.input_field :status, collection: ['Open', 'Closed'], class: 'status', label_method: :to_s, value_method: :to_s
     end
 
     assert_no_select 'select.status[input_html]'

@@ -58,21 +58,21 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection radio accepts checked item" do
-    with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, :checked => true
+    with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, checked: true
 
     assert_select 'form input[type=radio][value=true][checked=checked]'
     assert_no_select 'form input[type=radio][value=false][checked=checked]'
   end
 
   test "collection radio accepts checked item which has a value of false" do
-    with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, :checked => false
+    with_collection_radio_buttons @user, :active, [[1, true], [0, false]], :last, :first, checked: false
     assert_no_select 'form input[type=radio][value=true][checked=checked]'
     assert_select 'form input[type=radio][value=false][checked=checked]'
   end
 
   test "collection radio accepts multiple disabled items" do
     collection = [[1, true], [0, false], [2, 'other']]
-    with_collection_radio_buttons @user, :active, collection, :last, :first, :disabled => [true, false]
+    with_collection_radio_buttons @user, :active, collection, :last, :first, disabled: [true, false]
 
     assert_select 'form input[type=radio][value=true][disabled=disabled]'
     assert_select 'form input[type=radio][value=false][disabled=disabled]'
@@ -81,7 +81,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio accepts single disable item" do
     collection = [[1, true], [0, false]]
-    with_collection_radio_buttons @user, :active, collection, :last, :first, :disabled => true
+    with_collection_radio_buttons @user, :active, collection, :last, :first, disabled: true
 
     assert_select 'form input[type=radio][value=true][disabled=disabled]'
     assert_no_select 'form input[type=radio][value=false][disabled=disabled]'
@@ -89,50 +89,50 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio accepts html options as input" do
     collection = [[1, true], [0, false]]
-    with_collection_radio_buttons @user, :active, collection, :last, :first, {}, :class => 'special-radio'
+    with_collection_radio_buttons @user, :active, collection, :last, :first, {}, class: 'special-radio'
 
     assert_select 'form input[type=radio][value=true].special-radio#user_active_true'
     assert_select 'form input[type=radio][value=false].special-radio#user_active_false'
   end
 
   test "collection radio wraps the collection in the given collection wrapper tag" do
-    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, collection_wrapper_tag: :ul
 
-    assert_select 'form ul input[type=radio]', :count => 2
+    assert_select 'form ul input[type=radio]', count: 2
   end
 
   test "collection radio does not render any wrapper tag by default" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form input[type=radio]', :count => 2
+    assert_select 'form input[type=radio]', count: 2
     assert_no_select 'form ul'
   end
 
   test "collection radio does not wrap the collection when given falsy values" do
-    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, collection_wrapper_tag: false
 
-    assert_select 'form input[type=radio]', :count => 2
+    assert_select 'form input[type=radio]', count: 2
     assert_no_select 'form ul'
   end
 
   test "collection radio uses the given class for collection wrapper tag" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
-      :collection_wrapper_tag => :ul, :collection_wrapper_class => "items-list"
+      collection_wrapper_tag: :ul, collection_wrapper_class: "items-list"
 
-    assert_select 'form ul.items-list input[type=radio]', :count => 2
+    assert_select 'form ul.items-list input[type=radio]', count: 2
   end
 
   test "collection radio uses no class for collection wrapper tag when no wrapper tag is given" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
-      :collection_wrapper_class => "items-list"
+      collection_wrapper_class: "items-list"
 
-    assert_select 'form input[type=radio]', :count => 2
+    assert_select 'form input[type=radio]', count: 2
     assert_no_select 'form ul'
     assert_no_select '.items-list'
   end
 
   test "collection radio uses no class for collection wrapper tag by default" do
-    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, collection_wrapper_tag: :ul
 
     assert_select 'form ul'
     assert_no_select 'form ul[class]'
@@ -146,13 +146,13 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection radio wraps each item in the given item wrapper tag" do
-    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, item_wrapper_tag: :li
 
-    assert_select 'form li input[type=radio]', :count => 2
+    assert_select 'form li input[type=radio]', count: 2
   end
 
   test "collection radio does not wrap each item when given explicitly falsy value" do
-    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
+    with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s, item_wrapper_tag: false
 
     assert_select 'form input[type=radio]'
     assert_no_select 'form span input[type=radio]'
@@ -160,25 +160,25 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio uses the given class for item wrapper tag" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
-      :item_wrapper_tag => :li, :item_wrapper_class => "inline"
+      item_wrapper_tag: :li, item_wrapper_class: "inline"
 
-    assert_select "form li.inline input[type=radio]", :count => 2
+    assert_select "form li.inline input[type=radio]", count: 2
   end
 
   test "collection radio uses no class for item wrapper tag when no wrapper tag is given" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
-      :item_wrapper_tag => nil, :item_wrapper_class => "inline"
+      item_wrapper_tag: nil, item_wrapper_class: "inline"
 
-    assert_select 'form input[type=radio]', :count => 2
+    assert_select 'form input[type=radio]', count: 2
     assert_no_select 'form li'
     assert_no_select '.inline'
   end
 
   test "collection radio uses no class for item wrapper tag by default" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
-      :item_wrapper_tag => :li
+      item_wrapper_tag: :li
 
-    assert_select "form li", :count => 2
+    assert_select "form li", count: 2
     assert_no_select "form li[class]"
   end
 
@@ -209,7 +209,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio with block helpers accept extra html options" do
     with_collection_radio_buttons :user, :active, [true, false], :to_s, :to_s do |b|
-      b.label(:class => "radio_button") + b.radio_button(:class => "radio_button")
+      b.label(class: "radio_button") + b.radio_button(class: "radio_button")
     end
 
     assert_select 'label.radio_button[for=user_active_true] + input#user_active_true.radio_button[type=radio]'
@@ -231,7 +231,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio with block helpers allows access to the current object item in the collection to access extra properties" do
     with_collection_radio_buttons :user, :active, [true, false], :to_s, :to_s do |b|
-      b.label(:class => b.object) { b.radio_button + b.text }
+      b.label(class: b.object) { b.radio_button + b.text }
     end
 
     assert_select 'label.true[for=user_active_true]', 'true' do
@@ -245,7 +245,7 @@ class BuilderTest < ActionView::TestCase
   test "collection radio with block helpers does not leak the template" do
     with_concat_form_for(@user) do |f|
       collection_input =  f.collection_radio_buttons :active, [true, false], :to_s, :to_s do |b|
-        b.label(:class => b.object) { b.radio_button + b.text }
+        b.label(class: b.object) { b.radio_button + b.text }
       end
       concat collection_input
 
@@ -272,7 +272,7 @@ class BuilderTest < ActionView::TestCase
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
 
-    assert_select "form input[type=hidden][name='user[tag_ids][]'][value=]", :count => 1
+    assert_select "form input[type=hidden][name='user[tag_ids][]'][value=]", count: 1
   end
 
   test "collection check box accepts a collection and generate a serie of checkboxes with labels for label method" do
@@ -309,7 +309,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check box accepts selected values as :checked option" do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :checked => [1, 3]
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, checked: [1, 3]
 
     assert_select 'form input[type=checkbox][value=1][checked=checked]'
     assert_select 'form input[type=checkbox][value=3][checked=checked]'
@@ -318,7 +318,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check boxes accepts selected string values as :checked option" do
     collection = (1..3).map{|i| [i, "Category #{i}"] }
-    with_collection_check_boxes :user, :category_ids, collection, :first, :last, :checked => ['1', '3']
+    with_collection_check_boxes :user, :category_ids, collection, :first, :last, checked: ['1', '3']
 
     assert_select 'input[type=checkbox][value=1][checked=checked]'
     assert_select 'input[type=checkbox][value=3][checked=checked]'
@@ -327,7 +327,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check box accepts a single checked value" do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :checked => 3
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, checked: 3
 
     assert_select 'form input[type=checkbox][value=3][checked=checked]'
     assert_no_select 'form input[type=checkbox][value=1][checked=checked]'
@@ -337,7 +337,7 @@ class BuilderTest < ActionView::TestCase
   test "collection check box accepts selected values as :checked option and override the model values" do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
     @user.tag_ids = [2]
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :checked => [1, 3]
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, checked: [1, 3]
 
     assert_select 'form input[type=checkbox][value=1][checked=checked]'
     assert_select 'form input[type=checkbox][value=3][checked=checked]'
@@ -346,7 +346,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check box accepts multiple disabled items" do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :disabled => [1, 3]
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, disabled: [1, 3]
 
     assert_select 'form input[type=checkbox][value=1][disabled=disabled]'
     assert_select 'form input[type=checkbox][value=3][disabled=disabled]'
@@ -355,7 +355,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check box accepts single disable item" do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :disabled => 1
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, disabled: 1
 
     assert_select 'form input[type=checkbox][value=1][disabled=disabled]'
     assert_no_select 'form input[type=checkbox][value=3][disabled=disabled]'
@@ -364,7 +364,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check box accepts a proc to disabled items" do
     collection = (1..3).map{|i| [i, "Tag #{i}"] }
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, :disabled => proc { |i| i.first == 1 }
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, disabled: proc { |i| i.first == 1 }
 
     assert_select 'form input[type=checkbox][value=1][disabled=disabled]'
     assert_no_select 'form input[type=checkbox][value=3][disabled=disabled]'
@@ -373,7 +373,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check box accepts html options" do
     collection = [[1, 'Tag 1'], [2, 'Tag 2']]
-    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, {}, :class => 'check'
+    with_collection_check_boxes @user, :tag_ids, collection, :first, :last, {}, class: 'check'
 
     assert_select 'form input.check[type=checkbox][value=1]'
     assert_select 'form input.check[type=checkbox][value=2]'
@@ -395,43 +395,43 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check boxes wraps the collection in the given collection wrapper tag" do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, collection_wrapper_tag: :ul
 
-    assert_select 'form ul input[type=checkbox]', :count => 2
+    assert_select 'form ul input[type=checkbox]', count: 2
   end
 
   test "collection check boxes does not render any wrapper tag by default" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form input[type=checkbox]', :count => 2
+    assert_select 'form input[type=checkbox]', count: 2
     assert_no_select 'form ul'
   end
 
   test "collection check boxes does not wrap the collection when given falsy values" do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => false
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, collection_wrapper_tag: false
 
-    assert_select 'form input[type=checkbox]', :count => 2
+    assert_select 'form input[type=checkbox]', count: 2
     assert_no_select 'form ul'
   end
 
   test "collection check boxes uses the given class for collection wrapper tag" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
-      :collection_wrapper_tag => :ul, :collection_wrapper_class => "items-list"
+      collection_wrapper_tag: :ul, collection_wrapper_class: "items-list"
 
-    assert_select 'form ul.items-list input[type=checkbox]', :count => 2
+    assert_select 'form ul.items-list input[type=checkbox]', count: 2
   end
 
   test "collection check boxes uses no class for collection wrapper tag when no wrapper tag is given" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
-      :collection_wrapper_class => "items-list"
+      collection_wrapper_class: "items-list"
 
-    assert_select 'form input[type=checkbox]', :count => 2
+    assert_select 'form input[type=checkbox]', count: 2
     assert_no_select 'form ul'
     assert_no_select '.items-list'
   end
 
   test "collection check boxes uses no class for collection wrapper tag by default" do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :collection_wrapper_tag => :ul
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, collection_wrapper_tag: :ul
 
     assert_select 'form ul'
     assert_no_select 'form ul[class]'
@@ -440,17 +440,17 @@ class BuilderTest < ActionView::TestCase
   test "collection check boxes wrap items in a span tag by default" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s
 
-    assert_select 'form span input[type=checkbox]', :count => 2
+    assert_select 'form span input[type=checkbox]', count: 2
   end
 
   test "collection check boxes wraps each item in the given item wrapper tag" do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => :li
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, item_wrapper_tag: :li
 
-    assert_select 'form li input[type=checkbox]', :count => 2
+    assert_select 'form li input[type=checkbox]', count: 2
   end
 
   test "collection check boxes does not wrap each item when given explicitly falsy value" do
-    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, :item_wrapper_tag => false
+    with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s, item_wrapper_tag: false
 
     assert_select 'form input[type=checkbox]'
     assert_no_select 'form span input[type=checkbox]'
@@ -458,25 +458,25 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check boxes uses the given class for item wrapper tag" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
-      :item_wrapper_tag => :li, :item_wrapper_class => "inline"
+      item_wrapper_tag: :li, item_wrapper_class: "inline"
 
-    assert_select "form li.inline input[type=checkbox]", :count => 2
+    assert_select "form li.inline input[type=checkbox]", count: 2
   end
 
   test "collection check boxes uses no class for item wrapper tag when no wrapper tag is given" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
-      :item_wrapper_tag => nil, :item_wrapper_class => "inline"
+      item_wrapper_tag: nil, item_wrapper_class: "inline"
 
-    assert_select 'form input[type=checkbox]', :count => 2
+    assert_select 'form input[type=checkbox]', count: 2
     assert_no_select 'form li'
     assert_no_select '.inline'
   end
 
   test "collection check boxes uses no class for item wrapper tag by default" do
     with_collection_check_boxes @user, :active, [true, false], :to_s, :to_s,
-      :item_wrapper_tag => :li
+      item_wrapper_tag: :li
 
-    assert_select "form li", :count => 2
+    assert_select "form li", count: 2
     assert_no_select "form li[class]"
   end
 
@@ -507,7 +507,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check boxes with block helpers accept extra html options" do
     with_collection_check_boxes :user, :active, [true, false], :to_s, :to_s do |b|
-      b.label(:class => "check_box") + b.check_box(:class => "check_box")
+      b.label(class: "check_box") + b.check_box(class: "check_box")
     end
 
     assert_select 'label.check_box[for=user_active_true] + input#user_active_true.check_box[type=checkbox]'
@@ -529,7 +529,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check boxes with block helpers allows access to the current object item in the collection to access extra properties" do
     with_collection_check_boxes :user, :active, [true, false], :to_s, :to_s do |b|
-      b.label(:class => b.object) { b.check_box + b.text }
+      b.label(class: b.object) { b.check_box + b.text }
     end
 
     assert_select 'label.true[for=user_active_true]', 'true' do
@@ -543,7 +543,7 @@ class BuilderTest < ActionView::TestCase
   test "collection check boxes with block helpers does not leak the template" do
     with_concat_form_for(@user) do |f|
       collection_input =  f.collection_check_boxes :active, [true, false], :to_s, :to_s do |b|
-        b.label(:class => b.object) { b.check_box + b.text }
+        b.label(class: b.object) { b.check_box + b.text }
       end
       concat collection_input
 
@@ -588,7 +588,7 @@ class BuilderTest < ActionView::TestCase
 
   test "fields for yields an instance of FormBuilder if it was set in options" do
     with_custom_form_for(:user) do |f|
-      f.simple_fields_for(:company, :builder => SimpleForm::FormBuilder) do |company|
+      f.simple_fields_for(:company, builder: SimpleForm::FormBuilder) do |company|
         assert company.instance_of?(SimpleForm::FormBuilder)
       end
     end
@@ -596,7 +596,7 @@ class BuilderTest < ActionView::TestCase
 
   test "fields inherites wrapper option from the parent form" do
     swap_wrapper :another do
-      simple_form_for(:user, :wrapper => :another) do |f|
+      simple_form_for(:user, wrapper: :another) do |f|
         f.simple_fields_for(:company) do |company|
           assert_equal :another, company.options[:wrapper]
         end
@@ -606,8 +606,8 @@ class BuilderTest < ActionView::TestCase
 
   test "fields overrides wrapper option from the parent form" do
     swap_wrapper :another do
-      simple_form_for(:user, :wrapper => :another) do |f|
-        f.simple_fields_for(:company, :wrapper => false) do |company|
+      simple_form_for(:user, wrapper: :another) do |f|
+        f.simple_fields_for(:company, wrapper: false) do |company|
           assert_equal false, company.options[:wrapper]
         end
       end

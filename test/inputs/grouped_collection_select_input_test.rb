@@ -4,8 +4,8 @@ require 'test_helper'
 class GroupedCollectionSelectInputTest < ActionView::TestCase
   test 'grouped collection accepts array collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
-      :group_method => :last
+      collection: [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
+      group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -22,8 +22,8 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts empty array collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => [],
-      :group_method => :last
+      collection: [],
+      group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids'
   end
@@ -31,8 +31,8 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts proc as collection' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => Proc.new { [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]] },
-      :group_method => :last
+      collection: Proc.new { [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]] },
+      group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -49,8 +49,8 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts hash collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => { 'Authors' => ['Jose', 'Carlos'], 'General' => ['Bob', 'John'] },
-      :group_method => :last
+      collection: { 'Authors' => ['Jose', 'Carlos'], 'General' => ['Bob', 'John'] },
+      group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -67,9 +67,9 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts group_label_method option' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => { ['Jose', 'Carlos'] => 'Authors' },
-      :group_method => :first,
-      :group_label_method => :last
+      collection: { ['Jose', 'Carlos'] => 'Authors' },
+      group_method: :first,
+      group_label_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -81,10 +81,10 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts label and value methods options' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => { 'Authors' => ['Jose', 'Carlos'] },
-      :group_method => :last,
-      :label_method => :upcase,
-      :value_method => :downcase
+      collection: { 'Authors' => ['Jose', 'Carlos'] },
+      group_method: :last,
+      label_method: :upcase,
+      value_method: :downcase
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -96,10 +96,10 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection should allow overriding label and value methods using a lambda' do
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => { 'Authors' => ['Jose', 'Carlos'] },
-      :group_method => :last,
-      :label_method => lambda { |i| i.upcase },
-      :value_method => lambda { |i| i.downcase }
+      collection: { 'Authors' => ['Jose', 'Carlos'] },
+      group_method: :last,
+      label_method: lambda { |i| i.upcase },
+      value_method: lambda { |i| i.downcase }
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -116,7 +116,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
     ]
 
     with_input_for @user, :tag_ids, :grouped_select,
-      :collection => tag_groups, :group_method => :tags
+      collection: tag_groups, group_method: :tags
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Group of Tags]' do

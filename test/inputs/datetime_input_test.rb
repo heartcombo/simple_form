@@ -13,7 +13,7 @@ class DateTimeInputTest < ActionView::TestCase
 
   test 'input should be able to pass options to datetime select' do
     with_input_for @user, :created_at, :datetime,
-      :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
+      disabled: true, prompt: { year: 'ano', month: 'mês', day: 'dia' }
 
     assert_select 'select.datetime[disabled=disabled]'
     assert_select 'select.datetime option', 'ano'
@@ -30,8 +30,8 @@ class DateTimeInputTest < ActionView::TestCase
   end
 
   test 'input should be able to pass options to date select' do
-    with_input_for @user, :born_at, :date, :as => :date,
-      :disabled => true, :prompt => { :year => 'ano', :month => 'mês', :day => 'dia' }
+    with_input_for @user, :born_at, :date, as: :date,
+      disabled: true, prompt: { year: 'ano', month: 'mês', day: 'dia' }
 
     assert_select 'select.date[disabled=disabled]'
     assert_select 'select.date option', 'ano'
@@ -40,7 +40,7 @@ class DateTimeInputTest < ActionView::TestCase
   end
 
   test 'input should be able to pass :default to date select' do
-    with_input_for @user, :born_at, :date, :default => Date.today
+    with_input_for @user, :born_at, :date, default: Date.today
     assert_select "select.date option[value=#{Date.today.year}][selected=selected]"
   end
 
@@ -54,8 +54,8 @@ class DateTimeInputTest < ActionView::TestCase
   end
 
   test 'input should be able to pass options to time select' do
-    with_input_for @user, :delivery_time, :time, :required => true,
-      :disabled => true, :prompt => { :hour => 'hora', :minute => 'minuto' }
+    with_input_for @user, :delivery_time, :time, required: true,
+      disabled: true, prompt: { hour: 'hora', minute: 'minuto' }
 
     assert_select 'select.time[disabled=disabled]'
     assert_select 'select.time option', 'hora'
@@ -63,26 +63,26 @@ class DateTimeInputTest < ActionView::TestCase
   end
 
   test 'label should use i18n to get target for date input type' do
-    store_translations(:en, :date => { :order => [:month, :day, :year] }) do
+    store_translations(:en, date: { order: [:month, :day, :year] }) do
       with_input_for :project, :created_at, :date
       assert_select 'label[for=project_created_at_2i]'
     end
   end
 
   test 'label should use i18n to get target for datetime input type' do
-    store_translations(:en, :date => { :order => [:month, :day, :year] }) do
+    store_translations(:en, date: { order: [:month, :day, :year] }) do
       with_input_for :project, :created_at, :datetime
       assert_select 'label[for=project_created_at_2i]'
     end
   end
 
   test 'label should use order to get target when date input type' do
-    with_input_for :project, :created_at, :date, :order => [:month, :year, :day]
+    with_input_for :project, :created_at, :date, order: [:month, :year, :day]
     assert_select 'label[for=project_created_at_2i]'
   end
 
   test 'label should use order to get target when datetime input type' do
-    with_input_for :project, :created_at, :datetime, :order => [:month, :year, :day]
+    with_input_for :project, :created_at, :datetime, order: [:month, :year, :day]
     assert_select 'label[for=project_created_at_2i]'
   end
 
@@ -92,7 +92,7 @@ class DateTimeInputTest < ActionView::TestCase
   end
 
   test 'date time input should generate required html attribute' do
-    with_input_for @user, :delivery_time, :time, :required => true
+    with_input_for @user, :delivery_time, :time, required: true
     assert_select 'select.required'
     assert_select 'select[required]'
   end

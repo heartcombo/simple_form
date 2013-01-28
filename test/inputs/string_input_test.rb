@@ -54,12 +54,12 @@ class StringInputTest < ActionView::TestCase
   end
 
   test 'input should accept the placeholder option' do
-    with_input_for @user, :name, :string, :placeholder => 'Put in some text'
+    with_input_for @user, :name, :string, placeholder: 'Put in some text'
     assert_select 'input.string[placeholder=Put in some text]'
   end
 
   test 'input should generate a password field for password attributes that accept placeholder' do
-    with_input_for @user, :password, :password, :placeholder => 'Password Confirmation'
+    with_input_for @user, :password, :password, placeholder: 'Password Confirmation'
     assert_select 'input[type=password].password[placeholder=Password Confirmation]#user_password'
   end
 
@@ -69,12 +69,12 @@ class StringInputTest < ActionView::TestCase
   end
 
   test 'input should infer pattern from attributes' do
-    with_input_for @other_validating_user, :country, :string, :pattern => true
+    with_input_for @other_validating_user, :country, :string, pattern: true
     assert_select 'input[pattern="\w+"]'
   end
 
   test 'input should infer pattern from attributes using proc' do
-    with_input_for @other_validating_user, :name, :string, :pattern => true
+    with_input_for @other_validating_user, :name, :string, pattern: true
     assert_select 'input[pattern="\w+"]'
   end
 
@@ -86,13 +86,13 @@ class StringInputTest < ActionView::TestCase
   end
 
   test 'input should use given pattern from attributes' do
-    with_input_for @other_validating_user, :country, :string, :input_html => { :pattern => "\\d+" }
+    with_input_for @other_validating_user, :country, :string, input_html: { pattern: "\\d+" }
     assert_select 'input[pattern="\d+"]'
   end
 
   test 'input should use i18n to translate placeholder text' do
-    store_translations(:en, :simple_form => { :placeholders => { :user => {
-      :name => 'Name goes here'
+    store_translations(:en, simple_form: { placeholders: { user: {
+      name: 'Name goes here'
     } } }) do
       with_input_for @user, :name, :string
       assert_select 'input.string[placeholder=Name goes here]'
@@ -123,7 +123,7 @@ class StringInputTest < ActionView::TestCase
   end
 
   test 'input strips extra spaces from class html attribute when giving a custom class' do
-    with_input_for @user, :name, :string, :input_html => { :class => "my_input" }
+    with_input_for @user, :name, :string, input_html: { class: "my_input" }
     assert_select "input[class='string required my_input']"
     assert_no_select "input[class='string required my_input ']"
     assert_no_select "input[class=' string required my_input']"

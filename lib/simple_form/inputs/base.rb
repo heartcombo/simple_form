@@ -24,7 +24,7 @@ module SimpleForm
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options, :input_html_classes, :html_classes
 
-      delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, :to => :@builder
+      delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, to: :@builder
 
       class_attribute :default_options
       self.default_options = {}
@@ -175,7 +175,7 @@ module SimpleForm
         lookups << :"defaults.#{reflection_or_attribute_name}"
         lookups << default
 
-        I18n.t(lookups.shift, :scope => :"simple_form.#{namespace}", :default => lookups).presence
+        I18n.t(lookups.shift, scope: :"simple_form.#{namespace}", default: lookups).presence
       end
     end
   end

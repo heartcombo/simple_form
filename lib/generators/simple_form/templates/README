@@ -7,6 +7,6 @@
   classes, '.form-horizontal', '.form-inline', '.form-search' or
   '.form-vertical', as the following:
 
-    = simple_form_for(@user, :html => {:class => 'form-horizontal' }) do |form|
+    = simple_form_for(@user, html: {class: 'form-horizontal' }) do |form|
 
 ===============================================================================

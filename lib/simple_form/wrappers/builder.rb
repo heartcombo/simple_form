@@ -12,18 +12,18 @@ module SimpleForm
     #       b.optional :placeholder
     #
     #       # Use a component with specific wrapper options
-    #       b.use :error, :wrap_with => { :tag => "span", :class => "error" }
+    #       b.use :error, wrap_with: { tag: "span", class: "error" }
     #
     #       # Use a set of components by wrapping them in a tag+class.
-    #       b.wrapper :tag => "div", :class => "another" do |ba|
+    #       b.wrapper tag: "div", class: "another" do |ba|
     #         ba.use :label
     #         ba.use :input
     #       end
     #
     #       # Use a set of components by wrapping them in a tag+class.
     #       # This wrapper is identified by :label_input, which means it can
-    #       # be turned off on demand with `f.input :name, :label_input => false`
-    #       b.wrapper :label_input, :tag => "div", :class => "another" do |ba|
+    #       # be turned off on demand with `f.input :name, label_input: false`
+    #       b.wrapper :label_input, tag: "div", class: "another" do |ba|
     #         ba.use :label
     #         ba.use :input
     #       end
@@ -32,7 +32,7 @@ module SimpleForm
     # The builder also accepts default options at the root level. This is usually
     # used if you want a component to be disabled by default:
     #
-    #     config.wrappers :hint => false do |b|
+    #     config.wrappers hint: false do |b|
     #       b.use :hint
     #       b.use :label_input
     #     end
