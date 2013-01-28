@@ -18,6 +18,12 @@ module SimpleForm
     autoload :Inputs
   end
 
+  def self.eager_load!
+    super
+    SimpleForm::Inputs.eager_load!
+    SimpleForm::Components.eager_load!
+  end
+
   ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
@@ -112,9 +118,9 @@ module SimpleForm
   mattr_accessor :country_priority
   @@country_priority = nil
 
-  # Maximum size allowed for inputs.
+  # DEPRECATED: Maximum size allowed for inputs.
   mattr_accessor :default_input_size
-  @@default_input_size = 50
+  @@default_input_size = nil
 
   # When off, do not use translations in labels. Disabling translation in
   # hints and placeholders can be done manually in the wrapper API.
@@ -182,43 +188,21 @@ module SimpleForm
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 
-  ## SETUP
-
-  DEPRECATED = %w(hint_tag hint_class error_tag error_class error_notification_id wrapper_tag wrapper_class wrapper_error_class components html5)
-  @@deprecated = []
-
-  DEPRECATED.each do |method|
-    class_eval "def self.#{method}=(*); @@deprecated << :#{method}=; end"
-    class_eval "def self.#{method}; deprecation_warn 'SimpleForm.#{method} is deprecated and has no effect'; end"
-  end
-
-  def self.translate=(value)
-    deprecation_warn "SimpleForm.translate= is disabled in favor of translate_labels="
-    self.translate_labels = value
-  end
-
-  def self.translate
-    deprecation_warn "SimpleForm.translate is disabled in favor of translate_labels"
-    self.translate_labels
-  end
-
-  def self.deprecation_warn(message)
-    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] #{message}", caller
-  end
-
   def self.additional_classes_for(component)
     generate_additional_classes_for.include?(component) ? yield : []
+  end
+
+  ## SETUP
+
+  def self.default_input_size=(*)
+    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.default_input_size= is deprecated and has no effect", caller
   end
 
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
     yield self
-
-    unless @@deprecated.empty?
-      raise "[SIMPLE FORM] Your SimpleForm initializer file is using the following methods: #{@@deprecated.to_sentence}. " <<
-        "Those methods are part of the outdated configuration API. Updating to the new API is easy and fast. " <<
-        "Check for more info here: https://github.com/plataformatec/simple_form/wiki/Upgrading-to-Simple-Form-2.0"
-    end
   end
 end
+
+require 'simple_form/railtie' if defined?(Rails)

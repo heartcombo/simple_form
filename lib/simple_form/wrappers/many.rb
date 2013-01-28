@@ -17,7 +17,7 @@ module SimpleForm
         @components = components
         @defaults   = defaults
         @defaults[:tag]   = :div unless @defaults.key?(:tag)
-        @defaults[:class] = Array.wrap(@defaults[:class])
+        @defaults[:class] = Array(@defaults[:class])
       end
 
       def render(input)

@@ -1,5 +1,6 @@
-require 'simple_form/core_ext/hash'
+require 'active_support/core_ext/object/deep_dup'
 require 'simple_form/map_type'
+require 'simple_form/tags'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -57,7 +58,7 @@ module SimpleForm
     #       <abbr title="required">*</abbr> Super User Name!
     #     </label>
     #     <input class="string required" id="user_name" maxlength="100"
-    #        name="user[name]" size="100" type="text" value="Carlos" />
+    #        name="user[name]" type="text" value="Carlos" />
     #     <span class="hint">My hint</span>
     #     <span class="error">can't be blank</span>
     #
@@ -130,7 +131,7 @@ module SimpleForm
     # This is the output html (only the input portion, not the form):
     #
     #     <input class="string required" id="user_name" maxlength="100"
-    #        name="user[name]" size="100" type="text" value="Carlos" />
+    #        name="user[name]" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options={})
       options = options.dup
@@ -190,7 +191,6 @@ module SimpleForm
         else
           if options[:as] == :select
             html_options = options[:input_html] ||= {}
-            html_options[:size]   ||= 5
             html_options[:multiple] = true unless html_options.key?(:multiple)
           end
 
@@ -216,8 +216,7 @@ module SimpleForm
     # button implementation (3.2 forward (to delegate to the original when
     # calling `f.button :button`.
     #
-    # TODO: remove if condition when supporting only Rails 3.2 forward.
-    alias_method :button_button, :button if method_defined?(:button)
+    alias_method :button_button, :button
     def button(type, *args, &block)
       options = args.extract_options!.dup
       options[:class] = [SimpleForm.button_class, options[:class]].compact
@@ -331,6 +330,111 @@ module SimpleForm
       SimpleForm::ErrorNotification.new(self, options).render
     end
 
+    # Create a collection of radio inputs for the attribute. Basically this
+    # helper will create a radio input associated with a label for each
+    # text/value option in the collection, using value_method and text_method
+    # to convert these text/value. You can give a symbol or a proc to both
+    # value_method and text_method, that will be evaluated for each item in
+    # the collection.
+    #
+    # == Examples
+    #
+    #   form_for @user do |f|
+    #     f.collection_radio_buttons :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+    #   end
+    #
+    #   <input id="user_options_true" name="user[options]" type="radio" value="true" />
+    #   <label class="collection_radio_buttons" for="user_options_true">Yes</label>
+    #   <input id="user_options_false" name="user[options]" type="radio" value="false" />
+    #   <label class="collection_radio_buttons" for="user_options_false">No</label>
+    #
+    # It is also possible to give a block that should generate the radio +
+    # label. To wrap the radio with the label, for instance:
+    #
+    #   form_for @user do |f|
+    #     f.collection_radio_buttons(
+    #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+    #     ) do |b|
+    #       b.label { b.radio_button + b.text }
+    #     end
+    #   end
+    #
+    # == Options
+    #
+    # Collection radio accepts some extra options:
+    #
+    #   * checked  => the value that should be checked initially.
+    #
+    #   * disabled => the value or values that should be disabled. Accepts a single
+    #                 item or an array of items.
+    #
+    #   * collection_wrapper_tag   => the tag to wrap the entire collection.
+    #
+    #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag
+    #
+    #   * item_wrapper_tag         => the tag to wrap each item in the collection.
+    #
+    #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
+    #
+    #   * a block                  => to generate the label + radio or any other component.
+    def collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
+      SimpleForm::Tags::CollectionRadioButtons.new(@object_name, method, @template, collection, value_method, text_method, objectify_options(options), @default_options.merge(html_options)).render(&block)
+    end
+
+    # Creates a collection of check boxes for each item in the collection,
+    # associated with a clickable label. Use value_method and text_method to
+    # convert items in the collection for use as text/value in check boxes.
+    # You can give a symbol or a proc to both value_method and text_method,
+    # that will be evaluated for each item in the collection.
+    #
+    # == Examples
+    #
+    #   form_for @user do |f|
+    #     f.collection_check_boxes :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+    #   end
+    #
+    #   <input name="user[options][]" type="hidden" value="" />
+    #   <input id="user_options_true" name="user[options][]" type="checkbox" value="true" />
+    #   <label class="collection_check_boxes" for="user_options_true">Yes</label>
+    #   <input name="user[options][]" type="hidden" value="" />
+    #   <input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
+    #   <label class="collection_check_boxes" for="user_options_false">No</label>
+    #
+    # It is also possible to give a block that should generate the check box +
+    # label. To wrap the check box with the label, for instance:
+    #
+    #   form_for @user do |f|
+    #     f.collection_check_boxes(
+    #       :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+    #     ) do |b|
+    #       b.label { b.check_box + b.text }
+    #     end
+    #   end
+    #
+    # == Options
+    #
+    # Collection check box accepts some extra options:
+    #
+    #   * checked  => the value or values that should be checked initially. Accepts
+    #                 a single item or an array of items. It overrides existing associations.
+    #
+    #   * disabled => the value or values that should be disabled. Accepts a single
+    #                 item or an array of items.
+    #
+    #   * collection_wrapper_tag   => the tag to wrap the entire collection.
+    #
+    #   * collection_wrapper_class => the CSS class to use for collection_wrapper_tag. This option
+    #                                 is ignored if the :collection_wrapper_tag option is blank.
+    #
+    #   * item_wrapper_tag         => the tag to wrap each item in the collection.
+    #
+    #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
+    #
+    #   * a block                  => to generate the label + check box or any other component.
+    def collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
+      SimpleForm::Tags::CollectionCheckBoxes.new(@object_name, method, @template, collection, value_method, text_method, objectify_options(options), @default_options.merge(html_options)).render(&block)
+    end
+
     # Extract the model names from the object_name mess, ignoring numeric and
     # explicit child indexes.
     #
@@ -365,12 +469,6 @@ module SimpleForm
     def find_input(attribute_name, options={}, &block) #:nodoc:
       column     = find_attribute_column(attribute_name)
       input_type = default_input_type(attribute_name, column, options)
-
-      if input_type == :radio
-        SimpleForm.deprecation_warn "Using `:as => :radio` as input type is " \
-          "deprecated, please change it to `:as => :radio_buttons`."
-        input_type = :radio_buttons
-      end
 
       if block_given?
         SimpleForm::Inputs::BlockInput.new(self, attribute_name, column, input_type, options, &block)

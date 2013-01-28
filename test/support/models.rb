@@ -195,13 +195,7 @@ class OtherValidatingUser < User
     :only_integer => true
 
   validates_format_of :country, :with => /\w+/
-
-  # TODO: Remove this check when we drop Rails 3.0 support
-  if ActiveModel::VERSION::MAJOR == 3 && ActiveModel::VERSION::MINOR >= 1
-    validates_format_of :name, :with => Proc.new { /\w+/ }
-  else
-    validates_format_of :name, :with => /\w+/
-  end
+  validates_format_of :name, :with => Proc.new { /\w+/ }
 end
 
 class HashBackedAuthor < Hash
