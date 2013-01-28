@@ -1,4 +1,5 @@
 require 'simple_form/core_ext/hash'
+require 'simple_form/map_type'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
