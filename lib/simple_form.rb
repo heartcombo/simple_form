@@ -40,11 +40,11 @@ module SimpleForm
 
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
-  @@collection_label_methods = [ :to_label, :name, :title, :to_s ]
+  @@collection_label_methods = [:to_label, :name, :title, :to_s]
 
   # Series of attemps to detect a default value method for collection.
   mattr_accessor :collection_value_methods
-  @@collection_value_methods = [ :id, :to_s ]
+  @@collection_value_methods = [:id, :to_s]
 
   # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
   mattr_accessor :collection_wrapper_tag
@@ -55,7 +55,7 @@ module SimpleForm
   @@collection_wrapper_class = nil
 
   # You can wrap each item in a collection of radio/check boxes with a tag,
-  # defaulting to none. Please note that when using :boolean_style = :nested,
+  # defaulting to span. Please note that when using :boolean_style = :nested,
   # SimpleForm will force this option to be a :label.
   mattr_accessor :item_wrapper_tag
   @@item_wrapper_tag = :span
@@ -68,7 +68,7 @@ module SimpleForm
   mattr_accessor :label_text
   @@label_text = lambda { |label, required| "#{required} #{label}" }
 
-  # You can define the class to use on all labels. Default is nil.
+  # You can define the class to be used on all labels. Defaults to none.
   mattr_accessor :label_class
   @@label_class = nil
 
@@ -78,15 +78,15 @@ module SimpleForm
   mattr_accessor :boolean_style
   @@boolean_style = :inline
 
-  # You can define the class to use on all forms. Default is simple_form.
+  # You can define the class to be used on all forms. Default is simple_form.
   mattr_accessor :form_class
   @@form_class = :simple_form
 
-  # You can define which elements should obtain additional classes
+  # You can define which elements should obtain additional classes.
   mattr_accessor :generate_additional_classes_for
   @@generate_additional_classes_for = [:wrapper, :label, :input]
 
-  # Whether attributes are required by default (or not).
+  # Whether attributes are required by default or not.
   mattr_accessor :required_by_default
   @@required_by_default = true
 
@@ -96,7 +96,7 @@ module SimpleForm
 
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
-  @@file_methods = [ :mounted_as, :file?, :public_filename ]
+  @@file_methods = [:mounted_as, :file?, :public_filename]
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
@@ -131,11 +131,11 @@ module SimpleForm
   mattr_accessor :inputs_discovery
   @@inputs_discovery = true
 
-  # Cache SimpleForm inputs discovery
+  # Cache SimpleForm inputs discovery.
   mattr_accessor :cache_discovery
   @@cache_discovery = defined?(Rails) && !Rails.env.development?
 
-  # Adds a class to each generated button, mostly for compatiblity
+  # Adds a class to each generated button, mostly for compatiblity.
   mattr_accessor :button_class
   @@button_class = 'button'
 
