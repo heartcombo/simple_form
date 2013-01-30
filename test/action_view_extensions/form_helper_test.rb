@@ -25,12 +25,12 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
-  test 'a form specific disabled validation option should override the default enabled browser validation configuration option' do
+  test 'disabled browser validations overrides default configuration' do
     with_concat_form_for(:user, html: { novalidate: true })
     assert_select 'form[novalidate="novalidate"]'
   end
 
-  test 'a form specific enabled validation option should override the disabled browser validation configuration option' do
+  test 'enabled browser validations overrides disabled configuration' do
     swap SimpleForm, browser_validations: false do
       with_concat_form_for(:user, html: { novalidate: false })
       assert_no_select 'form[novalidate]'
@@ -75,12 +75,12 @@ class FormHelperTest < ActionView::TestCase
   end
 
   test 'SimpleForm should not add object class to form if css_class is specified' do
-    with_concat_form_for(:user, html: {class: nil})
+    with_concat_form_for(:user, html: { class: nil })
     assert_no_select 'form.user'
   end
 
   test 'SimpleForm should add custom class to form if css_class is specified' do
-    with_concat_form_for(:user, html: {class: 'my_class'})
+    with_concat_form_for(:user, html: { class: 'my_class' })
     assert_select 'form.my_class'
   end
 
@@ -90,13 +90,13 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form[action=/account]'
   end
 
-  test 'fields for yields an instance of FormBuilder' do
+  test 'form_for yields an instance of FormBuilder' do
     with_concat_form_for(:user) do |f|
       assert f.instance_of?(SimpleForm::FormBuilder)
     end
   end
 
-  test 'fields for with a hash like model yeilds an instance of FormBuilder' do
+  test 'fields_for with a hash like model yields an instance of FormBuilder' do
     with_concat_fields_for(:author, HashBackedAuthor.new) do |f|
       assert f.instance_of?(SimpleForm::FormBuilder)
       f.input :name
