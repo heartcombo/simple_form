@@ -19,7 +19,13 @@ module SimpleForm
 
       def input_options
         options = super
+
         options[:include_blank] = true unless skip_include_blank?
+
+        [:prompt, :include_blank].each do |key|
+          options[key] = translate(key, true) if options[key] == :translate
+        end
+
         options
       end
 
