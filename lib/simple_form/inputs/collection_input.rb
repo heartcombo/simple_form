@@ -105,11 +105,13 @@ module SimpleForm
       def translate_option(options, key)
         return unless options[key].is_a? Symbol
 
+        namespace = key.to_s.pluralize
+
         options[key] = case options[key]
         when :translate, :t
-          translate(key, true)
+          translate(namespace, true)
         else
-          I18n.t(options[key], scope: :"simple_form.#{key}")
+          I18n.t(options[key], scope: :"simple_form.#{namespace}")
         end
       end
     end
