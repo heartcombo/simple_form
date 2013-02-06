@@ -23,7 +23,7 @@ module SimpleForm
         options[:include_blank] = true unless skip_include_blank?
 
         [:prompt, :include_blank].each do |key|
-          options[key] = translate(key, true) if options[key] == :translate
+          translate_option options, key
         end
 
         options
@@ -99,6 +99,16 @@ module SimpleForm
             [translated_collection[key] || key, key]
           end
           true
+        end
+      end
+
+      def translate_option(options, key)
+        return unless options[key].is_a? Symbol
+
+        options[key] = if options[key] == :translate
+          translate(key, true)
+        else
+          I18n.t(options[key], scope: :"simple_form.#{key}")
         end
       end
     end
