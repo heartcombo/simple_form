@@ -105,6 +105,15 @@ class CollectionSelectInputTest < ActionView::TestCase
     end
   end
 
+  test 'input should translate include blank when set to :t' do
+    store_translations(:en, :simple_form => { :include_blank => { :user => {
+      :age => 'Rather not say'
+    } } } ) do
+      with_input_for @user, :age, :select, :collection => 18..30, :include_blank => :t
+      assert_select 'select option[value=]', 'Rather not say'
+    end
+  end
+
   test 'input should translate include blank with a particular key' do
     store_translations(:en, :simple_form => { :include_blank => {
       :age => 'Rather not say',
@@ -171,6 +180,15 @@ class CollectionSelectInputTest < ActionView::TestCase
       :age => 'Select age:'
     } } } ) do
       with_input_for @user, :age, :select, :collection => 18..30, :prompt => :translate
+      assert_select 'select option[value=]', 'Select age:'
+    end
+  end
+
+  test 'input should translate prompt when set to :t' do
+    store_translations(:en, :simple_form => { :prompt => { :user => {
+      :age => 'Select age:'
+    } } } ) do
+      with_input_for @user, :age, :select, :collection => 18..30, :prompt => :t
       assert_select 'select option[value=]', 'Select age:'
     end
   end
