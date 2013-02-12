@@ -221,6 +221,28 @@ the wrapper as well:
 
 Any extra option passed to these methods will be rendered as html option.
 
+### Stripping away all wrapper divs
+
+**SimpleForm** also allows you to strip away all the div wrappers around the `<input>` field that is generated with the usual `f.input`.
+The easiest way to achieve this is to use `f.input_field`.
+
+Example:
+
+```erb
+simple_form_for @user do |f|
+  f.input_field :name
+end
+```
+
+Produces:
+
+```erb
+<input class="string required" id="user_name" maxlength="100"
+   name="user[name]" size="100" type="text" value="Carlos" />
+```
+
+To view the actual RDocs for this, check them out here - http://rubydoc.info/github/plataformatec/simple_form/master/SimpleForm/FormBuilder:input_field
+
 ### Collections
 
 And what if you want to create a select containing the age from 18 to 60 in your form? You can do it
