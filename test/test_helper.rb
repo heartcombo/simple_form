@@ -65,6 +65,8 @@ class ActionView::TestCase
       company: [1]
     }.merge(options))
 
+    @validating_user_delegator = SimpleDelegator.new(@validating_user)
+
     @other_validating_user = OtherValidatingUser.new({
       id: 1,
       name: 'New in SimpleForm!',
