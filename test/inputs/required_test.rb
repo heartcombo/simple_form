@@ -9,6 +9,13 @@ class RequiredTest < ActionView::TestCase
     assert_select 'input.optional#validating_user_status'
   end
 
+  test 'builder input should obtain required from ActiveModel::Validations when it is included on a delegator' do
+    with_form_for @validating_user_delegator, :name
+    assert_select 'input.required[required]#validating_user_name'
+    with_form_for @validating_user_delegator, :status
+    assert_select 'input.optional#validating_user_status'
+  end
+
   test 'builder input should allow overriding required when ActiveModel::Validations is included' do
     with_form_for @validating_user, :name, required: false
     assert_select 'input.optional#validating_user_name'

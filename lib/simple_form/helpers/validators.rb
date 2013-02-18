@@ -2,17 +2,17 @@ module SimpleForm
   module Helpers
     module Validators
       def has_validators?
-        @has_validators ||= attribute_name && object.class.respond_to?(:validators_on)
+        @has_validators ||= attribute_name && object.respond_to?(:_validators)
       end
 
       private
 
       def attribute_validators
-        object.class.validators_on(attribute_name)
+        object._validators[attribute_name]
       end
 
       def reflection_validators
-        reflection ? object.class.validators_on(reflection.name) : []
+        reflection ? object._validators[reflection.name] : []
       end
 
       def valid_validator?(validator)
