@@ -571,7 +571,7 @@ module SimpleForm
       return if SimpleForm.inputs_discovery == false && at == Object
 
       begin
-        at.const_get(mapping)
+        mapping.split("::").reduce(at){|memo, i| memo.const_get(i)}
       rescue NameError => e
         raise if e.message !~ /#{mapping}$/
       end
