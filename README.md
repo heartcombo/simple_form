@@ -1,6 +1,10 @@
-# SimpleForm - Rails forms made easy.
+![Simple Form Logo](https://raw.github.com/plataformatec/simple_form/master/simple_form.png)
+
+[![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
 [![Build Status](https://secure.travis-ci.org/plataformatec/simple_form.png?branch=master)](http://travis-ci.org/plataformatec/simple_form)
 [![Code Climate](https://codeclimate.com/github/plataformatec/simple_form.png)](https://codeclimate.com/github/plataformatec/simple_form)
+
+Rails forms made easy.
 
 **SimpleForm** aims to be as flexible as possible while helping you with powerful components to create
 your forms. The basic goal of SimpleForm is to not touch your way of defining the layout, letting
@@ -39,7 +43,7 @@ gem 'country_select'
 
 ### Twitter Bootstrap
 
-**SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap).
+**SimpleForm** can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap).
 To do that you have to use the `bootstrap` option in the install generator, like this:
 
 ```console
@@ -900,3 +904,5 @@ https://github.com/plataformatec/simple_form/issues
 ## License
 
 MIT License. Copyright 2009-2013 Plataformatec. http://plataformatec.com.br
+
+You are not granted rights or licenses to the trademarks of the Plataformatec, including without limitation the Simple Form name or logo.
