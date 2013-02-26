@@ -1,4 +1,4 @@
-## 3.0.0.dev
+## 3.0.0.beta1
 
 ### enhancements
   * Support to Rails 4.
