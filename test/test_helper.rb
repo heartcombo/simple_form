@@ -2,7 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'test/unit'
-require 'mocha/setup'
+require 'mocha'
 
 require 'active_model'
 require 'action_controller'
