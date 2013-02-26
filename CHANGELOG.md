@@ -1,4 +1,4 @@
-## 2.1.0.dev
+## 2.1.0
 
 ### enhancements
   * `input_field` supports components that don't generate tags
