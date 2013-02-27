@@ -41,36 +41,46 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder preloads collection association' do
-    value = @user.tags = Object.new
-    value.expects(:to_a).returns(value)
+    value = @user.tags = MiniTest::Mock.new
+    value.expect(:to_a, value)
 
     with_association_for @user, :tags
     assert_select 'form select.select#user_tag_ids'
     assert_select 'form select option[value=1]', 'Tag 1'
     assert_select 'form select option[value=2]', 'Tag 2'
     assert_select 'form select option[value=3]', 'Tag 3'
+
+    value.verify
   end
 
   test 'builder does not preload collection association if preload is false' do
-    value = @user.tags = Object.new
-    value.expects(:to_a).never
+    value = @user.tags = MiniTest::Mock.new
+    value.expect(:to_a, nil)
 
     with_association_for @user, :tags, preload: false
     assert_select 'form select.select#user_tag_ids'
     assert_select 'form select option[value=1]', 'Tag 1'
     assert_select 'form select option[value=2]', 'Tag 2'
     assert_select 'form select option[value=3]', 'Tag 3'
+
+    assert_raises MockExpectationError do
+      value.verify
+    end
   end
 
   test 'builder does not preload non-collection association' do
-    value = @user.company = Object.new
-    value.expects(:to_a).never
+    value = @user.company = MiniTest::Mock.new
+    value.expect(:to_a, nil)
 
     with_association_for @user, :company
     assert_select 'form select.select#user_company_id'
     assert_select 'form select option[value=1]', 'Company 1'
     assert_select 'form select option[value=2]', 'Company 2'
     assert_select 'form select option[value=3]', 'Company 3'
+
+    assert_raises MockExpectationError do
+      value.verify
+    end
   end
 
   # ASSOCIATIONS - BELONGS TO

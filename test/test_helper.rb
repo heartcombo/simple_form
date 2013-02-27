@@ -1,8 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require 'test/unit'
-require 'mocha/setup'
+require 'minitest/autorun'
 
 require 'active_model'
 require 'action_controller'

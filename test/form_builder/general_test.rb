@@ -156,18 +156,16 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder should generate file for file columns' do
-    @user.avatar = mock("file")
-    @user.avatar.expects(:respond_to?).with(:mounted_as).returns(false)
-    @user.avatar.expects(:respond_to?).with(:file?).returns(false)
-    @user.avatar.expects(:respond_to?).with(:public_filename).returns(true)
+    @user.avatar = MiniTest::Mock.new
+    @user.avatar.expect(:public_filename, true)
 
     with_form_for @user, :avatar
     assert_select 'form input#user_avatar.file'
   end
 
   test 'builder should generate file for attributes that are real db columns but have file methods' do
-    @user.home_picture = mock("file")
-    @user.home_picture.expects(:respond_to?).with(:mounted_as).returns(true)
+    @user.home_picture = MiniTest::Mock.new
+    @user.home_picture.expect(:mounted_as, true)
 
     with_form_for @user, :home_picture
     assert_select 'form input#user_home_picture.file'
@@ -264,10 +262,10 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should be able to disable a hint even if it exists in i18n' do
     store_translations(:en, simple_form: { hints: { name: 'Hint test' } }) do
-      SimpleForm::Inputs::Base.any_instance.expects(:hint).never
-
-      with_form_for @user, :name, hint: false
-      assert_no_select 'span.hint'
+      stub_any_instance(SimpleForm::Inputs::Base, :hint, -> { raise 'Never' }) do
+        with_form_for @user, :name, hint: false
+        assert_no_select 'span.hint'
+      end
     end
   end
 
