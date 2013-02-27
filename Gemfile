@@ -8,5 +8,4 @@ gem 'activemodel', '>= 4.0.0.beta1', '< 4.1'
 gem 'actionpack', '>= 4.0.0.beta1', '< 4.1'
 gem 'rake'
 gem 'rdoc'
-gem 'mocha', require: false
 gem 'tzinfo'

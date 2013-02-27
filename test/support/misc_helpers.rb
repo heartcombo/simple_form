@@ -24,6 +24,28 @@ module MiscHelpers
     end
   end
 
+  def stub_any_instance(klass, method, value)
+    klass.class_eval do
+      alias_method :"new_#{method}", method
+
+      define_method(method) do
+        if value.respond_to?(:call)
+          value.call
+        else
+          value
+        end
+      end
+    end
+
+    yield
+  ensure
+    klass.class_eval do
+      undef_method method
+      alias_method method, :"new_#{method}"
+      undef_method :"new_#{method}"
+    end
+  end
+
   def swap_wrapper(name=:default, wrapper=self.custom_wrapper)
     old = SimpleForm.wrappers[name]
     SimpleForm.wrappers[name] = wrapper
