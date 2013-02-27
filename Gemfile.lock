@@ -29,10 +29,7 @@ GEM
     erubis (2.7.0)
     i18n (0.6.2)
     json (1.7.7)
-    metaclass (0.0.1)
     minitest (4.6.1)
-    mocha (0.13.2)
-      metaclass (~> 0.0.1)
     multi_json (1.6.1)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -58,7 +55,6 @@ DEPENDENCIES
   actionpack (>= 4.0.0.beta1, < 4.1)
   activemodel (>= 4.0.0.beta1, < 4.1)
   country_select (~> 1.1.1)
-  mocha
   railties (>= 4.0.0.beta1, < 4.1)
   rake
   rdoc
