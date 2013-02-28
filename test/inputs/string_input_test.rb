@@ -90,6 +90,11 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input[pattern="\d+"]'
   end
 
+  test 'input should not use pattern if model has :without validation option' do
+    with_input_for @other_validating_user, :description, :string, pattern: true
+    assert_no_select 'input[pattern="\d+"]'
+  end
+
   test 'input should use i18n to translate placeholder text' do
     store_translations(:en, simple_form: { placeholders: { user: {
       name: 'Name goes here'
