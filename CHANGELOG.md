@@ -1,3 +1,8 @@
+## master
+
+### bug fix
+  * Skip pattern attribute when using `validates_format_of` with `:without` option [@glebm](https://github.com/glebm)
+
 ## 3.0.0.beta1
 
 ### enhancements
