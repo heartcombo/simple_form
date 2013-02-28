@@ -196,6 +196,7 @@ class OtherValidatingUser < User
 
   validates_format_of :country, with: /\w+/
   validates_format_of :name, with: Proc.new { /\w+/ }
+  validates_format_of :description, without: /\d+/
 end
 
 class HashBackedAuthor < Hash

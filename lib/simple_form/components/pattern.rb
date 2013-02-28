@@ -13,8 +13,8 @@ module SimpleForm
         pattern = options[:pattern]
         if pattern.is_a?(String)
           pattern
-        elsif pattern_validator = find_pattern_validator
-          evaluate_format_validator_option(pattern_validator.options[:with]).source
+        elsif (pattern_validator = find_pattern_validator) && (with = pattern_validator.options[:with])
+          evaluate_format_validator_option(with).source
         end
       end
 
