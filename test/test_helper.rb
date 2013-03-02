@@ -8,8 +8,6 @@ require 'action_controller'
 require 'action_view'
 require 'action_view/template'
 
-# Rails 3.0.4 is missing this "deprecation" require.
-require 'active_support/core_ext/module/deprecation'
 require 'action_view/test_case'
 
 module Rails
