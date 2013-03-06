@@ -20,6 +20,11 @@ class Company < Struct.new(:id, :name)
     all
   end
 
+  ###just simple Relation#all
+  def self.all
+    (1..3).map{|i| Company.new(i, "Company #{i}")}
+  end
+
   def self.merge_conditions(a, b)
     (a || {}).merge(b || {})
   end
