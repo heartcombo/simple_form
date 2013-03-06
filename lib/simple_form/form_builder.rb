@@ -180,7 +180,7 @@ module SimpleForm
 
       options[:as] ||= :select
       options[:collection] ||= options.fetch(:collection) {
-        reflection.klass.where(reflection.options.fetch(:conditions)).order(reflection.options.fetch(:order)).to_a
+        reflection.klass.where(reflection.options[:conditions]).order(reflection.options[:order]).to_a
       }
 
       attribute = case reflection.macro
