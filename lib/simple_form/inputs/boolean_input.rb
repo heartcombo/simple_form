@@ -3,10 +3,10 @@ module SimpleForm
     class BooleanInput < Base
       def input
         if nested_boolean_style?
-          build_hidden_field_for_checkbox +
-            template.label_tag(nil, class: "checkbox") {
+          template.label_tag(nil, class: "checkbox") {
+            build_hidden_field_for_checkbox +
               build_check_box_without_hidden_field + inline_label
-            }
+          }
         else
           build_check_box
         end
