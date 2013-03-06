@@ -11,7 +11,7 @@ class Company < Struct.new(:id, :name)
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def self.all(options={})
+  def self.where(options={})
     all = (1..3).map{|i| Company.new(i, "Company #{i}")}
     return [all.first] if options[:conditions].present?
     return [all.last]  if options[:order].present?
@@ -30,7 +30,7 @@ class Company < Struct.new(:id, :name)
 end
 
 class Tag < Company
-  def self.all(options={})
+  def self.where(options={})
     (1..3).map{|i| Tag.new(i, "Tag #{i}")}
   end
 end
