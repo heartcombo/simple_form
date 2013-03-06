@@ -123,7 +123,8 @@ class BooleanInputTest < ActionView::TestCase
       swap SimpleForm, boolean_style: :nested do
         with_input_for @user, :active, :boolean
 
-        assert_select 'label.boolean + input[type=hidden] + label.checkbox > input.boolean'
+        assert_select 'label.boolean + label.checkbox > input.boolean'
+        assert_select 'label.boolean + label.checkbox > input[type=hidden]'
       end
     end
   end
