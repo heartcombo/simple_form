@@ -63,6 +63,7 @@ module SimpleForm
       end
 
       def detect_common_display_methods(collection_classes = detect_collection_classes)
+        return {} if collection_classes == []
         collection_translated = translate_collection if collection_classes == [Symbol]
 
         if collection_translated || collection_classes.include?(Array)
@@ -70,10 +71,10 @@ module SimpleForm
         elsif collection_includes_basic_objects?(collection_classes)
           { label: :to_s, value: :to_s }
         else
-          sample = collection.first || collection.last
+          sample = collection_classes.first
 
-          { label: SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) },
-            value: SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) } }
+          { label: SimpleForm.collection_label_methods.find { |m| sample.instance_methods.include?(m) },
+            value: SimpleForm.collection_value_methods.find { |m| sample.instance_methods.include?(m) } }
         end
       end
 
