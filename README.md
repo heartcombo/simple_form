@@ -61,7 +61,7 @@ For more information see the generator output, our
 
 ### Zurb Foundation 3
 
-To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/old-docs/f3/rails.php), pass the `foundation` option to the generator, like this:
+To generate wrappers that are compatible with [Zurb Foundation 4](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:
 
 ```console
 rails generate simple_form:install --foundation
