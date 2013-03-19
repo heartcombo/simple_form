@@ -61,7 +61,7 @@ For more information see the generator output, our
 
 ### Zurb Foundation 3
 
-To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:
+To generate wrappers that are compatible with [Zurb Foundation 4](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:
 
 ```console
 rails generate simple_form:install --foundation
@@ -69,7 +69,7 @@ rails generate simple_form:install --foundation
 
 Please note that the Foundation wrapper does not support the `:hint` option by default. In order to enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`. You will need to provide your own CSS styles for hints.
 
-Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/rails.php).
+Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/rails.html).
 
 ## Usage
 
