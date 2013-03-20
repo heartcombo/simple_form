@@ -7,16 +7,36 @@ class Column < Struct.new(:name, :type, :limit)
   end
 end
 
+class RelationArray < Array
+  def order(order='')
+    return [last] if order.present?
+    self
+  end
+end
+
 class Company < Struct.new(:id, :name)
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def self.all(options={})
-    all = (1..3).map{|i| Company.new(i, "Company #{i}")}
-    return [all.first] if options[:conditions].present?
-    return [all.last]  if options[:order].present?
-    return all[0..1] if options[:include].present?
-    return all[1..2] if options[:joins].present?
+  def self.where(conditions={})
+    return RelationArray.new([all.first]) if conditions.present?
+    all
+  end
+
+  def self.includes(includes=[])
+    return RelationArray.new([all[0..1]]) if includes.present?
+    all
+  end
+
+  def self.joins(joins=[])
+    return RelationArray.new([all[1..2]]) if joins.present?
+    all
+  end
+
+  ###just simple Relation#all
+  def self.all
+    all = RelationArray.new
+    (1..3).map{|i| all << Company.new(i, "Company #{i}")}
     all
   end
 
@@ -30,8 +50,15 @@ class Company < Struct.new(:id, :name)
 end
 
 class Tag < Company
-  def self.all(options={})
+  def self.all
     (1..3).map{|i| Tag.new(i, "Tag #{i}")}
+  end
+
+  def self.where(conditions={})
+    all = RelationArray.new
+    (1..3).map{|i| all << Tag.new(i, "Tag #{i}")}
+    return RelationArray.new(all.first) if conditions.present?
+    all
   end
 end
 
