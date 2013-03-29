@@ -107,7 +107,7 @@ SimpleForm.setup do |config|
   # config.required_by_default = true
 
   # Tell browsers whether to use default HTML5 validations (novalidate option).
-  # Default is enabled.
+  # Default is false (disabled) because browser validations are not easily configurable
   config.browser_validations = false
 
   # Collection of methods to detect if a file type was given.
