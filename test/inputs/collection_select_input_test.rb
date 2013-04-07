@@ -176,6 +176,7 @@ class CollectionSelectInputTest < ActionView::TestCase
     with_input_for @user, :name, :select, include_blank: false, collection: ['Jose' , 'Carlos']
     assert_select 'select.required'
     assert_no_select 'select[required]'
+    assert_no_select 'select[aria-required=true]'
   end
 
   test 'collection input with select type with multiple attribute should generate required html attribute without blank option' do
@@ -188,6 +189,30 @@ class CollectionSelectInputTest < ActionView::TestCase
     with_input_for @user, :name, :select, include_blank: true, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
     assert_select 'select.required'
     assert_select 'select[required]'
+  end
+
+  test 'with a blank option, a collection input of type select has an aria-required html attribute' do
+    with_input_for @user, :name, :select, include_blank: true, collection: ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_select 'select[aria-required=true]'
+  end
+
+  test 'without a blank option, a collection input of type select does not have an aria-required html attribute' do
+    with_input_for @user, :name, :select, include_blank: false, collection: ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_no_select 'select[aria-required]'
+  end
+
+  test 'without a blank option and with a multiple option, a collection input of type select has an aria-required html attribute' do
+    with_input_for @user, :name, :select, include_blank: false, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_select 'select[aria-required=true]'
+  end
+
+  test 'with a blank option and a multiple option, a collection input of type select has an aria-required html attribute' do
+    with_input_for @user, :name, :select, include_blank: true, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
+    assert_select 'select.required'
+    assert_select 'select[aria-required]'
   end
 
   test 'input should allow disabled options with a lambda for collection select' do
