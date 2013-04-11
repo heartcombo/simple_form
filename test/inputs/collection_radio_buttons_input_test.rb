@@ -140,6 +140,12 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     assert_select 'input[type=radio][required]'
   end
 
+  test 'collection input with radio type should generate aria-required html attribute' do
+    with_input_for @user, :name, :radio_buttons, collection: ['Jose' , 'Carlos']
+    assert_select 'input[type=radio].required'
+    assert_select 'input[type=radio][aria-required=true]'
+  end
+
   test 'input radio does not wrap the collection by default' do
     with_input_for @user, :active, :radio_buttons
 

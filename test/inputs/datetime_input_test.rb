@@ -96,4 +96,10 @@ class DateTimeInputTest < ActionView::TestCase
     assert_select 'select.required'
     assert_select 'select[required]'
   end
+
+  test 'date time input has an aria-required html attribute' do
+    with_input_for @user, :delivery_time, :time, required: true
+    assert_select 'select.required'
+    assert_select 'select[aria-required=true]'
+  end
 end
