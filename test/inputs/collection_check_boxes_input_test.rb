@@ -23,6 +23,12 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     assert_no_select 'input[required]'
   end
 
+  test 'collection input with check_boxes type should not generate aria-required html attribute' do
+    with_input_for @user, :name, :check_boxes, collection: ['Jose' , 'Carlos']
+    assert_select 'input.required'
+    assert_no_select 'input[aria-required]'
+  end
+
   test 'input should do automatic collection translation for check_box types using defaults key' do
     store_translations(:en, simple_form: { options: { defaults: {
       gender: { male: 'Male', female: 'Female'}

@@ -40,4 +40,10 @@ class PriorityInputTest < ActionView::TestCase
     assert_select 'select.required'
     assert_no_select 'select[required]'
   end
+
+  test 'priority input should not generate invalid aria-required html attribute' do
+    with_input_for @user, :country, :country
+    assert_select 'select.required'
+    assert_no_select 'select[aria-required]'
+  end
 end
