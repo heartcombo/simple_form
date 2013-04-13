@@ -10,5 +10,6 @@
   * Removed deprecated methods.
   * SimpleForm no longer sets the `size` attribute automatically and the `default_input_size` setting
   is now deprecated.
+  * Support to aria-required attribute to required fields [@ckundo](https://github.com/ckundo)
 
 Please check [v2.1](https://github.com/plataformatec/simple_form/blob/v2.1/CHANGELOG.md) for previous changes.
