@@ -94,7 +94,7 @@ class HintTest < ActionView::TestCase
 
   test 'hint should use i18n under defaults namespace to lookup translation' do
     store_translations(:en, simple_form: {
-      hints: {defaults: {name: 'Content of this input will be downcased...' } }
+      hints: { defaults: { name: 'Content of this input will be downcased...' } }
     }) do
       with_hint_for @user, :name
       assert_select 'span.hint', 'Content of this input will be downcased...'

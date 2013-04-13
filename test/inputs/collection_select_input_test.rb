@@ -136,7 +136,7 @@ class CollectionSelectInputTest < ActionView::TestCase
 
   test 'input should allow overriding label and value method using a lambda for collection selects' do
     with_input_for @user, :name, :select,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           label_method: lambda { |i| i.upcase },
                           value_method: lambda { |i| i.downcase }
     assert_select 'select option[value=jose]', "JOSE"
@@ -145,7 +145,7 @@ class CollectionSelectInputTest < ActionView::TestCase
 
   test 'input should allow overriding only label but not value method using a lambda for collection select' do
     with_input_for @user, :name, :select,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           label_method: lambda { |i| i.upcase }
     assert_select 'select option[value=Jose]', "JOSE"
     assert_select 'select option[value=Carlos]', "CARLOS"
@@ -153,7 +153,7 @@ class CollectionSelectInputTest < ActionView::TestCase
 
   test 'input should allow overriding only value but not label method using a lambda for collection select' do
     with_input_for @user, :name, :select,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           value_method: lambda { |i| i.downcase }
     assert_select 'select option[value=jose]', "Jose"
     assert_select 'select option[value=carlos]', "Carlos"
@@ -167,50 +167,50 @@ class CollectionSelectInputTest < ActionView::TestCase
   end
 
   test 'collection input with select type should generate required html attribute only with blank option' do
-    with_input_for @user, :name, :select, include_blank: true, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: true, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[required]'
   end
 
   test 'collection input with select type should not generate required html attribute without blank option' do
-    with_input_for @user, :name, :select, include_blank: false, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: false, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_no_select 'select[required]'
     assert_no_select 'select[aria-required=true]'
   end
 
   test 'collection input with select type with multiple attribute should generate required html attribute without blank option' do
-    with_input_for @user, :name, :select, include_blank: false, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: false, input_html: { multiple: true }, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[required]'
   end
 
   test 'collection input with select type with multiple attribute should generate required html attribute with blank option' do
-    with_input_for @user, :name, :select, include_blank: true, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: true, input_html: { multiple: true }, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[required]'
   end
 
   test 'with a blank option, a collection input of type select has an aria-required html attribute' do
-    with_input_for @user, :name, :select, include_blank: true, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: true, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[aria-required=true]'
   end
 
   test 'without a blank option, a collection input of type select does not have an aria-required html attribute' do
-    with_input_for @user, :name, :select, include_blank: false, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: false, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_no_select 'select[aria-required]'
   end
 
   test 'without a blank option and with a multiple option, a collection input of type select has an aria-required html attribute' do
-    with_input_for @user, :name, :select, include_blank: false, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: false, input_html: { multiple: true }, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[aria-required=true]'
   end
 
   test 'with a blank option and a multiple option, a collection input of type select has an aria-required html attribute' do
-    with_input_for @user, :name, :select, include_blank: true, input_html: {multiple: true}, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :select, include_blank: true, input_html: { multiple: true }, collection: ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[aria-required]'
   end

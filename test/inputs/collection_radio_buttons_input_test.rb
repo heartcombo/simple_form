@@ -98,7 +98,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input should allow overriding only label method for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           label_method: :upcase
     assert_select 'label.collection_radio_buttons', 'JOSE'
     assert_select 'label.collection_radio_buttons', 'CARLOS'
@@ -106,7 +106,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input should allow overriding only value method for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           value_method: :upcase
     assert_select 'input[type=radio][value=JOSE]'
     assert_select 'input[type=radio][value=CARLOS]'
@@ -114,7 +114,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input should allow overriding label and value method for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           label_method: :upcase,
                           value_method: :downcase
     assert_select 'input[type=radio][value=jose]'
@@ -125,7 +125,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input should allow overriding label and value method using a lambda for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose' , 'Carlos'],
+                          collection: ['Jose', 'Carlos'],
                           label_method: lambda { |i| i.upcase },
                           value_method: lambda { |i| i.downcase }
     assert_select 'input[type=radio][value=jose]'
@@ -135,13 +135,13 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'collection input with radio type should generate required html attribute' do
-    with_input_for @user, :name, :radio_buttons, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
     assert_select 'input[type=radio].required'
     assert_select 'input[type=radio][required]'
   end
 
   test 'collection input with radio type should generate aria-required html attribute' do
-    with_input_for @user, :name, :radio_buttons, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
     assert_select 'input[type=radio].required'
     assert_select 'input[type=radio][aria-required=true]'
   end

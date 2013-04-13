@@ -18,13 +18,13 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
   end
 
   test 'collection input with check_boxes type should not generate required html attribute' do
-    with_input_for @user, :name, :check_boxes, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :check_boxes, collection: ['Jose', 'Carlos']
     assert_select 'input.required'
     assert_no_select 'input[required]'
   end
 
   test 'collection input with check_boxes type should not generate aria-required html attribute' do
-    with_input_for @user, :name, :check_boxes, collection: ['Jose' , 'Carlos']
+    with_input_for @user, :name, :check_boxes, collection: ['Jose', 'Carlos']
     assert_select 'input.required'
     assert_no_select 'input[aria-required]'
   end

@@ -299,7 +299,7 @@ class BuilderTest < ActionView::TestCase
   test "collection check box checks the correct value to local variables" do
     user = User.new
     user.tag_ids = [1, 3]
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     with_collection_check_boxes user, :tag_ids, collection, :first, :last
 
     assert_select 'form input[type=checkbox][value=1][checked=checked]'
@@ -308,7 +308,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box accepts selected values as :checked option" do
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, checked: [1, 3]
 
     assert_select 'form input[type=checkbox][value=1][checked=checked]'
@@ -317,7 +317,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check boxes accepts selected string values as :checked option" do
-    collection = (1..3).map{|i| [i, "Category #{i}"] }
+    collection = (1..3).map { |i| [i, "Category #{i}"] }
     with_collection_check_boxes :user, :category_ids, collection, :first, :last, checked: ['1', '3']
 
     assert_select 'input[type=checkbox][value=1][checked=checked]'
@@ -326,7 +326,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box accepts a single checked value" do
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, checked: 3
 
     assert_select 'form input[type=checkbox][value=3][checked=checked]'
@@ -335,7 +335,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box accepts selected values as :checked option and override the model values" do
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     @user.tag_ids = [2]
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, checked: [1, 3]
 
@@ -345,7 +345,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box accepts multiple disabled items" do
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, disabled: [1, 3]
 
     assert_select 'form input[type=checkbox][value=1][disabled=disabled]'
@@ -354,7 +354,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box accepts single disable item" do
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, disabled: 1
 
     assert_select 'form input[type=checkbox][value=1][disabled=disabled]'
@@ -363,7 +363,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box accepts a proc to disabled items" do
-    collection = (1..3).map{|i| [i, "Tag #{i}"] }
+    collection = (1..3).map { |i| [i, "Tag #{i}"] }
     with_collection_check_boxes @user, :tag_ids, collection, :first, :last, disabled: proc { |i| i.first == 1 }
 
     assert_select 'form input[type=checkbox][value=1][disabled=disabled]'

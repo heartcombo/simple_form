@@ -12,7 +12,7 @@ class Company < Struct.new(:id, :name)
   include ActiveModel::Conversion
 
   def self.all(options={})
-    all = (1..3).map{|i| Company.new(i, "Company #{i}")}
+    all = (1..3).map { |i| Company.new(i, "Company #{i}") }
     return [all.first] if options[:conditions].present?
     return [all.last]  if options[:order].present?
     return all[0..1] if options[:include].present?
@@ -31,7 +31,7 @@ end
 
 class Tag < Company
   def self.all(options={})
-    (1..3).map{|i| Tag.new(i, "Tag #{i}")}
+    (1..3).map { |i| Tag.new(i, "Tag #{i}") }
   end
 end
 
@@ -187,11 +187,11 @@ class OtherValidatingUser < User
     only_integer: true
   validates_numericality_of :amount,
     greater_than: Proc.new { |user| user.age },
-    less_than: Proc.new { |user| user.age + 100},
+    less_than: Proc.new { |user| user.age + 100 },
     only_integer: true
   validates_numericality_of :attempts,
     greater_than_or_equal_to: Proc.new { |user| user.age },
-    less_than_or_equal_to: Proc.new { |user| user.age + 100},
+    less_than_or_equal_to: Proc.new { |user| user.age + 100 },
     only_integer: true
 
   validates_format_of :country, with: /\w+/
