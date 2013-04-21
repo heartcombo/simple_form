@@ -113,11 +113,11 @@ module MiscHelpers
   end
 
   def custom_form_for(object, *args, &block)
-    simple_form_for(object, *(args << { builder: CustomFormBuilder }), &block)
+    simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end
 
   def custom_mapping_form_for(object, *args, &block)
-    simple_form_for(object, *(args << { builder: CustomMapTypeFormBuilder }), &block)
+    simple_form_for(object, *args, { builder: CustomMapTypeFormBuilder }, &block)
   end
 
   def with_concat_form_for(*args, &block)
@@ -151,7 +151,7 @@ end
 
 class CustomFormBuilder < SimpleForm::FormBuilder
   def input(attribute_name, *args, &block)
-    super(attribute_name, *(args << { input_html: { class: 'custom' } }), &block)
+    super(attribute_name, *args, { input_html: { class: 'custom' } }, &block)
   end
 end
 

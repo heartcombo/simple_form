@@ -23,7 +23,7 @@ module SimpleForm
         else
           options[:builder] ||= SimpleForm::FormBuilder
         end
-        fields_for(*(args << options), &block)
+        fields_for(*args, options, &block)
       end
     end
   end
