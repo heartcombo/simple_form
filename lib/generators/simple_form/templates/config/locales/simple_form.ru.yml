@@ -1,0 +1,26 @@
+ru:
+  simple_form:
+    "yes": 'Да'
+    "no": 'Нет'
+    required:
+      text: 'обязательное поле'
+      mark: '*'
+      # Вы можете раскомментировать следующую строку, если вам необходимо целиком изменить html-код для обязательных полей.
+      # Когда используется html, text и mark игнорируются
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Пожалуйста исправьте следующие ошибки:"
+    # Labels and hints examples
+    # labels:
+    #   defaults:
+    #     password: 'Пароль'
+    #   user:
+    #     new:
+    #       email: 'E-mail для входа в систему.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'Имя пользователя для входа в систему.'
+    #     password: 'Пожалуйста, не используйте спецсимволы.'
+
