@@ -139,7 +139,7 @@ module SimpleForm
   mattr_accessor :button_class
   @@button_class = 'button'
 
-  # Override the default ActiveRecordHelper behaviour of wrapping the input.
+  # Override the default ActiveModelHelper behaviour of wrapping the input.
   # This gets taken care of semantically by adding an error class to the wrapper tag
   # containing the input.
   mattr_accessor :field_error_proc
