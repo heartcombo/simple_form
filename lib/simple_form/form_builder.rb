@@ -456,7 +456,7 @@ module SimpleForm
     # The action to be used in lookup.
     def lookup_action
       @lookup_action ||= begin
-        action = template.controller.action_name
+        action = template.controller && template.controller.action_name
         return unless action
         action = action.to_sym
         ACTIONS[action] || action
