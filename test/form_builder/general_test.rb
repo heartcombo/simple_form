@@ -22,6 +22,14 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder should work without controller' do
+    stub_any_instance ActionView::TestCase, :controller, nil do
+      simple_form_for @user do |f|
+        assert f.input(:name)
+      end
+    end
+  end
+
   test 'builder input should allow a block to configure input' do
     with_form_for @user, :name do
       text_field_tag :foo, :bar, id: :cool
