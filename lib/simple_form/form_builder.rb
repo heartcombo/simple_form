@@ -443,7 +443,7 @@ module SimpleForm
     # route[blocks_attributes][0][blocks_learning_object_attributes][1][foo_attributes]
     # ["route", "blocks", "blocks_learning_object", "foo"]
     #
-    def lookup_model_names
+    def lookup_model_names #:nodoc:
       @lookup_model_names ||= begin
         child_index = options[:child_index]
         names = object_name.to_s.scan(/([a-zA-Z_]+)/).flatten
@@ -454,7 +454,7 @@ module SimpleForm
     end
 
     # The action to be used in lookup.
-    def lookup_action
+    def lookup_action #:nodoc:
       @lookup_action ||= begin
         action = template.controller && template.controller.action_name
         return unless action
