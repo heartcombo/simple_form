@@ -1,3 +1,15 @@
+Adapter = Struct.new(:all) do
+  def find_all(options)
+    if options[:conditions]
+      [all.first]
+    elsif options[:order]
+      [all.last]
+    else
+      all
+    end
+  end
+end
+
 Association = Struct.new(:klass, :name, :macro, :options)
 
 Column = Struct.new(:name, :type, :limit) do
@@ -12,15 +24,11 @@ Company = Struct.new(:id, :name) do
   include ActiveModel::Conversion
 
   def self.all(options={})
-    all = (1..3).map { |i| Company.new(i, "Company #{i}") }
+    (1..3).map { |i| new(i, "#{name} #{i}") }
+  end
 
-    if options[:conditions]
-      [all.first]
-    elsif options[:order]
-      [all.last]
-    else
-      all
-    end
+  def self.to_adapter
+    Adapter.new all
   end
 
   def persisted?
@@ -28,11 +36,7 @@ Company = Struct.new(:id, :name) do
   end
 end
 
-class Tag < Company
-  def self.all(options={})
-    (1..3).map { |i| Tag.new(i, "Tag #{i}") }
-  end
-end
+class Tag < Company; end
 
 TagGroup = Struct.new(:id, :name, :tags)
 

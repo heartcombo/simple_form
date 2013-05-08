@@ -180,7 +180,7 @@ module SimpleForm
 
       options[:as] ||= :select
       options[:collection] ||= options.fetch(:collection) {
-        reflection.klass.all(reflection.options.slice(:conditions, :order))
+        reflection.klass.to_adapter.find_all(reflection.options.slice(:conditions, :order))
       }
 
       attribute = case reflection.macro

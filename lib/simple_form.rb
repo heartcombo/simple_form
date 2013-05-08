@@ -1,4 +1,5 @@
 require 'action_view'
+require 'orm_adapter'
 require 'simple_form/action_view_extensions/form_helper'
 require 'simple_form/action_view_extensions/builder'
 require 'active_support/core_ext/hash/slice'
