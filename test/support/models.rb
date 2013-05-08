@@ -13,15 +13,14 @@ Company = Struct.new(:id, :name) do
 
   def self.all(options={})
     all = (1..3).map { |i| Company.new(i, "Company #{i}") }
-    return [all.first] if options[:conditions].present?
-    return [all.last]  if options[:order].present?
-    return all[0..1] if options[:include].present?
-    return all[1..2] if options[:joins].present?
-    all
-  end
 
-  def self.merge_conditions(a, b)
-    (a || {}).merge(b || {})
+    if options[:conditions]
+      [all.first]
+    elsif options[:order]
+      [all.last]
+    else
+      all
+    end
   end
 
   def persisted?
