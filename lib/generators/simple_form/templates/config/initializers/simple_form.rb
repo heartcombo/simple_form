@@ -136,11 +136,4 @@ SimpleForm.setup do |config|
 
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
-
-  # Override the default ActiveModelHelper behaviour of wrapping the input.
-  # This gets taken care of semantically by adding an error class to the wrapper tag
-  # containing the input.
-  # config.field_error_proc = proc do |html_tag, instance_tag|
-  #   html_tag
-  # end
 end
