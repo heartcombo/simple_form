@@ -1,13 +1,13 @@
 Association = Struct.new(:klass, :name, :macro, :options)
 
-class Column < Struct.new(:name, :type, :limit)
+Column = Struct.new(:name, :type, :limit) do
   # Returns +true+ if the column is either of type integer, float or decimal.
   def number?
     type == :integer || type == :float || type == :decimal
   end
 end
 
-class Company < Struct.new(:id, :name)
+Company = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
@@ -35,8 +35,7 @@ class Tag < Company
   end
 end
 
-class TagGroup < Struct.new(:id, :name, :tags)
-end
+TagGroup = Struct.new(:id, :name, :tags)
 
 class User
   extend ActiveModel::Naming
