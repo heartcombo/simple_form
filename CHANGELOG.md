@@ -1,5 +1,8 @@
 ## master
 
+### enhancements
+  * Make `field_error_proc` configurable [@dfens](https://github.com/dfens)
+ 
 ### bug fix
   * Form builder can be used outside the context of a controller [@jasonwebster](https://github.com/jasonwebster)
   * Skip pattern attribute when using `validates_format_of` with `:without` option [@glebm](https://github.com/glebm)
