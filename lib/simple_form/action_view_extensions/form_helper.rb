@@ -9,13 +9,6 @@ module SimpleForm
     #   end
     #
     module FormHelper
-      # Override the default ActiveRecordHelper behaviour of wrapping the input.
-      # This gets taken care of semantically by adding an error class to the wrapper tag
-      # containing the input.
-      #
-      FIELD_ERROR_PROC = proc do |html_tag, instance_tag|
-        html_tag
-      end
 
       def simple_form_for(record, options={}, &block)
         options[:builder] ||= SimpleForm::FormBuilder
@@ -44,7 +37,7 @@ module SimpleForm
       def with_simple_form_field_error_proc
         default_field_error_proc = ::ActionView::Base.field_error_proc
         begin
-          ::ActionView::Base.field_error_proc = FIELD_ERROR_PROC
+          ::ActionView::Base.field_error_proc = SimpleForm.field_error_proc
           yield
         ensure
           ::ActionView::Base.field_error_proc = default_field_error_proc

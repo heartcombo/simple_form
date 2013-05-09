@@ -131,6 +131,15 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
+  test 'SimpleForm for swaps default action view field_error_proc' do
+    expected_error_proc = lambda {}
+    swap SimpleForm, field_error_proc: expected_error_proc do
+      simple_form_for :user do |f|
+        assert_equal expected_error_proc, ::ActionView::Base.field_error_proc
+      end
+    end
+  end
+
   private
 
   def swap_field_error_proc(expected_error_proc = lambda {})
