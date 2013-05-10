@@ -7,26 +7,32 @@ Column = Struct.new(:name, :type, :limit) do
   end
 end
 
-class RelationArray < Array
-  def order(order='')
-    return [last] if order.present?
-    self
+Relation = Struct.new(:all) do
+  def where(conditions = nil)
+    self.class.new conditions ? all.first : all
   end
+
+  def order(conditions = nil)
+    self.class.new conditions ? all.last : all
+  end
+
+  alias_method :to_a, :all
 end
 
 Company = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def self.where(conditions={})
-    return RelationArray.new([all.first]) if conditions.present?
-    all
+  class << self
+    delegate :order, :where, to: :_relation
+  end
+
+  def self._relation
+    Relation.new(all)
   end
 
   def self.all
-    all = RelationArray.new
-    (1..3).map { |i| all << Company.new(i, "Company #{i}") }
-    all
+    (1..3).map { |i| new(i, "#{name} #{i}") }
   end
 
   def persisted?
@@ -34,18 +40,7 @@ Company = Struct.new(:id, :name) do
   end
 end
 
-class Tag < Company
-  def self.all(options={})
-    (1..3).map { |i| Tag.new(i, "Tag #{i}") }
-  end
-
-  def self.where(conditions={})
-    all = RelationArray.new
-    (1..3).map{|i| all << Tag.new(i, "Tag #{i}")}
-    return RelationArray.new(all.first) if conditions.present?
-    all
-  end
-end
+class Tag < Company; end
 
 TagGroup = Struct.new(:id, :name, :tags)
 
