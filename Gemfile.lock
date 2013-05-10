@@ -4,6 +4,7 @@ PATH
     simple_form (3.0.0.beta1)
       actionpack (>= 4.0.0.rc1, < 4.1)
       activemodel (>= 4.0.0.rc1, < 4.1)
+      orm_adapter (~> 0.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -31,6 +32,7 @@ GEM
     json (1.7.7)
     minitest (4.7.4)
     multi_json (1.7.2)
+    orm_adapter (0.4.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)

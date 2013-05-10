@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency('activemodel', '>= 4.0.0.rc1', '< 4.1')
   s.add_dependency('actionpack', '>= 4.0.0.rc1', '< 4.1')
+  s.add_dependency('orm_adapter', '~> 0.4.0')
 end
