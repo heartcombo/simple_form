@@ -23,20 +23,9 @@ Company = Struct.new(:id, :name) do
     all
   end
 
-  def self.includes(includes=[])
-    return RelationArray.new([all[0..1]]) if includes.present?
-    all
-  end
-
-  def self.joins(joins=[])
-    return RelationArray.new([all[1..2]]) if joins.present?
-    all
-  end
-
-  ###just simple Relation#all
   def self.all
     all = RelationArray.new
-    (1..3).map{|i| all << Company.new(i, "Company #{i}")}
+    (1..3).map { |i| all << Company.new(i, "Company #{i}") }
     all
   end
 
