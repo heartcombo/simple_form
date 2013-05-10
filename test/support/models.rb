@@ -7,20 +7,37 @@ Column = Struct.new(:name, :type, :limit) do
   end
 end
 
+class RelationArray < Array
+  def order(order='')
+    return [last] if order.present?
+    self
+  end
+end
+
 Company = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def self.all(options={})
-    all = (1..3).map { |i| Company.new(i, "Company #{i}") }
+  def self.where(conditions={})
+    return RelationArray.new([all.first]) if conditions.present?
+    all
+  end
 
-    if options[:conditions]
-      [all.first]
-    elsif options[:order]
-      [all.last]
-    else
-      all
-    end
+  def self.includes(includes=[])
+    return RelationArray.new([all[0..1]]) if includes.present?
+    all
+  end
+
+  def self.joins(joins=[])
+    return RelationArray.new([all[1..2]]) if joins.present?
+    all
+  end
+
+  ###just simple Relation#all
+  def self.all
+    all = RelationArray.new
+    (1..3).map{|i| all << Company.new(i, "Company #{i}")}
+    all
   end
 
   def persisted?
@@ -31,6 +48,13 @@ end
 class Tag < Company
   def self.all(options={})
     (1..3).map { |i| Tag.new(i, "Tag #{i}") }
+  end
+
+  def self.where(conditions={})
+    all = RelationArray.new
+    (1..3).map{|i| all << Tag.new(i, "Tag #{i}")}
+    return RelationArray.new(all.first) if conditions.present?
+    all
   end
 end
 
