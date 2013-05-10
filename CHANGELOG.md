@@ -1,4 +1,4 @@
-## master
+## 3.0.0.rc
 
 ### enhancements
   * Make `field_error_proc` configurable [@dfens](https://github.com/dfens)
