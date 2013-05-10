@@ -7,20 +7,32 @@ Column = Struct.new(:name, :type, :limit) do
   end
 end
 
+Relation = Struct.new(:all) do
+  def where(conditions = nil)
+    self.class.new conditions ? all.first : all
+  end
+
+  def order(conditions = nil)
+    self.class.new conditions ? all.last : all
+  end
+
+  alias_method :to_a, :all
+end
+
 Company = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def self.all(options={})
-    all = (1..3).map { |i| Company.new(i, "Company #{i}") }
+  class << self
+    delegate :order, :where, to: :_relation
+  end
 
-    if options[:conditions]
-      [all.first]
-    elsif options[:order]
-      [all.last]
-    else
-      all
-    end
+  def self._relation
+    Relation.new(all)
+  end
+
+  def self.all
+    (1..3).map { |i| new(i, "#{name} #{i}") }
   end
 
   def persisted?
@@ -28,11 +40,7 @@ Company = Struct.new(:id, :name) do
   end
 end
 
-class Tag < Company
-  def self.all(options={})
-    (1..3).map { |i| Tag.new(i, "Tag #{i}") }
-  end
-end
+class Tag < Company; end
 
 TagGroup = Struct.new(:id, :name, :tags)
 
