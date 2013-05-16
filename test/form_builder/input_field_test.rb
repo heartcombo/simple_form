@@ -21,6 +21,23 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'textarea#user_name.text'
   end
 
+  test 'builder input_field should generate input type based on column type' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :age
+    end
+
+    assert_select 'input[type=number].integer#user_age'
+  end
+
+  test 'builder input_field should be able to disable any component' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :age, :html5 => false
+    end
+
+    assert_no_select 'input[html5=false]#user_age'
+    assert_select 'input[type=text].integer#user_age'
+  end
+
   test 'builder input_field should allow passing options to input tag' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, :id => 'name_input', :class => 'name'

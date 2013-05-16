@@ -1,3 +1,8 @@
+## master
+
+### enhancements
+  * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
+
 ## 2.1.0
 
 ### enhancements
