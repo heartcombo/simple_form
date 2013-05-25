@@ -182,7 +182,9 @@ module SimpleForm
 
       options[:as] ||= :select
       options[:collection] ||= options.fetch(:collection) {
-        reflection.klass.where(reflection.options[:conditions]).order(reflection.options[:order]).to_a
+        conditions = reflection.options[:conditions]
+        conditions = conditions.call if conditions.is_a?(Proc)
+        reflection.klass.where(conditions).order(reflection.options[:order]).to_a
       }
 
       attribute = case reflection.macro
