@@ -9,6 +9,7 @@ end
 
 Relation = Struct.new(:all) do
   def where(conditions = nil)
+    conditions = conditions.call if conditions.is_a? Proc
     self.class.new conditions ? all.first : all
   end
 
@@ -52,7 +53,8 @@ class User
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
-    :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender
+    :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
+    :extra_special_company_id
 
   def initialize(options={})
     @new_record = false
@@ -119,6 +121,8 @@ class User
         Association.new(Company, association, :has_one, {})
       when :special_company
         Association.new(Company, association, :belongs_to, { conditions: { id: 1 } })
+      when :extra_special_company
+        Association.new(Company, association, :belongs_to, { conditions: proc { { id: 1 } } })
     end
   end
 
