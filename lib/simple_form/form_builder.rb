@@ -183,7 +183,7 @@ module SimpleForm
       options[:as] ||= :select
       options[:collection] ||= options.fetch(:collection) {
         conditions = reflection.options[:conditions]
-        conditions = conditions.call if conditions.is_a?(Proc)
+        conditions = conditions.call if conditions.respond_to?(:call)
         reflection.klass.where(conditions).order(reflection.options[:order]).to_a
       }
 
