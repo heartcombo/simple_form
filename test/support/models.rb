@@ -9,7 +9,6 @@ end
 
 Relation = Struct.new(:all) do
   def where(conditions = nil)
-    conditions = conditions.call if conditions.is_a? Proc
     self.class.new conditions ? all.first : all
   end
 
