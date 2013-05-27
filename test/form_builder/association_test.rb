@@ -105,6 +105,14 @@ class AssociationTest < ActionView::TestCase
     assert_select 'form input.radio_buttons#user_company_id_3'
   end
 
+  test 'builder allows collection to have a proc as a condition' do
+    with_association_for @user, :extra_special_company
+    assert_select 'form select.select#user_extra_special_company_id'
+    assert_select 'form select option[value=1]'
+    assert_no_select 'form select option[value=2]'
+    assert_no_select 'form select option[value=3]'
+  end
+
   test 'builder marks the record which already belongs to the user' do
     @user.company_id = 2
     with_association_for @user, :company, as: :radio_buttons
