@@ -1,6 +1,7 @@
 ## master
 
 ### enhancements
+  * Support `Proc` object in `:conditions` option of associations [@bradly](https://github.com/bradly)
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
 
 ## 3.0.0.rc
