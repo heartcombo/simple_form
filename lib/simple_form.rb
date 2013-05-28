@@ -66,7 +66,7 @@ module SimpleForm
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
-  @@label_text = lambda { |label, required| "#{required} #{label}" }
+  @@label_text = proc { |label, required| "#{required} #{label}" }
 
   # You can define the class to be used on all labels. Defaults to none.
   mattr_accessor :label_class
