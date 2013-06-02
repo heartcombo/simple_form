@@ -39,7 +39,18 @@ class CollectionSelectInputTest < ActionView::TestCase
     end
   end
 
-  test 'input should do automatic collection translation for select types using specific object key' do
+  test 'input should do automatic collection translation for select types using specific object key for strings' do
+    store_translations(:en, simple_form: { options: { user: {
+      gender: { male: 'Male', female: 'Female'}
+    } } } ) do
+      with_input_for @user, :gender, :select, collection: ['male', 'female']
+      assert_select 'select.select#user_gender'
+      assert_select 'select option', 'Male'
+      assert_select 'select option', 'Female'
+    end
+  end
+
+  test 'input should do automatic collection translation for select types using specific object key for symbols' do
     store_translations(:en, simple_form: { options: { user: {
       gender: { male: 'Male', female: 'Female'}
     } } } ) do
