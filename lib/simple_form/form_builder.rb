@@ -450,7 +450,7 @@ module SimpleForm
     def lookup_model_names #:nodoc:
       @lookup_model_names ||= begin
         child_index = options[:child_index]
-        names = object_name.to_s.scan(/([a-zA-Z_]+)/).flatten
+        names = object_name.to_s.scan(/([a-zA-Z_0-9]+)/).flatten
         names.delete(child_index) if child_index
         names.each { |name| name.gsub!('_attributes', '') }
         names.freeze
