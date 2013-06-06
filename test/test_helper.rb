@@ -69,6 +69,15 @@ class ActionView::TestCase
       age: 19,
       company: 1
     }.merge(options))
+
+    @user_number1 =  UserNumber1.new({
+      id: 1,
+      name: 'New in SimpleForm!',
+      description: 'Hello!',
+      created_at: Time.now
+    }.merge(options))
+
+    @user_number1.tags = [Tag.new(nil, 'Tag1')]
   end
 
   def protect_against_forgery?
