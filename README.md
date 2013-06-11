@@ -232,7 +232,7 @@ The easiest way to achieve this is to use `f.input_field`.
 
 Example:
 
-```erb
+```ruby
 simple_form_for @user do |f|
   f.input_field :name
 end
@@ -240,7 +240,7 @@ end
 
 Produces:
 
-```erb
+```html
 <input class="string required" id="user_name" maxlength="100"
    name="user[name]" size="100" type="text" value="Carlos" />
 ```
