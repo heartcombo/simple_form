@@ -88,14 +88,23 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder allow to use numbers in the model name' do
-    with_concat_form_for(@user_number1, url: '/') do |f|
+    user =  UserNumber1And2.new({
+      id: 1,
+      name: 'New in SimpleForm!',
+      description: 'Hello!',
+      created_at: Time.now
+    })
+
+    user.tags = [Tag.new(nil, 'Tag1')]
+
+    with_concat_form_for(user, url: '/') do |f|
       f.simple_fields_for(:tags) do |tags|
         tags.input :name
       end
     end
 
-    assert_select 'form .user_number1_tags_name'
-    assert_no_select 'form .user_number1_tags_1_name'
+    assert_select 'form .user_number1_and2_tags_name'
+    assert_no_select 'form .user_number1_and2_tags_1_name'
   end
 
   # INPUT TYPES

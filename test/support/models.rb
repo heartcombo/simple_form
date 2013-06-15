@@ -219,5 +219,5 @@ class HashBackedAuthor < Hash
   end
 end
 
-class UserNumber1 < User
+class UserNumber1And2 < User
 end
