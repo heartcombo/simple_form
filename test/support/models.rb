@@ -218,3 +218,6 @@ class HashBackedAuthor < Hash
     'hash backed author'
   end
 end
+
+class UserNumber1And2 < User
+end
