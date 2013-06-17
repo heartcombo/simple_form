@@ -87,6 +87,26 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder allow to use numbers in the model name' do
+    user =  UserNumber1And2.new({
+      id: 1,
+      name: 'New in SimpleForm!',
+      description: 'Hello!',
+      created_at: Time.now
+    })
+
+    user.tags = [Tag.new(nil, 'Tag1')]
+
+    with_concat_form_for(user, url: '/') do |f|
+      f.simple_fields_for(:tags) do |tags|
+        tags.input :name
+      end
+    end
+
+    assert_select 'form .user_number1_and2_tags_name'
+    assert_no_select 'form .user_number1_and2_tags_1_name'
+  end
+
   # INPUT TYPES
   test 'builder should generate text fields for string columns' do
     with_form_for @user, :name
