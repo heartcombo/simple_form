@@ -56,6 +56,12 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'select option[selected=selected]', 'Carlos'
   end
 
+  test 'input should accept html options as the last element of collection' do
+    with_input_for @user, :name, :select, collection: [['Jose', class: 'foo']]
+    assert_select 'select.select#user_name'
+    assert_select 'select option.foo', 'Jose'
+  end
+
   test 'input should mark the selected value also when using integers' do
     @user.age = 18
     with_input_for @user, :age, :select, collection: 18..60
