@@ -3,6 +3,9 @@
 ### enhancements
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
 
+### bug fix
+  * Support models with digits in their names [@webgago](https://github.com/webgago)
+
 ## 2.1.0
 
 ### enhancements
