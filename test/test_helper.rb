@@ -41,15 +41,6 @@ class ActionView::TestCase
     @controller = MockController.new
   end
 
-  def stub_user(options={})
-    User.new({
-      id: 1,
-      name: 'New in SimpleForm!',
-      description: 'Hello!',
-      created_at: Time.now
-    }.merge(options))
-  end
-
   def setup_new_user(options={})
     @user = User.new({
       id: 1,
