@@ -4,6 +4,9 @@
   * Support `Proc` object in `:conditions` option of associations [@bradly](https://github.com/bradly)
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
 
+### bug fix
+  * Support models with digits in their names [@webgago](https://github.com/webgago)
+
 ## 3.0.0.rc
 
 ### enhancements
