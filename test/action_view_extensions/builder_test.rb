@@ -49,8 +49,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection radio checks the correct value to local variables" do
-    user = User.new
-    user.active = false
+    user = User.build(active: false)
     with_collection_radio_buttons user, :active, [true, false], :to_s, :to_s
 
     assert_select 'form input[type=radio][value=true]'
@@ -297,9 +296,9 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box checks the correct value to local variables" do
-    user = User.new
-    user.tag_ids = [1, 3]
+    user = User.build(tag_ids: [1, 3])
     collection = (1..3).map { |i| [i, "Tag #{i}"] }
+
     with_collection_check_boxes user, :tag_ids, collection, :first, :last
 
     assert_select 'form input[type=checkbox][value=1][checked=checked]'

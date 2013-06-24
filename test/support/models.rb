@@ -55,6 +55,17 @@ class User
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
     :extra_special_company_id
 
+  def self.build(extra_attributes = {})
+    attributes = {
+      id: 1,
+      name: 'New in SimpleForm!',
+      description: 'Hello!',
+      created_at: Time.now
+    }.merge! extra_attributes
+
+    new attributes
+  end
+
   def initialize(options={})
     @new_record = false
     options.each do |key, value|

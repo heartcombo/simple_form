@@ -112,7 +112,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   end
 
   test 'input should detect label and value on collections' do
-    users = [ setup_new_user(id: 1, name: "Jose"), setup_new_user(id: 2, name: "Carlos") ]
+    users = [User.build(id: 1, name: "Jose"), User.build(id: 2, name: "Carlos")]
     with_input_for @user, :description, :select, collection: users
     assert_select 'select option[value=1]', 'Jose'
     assert_select 'select option[value=2]', 'Carlos'
