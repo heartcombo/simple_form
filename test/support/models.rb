@@ -1,12 +1,3 @@
-Association = Struct.new(:klass, :name, :macro, :options)
-
-Column = Struct.new(:name, :type, :limit) do
-  # Returns +true+ if the column is either of type integer, float or decimal.
-  def number?
-    type == :integer || type == :float || type == :decimal
-  end
-end
-
 Relation = Struct.new(:all) do
   def where(conditions = nil)
     self.class.new conditions ? all.first : all
@@ -87,25 +78,30 @@ class User
   def tags_attributes=(*)
   end
 
-  def column_for_attribute(attribute)
-    column_type, limit = case attribute.to_sym
-      when :name, :status, :password then [:string, 100]
-      when :description   then [:text, 200]
-      when :age           then :integer
-      when :credit_limit  then [:decimal, 15]
-      when :active        then :boolean
-      when :born_at       then :date
-      when :delivery_time then :time
-      when :created_at    then :datetime
-      when :updated_at    then :timestamp
-      when :lock_version  then :integer
-      when :home_picture  then :string
-      when :amount        then :integer
-      when :attempts      then :integer
-      when :action        then :string
-      when :credit_card   then :string
+  def self.simple_form_column_for attribute
+    type, limit = {
+      :name           => [:string, 100],
+      :status         => [:string, 100],
+      :password       => [:string, 100],
+      :description    => [:text, 200],
+      :age            => :integer,
+      :credit_limit   => [:decimal, 15],
+      :active         => :boolean,
+      :born_at        => :date,
+      :delivery_time  => :time,
+      :created_at     => :datetime,
+      :updated_at     => :timestamp,
+      :lock_version   => :integer,
+      :home_picture   => :string,
+      :amount         => :integer,
+      :attempts       => :integer,
+      :action         => :string,
+      :credit_card    => :string,
+    }[attribute]
+    SimpleForm::Column.new do |col|
+      col.type = type
+      col.limit = limit
     end
-    Column.new(attribute, column_type, limit)
   end
 
   def self.human_attribute_name(attribute)
@@ -121,18 +117,40 @@ class User
     end
   end
 
-  def self.reflect_on_association(association)
+  def self.simple_form_association_for association
     case association
       when :company
-        Association.new(Company, association, :belongs_to, {})
+        SimpleForm::Association.new do |assoc|
+          assoc.klass = Company
+          assoc.name = :company
+          assoc.macro = :belongs_to
+        end
       when :tags
-        Association.new(Tag, association, :has_many, {})
+        SimpleForm::Association.new do |assoc|
+          assoc.klass = Tag
+          assoc.name = :tags
+          assoc.macro = :has_many
+        end
       when :first_company
-        Association.new(Company, association, :has_one, {})
+        SimpleForm::Association.new do |assoc|
+          assoc.klass = Company
+          assoc.name = :first_company
+          assoc.macro = :has_one
+        end
       when :special_company
-        Association.new(Company, association, :belongs_to, { conditions: { id: 1 } })
+        SimpleForm::Association.new do |assoc|
+          assoc.klass = Company
+          assoc.name = :special_company
+          assoc.macro = :belongs_to
+          assoc.options[:conditions] = {id: 1}
+        end
       when :extra_special_company
-        Association.new(Company, association, :belongs_to, { conditions: proc { { id: 1 } } })
+        SimpleForm::Association.new do |assoc|
+          assoc.klass = Company
+          assoc.name = :extra_special_company
+          assoc.macro = :belongs_to
+          assoc.options[:conditions] = proc { {id: 1} }
+        end
     end
   end
 

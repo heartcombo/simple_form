@@ -521,14 +521,14 @@ module SimpleForm
     end
 
     def find_attribute_column(attribute_name) #:nodoc:
-      if @object.respond_to?(:column_for_attribute)
-        @object.column_for_attribute(attribute_name)
+      if @object.class.respond_to?(:simple_form_column_for)
+        @object.class.simple_form_column_for(attribute_name)
       end
     end
 
     def find_association_reflection(association) #:nodoc:
-      if @object.class.respond_to?(:reflect_on_association)
-        @object.class.reflect_on_association(association)
+      if @object.class.respond_to?(:simple_form_association_for)
+        @object.class.simple_form_association_for(association)
       end
     end
 

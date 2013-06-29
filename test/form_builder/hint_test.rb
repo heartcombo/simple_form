@@ -105,7 +105,11 @@ class HintTest < ActionView::TestCase
     store_translations(:en, simple_form: { hints: {
       user: { company: 'My company!' }
     } } ) do
-      with_hint_for @user, :company_id, as: :string, reflection: Association.new(Company, :company, {})
+      reflection = SimpleForm::Association.new do |assoc|
+        assoc.klass = Company
+        assoc.name = :company
+      end
+      with_hint_for @user, :company_id, as: :string, reflection: reflection
       assert_select 'span.hint', /My company!/
     end
   end

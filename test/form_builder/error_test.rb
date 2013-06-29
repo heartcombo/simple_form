@@ -62,8 +62,12 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'error should find errors on attribute and association' do
+    reflection = SimpleForm::Association.new do |assoc|
+      assoc.klass = Company
+      assoc.name = :company
+    end
     with_error_for @user, :company_id, as: :select,
-      error_method: :to_sentence, reflection: Association.new(Company, :company, {})
+      error_method: :to_sentence, reflection: reflection
     assert_select 'span.error', 'must be valid and company must be present'
   end
 
