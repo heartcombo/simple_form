@@ -1,5 +1,5 @@
-# A Column object respresents the specs of an attribute as defined in
-# the database in an Object Mapper independent manor. A Object Mapper
+# A Column object represents the specs of an attribute as defined in
+# the database in an Object Mapper independent manner. A Object Mapper
 # independent version of ActiveRecord::ConnectionAdapters::ColumnDefinition
 class SimpleForm::Column
 
