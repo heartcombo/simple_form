@@ -17,6 +17,7 @@ module SimpleForm
           input
         elsif nested_boolean_style?
           html_options = label_html_options.dup
+          html_options[:class] ||= []
           html_options[:class].push(:checkbox)
 
           build_hidden_field_for_checkbox +
