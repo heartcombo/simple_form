@@ -1,10 +1,13 @@
 module SimpleForm
   module Oms
+
+    # MongoMapper extensions to complete the object mapper abstraction.
     module MongoMapper
       extend ActiveSupport::Concern
 
       module ClassMethods
-        # Returns a SimpleForm::Column that describes the attribute 
+
+        # An instance of SimpleForm::Column that describes the column 
         def simple_form_column_for attribute
           mm_col = keys[attribute.to_s]
           return unless mm_col
@@ -14,7 +17,8 @@ module SimpleForm
           end
         end
 
-        # Returns a SimpleForm::Association that describes the relationship
+        # An instance of SimpleForm::Association that describe the
+        # relationship between two objects.
         def simple_form_association_for attribute
           mm_assoc = associations[attribute]
           return unless mm_assoc
@@ -31,9 +35,9 @@ module SimpleForm
         end
 
         # MongoMapper doesn't support readonly attributes
-        def readonly_attributes; [] end
-      end
+        def simple_form_readonly_attributes; [] end
 
+      end
     end
   end
 end

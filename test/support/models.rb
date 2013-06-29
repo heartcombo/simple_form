@@ -167,7 +167,7 @@ class User
     end
   end
 
-  def self.readonly_attributes
+  def self.simple_form_readonly_attributes
     ["credit_card"]
   end
 end
