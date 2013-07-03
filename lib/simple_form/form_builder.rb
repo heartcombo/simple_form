@@ -169,6 +169,8 @@ module SimpleForm
     #
     # From the options above, only :collection can also be supplied.
     #
+    # Please note that the association helper is currently only tested with Active Record. Depending on the ORM you are using your mileage may vary.
+    #
     def association(association, options={}, &block)
       options = options.dup
 
