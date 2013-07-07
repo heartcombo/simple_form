@@ -372,6 +372,8 @@ In case you want to declare different labels and values:
 f.association :company, label_method: :company_name, value_method: :id, include_blank: false
 ```
 
+Please note that the association helper is currently only tested with Active Record. It currently does not work well with Mongoid and depending on the ORM you're using your mileage may vary.
+
 ### Buttons
 
 All web forms need buttons, right? **SimpleForm** wraps them in the DSL, acting like a proxy:
