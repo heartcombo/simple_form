@@ -5,6 +5,9 @@
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
 
 ### bug fix
+  * Make `DateTimeInput#label_target` method to work with string values in `I18n.t('date.order')` (default 
+  behaviour in Rails 4)
+  Closes [#846](https://github.com/plataformatec/simple_form/issues/846) [@mjankowski](https://github.com/mjankowski)
   * Add "checkbox" class to the label of boolean input when there is no `:label`
   in `generate_additional_classes_for` config option [@nashby](https://github.com/nashby)
   * Support models with digits in their names [@webgago](https://github.com/webgago)
