@@ -14,7 +14,7 @@ module SimpleForm
           date_order.first
         else
           :hour
-        end
+        end.to_sym
 
         position = ActionView::Helpers::DateTimeSelector::POSITION[position]
         "#{attribute_name}_#{position}i"
