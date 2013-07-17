@@ -866,7 +866,7 @@ You can also add `novalidate` to a specific form by setting the option on the fo
 <%= simple_form_for(resource, html: {novalidate: true}) do |form| %>
 ```
 
-Please notice that any of the configurations above will disable the `placeholder` component,
+Please notice that any of the configurations above will not disable the `placeholder` component,
 which is an HTML 5 feature. We believe most of the newest browsers are handling this attribute fine,
 and if they aren't, any plugin you use would take of using the placeholder attribute to do it.
 However, you can disable it if you want, by removing the placeholder component from the components
