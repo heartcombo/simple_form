@@ -11,10 +11,10 @@ module SimpleForm
         position = case input_type
         when :date, :datetime
           date_order = input_options[:order] || I18n.t('date.order')
-          date_order.first
+          date_order.first.to_sym
         else
           :hour
-        end.to_sym
+        end
 
         position = ActionView::Helpers::DateTimeSelector::POSITION[position]
         "#{attribute_name}_#{position}i"
