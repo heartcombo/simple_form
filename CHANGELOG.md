@@ -1,6 +1,8 @@
 ## master
 
 ### enhancements
+  * Collection tags accept html attributes as the last element of collection [@nashby](https://github.com/nashby)
+  * Change default `:value_method` of collection tags from `:last` to `:second` [@nashby](https://github.com/nashby)
   * Support `Proc` object in `:conditions` option of associations [@bradly](https://github.com/bradly)
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
 

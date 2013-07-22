@@ -60,6 +60,11 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     assert_no_select 'form ul'
   end
 
+  test 'input check boxes accepts html options as the last element of collection' do
+    with_input_for @user, :name, :check_boxes, collection: [['Jose', 'jose', class: 'foo']]
+    assert_select 'input.foo[type=checkbox][value=jose]'
+  end
+
   test 'input check boxes wraps the collection in the configured collection wrapper tag' do
     swap SimpleForm, collection_wrapper_tag: :ul do
       with_input_for @user, :active, :check_boxes
