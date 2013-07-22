@@ -11,8 +11,9 @@ module SimpleForm
           value = value_for_collection(item, @value_method)
           text  = value_for_collection(item, @text_method)
           default_html_options = default_html_options_for_collection(item, value)
+          additional_html_options = option_html_attributes(item)
 
-          rendered_item = yield item, value, text, default_html_options
+          rendered_item = yield item, value, text, default_html_options.merge(additional_html_options)
 
           item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, class: item_wrapper_class) : rendered_item
         end.join.html_safe

@@ -82,6 +82,11 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     assert_select 'input[type=radio][value=Carlos][checked=checked]'
   end
 
+  test 'input should accept html options as the last element of collection' do
+    with_input_for @user, :name, :radio_buttons, collection: [['Jose', 'jose', class: 'foo']]
+    assert_select 'input.foo[type=radio][value=jose]'
+  end
+
   test 'input should allow using a collection with text/value arrays' do
     with_input_for @user, :name, :radio_buttons, collection: [['Jose', 'jose'], ['Carlos', 'carlos']]
     assert_select 'input[type=radio][value=jose]'

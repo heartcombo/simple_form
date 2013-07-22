@@ -66,7 +66,7 @@ module SimpleForm
         collection_translated = translate_collection if collection_classes == [Symbol]
 
         if collection_translated || collection_classes.include?(Array)
-          { label: :first, value: :last }
+          { label: :first, value: :second }
         elsif collection_includes_basic_objects?(collection_classes)
           { label: :to_s, value: :to_s }
         else
