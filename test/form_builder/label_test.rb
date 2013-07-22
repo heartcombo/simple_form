@@ -19,7 +19,7 @@ class LabelTest < ActionView::TestCase
     assert_no_select 'label[as=boolean]'
   end
 
-  test 'builder should generate a label componet tag with a clean HTML' do
+  test 'builder should generate a label component tag with a clean HTML' do
     with_label_for @user, :name
     assert_no_select 'label.string[label_html]'
   end
