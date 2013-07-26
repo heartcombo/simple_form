@@ -171,6 +171,9 @@ And of course, the `required` property of any input can be overwritten as needed
 <% end %>
 ```
 
+By default, **SimpleForm** will look at the column type and use an appropriate input for the column.
+For example, a column created with type `:text` in the database will use a `textarea` input by default.
+
 **SimpleForm** also lets you overwrite the default input type it creates:
 
 ```erb
@@ -185,7 +188,8 @@ And of course, the `required` property of any input can be overwritten as needed
 
 So instead of a checkbox for the *accepts* attribute, you'll have a pair of radio buttons with yes/no
 labels and a text area instead of a text field for the description. You can also render boolean
-attributes using `as: :select` to show a dropdown.
+attributes using `as: :select` to show a dropdown. You can also render text attributes as regular
+`type="text"` inputs instead of the default `textarea` inputs by passing `as: :string`.
 
 It is also possible to give the `:disabled` option to **SimpleForm**, and it'll automatically mark
 the wrapper as disabled with a css class, so you can style labels, hints and other components inside
