@@ -130,4 +130,17 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
       end
     end
   end
+
+  test 'grouped collection should accept html options as the last element of collection' do
+    with_input_for @user, :tag_ids, :grouped_select,
+      collection: [['Authors', [['Jose', 'jose', class: 'foo'], ['Carlos', 'carlos', class: 'bar']]]],
+      group_method: :last
+
+    assert_select 'select.grouped_select#user_tag_ids' do
+      assert_select 'optgroup[label=Authors]' do
+        assert_select 'option.foo', 'Jose'
+        assert_select 'option.bar', 'Carlos'
+      end
+    end
+  end
 end
