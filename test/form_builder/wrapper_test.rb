@@ -156,6 +156,7 @@ class WrapperTest < ActionView::TestCase
       with_form_for @user, :name, wrapper: :another
       assert_select "section.custom_wrapper div.another_wrapper label"
       assert_select "section.custom_wrapper div.another_wrapper input.string"
+      assert_select "section.custom_wrapper div.another_wrapper input.string.thing"
       output_buffer.replace ""
     end
 

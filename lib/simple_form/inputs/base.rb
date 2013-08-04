@@ -65,15 +65,20 @@ module SimpleForm
         @html_classes = SimpleForm.additional_classes_for(:input) { additional_classes }
 
         @input_html_classes = @html_classes.dup
+        @input_html_options = {}
+        
         if SimpleForm.input_class && !input_html_classes.empty?
           input_html_classes << SimpleForm.input_class
         end
+      end
 
-        @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
+      def input_html_options
+        html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:readonly]  = true if has_readonly?
           o[:disabled]  = true if has_disabled?
           o[:autofocus] = true if has_autofocus?
         end
+        @input_html_options.merge! html_options
       end
 
       def input
@@ -128,7 +133,7 @@ module SimpleForm
         html_options = html_options ? html_options.dup : {}
         html_options.merge!(@builder.wrapper.options[:"#{namespace}_html"] || {})
         css_classes << html_options[:class] if html_options.key?(:class)
-        html_options[:class] = css_classes unless css_classes.empty?
+        html_options[:class] = css_classes.uniq unless css_classes.empty?
         html_options
       end
 
