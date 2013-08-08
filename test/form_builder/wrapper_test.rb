@@ -156,13 +156,24 @@ class WrapperTest < ActionView::TestCase
       with_form_for @user, :name, wrapper: :another
       assert_select "section.custom_wrapper div.another_wrapper label"
       assert_select "section.custom_wrapper div.another_wrapper input.string"
-      assert_select "section.custom_wrapper div.another_wrapper input.string.thing"
       output_buffer.replace ""
     end
 
     with_form_for @user, :name, wrapper: custom_wrapper
     assert_select "section.custom_wrapper div.another_wrapper label"
     assert_select "section.custom_wrapper div.another_wrapper input.string"
+  end
+
+  test 'wrappers with use classes on input basis with arrays' do
+    swap_wrapper :default do
+      with_form_for @user, :name
+      assert_select "section.custom_wrapper div.class1.class2 input.class3.class4"
+
+      output_buffer.replace ""
+
+      with_form_for @user, :name, wrapper: custom_wrapper_with_no_wrapping_tag 
+      assert_select "div.custom_wrapper div.elem input.input_class_yo.other_class_yo"
+    end
   end
 
   test 'access wrappers with indifferent access' do

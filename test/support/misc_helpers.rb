@@ -59,7 +59,11 @@ module MiscHelpers
       b.use :pattern
       b.wrapper :another, class: "another_wrapper" do |ba|
         ba.use :label
-        ba.use :input, class: 'thing'
+        ba.use :input
+      end
+      b.wrapper :arrays, class: ["class1", "class2"] do |ba|
+        ba.use :input, class: ["class3", "class4"]
+        ba.use :label
       end
       b.wrapper :error_wrapper, tag: :div, class: "error_wrapper" do |be|
         be.use :error, wrap_with: { tag: :span, class: "omg_error" }
