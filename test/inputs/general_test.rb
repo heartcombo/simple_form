@@ -20,10 +20,19 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[autofocus]'
   end
 
-  test 'input should accepts input class configuration' do
-    swap SimpleForm, :input_class => :xlarge do
+  test 'input accepts input_class configuration' do
+    swap SimpleForm, input_class: :xlarge do
       with_input_for @user, :name, :string
       assert_select 'input.xlarge'
+      assert_no_select 'div.xlarge'
+    end
+  end
+
+  test 'input does not add input_class when configured to not generate additional classes for input' do
+    swap SimpleForm, input_class: 'xlarge', generate_additional_classes_for: [:wrapper] do
+      with_input_for @user, :name, :string
+      assert_select 'input'
+      assert_no_select '.xlarge'
     end
   end
 

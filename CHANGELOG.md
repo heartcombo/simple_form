@@ -1,13 +1,14 @@
 ## master
 
 ### enhancements
+  * New `input_class` global config option to set a class to be generated in all inputs.
   * Collection tags accept html attributes as the last element of collection [@nashby](https://github.com/nashby)
   * Change default `:value_method` of collection tags from `:last` to `:second` [@nashby](https://github.com/nashby)
   * Support `Proc` object in `:conditions` option of associations [@bradly](https://github.com/bradly)
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
 
 ### bug fix
-  * Make `DateTimeInput#label_target` method to work with string values in `I18n.t('date.order')` (default 
+  * Make `DateTimeInput#label_target` method to work with string values in `I18n.t('date.order')` (default
   behaviour in Rails 4)
   Closes [#846](https://github.com/plataformatec/simple_form/issues/846) [@mjankowski](https://github.com/mjankowski)
   * Add "checkbox" class to the label of boolean input when there is no `:label`
