@@ -74,8 +74,9 @@ module SimpleForm
       def options_classes(klass, opts)
         # chech if use bootstrap3 stylesheet
         # replace default class with options[:class]
-        if opts[:class] && opts[:class] =~ /[col-xs-|col-sm-|col-md-|col-lg-]/
-          opts[:class]
+        if SimpleForm.default_wrapper == :bootstrap3 && opts[:class] && 
+          opts[:class] =~ /(col-xs-|col-sm-|col-md-|col-lg-)/
+          opts[:class].strip
         else
           (klass << opts[:class]).join(' ').strip unless klass.empty?
         end
