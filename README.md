@@ -87,6 +87,8 @@ Control inputs size
 <% end %>
 ```
 
+[the live example app](http://railsnight.zlxstar.me/)
+[source code](https://github.com/zlx/rails-night)
 
 ### Zurb Foundation 3
 
