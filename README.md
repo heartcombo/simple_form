@@ -61,6 +61,33 @@ For more information see the generator output, our
 
 **NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 or higher.
 
+### Twitter Bootstrap 3
+
+Most same as Bootstrap but below difference:
+
+1. For Document: [Bootstrap 3](http://twbs.github.io/bootstrap)
+
+2. use `bootstrap3` instead of `bootstrap` option for install generator
+
+3. use `controls_html` instead of `input_html` to control input size
+
+Example:
+
+Install Generator:
+
+```console
+rails generate simple_form:install --bootstrap3
+```
+
+Control inputs size
+
+```erb
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, controls_html: {class: 'col-lg-5'} %>  # =>  <div class='col-lg-4'><input class='string .../></div>
+<% end %>
+```
+
+
 ### Zurb Foundation 3
 
 To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:

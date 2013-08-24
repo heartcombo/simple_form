@@ -70,7 +70,7 @@ module SimpleForm
         end
 
         if SimpleForm.default_wrapper == :bootstrap3
-          input_html_classes << bootstrap3_clas
+          input_html_classes << bootstrap3_class
         end
 
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
