@@ -50,7 +50,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'error should be able to pass html options' do
-    with_error_for(@user, :name, id: 'error', class: 'yay')
+    with_error_for @user, :name, id: 'error', class: 'yay'
     assert_select 'span#error.error.yay'
   end
 
