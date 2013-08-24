@@ -6,7 +6,7 @@ PATH
       activemodel (>= 4.0.0, < 4.1)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     actionpack (4.0.0)
       activesupport (= 4.0.0)

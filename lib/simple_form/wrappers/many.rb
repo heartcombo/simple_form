@@ -57,7 +57,7 @@ module SimpleForm
 
         klass = html_classes(input, options)
         opts  = html_options(options)
-        opts[:class] = (klass << opts[:class]).join(' ').strip unless klass.empty?
+        opts[:class] = options_classes(klass, opts)
         input.template.content_tag(tag, content, opts)
       end
 
@@ -67,6 +67,18 @@ module SimpleForm
 
       def html_classes(input, options)
         @defaults[:class].dup
+      end
+
+      # check wrappers is bootstrap3
+      # maybe better to if use bootstrap3 wrappers
+      def options_classes(klass, opts)
+        # chech if use bootstrap3 stylesheet
+        # replace default class with options[:class]
+        if opts[:class] && opts[:class] =~ /[col-xs-|col-sm-|col-md-|col-lg-]/
+          opts[:class]
+        else
+          (klass << opts[:class]).join(' ').strip unless klass.empty?
+        end
       end
     end
   end
