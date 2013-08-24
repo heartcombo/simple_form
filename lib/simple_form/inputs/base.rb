@@ -69,10 +69,6 @@ module SimpleForm
           input_html_classes << SimpleForm.input_class
         end
 
-        if SimpleForm.default_wrapper == :bootstrap3
-          input_html_classes << bootstrap3_class
-        end
-
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:readonly]  = true if has_readonly?
           o[:disabled]  = true if has_disabled?
@@ -184,10 +180,6 @@ module SimpleForm
         lookups << default
 
         I18n.t(lookups.shift, scope: :"simple_form.#{namespace}", default: lookups).presence
-      end
-
-      def bootstrap3_class
-        "form-control"
       end
     end
   end

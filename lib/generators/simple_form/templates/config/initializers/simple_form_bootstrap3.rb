@@ -45,4 +45,5 @@ SimpleForm.setup do |config|
   config.button_class = 'btn btn-default'
   config.error_notification_class = 'alert alert-danger'
   config.label_class = 'col-lg-2 control-label'
+  config.input_class = 'form-control'
 end
