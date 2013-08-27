@@ -83,7 +83,7 @@ Control inputs size
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, controls_html: {class: 'col-lg-5'} %>  # =>  <div class='col-lg-4'><input class='string .../></div>
+  <%= f.input :username, controls_html: {class: 'col-lg-4'} %>  # =>  <div class='col-lg-4'><input class='string .../></div>
 <% end %>
 ```
 
