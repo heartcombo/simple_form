@@ -408,7 +408,7 @@ on `simple_form_for` helper. They are listed below.
 
 #### Simple Fields For
 
-Wrapper to use **SimpleForm** inside a default rails form. It works in the same way that the `field_for`
+Wrapper to use **SimpleForm** inside a default rails form. It works in the same way that the `fields_for`
 Rails helper, but change the builder to use the `SimpleForm::FormBuilder`.
 
 ```ruby
