@@ -20,6 +20,13 @@ class InputTest < ActionView::TestCase
     assert_select 'input.string[autofocus]'
   end
 
+  test 'input should accepts input class configuration' do
+    swap SimpleForm, :input_class => :xlarge do
+      with_input_for @user, :name, :string
+      assert_select 'input.xlarge'
+    end
+  end
+
   test 'text input should generate autofocus attribute when autofocus option is true' do
     with_input_for @user, :description, :text, :autofocus => true
     assert_select 'textarea.text[autofocus]'
