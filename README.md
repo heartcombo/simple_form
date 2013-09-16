@@ -480,7 +480,10 @@ end
 
 ## Available input types and defaults for each column type
 
-**Simple Form** comes with a lot of default mappings:
+The following table shows the type of input you will get (column `Input`) for
+each attribute according to its database definition (column `Column Type`).
+Column `Mapping` shows the name of the helper method you need to specify as the
+`as:` option to enforce the generation of that specific input type.
 
 ```text
 Mapping               Input                         Column Type
