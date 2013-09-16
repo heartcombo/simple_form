@@ -176,7 +176,14 @@ And of course, the `required` property of any input can be overwritten as needed
 <% end %>
 ```
 
-**Simple Form** also lets you overwrite the default input type it creates:
+By default, SimpleForm will look at the column type in the database and use an
+appropriate input for the column. For example, a column created with type
+`:text` in the database will use a `textarea` input by default. See the section
+[Available input types and defaults for each column
+type](https://github.com/plataformatec/simple_form#available-input-types-and-defaults-for-each-column-type)
+for a complete list of defaults.
+
+**SimpleForm** also lets you overwrite the default input type it creates:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -471,7 +478,7 @@ form_for @user do |f|
 end
 ```
 
-## Mappings/Inputs available
+## Available input types and defaults for each column type
 
 **Simple Form** comes with a lot of default mappings:
 
