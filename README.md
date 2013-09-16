@@ -189,7 +189,7 @@ And of course, the `required` property of any input can be overwritten as needed
 ```
 
 So instead of a checkbox for the *accepts* attribute, you'll have a pair of radio buttons with yes/no
-labels and a text area instead of a text field for the description. You can also render boolean
+labels and a textarea instead of a text field for the description. You can also render boolean
 attributes using `as: :select` to show a dropdown.
 
 It is also possible to give the `:disabled` option to **Simple Form**, and it'll automatically mark
@@ -325,7 +325,7 @@ f.input :shipping_country, priority: [ "Brazil" ], collection: [ "Australia", "B
 
 ### Associations
 
-To deal with associations, **Simple Form** can generate select inputs, a series of radios buttons or check boxes.
+To deal with associations, **SimpleForm** can generate select inputs, a series of radios buttons or checkboxes.
 Lets see how it works: imagine you have a user model that belongs to a company and has_and_belongs_to_many
 roles. The structure would be something like:
 
@@ -357,7 +357,7 @@ Now we have the user form:
 
 Simple enough, right? This is going to render a `:select` input for choosing the `:company`, and another
 `:select` input with `:multiple` option for the `:roles`. You can, of course, change it to use radio
-buttons and check boxes as well:
+buttons and checkboxes as well:
 
 ```ruby
 f.association :company, as: :radio_buttons
@@ -446,7 +446,7 @@ end
 
 #### Collection Check Boxes
 
-Creates a collection of check boxes with labels associated (same API as `collection_select`):
+Creates a collection of checkboxes with labels associated (same API as `collection_select`):
 
 ```ruby
 form_for @user do |f|
@@ -478,14 +478,14 @@ end
 ```text
 Mapping               Input                         Column Type
 
-boolean               check box                     boolean
+boolean               checkbox                      boolean
 string                text field                    string
 email                 email field                   string with name matching "email"
 url                   url field                     string with name matching "url"
 tel                   tel field                     string with name matching "phone"
 password              password field                string with name matching "password"
 search                search                        -
-text                  text area                     text
+text                  textarea                      text
 file                  file field                    string, responding to file methods
 hidden                hidden field                  -
 integer               number field                  integer
