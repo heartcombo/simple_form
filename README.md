@@ -63,13 +63,16 @@ For more information see the generator output, our
 
 ### Zurb Foundation 3
 
-To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/), pass the `foundation` option to the generator, like this:
+To generate wrappers that are compatible with [Zurb Foundation 3](http://foundation.zurb.com/), pass
+the `foundation` option to the generator, like this:
 
 ```console
 rails generate simple_form:install --foundation
 ```
 
-Please note that the Foundation wrapper does not support the `:hint` option by default. In order to enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`. You will need to provide your own CSS styles for hints.
+Please note that the Foundation wrapper does not support the `:hint` option by default. In order to
+enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`.
+You will need to provide your own CSS styles for hints.
 
 Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/old-docs/f3/rails.php).
 
@@ -158,7 +161,9 @@ any html attribute to that wrapper as well using the `:wrapper_html` option, lik
 
 Required fields are marked with an * prepended to their labels.
 
-By default all inputs are required. When the form object has `presence` validations attached to its fields, **SimpleForm** tells required and optional fields apart. For performance reasons, this detection is skipped on validations that make use of conditional options, such as `:if` and `:unless`.
+By default all inputs are required. When the form object has `presence` validations attached to its
+fields, **SimpleForm** tells required and optional fields apart. For performance reasons, this
+detection is skipped on validations that make use of conditional options, such as `:if` and `:unless`.
 
 And of course, the `required` property of any input can be overwritten as needed:
 
@@ -227,7 +232,8 @@ Any extra option passed to these methods will be rendered as html option.
 
 ### Stripping away all wrapper divs
 
-**SimpleForm** also allows you to strip away all the div wrappers around the `<input>` field that is generated with the usual `f.input`.
+**SimpleForm** also allows you to strip away all the div wrappers around the `<input>` field that is
+generated with the usual `f.input`.
 The easiest way to achieve this is to use `f.input_field`.
 
 Example:
@@ -372,7 +378,8 @@ In case you want to declare different labels and values:
 f.association :company, label_method: :company_name, value_method: :id, include_blank: false
 ```
 
-Please note that the association helper is currently only tested with Active Record. It currently does not work well with Mongoid and depending on the ORM you're using your mileage may vary.
+Please note that the association helper is currently only tested with Active Record. It currently
+does not work well with Mongoid and depending on the ORM you're using your mileage may vary.
 
 ### Buttons
 
@@ -419,7 +426,6 @@ form_for @user do |f|
   end
 end
 ```
-
 
 #### Collection Radio Buttons
 
@@ -735,7 +741,8 @@ config.wrappers tag: :div, class: :input,
 end
 ```
 
-The _Form components_ will generate the form tags like labels, inputs, hints or errors contents. The available components are:
+The _Form components_ will generate the form tags like labels, inputs, hints or errors contents.
+The available components are:
 
 ```ruby
 :label         # The <label> tag alone
@@ -909,4 +916,5 @@ https://github.com/plataformatec/simple_form/issues
 
 MIT License. Copyright 2009-2013 Plataformatec. http://plataformatec.com.br
 
-You are not granted rights or licenses to the trademarks of the Plataformatec, including without limitation the Simple Form name or logo.
+You are not granted rights or licenses to the trademarks of the Plataformatec, including without
+limitation the Simple Form name or logo.
