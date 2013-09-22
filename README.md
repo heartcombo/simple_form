@@ -480,36 +480,35 @@ end
 
 ## Available input types and defaults for each column type
 
-The following table shows the type of input you will get (column `Input`) for
-each attribute according to its database definition (column `Column Type`).
-Column `Mapping` shows the name of the helper method you need to specify as the
-`as:` option to enforce the generation of that specific input type.
+The following table shows the html element you will get for each attribute
+according to its database definition. These defaults can be changed by
+specifying the helper method in the column `Mapping` as the `as:` option.
 
 ```text
-Mapping               Input                         Column Type
-
-boolean               checkbox                      boolean
-string                text field                    string
-email                 email field                   string with name matching "email"
-url                   url field                     string with name matching "url"
-tel                   tel field                     string with name matching "phone"
-password              password field                string with name matching "password"
-search                search                        -
-text                  textarea                      text
-file                  file field                    string, responding to file methods
-hidden                hidden field                  -
-integer               number field                  integer
-float                 number field                  float
-decimal               number field                  decimal
-range                 range field                   -
-datetime              datetime select               datetime/timestamp
-date                  date select                   date
-time                  time select                   time
-select                collection select             belongs_to/has_many/has_and_belongs_to_many associations
-radio_buttons         collection radio buttons      belongs_to
-check_boxes           collection check boxes        has_many/has_and_belongs_to_many associations
-country               country select                string with name matching "country"
-time_zone             time zone select              string with name matching "time_zone"
+Mapping       | Generated HTML Element               | Database Column Type
+--------------|--------------------------------------|---------------------------------------------------------
+boolean       | input[type="checkbox"]               | boolean
+string        | input[type="text]                    | string
+email         | input[type="email"]                  | string with name matching "email"
+url           | input[type="url"]                    | string with name matching "url"
+tel           | input[type="tel"]                    | string with name matching "phone"
+password      | input[type="password"]               | string with name matching "password"
+search        | input[type="search"]                 | -
+text          | textarea                             | text
+file          | input[type="file"]                   | string, responding to file methods
+hidden        | input[type="hidden"]                 | -
+integer       | input[type="number"]                 | integer
+float         | input[type="number"]                 | float
+decimal       | input[type="number"]                 | decimal
+range         | input[type="range"]                  | -
+datetime      | input[type="datetime"]               | datetime/timestamp
+date          | input[type="date"]                   | date
+time          | input[type="time"]                   | time
+select        | select                               | belongs_to/has_many/has_and_belongs_to_many associations
+radio_buttons | collection of input[type="radio"]    | belongs_to associations
+check_boxes   | collection of input[type="checkbox"] | has_many/has_and_belongs_to_many associations
+country       | select (countries as options)        | string with name matching "country"
+time_zone     | select (timezones as options)        | string with name matching "time_zone"
 ```
 
 ## Custom inputs
