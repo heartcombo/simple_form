@@ -5,6 +5,7 @@ module SimpleForm
       source_root File.expand_path('../templates', __FILE__)
       class_option :template_engine, desc: 'Template engine to be invoked (erb, haml or slim).'
       class_option :bootstrap, type: :boolean, desc: 'Add the Twitter Bootstrap wrappers to the SimpleForm initializer.'
+      class_option :bootstrap3, type: :boolean, desc: 'Add the Twitter Bootstrap 3 wrappers to the SimpleForm initializer.'
       class_option :foundation, type: :boolean, desc: 'Add the Zurb Foundation 3 wrappers to the SimpleForm initializer.'
 
       def info_bootstrap
@@ -19,6 +20,8 @@ module SimpleForm
 
         if options[:bootstrap]
           template "config/initializers/simple_form_bootstrap.rb"
+        elsif options[:bootstrap3]
+          template "config/initializers/simple_form_bootstrap3.rb"
         elsif options[:foundation]
           template "config/initializers/simple_form_foundation.rb"
         end
