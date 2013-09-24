@@ -288,6 +288,13 @@ class BuilderTest < ActionView::TestCase
     assert_select "form input[type=hidden][name='user[tag_ids][]'][value=]", :count => 1
   end
 
+  test "collection check box generates a hidden field using the given :name in :input_html" do
+    collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
+    with_collection_check_boxes @user, :tag_ids, collection, :id, :name, {}, {:name => "user[other_tag_ids][]"}
+
+    assert_select "form input[type=hidden][name='user[other_tag_ids][]'][value=]", :count => 1
+  end
+
   test "collection check box accepts a collection and generate a serie of checkboxes with labels for label method" do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
