@@ -483,6 +483,7 @@ And use it in your views:
 ```ruby
 f.input :money, :as => :currency
 ```
+Note, you may have to create the `app/inputs/` directory and restart your webserver.
 
 You can also redefine existing **SimpleForm** inputs by creating a new class with the same name. For
 instance, if you want to wrap date/time/datetime in a div, you can do:
