@@ -1,6 +1,18 @@
 module SimpleForm
   module Components
     module Errors
+      def full_error
+        return unless error.present?
+
+        prefix = if object.class.respond_to?(:human_attribute_name)
+          object.class.human_attribute_name(attribute_name.to_s)
+        else
+          attribute_name.to_s.humanize
+        end
+
+        "#{prefix} #{error_text}".html_safe
+      end
+    
       def error
         error_text if has_errors?
       end
