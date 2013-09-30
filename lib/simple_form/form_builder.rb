@@ -184,7 +184,13 @@ module SimpleForm
 
       options[:as] ||= :select
       options[:collection] ||= options.fetch(:collection) {
-        reflection.scope ? reflection.klass.class_eval(&reflection.scope) : reflection.klass.all
+        if Rails.version.to_i >= 4
+          reflection.scope ? reflection.klass.class_eval(&reflection.scope) : reflection.klass.all
+        else
+          conditions = reflection.options[:conditions]
+          conditions = conditions.call if conditions.respond_to?(:call)
+          reflection.klass.where(conditions).order(reflection.options[:order])
+        end
       }
 
       attribute = case reflection.macro
