@@ -183,15 +183,17 @@ module SimpleForm
       raise "Association #{association.inspect} not found" unless reflection
 
       options[:as] ||= :select
-      options[:collection] ||= options.fetch(:collection) {
-        if Rails.version.to_i >= 4
-          reflection.scope ? reflection.klass.class_eval(&reflection.scope) : reflection.klass.all
-        else
+      options[:collection] ||= options.fetch(:collection) do
+        if reflection.options[:conditions] || reflection.options[:order]
           conditions = reflection.options[:conditions]
           conditions = conditions.call if conditions.respond_to?(:call)
+
           reflection.klass.where(conditions).order(reflection.options[:order])
+        else
+          reflection.respond_to?(:scope) && reflection.scope.is_a?(Proc) ?
+            reflection.klass.class_eval(&reflection.scope) : reflection.klass.all
         end
-      }
+      end
 
       attribute = case reflection.macro
         when :belongs_to
