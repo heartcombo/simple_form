@@ -20,6 +20,7 @@ module SimpleForm
       include SimpleForm::Components::Pattern
       include SimpleForm::Components::Placeholders
       include SimpleForm::Components::Readonly
+      include SimpleForm::Components::DefaultInputClass
 
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options, :input_html_classes, :html_classes
@@ -65,7 +66,7 @@ module SimpleForm
         @html_classes = SimpleForm.additional_classes_for(:input) { additional_classes }
 
         @input_html_classes = @html_classes.dup
-        if SimpleForm.input_class && !input_html_classes.empty?
+        if SimpleForm.input_class && !input_html_classes.empty?  && !ignore_default_input_class
           input_html_classes << SimpleForm.input_class
         end
 
