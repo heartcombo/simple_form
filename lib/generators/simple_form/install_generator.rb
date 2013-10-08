@@ -6,12 +6,13 @@ module SimpleForm
       class_option :template_engine, desc: 'Template engine to be invoked (erb, haml or slim).'
       class_option :bootstrap, type: :boolean, desc: 'Add the Twitter Bootstrap wrappers to the SimpleForm initializer.'
       class_option :foundation, type: :boolean, desc: 'Add the Zurb Foundation 3 wrappers to the SimpleForm initializer.'
+      class_option :pure, type: :boolean, desc: 'Add the Yahoo Pure wrappers to the SimpleForm initializer.'
 
       def info_bootstrap
-        return if options.bootstrap? || options.foundation?
-        puts "SimpleForm 2 supports Twitter Bootstrap and Zurb Foundation 3. If you want "\
+        return if options.bootstrap? || options.foundation? || options.pure?
+        puts "SimpleForm 2 supports Twitter Bootstrap, Zurb Foundation 3 and Yahoo Pure. If you want "\
           "a configuration that is compatible with one of these frameworks, then please " \
-          "re-run this generator with --bootstrap or --foundation as an option."
+          "re-run this generator with --bootstrap, --foundation or --pure as an option."
       end
 
       def copy_config
@@ -21,6 +22,8 @@ module SimpleForm
           template "config/initializers/simple_form_bootstrap.rb"
         elsif options[:foundation]
           template "config/initializers/simple_form_foundation.rb"
+        elsif options[:pure]
+          template "config/initializers/simple_form_pure.rb"
         end
 
         directory 'config/locales'
