@@ -33,6 +33,14 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
       /config\.default_wrapper = :foundation/
   end
 
+  test 'generates the simple_form initializer with the pure wrappers' do
+    run_generator %w(--pure)
+    assert_file 'config/initializers/simple_form.rb',
+      /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
+    assert_file 'config/initializers/simple_form_pure.rb', /config\.wrappers :pure/,
+      /config\.default_wrapper = :pure/
+  end
+
   %W(erb haml slim).each do |engine|
     test "generates the scaffold template when using #{engine}" do
       run_generator ['-e', engine]
