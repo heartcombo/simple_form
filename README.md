@@ -76,6 +76,19 @@ You will need to provide your own CSS styles for hints.
 
 Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/old-docs/f3/rails.php).
 
+### Yahoo Pure
+
+To generate wrappers that are compatible with [Yahoo Pure](http://purecss.io), pass
+the `pure` option to the generator, like this:
+
+```console
+rails generate simple_form:install --pure
+```
+
+Please note that the Pure wrapper does not support the `:hint` option by default. In order to
+enable hints, please uncomment the appropriate line in `config/initializers/simple_form_pure.rb`.
+You will need to provide your own CSS styles for hints.
+
 ## Usage
 
 **Simple Form** was designed to be customized as you need to. Basically it's a stack of components that
