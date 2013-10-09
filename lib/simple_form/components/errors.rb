@@ -19,12 +19,16 @@ module SimpleForm
         options[:error_method] || SimpleForm.error_method
       end
 
+      def error_format_method
+        options[:error_format_method] || SimpleForm.error_format_method
+      end
+
       def errors
         @errors ||= (errors_on_attribute + errors_on_association).compact
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        object.errors.send error_format_method, attribute_name
       end
 
       def errors_on_association
