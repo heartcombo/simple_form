@@ -446,32 +446,30 @@ The following table shows the html element you will get for each attribute
 according to its database definition. These defaults can be changed by
 specifying the helper method in the column `Mapping` as the `as:` option.
 
-```text
-Mapping       | Generated HTML Element               | Database Column Type
---------------|--------------------------------------|---------------------------------------------------------
-boolean       | input[type="checkbox"]               | boolean
-string        | input[type="text]                    | string
-email         | input[type="email"]                  | string with name matching "email"
-url           | input[type="url"]                    | string with name matching "url"
-tel           | input[type="tel"]                    | string with name matching "phone"
-password      | input[type="password"]               | string with name matching "password"
-search        | input[type="search"]                 | -
-text          | textarea                             | text
-file          | input[type="file"]                   | string, responding to file methods
-hidden        | input[type="hidden"]                 | -
-integer       | input[type="number"]                 | integer
-float         | input[type="number"]                 | float
-decimal       | input[type="number"]                 | decimal
-range         | input[type="range"]                  | -
-datetime      | selec t                              | datetime/timestamp
-date          | select                               | date
-time          | select                               | time
-select        | select                               | belongs_to/has_many/has_and_belongs_to_many associations
-radio_buttons | collection of input[type="radio"]    | belongs_to associations
-check_boxes   | collection of input[type="checkbox"] | has_many/has_and_belongs_to_many associations
-country       | select (countries as options)        | string with name matching "country"
-time_zone     | select (timezones as options)        | string with name matching "time_zone"
-```
+     Mapping         | Generated HTML Element               | Database Column Type
+     --------------- |:-------------------------------------|:--------------------
+     `boolean`       | `input[type=checkbox]`               | `boolean`
+     `string`        | `input[type=text]`                   | `string`
+     `email`         | `input[type=email]`                  | `string` with `name =~ /email/`
+     `url`           | `input[type=url]`                    | `string` with `name =~ /url/`
+     `tel`           | `input[type=tel]`                    | `string` with `name =~ /phone/`
+     `password`      | `input[type=password]`               | `string` with `name =~ /password/`
+     `search`        | `input[type=search]`                 | -
+     `text`          | `textarea`                           | `text`
+     `file`          | `input[type=file]`                   | `string` responding to file methods
+     `hidden`        | `input[type=hidden]`                 | -
+     `integer`       | `input[type=number]`                 | `integer`
+     `float`         | `input[type=number]`                 | `float`
+     `decimal`       | `input[type=number]`                 | `decimal`
+     `range`         | `input[type=range]`                  | -
+     `datetime`      | `select`                             | `datetime/timestamp`
+     `date`          | `select`                             | `date`
+     `time`          | `select`                             | `time`
+     `select`        | `select`                             | `belongs_to`/`has_many`/`has_and_belongs_to_many` associations
+     `radio_buttons` | collection of `input[type=radio]`    | `belongs_to` associations
+     `check_boxes`   | collection of `input[type=checkbox]` | `has_many`/`has_and_belongs_to_many` associations
+     `country`       | `select` (countries as options)      | `string` with `name =~ /country/`
+     `time_zone`     | `select` (timezones as options)      | `string` with `name =~ /time_zone/`
 
 ## Custom inputs
 
