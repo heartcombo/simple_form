@@ -163,6 +163,13 @@ And of course, the `required` property of any input can be overwritten as needed
 <% end %>
 ```
 
+By default, SimpleForm will look at the column type in the database and use an
+appropriate input for the column. For example, a column created with type
+`:text` in the database will use a `textarea` input by default. See the section
+[Available input types and defaults for each column
+type](https://github.com/plataformatec/simple_form#available-input-types-and-defaults-for-each-column-type)
+for a complete list of defaults.
+
 **SimpleForm** also lets you overwrite the default input type it creates:
 
 ```erb
@@ -176,7 +183,7 @@ And of course, the `required` property of any input can be overwritten as needed
 ```
 
 So instead of a checkbox for the *accepts* attribute, you'll have a pair of radio buttons with yes/no
-labels and a text area instead of a text field for the description. You can also render boolean
+labels and a textarea instead of a text field for the description. You can also render boolean
 attributes using `:as => :select` to show a dropdown.
 
 It is also possible to give the `:disabled` option to **SimpleForm**, and it'll automatically mark
@@ -289,7 +296,7 @@ f.input :shipping_country, :priority => [ "Brazil" ], :collection => [ "Australi
 
 ### Associations
 
-To deal with associations, **SimpleForm** can generate select inputs, a series of radios buttons or check boxes.
+To deal with associations, **SimpleForm** can generate select inputs, a series of radios buttons or checkboxes.
 Lets see how it works: imagine you have a user model that belongs to a company and has_and_belongs_to_many
 roles. The structure would be something like:
 
@@ -321,7 +328,7 @@ Now we have the user form:
 
 Simple enough, right? This is going to render a `:select` input for choosing the `:company`, and another
 `:select` input with `:multiple` option for the `:roles`. You can, of course, change it to use radio
-buttons and check boxes as well:
+buttons and checkboxes as well:
 
 ```ruby
 f.association :company, :as => :radio_buttons
@@ -408,7 +415,7 @@ end
 
 #### Collection Check Boxes
 
-Creates a collection of check boxes with labels associated (same API as `collection_select`):
+Creates a collection of checkboxes with labels associated (same API as `collection_select`):
 
 ```ruby
 form_for @user do |f|
@@ -433,35 +440,37 @@ form_for @user do |f|
 end
 ```
 
-## Mappings/Inputs available
+## Available input types and defaults for each column type
 
-**SimpleForm** comes with a lot of default mappings:
+The following table shows the html element you will get for each attribute
+according to its database definition. These defaults can be changed by
+specifying the helper method in the column `Mapping` as the `as:` option.
 
 ```text
-Mapping               Input                         Column Type
-
-boolean               check box                     boolean
-string                text field                    string
-email                 email field                   string with name matching "email"
-url                   url field                     string with name matching "url"
-tel                   tel field                     string with name matching "phone"
-password              password field                string with name matching "password"
-search                search                        -
-text                  text area                     text
-file                  file field                    string, responding to file methods
-hidden                hidden field                  -
-integer               number field                  integer
-float                 number field                  float
-decimal               number field                  decimal
-range                 range field                   -
-datetime              datetime select               datetime/timestamp
-date                  date select                   date
-time                  time select                   time
-select                collection select             belongs_to/has_many/has_and_belongs_to_many associations
-radio_buttons         collection radio buttons      belongs_to
-check_boxes           collection check boxes        has_many/has_and_belongs_to_many associations
-country               country select                string with name matching "country"
-time_zone             time zone select              string with name matching "time_zone"
+Mapping       | Generated HTML Element               | Database Column Type
+--------------|--------------------------------------|---------------------------------------------------------
+boolean       | input[type="checkbox"]               | boolean
+string        | input[type="text]                    | string
+email         | input[type="email"]                  | string with name matching "email"
+url           | input[type="url"]                    | string with name matching "url"
+tel           | input[type="tel"]                    | string with name matching "phone"
+password      | input[type="password"]               | string with name matching "password"
+search        | input[type="search"]                 | -
+text          | textarea                             | text
+file          | input[type="file"]                   | string, responding to file methods
+hidden        | input[type="hidden"]                 | -
+integer       | input[type="number"]                 | integer
+float         | input[type="number"]                 | float
+decimal       | input[type="number"]                 | decimal
+range         | input[type="range"]                  | -
+datetime      | selec t                              | datetime/timestamp
+date          | select                               | date
+time          | select                               | time
+select        | select                               | belongs_to/has_many/has_and_belongs_to_many associations
+radio_buttons | collection of input[type="radio"]    | belongs_to associations
+check_boxes   | collection of input[type="checkbox"] | has_many/has_and_belongs_to_many associations
+country       | select (countries as options)        | string with name matching "country"
+time_zone     | select (timezones as options)        | string with name matching "time_zone"
 ```
 
 ## Custom inputs
