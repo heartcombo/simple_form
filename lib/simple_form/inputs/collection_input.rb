@@ -33,7 +33,7 @@ module SimpleForm
       end
 
       def has_required?
-        super && (input_options[:include_blank] || multiple?)
+        super && (input_options[:include_blank] || input_options[:prompt] || multiple?)
       end
 
       # Check if :include_blank must be included by default.

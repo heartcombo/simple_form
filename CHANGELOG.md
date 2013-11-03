@@ -1,6 +1,7 @@
 ## master
 
 ### bug fix
+  * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
   * Use the given name in `input_html` for the hidden field in `collection_check_boxes` [@angelic](https://github.com/angelic)
   * Add "checkbox" class to the label of boolean input when there is no `:label`
   in `generate_additional_classes_for` config option [@nashby](https://github.com/nashby)
