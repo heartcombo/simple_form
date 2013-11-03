@@ -76,6 +76,16 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     end
   end
 
+  test 'input should not scape translations whose keys are _html suffixed' do
+    store_translations(:en, simple_form: { options: { defaults: {
+      gender: { male: 'Male <b>M</b>', female_html: 'Female <b>F</b>'}
+    } } } ) do
+      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female_html]
+      assert_select 'label.collection_radio_buttons', 'Male &lt;b&gt;M&lt;/b&gt;'
+      assert_select 'label.collection_radio_buttons', 'Female F'
+    end
+  end
+
   test 'input should mark the current radio value by default' do
     @user.name = "Carlos"
     with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
