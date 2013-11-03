@@ -1,3 +1,8 @@
+## master
+
+### bug fix
+  * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
+
 ## 3.0.0
 
 ### enhancements
