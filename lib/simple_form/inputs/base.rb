@@ -180,7 +180,7 @@ module SimpleForm
         lookups << default
 
         key = lookups.shift
-        translator.t(key, { scope: :"simple_form.#{namespace}", default: lookups }).presence
+        translator.t(key, scope: :"simple_form.#{namespace}", default: lookups, rescue_format: nil).presence
       end
 
       private
