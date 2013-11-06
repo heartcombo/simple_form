@@ -179,7 +179,16 @@ module SimpleForm
         lookups << :"defaults.#{reflection_or_attribute_name}"
         lookups << default
 
-        I18n.t(lookups.shift, scope: :"simple_form.#{namespace}", default: lookups).presence
+        key = lookups.shift
+        translator.t(key, { scope: :"simple_form.#{namespace}", default: lookups }).presence
+      end
+
+      private
+
+      def translator
+        @translator ||= Class.new do
+          extend ActionView::Helpers::TranslationHelper
+        end
       end
     end
   end
