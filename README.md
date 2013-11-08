@@ -35,23 +35,23 @@ Also, if you want to use the country select, you will need the
 gem 'country_select'
 ```
 
-### Twitter Bootstrap
+### Bootstrap
 
-**SimpleForm** 2.0 can be easily integrated to the [Twitter Bootstrap](http://twitter.github.com/bootstrap).
+**Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/2.3.2/) 2.3.
 To do that you have to use the `bootstrap` option in the install generator, like this:
 
 ```console
 rails generate simple_form:install --bootstrap
 ```
 
-You have to be sure that you added a copy of the [Twitter Bootstrap](http://twitter.github.com/bootstrap)
+You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap.com/2.3.2/)
 assets on your application.
 
 For more information see the generator output, our
 [example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
 [the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
 
-**NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 or higher.
+**NOTE**: **SimpleForm** integration requires Twitter Bootstrap version 2.0 up to 2.3.
 
 ### Zurb Foundation 3
 
