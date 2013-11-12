@@ -200,4 +200,15 @@ class WrapperTest < ActionView::TestCase
       end
     end
   end
+
+  test 'use custom wrapper mapping per form basis' do
+    swap_wrapper :another do
+      with_concat_form_for @user, :wrapper_mappings => { :string => :another } do |f|
+        concat f.input :name
+      end
+    end
+
+    assert_select "section.custom_wrapper div.another_wrapper label"
+    assert_select "section.custom_wrapper div.another_wrapper input.string"
+  end
 end
