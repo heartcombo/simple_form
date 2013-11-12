@@ -4,6 +4,7 @@
   * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
   * New `input_class` global config option to set a class to be generated in all inputs.
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
+  * Add `include_default_input_wrapper_class` config [@luizcosta](https://github.com/luizcosta)
 
 ### bug fix
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
