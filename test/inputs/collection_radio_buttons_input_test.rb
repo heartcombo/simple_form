@@ -325,4 +325,21 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       assert_select 'label.radio.inline > input'
     end
   end
+
+  test 'input radio wrapper class are not included when set to falsey' do
+    swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
+      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+
+      assert_no_select 'label.radio'
+    end
+  end
+
+  test 'input check boxes custom wrapper class is included when include input wrapper class is falsey' do
+    swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
+      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female], item_wrapper_class: 'custom'
+
+      assert_no_select 'label.radio'
+      assert_select 'label.custom'
+    end
+  end
 end
