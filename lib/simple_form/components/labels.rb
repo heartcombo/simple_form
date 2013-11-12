@@ -46,7 +46,8 @@ module SimpleForm
         if options.key?(:input_html) && options[:input_html].key?(:id)
           label_options[:for] = options[:input_html][:id]
         end
-        @label_options = label_options
+
+        label_options
       end
 
       protected
