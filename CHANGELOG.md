@@ -1,12 +1,14 @@
 ## master
 
+### enhancements
+  * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
+
 ### bug fix
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
 
 ## 3.0.0
 
 ### enhancements
-  * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
   * New `input_class` global config option to set a class to be generated in all inputs.
   * Collection tags accept html attributes as the last element of collection [@nashby](https://github.com/nashby)
   * Change default `:value_method` of collection tags from `:last` to `:second` [@nashby](https://github.com/nashby)
