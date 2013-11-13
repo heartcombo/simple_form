@@ -90,10 +90,18 @@ module SimpleForm
       def translate_collection
         if translated_collection = translate(:options)
           @collection = collection.map do |key|
-            [translated_collection[key] || key, key]
+            translated_key = translated_collection[key]
+            if html_safe_translation_key?(key)
+              translated_key = translated_key.html_safe
+            end
+            [translated_key || key, key]
           end
           true
         end
+      end
+
+      def html_safe_translation_key?(key)
+        key.to_s =~ /(\b|_|\.)html$/
       end
     end
   end
