@@ -169,18 +169,4 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     with_input_for :project, :created_at, :time, html5: false
     assert_select 'label[for=project_created_at_4i]'
   end
-
-  test 'date time input should generate required html attribute' do
-    skip
-    with_input_for @user, :delivery_time, :time, required: true, html5: false
-    assert_select 'select.required'
-    assert_select 'select[required]'
-  end
-
-  test 'date time input has an aria-required html attribute' do
-    skip
-    with_input_for @user, :delivery_time, :time, required: true, html5: false
-    assert_select 'select.required'
-    assert_select 'select[aria-required=true]'
-  end
 end
