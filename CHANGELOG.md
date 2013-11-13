@@ -1,5 +1,10 @@
 ## master
 
+### enchancements
+  * Map `datetime`, `date` and `time` input types to their respective HTML5 input tags
+  when HTML5 compatibility is enabled. To render the classic datetime selects in HTML5
+  form wrappers, set the `:html5` option to `false`. [@volmer](https://github.com/volmer)
+
 ### bug fix
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
 
