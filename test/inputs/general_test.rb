@@ -10,9 +10,9 @@ class InputTest < ActionView::TestCase
     with_input_for @user, :age, :integer
     assert_select 'input.integer'
     with_input_for @user, :born_at, :date
-    assert_select 'select.date'
+    assert_select 'input.date'
     with_input_for @user, :created_at, :datetime
-    assert_select 'select.datetime'
+    assert_select 'input.datetime'
   end
 
   test 'string input should generate autofocus attribute when autofocus option is true' do
@@ -48,12 +48,12 @@ class InputTest < ActionView::TestCase
 
   test 'date input should generate autofocus attribute when autofocus option is true' do
     with_input_for @user, :born_at, :date, autofocus: true
-    assert_select 'select.date[autofocus]'
+    assert_select 'input.date[autofocus]'
   end
 
   test 'datetime input should generate autofocus attribute when autofocus option is true' do
     with_input_for @user, :created_at, :datetime, autofocus: true
-    assert_select 'select.datetime[autofocus]'
+    assert_select 'input.datetime[autofocus]'
   end
 
   test 'string input should generate autofocus attribute when autofocus option is false' do

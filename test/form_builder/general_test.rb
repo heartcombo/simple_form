@@ -158,22 +158,22 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should generate date select for date columns' do
     with_form_for @user, :born_at
-    assert_select 'form select#user_born_at_1i.date'
+    assert_select 'form input#user_born_at.date'
   end
 
   test 'builder should generate time select for time columns' do
     with_form_for @user, :delivery_time
-    assert_select 'form select#user_delivery_time_4i.time'
+    assert_select 'form input#user_delivery_time.time'
   end
 
   test 'builder should generate datetime select for datetime columns' do
     with_form_for @user, :created_at
-    assert_select 'form select#user_created_at_1i.datetime'
+    assert_select 'form input#user_created_at.datetime'
   end
 
   test 'builder should generate datetime select for timestamp columns' do
     with_form_for @user, :updated_at
-    assert_select 'form select#user_updated_at_1i.datetime'
+    assert_select 'form input#user_updated_at.datetime'
   end
 
   test 'builder should generate file for file columns' do
@@ -406,7 +406,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder should allow overriding input type when object is not present' do
     with_form_for :project, :created_at, as: :datetime
-    assert_select 'form select.datetime#project_created_at_1i'
+    assert_select 'form input.datetime#project_created_at'
     with_form_for :project, :budget, as: :decimal
     assert_select 'form input.decimal#project_budget'
   end
