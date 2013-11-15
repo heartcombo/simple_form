@@ -1,8 +1,6 @@
 module SimpleForm
   module Inputs
     class DateTimeInput < Base
-      enable :html5
-
       def input
         if use_html5_inputs?
           @builder.send(:"#{input_type}_field", attribute_name, input_html_options)
