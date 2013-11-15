@@ -1,6 +1,7 @@
 ## master
 
-### enchancements
+### enhancements
+  * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
   * Map `datetime`, `date` and `time` input types to their respective HTML5 input tags
   when HTML5 compatibility is enabled. To render the classic datetime selects in HTML5
   form wrappers, set the `:html5` option to `false`. [@volmer](https://github.com/volmer)
