@@ -3,50 +3,50 @@ require 'test_helper'
 
 # Tests for datetime, date and time inputs when HTML5 compatibility is enabled in the wrapper.
 class DateTimeInputWithHtml5Test < ActionView::TestCase
-  test 'input should generate a datetime input for datetime attributes' do
-    with_input_for @user, :created_at, :datetime
+  test 'input should generate a datetime input for datetime attributes if HTML5 compatibility is explicitly enbled' do
+    with_input_for @user, :created_at, :datetime, html5: true
 
     assert_select 'input[type="datetime"]'
   end
 
-  test 'input should generate a datetime select for datetime attributes if HTML5 compatibility is explicitly disabled' do
-    with_input_for @user, :created_at, :datetime, html5: false
+  test 'input should generate a datetime select for datetime attributes' do
+    with_input_for @user, :created_at, :datetime
 
     assert_select 'select.datetime'
   end
 
-  test 'input should generate a date input for date attributes' do
-    with_input_for @user, :born_at, :date
+  test 'input should generate a date input for date attributes if HTML5 compatibility is explicitly enbled' do
+    with_input_for @user, :born_at, :date, html5: true
 
     assert_select 'input[type="date"]'
   end
 
-  test 'input should generate a date select for date attributes if HTML5 compatibility is explicitly disabled' do
-    with_input_for @user, :born_at, :date, html5: false
+  test 'input should generate a date select for date attributes' do
+    with_input_for @user, :born_at, :date
 
     assert_select 'select.date'
   end
 
-  test 'input should generate a time input for time attributes' do
-    with_input_for @user, :delivery_time, :time
+  test 'input should generate a time input for time attributes if HTML5 compatibility is explicitly enbled' do
+    with_input_for @user, :delivery_time, :time, html5: true
 
     assert_select 'input[type="time"]'
   end
 
-  test 'input should generate a time select for time attributes if HTML5 compatibility is explicitly disabled' do
-    with_input_for @user, :delivery_time, :time, html5: false
+  test 'input should generate a time select for time attributes' do
+    with_input_for @user, :delivery_time, :time
 
     assert_select 'select.time'
   end
 
   test 'input should generate required html attribute' do
-    with_input_for @user, :delivery_time, :time, required: true
+    with_input_for @user, :delivery_time, :time, required: true, html5: true
     assert_select 'input.required'
     assert_select 'input[required]'
   end
 
   test 'input should have an aria-required html attribute' do
-    with_input_for @user, :delivery_time, :time, required: true
+    with_input_for @user, :delivery_time, :time, required: true, html5: true
     assert_select 'input[aria-required=true]'
   end
 end

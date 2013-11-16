@@ -18,12 +18,12 @@ class DisabledTest < ActionView::TestCase
 
   test 'date input should be disabled when disabled option is true' do
     with_input_for @user, :born_at, :date, disabled: true
-    assert_select 'input.date.disabled[disabled]'
+    assert_select 'select.date.disabled[disabled]'
   end
 
   test 'datetime input should be disabled when disabled option is true' do
     with_input_for @user, :created_at, :datetime, disabled: true
-    assert_select 'input.datetime.disabled[disabled]'
+    assert_select 'select.datetime.disabled[disabled]'
   end
 
   test 'string input should not be disabled when disabled option is false' do

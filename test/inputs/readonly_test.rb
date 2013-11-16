@@ -18,12 +18,12 @@ class ReadonlyTest < ActionView::TestCase
 
   test 'date input should generate readonly elements when readonly option is true' do
     with_input_for @user, :born_at, :date, readonly: true
-    assert_select 'input.date.readonly[readonly]'
+    assert_select 'select.date.readonly[readonly]'
   end
 
   test 'datetime input should generate readonly elements when readonly option is true' do
     with_input_for @user, :created_at, :datetime, readonly: true
-    assert_select 'input.datetime.readonly[readonly]'
+    assert_select 'select.datetime.readonly[readonly]'
   end
 
   test 'string input should generate readonly elements when readonly option is false' do
