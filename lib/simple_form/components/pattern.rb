@@ -13,9 +13,16 @@ module SimpleForm
         pattern = options[:pattern]
         if pattern.is_a?(String)
           pattern
-        elsif (pattern_validator = find_pattern_validator) && (with = pattern_validator.options[:with])
-          evaluate_format_validator_option(with).source
+        elsif pattern_validator = find_pattern_validator and
+              with = pattern_validator.options[:with]
+        then
+          source = evaluate_format_validator_option(with).source
+          convert_regexp_from_ruby_to_ecma source
         end
+      end
+
+      def convert_regexp_from_ruby_to_ecma(source)
+        source.sub('\\A' , '^').sub('\\Z' , '$').sub('\\z' , '$')
       end
 
       def find_pattern_validator

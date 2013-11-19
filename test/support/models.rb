@@ -214,8 +214,8 @@ class OtherValidatingUser < User
     less_than_or_equal_to: Proc.new { |user| user.age + 100 },
     only_integer: true
 
-  validates_format_of :country, with: /\w+/
-  validates_format_of :name, with: Proc.new { /\w+/ }
+  validates_format_of :country, with: /\A\w+\z/
+  validates_format_of :name, with: Proc.new { /\A\w+\Z/ }
   validates_format_of :description, without: /\d+/
 end
 
