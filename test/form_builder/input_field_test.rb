@@ -69,14 +69,14 @@ class InputFieldTest < ActionView::TestCase
 
   test 'builder input_field should use i18n to translate placeholder text' do
     store_translations(:en, simple_form: { placeholders: { user: {
-      name: 'Name goes here'
+      name: 'NameGoesHere'
     } } }) do
 
       with_concat_form_for(@user) do |f|
         f.input_field :name
       end
 
-      assert_select 'input.string[placeholder=Name goes here]'
+      assert_select 'input.string[placeholder=NameGoesHere]'
     end
   end
 
@@ -93,7 +93,7 @@ class InputFieldTest < ActionView::TestCase
       f.input_field :country, as: :string
     end
 
-    assert_select 'input[pattern="\w+"]'
+    assert_select 'input[pattern="^\w+$"]'
   end
 
   test 'builder input_field should use readonly component' do
