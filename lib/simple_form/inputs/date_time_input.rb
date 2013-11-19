@@ -25,11 +25,7 @@ module SimpleForm
       end
 
       def use_html5_inputs?
-        if input_options.key?(:html5)
-          input_options[:html5]
-        else
-          false
-        end
+        input_options[:html5]
       end
     end
   end
