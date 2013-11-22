@@ -48,8 +48,8 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
     assert_select 'input[type=radio][value=Jose]'
     assert_select 'input[type=radio][value=Carlos]'
-    assert_select 'label.collection_radio_buttons', 'Jose'
-    assert_select 'label.collection_radio_buttons', 'Carlos'
+    assert_select 'label.collection_radio_buttons[for=user_name_jose]', 'Jose'
+    assert_select 'label.collection_radio_buttons[for=user_name_carlos]', 'Carlos'
   end
 
   test 'input should do automatic collection translation for radio types using defaults key' do
@@ -59,8 +59,8 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
       assert_select 'input[type=radio][value=male]'
       assert_select 'input[type=radio][value=female]'
-      assert_select 'label.collection_radio_buttons', 'Male'
-      assert_select 'label.collection_radio_buttons', 'Female'
+      assert_select 'label.collection_radio_buttons[for=user_gender_male]', 'Male'
+      assert_select 'label.collection_radio_buttons[for=user_gender_female]', 'Female'
     end
   end
 
@@ -71,8 +71,8 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
       assert_select 'input[type=radio][value=male]'
       assert_select 'input[type=radio][value=female]'
-      assert_select 'label.collection_radio_buttons', 'Male'
-      assert_select 'label.collection_radio_buttons', 'Female'
+      assert_select 'label.collection_radio_buttons[for=user_gender_male]', 'Male'
+      assert_select 'label.collection_radio_buttons[for=user_gender_female]', 'Female'
     end
   end
 
