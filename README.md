@@ -263,7 +263,7 @@ end
 </form>
 ```
 
-For check boxes and radio buttons you can want to remove the label changing `boolean_style` from defaul value `:nested` to `:inline`.
+For check boxes and radio buttons you can remove the label changing `boolean_style` from defaul value `:nested` to `:inline`.
 
 Example:
 
