@@ -1,6 +1,7 @@
 ## master
 
 ### enhancements
+  * `input_field` uses the same wrapper as input but only with attribute components. [@nashby](https://github.com/nashby)
   * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
   * New `input_class` global config option to set a class to be generated in all inputs.
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
