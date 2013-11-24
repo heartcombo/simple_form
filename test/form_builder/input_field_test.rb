@@ -88,12 +88,28 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[min=18]'
   end
 
-  test 'builder input_field should use pattern component' do
+  test 'builder input_field should not use pattern component by default' do
     with_concat_form_for(@other_validating_user) do |f|
       f.input_field :country, as: :string
     end
 
+    assert_no_select 'input[pattern="\w+"]'
+  end
+
+  test 'builder input_field should infer pattern from attributes' do
+    with_concat_form_for(@other_validating_user) do |f|
+      f.input_field :country, as: :string, pattern: true
+    end
+
     assert_select 'input[pattern="\w+"]'
+  end
+
+  test 'builder input_field should accept custom patter' do
+    with_concat_form_for(@other_validating_user) do |f|
+      f.input_field :country, as: :string, pattern: '\d+'
+    end
+
+    assert_select 'input[pattern="\d+"]'
   end
 
   test 'builder input_field should use readonly component' do

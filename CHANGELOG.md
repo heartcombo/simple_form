@@ -1,6 +1,7 @@
 ## master
 
 ### enhancements
+  * `input_field` uses the same wrapper as input but only with attribute components. [@nashby](https://github.com/nashby)
   * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
   * Add `for` attribute to `label` when collections are rendered as radio or checkbox [@erichkist](https://github.com/erichkist), [@ulissesalmeida](https://github.com/ulissesalmeida) and [@fabioyamate](https://github.com/fabioyamate)
 
