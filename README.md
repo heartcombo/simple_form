@@ -500,9 +500,9 @@ specifying the helper method in the column `Mapping` as the `as:` option.
      `float`         | `input[type=number]`                 | `float`
      `decimal`       | `input[type=number]`                 | `decimal`
      `range`         | `input[type=range]`                  | -
-     `datetime`      | `input[type=datetime]`               | `datetime/timestamp`
-     `date`          | `input[type=date]`                   | `date`
-     `time`          | `input[type=time]`                   | `time`
+     `datetime`      | `datetime select`                    | `datetime/timestamp`
+     `date`          | `date select`                        | `date`
+     `time`          | `time select`                        | `time`
      `select`        | `select`                             | `belongs_to`/`has_many`/`has_and_belongs_to_many` associations
      `radio_buttons` | collection of `input[type=radio]`    | `belongs_to` associations
      `check_boxes`   | collection of `input[type=checkbox]` | `has_many`/`has_and_belongs_to_many` associations
