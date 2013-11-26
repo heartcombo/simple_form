@@ -173,7 +173,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   end
 
   test 'collection input with select type should generate required html attribute only with blank option or prompt' do
-    with_input_for @user, :name, :select, prompt: 'Name...', collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :select, :prompt => 'Name...', :collection => ['Jose', 'Carlos']
     assert_select 'select.required'
     assert_select 'select[required]'
   end
