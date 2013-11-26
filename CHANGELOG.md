@@ -1,8 +1,5 @@
 ## master
 
-### enhancements
-  * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
-
 ### bug fix
   * Use the given name in `input_html` for the hidden field in `collection_check_boxes` [@angelic](https://github.com/angelic)
   * Add "checkbox" class to the label of boolean input when there is no `:label`
