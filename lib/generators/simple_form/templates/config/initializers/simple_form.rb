@@ -139,7 +139,4 @@ SimpleForm.setup do |config|
 
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
-
-  # Default class for inputs
-  # config.input_class = nil
 end
