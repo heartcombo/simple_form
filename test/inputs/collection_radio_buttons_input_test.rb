@@ -292,29 +292,27 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     swap SimpleForm, boolean_style: :nested do
       with_input_for @user, :active, :radio_buttons
 
-      assert_select 'label.radio > input#user_active_true[type=radio]'
-      assert_select 'label.radio', 'Yes'
-      assert_select 'label.radio > input#user_active_false[type=radio]'
-      assert_select 'label.radio', 'No'
+      assert_select 'span.radio > label > input#user_active_true[type=radio]'
+      assert_select 'span.radio > label', 'Yes'
+      assert_select 'span.radio > label > input#user_active_false[type=radio]'
+      assert_select 'span.radio > label', 'No'
       assert_no_select 'label.collection_radio_buttons'
     end
   end
 
-  test 'input radio with nested style overrides configured item wrapper tag, forcing the :label' do
+  test 'input radio with nested style does not overrides configured item wrapper tag' do
     swap SimpleForm, boolean_style: :nested, item_wrapper_tag: :li do
       with_input_for @user, :active, :radio_buttons
 
-      assert_select 'label.radio > input'
-      assert_no_select 'li'
+      assert_select 'li.radio > label > input'
     end
   end
 
-  test 'input radio with nested style overrides given item wrapper tag, forcing the :label' do
+  test 'input radio with nested style does not overrides given item wrapper tag' do
     swap SimpleForm, boolean_style: :nested do
       with_input_for @user, :active, :radio_buttons, item_wrapper_tag: :li
 
-      assert_select 'label.radio > input'
-      assert_no_select 'li'
+      assert_select 'li.radio > label > input'
     end
   end
 
@@ -322,7 +320,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     swap SimpleForm, boolean_style: :nested do
       with_input_for @user, :active, :radio_buttons, item_wrapper_class: "inline"
 
-      assert_select 'label.radio.inline > input'
+      assert_select 'span.radio.inline > label > input'
     end
   end
 end
