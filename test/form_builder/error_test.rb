@@ -80,8 +80,13 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'p.error[error_method]'
   end
 
-  test 'error should generate an error message with raw HTML tags' do
+  test 'error should escape error prefix text' do
     with_error_for @user, :name, :error_prefix => '<b>Name</b>'
+    assert_select 'span.error', "&lt;b&gt;Name&lt;/b&gt; can't be blank"
+  end
+
+  test 'error should generate an error message with raw HTML tags' do
+    with_error_for @user, :name, :error_prefix => '<b>Name</b>'.html_safe
     assert_select 'span.error', "Name can't be blank"
     assert_select 'span.error b', "Name"
   end
