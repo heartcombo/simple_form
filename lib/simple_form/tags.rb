@@ -15,7 +15,7 @@ module SimpleForm
 
           rendered_item = yield item, value, text, default_html_options.merge(additional_html_options)
 
-          if SimpleForm.boolean_style == :nested
+          if @options.fetch(:boolean_style, SimpleForm.boolean_style) == :nested
             label_options = {}
             add_default_name_and_id_for_value(text, label_options)
             label_options['for'] = label_options['id']
