@@ -2,7 +2,6 @@ module SimpleForm
   module Components
     module Labels
       extend ActiveSupport::Concern
-      include ERB::Util
 
       module ClassMethods #:nodoc:
         def translate_required_html
