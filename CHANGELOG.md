@@ -13,6 +13,11 @@
   in `generate_additional_classes_for` config option [@nashby](https://github.com/nashby)
   * Support models with digits in their names [@webgago](https://github.com/webgago)
 
+## 2.1.1
+
+### bug fix
+  * Fix XSS vulnerability on label, hint and error components.
+
 ## 2.1.0
 
 ### enhancements
