@@ -29,6 +29,16 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.string.required[for=validating_user_name]', /Name/
   end
 
+  test 'builder should escape label text' do
+    with_label_for @user, :name, :label => '<script>alert(1337)</script>', :required => false
+    assert_select 'label.string', "&lt;script&gt;alert(1337)&lt;/script&gt;"
+  end
+
+  test 'builder should not escape label text if it is safe' do
+    with_label_for @user, :name, :label => '<script>alert(1337)</script>'.html_safe, :required => false
+    assert_select 'label.string script', "alert(1337)"
+  end
+
   test 'builder should allow passing options to label tag' do
     with_label_for @user, :name, :label => 'My label', :id => 'name_label'
     assert_select 'label.string#name_label', /My label/
