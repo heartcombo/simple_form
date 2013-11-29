@@ -1,3 +1,8 @@
+## 2.1.1
+
+### bug fix
+  * Fix XSS vulnerability on label, hint and error components.
+
 ## 2.1.0
 
 ### enhancements
