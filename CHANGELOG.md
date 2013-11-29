@@ -1,3 +1,8 @@
+## 3.0.1
+
+### bug fix
+  * Fix XSS vulnerability on label, hint and error components.
+
 ## 3.0.0
 
 ### enhancements
