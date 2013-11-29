@@ -1,8 +1,11 @@
 require 'simple_form/i18n_cache'
+require 'active_support/core_ext/string/output_safety'
 
 module SimpleForm
   module Inputs
     class Base
+      include ERB::Util
+
       extend I18nCache
 
       include SimpleForm::Helpers::Autofocus
