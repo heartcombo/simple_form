@@ -63,7 +63,7 @@ module SimpleForm
       end
 
       def detect_common_display_methods(collection_classes = detect_collection_classes)
-        collection_translated = translate_collection if collection_classes == [Symbol]
+        collection_translated = translate_collection if [[Symbol], [String]].include? collection_classes
 
         if collection_translated || collection_classes.include?(Array)
           { label: :first, value: :second }
@@ -90,7 +90,7 @@ module SimpleForm
       def translate_collection
         if translated_collection = translate(:options)
           @collection = collection.map do |key|
-            [translated_collection[key] || key, key]
+            [translated_collection[key.to_sym] || key, key]
           end
           true
         end
