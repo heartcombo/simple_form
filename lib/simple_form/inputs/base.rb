@@ -1,8 +1,11 @@
 require 'simple_form/i18n_cache'
+require 'active_support/core_ext/string/output_safety'
 
 module SimpleForm
   module Inputs
     class Base
+      include ERB::Util
+
       extend I18nCache
 
       include SimpleForm::Helpers::Autofocus
@@ -50,14 +53,14 @@ module SimpleForm
       def initialize(builder, attribute_name, column, input_type, options = {})
         super
 
-        options             = options.dup
-        @builder            = builder
-        @attribute_name     = attribute_name
-        @column             = column
-        @input_type         = input_type
-        @reflection         = options.delete(:reflection)
-        @options            = options.reverse_merge!(self.class.default_options)
-        @required           = calculate_required
+        options         = options.dup
+        @builder        = builder
+        @attribute_name = attribute_name
+        @column         = column
+        @input_type     = input_type
+        @reflection     = options.delete(:reflection)
+        @options        = options.reverse_merge!(self.class.default_options)
+        @required       = calculate_required
 
         # Notice that html_options_for receives a reference to input_html_classes.
         # This means that classes added dynamically to input_html_classes will

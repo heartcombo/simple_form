@@ -12,7 +12,7 @@ module SimpleForm
       protected
 
       def error_text
-        "#{options[:error_prefix]} #{errors.send(error_method)}".lstrip.html_safe
+        "#{html_escape(options[:error_prefix])} #{errors.send(error_method)}".lstrip.html_safe
       end
 
       def error_method

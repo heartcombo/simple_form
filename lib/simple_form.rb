@@ -111,6 +111,8 @@ module SimpleForm
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
   # e.g { string: :string_wrapper, boolean: :boolean_wrapper }
+  # You can also set a wrapper mapping per form basis.
+  # e.g simple_form_for(@foo, wrapper_mapping: { checkbox: :bootstrap_checkbox })
   mattr_accessor :wrapper_mappings
   @@wrapper_mappings = nil
 
@@ -154,6 +156,10 @@ module SimpleForm
   # Adds a class to each generated inputs
   mattr_accessor :input_class
   @@input_class = nil
+
+  # Defines if an input wrapper class should be included or not
+  mattr_accessor :include_default_input_wrapper_class
+  @@include_default_input_wrapper_class = true
 
   ## WRAPPER CONFIGURATION
   # The default wrapper to be used by the FormBuilder.
