@@ -32,7 +32,7 @@ module SimpleForm
 
   # Method to generate error messages
   mattr_accessor :error_format_method
-  @@error_format_method = :get
+  @@error_format_method = :[]
 
   # Default tag used for error notification helper.
   mattr_accessor :error_notification_tag

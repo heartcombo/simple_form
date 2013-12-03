@@ -59,7 +59,7 @@ SimpleForm.setup do |config|
 
   # Method used to generate error message.
   # config.error_format_method = :full_messages_for
-  # config.error_format_method = :get
+  # config.error_format_method = :[]
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
