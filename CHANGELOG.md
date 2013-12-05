@@ -5,6 +5,8 @@
   * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
   * Add `for` attribute to `label` when collections are rendered as radio or checkbox [@erichkist](https://github.com/erichkist), [@ulissesalmeida](https://github.com/ulissesalmeida) and [@fabioyamate](https://github.com/fabioyamate)
   * Add `include_default_input_wrapper_class` config [@luizcosta](https://github.com/luizcosta)
+  * Map `datetime`, `date` and `time` input types to their respective HTML5 input tags
+  when the `:html5` is set to `true` [@volmer](https://github.com/volmer)
 
 ### bug fix
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
