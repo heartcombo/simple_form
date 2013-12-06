@@ -20,7 +20,7 @@ module SimpleForm
 
             if item_wrapper_tag.to_s == 'label'
               label_options = {}
-              add_default_name_and_id_for_value(text, label_options)
+              add_default_name_and_id_for_value(value, label_options)
               options['for'] = label_options['id']
             end
 
