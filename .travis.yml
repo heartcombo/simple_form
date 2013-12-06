@@ -7,7 +7,7 @@ gemfile:
   - Gemfile
 matrix:
   allow_failures:
-    gemfile: gemfiles/Gemfile.rails-head
+    - gemfile: gemfiles/Gemfile.rails-head
 notifications:
   email: false
   campfire:
