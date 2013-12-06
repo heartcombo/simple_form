@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gemspec :path => '..'
+
+gem 'country_select', '~> 1.1.1'
+gem 'railties', github: 'rails/rails'
+gem 'activemodel', github: 'rails/rails'
+gem 'actionpack', github: 'rails/rails'
+gem 'rake'
+gem 'rdoc'
+gem 'tzinfo'
