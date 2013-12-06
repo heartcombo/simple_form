@@ -2,6 +2,9 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
+gemfile:
+  - gemfiles/Gemfile.rails-head
+  - Gemfile
 matrix:
   allow_failures:
     gemfile: gemfiles/Gemfile.rails-head
