@@ -18,6 +18,14 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     assert_select 'label[for=user_active_false]', 'No'
   end
 
+  test 'input as radio should generate internal labels with accurate `for` values with nested boolean style' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :radio_buttons
+      assert_select 'label[for=user_active_true]', 'Yes'
+      assert_select 'label[for=user_active_false]', 'No'
+    end
+  end
+
   test 'input as radio should use i18n to translate internal labels' do
     store_translations(:en, simple_form: { yes: 'Sim', no: 'Não' }) do
       with_input_for @user, :active, :radio_buttons
