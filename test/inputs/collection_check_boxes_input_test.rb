@@ -244,7 +244,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
       with_input_for @user, :gender, :check_boxes, collection: [:male, :female], item_wrapper_class: 'custom'
 
       assert_no_select 'label.checkbox'
-      assert_select 'label.custom'
+      assert_select 'span.custom'
     end
   end
 end
