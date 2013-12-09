@@ -276,7 +276,7 @@ overriding the `:collection` option:
 Collections can be arrays or ranges, and when a `:collection` is given the `:select` input will be
 rendered by default, so we don't need to pass the `as: :select` option. Other types of collection
 are `:radio_buttons` and `:check_boxes`. Those are added by **Simple Form** to Rails set of form
-helpers (read Extra Helpers session below for more information).
+helpers (read Extra Helpers section below for more information).
 
 Collection inputs accept two other options beside collections:
 
