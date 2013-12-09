@@ -22,7 +22,7 @@ module SimpleForm
         options[:item_wrapper_tag] ||= options.fetch(:item_wrapper_tag, SimpleForm.item_wrapper_tag)
         options[:item_wrapper_class] = [
           item_wrapper_class, options[:item_wrapper_class], SimpleForm.item_wrapper_class
-        ].compact.presence
+        ].compact.presence if SimpleForm.include_default_input_wrapper_class
 
         options[:collection_wrapper_tag] ||= options.fetch(:collection_wrapper_tag, SimpleForm.collection_wrapper_tag)
         options[:collection_wrapper_class] = [

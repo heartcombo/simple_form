@@ -108,16 +108,11 @@ module SimpleForm
     #
     def input(attribute_name, options={}, &block)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
-      input = find_input(attribute_name, options, &block)
 
-      chosen =
-        if name = options[:wrapper] || find_wrapper_mapping(input.input_type)
-          name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
-        else
-          wrapper
-        end
+      input   = find_input(attribute_name, options, &block)
+      wrapper = find_wrapper(input.input_type, options)
 
-      chosen.render input
+      wrapper.render input
     end
     alias :attribute :input
 
@@ -140,7 +135,11 @@ module SimpleForm
       options[:input_html] = options.except(:as, :collection, :label_method, :value_method, *ATTRIBUTE_COMPONENTS)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
-      SimpleForm::Wrappers::Root.new(ATTRIBUTE_COMPONENTS + [:input], wrapper: false).render find_input(attribute_name, options)
+      input      = find_input(attribute_name, options)
+      wrapper    = find_wrapper(input.input_type, options)
+      components = (wrapper.components & ATTRIBUTE_COMPONENTS) + [:input]
+
+      SimpleForm::Wrappers::Root.new(components, wrapper.options.merge(wrapper: false)).render input
     end
 
     # Helper for dealing with association selects/radios, generating the
@@ -561,6 +560,14 @@ module SimpleForm
         options[:wrapper_mappings][input_type]
       else
         SimpleForm.wrapper_mappings && SimpleForm.wrapper_mappings[input_type]
+      end
+    end
+
+    def find_wrapper(input_type, options)
+      if name = options[:wrapper] || find_wrapper_mapping(input_type)
+        name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
+      else
+        wrapper
       end
     end
 
