@@ -248,7 +248,7 @@ Example:
 ```ruby
 simple_form_for @user do |f|
   f.input_field :name
-  f.input_field :remember_me, :as => :boolean
+  f.input_field :remember_me, as: :boolean
 end
 ```
 
@@ -270,7 +270,7 @@ Example:
 ```ruby
 simple_form_for @user do |f|
   f.input_field :name
-  f.input_field :remember_me, :as => :boolean, boolean_style: :inline
+  f.input_field :remember_me, as: :boolean, boolean_style: :inline
 end
 ```
 
