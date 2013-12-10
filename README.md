@@ -248,7 +248,39 @@ Example:
 ```ruby
 simple_form_for @user do |f|
   f.input_field :name
+  f.input_field :remember_me, as: :boolean
 end
+```
+
+```html
+<form>
+  ...
+  <input class="string required" id="user_name" maxlength="255" name="user[name]" size="255" type="text">
+  <input name="user[remember_me]" type="hidden" value="0">
+  <label class="checkbox">
+    <input class="boolean optional" id="user_published" name="user[remember_me]" type="checkbox" value="1">
+  </label>
+</form>
+```
+
+For check boxes and radio buttons you can remove the label changing `boolean_style` from defaul value `:nested` to `:inline`.
+
+Example:
+
+```ruby
+simple_form_for @user do |f|
+  f.input_field :name
+  f.input_field :remember_me, as: :boolean, boolean_style: :inline
+end
+```
+
+```html
+<form>
+  ...
+  <input class="string required" id="user_name" maxlength="255" name="user[name]" size="255" type="text">
+  <input name="user[remember_me]" type="hidden" value="0">
+  <input class="boolean optional" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+</form>
 ```
 
 Produces:

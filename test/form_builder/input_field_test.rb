@@ -138,4 +138,12 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select 'select.status[label_method]'
     assert_no_select 'select.status[value_method]'
   end
+
+  test 'build input_field does not treat "boolean_style" as an HTML attribute' do
+    with_concat_form_for(@user) do |f|
+      f.input_field :active, boolean_style: :nested
+    end
+
+    assert_no_select 'input.boolean[boolean_style]'
+  end
 end
