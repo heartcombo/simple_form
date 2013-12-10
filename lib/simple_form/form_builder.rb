@@ -137,7 +137,7 @@ module SimpleForm
     #
     def input_field(attribute_name, options={})
       options = options.dup
-      options[:input_html] = options.except(:as, :collection, :label_method, :value_method, *ATTRIBUTE_COMPONENTS)
+      options[:input_html] = options.except(:as, :boolean_style, :collection, :label_method, :value_method, *ATTRIBUTE_COMPONENTS)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       SimpleForm::Wrappers::Root.new(ATTRIBUTE_COMPONENTS + [:input], wrapper: false).render find_input(attribute_name, options)
