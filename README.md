@@ -312,10 +312,10 @@ helpers (read Extra Helpers section below for more information).
 
 Collection inputs accept two other options beside collections:
 
-* _label_method_ => the label method to be applied to the collection to retrieve the label (use this
+* *label_method* => the label method to be applied to the collection to retrieve the label (use this
   instead of the `text_method` option in `collection_select`)
 
-* _value_method_ => the value method to be applied to the collection to retrieve the value
+* *value_method* => the value method to be applied to the collection to retrieve the value
 
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
@@ -335,10 +335,10 @@ f.input :country_id, collection: @continents, as: :grouped_select, group_method:
 Grouped collection inputs accept the same `:label_method` and `:value_method` options, which will be
 used to retrieve label/value attributes for the `option` tags. Besides that, you can give:
 
-* _group_method_ => the method to be called on the given collection to generate the options for
+* *group_method* => the method to be called on the given collection to generate the options for
   each group (required)
 
-* _group_label_method_ => the label method to be applied on the given collection to retrieve the label
+* *group_label_method* => the label method to be applied on the given collection to retrieve the label
   for the _optgroup_ (**Simple Form** will attempt to guess the best one the same way it does with
   `:label_method`)
 
