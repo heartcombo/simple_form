@@ -9,6 +9,8 @@
   when the `:html5` is set to `true` [@volmer](https://github.com/volmer)
 
 ### bug fix
+  * Collection input that uses automatic collection translation properly sets checked values.
+  Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
 
 ## 3.0.1
