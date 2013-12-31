@@ -47,6 +47,20 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     end
   end
 
+  test 'input that uses automatic collection translation for check_boxes should properly set checked values' do
+    store_translations(:en, :simple_form => { :options => { :defaults => {
+      :gender => { :male => 'Male', :female => 'Female'}
+    } } } ) do
+      @user.gender = 'male'
+
+      with_input_for @user, :gender, :check_boxes, :collection => [:male, :female]
+      assert_select 'input[type=checkbox][value=male][checked=checked]'
+      assert_select 'input[type=checkbox][value=female]'
+      assert_select 'label.collection_check_boxes', 'Male'
+      assert_select 'label.collection_check_boxes', 'Female'
+    end
+  end
+
   test 'input check boxes does not wrap the collection by default' do
     with_input_for @user, :active, :check_boxes
 
