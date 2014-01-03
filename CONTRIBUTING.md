@@ -2,7 +2,7 @@
 
 1) If you have any questions about SimpleForm, search the [Wiki](https://github.com/plataformatec/simple_form/wiki) or use the [Mailing List](groups.google.com/group/plataformatec-simpleform) or [Stack Overflow](http://stackoverflow.com/questions/tagged/simple_form). Do not post questions here.
 
-2) If you find a security bug, **DO NOT** submit an issue here. Please send an e-mail to [developers@plataformatec.com.br](mailto:developers@plataformatec.com.br) instead.
+2) If you find a security bug, **DO NOT** submit an issue here. Please send an e-mail to [opensource@plataformatec.com.br](mailto:opensource@plataformatec.com.br) instead.
 
 3) Do a small search on the issues tracker before submitting your issue to see if it was already reported / fixed. In case it was not, create your report including Rails and SimpleForm versions. If you are getting exceptions, please include the full backtrace.
 
