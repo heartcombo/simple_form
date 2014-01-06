@@ -13,7 +13,6 @@ module SimpleForm
       def input_options
         options = super
         apply_default_collection_options!(options)
-        apply_nested_boolean_collection_options!(options) if nested_boolean_style?
         options
       end
 
@@ -29,13 +28,6 @@ module SimpleForm
         options[:collection_wrapper_class] = [
           options[:collection_wrapper_class], SimpleForm.collection_wrapper_class
         ].compact.presence
-      end
-
-      # Force item wrapper to be a label when using nested boolean, to support
-      # configuring classes through :item_wrapper_class, and to maintain
-      # compatibility with :inline style and default :item_wrapper_tag.
-      def apply_nested_boolean_collection_options!(options)
-        options[:item_wrapper_tag] = :label
       end
 
       def collection_block_for_nested_boolean_style
