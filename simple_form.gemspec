@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = SimpleForm::VERSION.dup
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Forms made easy!"
-  s.email       = "contact@plataformatec.com.br"
+  s.email       = "opensource@plataformatec.com.br"
   s.homepage    = "https://github.com/plataformatec/simple_form"
   s.description = "Forms made easy!"
   s.authors     = ['José Valim', 'Carlos Antônio', 'Rafael França']
