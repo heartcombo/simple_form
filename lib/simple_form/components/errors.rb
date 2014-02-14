@@ -24,11 +24,11 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        object.errors.fetch(attribute_name, [])
       end
 
       def errors_on_association
-        reflection ? object.errors[reflection.name] : []
+        reflection ? object.errors.fetch(reflection.name, []) : []
       end
     end
   end
