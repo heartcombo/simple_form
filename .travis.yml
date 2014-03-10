@@ -6,12 +6,12 @@ rvm:
   - rbx
   - jruby-19mode
 gemfile:
-  - gemfiles/Gemfile.rails-head
+  - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
   - Gemfile
 matrix:
   allow_failures:
-    - gemfile: gemfiles/Gemfile.rails-head
+    - gemfile: Gemfile
     - gemfile: gemfiles/Gemfile.rails-4-1-stable
 notifications:
   email: false
