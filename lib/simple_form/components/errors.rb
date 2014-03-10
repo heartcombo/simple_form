@@ -1,7 +1,7 @@
 module SimpleForm
   module Components
     module Errors
-      def error
+      def error(context)
         error_text if has_errors?
       end
 

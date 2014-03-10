@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class PriorityInput < CollectionSelectInput
-      def input
+      def input(context)
         @builder.send(:"#{input_type}_select", attribute_name, input_priority,
                       input_options, input_html_options)
       end

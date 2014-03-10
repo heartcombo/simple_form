@@ -9,7 +9,7 @@ module SimpleForm
       end
 
       def render(input)
-        input.send(@namespace)
+        input.send(@namespace, self)
       end
 
       def find(name)

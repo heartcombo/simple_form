@@ -3,7 +3,7 @@ module SimpleForm
     class StringInput < Base
       enable :placeholder, :maxlength, :pattern
 
-      def input
+      def input(context)
         unless string?
           input_html_classes.unshift("string")
           input_html_options[:type] ||= input_type if html5?

@@ -12,7 +12,7 @@ module SimpleForm
         end
       end
 
-      def input
+      def input(context)
         raise NotImplementedError,
           "input should be implemented by classes inheriting from CollectionInput"
       end

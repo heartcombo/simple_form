@@ -7,8 +7,8 @@ module SimpleForm
         include SimpleForm::Components::Labels
       end
 
-      def label_input
-        options[:label] == false ? input : (label + input)
+      def label_input(context)
+        options[:label] == false ? input(context) : (label(context) + input(context))
       end
     end
   end

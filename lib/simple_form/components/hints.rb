@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     # Needs to be enabled in order to do automatic lookups.
     module Hints
-      def hint
+      def hint(context=nil)
         @hint ||= begin
           hint = options[:hint]
 

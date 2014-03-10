@@ -21,7 +21,7 @@ module SimpleForm
         end
       end
 
-      def label
+      def label(context=nil)
         if generate_label_for_attribute?
           @builder.label(label_target, label_text, label_html_options)
         else

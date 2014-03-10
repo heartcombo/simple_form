@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class CollectionSelectInput < CollectionInput
-      def input
+      def input(context)
         label_method, value_method = detect_collection_methods
 
         @builder.collection_select(

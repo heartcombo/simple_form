@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class CollectionRadioButtonsInput < CollectionInput
-      def input
+      def input(context)
         label_method, value_method = detect_collection_methods
 
         @builder.send("collection_#{input_type}",

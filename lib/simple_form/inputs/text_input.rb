@@ -3,7 +3,7 @@ module SimpleForm
     class TextInput < Base
       enable :placeholder, :maxlength
 
-      def input
+      def input(context)
         @builder.text_area(attribute_name, input_html_options)
       end
     end

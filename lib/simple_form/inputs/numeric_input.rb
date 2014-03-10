@@ -3,7 +3,7 @@ module SimpleForm
     class NumericInput < Base
       enable :placeholder, :min_max
 
-      def input
+      def input(context)
         input_html_classes.unshift("numeric")
         if html5?
           input_html_options[:type] ||= "number"
