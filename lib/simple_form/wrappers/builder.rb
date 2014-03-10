@@ -47,9 +47,9 @@ module SimpleForm
 
       def use(name, options=nil, &block)
         if options && wrapper = options[:wrap_with]
-          @components << Single.new(name, wrapper)
+          @components << Single.new(name, wrapper, options.except(:wrap_with))
         else
-          @components << Leaf.new(name)
+          @components << Leaf.new(name, options)
         end
       end
 

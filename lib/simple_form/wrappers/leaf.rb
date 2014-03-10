@@ -1,10 +1,11 @@
 module SimpleForm
   module Wrappers
     class Leaf
-      attr_reader :namespace
+      attr_reader :namespace, :options
 
-      def initialize(namespace)
+      def initialize(namespace, options={})
         @namespace = namespace
+        @options = options
       end
 
       def render(input)
