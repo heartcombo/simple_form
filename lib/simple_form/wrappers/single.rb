@@ -9,12 +9,16 @@ module SimpleForm
       def render(input)
         options = input.options
         if options[namespace] != false
-          content = input.send(namespace)
+          content = component.render(input)
           wrap(input, options, content) if content
         end
       end
 
       private
+
+      def component
+        components.first
+      end
 
       def html_options(options)
         [:label, :input].include?(namespace) ? {} : super
