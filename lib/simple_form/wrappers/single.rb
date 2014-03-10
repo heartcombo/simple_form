@@ -3,7 +3,7 @@ module SimpleForm
     # `Single` is an optimization for a wrapper that has only one component.
     class Single < Many
       def initialize(name, options={})
-        super(name, [name], options)
+        super(name, [Leaf.new(name)], options)
       end
 
       def render(input)

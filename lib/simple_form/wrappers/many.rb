@@ -25,7 +25,7 @@ module SimpleForm
         options = input.options
 
         components.each do |component|
-          next if options[component] == false
+          next if options[component.namespace] == false
           rendered = component.respond_to?(:render) ? component.render(input) : input.send(component)
           content.safe_concat rendered.to_s if rendered
         end

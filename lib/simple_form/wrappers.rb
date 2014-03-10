@@ -4,5 +4,6 @@ module SimpleForm
     autoload :Many,    'simple_form/wrappers/many'
     autoload :Root,    'simple_form/wrappers/root'
     autoload :Single,  'simple_form/wrappers/single'
+    autoload :Leaf,    'simple_form/wrappers/leaf'
   end
 end

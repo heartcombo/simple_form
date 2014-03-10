@@ -137,7 +137,8 @@ module SimpleForm
 
       input      = find_input(attribute_name, options)
       wrapper    = find_wrapper(input.input_type, options)
-      components = (wrapper.components & ATTRIBUTE_COMPONENTS) + [:input]
+      components = (wrapper.components.map(&:namespace) & ATTRIBUTE_COMPONENTS) + [:input]
+      components = components.map { |component| SimpleForm::Wrappers::Leaf.new(component) }
 
       SimpleForm::Wrappers::Root.new(components, wrapper.options.merge(wrapper: false)).render input
     end

@@ -49,7 +49,7 @@ module SimpleForm
         if options && wrapper = options[:wrap_with]
           @components << Single.new(name, wrapper)
         else
-          @components << name
+          @components << Leaf.new(name)
         end
       end
 
