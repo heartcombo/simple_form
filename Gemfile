@@ -8,9 +8,7 @@ platforms :rbx do
 end
 
 gem 'country_select', '~> 1.1.1'
-gem 'railties', github: 'rails/rails', branch: '4-0-stable'
-gem 'activemodel', github: 'rails/rails', branch: '4-0-stable'
-gem 'actionpack', github: 'rails/rails', branch: '4-0-stable'
+gem 'railties', github: 'rails/rails'
+gem 'activemodel', github: 'rails/rails'
+gem 'actionpack', github: 'rails/rails'
 gem 'rake'
-gem 'tzinfo'
-gem 'rdoc'
