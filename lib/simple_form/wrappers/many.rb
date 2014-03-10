@@ -26,7 +26,7 @@ module SimpleForm
 
         components.each do |component|
           next if options[component.namespace] == false
-          rendered = component.respond_to?(:render) ? component.render(input) : input.send(component)
+          rendered = component.render(input)
           content.safe_concat rendered.to_s if rendered
         end
 
