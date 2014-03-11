@@ -82,6 +82,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_input_attributes
+    SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
+      b.use :input, data: { modal: true }
+    end
+  end
+
   def custom_wrapper_with_label_input_class
     SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
       b.use :label_input, class: 'inline-class'
