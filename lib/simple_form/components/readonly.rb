@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     # Needs to be enabled in order to do automatic lookups.
     module Readonly
-      def readonly(context=nil)
+      def readonly(context = nil)
         if readonly_attribute? && !has_readonly?
           input_html_options[:readonly] ||= true
           input_html_classes << :readonly

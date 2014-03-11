@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class BooleanInput < Base
-      def input(context=nil)
+      def input(context = nil)
         merged_input_options = merge_wrapper_options(input_html_options, context)
 
         if nested_boolean_style?
@@ -15,7 +15,7 @@ module SimpleForm
         end
       end
 
-      def label_input(context=nil)
+      def label_input(context = nil)
         if options[:label] == false
           input(context)
         elsif nested_boolean_style?

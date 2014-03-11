@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class DateTimeInput < Base
-      def input(context=nil)
+      def input(context = nil)
         merged_input_options = merge_wrapper_options(input_html_options, context)
 
         if use_html5_inputs?

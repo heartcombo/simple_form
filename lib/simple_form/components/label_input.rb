@@ -7,9 +7,9 @@ module SimpleForm
         include SimpleForm::Components::Labels
       end
 
-      def label_input(context=nil)
+      def label_input(context = nil)
         if options[:label] == false
-          deprecated_component(:input ,context)
+          deprecated_component(:input, context)
         else
           deprecated_component(:label, context) + deprecated_component(:input, context)
         end
@@ -17,7 +17,7 @@ module SimpleForm
 
       private
 
-      def deprecated_component(namespace ,context)
+      def deprecated_component(namespace, context)
         method = method(namespace)
 
         if method.arity == 0

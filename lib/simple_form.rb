@@ -197,7 +197,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   end
 
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
-  def self.build(options={})
+  def self.build(options = {})
     options[:tag] = :div if options[:tag].nil?
     builder = SimpleForm::Wrappers::Builder.new(options)
     yield builder

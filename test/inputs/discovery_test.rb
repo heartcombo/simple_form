@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DiscoveryTest < ActionView::TestCase
   # Setup new inputs and remove them after the test.
-  def discovery(value=false)
+  def discovery(value = false)
     swap SimpleForm, cache_discovery: value do
       begin
         load "support/discovery_inputs.rb"

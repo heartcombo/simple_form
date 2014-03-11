@@ -1,17 +1,17 @@
 class StringInput < SimpleForm::Inputs::StringInput
-  def input(context=nil)
+  def input(context = nil)
     "<section>#{super}</section>".html_safe
   end
 end
 
 class NumericInput < SimpleForm::Inputs::NumericInput
-  def input(context=nil)
+  def input(context = nil)
     "<section>#{super}</section>".html_safe
   end
 end
 
 class CustomizedInput < SimpleForm::Inputs::StringInput
-  def input(context=nil)
+  def input(context = nil)
     "<section>#{super}</section>".html_safe
   end
 

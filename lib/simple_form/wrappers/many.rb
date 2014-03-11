@@ -12,7 +12,7 @@ module SimpleForm
       attr_reader :namespace, :defaults, :components
       alias :to_sym :namespace
 
-      def initialize(namespace, components, defaults={})
+      def initialize(namespace, components, defaults = {})
         @namespace  = namespace
         @components = components
         @defaults   = defaults

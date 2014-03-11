@@ -3,7 +3,7 @@ module SimpleForm
     class Leaf
       attr_reader :namespace, :options
 
-      def initialize(namespace, options={})
+      def initialize(namespace, options = {})
         @namespace = namespace
         @options = options
       end

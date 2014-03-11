@@ -8,13 +8,13 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-  def with_collection_radio_buttons(object, attribute, collection, value_method, text_method, options={}, html_options={}, &block)
+  def with_collection_radio_buttons(object, attribute, collection, value_method, text_method, options = {}, html_options = {}, &block)
     with_concat_form_for(object) do |f|
       f.collection_radio_buttons attribute, collection, value_method, text_method, options, html_options, &block
     end
   end
 
-  def with_collection_check_boxes(object, attribute, collection, value_method, text_method, options={}, html_options={}, &block)
+  def with_collection_check_boxes(object, attribute, collection, value_method, text_method, options = {}, html_options = {}, &block)
     with_concat_form_for(object) do |f|
       f.collection_check_boxes attribute, collection, value_method, text_method, options, html_options, &block
     end

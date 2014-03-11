@@ -5,7 +5,7 @@ module SimpleForm
         @html5 = false
       end
 
-      def html5(context=nil)
+      def html5(context = nil)
         @html5 = true
         if has_required?
           input_html_options[:required] = true

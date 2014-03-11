@@ -80,7 +80,7 @@ module SimpleForm
         end
       end
 
-      def input(context=nil)
+      def input(context = nil)
         raise NotImplementedError
       end
 
@@ -168,7 +168,7 @@ module SimpleForm
       #            email: 'E-mail.'
       #
       #  Take a look at our locale example file.
-      def translate(namespace, default='')
+      def translate(namespace, default = '')
         model_names = lookup_model_names.dup
         lookups     = []
 

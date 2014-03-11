@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class PriorityInput < CollectionSelectInput
-      def input(context=nil)
+      def input(context = nil)
         merged_input_options = merge_wrapper_options(input_html_options, context)
 
         @builder.send(:"#{input_type}_select", attribute_name, input_priority,

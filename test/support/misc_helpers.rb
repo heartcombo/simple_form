@@ -46,7 +46,7 @@ module MiscHelpers
     end
   end
 
-  def swap_wrapper(name=:default, wrapper=self.custom_wrapper)
+  def swap_wrapper(name = :default, wrapper = self.custom_wrapper)
     old = SimpleForm.wrappers[name]
     SimpleForm.wrappers[name] = wrapper
     yield
@@ -168,7 +168,7 @@ module MiscHelpers
     end
   end
 
-  def with_input_for(object, attribute_name, type, options={})
+  def with_input_for(object, attribute_name, type, options = {})
     with_concat_form_for(object) do |f|
       f.input(attribute_name, options.merge(as: type))
     end
