@@ -7,17 +7,17 @@ module SimpleForm
         include SimpleForm::Components::Labels
       end
 
-      def label_input(context = nil)
+      def label_input(wrapper_options = nil)
         if options[:label] == false
-          deprecated_component(:input, context)
+          deprecated_component(:input, wrapper_options)
         else
-          deprecated_component(:label, context) + deprecated_component(:input, context)
+          deprecated_component(:label, wrapper_options) + deprecated_component(:input, wrapper_options)
         end
       end
 
       private
 
-      def deprecated_component(namespace, context)
+      def deprecated_component(namespace, wrapper_options)
         method = method(namespace)
 
         if method.arity == 0
@@ -25,7 +25,7 @@ module SimpleForm
 
           method.call
         else
-          method.call(context)
+          method.call(wrapper_options)
         end
       end
     end

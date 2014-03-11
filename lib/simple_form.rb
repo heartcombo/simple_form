@@ -25,13 +25,13 @@ module SimpleForm
   end
 
   CUSTOM_INPUT_DEPRECATION_WARN = <<-WARN
-%{name} method now accepts a `context` argument. The method definition without the argument is deprecated and will be removed in the next Simple Form version. Change your code from:
+%{name} method now accepts a `wrapper_options` argument. The method definition without the argument is deprecated and will be removed in the next Simple Form version. Change your code from:
 
     def %{name}
 
 to
 
-    def %{name}(context)
+    def %{name}(wrapper_options)
 
 See https://github.com/plataformatec/simple_form/pull/997 for more information.
   WARN

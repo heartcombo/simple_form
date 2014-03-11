@@ -1,10 +1,10 @@
 module SimpleForm
   module Inputs
     class GroupedCollectionSelectInput < CollectionInput
-      def input(context = nil)
+      def input(wrapper_options = nil)
         label_method, value_method = detect_collection_methods
 
-        merged_input_options = merge_wrapper_options(input_html_options, context)
+        merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
         @builder.grouped_collection_select(attribute_name, grouped_collection,
                       group_method, group_label_method, value_method, label_method,

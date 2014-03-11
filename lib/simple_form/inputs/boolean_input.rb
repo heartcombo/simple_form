@@ -1,8 +1,8 @@
 module SimpleForm
   module Inputs
     class BooleanInput < Base
-      def input(context = nil)
-        merged_input_options = merge_wrapper_options(input_html_options, context)
+      def input(wrapper_options = nil)
+        merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
         if nested_boolean_style?
           build_hidden_field_for_checkbox +
@@ -15,22 +15,22 @@ module SimpleForm
         end
       end
 
-      def label_input(context = nil)
+      def label_input(wrapper_options = nil)
         if options[:label] == false
-          input(context)
+          input(wrapper_options)
         elsif nested_boolean_style?
           html_options = label_html_options.dup
           html_options[:class] ||= []
           html_options[:class].push(:checkbox)
 
-          merged_input_options = merge_wrapper_options(input_html_options, context)
+          merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
           build_hidden_field_for_checkbox +
             @builder.label(label_target, html_options) {
               build_check_box_without_hidden_field(merged_input_options) + label_text
             }
         else
-          input(context) + label(context)
+          input(wrapper_options) + label(wrapper_options)
         end
       end
 

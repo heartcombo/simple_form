@@ -6,7 +6,7 @@ module SimpleForm
         @block = block
       end
 
-      def input(context = nil)
+      def input(wrapper_options = nil)
         template.capture(&@block)
       end
     end

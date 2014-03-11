@@ -12,7 +12,7 @@ module SimpleForm
         end
       end
 
-      def input(context = nil)
+      def input(wrapper_options = nil)
         raise NotImplementedError,
           "input should be implemented by classes inheriting from CollectionInput"
       end

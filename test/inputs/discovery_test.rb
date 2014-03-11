@@ -68,7 +68,7 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'inputs method without context are deprecated' do
+  test 'inputs method without wrapper_options are deprecated' do
     discovery do
       assert_deprecated do
         with_form_for @user, :name, as: :deprecated

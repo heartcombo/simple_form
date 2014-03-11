@@ -1,8 +1,8 @@
 module SimpleForm
   module Inputs
     class DateTimeInput < Base
-      def input(context = nil)
-        merged_input_options = merge_wrapper_options(input_html_options, context)
+      def input(wrapper_options = nil)
+        merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
         if use_html5_inputs?
           @builder.send(:"#{input_type}_field", attribute_name, merged_input_options)

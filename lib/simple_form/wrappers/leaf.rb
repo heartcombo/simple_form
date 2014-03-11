@@ -1,7 +1,7 @@
 module SimpleForm
   module Wrappers
     class Leaf
-      attr_reader :namespace, :options
+      attr_reader :namespace
 
       def initialize(namespace, options = {})
         @namespace = namespace
@@ -16,7 +16,7 @@ module SimpleForm
 
           method.call
         else
-          method.call(self)
+          method.call(@options)
         end
       end
 

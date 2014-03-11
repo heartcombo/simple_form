@@ -21,8 +21,8 @@ module SimpleForm
         end
       end
 
-      def label(context = nil)
-        label_options = merge_wrapper_options(label_html_options, context)
+      def label(wrapper_options = nil)
+        label_options = merge_wrapper_options(label_html_options, wrapper_options)
 
         if generate_label_for_attribute?
           @builder.label(label_target, label_text, label_options)

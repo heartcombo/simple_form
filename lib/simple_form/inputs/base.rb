@@ -79,7 +79,7 @@ module SimpleForm
         end
       end
 
-      def input(context = nil)
+      def input(wrapper_options = nil)
         raise NotImplementedError
       end
 
@@ -185,9 +185,9 @@ module SimpleForm
         I18n.t(lookups.shift, scope: :"simple_form.#{namespace}", default: lookups).presence
       end
 
-      def merge_wrapper_options(options, context)
-        if context
-          options.merge(context.options) do |_, oldval, newval|
+      def merge_wrapper_options(options, wrapper_options)
+        if wrapper_options
+          options.merge(wrapper_options) do |_, oldval, newval|
             if Array === oldval
               oldval + Array(newval)
             end
