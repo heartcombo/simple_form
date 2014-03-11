@@ -2,11 +2,7 @@ module SimpleForm
   module Inputs
     class BooleanInput < Base
       def input(context=nil)
-        if context
-          merged_input_options = merge_wrapper_options(input_html_options, context.options)
-        else
-          merged_input_options = input_html_options
-        end
+        merged_input_options = merge_wrapper_options(input_html_options, context)
 
         if nested_boolean_style?
           build_hidden_field_for_checkbox +
@@ -27,11 +23,7 @@ module SimpleForm
           html_options[:class] ||= []
           html_options[:class].push(:checkbox)
 
-          if context
-            merged_input_options = merge_wrapper_options(input_html_options, context.options)
-          else
-            merged_input_options = input_html_options
-          end
+          merged_input_options = merge_wrapper_options(input_html_options, context)
 
           build_hidden_field_for_checkbox +
             @builder.label(label_target, html_options) {

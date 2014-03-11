@@ -4,11 +4,7 @@ module SimpleForm
       def input(context=nil)
         label_method, value_method = detect_collection_methods
 
-        if context
-          merged_input_options = merge_wrapper_options(input_html_options, context.options)
-        else
-          merged_input_options = input_html_options
-        end
+        merged_input_options = merge_wrapper_options(input_html_options, context)
 
         @builder.grouped_collection_select(attribute_name, grouped_collection,
                       group_method, group_label_method, value_method, label_method,
