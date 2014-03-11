@@ -22,10 +22,16 @@ module SimpleForm
       end
 
       def label(context=nil)
-        if generate_label_for_attribute?
-          @builder.label(label_target, label_text, label_html_options)
+        if context
+          label_options = merged_label_options(context.options)
         else
-          template.label_tag(nil, label_text, label_html_options)
+          label_options = label_html_options
+        end
+
+        if generate_label_for_attribute?
+          @builder.label(label_target, label_text, label_options)
+        else
+          template.label_tag(nil, label_text, label_options)
         end
       end
 
@@ -46,6 +52,7 @@ module SimpleForm
         if options.key?(:input_html) && options[:input_html].key?(:id)
           label_options[:for] = options[:input_html][:id]
         end
+
         label_options
       end
 
@@ -73,6 +80,14 @@ module SimpleForm
 
       def generate_label_for_attribute?
         true
+      end
+
+      def merged_label_options(context_options)
+        label_html_options.merge(context_options) do |_, oldval, newval|
+          if Array === oldval
+            oldval + Array(newval)
+          end
+        end
       end
     end
   end
