@@ -4,7 +4,7 @@ module SimpleForm
       disable :label, :errors, :hint, :required
 
       def input(context)
-        @builder.hidden_field(attribute_name, input_html_options)
+        @builder.hidden_field(attribute_name, merged_input_options(context.options))
       end
 
       private

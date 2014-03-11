@@ -6,7 +6,8 @@ module SimpleForm
 
         @builder.send("collection_#{input_type}",
           attribute_name, collection, value_method, label_method,
-          input_options, input_html_options, &collection_block_for_nested_boolean_style
+          input_options, merged_input_options(context.options),
+          &collection_block_for_nested_boolean_style
         )
       end
 

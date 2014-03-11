@@ -5,10 +5,11 @@ module SimpleForm
         if nested_boolean_style?
           build_hidden_field_for_checkbox +
             template.label_tag(nil, class: "checkbox") {
-              build_check_box_without_hidden_field + inline_label
+              build_check_box_without_hidden_field(merged_input_options(context.options)) +
+                inline_label
             }
         else
-          build_check_box
+          build_check_box(unchecked_value, merged_input_options(context.options))
         end
       end
 
@@ -22,7 +23,7 @@ module SimpleForm
 
           build_hidden_field_for_checkbox +
             @builder.label(label_target, html_options) {
-              build_check_box_without_hidden_field + label_text
+              build_check_box_without_hidden_field(merged_input_options(context.options)) + label_text
             }
         else
           input(context) + label(context)
@@ -35,14 +36,14 @@ module SimpleForm
       # reuse the method for nested boolean style, but with no unchecked value,
       # which won't generate the hidden checkbox. This is the default functionality
       # in Rails > 3.2.1, and is backported in SimpleForm AV helpers.
-      def build_check_box(unchecked_value = unchecked_value)
+      def build_check_box(unchecked_value, options)
         @builder.check_box(attribute_name, input_html_options, checked_value, unchecked_value)
       end
 
       # Build a checkbox without generating the hidden field. See
       # #build_hidden_field_for_checkbox for more info.
-      def build_check_box_without_hidden_field
-        build_check_box(nil)
+      def build_check_box_without_hidden_field(options)
+        build_check_box(nil, options)
       end
 
       # Create a hidden field for the current checkbox, so we can simulate Rails

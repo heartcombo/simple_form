@@ -5,7 +5,7 @@ module SimpleForm
         label_method, value_method = detect_collection_methods
         @builder.grouped_collection_select(attribute_name, grouped_collection,
                       group_method, group_label_method, value_method, label_method,
-                      input_options, input_html_options)
+                      input_options, merged_input_options(context.options))
       end
 
       private

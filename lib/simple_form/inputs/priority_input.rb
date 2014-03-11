@@ -3,7 +3,7 @@ module SimpleForm
     class PriorityInput < CollectionSelectInput
       def input(context)
         @builder.send(:"#{input_type}_select", attribute_name, input_priority,
-                      input_options, input_html_options)
+                      input_options, merged_input_options(context.options))
       end
 
       def input_priority

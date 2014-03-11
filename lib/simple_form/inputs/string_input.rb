@@ -9,7 +9,9 @@ module SimpleForm
           input_html_options[:type] ||= input_type if html5?
         end
 
-        @builder.text_field(attribute_name, input_html_options)
+        merged_input_options = merged_input_options(context.options)
+
+        @builder.text_field(attribute_name, merged_input_options)
       end
 
       private

@@ -3,9 +3,9 @@ module SimpleForm
     class DateTimeInput < Base
       def input(context)
         if use_html5_inputs?
-          @builder.send(:"#{input_type}_field", attribute_name, input_html_options)
+          @builder.send(:"#{input_type}_field", attribute_name, merged_input_options(context.options))
         else
-          @builder.send(:"#{input_type}_select", attribute_name, input_options, input_html_options)
+          @builder.send(:"#{input_type}_select", attribute_name, input_options, merged_input_options(context.options))
         end
       end
 

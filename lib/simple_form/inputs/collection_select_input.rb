@@ -6,7 +6,7 @@ module SimpleForm
 
         @builder.collection_select(
           attribute_name, collection, value_method, label_method,
-          input_options, input_html_options
+          input_options, merged_input_options(context.options)
         )
       end
     end

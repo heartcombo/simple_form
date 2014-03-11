@@ -4,7 +4,7 @@ module SimpleForm
       enable :placeholder, :maxlength
 
       def input(context)
-        @builder.text_area(attribute_name, input_html_options)
+        @builder.text_area(attribute_name, merged_input_options(context.options))
       end
     end
   end
