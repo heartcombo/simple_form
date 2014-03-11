@@ -1,12 +1,18 @@
 module SimpleForm
   module Inputs
     class CollectionRadioButtonsInput < CollectionInput
-      def input(context)
+      def input(context=nil)
         label_method, value_method = detect_collection_methods
+
+        if context
+          merged_input_options = merged_input_options(context.options)
+        else
+          merged_input_options = input_html_options
+        end
 
         @builder.send("collection_#{input_type}",
           attribute_name, collection, value_method, label_method,
-          input_options, merged_input_options(context.options),
+          input_options, merged_input_options,
           &collection_block_for_nested_boolean_style
         )
       end

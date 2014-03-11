@@ -79,7 +79,7 @@ module SimpleForm
         end
       end
 
-      def input(context)
+      def input(context=nil)
         raise NotImplementedError
       end
 

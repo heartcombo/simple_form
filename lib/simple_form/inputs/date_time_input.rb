@@ -1,11 +1,17 @@
 module SimpleForm
   module Inputs
     class DateTimeInput < Base
-      def input(context)
-        if use_html5_inputs?
-          @builder.send(:"#{input_type}_field", attribute_name, merged_input_options(context.options))
+      def input(context=nil)
+        if context
+          merged_input_options = merged_input_options(context.options)
         else
-          @builder.send(:"#{input_type}_select", attribute_name, input_options, merged_input_options(context.options))
+          merged_input_options = input_html_options
+        end
+
+        if use_html5_inputs?
+          @builder.send(:"#{input_type}_field", attribute_name, merged_input_options)
+        else
+          @builder.send(:"#{input_type}_select", attribute_name, input_options, merged_input_options)
         end
       end
 
