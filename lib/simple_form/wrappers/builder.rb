@@ -45,7 +45,7 @@ module SimpleForm
         @components = []
       end
 
-      def use(name, options=nil, &block)
+      def use(name, options={}, &block)
         if options && wrapper = options[:wrap_with]
           @components << Single.new(name, wrapper, options.except(:wrap_with))
         else
@@ -53,7 +53,7 @@ module SimpleForm
         end
       end
 
-      def optional(name, options=nil, &block)
+      def optional(name, options={}, &block)
         @options[name] = false
         use(name, options, &block)
       end
