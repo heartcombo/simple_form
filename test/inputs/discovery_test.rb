@@ -12,6 +12,7 @@ class DiscoveryTest < ActionView::TestCase
         Object.send :remove_const, :StringInput
         Object.send :remove_const, :NumericInput
         Object.send :remove_const, :CustomizedInput
+        Object.send :remove_const, :DeprecatedInput
         Object.send :remove_const, :CollectionSelectInput
       end
     end
@@ -64,6 +65,16 @@ class DiscoveryTest < ActionView::TestCase
     discovery do
       with_form_for @user, :active, as: :select
       assert_select 'form select#user_active.select.chosen'
+    end
+  end
+
+  test 'inputs method without context are deprecated' do
+    discovery do
+      assert_deprecated do
+        with_form_for @user, :name, as: :deprecated
+      end
+
+      assert_select 'form section input#user_name.string'
     end
   end
 end
