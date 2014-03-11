@@ -32,6 +32,8 @@ module SimpleForm
 to
 
     def %{name}(context)
+
+See https://github.com/plataformatec/simple_form/pull/997 for more information.
   WARN
 
   ## CONFIGURATION OPTIONS
