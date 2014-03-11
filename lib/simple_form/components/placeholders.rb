@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     # Needs to be enabled in order to do automatic lookups.
     module Placeholders
-      def placeholder(context = nil)
+      def placeholder(wrapper_options = nil)
         input_html_options[:placeholder] ||= placeholder_text
         nil
       end
