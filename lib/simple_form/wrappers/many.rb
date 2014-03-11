@@ -1,7 +1,7 @@
 module SimpleForm
   module Wrappers
     # A wrapper is an object that holds several components and render them.
-    # A component may either be a symbol or any object that responds to `render`.
+    # A component may be any object that responds to `render`.
     # This API allows inputs/components to be easily wrapped, removing the
     # need to modify the code only to wrap input in an extra tag.
     #
