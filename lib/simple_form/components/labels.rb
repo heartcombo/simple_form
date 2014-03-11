@@ -23,7 +23,7 @@ module SimpleForm
 
       def label(context=nil)
         if context
-          label_options = merged_label_options(context.options)
+          label_options = merge_wrapper_options(label_html_options, context.options)
         else
           label_options = label_html_options
         end
@@ -80,14 +80,6 @@ module SimpleForm
 
       def generate_label_for_attribute?
         true
-      end
-
-      def merged_label_options(context_options)
-        label_html_options.merge(context_options) do |_, oldval, newval|
-          if Array === oldval
-            oldval + Array(newval)
-          end
-        end
       end
     end
   end

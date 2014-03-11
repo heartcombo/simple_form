@@ -13,6 +13,7 @@ module SimpleForm
       include SimpleForm::Helpers::Readonly
       include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Validators
+      include SimpleForm::Helpers::WrapperOptions
 
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
@@ -183,14 +184,6 @@ module SimpleForm
         lookups << default
 
         I18n.t(lookups.shift, scope: :"simple_form.#{namespace}", default: lookups).presence
-      end
-
-      def merged_input_options(context_options)
-        input_html_options.merge(context_options) do |_, oldval, newval|
-          if Array === oldval
-            oldval + Array(newval)
-          end
-        end
       end
     end
   end
