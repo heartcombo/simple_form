@@ -128,6 +128,14 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'custom wrappers can have additional attributes' do
+    swap_wrapper :default, self.custom_wrapper_with_additional_attributes do
+      with_form_for @user, :name
+
+      assert_select "div.custom_wrapper[title='some title'][data-wrapper='test']"
+    end
+  end
+
   test 'custom wrappers on a form basis' do
     swap_wrapper :another do
       with_concat_form_for(@user) do |f|

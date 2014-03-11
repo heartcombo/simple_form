@@ -112,6 +112,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_additional_attributes
+    SimpleForm.build tag: :div, class: 'custom_wrapper', html: { data: { wrapper: :test }, title: 'some title' } do |b|
+      b.use :label_input
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end
