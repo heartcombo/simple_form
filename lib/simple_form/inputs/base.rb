@@ -79,7 +79,7 @@ module SimpleForm
         end
       end
 
-      def input
+      def input(wrapper_options = nil)
         raise NotImplementedError
       end
 
@@ -167,7 +167,7 @@ module SimpleForm
       #            email: 'E-mail.'
       #
       #  Take a look at our locale example file.
-      def translate(namespace, default='')
+      def translate(namespace, default = '')
         model_names = lookup_model_names.dup
         lookups     = []
 
@@ -183,6 +183,18 @@ module SimpleForm
         lookups << default
 
         I18n.t(lookups.shift, scope: :"simple_form.#{namespace}", default: lookups).presence
+      end
+
+      def merge_wrapper_options(options, wrapper_options)
+        if wrapper_options
+          options.merge(wrapper_options) do |_, oldval, newval|
+            if Array === oldval
+              oldval + Array(newval)
+            end
+          end
+        else
+          options
+        end
       end
     end
   end

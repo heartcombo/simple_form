@@ -106,7 +106,7 @@ module SimpleForm
     # Some inputs, as :time_zone and :country accepts a :priority option. If none is
     # given SimpleForm.time_zone_priority and SimpleForm.country_priority are used respectively.
     #
-    def input(attribute_name, options={}, &block)
+    def input(attribute_name, options = {}, &block)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       input   = find_input(attribute_name, options, &block)
@@ -130,14 +130,15 @@ module SimpleForm
     #     <input class="string required" id="user_name" maxlength="100"
     #        name="user[name]" type="text" value="Carlos" />
     #
-    def input_field(attribute_name, options={})
+    def input_field(attribute_name, options = {})
       options = options.dup
       options[:input_html] = options.except(:as, :boolean_style, :collection, :label_method, :value_method, *ATTRIBUTE_COMPONENTS)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       input      = find_input(attribute_name, options)
       wrapper    = find_wrapper(input.input_type, options)
-      components = (wrapper.components & ATTRIBUTE_COMPONENTS) + [:input]
+      components = (wrapper.components.map(&:namespace) & ATTRIBUTE_COMPONENTS) + [:input]
+      components = components.map { |component| SimpleForm::Wrappers::Leaf.new(component) }
 
       SimpleForm::Wrappers::Root.new(components, wrapper.options.merge(wrapper: false)).render input
     end
@@ -170,7 +171,7 @@ module SimpleForm
     #
     # Please note that the association helper is currently only tested with Active Record. Depending on the ORM you are using your mileage may vary.
     #
-    def association(association, options={}, &block)
+    def association(association, options = {}, &block)
       options = options.dup
 
       return simple_fields_for(*[association,
@@ -241,7 +242,7 @@ module SimpleForm
     #    f.error :name
     #    f.error :name, id: "cool_error"
     #
-    def error(attribute_name, options={})
+    def error(attribute_name, options = {})
       options = options.dup
 
       options[:error_html] = options.except(:error_tag, :error_prefix, :error_method)
@@ -258,7 +259,7 @@ module SimpleForm
     #
     #    f.full_error :token #=> <span class="error">Token is invalid</span>
     #
-    def full_error(attribute_name, options={})
+    def full_error(attribute_name, options = {})
       options = options.dup
 
       options[:error_prefix] ||= if object.class.respond_to?(:human_attribute_name)
@@ -280,7 +281,7 @@ module SimpleForm
     #    f.hint :name, id: "cool_hint"
     #    f.hint "Don't forget to accept this"
     #
-    def hint(attribute_name, options={})
+    def hint(attribute_name, options = {})
       options = options.dup
 
       options[:hint_html] = options.except(:hint_tag, :hint)
@@ -331,7 +332,7 @@ module SimpleForm
     #    f.error_notification message: 'Something went wrong'
     #    f.error_notification id: 'user_error_message', class: 'form_error'
     #
-    def error_notification(options={})
+    def error_notification(options = {})
       SimpleForm::ErrorNotification.new(self, options).render
     end
 
@@ -471,7 +472,7 @@ module SimpleForm
     private
 
     # Find an input based on the attribute name.
-    def find_input(attribute_name, options={}, &block) #:nodoc:
+    def find_input(attribute_name, options = {}, &block) #:nodoc:
       column     = find_attribute_column(attribute_name)
       input_type = default_input_type(attribute_name, column, options)
 

@@ -3,13 +3,15 @@ module SimpleForm
     class StringInput < Base
       enable :placeholder, :maxlength, :pattern
 
-      def input
+      def input(wrapper_options = nil)
         unless string?
           input_html_classes.unshift("string")
           input_html_options[:type] ||= input_type if html5?
         end
 
-        @builder.text_field(attribute_name, input_html_options)
+        merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
+
+        @builder.text_field(attribute_name, merged_input_options)
       end
 
       private

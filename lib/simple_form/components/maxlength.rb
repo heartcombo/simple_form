@@ -2,7 +2,7 @@ module SimpleForm
   module Components
     # Needs to be enabled in order to do automatic lookups.
     module Maxlength
-      def maxlength
+      def maxlength(wrapper_options = nil)
         input_html_options[:maxlength] ||= maximum_length_from_validation || limit
         nil
       end

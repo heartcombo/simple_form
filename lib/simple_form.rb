@@ -24,6 +24,18 @@ module SimpleForm
     SimpleForm::Components.eager_load!
   end
 
+  CUSTOM_INPUT_DEPRECATION_WARN = <<-WARN
+%{name} method now accepts a `wrapper_options` argument. The method definition without the argument is deprecated and will be removed in the next Simple Form version. Change your code from:
+
+    def %{name}
+
+to
+
+    def %{name}(wrapper_options)
+
+See https://github.com/plataformatec/simple_form/pull/997 for more information.
+  WARN
+
   ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
@@ -189,7 +201,7 @@ module SimpleForm
   end
 
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
-  def self.build(options={})
+  def self.build(options = {})
     options[:tag] = :div if options[:tag].nil?
     builder = SimpleForm::Wrappers::Builder.new(options)
     yield builder
