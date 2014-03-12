@@ -8,6 +8,7 @@
   * Add `include_default_input_wrapper_class` config [@luizcosta](https://github.com/luizcosta)
   * Map `datetime`, `date` and `time` input types to their respective HTML5 input tags
   when the `:html5` is set to `true` [@volmer](https://github.com/volmer)
+  * Add `boolean_label_class` config.
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.
