@@ -6,6 +6,7 @@
   * New `input_class` global config option to set a class to be generated in all inputs.
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
   * Add `include_default_input_wrapper_class` config [@luizcosta](https://github.com/luizcosta)
+  * Add `boolean_label_class` config.
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.
