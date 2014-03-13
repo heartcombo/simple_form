@@ -62,7 +62,7 @@ module SimpleForm
       end
 
       def html_options(options)
-        options[:"#{namespace}_html"] || {}
+        (@defaults[:html] || {}).merge(options[:"#{namespace}_html"] || {})
       end
 
       def html_classes(input, options)
