@@ -817,7 +817,7 @@ If you want to customize the custom _Form components_ on demand you can give it 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.wrapper :my_wrapper, tag: :div, class: 'separator' do |component|
+  b.wrapper :my_wrapper, tag: :div, class: 'separator', html: { id: 'my_wrapper_id' } do |component|
     component.use :hint,  wrap_with: { tag: :span, class: :hint }
     component.use :error, wrap_with: { tag: :span, class: :error }
   end
