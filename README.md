@@ -176,14 +176,14 @@ And of course, the `required` property of any input can be overwritten as needed
 <% end %>
 ```
 
-By default, SimpleForm will look at the column type in the database and use an
+By default, **Simple Form** will look at the column type in the database and use an
 appropriate input for the column. For example, a column created with type
 `:text` in the database will use a `textarea` input by default. See the section
 [Available input types and defaults for each column
 type](https://github.com/plataformatec/simple_form#available-input-types-and-defaults-for-each-column-type)
 for a complete list of defaults.
 
-**SimpleForm** also lets you overwrite the default input type it creates:
+**Simple Form** also lets you overwrite the default input type it creates:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -365,8 +365,8 @@ f.input :shipping_country, priority: [ "Brazil" ], collection: [ "Australia", "B
 
 ### Associations
 
-To deal with associations, **SimpleForm** can generate select inputs, a series of radios buttons or checkboxes.
-Lets see how it works: imagine you have a user model that belongs to a company and has_and_belongs_to_many
+To deal with associations, **Simple Form** can generate select inputs, a series of radios buttons or checkboxes.
+Lets see how it works: imagine you have a user model that belongs to a company and `has_and_belongs_to_many`
 roles. The structure would be something like:
 
 ```ruby
