@@ -677,7 +677,7 @@ en:
 specific is found inside the model key. Note that this syntax is different from 1.x. To migrate to
 the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".
 
-In addition, **Simple Form** will fallback to default human_attribute_name from Rails when no other
+In addition, **Simple Form** will fallback to default `human_attribute_name` from Rails when no other
 translation is found for labels. Finally, you can also overwrite any label, hint or placeholder
 inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
 
@@ -911,7 +911,7 @@ help you to use some generic javascript validation.
 You can also add `novalidate` to a specific form by setting the option on the form itself:
 
 ```erb
-<%= simple_form_for(resource, html: {novalidate: true}) do |form| %>
+<%= simple_form_for(resource, html: { novalidate: true }) do |form| %>
 ```
 
 Please notice that any of the configurations above will not disable the `placeholder` component,
