@@ -811,6 +811,16 @@ end
 
 this will wrap the hint and error components within a `div` tag using the class `'separator'`.
 
+You can customize _Form components_ passing options to them:
+
+```ruby
+config.wrappers do |b|
+  b.use :label_input, class: 'label-input-class'
+end
+```
+
+This you set the input and label class to `'label-input-class'`.
+
 If you want to customize the custom _Form components_ on demand you can give it a name like this:
 
 ```ruby
