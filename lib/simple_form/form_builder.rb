@@ -8,8 +8,8 @@ module SimpleForm
 
     # When action is create or update, we still should use new and edit
     ACTIONS = {
-      create: :new,
-      update: :edit
+      'create' => 'new',
+      'update' => 'edit'
     }
 
     ATTRIBUTE_COMPONENTS = [:html5, :min_max, :maxlength, :placeholder, :pattern, :readonly]
@@ -464,7 +464,7 @@ module SimpleForm
       @lookup_action ||= begin
         action = template.controller && template.controller.action_name
         return unless action
-        action = action.to_sym
+        action = action.to_s
         ACTIONS[action] || action
       end
     end
