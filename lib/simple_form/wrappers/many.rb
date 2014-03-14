@@ -10,7 +10,6 @@ module SimpleForm
     # on demand on input generation.
     class Many
       attr_reader :namespace, :defaults, :components
-      alias :to_sym :namespace
 
       def initialize(namespace, components, defaults = {})
         @namespace  = namespace

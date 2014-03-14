@@ -177,7 +177,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # Retrieves a given wrapper
   def self.wrapper(name)
-    @@wrappers[name.to_sym] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
+    @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
   end
 
   # Raised when fails to find a given wrapper name
@@ -190,7 +190,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
     if block_given?
       options                 = args.extract_options!
       name                    = args.first || :default
-      @@wrappers[name.to_sym] = build(options, &block)
+      @@wrappers[name.to_s]   = build(options, &block)
     else
       @@wrappers
     end
