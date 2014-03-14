@@ -169,6 +169,10 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :include_default_input_wrapper_class
   @@include_default_input_wrapper_class = true
 
+  # Define the default class of the input wrapper of the boolean input.
+  mattr_accessor :boolean_label_class
+  @@boolean_label_class = 'checkbox'
+
   ## WRAPPER CONFIGURATION
   # The default wrapper to be used by the FormBuilder.
   mattr_accessor :default_wrapper

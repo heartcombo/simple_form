@@ -346,14 +346,14 @@ used to retrieve label/value attributes for the `option` tags. Besides that, you
 ### Priority
 
 **Simple Form** also supports `:time_zone` and `:country`. When using such helpers, you can give
-`:priority` as option to select which time zones and/or countries should be given higher priority:
+`:priority` as an option to select which time zones and/or countries should be given higher priority:
 
 ```ruby
 f.input :residence_country, priority: [ "Brazil" ]
 f.input :time_zone, priority: /US/
 ```
 
-Those values can also be configured with a default value to be used site use through the
+Those values can also be configured with a default value to be used on the site through the
 `SimpleForm.country_priority` and `SimpleForm.time_zone_priority` helpers.
 
 Note: While using `country_select` if you want to restrict to only a subset of countries for a specific
@@ -827,7 +827,7 @@ If you want to customize the custom _Form components_ on demand you can give it 
 config.wrappers do |b|
   b.use :placeholder
   b.use :label_input
-  b.wrapper :my_wrapper, tag: :div, class: 'separator' do |component|
+  b.wrapper :my_wrapper, tag: :div, class: 'separator', html: { id: 'my_wrapper_id' } do |component|
     component.use :hint,  wrap_with: { tag: :span, class: :hint }
     component.use :error, wrap_with: { tag: :span, class: :error }
   end

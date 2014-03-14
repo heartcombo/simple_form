@@ -8,6 +8,8 @@
   * Add `include_default_input_wrapper_class` config [@luizcosta](https://github.com/luizcosta)
   * Map `datetime`, `date` and `time` input types to their respective HTML5 input tags
   when the `:html5` is set to `true` [@volmer](https://github.com/volmer)
+  * Add `boolean_label_class` config.
+  * Add `:html` option to include additional attributes on custom wrappers [remofritzsche](https://github.com/remofritzsche) and [@ulissesalmeida](https://github.com/ulissesalmeida)
   * Make possible to use the Wrappers API to define attributes for the components.
   See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
