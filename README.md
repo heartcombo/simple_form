@@ -550,7 +550,7 @@ that extends the string one, you just need to add this file:
 ```ruby
 # app/inputs/currency_input.rb
 class CurrencyInput < SimpleForm::Inputs::Base
-  def input
+  def input(wrapper_options)
     "$ #{@builder.text_field(attribute_name, input_html_options)}".html_safe
   end
 end
@@ -569,7 +569,7 @@ instance, if you want to wrap date/time/datetime in a div, you can do:
 ```ruby
 # app/inputs/date_time_input.rb
 class DateTimeInput < SimpleForm::Inputs::DateTimeInput
-  def input
+  def input(wrapper_options)
     template.content_tag(:div, super)
   end
 end
