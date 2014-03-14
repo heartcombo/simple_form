@@ -935,9 +935,6 @@ You can view the **Simple Form** documentation in RDoc format here:
 
 http://rubydoc.info/github/plataformatec/simple_form/master/frames
 
-If you need to use **Simple Form** with Rails 2.3, you can always run `gem server` from the command line
-after you install the gem to access the old documentation.
-
 ### Bug reports
 
 If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as
