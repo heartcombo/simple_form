@@ -14,6 +14,10 @@
   Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
 
+## deprecation
+  * Methods on custom inputs now accept an required argument with the wrapper options.
+  See https://github.com/plataformatec/simple_form/pull/997 for more information.
+
 ## 3.0.1
 
 ### bug fix
