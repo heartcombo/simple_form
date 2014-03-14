@@ -21,7 +21,7 @@ module SimpleForm
       end
 
       def find(name)
-        return self if @namespace == name
+        self if @namespace == name
       end
     end
   end
