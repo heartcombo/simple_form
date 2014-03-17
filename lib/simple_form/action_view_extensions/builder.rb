@@ -92,7 +92,7 @@ module SimpleForm
         rendered_collection = render_collection(
           collection, value_method, text_method, options, html_options
         ) do |item, value, text, default_html_options|
-          builder = instantiate_builder(RadioButtonBuilder, attribute, item, value, text, default_html_options)
+          builder = instantiate_collection_builder(RadioButtonBuilder, attribute, item, value, text, default_html_options)
 
           if block_given?
             yield builder
@@ -167,7 +167,7 @@ module SimpleForm
           collection, value_method, text_method, options, html_options
         ) do |item, value, text, default_html_options|
           default_html_options[:multiple] = true
-          builder = instantiate_builder(CheckBoxBuilder, attribute, item, value, text, default_html_options)
+          builder = instantiate_collection_builder(CheckBoxBuilder, attribute, item, value, text, default_html_options)
 
           if block_given?
             yield builder
@@ -207,7 +207,7 @@ module SimpleForm
 
       private
 
-      def instantiate_builder(builder_class, attribute, item, value, text, html_options)
+      def instantiate_collection_builder(builder_class, attribute, item, value, text, html_options)
         builder_class.new(self, attribute, item,
                           sanitize_attribute_name(attribute, value), text, value, html_options)
       end
