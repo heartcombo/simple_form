@@ -219,4 +219,45 @@ class WrapperTest < ActionView::TestCase
     assert_select "section.custom_wrapper div.another_wrapper label"
     assert_select "section.custom_wrapper div.another_wrapper input.string"
   end
+
+  test 'input accepts attributes in the DSL' do
+    swap_wrapper :default, self.custom_wrapper_with_input_class do
+      with_concat_form_for @user do |f|
+        concat f.input :name
+      end
+    end
+
+    assert_select "div.custom_wrapper input.string.inline-class"
+  end
+
+  test 'label accepts attributes in the DSL' do
+    swap_wrapper :default, self.custom_wrapper_with_label_class do
+      with_concat_form_for @user do |f|
+        concat f.input :name
+      end
+    end
+
+    assert_select "div.custom_wrapper label.string.inline-class"
+  end
+
+  test 'label_input accepts attributes in the DSL' do
+    swap_wrapper :default, self.custom_wrapper_with_label_input_class do
+      with_concat_form_for @user do |f|
+        concat f.input :name
+      end
+    end
+
+    assert_select "div.custom_wrapper label.string.inline-class"
+    assert_select "div.custom_wrapper input.string.inline-class"
+  end
+
+  test 'input accepts data attributes in the DSL' do
+    swap_wrapper :default, self.custom_wrapper_with_input_attributes do
+      with_concat_form_for @user do |f|
+        concat f.input :name
+      end
+    end
+
+    assert_select "div.custom_wrapper input.string[data-modal=true]"
+  end
 end

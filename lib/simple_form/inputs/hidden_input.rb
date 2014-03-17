@@ -3,8 +3,10 @@ module SimpleForm
     class HiddenInput < Base
       disable :label, :errors, :hint, :required
 
-      def input
-        @builder.hidden_field(attribute_name, input_html_options)
+      def input(wrapper_options = nil)
+        merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
+
+        @builder.hidden_field(attribute_name, merged_input_options)
       end
 
       private

@@ -10,11 +10,17 @@
   when the `:html5` is set to `true` [@volmer](https://github.com/volmer)
   * Add `boolean_label_class` config.
   * Add `:html` option to include additional attributes on custom wrappers [remofritzsche](https://github.com/remofritzsche) and [@ulissesalmeida](https://github.com/ulissesalmeida)
+  * Make possible to use the Wrappers API to define attributes for the components.
+  See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.
   Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
+
+## deprecation
+  * Methods on custom inputs now accept an required argument with the wrapper options.
+  See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
 ## 3.0.1
 

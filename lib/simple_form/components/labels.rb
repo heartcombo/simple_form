@@ -21,11 +21,13 @@ module SimpleForm
         end
       end
 
-      def label
+      def label(wrapper_options = nil)
+        label_options = merge_wrapper_options(label_html_options, wrapper_options)
+
         if generate_label_for_attribute?
-          @builder.label(label_target, label_text, label_html_options)
+          @builder.label(label_target, label_text, label_options)
         else
-          template.label_tag(nil, label_text, label_html_options)
+          template.label_tag(nil, label_text, label_options)
         end
       end
 
@@ -46,6 +48,7 @@ module SimpleForm
         if options.key?(:input_html) && options[:input_html].key?(:id)
           label_options[:for] = options[:input_html][:id]
         end
+
         label_options
       end
 

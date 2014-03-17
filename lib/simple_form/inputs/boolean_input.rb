@@ -1,31 +1,36 @@
 module SimpleForm
   module Inputs
     class BooleanInput < Base
-      def input
+      def input(wrapper_options = nil)
+        merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
+
         if nested_boolean_style?
           build_hidden_field_for_checkbox +
             template.label_tag(nil, class: SimpleForm.boolean_label_class) {
-              build_check_box_without_hidden_field + inline_label
+              build_check_box_without_hidden_field(merged_input_options) +
+                inline_label
             }
         else
-          build_check_box
+          build_check_box(unchecked_value, merged_input_options)
         end
       end
 
-      def label_input
+      def label_input(wrapper_options = nil)
         if options[:label] == false
-          input
+          input(wrapper_options)
         elsif nested_boolean_style?
           html_options = label_html_options.dup
           html_options[:class] ||= []
           html_options[:class].push(SimpleForm.boolean_label_class) if SimpleForm.boolean_label_class
 
+          merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
+
           build_hidden_field_for_checkbox +
             @builder.label(label_target, html_options) {
-              build_check_box_without_hidden_field + label_text
+              build_check_box_without_hidden_field(merged_input_options) + label_text
             }
         else
-          input + label
+          input(wrapper_options) + label(wrapper_options)
         end
       end
 
@@ -35,14 +40,14 @@ module SimpleForm
       # reuse the method for nested boolean style, but with no unchecked value,
       # which won't generate the hidden checkbox. This is the default functionality
       # in Rails > 3.2.1, and is backported in SimpleForm AV helpers.
-      def build_check_box(unchecked_value = unchecked_value)
+      def build_check_box(unchecked_value, options)
         @builder.check_box(attribute_name, input_html_options, checked_value, unchecked_value)
       end
 
       # Build a checkbox without generating the hidden field. See
       # #build_hidden_field_for_checkbox for more info.
-      def build_check_box_without_hidden_field
-        build_check_box(nil)
+      def build_check_box_without_hidden_field(options)
+        build_check_box(nil, options)
       end
 
       # Create a hidden field for the current checkbox, so we can simulate Rails

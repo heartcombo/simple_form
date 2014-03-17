@@ -24,6 +24,18 @@ module SimpleForm
     SimpleForm::Components.eager_load!
   end
 
+  CUSTOM_INPUT_DEPRECATION_WARN = <<-WARN
+%{name} method now accepts a `wrapper_options` argument. The method definition without the argument is deprecated and will be removed in the next Simple Form version. Change your code from:
+
+    def %{name}
+
+to
+
+    def %{name}(wrapper_options)
+
+See https://github.com/plataformatec/simple_form/pull/997 for more information.
+  WARN
+
   ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
@@ -169,7 +181,7 @@ module SimpleForm
 
   # Retrieves a given wrapper
   def self.wrapper(name)
-    @@wrappers[name.to_sym] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
+    @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
   end
 
   # Raised when fails to find a given wrapper name
@@ -182,14 +194,14 @@ module SimpleForm
     if block_given?
       options                 = args.extract_options!
       name                    = args.first || :default
-      @@wrappers[name.to_sym] = build(options, &block)
+      @@wrappers[name.to_s]   = build(options, &block)
     else
       @@wrappers
     end
   end
 
   # Builds a new wrapper using SimpleForm::Wrappers::Builder.
-  def self.build(options={})
+  def self.build(options = {})
     options[:tag] = :div if options[:tag].nil?
     builder = SimpleForm::Wrappers::Builder.new(options)
     yield builder

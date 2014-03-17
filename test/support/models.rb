@@ -66,7 +66,7 @@ class User
     new attributes
   end
 
-  def initialize(options={})
+  def initialize(options = {})
     @new_record = false
     options.each do |key, value|
       send("#{key}=", value)

@@ -177,14 +177,14 @@ And of course, the `required` property of any input can be overwritten as needed
 <% end %>
 ```
 
-By default, SimpleForm will look at the column type in the database and use an
+By default, **Simple Form** will look at the column type in the database and use an
 appropriate input for the column. For example, a column created with type
 `:text` in the database will use a `textarea` input by default. See the section
 [Available input types and defaults for each column
 type](https://github.com/plataformatec/simple_form#available-input-types-and-defaults-for-each-column-type)
 for a complete list of defaults.
 
-**SimpleForm** also lets you overwrite the default input type it creates:
+**Simple Form** also lets you overwrite the default input type it creates:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -366,8 +366,8 @@ f.input :shipping_country, priority: [ "Brazil" ], collection: [ "Australia", "B
 
 ### Associations
 
-To deal with associations, **SimpleForm** can generate select inputs, a series of radios buttons or checkboxes.
-Lets see how it works: imagine you have a user model that belongs to a company and has_and_belongs_to_many
+To deal with associations, **Simple Form** can generate select inputs, a series of radios buttons or checkboxes.
+Lets see how it works: imagine you have a user model that belongs to a company and `has_and_belongs_to_many`
 roles. The structure would be something like:
 
 ```ruby
@@ -551,7 +551,7 @@ that extends the string one, you just need to add this file:
 ```ruby
 # app/inputs/currency_input.rb
 class CurrencyInput < SimpleForm::Inputs::Base
-  def input
+  def input(wrapper_options)
     "$ #{@builder.text_field(attribute_name, input_html_options)}".html_safe
   end
 end
@@ -570,7 +570,7 @@ instance, if you want to wrap date/time/datetime in a div, you can do:
 ```ruby
 # app/inputs/date_time_input.rb
 class DateTimeInput < SimpleForm::Inputs::DateTimeInput
-  def input
+  def input(wrapper_options)
     template.content_tag(:div, super)
   end
 end
@@ -678,7 +678,7 @@ en:
 specific is found inside the model key. Note that this syntax is different from 1.x. To migrate to
 the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".
 
-In addition, **Simple Form** will fallback to default human_attribute_name from Rails when no other
+In addition, **Simple Form** will fallback to default `human_attribute_name` from Rails when no other
 translation is found for labels. Finally, you can also overwrite any label, hint or placeholder
 inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
 
@@ -812,6 +812,16 @@ end
 
 this will wrap the hint and error components within a `div` tag using the class `'separator'`.
 
+You can customize _Form components_ passing options to them:
+
+```ruby
+config.wrappers do |b|
+  b.use :label_input, class: 'label-input-class'
+end
+```
+
+This you set the input and label class to `'label-input-class'`.
+
 If you want to customize the custom _Form components_ on demand you can give it a name like this:
 
 ```ruby
@@ -912,7 +922,7 @@ help you to use some generic javascript validation.
 You can also add `novalidate` to a specific form by setting the option on the form itself:
 
 ```erb
-<%= simple_form_for(resource, html: {novalidate: true}) do |form| %>
+<%= simple_form_for(resource, html: { novalidate: true }) do |form| %>
 ```
 
 Please notice that any of the configurations above will not disable the `placeholder` component,
@@ -935,9 +945,6 @@ http://groups.google.com/group/plataformatec-simpleform
 You can view the **Simple Form** documentation in RDoc format here:
 
 http://rubydoc.info/github/plataformatec/simple_form/master/frames
-
-If you need to use **Simple Form** with Rails 2.3, you can always run `gem server` from the command line
-after you install the gem to access the old documentation.
 
 ### Bug reports
 
