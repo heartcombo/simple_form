@@ -19,7 +19,7 @@
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
 
 ## deprecation
-  * Methods on custom inputs now accept an required argument with the wrapper options.
+  * Methods on custom inputs now accept a required argument with the wrapper options.
   See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
 ## 3.0.1
