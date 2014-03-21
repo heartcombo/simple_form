@@ -120,7 +120,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   # type as key and the wrapper that will be used for all inputs with specified type.
   # e.g { string: :string_wrapper, boolean: :boolean_wrapper }
   # You can also set a wrapper mapping per form basis.
-  # e.g simple_form_for(@foo, wrapper_mapping: { checkbox: :bootstrap_checkbox })
+  # e.g simple_form_for(@foo, wrapper_mappings: { check_boxes: :bootstrap_checkbox })
   mattr_accessor :wrapper_mappings
   @@wrapper_mappings = nil
 
