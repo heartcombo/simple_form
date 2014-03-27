@@ -26,6 +26,14 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     end
   end
 
+  test 'nested label should not duplicate input id' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :radio_buttons, id: 'nested_id'
+      assert_select 'input#user_active_true'
+      assert_no_select 'label#user_active_true'
+    end
+  end
+
   test 'input as radio should use i18n to translate internal labels' do
     store_translations(:en, simple_form: { yes: 'Sim', no: 'Não' }) do
       with_input_for @user, :active, :radio_buttons
