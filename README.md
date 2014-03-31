@@ -46,21 +46,19 @@ gem 'country_select'
 
 ### Bootstrap
 
-**Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/2.3.2/) 2.3.
+**Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/).
 To do that you have to use the `bootstrap` option in the install generator, like this:
 
 ```console
 rails generate simple_form:install --bootstrap
 ```
 
-You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap.com/2.3.2/)
+You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap.com/)
 assets on your application.
 
 For more information see the generator output, our
 [example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
 [the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
-
-**NOTE**: **Simple Form** integration requires Bootstrap version 2.3.
 
 ### Zurb Foundation 3
 
