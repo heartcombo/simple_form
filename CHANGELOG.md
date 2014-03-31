@@ -12,6 +12,7 @@
   * Add `:html` option to include additional attributes on custom wrappers [remofritzsche](https://github.com/remofritzsche) and [@ulissesalmeida](https://github.com/ulissesalmeida)
   * Make possible to use the Wrappers API to define attributes for the components.
   See https://github.com/plataformatec/simple_form/pull/997 for more information.
+  * Put a whitespace before the `inline_label` options of boolean input if it is present.
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.
