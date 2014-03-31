@@ -19,6 +19,27 @@ Relation = Struct.new(:all) do
   alias_method :to_a, :all
 end
 
+Picture = Struct.new(:id, :name) do
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+
+  class << self
+    delegate :where, to: :_relation
+  end
+
+  def self._relation
+    Relation.new(all)
+  end
+
+  def self.all
+    (1..3).map { |i| new(i, "#{name} #{i}") }
+  end
+
+  def persisted?
+    true
+  end
+end
+
 Company = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
@@ -53,7 +74,7 @@ class User
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
-    :extra_special_company_id
+    :extra_special_company_id, :pictures, :picture_ids
 
   def self.build(extra_attributes = {})
     attributes = {
@@ -133,6 +154,8 @@ class User
         Association.new(Company, association, :belongs_to, { conditions: { id: 1 } })
       when :extra_special_company
         Association.new(Company, association, :belongs_to, { conditions: proc { { id: 1 } } })
+      when :pictures
+        Association.new(Picture, association, :has_many, {})
     end
   end
 

@@ -146,6 +146,15 @@ class AssociationTest < ActionView::TestCase
     end
   end
 
+  test 'builder does not call order if the given association does not respond to it' do
+    with_association_for @user, :pictures
+    assert_select 'form select.select#user_picture_ids'
+    assert_select 'form select[multiple=multiple]'
+    assert_select 'form select option[value=1]', 'Picture 1'
+    assert_select 'form select option[value=2]', 'Picture 2'
+    assert_select 'form select option[value=3]', 'Picture 3'
+  end
+
   test 'builder creates a select with multiple options for collection associations' do
     with_association_for @user, :tags
     assert_select 'form select.select#user_tag_ids'

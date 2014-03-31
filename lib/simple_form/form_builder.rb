@@ -186,7 +186,13 @@ module SimpleForm
       options[:collection] ||= options.fetch(:collection) {
         conditions = reflection.options[:conditions]
         conditions = conditions.call if conditions.respond_to?(:call)
-        reflection.klass.where(conditions).order(reflection.options[:order])
+        relation = reflection.klass.where(conditions)
+
+        if relation.respond_to?(:order)
+          relation.order(reflection.options[:order])
+        else
+          relation
+        end
       }
 
       attribute = case reflection.macro
