@@ -1,6 +1,7 @@
 ## master
 
 ### enhancements
+  * Add Bootstrap 3 initializer template.
   * For radio or checkbox collection always use `:item_wrapper_tag` to wrap the content and add `label` when using `boolean_style` with `:nested` [@kassio](https://github.com/kassio) and [@erichkist](https://github.com/erichkist)
   * `input_field` uses the same wrapper as input but only with attribute components. [@nashby](https://github.com/nashby)
   * Add wrapper mapping per form basis [@rcillo](https://github.com/rcillo) and [@bernardoamc](https://github.com/bernardoamc)
