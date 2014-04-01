@@ -1,6 +1,7 @@
 ## master
 
 ### enhancements
+  * Execute the association `condition` in the object context. [@laurocaetano](https://github.com/laurocaetano)
   * Check if the given association responds to `order` before calling it. [@laurocaetano](https://github.com/laurocaetano)
   * Add Bootstrap 3 initializer template.
   * For radio or checkbox collection always use `:item_wrapper_tag` to wrap the content and add `label` when using `boolean_style` with `:nested` [@kassio](https://github.com/kassio) and [@erichkist](https://github.com/erichkist)

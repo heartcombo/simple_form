@@ -153,7 +153,7 @@ class User
       when :special_company
         Association.new(Company, association, :belongs_to, { conditions: { id: 1 } })
       when :extra_special_company
-        Association.new(Company, association, :belongs_to, { conditions: proc { { id: 1 } } })
+        Association.new(Company, association, :belongs_to, { conditions: proc { { id: self.id } } })
       when :pictures
         Association.new(Picture, association, :has_many, {})
     end
