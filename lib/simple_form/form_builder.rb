@@ -183,37 +183,9 @@ module SimpleForm
       raise "Association #{association.inspect} not found" unless reflection
 
       options[:as] ||= :select
-      options[:collection] ||= options.fetch(:collection) {
-        conditions = reflection.options[:conditions]
-        conditions = conditions.call if conditions.respond_to?(:call)
-        relation = reflection.klass.where(conditions)
+      options[:collection] ||= fetch_association_collection(reflection, options)
 
-        if relation.respond_to?(:order)
-          relation.order(reflection.options[:order])
-        else
-          relation
-        end
-      }
-
-      attribute = case reflection.macro
-        when :belongs_to
-          (reflection.respond_to?(:options) && reflection.options[:foreign_key]) || :"#{reflection.name}_id"
-        when :has_one
-          raise ArgumentError, ":has_one associations are not supported by f.association"
-        else
-          if options[:as] == :select
-            html_options = options[:input_html] ||= {}
-            html_options[:multiple] = true unless html_options.key?(:multiple)
-          end
-
-          # Force the association to be preloaded for performance.
-          if options[:preload] != false && object.respond_to?(association)
-            target = object.send(association)
-            target.to_a if target.respond_to?(:to_a)
-          end
-
-          :"#{reflection.name.to_s.singularize}_ids"
-      end
+      attribute = build_association_attribute(reflection, association, options)
 
       input(attribute, options.merge(reflection: reflection))
     end
@@ -476,6 +448,43 @@ module SimpleForm
     end
 
     private
+
+    def fetch_association_collection(reflection, options)
+      options.fetch(:collection) do
+        conditions = reflection.options[:conditions]
+        conditions = object.instance_exec(&conditions) if conditions.respond_to?(:call)
+
+        relation = reflection.klass.where(conditions)
+
+        if relation.respond_to?(:order)
+          relation.order(reflection.options[:order])
+        else
+          relation
+        end
+      end
+    end
+
+    def build_association_attribute(reflection, association, options)
+      case reflection.macro
+      when :belongs_to
+        (reflection.respond_to?(:options) && reflection.options[:foreign_key]) || :"#{reflection.name}_id"
+      when :has_one
+        raise ArgumentError, ":has_one associations are not supported by f.association"
+      else
+        if options[:as] == :select
+          html_options = options[:input_html] ||= {}
+          html_options[:multiple] = true unless html_options.key?(:multiple)
+        end
+
+        # Force the association to be preloaded for performance.
+        if options[:preload] != false && object.respond_to?(association)
+          target = object.send(association)
+          target.to_a if target.respond_to?(:to_a)
+        end
+
+        :"#{reflection.name.to_s.singularize}_ids"
+      end
+    end
 
     # Find an input based on the attribute name.
     def find_input(attribute_name, options = {}, &block) #:nodoc:
