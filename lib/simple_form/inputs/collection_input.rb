@@ -70,11 +70,15 @@ module SimpleForm
         elsif collection_includes_basic_objects?(collection_classes)
           { label: :to_s, value: :to_s }
         else
-          sample = collection.first || collection.last
-
-          { label: SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) },
-            value: SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) } }
+          detect_method_from_class(collection_classes)
         end
+      end
+
+      def detect_method_from_class(collection_classes)
+        sample = collection.first || collection.last
+
+        { label: SimpleForm.collection_label_methods.find { |m| sample.respond_to?(m) },
+          value: SimpleForm.collection_value_methods.find { |m| sample.respond_to?(m) } }
       end
 
       def detect_collection_classes(some_collection = collection)

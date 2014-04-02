@@ -22,6 +22,7 @@
   * Collection input that uses automatic collection translation properly sets checked values.
   Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
+  * Grouped collection uses the first non-empty object to detect label and value methods.
 
 ## deprecation
   * Methods on custom inputs now accept a required argument with the wrapper options.

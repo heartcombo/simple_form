@@ -22,7 +22,7 @@ module SimpleForm
 
       # Sample collection
       def collection
-        @collection ||= grouped_collection.first.try(:send, group_method) || []
+        @collection ||= grouped_collection.map { |collection| collection.try(:send, group_method) }.detect(&:present?) || []
       end
 
       def group_method
@@ -38,6 +38,15 @@ module SimpleForm
         end
 
         label
+      end
+
+      def detect_method_from_class(collection_classes)
+        return {} if collection_classes.empty?
+
+        sample = collection_classes.first
+
+        { label: SimpleForm.collection_label_methods.find { |m| sample.instance_methods.include?(m) },
+          value: SimpleForm.collection_value_methods.find { |m| sample.instance_methods.include?(m) } }
       end
     end
   end
