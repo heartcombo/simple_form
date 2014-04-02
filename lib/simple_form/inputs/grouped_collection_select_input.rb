@@ -39,6 +39,15 @@ module SimpleForm
 
         label
       end
+
+      def detect_method_from_class(collection_classes)
+        return {} if collection_classes.empty?
+
+        sample = collection_classes.first
+
+        { label: SimpleForm.collection_label_methods.find { |m| sample.instance_methods.include?(m) },
+          value: SimpleForm.collection_value_methods.find { |m| sample.instance_methods.include?(m) } }
+      end
     end
   end
 end
