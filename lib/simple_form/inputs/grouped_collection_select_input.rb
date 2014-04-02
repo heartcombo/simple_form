@@ -22,7 +22,7 @@ module SimpleForm
 
       # Sample collection
       def collection
-        @collection ||= grouped_collection.first.try(:send, group_method) || []
+        @collection ||= grouped_collection.map { |collection| collection.try(:send, group_method) }.detect(&:present?) || []
       end
 
       def group_method
