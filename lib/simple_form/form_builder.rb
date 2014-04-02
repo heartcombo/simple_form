@@ -449,22 +449,26 @@ module SimpleForm
 
     private
 
-    def fetch_association_collection(reflection, options)
+    def fetch_association_collection(reflection, options) #:nodoc:
       options.fetch(:collection) do
-        conditions = reflection.options[:conditions]
-        conditions = object.instance_exec(&conditions) if conditions.respond_to?(:call)
+        relation = reflection.klass.all
 
-        relation = reflection.klass.where(conditions)
-
-        if relation.respond_to?(:order)
-          relation.order(reflection.options[:order])
+        if reflection.respond_to?(:scope) && reflection.scope
+          relation = reflection.klass.instance_exec(&reflection.scope)
         else
-          relation
+          order = reflection.options[:order]
+          conditions = reflection.options[:conditions]
+          conditions = object.instance_exec(&conditions) if conditions.respond_to?(:call)
+
+          relation = relation.where(conditions)
+          relation = relation.order(order) if relation.respond_to?(:order)
         end
+
+        relation
       end
     end
 
-    def build_association_attribute(reflection, association, options)
+    def build_association_attribute(reflection, association, options) #:nodoc:
       case reflection.macro
       when :belongs_to
         (reflection.respond_to?(:options) && reflection.options[:foreign_key]) || :"#{reflection.name}_id"

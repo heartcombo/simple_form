@@ -23,20 +23,16 @@ Picture = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  class << self
-    delegate :where, to: :_relation
-  end
-
-  def self._relation
-    all
+  def self.where(conditions = nil)
+    if conditions.is_a?(Hash) && conditions[:name]
+      all.to_a.last
+    else
+      all
+    end
   end
 
   def self.all
     Relation.new((1..3).map { |i| new(i, "#{name} #{i}") })
-  end
-
-  def persisted?
-    true
   end
 end
 
@@ -74,7 +70,8 @@ class User
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
-    :extra_special_company_id, :pictures, :picture_ids
+    :extra_special_company_id, :pictures, :picture_ids, :special_pictures,
+    :special_picture_ids
 
   def self.build(extra_attributes = {})
     attributes = {
@@ -156,6 +153,8 @@ class User
         Association.new(Company, association, :belongs_to, nil, { conditions: proc { { id: self.id } } })
       when :pictures
         Association.new(Picture, association, :has_many, nil, {})
+      when :special_pictures
+        Association.new(Picture, association, :has_many, proc { where(name: self.name) }, {})
     end
   end
 
