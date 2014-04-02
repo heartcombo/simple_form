@@ -449,7 +449,7 @@ module SimpleForm
 
     private
 
-    def fetch_association_collection(reflection, options) #:nodoc:
+    def fetch_association_collection(reflection, options)
       options.fetch(:collection) do
         relation = reflection.klass.all
 
@@ -468,7 +468,7 @@ module SimpleForm
       end
     end
 
-    def build_association_attribute(reflection, association, options) #:nodoc:
+    def build_association_attribute(reflection, association, options)
       case reflection.macro
       when :belongs_to
         (reflection.respond_to?(:options) && reflection.options[:foreign_key]) || :"#{reflection.name}_id"
@@ -491,7 +491,7 @@ module SimpleForm
     end
 
     # Find an input based on the attribute name.
-    def find_input(attribute_name, options = {}, &block) #:nodoc:
+    def find_input(attribute_name, options = {}, &block)
       column     = find_attribute_column(attribute_name)
       input_type = default_input_type(attribute_name, column, options)
 
@@ -505,7 +505,7 @@ module SimpleForm
     # Attempt to guess the better input type given the defined options. By
     # default alwayls fallback to the user :as option, or to a :select when a
     # collection is given.
-    def default_input_type(attribute_name, column, options) #:nodoc:
+    def default_input_type(attribute_name, column, options)
       return options[:as].to_sym if options[:as]
       return :select             if options[:collection]
       custom_type = find_custom_type(attribute_name.to_s) and return custom_type
@@ -530,24 +530,24 @@ module SimpleForm
       end
     end
 
-    def find_custom_type(attribute_name) #:nodoc:
+    def find_custom_type(attribute_name)
       SimpleForm.input_mappings.find { |match, type|
         attribute_name =~ match
       }.try(:last) if SimpleForm.input_mappings
     end
 
-    def file_method?(attribute_name) #:nodoc:
+    def file_method?(attribute_name)
       file = @object.send(attribute_name) if @object.respond_to?(attribute_name)
       file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
     end
 
-    def find_attribute_column(attribute_name) #:nodoc:
+    def find_attribute_column(attribute_name)
       if @object.respond_to?(:column_for_attribute)
         @object.column_for_attribute(attribute_name)
       end
     end
 
-    def find_association_reflection(association) #:nodoc:
+    def find_association_reflection(association)
       if @object.class.respond_to?(:reflect_on_association)
         @object.class.reflect_on_association(association)
       end
@@ -560,7 +560,7 @@ module SimpleForm
     #    b) Or use the found mapping
     # 2) If not, fallbacks to #{input_type}Input
     # 3) If not, fallbacks to SimpleForm::Inputs::#{input_type}Input
-    def find_mapping(input_type) #:nodoc:
+    def find_mapping(input_type)
       discovery_cache[input_type] ||=
         if mapping = self.class.mappings[input_type]
           mapping_override(mapping) || mapping
@@ -575,7 +575,7 @@ module SimpleForm
     #
     # 1) It tries to find a wrapper for the current form
     # 2) If not, it tries to find a config
-    def find_wrapper_mapping(input_type) #:nodoc:
+    def find_wrapper_mapping(input_type)
       if options[:wrapper_mappings] && options[:wrapper_mappings][input_type]
         options[:wrapper_mappings][input_type]
       else
@@ -593,7 +593,7 @@ module SimpleForm
 
     # If cache_discovery is enabled, use the class level cache that persists
     # between requests, otherwise use the instance one.
-    def discovery_cache #:nodoc:
+    def discovery_cache
       if SimpleForm.cache_discovery
         self.class.discovery_cache
       else
@@ -601,14 +601,14 @@ module SimpleForm
       end
     end
 
-    def mapping_override(klass) #:nodoc:
+    def mapping_override(klass)
       name = klass.name
       if name =~ /^SimpleForm::Inputs/
         attempt_mapping name.split("::").last, Object
       end
     end
 
-    def attempt_mapping(mapping, at) #:nodoc:
+    def attempt_mapping(mapping, at)
       return if SimpleForm.inputs_discovery == false && at == Object
 
       begin
