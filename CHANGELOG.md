@@ -18,6 +18,7 @@
   See https://github.com/plataformatec/simple_form/pull/997 for more information.
   * Put a whitespace before the `inline_label` options of boolean input if it is present.
   * Add support to configure the `label_text` proc at the wrapper level. [@NOX73](https://github.com/NOX73)
+  * `label_text` proc now receive three arguments (label, request, and if the label was explicit). [@timscott](https://github.com/timscott)
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.
