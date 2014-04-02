@@ -5,8 +5,12 @@ module SimpleForm
         error_text if has_errors?
       end
 
+      def has_error_in_options?
+        options[:error] && !options[:error].nil?
+      end
+
       def has_errors?
-        object && object.respond_to?(:errors) && errors.present?
+        (object && object.respond_to?(:errors) && errors.present?) || has_error_in_options?
       end
 
       protected
@@ -24,7 +28,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        has_error_in_options? ? [options[:error]] : object.errors[attribute_name]
       end
 
       def errors_on_association
