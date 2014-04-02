@@ -144,6 +144,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_label_text
+    SimpleForm.build :label_text => lambda { |label, required| "**#{label}**" } do |b|
+      b.use :label_input
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end
