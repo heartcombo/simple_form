@@ -232,7 +232,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
     ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.default_input_size= is deprecated and has no effect", caller
   end
 
-  # Default way to setup SimpleForm. Run rails generate simple_form:install
+  # Default way to setup Simple Form. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
     yield self
