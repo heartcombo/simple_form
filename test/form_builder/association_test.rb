@@ -25,7 +25,7 @@ class AssociationTest < ActionView::TestCase
   test 'builder association forwards collection to simple_fields_for' do
     calls = 0
     simple_form_for @user do |f|
-      f.association :company, collection: Company.all.to_a do |c|
+      f.association :company, collection: Company.all do |c|
         calls += 1
       end
     end

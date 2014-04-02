@@ -8,6 +8,8 @@ Column = Struct.new(:name, :type, :limit) do
 end
 
 Relation = Struct.new(:records) do
+  delegate :each, to: :records
+
   def where(conditions = nil)
     self.class.new conditions ? records.first : records
   end
@@ -16,7 +18,8 @@ Relation = Struct.new(:records) do
     self.class.new conditions ? records.last : records
   end
 
-  alias_method :to_a, :records
+  alias_method :to_a,   :records
+  alias_method :to_ary, :records
 end
 
 Picture = Struct.new(:id, :name) do
