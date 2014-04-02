@@ -19,7 +19,13 @@ module SimpleForm
 
       def input_options
         options = super
+
         options[:include_blank] = true unless skip_include_blank?
+
+        [:prompt, :include_blank].each do |key|
+          translate_option options, key
+        end
+
         options
       end
 
@@ -97,6 +103,19 @@ module SimpleForm
             [translated_collection[key] || key, key.to_s]
           end
           true
+        end
+      end
+
+      def translate_option(options, key)
+        return unless options[key].is_a? Symbol
+
+        namespace = key.to_s.pluralize
+
+        options[key] = case options[key]
+        when :translate, :t
+          translate(namespace, true)
+        else
+          I18n.t(options[key], scope: :"simple_form.#{namespace}")
         end
       end
     end
