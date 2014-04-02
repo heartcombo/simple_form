@@ -6,4 +6,12 @@ class SimpleFormTest < ActiveSupport::TestCase
       assert_equal SimpleForm, config
     end
   end
+
+  test 'setup block configure Simple Form' do
+    SimpleForm.setup do |config|
+      assert_equal SimpleForm, config
+    end
+
+    assert_equal true, SimpleForm.configured?
+  end
 end
