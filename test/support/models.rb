@@ -1,4 +1,4 @@
-Association = Struct.new(:klass, :name, :macro, :options)
+Association = Struct.new(:klass, :name, :macro, :scope, :options)
 
 Column = Struct.new(:name, :type, :limit) do
   # Returns +true+ if the column is either of type integer, float or decimal.
@@ -145,17 +145,17 @@ class User
   def self.reflect_on_association(association)
     case association
       when :company
-        Association.new(Company, association, :belongs_to, {})
+        Association.new(Company, association, :belongs_to, nil, {})
       when :tags
-        Association.new(Tag, association, :has_many, {})
+        Association.new(Tag, association, :has_many, nil, {})
       when :first_company
-        Association.new(Company, association, :has_one, {})
+        Association.new(Company, association, :has_one, nil, {})
       when :special_company
-        Association.new(Company, association, :belongs_to, { conditions: { id: 1 } })
+        Association.new(Company, association, :belongs_to, nil, { conditions: { id: 1 } })
       when :extra_special_company
-        Association.new(Company, association, :belongs_to, { conditions: proc { { id: self.id } } })
+        Association.new(Company, association, :belongs_to, nil, { conditions: proc { { id: self.id } } })
       when :pictures
-        Association.new(Picture, association, :has_many, {})
+        Association.new(Picture, association, :has_many, nil, {})
     end
   end
 
