@@ -36,6 +36,12 @@ to
 See https://github.com/plataformatec/simple_form/pull/997 for more information.
   WARN
 
+  @@configured = false
+
+  def self.configured? #:nodoc:
+    @@configured
+  end
+
   ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
@@ -235,6 +241,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   # Default way to setup SimpleForm. Run rails generate simple_form:install
   # to create a fresh initializer with all configuration values.
   def self.setup
+    @@configured = true
     yield self
   end
 end
