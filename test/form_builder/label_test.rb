@@ -89,14 +89,14 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'builder should allow custom formatting when label is explicitly specified' do
-    swap SimpleForm, label_text: proc { |l, r, explicit| explicit ? l : "#{l.titleize}:" } do
+    swap SimpleForm, label_text: lambda { |l, r, explicit_label| explicit_label ? l : "#{l.titleize}:" } do
       with_label_for @user, :time_zone, 'What is your home time zone?'
       assert_select 'label[for=user_time_zone]', 'What is your home time zone?'
     end
   end
 
   test 'builder should allow custom formatting when label is generated' do
-    swap SimpleForm, label_text: proc { |l, r, explicit| explicit ? l : "#{l.titleize}:" } do
+    swap SimpleForm, label_text: lambda { |l, r, explicit_label| explicit_label ? l : "#{l.titleize}:" } do
       with_label_for @user, :time_zone
       assert_select 'label[for=user_time_zone]', 'Time Zone:'
     end
