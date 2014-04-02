@@ -177,7 +177,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   # The default wrapper to be used by the FormBuilder.
   mattr_accessor :default_wrapper
   @@default_wrapper = :default
-  @@wrappers = {}
+  @@wrappers = {} #:nodoc:
 
   # Retrieves a given wrapper
   def self.wrapper(name)
