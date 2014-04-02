@@ -7,16 +7,16 @@ Column = Struct.new(:name, :type, :limit) do
   end
 end
 
-Relation = Struct.new(:all) do
+Relation = Struct.new(:records) do
   def where(conditions = nil)
-    self.class.new conditions ? all.first : all
+    self.class.new conditions ? records.first : records
   end
 
   def order(conditions = nil)
-    self.class.new conditions ? all.last : all
+    self.class.new conditions ? records.last : records
   end
 
-  alias_method :to_a, :all
+  alias_method :to_a, :records
 end
 
 Picture = Struct.new(:id, :name) do
@@ -28,11 +28,11 @@ Picture = Struct.new(:id, :name) do
   end
 
   def self._relation
-    Relation.new(all)
+    all
   end
 
   def self.all
-    (1..3).map { |i| new(i, "#{name} #{i}") }
+    Relation.new((1..3).map { |i| new(i, "#{name} #{i}") })
   end
 
   def persisted?
@@ -49,11 +49,11 @@ Company = Struct.new(:id, :name) do
   end
 
   def self._relation
-    Relation.new(all)
+    all
   end
 
   def self.all
-    (1..3).map { |i| new(i, "#{name} #{i}") }
+    Relation.new((1..3).map { |i| new(i, "#{name} #{i}") })
   end
 
   def persisted?
