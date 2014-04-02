@@ -900,14 +900,7 @@ required attribute to force a value into an input and will prevent form submissi
 Depending on the design of the application this may or may not be desired. In many cases it can
 break existing UI's.
 
-It is possible to disable all HTML 5 extensions in **Simple Form** with the following configuration:
-
-```ruby
-SimpleForm.html5 = false # default is true
-```
-
-If you want to have all other HTML 5 features, such as the new field types, you can disable only
-the browser validation:
+You can disable the browser validation:
 
 ```ruby
 SimpleForm.browser_validations = false # default is true
