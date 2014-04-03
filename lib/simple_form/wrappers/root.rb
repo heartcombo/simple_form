@@ -17,7 +17,7 @@ module SimpleForm
 
       # Provide a fallback if name cannot be found.
       def find(name)
-        super || SimpleForm::Wrappers::Many.new(name, [name])
+        super || SimpleForm::Wrappers::Many.new(name, [Leaf.new(name)])
       end
 
       private
