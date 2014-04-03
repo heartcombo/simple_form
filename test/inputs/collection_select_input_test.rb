@@ -31,7 +31,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should do automatic collection translation for select types using defaults key' do
     store_translations(:en, simple_form: { options: { defaults: {
       gender: { male: 'Male', female: 'Female'}
-    } } } ) do
+    } } }) do
       with_input_for @user, :gender, :select, collection: [:male, :female]
       assert_select 'select.select#user_gender'
       assert_select 'select option', 'Male'
@@ -42,7 +42,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should do automatic collection translation for select types using specific object key' do
     store_translations(:en, simple_form: { options: { user: {
       gender: { male: 'Male', female: 'Female'}
-    } } } ) do
+    } } }) do
       with_input_for @user, :gender, :select, collection: [:male, :female]
       assert_select 'select.select#user_gender'
       assert_select 'select option', 'Male'
@@ -123,7 +123,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should not translate include blank when set to a string' do
     store_translations(:en, simple_form: { include_blanks: { user: {
       age: 'Rather not say'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: 'Young at heart'
       assert_select 'select option[value=]', 'Young at heart'
     end
@@ -132,7 +132,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should not translate include blank when automatically set' do
     store_translations(:en, simple_form: { include_blanks: { user: {
       age: 'Rather not say'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30
       assert_select 'select option[value=]', ''
     end
@@ -141,7 +141,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should not translate include blank when set to true' do
     store_translations(:en, simple_form: { include_blanks: { user: {
       age: 'Rather not say'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: true
       assert_select 'select option[value=]', ''
     end
@@ -150,7 +150,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should not translate include blank when set to false' do
     store_translations(:en, simple_form: { include_blanks: { user: {
       age: 'Rather not say'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: false
       assert_no_select 'select option[value=]'
     end
@@ -158,7 +158,7 @@ class CollectionSelectInputTest < ActionView::TestCase
 
   test 'input should not set include blank if otherwise is told' do
     with_input_for @user, :age, :select, collection: 18..30, include_blank: false
-    assert_no_select 'select option[value=]', ''
+    assert_no_select 'select option[value=]'
   end
 
   test 'input should not set include blank if prompt is given' do
@@ -192,7 +192,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should not translate prompt when set to a string' do
     store_translations(:en, simple_form: { prompts: { user: {
       age: 'Select age:'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: 'Do it:'
       assert_select 'select option[value=]', 'Do it:'
     end
@@ -201,7 +201,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should not translate prompt when set to false' do
     store_translations(:en, simple_form: { prompts: { user: {
       age: 'Select age:'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: false
       assert_no_select 'select option[value=]'
     end
@@ -210,7 +210,7 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should use Rails prompt translation as a fallback' do
     store_translations(:en, helpers: { select: {
       prompt: 'Select value:'
-    } } ) do
+    } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: :translate
       assert_select 'select option[value=]', "Select value:"
     end
