@@ -23,6 +23,7 @@ module SimpleForm
 
       def full_error_text
         text = has_custom_error? ? options[:error] : full_errors.send(error_method)
+
         text.html_safe
       end
 
