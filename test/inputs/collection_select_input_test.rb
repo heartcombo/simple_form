@@ -105,27 +105,17 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should translate include blank when set to :translate' do
     store_translations(:en, simple_form: { include_blanks: { user: {
       age: 'Rather not say'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: :translate
       assert_select 'select option[value=]', 'Rather not say'
     end
   end
 
-  test 'input should translate include blank when set to :t' do
-    store_translations(:en, simple_form: { include_blanks: { user: {
-      age: 'Rather not say'
-    } } } ) do
-      with_input_for @user, :age, :select, collection: 18..30, include_blank: :t
-      assert_select 'select option[value=]', 'Rather not say'
-    end
-  end
-
-  test 'input should translate include blank with a particular key' do
-    store_translations(:en, simple_form: { include_blanks: {
+  test 'input should translate include blank with a default' do
+    store_translations(:en, simple_form: { include_blanks: { defaults: {
       age: 'Rather not say',
-      user: { age: 'Should be overridden' }
-    } } ) do
-      with_input_for @user, :age, :select, collection: 18..30, include_blank: :age
+    } } }) do
+      with_input_for @user, :age, :select, collection: 18..30, include_blank: :translate
       assert_select 'select option[value=]', 'Rather not say'
     end
   end
@@ -184,27 +174,17 @@ class CollectionSelectInputTest < ActionView::TestCase
   test 'input should translate prompt when set to :translate' do
     store_translations(:en, simple_form: { prompts: { user: {
       age: 'Select age:'
-    } } } ) do
+    } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: :translate
       assert_select 'select option[value=]', 'Select age:'
     end
   end
 
-  test 'input should translate prompt when set to :t' do
-    store_translations(:en, simple_form: { prompts: { user: {
-      age: 'Select age:'
-    } } } ) do
-      with_input_for @user, :age, :select, collection: 18..30, prompt: :t
-      assert_select 'select option[value=]', 'Select age:'
-    end
-  end
-
-  test 'input should translate prompt with a particular key' do
-    store_translations(:en, simple_form: { prompts: {
+  test 'input should translate prompt with a default' do
+    store_translations(:en, simple_form: { prompts: { defaults: {
       age: 'Select age:',
-      user: { age: 'Should be overridden' }
-    } } ) do
-      with_input_for @user, :age, :select, collection: 18..30, prompt: :age
+    } } }) do
+      with_input_for @user, :age, :select, collection: 18..30, prompt: :translate
       assert_select 'select option[value=]', 'Select age:'
     end
   end
