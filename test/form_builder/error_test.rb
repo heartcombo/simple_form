@@ -156,6 +156,12 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.error', error_text
   end
 
+  test 'input with custom error works 1' do
+    with_form_for @user, :name, error: true
+
+    assert_select 'span.error', "can't be blank"
+  end
+
   test 'input with custom error does not generate the error if there is no error on the attribute' do
     error_text = "Super User Active! can't be blank"
     with_form_for @user, :active, error: error_text
