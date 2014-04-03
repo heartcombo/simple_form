@@ -10,7 +10,7 @@ module SimpleForm
       end
 
       def has_errors?
-        object && object.respond_to?(:errors) && errors.present?
+        (object && object.respond_to?(:errors) && errors.present?) || has_error_in_options?
       end
 
       protected
@@ -36,7 +36,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        has_error_in_options? ? [options[:error]] : object.errors[attribute_name]
       end
 
       def full_errors_on_attribute
@@ -49,6 +49,10 @@ module SimpleForm
 
       def full_errors_on_association
         reflection ? object.full_messages_for(reflection.name) : []
+      end
+
+      def has_error_in_options?
+        options[:error] && !options[:error].nil?
       end
     end
   end

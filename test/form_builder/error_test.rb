@@ -14,6 +14,10 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
+  def with_custom_error_for(object, *args)
+    with_form_for(object, *args)
+  end
+
   test 'error should not generate content for attribute without errors' do
     with_error_for @user, :active
     assert_no_select 'span.error'
@@ -131,5 +135,14 @@ class ErrorTest < ActionView::TestCase
       with_form_for @user, :company_id, as: :select
       assert_select 'span.error', 'Company must be valid'
     end
+  end
+
+  # CUSTOM ERRORS
+
+  test 'input with custom error works' do
+    error_text = "Super User Name! can't be blank"
+    with_custom_error_for(@user, :name, error: error_text)
+
+    assert_select 'span.error', "#{error_text}"
   end
 end
