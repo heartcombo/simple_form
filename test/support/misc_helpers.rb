@@ -144,6 +144,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_full_error
+    SimpleForm.build tag: :div, class: 'custom_wrapper' do |b|
+      b.use :full_error,  wrap_with: { tag: :span, class: :error }
+    end
+  end
+
   def custom_wrapper_with_label_text
     SimpleForm.build :label_text => proc { |label, required| "**#{label}**" } do |b|
       b.use :label_input

@@ -123,4 +123,13 @@ class ErrorTest < ActionView::TestCase
       assert_select 'span.omg_error', "can't be blank"
     end
   end
+
+  # FULL_ERROR_WRAPPER
+
+  test 'full error should find errors on association' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :company_id, as: :select
+      assert_select 'span.error', 'Company must be valid'
+    end
+  end
 end
