@@ -10,17 +10,20 @@ module SimpleForm
       end
 
       def has_errors?
-         has_error_in_options? || (object && object.respond_to?(:errors) && errors.present?)
+        object && object.respond_to?(:errors) && errors.present?
       end
 
       protected
 
       def error_text
-        "#{html_escape(options[:error_prefix])} #{errors.send(error_method)}".lstrip.html_safe
+        text = has_error_in_options? ? options[:error] : errors.send(error_method)
+
+        "#{html_escape(options[:error_prefix])} #{text}".lstrip.html_safe
       end
 
       def full_error_text
-        "#{full_errors.send(error_method)}".html_safe
+        text = has_error_in_options? ? options[:error] : full_errors.send(error_method)
+        text.html_safe
       end
 
       def error_method
@@ -36,11 +39,11 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        has_error_in_options? ? [options[:error]] : object.errors[attribute_name]
+        object.errors[attribute_name]
       end
 
       def full_errors_on_attribute
-        has_error_in_options? ? [options[:error]] : object.errors.full_messages_for(attribute_name)
+        object.errors.full_messages_for(attribute_name)
       end
 
       def errors_on_association

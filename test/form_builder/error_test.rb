@@ -156,12 +156,28 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.error', "#{error_text}"
   end
 
+  test 'input with custom error does not generate the error if there is no error on the attribute' do
+    error_text = "Super User Active! can't be blank"
+    with_form_for @user, :active, error: error_text
+
+    assert_no_select 'span.error'
+  end
+
   test 'input with custom error works when using full_error component' do
     swap_wrapper :default, self.custom_wrapper_with_full_error do
       error_text = "Super User Name! can't be blank"
       with_form_for @user, :name, error: error_text
 
       assert_select 'span.error', "#{error_text}"
+    end
+  end
+
+  test 'input with custom error when using full_error component does not generate the error if there is no error on the attribute' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      error_text = "Super User Active! can't be blank"
+      with_form_for @user, :active, error: error_text
+
+      assert_no_select 'span.error'
     end
   end
 end
