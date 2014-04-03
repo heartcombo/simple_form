@@ -129,7 +129,7 @@ class User
     Column.new(attribute, column_type, limit)
   end
 
-  def self.human_attribute_name(attribute)
+  def self.human_attribute_name(attribute, options = {})
     case attribute
       when 'name'
         'Super User Name!'
@@ -138,7 +138,7 @@ class User
       when 'company'
         'Company Human Name!'
       else
-        attribute.humanize
+        attribute.to_s.humanize
     end
   end
 
@@ -163,14 +163,14 @@ class User
 
   def errors
     @errors ||= begin
-      hash = Hash.new { |h,k| h[k] = [] }
-      hash.merge!(
-        name: ["can't be blank"],
-        description: ["must be longer than 15 characters"],
-        age: ["is not a number", "must be greater than 18"],
-        company: ["company must be present"],
-        company_id: ["must be valid"]
-      )
+      errors = ActiveModel::Errors.new(self)
+      errors.add(:name, "can't be blank")
+      errors.add(:description, 'must be longer than 15 characters')
+      errors.add(:age, 'is not a number')
+      errors.add(:age, 'must be greater than 18')
+      errors.add(:company, 'company must be present')
+      errors.add(:company_id, 'must be valid')
+      errors
     end
   end
 
