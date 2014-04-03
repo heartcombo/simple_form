@@ -611,7 +611,7 @@ end
 
 ## I18n
 
-**Simple Form** uses all power of I18n API to lookup labels, hints and placeholders. To customize your
+**Simple Form** uses all power of I18n API to lookup labels, hints, prompts and placeholders. To customize your
 forms you can create a locale file like this:
 
 ```yaml
@@ -629,12 +629,18 @@ en:
       user:
         username: 'Your username'
         password: '****'
+    include_blanks:
+      user:
+        age: 'Rather not say'
+    prompts:
+      gender:
+        age: 'Select your gender'
 ```
 
 And your forms will use this information to render the components for you.
 
-**Simple Form** also lets you be more specific, separating lookups through actions for labels, hints and
-placeholders. Let's say you want a different label for new and edit actions, the locale file would
+**Simple Form** also lets you be more specific, separating lookups through actions.
+Let's say you want a different label for new and edit actions, the locale file would
 be something like:
 
 ```yaml
@@ -673,12 +679,18 @@ en:
 ```
 
 **Simple Form** will always look for a default attribute translation under the "defaults" key if no
-specific is found inside the model key. Note that this syntax is different from 1.x. To migrate to
-the new syntax, just move "labels.#{attribute}" to "labels.defaults.#{attribute}".
+specific is found inside the model key.
 
 In addition, **Simple Form** will fallback to default `human_attribute_name` from Rails when no other
 translation is found for labels. Finally, you can also overwrite any label, hint or placeholder
 inside your view, just by passing the option manually. This way the I18n lookup will be skipped.
+
+For `:prompt` and `:include_blank` the I18n lookup is optional and to enable it is necessary to pass
+`:translate` as value.
+
+```ruby
+f.input :gender, prompt: :translate
+```
 
 **Simple Form** also has support for translating options in collection helpers. For instance, given a
 User with a `:gender` attribute, you might want to create a select box showing translated labels
