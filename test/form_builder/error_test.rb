@@ -156,7 +156,7 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.error', error_text
   end
 
-  test 'input with custom error works 1' do
+  test 'input with error option as true does not use custom error' do
     with_form_for @user, :name, error: true
 
     assert_select 'span.error', "can't be blank"
