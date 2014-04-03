@@ -45,7 +45,7 @@ module SimpleForm
       end
 
       # Always enabled.
-      enable :hint, :error
+      enable :hint
 
       # Usually disabled, needs to be enabled explicitly passing true as option.
       disable :maxlength, :placeholder, :pattern, :min_max
