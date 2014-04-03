@@ -20,7 +20,7 @@ module SimpleForm
       end
 
       def full_error_text
-        "#{html_escape(options[:error_prefix])} #{full_errors.send(error_method)}".lstrip.html_safe
+        "#{full_errors.send(error_method)}".html_safe
       end
 
       def error_method
