@@ -136,6 +136,13 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'custom wrappers can have full error message on attributes' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :name
+      assert_select 'span.error', "Name can't be blank"
+    end
+  end
+
   test 'custom wrappers on a form basis' do
     swap_wrapper :another do
       with_concat_form_for(@user) do |f|

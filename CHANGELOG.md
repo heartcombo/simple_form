@@ -1,6 +1,7 @@
 ## master
 
 ### enhancements
+  * Add the `full_error` component. [@laurocaetano](https://github.com/laurocaetano)
   * Add support to `scope` to be used on associations. [@laurocaetano](https://github.com/laurocaetano)
   * Execute the association `condition` in the object context. [@laurocaetano](https://github.com/laurocaetano)
   * Check if the given association responds to `order` before calling it. [@laurocaetano](https://github.com/laurocaetano)
