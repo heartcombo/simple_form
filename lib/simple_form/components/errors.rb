@@ -10,7 +10,7 @@ module SimpleForm
       end
 
       def has_errors?
-        (object && object.respond_to?(:errors) && errors.present?) || has_error_in_options?
+         has_error_in_options? || (object && object.respond_to?(:errors) && errors.present?)
       end
 
       protected
