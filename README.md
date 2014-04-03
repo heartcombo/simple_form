@@ -199,7 +199,7 @@ labels and a textarea instead of a text field for the description. You can also 
 attributes using `as: :select` to show a dropdown.
 
 It is also possible to give the `:disabled` option to **Simple Form**, and it'll automatically mark
-the wrapper as disabled with a css class, so you can style labels, hints and other components inside
+the wrapper as disabled with a CSS class, so you can style labels, hints and other components inside
 the wrapper as well:
 
 ```erb
