@@ -153,7 +153,7 @@ class ErrorTest < ActionView::TestCase
     error_text = "Super User Name! can't be blank"
     with_form_for @user, :name, error: error_text
 
-    assert_select 'span.error', "#{error_text}"
+    assert_select 'span.error', error_text
   end
 
   test 'input with custom error does not generate the error if there is no error on the attribute' do
@@ -168,7 +168,7 @@ class ErrorTest < ActionView::TestCase
       error_text = "Super User Name! can't be blank"
       with_form_for @user, :name, error: error_text
 
-      assert_select 'span.error', "#{error_text}"
+      assert_select 'span.error', error_text
     end
   end
 
