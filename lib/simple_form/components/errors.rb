@@ -6,7 +6,7 @@ module SimpleForm
       end
 
       def full_error(wrapper_options = nil)
-        full_error_text if has_errors?
+        full_error_text if options[:error] != false && has_errors?
       end
 
       def has_errors?

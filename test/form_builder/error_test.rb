@@ -132,4 +132,18 @@ class ErrorTest < ActionView::TestCase
       assert_select 'span.error', 'Company must be valid'
     end
   end
+
+  test 'full error can be disabled' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :company_id, as: :select, full_error: false
+      assert_no_select 'span.error'
+    end
+  end
+
+  test 'full error can be disabled setting error to false' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :company_id, as: :select, error: false
+      assert_no_select 'span.error'
+    end
+  end
 end
