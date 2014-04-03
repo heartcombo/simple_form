@@ -40,7 +40,7 @@ module SimpleForm
       end
 
       def full_errors_on_attribute
-        object.errors.full_messages_for(attribute_name)
+        has_error_in_options? ? [options[:error]] : object.errors.full_messages_for(attribute_name)
       end
 
       def errors_on_association
