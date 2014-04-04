@@ -1,10 +1,12 @@
 require 'simple_form/i18n_cache'
 require 'active_support/core_ext/string/output_safety'
+require 'action_view/helpers'
 
 module SimpleForm
   module Inputs
     class Base
       include ERB::Util
+      include ActionView::Helpers::TranslationHelper
 
       extend I18nCache
 
@@ -167,7 +169,7 @@ module SimpleForm
       #            email: 'E-mail.'
       #
       #  Take a look at our locale example file.
-      def translate(namespace, default = '')
+      def translate_from_namespace(namespace, default = '')
         model_names = lookup_model_names.dup
         lookups     = []
 
@@ -176,13 +178,17 @@ module SimpleForm
           model_names.shift
 
           lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
+          lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}_html"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
+          lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}_html"
         end
         lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
+        lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}_html"
         lookups << :"defaults.#{reflection_or_attribute_name}"
+        lookups << :"defaults.#{reflection_or_attribute_name}_html"
         lookups << default
 
-        I18n.t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
+        t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
       end
 
       def merge_wrapper_options(options, wrapper_options)

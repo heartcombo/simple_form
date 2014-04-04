@@ -9,7 +9,7 @@ module SimpleForm
           if hint.is_a?(String)
             html_escape(hint)
           else
-            content = translate(:hints)
+            content = translate_from_namespace(:hints)
             content.html_safe if content
           end
         end
