@@ -100,7 +100,13 @@ module SimpleForm
       def translate_collection
         if translated_collection = translate_from_namespace(:options)
           @collection = collection.map do |key|
-            [translated_collection[key] || key, key.to_s]
+            html_key = "#{key}_html".to_sym
+
+            if translated_collection[html_key]
+              [translated_collection[html_key].html_safe || key, key.to_s]
+            else
+              [translated_collection[key] || key, key.to_s]
+            end
           end
           true
         end
