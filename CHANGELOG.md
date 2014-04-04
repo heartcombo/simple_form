@@ -22,6 +22,7 @@
   * `label_text` proc now receive three arguments (label, request, and if the label was explicit). [@timscott](https://github.com/timscott)
   * Add I18n support to `:include_blank` and `:prompt` when `:translate` is used as value. [@haines](https://github.com/plataformatec/simple_form/pull/616)
   * Add support to define custom error messages for the attributes.
+  * Add support to change the I18n scope to be used in Simple Form. [@nielsbuus](https://github.com/nielsbuus)
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.

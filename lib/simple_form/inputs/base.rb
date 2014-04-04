@@ -200,7 +200,6 @@ module SimpleForm
       def i18n_scope
         SimpleForm.i18n_scope
       end
-
     end
   end
 end
