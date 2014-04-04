@@ -33,7 +33,9 @@ module SimpleForm
 
       def collection
         @collection ||= begin
-          collection = options.delete(:collection) || self.class.boolean_collection
+          collection = options.delete(:collection) ||
+                       boolean_collection_for(object_name, attribute_name) ||
+                       self.class.boolean_collection
           collection.respond_to?(:call) ? collection.call : collection.to_a
         end
       end
@@ -95,6 +97,18 @@ module SimpleForm
         (collection_classes & [
           String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
         ]).any?
+      end
+
+      def boolean_collection_for(namespace, attribute)
+        overridden_booleans = translate(:options) || {}
+
+        translation_for_true = overridden_booleans[:true]
+        translation_for_false = overridden_booleans[:false]
+
+        if translation_for_true && translation_for_false
+          [ [translation_for_true, true],
+            [translation_for_false, false] ]
+        end
       end
 
       def translate_collection

@@ -42,6 +42,26 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     end
   end
 
+  test 'input as radio should allow overidding i18n for boolean labels' do
+    translations = {
+      simple_form: {
+        options: {
+          user: {
+            active: {
+              true: 'Sim!',
+              false: 'Não!'
+            }
+          }
+        }
+      }
+    }
+    store_translations(:en, translations) do
+      with_input_for @user, :active, :radio_buttons
+      assert_select 'label[for=user_active_true]', 'Sim!'
+      assert_select 'label[for=user_active_false]', 'Não!'
+    end
+  end
+
   test 'input radio should not include for attribute by default' do
     with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
     assert_select 'label'
