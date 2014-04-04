@@ -9,7 +9,7 @@ module SimpleForm
 
       def placeholder_text
         placeholder = options[:placeholder]
-        placeholder.is_a?(String) ? placeholder : translate(:placeholders)
+        placeholder.is_a?(String) ? placeholder : translate_from_namespace(:placeholders)
       end
     end
   end

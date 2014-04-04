@@ -98,7 +98,7 @@ module SimpleForm
       end
 
       def translate_collection
-        if translated_collection = translate(:options)
+        if translated_collection = translate_from_namespace(:options)
           @collection = collection.map do |key|
             [translated_collection[key] || key, key.to_s]
           end
@@ -110,7 +110,7 @@ module SimpleForm
         if options[key] == :translate
           namespace = key.to_s.pluralize
 
-          options[key] = translate(namespace, true)
+          options[key] = translate_from_namespace(namespace, true)
         end
       end
     end
