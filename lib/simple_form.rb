@@ -185,6 +185,9 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   @@default_wrapper = :default
   @@wrappers = {} #:nodoc:
 
+  mattr_accessor :i18n_scope
+  @@i18n_scope = 'simple_form'
+
   # Retrieves a given wrapper
   def self.wrapper(name)
     @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
