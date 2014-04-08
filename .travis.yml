@@ -9,10 +9,6 @@ gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
   - Gemfile
-matrix:
-  allow_failures:
-    - gemfile: Gemfile
-    - gemfile: gemfiles/Gemfile.rails-4-1-stable
 notifications:
   email: false
   campfire:
