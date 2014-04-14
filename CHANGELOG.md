@@ -1,4 +1,4 @@
-## master
+## 3.1.0.rc1
 
 ### enhancements
   * Add support to html markup in the I18n options. [@laurocaetano](https://github.com/laurocaetano)
