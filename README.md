@@ -10,7 +10,7 @@ you find the better design for your eyes. Most of the DSL was inherited from For
 which we are thankful for and should make you feel right at home.
 
 INFO: This README is [also available in a friendly navigable format](http://simple-form.plataformatec.com.br/)
-and refers to **Simple Form** 3.0. For older releases, check the related branch for your version.
+and refers to **Simple Form** 3.1. For older releases, check the related branch for your version.
 
 ## Installation
 
