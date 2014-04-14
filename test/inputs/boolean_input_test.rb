@@ -54,10 +54,38 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
+  test 'input boolean with nested escapes :inline_label with HTML' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, label: false, inline_label: '<b>I am so inline.</b>'
+      assert_select 'label.checkbox', text: ' &lt;b&gt;I am so inline.&lt;/b&gt;'
+    end
+  end
+
+  test 'input boolean with nested allows :inline_label with HTML when safe' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, label: false, inline_label: '<b>I am so inline.</b>'.html_safe
+      assert_select 'label.checkbox b', text: 'I am so inline.'
+    end
+  end
+
   test 'input boolean with nested style creates an inline label using the default label text when inline_label option set to true' do
     swap SimpleForm, boolean_style: :nested do
       with_input_for @user, :active, :boolean, label: false, inline_label: true
       assert_select 'label.checkbox', text: ' Active'
+    end
+  end
+
+  test 'input boolean with nested style creates an inline label using the label text when inline_label option set to true' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, label: false, inline_label: true, label_text: proc { 'New Active' }
+      assert_select 'label.checkbox', text: ' New Active'
+    end
+  end
+
+  test 'input boolean with nested style creates an inline label using the label html when inline_label option set to true' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, label: false, inline_label: true, label_text: proc { '<b>New Active</b>' }
+      assert_select 'label.checkbox', text: ' New Active'
     end
   end
 
