@@ -2,6 +2,8 @@
 
 By [Plataformatec](http://plataformatec.com.br/).
 
+[![Gem Version](https://badge.fury.io/rb/simple_form.svg)](http://badge.fury.io/rb/simple_form)
+
 Rails forms made easy.
 
 **Simple Form** aims to be as flexible as possible while helping you with powerful components to create
