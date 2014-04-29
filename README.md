@@ -929,12 +929,18 @@ config.wrappers tag: :div do |b|
 end
 ```
 
-If you want to have all other HTML 5 features, such as the new field types, you can disable only
-the browser validation:
+Please notice that any of the configurations above will not disable the `placeholder` component,
+which is an HTML 5 feature. We believe most of the newest browsers are handling this attribute fine,
+and if they aren't, any plugin you use would take of using the placeholder attribute to do it.
+However, you can disable it if you want, by removing the placeholder component from the components
+list in the **Simple Form** configuration file.
 
-```ruby
-SimpleForm.browser_validations = false # default is true
-```
+
+### Validation
+
+Due to HTML 5 validation inconsistencies across browsers, the default simple_form initializer
+configuration changes the `SimpleForm.browser_validations` value from `true` to `false` which
+disables HTML 5 browser validation but allows all other HTML 5 features.
 
 This option adds a new `novalidate` property to the form, instructing it to skip all HTML 5
 validation. The inputs will still be generated with the required and other attributes, that might
@@ -945,12 +951,6 @@ You can also add `novalidate` to a specific form by setting the option on the fo
 ```erb
 <%= simple_form_for(resource, html: { novalidate: true }) do |form| %>
 ```
-
-Please notice that any of the configurations above will not disable the `placeholder` component,
-which is an HTML 5 feature. We believe most of the newest browsers are handling this attribute fine,
-and if they aren't, any plugin you use would take of using the placeholder attribute to do it.
-However, you can disable it if you want, by removing the placeholder component from the components
-list in **Simple Form** configuration file.
 
 ## Information
 
