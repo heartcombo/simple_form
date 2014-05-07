@@ -65,9 +65,8 @@ module SimpleForm
         inline_option = options[:inline_label]
 
         if inline_option
-          label = inline_option == true ? " #{label_text}" : " #{html_escape(inline_option)}"
-
-          label.html_safe
+          label = inline_option == true ? label_text : html_escape(inline_option)
+          " #{label}".html_safe
         end
       end
 
