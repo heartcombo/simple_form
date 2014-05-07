@@ -19,6 +19,7 @@ module SimpleForm
             label_options = {}
             add_default_name_and_id_for_value(value, label_options)
             label_options['for'] = label_options.delete('id')
+            label_options['class'] = @options.fetch(:item_label_class, '')
             rendered_item = content_tag(:label, rendered_item, label_options)
           end
 
