@@ -2,7 +2,7 @@ require 'test_helper'
 
 # Tests for f.input_field
 class InputFieldTest < ActionView::TestCase
-  test "builder input_field should only render the input tag, nothing else" do
+  test "builder input_field only renders the input tag, nothing else" do
     with_concat_form_for(@user) do |f|
       f.input_field :name
     end
@@ -12,7 +12,7 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select '.hint'
   end
 
-  test 'builder input_field should allow overriding default input type' do
+  test 'builder input_field allows overriding default input type' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, as: :text
     end
@@ -21,7 +21,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'textarea#user_name.text'
   end
 
-  test 'builder input_field should generate input type based on column type' do
+  test 'builder input_field generates input type based on column type' do
     with_concat_form_for(@user) do |f|
       f.input_field :age
     end
@@ -29,7 +29,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[type=number].integer#user_age'
   end
 
-  test 'builder input_field should be able to disable any component' do
+  test 'builder input_field is able to disable any component' do
     with_concat_form_for(@user) do |f|
       f.input_field :age, html5: false
     end
@@ -38,7 +38,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[type=text].integer#user_age'
   end
 
-  test 'builder input_field should allow passing options to input tag' do
+  test 'builder input_field allows passing options to input tag' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, id: 'name_input', class: 'name'
     end
@@ -46,7 +46,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input.string.name#name_input'
   end
 
-  test 'builder input_field should not modify the options hash' do
+  test 'builder input_field does not modify the options hash' do
     options = { id: 'name_input', class: 'name' }
 
     with_concat_form_for(@user) do |f|
@@ -58,7 +58,7 @@ class InputFieldTest < ActionView::TestCase
   end
 
 
-  test 'builder input_field should generate an input tag with a clean HTML' do
+  test 'builder input_field generates an input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
       f.input_field :name, as: :integer, class: 'name'
     end
@@ -67,7 +67,7 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select 'input.integer[as]'
   end
 
-  test 'builder input_field should use i18n to translate placeholder text' do
+  test 'builder input_field uses i18n to translate placeholder text' do
     store_translations(:en, simple_form: { placeholders: { user: {
       name: 'Name goes here'
     } } }) do
@@ -80,7 +80,7 @@ class InputFieldTest < ActionView::TestCase
     end
   end
 
-  test 'builder input_field should use min_max component' do
+  test 'builder input_field uses min_max component' do
     with_concat_form_for(@other_validating_user) do |f|
       f.input_field :age, as: :integer
     end
@@ -88,7 +88,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[min=18]'
   end
 
-  test 'builder input_field should not use pattern component by default' do
+  test 'builder input_field does not use pattern component by default' do
     with_concat_form_for(@other_validating_user) do |f|
       f.input_field :country, as: :string
     end
@@ -96,7 +96,7 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select 'input[pattern="\w+"]'
   end
 
-  test 'builder input_field should infer pattern from attributes' do
+  test 'builder input_field infers pattern from attributes' do
     with_concat_form_for(@other_validating_user) do |f|
       f.input_field :country, as: :string, pattern: true
     end
@@ -104,7 +104,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[pattern="\w+"]'
   end
 
-  test 'builder input_field should accept custom patter' do
+  test 'builder input_field accepts custom patter' do
     with_concat_form_for(@other_validating_user) do |f|
       f.input_field :country, as: :string, pattern: '\d+'
     end
@@ -112,7 +112,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[pattern="\d+"]'
   end
 
-  test 'builder input_field should use readonly component' do
+  test 'builder input_field uses readonly component' do
     with_concat_form_for(@other_validating_user) do |f|
       f.input_field :age, as: :integer, readonly: true
     end
@@ -120,7 +120,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input.integer.readonly[readonly]'
   end
 
-  test 'builder input_field should use maxlength component' do
+  test 'builder input_field uses maxlength component' do
     with_concat_form_for(@validating_user) do |f|
       f.input_field :name, as: :string
     end
@@ -128,7 +128,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input.string[maxlength=25]'
   end
 
-  test 'builder collection input_field should generate input tag with a clean HTML' do
+  test 'builder collection input_field generates input tag with a clean HTML' do
     with_concat_form_for(@user) do |f|
       f.input_field :status, collection: ['Open', 'Closed'], class: 'status', label_method: :to_s, value_method: :to_s
     end
@@ -139,7 +139,7 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select 'select.status[value_method]'
   end
 
-  test 'build input_field does not treat "boolean_style" as an HTML attribute' do
+  test 'build input_field does not treat "boolean_style" as a HTML attribute' do
     with_concat_form_for(@user) do |f|
       f.input_field :active, boolean_style: :nested
     end
