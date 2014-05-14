@@ -6,30 +6,30 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     SimpleForm::Inputs::CollectionCheckBoxesInput.reset_i18n_cache :boolean_collection
   end
 
-  test 'input check boxes should not include for attribute by default' do
+  test 'input check boxes does not include for attribute by default' do
     with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
     assert_select 'label'
     assert_no_select 'label[for=user_gender]'
   end
 
-  test 'input check boxes should include for attribute when giving as html option' do
+  test 'input check boxes includes for attribute when giving as html option' do
     with_input_for @user, :gender, :check_boxes, collection: [:male, :female], label_html: { for: 'gender' }
     assert_select 'label[for=gender]'
   end
 
-  test 'collection input with check_boxes type should not generate required html attribute' do
+  test 'collection input with check_boxes type does not generate required html attribute' do
     with_input_for @user, :name, :check_boxes, collection: ['Jose', 'Carlos']
     assert_select 'input.required'
     assert_no_select 'input[required]'
   end
 
-  test 'collection input with check_boxes type should not generate aria-required html attribute' do
+  test 'collection input with check_boxes type does not generate aria-required html attribute' do
     with_input_for @user, :name, :check_boxes, collection: ['Jose', 'Carlos']
     assert_select 'input.required'
     assert_no_select 'input[aria-required]'
   end
 
-  test 'input should do automatic collection translation for check_box types using defaults key' do
+  test 'input does automatic collection translation for check_box types using defaults key' do
     store_translations(:en, simple_form: { options: { defaults: {
       gender: { male: 'Male', female: 'Female'}
     } } } ) do
@@ -41,7 +41,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     end
   end
 
-  test 'input should do automatic collection translation for check_box types using specific object key' do
+  test 'input does automatic collection translation for check_box types using specific object key' do
     store_translations(:en, simple_form: { options: { user: {
       gender: { male: 'Male', female: 'Female'}
     } } } ) do
@@ -53,7 +53,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     end
   end
 
-  test 'input that uses automatic collection translation for check_boxes should properly set checked values' do
+  test 'input that uses automatic collection translation for check_boxes properly sets checked values' do
     store_translations(:en, simple_form: { options: { defaults: {
       gender: { male: 'Male', female: 'Female'}
     } } } ) do

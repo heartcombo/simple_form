@@ -18,7 +18,7 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'builder should not discover new inputs if cached' do
+  test 'builder does not discover new inputs if cached' do
     with_form_for @user, :name
     assert_select 'form input#user_name.string'
 
@@ -28,14 +28,14 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'builder should discover new inputs' do
+  test 'builder discovers new inputs' do
     discovery do
       with_form_for @user, :name, as: :customized
       assert_select 'form section input#user_name.string'
     end
   end
 
-  test 'builder should not discover new inputs if discovery is off' do
+  test 'builder does not discover new inputs if discovery is off' do
     with_form_for @user, :name
     assert_select 'form input#user_name.string'
 
@@ -47,14 +47,14 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'builder should discover new inputs from mappings if not cached' do
+  test 'builder discovers new inputs from mappings if not cached' do
     discovery do
       with_form_for @user, :name
       assert_select 'form section input#user_name.string'
     end
   end
 
-  test 'builder should discover new inputs from internal fallbacks if not cached' do
+  test 'builder discovers new inputs from internal fallbacks if not cached' do
     discovery do
       with_form_for @user, :age
       assert_select 'form section input#user_age.numeric.integer'
