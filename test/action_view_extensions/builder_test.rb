@@ -42,7 +42,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_radio_buttons[for=user_active_no]', 'No'
   end
 
-  test "collection radio should sanitize collection values for labels correctly" do
+  test "collection radio sanitizes collection values for labels correctly" do
     with_collection_radio_buttons @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
     assert_select 'label.collection_radio_buttons[for=user_name_099]', '$0.99'
     assert_select 'label.collection_radio_buttons[for=user_name_199]', '$1.99'
@@ -289,7 +289,7 @@ class BuilderTest < ActionView::TestCase
     assert_select 'form label.collection_check_boxes[for=user_active_no]', 'No'
   end
 
-  test "collection check box should sanitize collection values for labels correctly" do
+  test "collection check box sanitizes collection values for labels correctly" do
     with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
     assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
     assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
@@ -593,7 +593,7 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-  test "fields inherites wrapper option from the parent form" do
+  test "fields inherits wrapper option from the parent form" do
     swap_wrapper :another do
       simple_form_for(:user, wrapper: :another) do |f|
         f.simple_fields_for(:company) do |company|

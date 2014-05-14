@@ -8,17 +8,17 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
-  test 'SimpleForm should add default class to form' do
+  test 'SimpleForm adds default class to form' do
     with_concat_form_for(:user)
     assert_select 'form.simple_form'
   end
 
-  test 'SimpleForm should use default browser validations by default' do
+  test 'SimpleForm uses default browser validations by default' do
     with_concat_form_for(:user)
     assert_no_select 'form[novalidate]'
   end
 
-  test 'SimpleForm should not use default browser validations if specified in the configuration options' do
+  test 'SimpleForm does not use default browser validations if specified in the configuration options' do
     swap SimpleForm, browser_validations: false do
       with_concat_form_for(:user)
       assert_select 'form[novalidate="novalidate"]'
@@ -37,54 +37,54 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
-  test 'SimpleForm should add object name as css class to form when object is not present' do
+  test 'SimpleForm adds object name as css class to form when object is not present' do
     with_concat_form_for(:user, html: { novalidate: true })
     assert_select 'form.simple_form.user'
   end
 
-  test 'SimpleForm should add :as option as css class to form when object is not present' do
+  test 'SimpleForm adds :as option as css class to form when object is not present' do
     with_concat_form_for(:user, as: 'superuser')
     assert_select 'form.simple_form.superuser'
   end
 
-  test 'SimpleForm should add object class name with new prefix as css class to form if record is not persisted' do
+  test 'SimpleForm adds object class name with new prefix as css class to form if record is not persisted' do
     @user.new_record!
     with_concat_form_for(@user)
     assert_select 'form.simple_form.new_user'
   end
 
-  test 'SimpleForm should add :as option with new prefix as css class to form if record is not persisted' do
+  test 'SimpleForm adds :as option with new prefix as css class to form if record is not persisted' do
     @user.new_record!
     with_concat_form_for(@user, as: 'superuser')
     assert_select 'form.simple_form.new_superuser'
   end
 
-  test 'SimpleForm should add edit class prefix as css class to form if record is persisted' do
+  test 'SimpleForm adds edit class prefix as css class to form if record is persisted' do
     with_concat_form_for(@user)
     assert_select 'form.simple_form.edit_user'
   end
 
-  test 'SimpleForm should add :as options with edit prefix as css class to form if record is persisted' do
+  test 'SimpleForm adds :as options with edit prefix as css class to form if record is persisted' do
     with_concat_form_for(@user, as: 'superuser')
     assert_select 'form.simple_form.edit_superuser'
   end
 
-  test 'SimpleForm should add last object name as css class to form when there is array of objects' do
+  test 'SimpleForm adds last object name as css class to form when there is array of objects' do
     with_concat_form_for([Company.new, @user])
     assert_select 'form.simple_form.edit_user'
   end
 
-  test 'SimpleForm should not add object class to form if css_class is specified' do
+  test 'SimpleForm does not add object class to form if css_class is specified' do
     with_concat_form_for(:user, html: { class: nil })
     assert_no_select 'form.user'
   end
 
-  test 'SimpleForm should add custom class to form if css_class is specified' do
+  test 'SimpleForm adds custom class to form if css_class is specified' do
     with_concat_form_for(:user, html: { class: 'my_class' })
     assert_select 'form.my_class'
   end
 
-  test 'pass options to SimpleForm' do
+  test 'passes options to SimpleForm' do
     with_concat_form_for(:user, url: '/account', html: { id: 'my_form' })
     assert_select 'form#my_form'
     assert_select 'form[action=/account]'
