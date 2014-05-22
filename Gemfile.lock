@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/rails.git
-  revision: a8d85c4d518e8ed73ac8a5685bfb2a2a842900fd
+  revision: c4c5801bd9ded4c23c1e35f6a4d991f1d16db113
   branch: master
   specs:
     actionpack (4.2.0.alpha)
@@ -43,11 +43,11 @@ GEM
     ffi2-generators (0.1.1)
     i18n (0.6.9)
     json (1.8.1)
-    minitest (5.3.3)
+    minitest (5.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.3.1)
+    rake (10.3.2)
     rubinius-coverage (2.0.3)
     rubinius-debugger (2.0.3)
     rubinius-developer_tools (2.0.0)
