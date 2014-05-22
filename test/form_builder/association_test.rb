@@ -8,7 +8,7 @@ class AssociationTest < ActionView::TestCase
     end
   end
 
-  test 'builder should not allow creating an association input when no object exists' do
+  test 'builder does not allow creating an association input when no object exists' do
     assert_raise ArgumentError do
       with_association_for :post, :author
     end
@@ -130,7 +130,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   # ASSOCIATIONS - FINDERS
-  test 'builder should use reflection conditions to find collection' do
+  test 'builder uses reflection conditions to find collection' do
     with_association_for @user, :special_company
     assert_select 'form select.select#user_special_company_id'
     assert_select 'form select option[value=1]'
@@ -138,7 +138,7 @@ class AssociationTest < ActionView::TestCase
     assert_no_select 'form select option[value=3]'
   end
 
-  test 'builder should allow overriding collection to association input' do
+  test 'builder allows overriding collection to association input' do
     with_association_for @user, :company, include_blank: false,
                          collection: [Company.new(999, 'Teste')]
     assert_select 'form select.select#user_company_id'

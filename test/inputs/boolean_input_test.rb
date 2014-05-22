@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class BooleanInputTest < ActionView::TestCase
-  test 'input should generate a checkbox by default for boolean attributes' do
+  test 'input generates a checkbox by default for boolean attributes' do
     with_input_for @user, :active, :boolean
     assert_select 'input[type=checkbox].boolean#user_active'
     assert_select 'label.boolean.optional', 'Active'
@@ -186,7 +186,7 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
-  test 'input boolean without additional classes should add "checkbox" class to label' do
+  test 'input boolean without additional classes adds "checkbox" class to label' do
     swap_wrapper :default, self.custom_wrapper_without_top_level do
       swap SimpleForm, boolean_style: :nested, generate_additional_classes_for: [:input] do
         with_input_for @user, :active, :boolean

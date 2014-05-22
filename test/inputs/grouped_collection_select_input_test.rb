@@ -130,7 +130,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
     end
   end
 
-  test 'grouped collection should allow overriding label and value methods using a lambda' do
+  test 'grouped collection allows overriding label and value methods using a lambda' do
     with_input_for @user, :tag_ids, :grouped_select,
       collection: { 'Authors' => ['Jose', 'Carlos'] },
       group_method: :last,
@@ -167,7 +167,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
     end
   end
 
-  test 'grouped collection should accept html options as the last element of collection' do
+  test 'grouped collection accepts html options as the last element of collection' do
     with_input_for @user, :tag_ids, :grouped_select,
       collection: [['Authors', [['Jose', 'jose', class: 'foo'], ['Carlos', 'carlos', class: 'bar']]]],
       group_method: :last

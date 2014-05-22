@@ -14,27 +14,27 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should generate a default humanized description' do
+  test 'label generates a default humanized description' do
     with_label_for @user, :name, :string
     assert_select 'label[for=user_name]', /Name/
   end
 
-  test 'label should allow a customized description' do
+  test 'label allows a customized description' do
     with_label_for @user, :name, :string, label: 'My label!'
     assert_select 'label[for=user_name]', /My label!/
   end
 
-  test 'label should use human attribute name from object when available' do
+  test 'label uses human attribute name from object when available' do
     with_label_for @user, :description, :text
     assert_select 'label[for=user_description]', /User Description!/
   end
 
-  test 'label should use human attribute name based on association name' do
+  test 'label uses human attribute name based on association name' do
     with_label_for @user, :company_id, :string, setup_association: true
     assert_select 'label', /Company Human Name!/
   end
 
-  test 'label should use i18n based on model, action, and attribute to lookup translation' do
+  test 'label uses i18n based on model, action, and attribute to lookup translation' do
     @controller.action_name = "new"
     store_translations(:en, simple_form: { labels: { user: {
       new: { description: 'Nova descrição' }
@@ -44,7 +44,7 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should fallback to new when action is create' do
+  test 'label fallbacks to new when action is create' do
     @controller.action_name = "create"
     store_translations(:en, simple_form: { labels: { user: {
       new: { description: 'Nova descrição' }
@@ -54,7 +54,7 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should not explode while looking for i18n translation when action is not set' do
+  test 'label does not explode while looking for i18n translation when action is not set' do
     def @controller.action_name; nil; end
 
     assert_nothing_raised do
@@ -63,7 +63,7 @@ class IsolatedLabelTest < ActionView::TestCase
     assert_select 'label[for=user_description]'
   end
 
-  test 'label should use i18n based on model and attribute to lookup translation' do
+  test 'label uses i18n based on model and attribute to lookup translation' do
     store_translations(:en, simple_form: { labels: { user: {
       description: 'Descrição'
     } } }) do
@@ -72,14 +72,14 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should use i18n under defaults to lookup translation' do
+  test 'label uses i18n under defaults to lookup translation' do
     store_translations(:en, simple_form: { labels: { defaults: { age: 'Idade' } } }) do
       with_label_for @user, :age, :integer
       assert_select 'label[for=user_age]', /Idade/
     end
   end
 
-  test 'label should not use i18n label if translate is false' do
+  test 'label does not use i18n label if translate is false' do
     swap SimpleForm, translate_labels: false do
       store_translations(:en, simple_form: { labels: { defaults: { age: 'Idade' } } }) do
         with_label_for @user, :age, :integer
@@ -107,7 +107,7 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should do correct i18n lookup for nested models with nested translation' do
+  test 'label does correct i18n lookup for nested models with nested translation' do
     @user.company = Company.new(1, 'Empresa')
 
     store_translations(:en, simple_form: { labels: {
@@ -125,7 +125,7 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should do correct i18n lookup for nested models with no nested translation' do
+  test 'label does correct i18n lookup for nested models with no nested translation' do
     @user.company = Company.new(1, 'Empresa')
 
     store_translations(:en, simple_form: { labels: {
@@ -144,7 +144,7 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should do correct i18n lookup for nested has_many models with no nested translation' do
+  test 'label does correct i18n lookup for nested has_many models with no nested translation' do
     @user.tags = [Tag.new(1, 'Empresa')]
 
     store_translations(:en, simple_form: { labels: {
@@ -163,7 +163,7 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should have css class from type' do
+  test 'label has css class from type' do
     with_label_for @user, :name, :string
     assert_select 'label.string'
     with_label_for @user, :description, :text
@@ -176,7 +176,7 @@ class IsolatedLabelTest < ActionView::TestCase
     assert_select 'label.datetime'
   end
 
-  test 'label should not have css class from type when generate_additional_classes_for does not include :label' do
+  test 'label does not have css class from type when generate_additional_classes_for does not include :label' do
     swap SimpleForm, generate_additional_classes_for: [:wrapper, :input] do
       with_label_for @user, :name, :string
       assert_no_select 'label.string'
@@ -191,21 +191,21 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should not generate empty css class' do
+  test 'label does not generate empty css class' do
     swap SimpleForm, generate_additional_classes_for: [:wrapper, :input] do
       with_label_for @user, :name, :string
       assert_no_select 'label[class]'
     end
   end
 
-  test 'label should obtain required from ActiveModel::Validations when it is included' do
+  test 'label obtains required from ActiveModel::Validations when it is included' do
     with_label_for @validating_user, :name, :string
     assert_select 'label.required'
     with_label_for @validating_user, :status, :string
     assert_select 'label.optional'
   end
 
-  test 'label should not obtain required from ActiveModel::Validations when generate_additional_classes_for does not include :label' do
+  test 'label does not obtain required from ActiveModel::Validations when generate_additional_classes_for does not include :label' do
     swap SimpleForm, generate_additional_classes_for: [:wrapper, :input] do
       with_label_for @validating_user, :name, :string
       assert_no_select 'label.required'
@@ -214,48 +214,48 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should allow overriding required when ActiveModel::Validations is included' do
+  test 'label allows overriding required when ActiveModel::Validations is included' do
     with_label_for @validating_user, :name, :string, required: false
     assert_select 'label.optional'
     with_label_for @validating_user, :status, :string, required: true
     assert_select 'label.required'
   end
 
-  test 'label should be required by default when ActiveModel::Validations is not included' do
+  test 'label is required by default when ActiveModel::Validations is not included' do
     with_label_for @user, :name, :string
     assert_select 'label.required'
   end
 
-  test 'label should be able to disable required when ActiveModel::Validations is not included' do
+  test 'label is able to disable required when ActiveModel::Validations is not included' do
     with_label_for @user, :name, :string, required: false
     assert_no_select 'label.required'
   end
 
-  test 'label should add required text when required' do
+  test 'label adds required text when required' do
     with_label_for @user, :name, :string
     assert_select 'label.required abbr[title=required]', '*'
   end
 
-  test 'label should not have required text in no required inputs' do
+  test 'label does not have required text in no required inputs' do
     with_label_for @user, :name, :string, required: false
     assert_no_select 'form label abbr'
   end
 
-  test 'label should use i18n to find required text' do
+  test 'label uses i18n to find required text' do
     store_translations(:en, simple_form: { required: { text: 'campo requerido' } }) do
       with_label_for @user, :name, :string
       assert_select 'form label abbr[title=campo requerido]', '*'
     end
   end
 
-  test 'label should use i18n to find required mark' do
+  test 'label uses i18n to find required mark' do
     store_translations(:en, simple_form: { required: { mark: '*-*' } }) do
       with_label_for @user, :name, :string
       assert_select 'form label abbr', '*-*'
     end
   end
 
-  test 'label should use i18n to find required string tag' do
+  test 'label uses i18n to find required string tag' do
     store_translations(:en, simple_form: { required: { html: '<span class="required" title="requerido">*</span>' } }) do
       with_label_for @user, :name, :string
       assert_no_select 'form label abbr'
@@ -263,37 +263,37 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should allow overwriting input id' do
+  test 'label allows overwriting input id' do
     with_label_for @user, :name, :string, input_html: { id: 'my_new_id' }
     assert_select 'label[for=my_new_id]'
   end
 
-  test 'label should allow overwriting of for attribute' do
+  test 'label allows overwriting of for attribute' do
     with_label_for @user, :name, :string, label_html: { for: 'my_new_id' }
     assert_select 'label[for=my_new_id]'
   end
 
-  test 'label should allow overwriting of for attribute with input_html not containing id' do
+  test 'label allows overwriting of for attribute with input_html not containing id' do
     with_label_for @user, :name, :string, label_html: { for: 'my_new_id' }, input_html: { class: 'foo' }
     assert_select 'label[for=my_new_id]'
   end
 
-  test 'label should use default input id when it was not overridden' do
+  test 'label uses default input id when it was not overridden' do
     with_label_for @user, :name, :string, input_html: { class: 'my_new_id' }
     assert_select 'label[for=user_name]'
   end
 
-  test 'label should be generated properly when object is not present' do
+  test 'label is generated properly when object is not present' do
     with_label_for :project, :name, :string
     assert_select 'label[for=project_name]', /Name/
   end
 
-  test 'label should include for attribute for select collection' do
+  test 'label includes for attribute for select collection' do
     with_label_for @user, :sex, :select, collection: [:male, :female]
     assert_select 'label[for=user_sex]'
   end
 
-  test 'label should use i18n properly when object is not present' do
+  test 'label uses i18n properly when object is not present' do
     store_translations(:en, simple_form: { labels: {
       project: { name: 'Nome' }
     } }) do
@@ -302,14 +302,14 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
-  test 'label should add required by default when object is not present' do
+  test 'label adds required by default when object is not present' do
     with_label_for :project, :name, :string
     assert_select 'label.required[for=project_name]'
     with_label_for :project, :description, :string, required: false
     assert_no_select 'label.required[for=project_description]'
   end
 
-  test 'label should add chosen label class' do
+  test 'label adds chosen label class' do
     swap SimpleForm, label_class: :my_custom_class do
       with_label_for @user, :name, :string
       assert_select 'label.my_custom_class'

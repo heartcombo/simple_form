@@ -14,65 +14,65 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
-  test 'error should not generate content for attribute without errors' do
+  test 'error does not generate content for attribute without errors' do
     with_error_for @user, :active
     assert_no_select 'span.error'
   end
 
-  test 'error should not generate messages when object is not present' do
+  test 'error does not generate messages when object is not present' do
     with_error_for :project, :name
     assert_no_select 'span.error'
   end
 
-  test "error should not generate messages when object doesn't respond to errors method" do
+  test "error does not generate messages when object doesn't respond to errors method" do
     @user.instance_eval { undef errors }
     with_error_for @user, :name
     assert_no_select 'span.error'
   end
 
-  test 'error should generate messages for attribute with single error' do
+  test 'error generates messages for attribute with single error' do
     with_error_for @user, :name
     assert_select 'span.error', "can't be blank"
   end
 
-  test 'error should generate messages for attribute with one error when using first' do
+  test 'error generates messages for attribute with one error when using first' do
     swap SimpleForm, error_method: :first do
       with_error_for @user, :age
       assert_select 'span.error', 'is not a number'
     end
   end
 
-  test 'error should generate messages for attribute with several errors when using to_sentence' do
+  test 'error generates messages for attribute with several errors when using to_sentence' do
     swap SimpleForm, error_method: :to_sentence do
       with_error_for @user, :age
       assert_select 'span.error', 'is not a number and must be greater than 18'
     end
   end
 
-  test 'error should be able to pass html options' do
+  test 'error is able to pass html options' do
     with_error_for @user, :name, id: 'error', class: 'yay'
     assert_select 'span#error.error.yay'
   end
 
-  test 'error should not modify the options hash' do
+  test 'error does not modify the options hash' do
     options = { id: 'error', class: 'yay' }
     with_error_for @user, :name, options
     assert_select 'span#error.error.yay'
     assert_equal({ id: 'error', class: 'yay' }, options)
   end
 
-  test 'error should find errors on attribute and association' do
+  test 'error finds errors on attribute and association' do
     with_error_for @user, :company_id, as: :select,
       error_method: :to_sentence, reflection: Association.new(Company, :company, {})
     assert_select 'span.error', 'must be valid and company must be present'
   end
 
-  test 'error should generate an error tag with a clean HTML' do
+  test 'error generates an error tag with a clean HTML' do
     with_error_for @user, :name
     assert_no_select 'span.error[error_html]'
   end
 
-  test 'error should generate an error tag with a clean HTML when errors options are present' do
+  test 'error generates an error tag with a clean HTML when errors options are present' do
     with_error_for @user, :name, error_tag: :p, error_prefix: 'Name', error_method: :first
     assert_no_select 'p.error[error_html]'
     assert_no_select 'p.error[error_tag]'
@@ -80,12 +80,12 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'p.error[error_method]'
   end
 
-  test 'error should escape error prefix text' do
+  test 'error escapes error prefix text' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'
     assert_select 'span.error', "&lt;b&gt;Name&lt;/b&gt; can't be blank"
   end
 
-  test 'error should generate an error message with raw HTML tags' do
+  test 'error generates an error message with raw HTML tags' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'.html_safe
     assert_select 'span.error', "Name can't be blank"
     assert_select 'span.error b', "Name"
@@ -93,22 +93,22 @@ class ErrorTest < ActionView::TestCase
 
   # FULL ERRORS
 
-  test 'full error should generate an full error tag for the attribute' do
+  test 'full error generates a full error tag for the attribute' do
     with_full_error_for @user, :name
     assert_select 'span.error', "Super User Name! can't be blank"
   end
 
-  test 'full error should generate an full error tag with a clean HTML' do
+  test 'full error generates a full error tag with a clean HTML' do
     with_full_error_for @user, :name
     assert_no_select 'span.error[error_html]'
   end
 
-  test 'full error should allow passing options to full error tag' do
+  test 'full error allows passing options to full error tag' do
     with_full_error_for @user, :name, id: 'name_error', error_prefix: "Your name"
     assert_select 'span.error#name_error', "Your name can't be blank"
   end
 
-  test 'full error should not modify the options hash' do
+  test 'full error does not modify the options hash' do
     options = { id: 'name_error' }
     with_full_error_for @user, :name, options
     assert_select 'span.error#name_error', "Super User Name! can't be blank"
@@ -126,7 +126,7 @@ class ErrorTest < ActionView::TestCase
 
   # FULL_ERROR_WRAPPER
 
-  test 'full error should find errors on association' do
+  test 'full error finds errors on association' do
     swap_wrapper :default, self.custom_wrapper_with_full_error do
       with_form_for @user, :company_id, as: :select
       assert_select 'span.error', 'Company must be valid'
