@@ -209,7 +209,7 @@ class AssociationTest < ActionView::TestCase
     assert_select 'form ul li', count: 3
   end
 
-  test 'builder with collection support should not change the options hash' do
+  test 'builder with collection support does not change the options hash' do
     options = { as: :check_boxes, collection_wrapper_tag: :ul, item_wrapper_tag: :li}
     with_association_for @user, :tags, options
 
