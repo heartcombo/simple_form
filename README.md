@@ -629,8 +629,8 @@ en:
       user:
         age: 'Rather not say'
     prompts:
-      gender:
-        age: 'Select your gender'
+      user:
+        gender: 'Select your gender'
 ```
 
 And your forms will use this information to render the components for you.
