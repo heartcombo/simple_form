@@ -130,6 +130,14 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :wrapper_mappings
   @@wrapper_mappings = nil
 
+  # Namespaces where SimpleForm should look for custom input classes that override
+  # default inputs. Namespaces are given as string to allow lazy loading inputs
+  # e.g. config.custom_inputs_namespaces << "CustomInputs"
+  #      will try to find CustomInputs::NumericInput when an :integer
+  #      field is called
+  mattr_accessor :custom_inputs_namespaces
+  @@custom_inputs_namespaces = []
+
   # Default priority for time_zone inputs.
   mattr_accessor :time_zone_priority
   @@time_zone_priority = nil

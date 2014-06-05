@@ -581,6 +581,28 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
 end
 ```
 
+If needed, you can namespace your custom inputs in a module and tell **SimpleForm** to look for
+their definition in this module. This can avoid conflicts with other form libraries (like Formtastic) that look up
+the global context to find inputs definition too.
+
+```ruby
+# app/inputs/custom_inputs/numeric_input
+module CustomInputs
+  class NumericInput < SimpleForm::Inputs::NumericInput
+    def input_html_classes
+      super.push('no-spinner')
+    end
+  end
+end
+```
+
+And in the **SimpleForm** initializer :
+
+```ruby
+# config/simple_form.rb
+config.custom_inputs_namespaces << "CustomInputs"
+```
+
 ## Custom form builder
 
 You can create a custom form builder that uses **Simple Form**.

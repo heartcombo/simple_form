@@ -14,6 +14,8 @@ class DiscoveryTest < ActionView::TestCase
         Object.send :remove_const, :CustomizedInput
         Object.send :remove_const, :DeprecatedInput
         Object.send :remove_const, :CollectionSelectInput
+        CustomInputs.send :remove_const, :PasswordInput
+        CustomInputs.send :remove_const, :NumericInput
       end
     end
   end
@@ -58,6 +60,24 @@ class DiscoveryTest < ActionView::TestCase
     discovery do
       with_form_for @user, :age
       assert_select 'form section input#user_age.numeric.integer'
+    end
+  end
+
+  test 'builder discovers new inputs from configured namespaces if not cached' do
+    discovery do
+      swap SimpleForm, custom_inputs_namespaces: ['CustomInputs'] do
+        with_form_for @user, :password, as: :password
+        assert_select 'form input#user_password.password-custom-input'
+      end
+    end
+  end
+
+  test 'builder discovers new inputs from top level namespace before the ones from configured namespaces' do
+    discovery do
+      swap SimpleForm, custom_inputs_namespaces: ['CustomInputs'] do
+        with_form_for @user, :age
+        assert_no_select 'form input#user_age.numeric-custom-input'
+      end
     end
   end
 
