@@ -985,7 +985,7 @@ https://github.com/plataformatec/simple_form/issues
 [![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
 [![Build Status](https://api.travis-ci.org/plataformatec/simple_form.svg?branch=master)](http://travis-ci.org/plataformatec/simple_form)
 [![Code Climate](https://codeclimate.com/github/plataformatec/simple_form.png)](https://codeclimate.com/github/plataformatec/simple_form)
-[![Inline docs](http://inch-pages.github.io/github/plataformatec/simple_form.png)](http://inch-pages.github.io/github/plataformatec/simple_form)
+[![Inline docs](http://inch-ci.org/github/plataformatec/simple_form.png)](http://inch-ci.org/github/plataformatec/simple_form)
 
 ## License
 
