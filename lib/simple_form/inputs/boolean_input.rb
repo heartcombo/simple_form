@@ -16,7 +16,7 @@ module SimpleForm
       end
 
       def label_input(wrapper_options = nil)
-        if options[:label] == false
+        if options[:label] == false || inline_label?
           input(wrapper_options)
         elsif nested_boolean_style?
           html_options = label_html_options.dup
@@ -59,6 +59,10 @@ module SimpleForm
         options[:name] = input_html_options[:name] if input_html_options.has_key?(:name)
 
         @builder.hidden_field(attribute_name, options)
+      end
+
+      def inline_label?
+        nested_boolean_style? && options[:inline_label]
       end
 
       def inline_label
