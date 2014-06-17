@@ -99,7 +99,7 @@ even a placeholder. For boolean inputs, you can add an inline label as well:
   <%= f.input :username, label: 'Your username please' %>
   <%= f.input :password, hint: 'No special characters.' %>
   <%= f.input :email, placeholder: 'user@domain.com' %>
-  <%= f.input :remember_me, label: false, inline_label: 'Yes, remember me' %>
+  <%= f.input :remember_me, inline_label: 'Yes, remember me' %>
   <%= f.button :submit %>
 <% end %>
 ```
