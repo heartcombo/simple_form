@@ -599,8 +599,7 @@ Create a form builder class that inherits from `SimpleForm::FormBuilder`.
 ```ruby
 class CustomFormBuilder < SimpleForm::FormBuilder
   def input(attribute_name, options = {}, &block)
-    options[:input_html].merge! class: 'custom'
-    super
+    super(attribute_name, options[:input_html].merge(class: 'custom'))
   end
 end
 ```
