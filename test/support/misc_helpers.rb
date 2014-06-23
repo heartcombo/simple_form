@@ -156,6 +156,12 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_custom_label_component
+    SimpleForm.build tag: :span, class: 'custom_wrapper' do |b|
+      b.use :label_text
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end

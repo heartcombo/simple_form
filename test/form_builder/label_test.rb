@@ -88,6 +88,15 @@ class LabelTest < ActionView::TestCase
     end
   end
 
+  test 'configuration allow set rewrited label tag for wrappers' do
+    swap_wrapper :default, self.custom_wrapper_with_custom_label_component do
+      with_concat_form_for(@user) do |f|
+        concat f.input :age
+      end
+      assert_select "span.integer.user_age", /Age/
+    end
+  end
+
   test 'builder allows custom formatting when label is explicitly specified' do
     swap SimpleForm, label_text: lambda { |l, r, explicit_label| explicit_label ? l : "#{l.titleize}:" } do
       with_label_for @user, :time_zone, 'What is your home time zone?'
