@@ -368,6 +368,23 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     end
   end
 
+  test 'input radio with nested style renders item labels with specified class' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :radio_buttons, item_label_class: "test"
+
+      assert_select 'span.radio > label.test > input'
+    end
+  end
+
+  test 'input radio with nested style and falsey input wrapper renders item labels with specified class' do
+    swap SimpleForm, boolean_style: :nested, item_wrapper_tag: false do
+      with_input_for @user, :active, :radio_buttons, item_label_class: "radio-inline"
+
+      assert_select 'label.radio-inline > input'
+      assert_no_select 'span.radio'
+    end
+  end
+
   test 'input radio wrapper class are not included when set to falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]

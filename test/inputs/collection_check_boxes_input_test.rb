@@ -245,6 +245,23 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
     end
   end
 
+  test 'input check boxes with nested style renders item labels with specified class' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :check_boxes, item_label_class: "test"
+
+      assert_select 'span.checkbox > label.test > input'
+    end
+  end
+
+  test 'input check boxes with nested style and falsey input wrapper renders item labels with specified class' do
+    swap SimpleForm, boolean_style: :nested, item_wrapper_tag: false do
+      with_input_for @user, :active, :check_boxes, item_label_class: "checkbox-inline"
+
+      assert_select 'label.checkbox-inline > input'
+      assert_no_select 'span.checkbox'
+    end
+  end
+
   test 'input check boxes wrapper class are not included when set to falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
