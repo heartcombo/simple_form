@@ -267,4 +267,38 @@ class WrapperTest < ActionView::TestCase
 
     assert_select "div.custom_wrapper input.string[data-modal=true]"
   end
+
+  test 'inline wrapper displays when there is content' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div do
+      with_form_for @user, :name, hint: "can't be blank"
+      assert_select 'section.custom_wrapper div.no_output_wrapper p.omg_hint', "can&#39;t be blank"
+      assert_select 'p.omg_hint'
+    end
+  end
+
+  test 'inline wrapper does not display when there is no content' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div do
+      with_form_for @user, :name
+      assert_select 'section.custom_wrapper div.no_output_wrapper'
+      assert_no_select 'p.omg_hint'
+    end
+  end
+
+  test 'optional wrapper does not display when there is content' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div_and_override do
+      with_form_for @user, :name, hint: "can't be blank"
+      assert_select 'section.custom_wrapper div.no_output_wrapper'
+      assert_select 'div.no_output_wrapper'
+      assert_select 'p.omg_hint'
+    end
+  end
+
+  test 'optional wrapper does not display when there is no content' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div_and_override do
+      with_form_for @user, :name
+      assert_no_select 'section.custom_wrapper div.no_output_wrapper'
+      assert_no_select 'div.no_output_wrapper'
+      assert_no_select 'p.omg_hint'
+    end
+  end
 end
