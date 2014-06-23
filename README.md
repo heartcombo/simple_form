@@ -895,6 +895,15 @@ end
 By setting it as `optional`, a hint will only be generated when `hint: true` is explicitly used.
 The same for placeholder.
 
+It is also possible to give the option `:unless_blank` to the wrapper if you want to render it only
+when the content is present.
+
+```ruby
+  b.wrapper tag: :span, class: 'hint', unless_blank: true do |component|
+    component.optional :hint
+  end
+```
+
 ## HTML 5 Notice
 
 By default, **Simple Form** will generate input field types and attributes that are supported in HTML5,
