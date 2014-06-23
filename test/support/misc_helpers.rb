@@ -78,7 +78,7 @@ module MiscHelpers
 
   def custom_wrapper_with_optional_div_and_override
     SimpleForm.build tag: :section, class: "custom_wrapper" do |b|
-      b.wrapper tag: :div, class: 'no_output_wrapper', optional: true do |ba|
+      b.wrapper tag: :div, class: 'no_output_wrapper', unless_blank: true do |ba|
         ba.optional :hint, wrap_with: { tag: :p, class: 'omg_hint' }
       end
     end
