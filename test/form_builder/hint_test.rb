@@ -141,4 +141,29 @@ class HintTest < ActionView::TestCase
       assert_select 'div.omg_hint', "can&#39;t be blank"
     end
   end
+
+  test 'optional hint displays when given' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div do
+      with_form_for @user, :name, hint: "can't be blank"
+      assert_select 'section.custom_wrapper div.no_output_wrapper p.omg_hint', "can&#39;t be blank"
+      assert_select 'p.omg_hint'
+    end
+  end
+
+  test 'optional hint displays empty wrapper when no hint given' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div do
+      with_form_for @user, :name
+      assert_select 'section.custom_wrapper div.no_output_wrapper'
+      assert_no_select 'p.omg_hint'
+    end
+  end
+
+  test 'optional hint displays no wrapper or hint when no hint and override is given' do
+    swap_wrapper :default, self.custom_wrapper_with_optional_div_and_override do
+      with_form_for @user, :name
+      assert_no_select 'section.custom_wrapper div.no_output_wrapper'
+      assert_no_select 'div.no_output_wrapper'
+      assert_no_select 'p.omg_hint'
+    end
+  end
 end
