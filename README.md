@@ -581,8 +581,8 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
 end
 ```
 
-If needed, you can namespace your custom inputs in a module and tell **SimpleForm** to look for
-their definition in this module. This can avoid conflicts with other form libraries (like Formtastic) that look up
+If needed, you can namespace your custom inputs in a module and tell **Simple Form** to look for
+their definitions in this module. This can avoid conflicts with other form libraries (like Formtastic) that look up
 the global context to find inputs definition too.
 
 ```ruby
