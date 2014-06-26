@@ -63,20 +63,29 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'builder discovers new inputs from configured namespaces if not cached' do
+  test 'builder discovers new maped inputs from configured namespaces if not cached' do
     discovery do
       swap SimpleForm, custom_inputs_namespaces: ['CustomInputs'] do
-        with_form_for @user, :password, as: :password
+        with_form_for @user, :password
         assert_select 'form input#user_password.password-custom-input'
       end
     end
   end
 
-  test 'builder discovers new inputs from configured namespaces before the ones from top level namespace' do
+  test 'builder discovers new maped inputs from configured namespaces before the ones from top level namespace' do
     discovery do
       swap SimpleForm, custom_inputs_namespaces: ['CustomInputs'] do
         with_form_for @user, :age
         assert_select 'form input#user_age.numeric-custom-input'
+      end
+    end
+  end
+
+  test 'builder discovers new custom inputs from configured namespace before the ones from top level namespace' do
+    discovery do
+      swap SimpleForm, custom_inputs_namespaces: ['CustomInputs'] do
+        with_form_for @user, :name, as: 'customized'
+        assert_select 'form input#user_name.customized-namespace-custom-input'
       end
     end
   end

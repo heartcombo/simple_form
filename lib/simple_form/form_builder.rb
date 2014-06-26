@@ -567,7 +567,8 @@ module SimpleForm
         else
           camelized = "#{input_type.to_s.camelize}Input"
           attempt_mapping_with_custom_namespace(camelized) ||
-            attempt_mapping(camelized, Object) || attempt_mapping(camelized, self.class) ||
+            attempt_mapping(camelized, Object) ||
+            attempt_mapping(camelized, self.class) ||
             raise("No input found for #{input_type}")
         end
     end

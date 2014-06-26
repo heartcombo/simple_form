@@ -37,6 +37,12 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
 end
 
 module CustomInputs
+  class CustomizedInput < SimpleForm::Inputs::StringInput
+    def input_html_classes
+      super.push('customized-namespace-custom-input')
+    end
+  end
+
   class PasswordInput < SimpleForm::Inputs::PasswordInput
     def input_html_classes
       super.push('password-custom-input')
