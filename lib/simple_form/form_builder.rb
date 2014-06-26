@@ -566,8 +566,8 @@ module SimpleForm
           mapping_override(mapping) || mapping
         else
           camelized = "#{input_type.to_s.camelize}Input"
-          attempt_mapping(camelized, Object) || attempt_mapping(camelized, self.class) ||
-            attempt_mapping_with_custom_namespace(camelized) ||
+          attempt_mapping_with_custom_namespace(camelized) ||
+            attempt_mapping(camelized, Object) || attempt_mapping(camelized, self.class) ||
             raise("No input found for #{input_type}")
         end
     end
@@ -606,8 +606,8 @@ module SimpleForm
       name = klass.name
       if name =~ /^SimpleForm::Inputs/
         input_name = name.split("::").last
-        attempt_mapping(input_name, Object) ||
-          attempt_mapping_with_custom_namespace(input_name)
+        attempt_mapping_with_custom_namespace(input_name) ||
+          attempt_mapping(input_name, Object)
       end
     end
 

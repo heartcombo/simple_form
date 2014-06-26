@@ -72,11 +72,11 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'builder discovers new inputs from top level namespace before the ones from configured namespaces' do
+  test 'builder discovers new inputs from configured namespaces before the ones from top level namespace' do
     discovery do
       swap SimpleForm, custom_inputs_namespaces: ['CustomInputs'] do
         with_form_for @user, :age
-        assert_no_select 'form input#user_age.numeric-custom-input'
+        assert_select 'form input#user_age.numeric-custom-input'
       end
     end
   end
