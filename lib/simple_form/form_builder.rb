@@ -623,9 +623,7 @@ module SimpleForm
 
     def attempt_mapping_with_custom_namespace(input_name)
       SimpleForm.custom_inputs_namespaces.each do |namespace|
-        camelized = [namespace, input_name].join("::")
-
-        if (mapping = attempt_mapping(camelized, Object))
+        if (mapping = attempt_mapping(input_name, namespace.constantize))
           return mapping
         end
       end
