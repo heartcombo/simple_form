@@ -90,6 +90,16 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
+  test 'raises error when configured namespace does not exists' do
+    discovery do
+      swap SimpleForm, custom_inputs_namespaces: ['InvalidNamespace'] do
+        assert_raise NameError do
+          with_form_for @user, :age
+        end
+      end
+    end
+  end
+
   test 'new inputs can override the input_html_options' do
     discovery do
       with_form_for @user, :active, as: :select
