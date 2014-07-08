@@ -521,6 +521,7 @@ specifying the helper method in the column `Mapping` as the `as:` option.
      `tel`           | `input[type=tel]`                    | `string` with `name =~ /phone/`
      `password`      | `input[type=password]`               | `string` with `name =~ /password/`
      `search`        | `input[type=search]`                 | -
+     `uuid`          | `input[type=text]`                   | `uuid`
      `text`          | `textarea`                           | `text`
      `file`          | `input[type=file]`                   | `string` responding to file methods
      `hidden`        | `input[type=hidden]`                 | -

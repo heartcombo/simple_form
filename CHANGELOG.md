@@ -1,6 +1,7 @@
 ## 3.1.0.rc2
 
 ### enhancements
+  * Add mapping to `uuid` columns.
   * Add custom namespaces for custom inputs feature. [@vala](https://github.com/vala)
   * Add `:unless_blank` option to the wrapper API. [@IanVaughan](https://github.com/IanVaughan)
   * Add support to html markup in the I18n options. [@laurocaetano](https://github.com/laurocaetano)
