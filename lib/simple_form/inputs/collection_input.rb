@@ -21,10 +21,8 @@ module SimpleForm
         options = super
 
         options[:include_blank] = true unless skip_include_blank?
-
-        [:prompt, :include_blank].each do |key|
-          translate_option options, key
-        end
+        translate_option options, :prompt
+        translate_option options, :include_blank
 
         options
       end
