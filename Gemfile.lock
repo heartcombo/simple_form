@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/rails.git
-  revision: c4c5801bd9ded4c23c1e35f6a4d991f1d16db113
+  revision: 05fde24e1ef8c3b225eea8c51cbc05418620ae4a
   branch: master
   specs:
     actionpack (4.2.0.alpha)
@@ -41,9 +41,9 @@ GEM
     country_select (1.1.3)
     erubis (2.7.0)
     ffi2-generators (0.1.1)
-    i18n (0.6.9)
+    i18n (0.6.11)
     json (1.8.1)
-    minitest (5.3.4)
+    minitest (5.4.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
