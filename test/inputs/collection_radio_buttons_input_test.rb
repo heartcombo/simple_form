@@ -100,8 +100,8 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
         with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
         assert_select 'input[type=radio][value=male]'
         assert_select 'input[type=radio][value=female]'
-        assert_select 'label[for=user_gender_male]', 'Male'
-        assert_select 'label[for=user_gender_female]', 'Female'
+        assert_select 'label[for=user_gender_male] strong', 'Male'
+        assert_select 'label[for=user_gender_female] strong', 'Female'
       end
     end
   end
