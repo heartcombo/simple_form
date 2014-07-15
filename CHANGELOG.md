@@ -1,3 +1,6 @@
+### bug fix
+  * Fix `uuid` input to generate proper input[type=text].
+
 ## 3.1.0.rc2
 
 ### enhancements

@@ -126,9 +126,9 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_credit_limit.numeric.decimal'
   end
 
-  test 'builder generates uuid fields for uuid columns' do
+  test 'builder generates text fields for uuid columns' do
     with_form_for @user, :uuid
-    assert_select 'form input#user_uuid.string.uuid'
+    assert_select 'form input[type=text]#user_uuid.string.uuid'
   end
 
   test 'builder generates password fields for columns that matches password' do

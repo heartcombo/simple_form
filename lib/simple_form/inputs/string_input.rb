@@ -6,7 +6,7 @@ module SimpleForm
       def input(wrapper_options = nil)
         unless string?
           input_html_classes.unshift("string")
-          input_html_options[:type] ||= input_type if html5?
+          input_html_options[:type] ||= input_type if html5? && !postgresql_type?
         end
 
         merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
@@ -15,6 +15,10 @@ module SimpleForm
       end
 
       private
+
+      def postgresql_type?
+        input_type == :uuid
+      end
 
       def string?
         input_type == :string
