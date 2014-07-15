@@ -1,3 +1,6 @@
+### enhancements
+  * Add mapping to `citext` columns.
+
 ### bug fix
   * Fix `uuid` input to generate proper input[type=text].
 

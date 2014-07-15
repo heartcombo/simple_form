@@ -74,7 +74,7 @@ class User
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
     :extra_special_company_id, :pictures, :picture_ids, :special_pictures,
-    :special_picture_ids, :uuid
+    :special_picture_ids, :uuid, :citext
 
   def self.build(extra_attributes = {})
     attributes = {
@@ -126,6 +126,7 @@ class User
       when :action        then :string
       when :credit_card   then :string
       when :uuid          then :uuid
+      when :citext        then :citext
     end
     Column.new(attribute, column_type, limit)
   end

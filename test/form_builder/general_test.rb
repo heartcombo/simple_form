@@ -126,6 +126,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_credit_limit.numeric.decimal'
   end
 
+  test 'builder generates text fields for citext columns' do
+    with_form_for @user, :citext
+    assert_select 'form input[type=text]#user_citext.string.citext'
+  end
+
   test 'builder generates text fields for uuid columns' do
     with_form_for @user, :uuid
     assert_select 'form input[type=text]#user_uuid.string.uuid'

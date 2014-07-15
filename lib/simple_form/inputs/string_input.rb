@@ -17,7 +17,7 @@ module SimpleForm
       private
 
       def postgresql_type?
-        input_type == :uuid
+        input_type == :uuid || input_type == :citext
       end
 
       def string?
