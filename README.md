@@ -455,7 +455,7 @@ Rails helper, but change the builder to use the `SimpleForm::FormBuilder`.
 
 ```ruby
 form_for @user do |f|
-  simple_fields_for :posts do |posts_form|
+  f.simple_fields_for :posts do |posts_form|
     # Here you have all simple_form methods available
     posts_form.input :title
   end
