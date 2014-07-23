@@ -96,9 +96,15 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :boolean_style
   @@boolean_style = :inline
 
-  # You can define the class to be used on all forms. Default is simple_form.
+  # DEPRECATED: You can define the class to be used on all forms. Default is
+  # simple_form.
   mattr_accessor :form_class
   @@form_class = :simple_form
+
+  # You can define the default class to be used on all forms. Can be overriden
+  # with `html: { :class }`. Defaults to none.
+  mattr_accessor :default_form_class
+  @@default_form_class = nil
 
   # You can define which elements should obtain additional classes.
   mattr_accessor :generate_additional_classes_for
@@ -247,6 +253,11 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   def self.default_input_size=(*)
     ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.default_input_size= is deprecated and has no effect", caller
+  end
+
+  def self.form_class=(value)
+    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.form_class= is deprecated and will be removed in 4.x. Use SimpleForm.default_form_class= instead", caller
+    @@form_class = value
   end
 
   # Default way to setup Simple Form. Run rails generate simple_form:install

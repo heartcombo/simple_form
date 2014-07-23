@@ -217,10 +217,30 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # COMMON OPTIONS
+  # Remove this test when SimpleForm.form_class is removed in 4.x
   test 'builder adds chosen form class' do
-    swap SimpleForm, form_class: :my_custom_class do
+    ActiveSupport::Deprecation.silence do
+      swap SimpleForm, form_class: :my_custom_class do
+        with_form_for @user, :name
+        assert_select 'form.my_custom_class'
+      end
+    end
+  end
+
+  # Remove this test when SimpleForm.form_class is removed in 4.x
+  test 'builder adds chosen form class and default form class' do
+    ActiveSupport::Deprecation.silence do
+      swap SimpleForm, form_class: "my_custom_class", default_form_class: "my_default_class" do
+        with_form_for @user, :name
+        assert_select 'form.my_custom_class.my_default_class'
+      end
+    end
+  end
+
+  test 'builder adds default form class' do
+    swap SimpleForm, default_form_class: "default_class" do
       with_form_for @user, :name
-      assert_select 'form.my_custom_class'
+      assert_select 'form.default_class'
     end
   end
 

@@ -13,6 +13,25 @@ class FormHelperTest < ActionView::TestCase
     assert_select 'form.simple_form'
   end
 
+  test 'SimpleForm allows overriding default form class' do
+    swap SimpleForm, default_form_class: "my_custom_class" do
+      with_concat_form_for :user, html: { class: "override_class" }
+      assert_no_select 'form.my_custom_class'
+      assert_select 'form.override_class'
+    end
+  end
+
+  # Remove this test when SimpleForm.form_class is removed in 4.x
+  test 'SimpleForm allows overriding default form class, but not form class' do
+    ActiveSupport::Deprecation.silence do
+      swap SimpleForm, form_class: "fixed_class", default_form_class: "my_custom_class" do
+        with_concat_form_for :user, html: { class: "override_class" }
+        assert_no_select 'form.my_custom_class'
+        assert_select 'form.fixed_class.override_class'
+      end
+    end
+  end
+
   test 'SimpleForm uses default browser validations by default' do
     with_concat_form_for(:user)
     assert_no_select 'form[novalidate]'
