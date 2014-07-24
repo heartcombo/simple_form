@@ -101,9 +101,13 @@ module SimpleForm
             html_key = "#{key}_html".to_sym
 
             if translated_collection[html_key]
-              [translated_collection[html_key].html_safe || key, key.to_s]
+              translated = translated_collection[html_key]
+              translated = translated.call(html_key, options)  if translated.respond_to?(:call)
+              [translated.html_safe || key, key.to_s]
             else
-              [translated_collection[key] || key, key.to_s]
+              translated = translated_collection[key]
+              translated = translated.call(key, options)  if translated.respond_to?(:call)
+              [translated || key, key.to_s]
             end
           end
           true

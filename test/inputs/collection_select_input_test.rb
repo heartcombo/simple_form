@@ -21,6 +21,14 @@ class CollectionSelectInputTest < ActionView::TestCase
     end
   end
 
+  test 'input as select uses i18n to translate select boolean options stored as lambdas' do
+    store_translations(:en, simple_form: { yes: -> (*) { 'Sim' }, no: -> (*) { 'Não' }}) do
+      with_input_for @user, :active, :select
+      assert_select 'select option[value=true]', 'Sim'
+      assert_select 'select option[value=false]', 'Não'
+    end
+  end
+
   test 'input allows overriding collection for select types' do
     with_input_for @user, :name, :select, collection: ['Jose', 'Carlos']
     assert_select 'select.select#user_name'
