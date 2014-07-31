@@ -29,8 +29,8 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
     run_generator %w(--foundation)
     assert_file 'config/initializers/simple_form.rb',
       /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
-    assert_file 'config/initializers/simple_form_foundation.rb', /config\.wrappers :foundation/,
-      /config\.default_wrapper = :foundation/
+    assert_file 'config/initializers/simple_form_foundation.rb', /config\.wrappers :vertical_form/,
+      /config\.default_wrapper = :vertical_form/, /config\.item_wrapper_tag = :div/
   end
 
   %W(erb haml slim).each do |engine|
