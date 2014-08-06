@@ -429,6 +429,12 @@ All web forms need buttons, right? **Simple Form** wraps them in the DSL, acting
 
 The above will simply call submit. You choose to use it or not, it's just a question of taste.
 
+The button method also accepts optional parameters, that are delegated to the underlying submit call:
+
+```erb
+<%= f.button :submit, "Custom Button Text", class: "my-button" %>
+```
+
 ### Wrapping Rails Form Helpers
 
 Say you wanted to use a rails form helper but still wrap it in **Simple Form** goodness? You can, by
