@@ -542,8 +542,8 @@ module SimpleForm
     end
 
     def find_attribute_column(attribute_name)
-      if @object.respond_to?(:column_for_attribute)
-        @object.column_for_attribute(attribute_name)
+      if @object.class.respond_to?(:columns_hash)
+        @object.class.columns_hash[attribute_name]
       end
     end
 
