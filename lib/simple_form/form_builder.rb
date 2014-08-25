@@ -542,7 +542,7 @@ module SimpleForm
     end
 
     def find_attribute_column(attribute_name)
-      if @object.respond_to?(:column_for_attribute)
+      if @object.respond_to?(:column_for_attribute) && @object.has_attribute?(attribute_name)
         @object.column_for_attribute(attribute_name)
       end
     end
