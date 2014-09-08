@@ -4,7 +4,7 @@ require 'test_helper'
 class StringInputTest < ActionView::TestCase
   test 'input maps text field to string attribute' do
     with_input_for @user, :name, :string
-    assert_select 'input#user_name[type=text][name="user[name]"][value="New in SimpleForm!"]'
+    assert_select "input#user_name[type=text][name='user[name]'][value='New in SimpleForm!']"
   end
 
   test 'input generates a password field for password attributes' do
