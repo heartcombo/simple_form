@@ -30,7 +30,9 @@ I18n.default_locale = :en
 
 require 'country_select'
 
-if defined?(ActionDispatch::Assertions::NO_STRIP)
+if defined?(HTMLSelector::NO_STRIP)
+  HTMLSelector::NO_STRIP << "label"
+else
   ActionDispatch::Assertions::NO_STRIP << "label"
 end
 
