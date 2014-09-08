@@ -102,7 +102,7 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
 
   test 'input is able to pass :default to date select' do
     with_input_for @user, :born_at, :date, default: Date.today, html5: false
-    assert_select "select.date option[value=#{Date.today.year}][selected=selected]"
+    assert_select "select.date option[value='#{Date.today.year}'][selected=selected]"
   end
 
   test 'input generates a date input for date attributes if HTML5 compatibility is explicitly enabled' do

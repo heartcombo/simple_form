@@ -109,8 +109,8 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Second]' do
-        assert_select 'option[value=7]', 'Bond'
-        assert_select 'option[value=47]', 'Hitman'
+        assert_select 'option[value="7"]', 'Bond'
+        assert_select 'option[value="47"]', 'Hitman'
       end
     end
   end
@@ -155,14 +155,14 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
       collection: tag_groups, group_method: :tags
 
     assert_select 'select.grouped_select#user_tag_ids' do
-      assert_select 'optgroup[label=Group of Tags]' do
-        assert_select 'option[value=1]', 'Tag 1'
-        assert_select 'option[value=2]', 'Tag 2'
+      assert_select 'optgroup[label="Group of Tags"]' do
+        assert_select 'option[value="1"]', 'Tag 1'
+        assert_select 'option[value="2"]', 'Tag 2'
       end
 
-      assert_select 'optgroup[label=Other group]' do
-        assert_select 'option[value=3]', 'Tag 3'
-        assert_select 'option[value=4]', 'Tag 4'
+      assert_select 'optgroup[label="Other group"]' do
+        assert_select 'option[value="3"]', 'Tag 3'
+        assert_select 'option[value="4"]', 'Tag 4'
       end
     end
   end

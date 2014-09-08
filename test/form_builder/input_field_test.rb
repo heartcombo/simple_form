@@ -76,7 +76,7 @@ class InputFieldTest < ActionView::TestCase
         f.input_field :name
       end
 
-      assert_select 'input.string[placeholder=Name goes here]'
+      assert_select 'input.string[placeholder="Name goes here"]'
     end
   end
 
@@ -85,7 +85,7 @@ class InputFieldTest < ActionView::TestCase
       f.input_field :age, as: :integer
     end
 
-    assert_select 'input[min=18]'
+    assert_select 'input[min="18"]'
   end
 
   test 'builder input_field does not use pattern component by default' do
@@ -125,7 +125,7 @@ class InputFieldTest < ActionView::TestCase
       f.input_field :name, as: :string
     end
 
-    assert_select 'input.string[maxlength=25]'
+    assert_select 'input.string[maxlength="25"]'
   end
 
   test 'builder collection input_field generates input tag with a clean HTML' do
