@@ -30,7 +30,9 @@ I18n.default_locale = :en
 
 require 'country_select'
 
-ActionDispatch::Assertions::NO_STRIP << "label"
+if defined?(ActionDispatch::Assertions::NO_STRIP)
+  ActionDispatch::Assertions::NO_STRIP << "label"
+end
 
 class ActionView::TestCase
   include MiscHelpers
