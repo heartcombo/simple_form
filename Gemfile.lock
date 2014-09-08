@@ -6,8 +6,17 @@ PATH
       activemodel (~> 4.0)
 
 GIT
+  remote: git://github.com/rails/rails-dom-testing.git
+  revision: e3c52afb90f7d9810219feb0dfbb01e9c0d9c140
+  specs:
+    rails-dom-testing (1.0.2)
+      activesupport
+      nokogiri (~> 1.6.0)
+      rails-deprecated_sanitizer (>= 1.0.1)
+
+GIT
   remote: git://github.com/rails/rails.git
-  revision: 8683396dd8c31c70ba9332586ee05889305fdde6
+  revision: fb110381481fe79fa2921d08a60d343d3ea2b363
   branch: master
   specs:
     actionpack (4.2.0.beta1)
@@ -58,10 +67,6 @@ GEM
       rack (>= 1.0)
     rails-deprecated_sanitizer (1.0.2)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.2)
-      activesupport
-      nokogiri (~> 1.6.0)
-      rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.0)
       loofah (~> 2.0)
     rake (10.3.2)
@@ -286,6 +291,7 @@ DEPENDENCIES
   actionpack!
   activemodel!
   country_select (~> 1.1.1)
+  rails-dom-testing!
   railties!
   rake
   rubinius-developer_tools
