@@ -166,7 +166,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio evaluates a given proc for item wrapper tag" do
     with_collection_radio_buttons @user, :active, [true, false], :to_s, :to_s,
-      item_wrapper_tag: :li, item_wrapper_class: -> (boolean) { boolean.class }
+      item_wrapper_tag: :li, item_wrapper_class: lambda { |boolean| boolean.class }
 
     assert_select "form li.TrueClass input[type=radio]", count: 1
     assert_select "form li.FalseClass input[type=radio]", count: 1
