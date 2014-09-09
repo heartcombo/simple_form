@@ -4,8 +4,7 @@ module SimpleForm
       private
 
       def render_collection
-        item_wrapper_tag   = @options.fetch(:item_wrapper_tag, :span)
-        item_wrapper_class = @options[:item_wrapper_class]
+        item_wrapper_tag = @options.fetch(:item_wrapper_tag, :span)
 
         @collection.map do |item|
           value = value_for_collection(item, @value_method)
@@ -23,7 +22,7 @@ module SimpleForm
             rendered_item = content_tag(:label, rendered_item, label_options)
           end
 
-          item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, class: item_wrapper_class) : rendered_item
+          item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, class: class_for_item(item)) : rendered_item
         end.join.html_safe
       end
 
@@ -35,6 +34,21 @@ module SimpleForm
           @template_object.content_tag(wrapper_tag, collection, class: wrapper_class)
         else
           collection
+        end
+      end
+
+      def class_for_item(item)
+        return if @options[:item_wrapper_class].nil?
+        item_wrapper_class = Array(@options[:item_wrapper_class])
+
+        item_wrapper_class.map do |possible_proc|
+          if possible_proc.respond_to?(:call)
+            possible_proc.call(item)
+          elsif item.respond_to?(possible_proc.to_s.to_sym)
+            item.public_send(possible_proc)
+          else
+            possible_proc
+         end
         end
       end
     end
