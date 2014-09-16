@@ -226,7 +226,7 @@ the wrapper as well:
   <%= f.hint 'No special characters, please!' %>
   <%= f.error :username, id: 'user_name_error' %>
   <%= f.full_error :token %>
-  <%= f.submit 'Save' %>
+  <%= f.submit, 'Save' %>
 <% end %>
 ```
 
