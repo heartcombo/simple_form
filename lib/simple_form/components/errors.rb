@@ -52,7 +52,7 @@ module SimpleForm
       end
 
       def full_errors_on_association
-        reflection ? object.full_messages_for(reflection.name) : []
+        reflection ? object.errors.full_messages_for(reflection.name) : []
       end
 
       def has_custom_error?
