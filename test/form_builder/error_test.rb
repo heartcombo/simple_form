@@ -133,6 +133,14 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
+  test 'full error finds errors on association with reflection' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :company_id, as: :select,
+        reflection: Association.new(Company, :company, {})
+      assert_select 'span.error', 'Company must be valid'
+    end
+  end
+
   test 'full error can be disabled' do
     swap_wrapper :default, self.custom_wrapper_with_full_error do
       with_form_for @user, :company_id, as: :select, full_error: false
