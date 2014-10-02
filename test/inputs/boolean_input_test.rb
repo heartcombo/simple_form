@@ -197,4 +197,12 @@ class BooleanInputTest < ActionView::TestCase
       end
     end
   end
+
+  test 'input boolean works with wrapper config defining a class for the input' do
+    swap_wrapper :default, self.custom_wrapper_with_input_class do
+      with_input_for @user, :active, :boolean
+
+      assert_select 'input.boolean.inline-class'
+    end
+  end
 end
