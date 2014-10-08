@@ -41,7 +41,7 @@ module SimpleForm
       # which won't generate the hidden checkbox. This is the default functionality
       # in Rails > 3.2.1, and is backported in SimpleForm AV helpers.
       def build_check_box(unchecked_value, options)
-        @builder.check_box(attribute_name, input_html_options, checked_value, unchecked_value)
+        @builder.check_box(attribute_name, options, checked_value, unchecked_value)
       end
 
       # Build a checkbox without generating the hidden field. See
