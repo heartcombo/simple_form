@@ -301,4 +301,11 @@ class WrapperTest < ActionView::TestCase
       assert_no_select 'p.omg_hint'
     end
   end
+
+  test 'optional wrapper applies attributes to boolean input' do
+    swap_wrapper :default, self.custom_wrapper_with_input_attributes do
+      with_form_for @user, :active
+      assert_select "div.custom_wrapper input.boolean[data-modal=true]"
+    end
+  end
 end
