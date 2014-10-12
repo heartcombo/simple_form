@@ -1,3 +1,11 @@
+## master (unreleased)
+
+### enhancements
+  * Update foundation generator to version 5. [@jorge-d](https://github.com/jorge-d)
+
+### bug fix
+  * Fix `full_error` when the attribute is an association. [@mvdamme](https://github.com/jorge-d)
+
 ## 3.1.0.rc2
 
 ### enhancements
