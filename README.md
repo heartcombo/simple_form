@@ -992,7 +992,7 @@ list in **Simple Form** configuration file.
 HTML 5 date / time inputs are off by default and will produce select-boxes even if you have HTML 5 turned on in your config file. To force them on in a per-input fashion do:
 
 ```erb
-<%= f.input :expires_at, as: :datetime, html5: true %>
+<%= f.input :expires_at, as: :date, html5: true %>
 ```
 
 ## Information
