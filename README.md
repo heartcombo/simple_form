@@ -989,6 +989,12 @@ and if they aren't, any plugin you use would take of using the placeholder attri
 However, you can disable it if you want, by removing the placeholder component from the components
 list in **Simple Form** configuration file.
 
+HTML 5 date / time inputs are off by default and will produce select-boxes even if you have HTML 5 turned on in your config file. To force them on in a per-input fashion do:
+
+```erb
+<%= f.input :expires_at, as: :date, html5: true %>
+```
+
 ## Information
 
 ### Google Group
