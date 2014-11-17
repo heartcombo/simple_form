@@ -270,8 +270,8 @@ class WrapperTest < ActionView::TestCase
 
   test 'inline wrapper displays when there is content' do
     swap_wrapper :default, self.custom_wrapper_with_wrapped_optional_component do
-      with_form_for @user, :name, hint: "can't be blank"
-      assert_select 'section.custom_wrapper div.no_output_wrapper p.omg_hint', "can&#39;t be blank"
+      with_form_for @user, :name, hint: "cannot be blank"
+      assert_select 'section.custom_wrapper div.no_output_wrapper p.omg_hint', "cannot be blank"
       assert_select 'p.omg_hint'
     end
   end

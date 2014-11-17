@@ -31,7 +31,7 @@ class LabelTest < ActionView::TestCase
 
   test 'builder escapes label text' do
     with_label_for @user, :name, label: '<script>alert(1337)</script>', required: false
-    assert_select 'label.string', "&lt;script&gt;alert(1337)&lt;/script&gt;"
+    assert_no_select 'label.string script'
   end
 
   test 'builder does not escape label text if it is safe' do
