@@ -131,14 +131,15 @@ module SimpleForm
     #        name="user[name]" type="text" value="Carlos" />
     #
     def input_field(attribute_name, options = {})
+      components = (wrapper.components.map(&:namespace) & ATTRIBUTE_COMPONENTS)
+
       options = options.dup
-      options[:input_html] = options.except(:as, :boolean_style, :collection, :label_method, :value_method, *ATTRIBUTE_COMPONENTS)
+      options[:input_html] = options.except(:as, :boolean_style, :collection, :label_method, :value_method, *components)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       input      = find_input(attribute_name, options)
       wrapper    = find_wrapper(input.input_type, options)
-      components = (wrapper.components.map(&:namespace) & ATTRIBUTE_COMPONENTS) + [:input]
-      components = components.map { |component| SimpleForm::Wrappers::Leaf.new(component) }
+      components = components.concat([:input]).map { |component| SimpleForm::Wrappers::Leaf.new(component) }
 
       SimpleForm::Wrappers::Root.new(components, wrapper.options.merge(wrapper: false)).render input
     end
