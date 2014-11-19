@@ -17,6 +17,7 @@ module SimpleForm
         options = args.extract_options!
         options[:wrapper] = self.options[:wrapper] if options[:wrapper].nil?
         options[:defaults] ||= self.options[:defaults]
+        options[:wrapper_mappings] ||= self.options[:wrapper_mappings]
 
         if self.class < ActionView::Helpers::FormBuilder
           options[:builder] ||= self.class
