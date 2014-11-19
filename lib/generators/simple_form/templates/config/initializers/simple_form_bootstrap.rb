@@ -30,12 +30,13 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-  config.wrappers :vertical_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+  config.wrappers :vertical_boolean, tag: 'div', class: 'checkbox', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
 
-    b.wrapper tag: 'div', class: 'checkbox' do |ba|
-      ba.use :label_input
+    b.wrapper tag: 'label' do |ba|
+      ba.use :input
+      ba.use :label_text
     end
 
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
@@ -87,7 +88,10 @@ SimpleForm.setup do |config|
 
     b.wrapper tag: 'div', class: 'col-sm-offset-3 col-sm-9' do |wr|
       wr.wrapper tag: 'div', class: 'checkbox' do |ba|
-        ba.use :label_input, class: 'col-sm-9'
+        ba.wrapper tag: 'label' do |lba|
+          lba.use :input
+          lba.use :label_text
+        end
       end
 
       wr.use :error, wrap_with: { tag: 'span', class: 'help-block' }
@@ -127,4 +131,6 @@ SimpleForm.setup do |config|
   # to learn about the different styles for forms and inputs,
   # buttons and other elements.
   config.default_wrapper = :vertical_form
+  config.wrapper_mappings = { boolean: :vertical_boolean }
+  config.boolean_style = :inline
 end
