@@ -46,7 +46,9 @@
 ## deprecation
   * Methods on custom inputs now accept a required argument with the wrapper options.
   See https://github.com/plataformatec/simple_form/pull/997 for more information.
-  * SimpleForm.form_class is deprecated in favor of SimpleForm.default_form_class
+  * SimpleForm.form_class is deprecated in favor of SimpleForm.default_form_class.
+  Future versions of Simple Form will not generate `simple_form` class for the form
+  element.
   See https://github.com/plataformatec/simple_form/pull/1109 for more information.
 
 Please check [v3.0](https://github.com/plataformatec/simple_form/blob/v3.0/CHANGELOG.md) for previous changes.
