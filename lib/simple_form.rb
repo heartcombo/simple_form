@@ -98,7 +98,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # DEPRECATED: You can define the class to be used on all forms. Default is
   # simple_form.
-  mattr_accessor :form_class
+  mattr_reader :form_class
   @@form_class = :simple_form
 
   # You can define the default class to be used on all forms. Can be overriden
