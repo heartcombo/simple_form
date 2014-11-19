@@ -35,6 +35,7 @@
   * Add I18n support to `:include_blank` and `:prompt` when `:translate` is used as value. [@haines](https://github.com/plataformatec/simple_form/pull/616)
   * Add support to define custom error messages for the attributes.
   * Add support to change the I18n scope to be used in Simple Form. [@nielsbuus](https://github.com/nielsbuus)
+  * The default form class can now be overridden with `html: { :class }`. [@rmm5t](https://github.com/rmm5t)
 
 ### bug fix
   * Collection input that uses automatic collection translation properly sets checked values.
@@ -45,5 +46,7 @@
 ## deprecation
   * Methods on custom inputs now accept a required argument with the wrapper options.
   See https://github.com/plataformatec/simple_form/pull/997 for more information.
+  * SimpleForm.form_class is deprecated in favor of SimpleForm.default_form_class
+  See https://github.com/plataformatec/simple_form/pull/1109 for more information.
 
 Please check [v3.0](https://github.com/plataformatec/simple_form/blob/v3.0/CHANGELOG.md) for previous changes.
