@@ -1,3 +1,8 @@
+## next release
+
+### bug fix
+  * Do not remove HTML attributes if components are not present.
+
 ## 3.0.2
 
 ### enhancements
