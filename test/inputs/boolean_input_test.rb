@@ -57,7 +57,7 @@ class BooleanInputTest < ActionView::TestCase
   test 'input boolean with nested escapes :inline_label with HTML' do
     swap SimpleForm, boolean_style: :nested do
       with_input_for @user, :active, :boolean, inline_label: '<b>I am so inline.</b>'
-      assert_select 'label.checkbox', text: ' &lt;b&gt;I am so inline.&lt;/b&gt;'
+      assert_no_select 'label.checkbox b'
     end
   end
 

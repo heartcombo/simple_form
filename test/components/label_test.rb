@@ -244,7 +244,7 @@ class IsolatedLabelTest < ActionView::TestCase
   test 'label uses i18n to find required text' do
     store_translations(:en, simple_form: { required: { text: 'campo requerido' } }) do
       with_label_for @user, :name, :string
-      assert_select 'form label abbr[title=campo requerido]', '*'
+      assert_select 'form label abbr[title="campo requerido"]', '*'
     end
   end
 

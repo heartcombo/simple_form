@@ -50,7 +50,7 @@ class HintTest < ActionView::TestCase
 
   test 'builder escapes hint text' do
     with_hint_for @user, :name, hint: '<script>alert(1337)</script>'
-    assert_select 'span.hint', "&lt;script&gt;alert(1337)&lt;/script&gt;"
+    assert_no_select 'span.hint script'
   end
 
   # Without attribute name
@@ -137,8 +137,8 @@ class HintTest < ActionView::TestCase
 
   test 'hint with custom wrappers works' do
     swap_wrapper do
-      with_hint_for @user, :name, hint: "can't be blank"
-      assert_select 'div.omg_hint', "can&#39;t be blank"
+      with_hint_for @user, :name, hint: "cannot be blank"
+      assert_select 'div.omg_hint', "cannot be blank"
     end
   end
 end

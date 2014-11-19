@@ -32,7 +32,7 @@ class NumericInputTest < ActionView::TestCase
     assert_no_select 'input[min]'
 
     with_input_for @other_validating_user, :age, :integer
-    assert_select 'input[min=18]'
+    assert_select 'input[min="18"]'
   end
 
   test 'input infers min value from integer attributes with greater than validation using symbol' do
@@ -40,15 +40,15 @@ class NumericInputTest < ActionView::TestCase
     assert_no_select 'input[min]'
 
     with_input_for @validating_user, :amount, :integer
-    assert_select 'input[min=11]'
+    assert_select 'input[min="11"]'
   end
 
   test 'input infers min value from integer attributes with greater than or equal to validation using symbol' do
     with_input_for @validating_user, :attempts, :float
-    assert_select 'input[min=1]'
+    assert_select 'input[min="1"]'
 
     with_input_for @validating_user, :attempts, :integer
-    assert_select 'input[min=1]'
+    assert_select 'input[min="1"]'
   end
 
   test 'input infers min value from integer attributes with greater than validation using proc' do
@@ -56,15 +56,15 @@ class NumericInputTest < ActionView::TestCase
     assert_no_select 'input[min]'
 
     with_input_for @other_validating_user, :amount, :integer
-    assert_select 'input[min=20]'
+    assert_select 'input[min="20"]'
   end
 
   test 'input infers min value from integer attributes with greater than or equal to validation using proc' do
     with_input_for @other_validating_user, :attempts, :float
-    assert_select 'input[min=19]'
+    assert_select 'input[min="19"]'
 
     with_input_for @other_validating_user, :attempts, :integer
-    assert_select 'input[min=19]'
+    assert_select 'input[min="19"]'
   end
 
   test 'input infers max value from attributes with less than validation' do
@@ -72,7 +72,7 @@ class NumericInputTest < ActionView::TestCase
     assert_no_select 'input[max]'
 
     with_input_for @other_validating_user, :age, :integer
-    assert_select 'input[max=99]'
+    assert_select 'input[max="99"]'
   end
 
   test 'input infers max value from attributes with less than validation using symbol' do
@@ -80,15 +80,15 @@ class NumericInputTest < ActionView::TestCase
     assert_no_select 'input[max]'
 
     with_input_for @validating_user, :amount, :integer
-    assert_select 'input[max=99]'
+    assert_select 'input[max="99"]'
   end
 
   test 'input infers max value from attributes with less than or equal to validation using symbol' do
     with_input_for @validating_user, :attempts, :float
-    assert_select 'input[max=100]'
+    assert_select 'input[max="100"]'
 
     with_input_for @validating_user, :attempts, :integer
-    assert_select 'input[max=100]'
+    assert_select 'input[max="100"]'
   end
 
   test 'input infers max value from attributes with less than validation using proc' do
@@ -96,15 +96,15 @@ class NumericInputTest < ActionView::TestCase
     assert_no_select 'input[max]'
 
     with_input_for @other_validating_user, :amount, :integer
-    assert_select 'input[max=118]'
+    assert_select 'input[max="118"]'
   end
 
   test 'input infers max value from attributes with less than or equal to validation using proc' do
     with_input_for @other_validating_user, :attempts, :float
-    assert_select 'input[max=119]'
+    assert_select 'input[max="119"]'
 
     with_input_for @other_validating_user, :attempts, :integer
-    assert_select 'input[max=119]'
+    assert_select 'input[max="119"]'
   end
 
   test 'input has step value of any except for integer attribute' do
@@ -112,7 +112,7 @@ class NumericInputTest < ActionView::TestCase
     assert_select 'input[step="any"]'
 
     with_input_for @validating_user, :age, :integer
-    assert_select 'input[step=1]'
+    assert_select 'input[step="1"]'
   end
 
   test 'numeric input does not generate placeholder by default' do
@@ -122,7 +122,7 @@ class NumericInputTest < ActionView::TestCase
 
   test 'numeric input accepts the placeholder option' do
     with_input_for @user, :age, :integer, placeholder: 'Put in your age'
-    assert_select 'input.integer[placeholder=Put in your age]'
+    assert_select 'input.integer[placeholder="Put in your age"]'
   end
 
   test 'numeric input uses i18n to translate placeholder text' do
@@ -130,7 +130,7 @@ class NumericInputTest < ActionView::TestCase
       age: 'Age goes here'
     } } }) do
       with_input_for @user, :age, :integer
-      assert_select 'input.integer[placeholder=Age goes here]'
+      assert_select 'input.integer[placeholder="Age goes here"]'
     end
   end
 
@@ -156,12 +156,12 @@ class NumericInputTest < ActionView::TestCase
   [:integer, :float, :decimal].each do |type|
     test "#{type} input infers min value from attributes with greater than or equal validation" do
       with_input_for @validating_user, :age, type
-      assert_select 'input[min=18]'
+      assert_select 'input[min="18"]'
     end
 
     test "#{type} input infers the max value from attributes with less than or equal to validation" do
       with_input_for @validating_user, :age, type
-      assert_select 'input[max=99]'
+      assert_select 'input[max="99"]'
     end
   end
 

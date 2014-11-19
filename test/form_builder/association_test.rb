@@ -46,9 +46,9 @@ class AssociationTest < ActionView::TestCase
 
     with_association_for @user, :tags
     assert_select 'form select.select#user_tag_ids'
-    assert_select 'form select option[value=1]', 'Tag 1'
-    assert_select 'form select option[value=2]', 'Tag 2'
-    assert_select 'form select option[value=3]', 'Tag 3'
+    assert_select 'form select option[value="1"]', 'Tag 1'
+    assert_select 'form select option[value="2"]', 'Tag 2'
+    assert_select 'form select option[value="3"]', 'Tag 3'
 
     value.verify
   end
@@ -59,9 +59,9 @@ class AssociationTest < ActionView::TestCase
 
     with_association_for @user, :tags, preload: false
     assert_select 'form select.select#user_tag_ids'
-    assert_select 'form select option[value=1]', 'Tag 1'
-    assert_select 'form select option[value=2]', 'Tag 2'
-    assert_select 'form select option[value=3]', 'Tag 3'
+    assert_select 'form select option[value="1"]', 'Tag 1'
+    assert_select 'form select option[value="2"]', 'Tag 2'
+    assert_select 'form select option[value="3"]', 'Tag 3'
 
     assert_raises MockExpectationError do
       value.verify
@@ -74,9 +74,9 @@ class AssociationTest < ActionView::TestCase
 
     with_association_for @user, :company
     assert_select 'form select.select#user_company_id'
-    assert_select 'form select option[value=1]', 'Company 1'
-    assert_select 'form select option[value=2]', 'Company 2'
-    assert_select 'form select option[value=3]', 'Company 3'
+    assert_select 'form select option[value="1"]', 'Company 1'
+    assert_select 'form select option[value="2"]', 'Company 2'
+    assert_select 'form select option[value="3"]', 'Company 3'
 
     assert_raises MockExpectationError do
       value.verify
@@ -87,15 +87,15 @@ class AssociationTest < ActionView::TestCase
   test 'builder creates a select for belongs_to associations' do
     with_association_for @user, :company
     assert_select 'form select.select#user_company_id'
-    assert_select 'form select option[value=1]', 'Company 1'
-    assert_select 'form select option[value=2]', 'Company 2'
-    assert_select 'form select option[value=3]', 'Company 3'
+    assert_select 'form select option[value="1"]', 'Company 1'
+    assert_select 'form select option[value="2"]', 'Company 2'
+    assert_select 'form select option[value="3"]', 'Company 3'
   end
 
   test 'builder creates blank select if collection is nil' do
     with_association_for @user, :company, collection: nil
     assert_select 'form select.select#user_company_id'
-    assert_no_select 'form select option[value=1]', 'Company 1'
+    assert_no_select 'form select option[value="1"]', 'Company 1'
   end
 
   test 'builder allows collection radio for belongs_to associations' do
@@ -108,17 +108,17 @@ class AssociationTest < ActionView::TestCase
   test 'builder allows collection to have a proc as a condition' do
     with_association_for @user, :extra_special_company
     assert_select 'form select.select#user_extra_special_company_id'
-    assert_select 'form select option[value=1]'
-    assert_no_select 'form select option[value=2]'
-    assert_no_select 'form select option[value=3]'
+    assert_select 'form select option[value="1"]'
+    assert_no_select 'form select option[value="2"]'
+    assert_no_select 'form select option[value="3"]'
   end
 
   test 'builder allows collection to have a scope' do
     with_association_for @user, :special_pictures
     assert_select 'form select.select#user_special_picture_ids'
-    assert_select 'form select option[value=3]', '3'
-    assert_no_select 'form select option[value=1]'
-    assert_no_select 'form select option[value=2]'
+    assert_select 'form select option[value="3"]', '3'
+    assert_no_select 'form select option[value="1"]'
+    assert_no_select 'form select option[value="2"]'
   end
 
   test 'builder marks the record which already belongs to the user' do
@@ -133,17 +133,17 @@ class AssociationTest < ActionView::TestCase
   test 'builder uses reflection conditions to find collection' do
     with_association_for @user, :special_company
     assert_select 'form select.select#user_special_company_id'
-    assert_select 'form select option[value=1]'
-    assert_no_select 'form select option[value=2]'
-    assert_no_select 'form select option[value=3]'
+    assert_select 'form select option[value="1"]'
+    assert_no_select 'form select option[value="2"]'
+    assert_no_select 'form select option[value="3"]'
   end
 
   test 'builder allows overriding collection to association input' do
     with_association_for @user, :company, include_blank: false,
                          collection: [Company.new(999, 'Teste')]
     assert_select 'form select.select#user_company_id'
-    assert_no_select 'form select option[value=1]'
-    assert_select 'form select option[value=999]', 'Teste'
+    assert_no_select 'form select option[value="1"]'
+    assert_select 'form select option[value="999"]', 'Teste'
     assert_select 'form select option', count: 1
   end
 
@@ -158,31 +158,31 @@ class AssociationTest < ActionView::TestCase
     with_association_for @user, :pictures
     assert_select 'form select.select#user_picture_ids'
     assert_select 'form select[multiple=multiple]'
-    assert_select 'form select option[value=1]', 'Picture 1'
-    assert_select 'form select option[value=2]', 'Picture 2'
-    assert_select 'form select option[value=3]', 'Picture 3'
+    assert_select 'form select option[value="1"]', 'Picture 1'
+    assert_select 'form select option[value="2"]', 'Picture 2'
+    assert_select 'form select option[value="3"]', 'Picture 3'
   end
 
   test 'builder creates a select with multiple options for collection associations' do
     with_association_for @user, :tags
     assert_select 'form select.select#user_tag_ids'
     assert_select 'form select[multiple=multiple]'
-    assert_select 'form select option[value=1]', 'Tag 1'
-    assert_select 'form select option[value=2]', 'Tag 2'
-    assert_select 'form select option[value=3]', 'Tag 3'
+    assert_select 'form select option[value="1"]', 'Tag 1'
+    assert_select 'form select option[value="2"]', 'Tag 2'
+    assert_select 'form select option[value="3"]', 'Tag 3'
   end
 
   test 'builder allows size to be overwritten for collection associations' do
     with_association_for @user, :tags, input_html: { size: 10 }
-    assert_select 'form select[multiple=multiple][size=10]'
+    assert_select 'form select[multiple=multiple][size="10"]'
   end
 
   test 'builder marks all selected records which already belongs to user' do
     @user.tag_ids = [1, 2]
     with_association_for @user, :tags
-    assert_select 'form select option[value=1][selected=selected]'
-    assert_select 'form select option[value=2][selected=selected]'
-    assert_no_select 'form select option[value=3][selected=selected]'
+    assert_select 'form select option[value="1"][selected=selected]'
+    assert_select 'form select option[value="2"][selected=selected]'
+    assert_no_select 'form select option[value="3"][selected=selected]'
   end
 
   test 'builder allows a collection of check boxes for collection associations' do
@@ -196,9 +196,9 @@ class AssociationTest < ActionView::TestCase
   test 'builder marks all selected records for collection boxes' do
     @user.tag_ids = [1, 2]
     with_association_for @user, :tags, as: :check_boxes
-    assert_select 'form input[type=checkbox][value=1][checked=checked]'
-    assert_select 'form input[type=checkbox][value=2][checked=checked]'
-    assert_no_select 'form input[type=checkbox][value=3][checked=checked]'
+    assert_select 'form input[type=checkbox][value="1"][checked=checked]'
+    assert_select 'form input[type=checkbox][value="2"][checked=checked]'
+    assert_no_select 'form input[type=checkbox][value="3"][checked=checked]'
   end
 
   test 'builder with collection support giving collection and item wrapper tags' do

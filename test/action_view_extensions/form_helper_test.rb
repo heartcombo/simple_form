@@ -87,7 +87,7 @@ class FormHelperTest < ActionView::TestCase
   test 'passes options to SimpleForm' do
     with_concat_form_for(:user, url: '/account', html: { id: 'my_form' })
     assert_select 'form#my_form'
-    assert_select 'form[action=/account]'
+    assert_select 'form[action="/account"]'
   end
 
   test 'form_for yields an instance of FormBuilder' do

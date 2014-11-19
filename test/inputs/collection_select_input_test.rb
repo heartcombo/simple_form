@@ -99,7 +99,7 @@ class CollectionSelectInputTest < ActionView::TestCase
 
   test 'input automatically sets include blank' do
     with_input_for @user, :age, :select, collection: 18..30
-    assert_select 'select option[value=]', ''
+    assert_select 'select option[value=""]', ''
   end
 
   test 'input translates include blank when set to :translate' do
@@ -107,7 +107,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Rather not say'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: :translate
-      assert_select 'select option[value=]', 'Rather not say'
+      assert_select 'select option[value=""]', 'Rather not say'
     end
   end
 
@@ -116,7 +116,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Rather not say',
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: :translate
-      assert_select 'select option[value=]', 'Rather not say'
+      assert_select 'select option[value=""]', 'Rather not say'
     end
   end
 
@@ -125,7 +125,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Rather not say'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: 'Young at heart'
-      assert_select 'select option[value=]', 'Young at heart'
+      assert_select 'select option[value=""]', 'Young at heart'
     end
   end
 
@@ -134,7 +134,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Rather not say'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30
-      assert_select 'select option[value=]', ''
+      assert_select 'select option[value=""]', ''
     end
   end
 
@@ -143,7 +143,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Rather not say'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: true
-      assert_select 'select option[value=]', ''
+      assert_select 'select option[value=""]', ''
     end
   end
 
@@ -152,23 +152,23 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Rather not say'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, include_blank: false
-      assert_no_select 'select option[value=]'
+      assert_no_select 'select option[value=""]'
     end
   end
 
   test 'input does not set include blank if otherwise is told' do
     with_input_for @user, :age, :select, collection: 18..30, include_blank: false
-    assert_no_select 'select option[value=]'
+    assert_no_select 'select option[value=""]'
   end
 
   test 'input does not set include blank if prompt is given' do
     with_input_for @user, :age, :select, collection: 18..30, prompt: "Please select foo"
-    assert_no_select 'select option[value=]', ''
+    assert_no_select 'select option[value=""]', ''
   end
 
   test 'input does not set include blank if multiple is given' do
     with_input_for @user, :age, :select, collection: 18..30, input_html: { multiple: true }
-    assert_no_select 'select option[value=]', ''
+    assert_no_select 'select option[value=""]', ''
   end
 
   test 'input translates prompt when set to :translate' do
@@ -176,7 +176,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Select age:'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: :translate
-      assert_select 'select option[value=]', 'Select age:'
+      assert_select 'select option[value=""]', 'Select age:'
     end
   end
 
@@ -185,7 +185,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Select age:',
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: :translate
-      assert_select 'select option[value=]', 'Select age:'
+      assert_select 'select option[value=""]', 'Select age:'
     end
   end
 
@@ -194,7 +194,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Select age:'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: 'Do it:'
-      assert_select 'select option[value=]', 'Do it:'
+      assert_select 'select option[value=""]', 'Do it:'
     end
   end
 
@@ -203,7 +203,7 @@ class CollectionSelectInputTest < ActionView::TestCase
       age: 'Select age:'
     } } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: false
-      assert_no_select 'select option[value=]'
+      assert_no_select 'select option[value=""]'
     end
   end
 
@@ -212,15 +212,15 @@ class CollectionSelectInputTest < ActionView::TestCase
       prompt: 'Select value:'
     } }) do
       with_input_for @user, :age, :select, collection: 18..30, prompt: :translate
-      assert_select 'select option[value=]', "Select value:"
+      assert_select 'select option[value=""]', "Select value:"
     end
   end
 
   test 'input detects label and value on collections' do
     users = [User.build(id: 1, name: "Jose"), User.build(id: 2, name: "Carlos")]
     with_input_for @user, :description, :select, collection: users
-    assert_select 'select option[value=1]', 'Jose'
-    assert_select 'select option[value=2]', 'Carlos'
+    assert_select 'select option[value="1"]', 'Jose'
+    assert_select 'select option[value="2"]', 'Carlos'
   end
 
   test 'input disables the anothers components when the option is a object' do
