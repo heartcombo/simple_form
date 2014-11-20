@@ -85,6 +85,16 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'span.error b'
   end
 
+  test 'error escapes error text' do
+    @user.errors.add(:action, 'must not contain <b>markup</b>')
+
+    with_error_for @user, :action
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
+  end
+
+
   test 'error generates an error message with raw HTML tags' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'.html_safe
     assert_select 'span.error', "Name can't be blank"
@@ -113,6 +123,15 @@ class ErrorTest < ActionView::TestCase
     with_full_error_for @user, :name, options
     assert_select 'span.error#name_error', "Super User Name! can't be blank"
     assert_equal({ id: 'name_error' }, options)
+  end
+
+  test 'full error escapes error text' do
+    @user.errors.add(:action, 'must not contain <b>markup</b>')
+
+    with_full_error_for @user, :action
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
   end
 
   # CUSTOM WRAPPERS
@@ -182,6 +201,38 @@ class ErrorTest < ActionView::TestCase
       with_form_for @user, :name, error: error_text
 
       assert_select 'span.error', error_text
+    end
+  end
+
+  test 'input with custom error escapes the error text' do
+    with_form_for @user, :name, error: 'error must not contain <b>markup</b>'
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
+  end
+
+  test 'input with custom error does not escape the error text if it is safe' do
+    with_form_for @user, :name, error: 'error must contain <b>markup</b>'.html_safe
+
+    assert_select 'span.error'
+    assert_select 'span.error b', 'markup'
+  end
+
+  test 'input with custom error escapes the error text using full_error component' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :name, error: 'error must not contain <b>markup</b>'
+
+      assert_select 'span.error'
+      assert_no_select 'span.error b', 'markup'
+    end
+  end
+
+  test 'input with custom error does not escape the error text if it is safe using full_error component' do
+    swap_wrapper :default, self.custom_wrapper_with_full_error do
+      with_form_for @user, :name, error: 'error must contain <b>markup</b>'.html_safe
+
+      assert_select 'span.error'
+      assert_select 'span.error b', 'markup'
     end
   end
 
