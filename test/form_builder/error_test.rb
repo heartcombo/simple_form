@@ -14,6 +14,10 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
+  def with_custom_error_for(object, *args)
+    with_form_for(object, *args)
+  end
+
   test 'error should not generate content for attribute without errors' do
     with_error_for @user, :active
     assert_no_select 'span.error'
@@ -32,7 +36,7 @@ class ErrorTest < ActionView::TestCase
 
   test 'error should generate messages for attribute with single error' do
     with_error_for @user, :name
-    assert_select 'span.error', "can't be blank"
+    assert_select 'span.error', "can&#39;t be blank"
   end
 
   test 'error should generate messages for attribute with one error when using first' do
@@ -82,12 +86,21 @@ class ErrorTest < ActionView::TestCase
 
   test 'error should escape error prefix text' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'
-    assert_select 'span.error', "&lt;b&gt;Name&lt;/b&gt; can't be blank"
+    assert_select 'span.error', "&lt;b&gt;Name&lt;/b&gt; can&#39;t be blank"
+  end
+
+  test 'error escapes error text' do
+    @user.errors.merge!(action: ['must not contain <b>markup</b>'])
+
+    with_error_for @user, :action
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
   end
 
   test 'error should generate an error message with raw HTML tags' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'.html_safe
-    assert_select 'span.error', "Name can't be blank"
+    assert_select 'span.error', "Name can&#39;t be blank"
     assert_select 'span.error b', "Name"
   end
 
@@ -95,7 +108,7 @@ class ErrorTest < ActionView::TestCase
 
   test 'full error should generate an full error tag for the attribute' do
     with_full_error_for @user, :name
-    assert_select 'span.error', "Super User Name! can't be blank"
+    assert_select 'span.error', "Super User Name! can&#39;t be blank"
   end
 
   test 'full error should generate an full error tag with a clean HTML' do
@@ -105,13 +118,13 @@ class ErrorTest < ActionView::TestCase
 
   test 'full error should allow passing options to full error tag' do
     with_full_error_for @user, :name, id: 'name_error', error_prefix: "Your name"
-    assert_select 'span.error#name_error', "Your name can't be blank"
+    assert_select 'span.error#name_error', "Your name can&#39;t be blank"
   end
 
   test 'full error should not modify the options hash' do
     options = { id: 'name_error' }
     with_full_error_for @user, :name, options
-    assert_select 'span.error#name_error', "Super User Name! can't be blank"
+    assert_select 'span.error#name_error', "Super User Name! can&#39;t be blank"
     assert_equal({ id: 'name_error' }, options)
   end
 
@@ -120,7 +133,36 @@ class ErrorTest < ActionView::TestCase
   test 'error with custom wrappers works' do
     swap_wrapper do
       with_error_for @user, :name
-      assert_select 'span.omg_error', "can't be blank"
+      assert_select 'span.omg_error', "can&#39;t be blank"
     end
+  end
+
+  # CUSTOM ERRORS
+
+  test 'input with custom error works' do
+    with_custom_error_for(@user, :name, error: "Super User Name! can't be blank")
+
+    assert_select 'span.error', "Super User Name! can&#39;t be blank"
+  end
+
+  test 'input with custom error does not generate the error if there is no error on the attribute' do
+    error_text = "Super User Active! can't be blank"
+    with_form_for @user, :active, error: error_text
+
+    assert_no_select 'span.error'
+  end
+
+  test 'input with custom error escapes the error text' do
+    with_form_for @user, :name, error: 'error must not contain <b>markup</b>'
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
+  end
+
+  test 'input with custom error does not escape the error text if it is safe' do
+    with_form_for @user, :name, error: 'error must contain <b>markup</b>'.html_safe
+
+    assert_select 'span.error'
+    assert_select 'span.error b', 'markup'
   end
 end

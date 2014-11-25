@@ -3,6 +3,11 @@
 ### bug fix
   * Do not remove HTML attributes if components are not present.
 
+## 3.0.3
+
+### bug fix
+  * Fix XSS vulnerability on error components.
+
 ## 3.0.2
 
 ### enhancements
