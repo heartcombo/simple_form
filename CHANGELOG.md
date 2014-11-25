@@ -5,6 +5,7 @@
 
 ### bug fix
   * Fix `full_error` when the attribute is an association. [@mvdamme](https://github.com/jorge-d)
+  * Fix suppport to `:namespace` and `:index` options for nested check boxes and radio buttons when the attribute is an association.
 
 ## 3.1.0.rc2
 

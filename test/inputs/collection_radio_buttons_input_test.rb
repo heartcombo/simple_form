@@ -393,12 +393,34 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
     end
   end
 
-  test 'input check boxes custom wrapper class is included when include input wrapper class is falsey' do
+  test 'input radio custom wrapper class is included when include input wrapper class is falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_input_for @user, :gender, :radio_buttons, collection: [:male, :female], item_wrapper_class: 'custom'
 
       assert_no_select 'label.radio'
       assert_select 'span.custom'
+    end
+  end
+
+  test 'input radio with nested style and namespace uses the right for attribute' do
+    swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
+      with_concat_form_for @user, namespace: :foo do |f|
+        concat f.input :gender, as: :radio_buttons, collection: [:male, :female]
+      end
+
+      assert_select 'label[for=foo_user_gender_male]'
+      assert_select 'label[for=foo_user_gender_female]'
+    end
+  end
+
+  test 'input radio with nested style and index uses the right for attribute' do
+    swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
+      with_concat_form_for @user, index: 1 do |f|
+        concat f.input :gender, as: :radio_buttons, collection: [:male, :female]
+      end
+
+      assert_select 'label[for=user_1_gender_male]'
+      assert_select 'label[for=user_1_gender_female]'
     end
   end
 end

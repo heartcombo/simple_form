@@ -278,4 +278,26 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
       assert_select 'span.custom'
     end
   end
+
+  test 'input check boxes with nested style and namespace uses the right for attribute' do
+    swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
+      with_concat_form_for @user, namespace: :foo do |f|
+        concat f.input :gender, as: :check_boxes, collection: [:male, :female]
+      end
+
+      assert_select 'label[for=foo_user_gender_male]'
+      assert_select 'label[for=foo_user_gender_female]'
+    end
+  end
+
+  test 'input check boxes with nested style and index uses the right for attribute' do
+    swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
+      with_concat_form_for @user, index: 1 do |f|
+        concat f.input :gender, as: :check_boxes, collection: [:male, :female]
+      end
+
+      assert_select 'label[for=user_1_gender_male]'
+      assert_select 'label[for=user_1_gender_female]'
+    end
+  end
 end

@@ -16,11 +16,9 @@ module SimpleForm
           rendered_item = yield item, value, text, default_html_options.merge(additional_html_options)
 
           if @options.fetch(:boolean_style, SimpleForm.boolean_style) == :nested
-            label_options = {}
-            add_default_name_and_id_for_value(value, label_options)
-            label_options['for'] = label_options.delete('id')
+            label_options = default_html_options.slice(:index, :namespace)
             label_options['class'] = @options[:item_label_class]
-            rendered_item = content_tag(:label, rendered_item, label_options)
+            rendered_item = @template_object.label(@object_name, sanitize_attribute_name(value), rendered_item, label_options)
           end
 
           item_wrapper_tag ? @template_object.content_tag(item_wrapper_tag, rendered_item, class: item_wrapper_class) : rendered_item
