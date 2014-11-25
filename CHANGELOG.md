@@ -1,15 +1,7 @@
-## master (unreleased)
+## 3.1.0
 
 ### enhancements
   * Update foundation generator to version 5. [@jorge-d](https://github.com/jorge-d)
-
-### bug fix
-  * Fix `full_error` when the attribute is an association. [@mvdamme](https://github.com/jorge-d)
-  * Fix suppport to `:namespace` and `:index` options for nested check boxes and radio buttons when the attribute is an association.
-
-## 3.1.0.rc2
-
-### enhancements
   * Add mapping to `uuid` columns.
   * Add custom namespaces for custom inputs feature. [@vala](https://github.com/vala)
   * Add `:unless_blank` option to the wrapper API. [@IanVaughan](https://github.com/IanVaughan)
@@ -39,6 +31,8 @@
   * The default form class can now be overridden with `html: { :class }`. [@rmm5t](https://github.com/rmm5t)
 
 ### bug fix
+  * Fix `full_error` when the attribute is an association. [@mvdamme](https://github.com/jorge-d)
+  * Fix suppport to `:namespace` and `:index` options for nested check boxes and radio buttons when the attribute is an association.
   * Collection input that uses automatic collection translation properly sets checked values.
   Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)

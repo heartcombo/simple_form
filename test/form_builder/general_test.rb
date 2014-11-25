@@ -327,7 +327,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder generates errors for attribute with errors' do
     with_form_for @user, :name
-    assert_select 'span.error', "can't be blank"
+    assert_select 'span.error', "cannot be blank"
   end
 
   test 'builder is able to disable showing errors for an input' do
@@ -337,7 +337,7 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder passes options to errors' do
     with_form_for @user, :name, error_html: { id: "cool" }
-    assert_select 'span.error#cool', "can't be blank"
+    assert_select 'span.error#cool', "cannot be blank"
   end
 
   test 'placeholder does not be generated when set to false' do

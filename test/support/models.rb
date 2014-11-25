@@ -175,7 +175,7 @@ class User
   def errors
     @errors ||= begin
       errors = ActiveModel::Errors.new(self)
-      errors.add(:name, "can't be blank")
+      errors.add(:name, "cannot be blank")
       errors.add(:description, 'must be longer than 15 characters')
       errors.add(:age, 'is not a number')
       errors.add(:age, 'must be greater than 18')

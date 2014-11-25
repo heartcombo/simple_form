@@ -43,7 +43,7 @@ GIT
 PATH
   remote: .
   specs:
-    simple_form (3.1.0.rc2)
+    simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
 
