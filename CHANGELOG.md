@@ -1,3 +1,8 @@
+## 2.1.2
+
+### bug fix
+  * Fix XSS vulnerability on error components.
+
 ## 2.1.1
 
 ### bug fix

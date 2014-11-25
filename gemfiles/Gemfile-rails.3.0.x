@@ -2,7 +2,7 @@ source :rubygems
 
 gem 'simple_form', :path => '..'
 
-gem 'country_select'
+gem 'country_select', '~> 1.1'
 gem 'railties', '~> 3.0.0'
 gem 'activemodel', '~> 3.0.0'
 gem 'actionpack', '~> 3.0.0'
