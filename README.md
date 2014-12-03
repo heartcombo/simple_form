@@ -733,7 +733,7 @@ And **Simple Form** will try a lookup like this in your locale file, to find the
 en:
   simple_form:
     options:
-      user:
+      users:
         gender:
           male: 'Male'
           female: 'Female'
