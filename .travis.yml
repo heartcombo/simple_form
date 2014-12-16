@@ -9,6 +9,7 @@ rvm:
 gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
+  - gemfiles/Gemfile.rails-4-2-stable
   - Gemfile
 notifications:
   email: false
