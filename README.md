@@ -789,6 +789,22 @@ object itself. Thus, similarly, if a form for an `Admin::User` object is defined
 `simple_form_for @admin_user, as: :some_user`, **Simple Form** will look for translations
 under `some_user` instead of `admin_user`.
 
+When translate `simple_fields_for` attributes be sure to use the same name you pass to it, e.g. `simple_fields_for :posts` should be placed under `posts` not `post`:
+
+```yaml
+en:
+  simple_form:
+    labels:
+      posts:
+        title: 'Post title'
+    hints:
+      posts:
+        title: 'A good title'
+    placeholders:
+      posts:
+        title: 'Once upon a time...'
+```
+
 ## Configuration
 
 **Simple Form** has several configuration options. You can read and change them in the initializer
