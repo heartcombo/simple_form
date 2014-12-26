@@ -170,7 +170,7 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     assert_select 'label[for=project_created_at_4i]'
   end
 
-  test 'label points to attribute_name if HTML5 compatibility is explicitly enbled' do
+  test 'label points to attribute name if HTML5 compatibility is explicitly enabled' do
     with_input_for :project, :created_at, :date, html5: true
     assert_select 'label[for=project_created_at]'
   end
