@@ -14,16 +14,20 @@ module SimpleForm
       private
 
       def label_target
-        position = case input_type
-        when :date, :datetime
-          date_order = input_options[:order] || I18n.t('date.order')
-          date_order.first.to_sym
+        if use_html5_inputs?
+          attribute_name
         else
-          :hour
-        end
+          position = case input_type
+          when :date, :datetime
+            date_order = input_options[:order] || I18n.t('date.order')
+            date_order.first.to_sym
+          else
+            :hour
+          end
 
-        position = ActionView::Helpers::DateTimeSelector::POSITION[position]
-        "#{attribute_name}_#{position}i"
+          position = ActionView::Helpers::DateTimeSelector::POSITION[position]
+          "#{attribute_name}_#{position}i"
+        end
       end
 
       def use_html5_inputs?
