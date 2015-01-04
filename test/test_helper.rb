@@ -36,6 +36,10 @@ else
   ActionDispatch::Assertions::NO_STRIP << "label"
 end
 
+if ActiveSupport::TestCase.respond_to?(:test_order=)
+  ActiveSupport::TestCase.test_order = :random
+end
+
 class ActionView::TestCase
   include MiscHelpers
   include SimpleForm::ActionViewExtensions::FormHelper
