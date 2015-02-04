@@ -12,7 +12,9 @@ module SimpleForm
       protected
 
       def error_text
-        "#{html_escape(options[:error_prefix])} #{errors.send(error_method)}".lstrip.html_safe
+        text = has_error_in_options? ? options[:error] : errors.send(error_method)
+
+        "#{html_escape(options[:error_prefix])} #{html_escape(text)}".lstrip.html_safe
       end
 
       def error_method
@@ -29,6 +31,10 @@ module SimpleForm
 
       def errors_on_association
         reflection ? object.errors[reflection.name] : []
+      end
+
+      def has_error_in_options?
+        options[:error] && !options[:error].nil?
       end
     end
   end
