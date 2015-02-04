@@ -90,7 +90,7 @@ module SimpleForm
       def translate_collection
         if translated_collection = translate(:options)
           @collection = collection.map do |key|
-            [translated_collection[key] || key, key]
+            [translated_collection[key] || key, key.to_s]
           end
           true
         end

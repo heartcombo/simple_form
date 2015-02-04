@@ -6,8 +6,11 @@
   * New `input_class` global config option to set a class to be generated in all inputs.
   * `input_field` supports `html5` component [@nashby](https://github.com/nashby)
   * Add `include_default_input_wrapper_class` config [@luizcosta](https://github.com/luizcosta)
+  * Add `boolean_label_class` config.
 
 ### bug fix
+  * Collection input that uses automatic collection translation properly sets checked values.
+  Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
   * Use the given name in `input_html` for the hidden field in `collection_check_boxes` [@angelic](https://github.com/angelic)
   * Add "checkbox" class to the label of boolean input when there is no `:label`
