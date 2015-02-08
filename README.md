@@ -1053,7 +1053,7 @@ https://github.com/plataformatec/simple_form/issues
 
 ## License
 
-MIT License. Copyright 2009-2014 Plataformatec. http://plataformatec.com.br
+MIT License. Copyright 2009-2015 Plataformatec. http://plataformatec.com.br
 
 You are not granted rights or licenses to the trademarks of the Plataformatec, including without
 limitation the Simple Form name or logo.
