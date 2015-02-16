@@ -29,6 +29,16 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.string.required[for=validating_user_name]', /Name/
   end
 
+  test 'builder adds a disabled class to label if the attribute is disabled' do
+    with_label_for @validating_user, :name, disabled: true
+    assert_select 'label.string.disabled[for=validating_user_name]', /Name/
+  end
+
+  test 'builder does not add a disabled class to label if the attribute is not disabled' do
+    with_label_for @validating_user, :name, disabled: false
+    assert_no_select 'label.string.disabled[for=validating_user_name]', /Name/
+  end
+
   test 'builder escapes label text' do
     with_label_for @user, :name, label: '<script>alert(1337)</script>', required: false
     assert_no_select 'label.string script'
