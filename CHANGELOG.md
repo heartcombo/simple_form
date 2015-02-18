@@ -1,5 +1,8 @@
 ## master
 
+### enhancements
+  * Add the `disabled_class` to the label when the input is disabled. [@rhodrid](https://github.com/rhodrid)
+
 ### bug fix
   * `date/time/datetime` inputs now correctly generate the label `for` attribute when
   HTML5 compatibility is explicitly enabled. [@ericsullivan](https://github.com/ericsullivan)
