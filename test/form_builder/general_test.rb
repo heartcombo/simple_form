@@ -46,6 +46,17 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder does not override custom input mappings for custom collection' do
+    swap SimpleForm, input_mappings: { /gender$/ => :check_boxes } do
+      with_concat_form_for @user do |f|
+        f.input :gender, collection: [:male, :female]
+      end
+
+      assert_no_select 'select option', 'Male'
+      assert_select 'input[type=checkbox][value=male]'
+    end
+  end
+
   test 'builder allows to skip input_type class' do
     swap SimpleForm, generate_additional_classes_for: [:label, :wrapper] do
       with_form_for @user, :post_count
