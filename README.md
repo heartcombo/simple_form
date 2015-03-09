@@ -435,6 +435,16 @@ The button method also accepts optional parameters, that are delegated to the un
 <%= f.button :submit, "Custom Button Text", class: "my-button" %>
 ```
 
+To create a `<button>` element, use the following syntax:
+
+```erb
+<%= f.button :button, "Custom Button Text" %>
+
+<%= f.button :button do %>
+  Custom Button Text
+<% end %>
+```
+
 ### Wrapping Rails Form Helpers
 
 Say you wanted to use a rails form helper but still wrap it in **Simple Form** goodness? You can, by
