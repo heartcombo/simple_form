@@ -32,19 +32,6 @@ Run the generator:
 rails generate simple_form:install
 ```
 
-Also, if you want to use the country select, you will need the
-[country_select gem](https://rubygems.org/gems/country_select), add it to your Gemfile:
-
-```ruby
-gem 'country_select'
-```
-
-If you don't want to use the `country_select` gem you can easily skip this behaviour with this line in your `simple_form.rb` initializer.
-
-```ruby
-config.input_mappings = { /country/ => :string }
-```
-
 ### Bootstrap
 
 **Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/).
@@ -75,6 +62,22 @@ enable hints, please uncomment the appropriate line in `config/initializers/simp
 You will need to provide your own CSS styles for hints.
 
 Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/applications.html).
+
+### Country Select
+
+If you want to use the country select, you will need the
+[country_select gem](https://rubygems.org/gems/country_select), add it to your Gemfile:
+
+```ruby
+gem 'country_select'
+```
+
+If you don't want to use the gem you can easily override this behaviour by mapping the
+country inputs to something else, with a line like this in your `simple_form.rb` initializer:
+
+```ruby
+config.input_mappings = { /country/ => :string }
+```
 
 ## Usage
 
