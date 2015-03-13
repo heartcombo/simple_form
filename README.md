@@ -39,6 +39,12 @@ Also, if you want to use the country select, you will need the
 gem 'country_select'
 ```
 
+If you don't want to use the `country_select` gem you can easily skip this behaviour with this line in your `simple_form.rb` initializer.
+
+```ruby
+config.input_mappings = { /country/ => :string }
+```
+
 ### Bootstrap
 
 **Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/).
