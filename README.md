@@ -268,7 +268,6 @@ end
 ```
 
 For check boxes and radio buttons you can remove the label changing `boolean_style` from default value `:nested` to `:inline`.
-Also, `item_wrapper_tag` will not work when `boolean_style` is set to `:nested`.
 
 Example:
 
