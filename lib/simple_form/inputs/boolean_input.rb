@@ -35,7 +35,7 @@ module SimpleForm
       # reuse the method for nested boolean style, but with no unchecked value,
       # which won't generate the hidden checkbox. This is the default functionality
       # in Rails > 3.2.1, and is backported in SimpleForm AV helpers.
-      def build_check_box(unchecked_value = unchecked_value)
+      def build_check_box(unchecked_value = unchecked_value())
         @builder.check_box(attribute_name, input_html_options, checked_value, unchecked_value)
       end
 
