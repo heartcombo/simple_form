@@ -137,9 +137,15 @@ module SimpleForm
       options[:input_html] = options.except(:as, :boolean_style, :collection, :label_method, :value_method, *components)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
-      input      = find_input(attribute_name, options)
-      wrapper    = find_wrapper(input.input_type, options)
-      components = components.concat([:input]).map { |component| SimpleForm::Wrappers::Leaf.new(component) }
+      input   = find_input(attribute_name, options)
+      wrapper = find_wrapper(input.input_type, options)
+
+      components.map! { |component| SimpleForm::Wrappers::Leaf.new(component) }
+      if input_component = wrapper.components.detect { |component| component.namespace == :input }
+        components.push input_component
+      else
+        components.push SimpleForm::Wrappers::Leaf.new(:input)
+      end
 
       SimpleForm::Wrappers::Root.new(components, wrapper.options.merge(wrapper: false)).render input
     end

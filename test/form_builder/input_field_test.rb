@@ -152,4 +152,12 @@ class InputFieldTest < ActionView::TestCase
       assert_select 'input[readonly="readonly"]'
     end
   end
+
+  test 'build input_field accepts extra attributes in the DSL' do
+    swap_wrapper :default, custom_wrapper_with_input_attributes do
+      with_input_field_for @user, :name
+    end
+
+    assert_select "input.string[data-modal=true]"
+  end
 end

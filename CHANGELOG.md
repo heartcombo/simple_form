@@ -6,6 +6,7 @@
 ### bug fix
   * `date/time/datetime` inputs now correctly generate the label `for` attribute when
   HTML5 compatibility is explicitly enabled. [@ericsullivan](https://github.com/ericsullivan)
+  * `input_field` now correctly generates extra options from the wrapper input config.
 
 ## 3.1.0
 
