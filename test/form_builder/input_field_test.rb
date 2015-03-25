@@ -148,7 +148,7 @@ class InputFieldTest < ActionView::TestCase
   end
 
   test 'build input_field without pattern component use the pattern string' do
-    swap_wrapper :default, self.custom_wrapper_with_html5_components do
+    swap_wrapper :default, custom_wrapper_with_html5_components do
       with_concat_form_for(@user) do |f|
         f.input_field :name, pattern: '\w+'
       end
@@ -158,7 +158,7 @@ class InputFieldTest < ActionView::TestCase
   end
 
   test 'build input_field without placeholder component use the placeholder string' do
-    swap_wrapper :default, self.custom_wrapper_with_html5_components do
+    swap_wrapper :default, custom_wrapper_with_html5_components do
       with_concat_form_for(@user) do |f|
         f.input_field :name, placeholder: 'Placeholder'
       end
@@ -168,7 +168,7 @@ class InputFieldTest < ActionView::TestCase
   end
 
   test 'build input_field without maxlength component use the maxlength string' do
-    swap_wrapper :default, self.custom_wrapper_with_html5_components do
+    swap_wrapper :default, custom_wrapper_with_html5_components do
       with_concat_form_for(@user) do |f|
         f.input_field :name, maxlength: 5
       end
@@ -178,7 +178,7 @@ class InputFieldTest < ActionView::TestCase
   end
 
   test 'build input_field without readonly component use the readonly string' do
-    swap_wrapper :default, self.custom_wrapper_with_html5_components do
+    swap_wrapper :default, custom_wrapper_with_html5_components do
       with_concat_form_for(@user) do |f|
         f.input_field :name, readonly: true
       end

@@ -129,7 +129,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'custom wrappers can have additional attributes' do
-    swap_wrapper :default, self.custom_wrapper_with_additional_attributes do
+    swap_wrapper :default, custom_wrapper_with_additional_attributes do
       with_form_for @user, :name
 
       assert_select "div.custom_wrapper[title='some title'][data-wrapper='test']"
@@ -137,7 +137,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'custom wrappers can have full error message on attributes' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :name
       assert_select 'span.error', "Name cannot be blank"
     end
@@ -188,7 +188,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'does not duplicate label classes for different inputs' do
-    swap_wrapper :default, self.custom_wrapper_with_label_html_option do
+    swap_wrapper :default, custom_wrapper_with_label_html_option do
       with_concat_form_for(@user) do |f|
         concat f.input :name, required: false
         concat f.input :email, as: :email, required: true
@@ -243,7 +243,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'input accepts attributes in the DSL' do
-    swap_wrapper :default, self.custom_wrapper_with_input_class do
+    swap_wrapper :default, custom_wrapper_with_input_class do
       with_concat_form_for @user do |f|
         concat f.input :name
       end
@@ -253,7 +253,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'label accepts attributes in the DSL' do
-    swap_wrapper :default, self.custom_wrapper_with_label_class do
+    swap_wrapper :default, custom_wrapper_with_label_class do
       with_concat_form_for @user do |f|
         concat f.input :name
       end
@@ -263,7 +263,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'label_input accepts attributes in the DSL' do
-    swap_wrapper :default, self.custom_wrapper_with_label_input_class do
+    swap_wrapper :default, custom_wrapper_with_label_input_class do
       with_concat_form_for @user do |f|
         concat f.input :name
       end
@@ -274,7 +274,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'input accepts data attributes in the DSL' do
-    swap_wrapper :default, self.custom_wrapper_with_input_attributes do
+    swap_wrapper :default, custom_wrapper_with_input_attributes do
       with_concat_form_for @user do |f|
         concat f.input :name
       end
@@ -284,7 +284,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'inline wrapper displays when there is content' do
-    swap_wrapper :default, self.custom_wrapper_with_wrapped_optional_component do
+    swap_wrapper :default, custom_wrapper_with_wrapped_optional_component do
       with_form_for @user, :name, hint: "cannot be blank"
       assert_select 'section.custom_wrapper div.no_output_wrapper p.omg_hint', "cannot be blank"
       assert_select 'p.omg_hint'
@@ -292,7 +292,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'inline wrapper does not display when there is no content' do
-    swap_wrapper :default, self.custom_wrapper_with_wrapped_optional_component do
+    swap_wrapper :default, custom_wrapper_with_wrapped_optional_component do
       with_form_for @user, :name
       assert_select 'section.custom_wrapper div.no_output_wrapper'
       assert_no_select 'p.omg_hint'
@@ -300,7 +300,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'optional wrapper does not display when there is content' do
-    swap_wrapper :default, self.custom_wrapper_with_unless_blank do
+    swap_wrapper :default, custom_wrapper_with_unless_blank do
       with_form_for @user, :name, hint: "can't be blank"
       assert_select 'section.custom_wrapper div.no_output_wrapper'
       assert_select 'div.no_output_wrapper'
@@ -309,7 +309,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'optional wrapper does not display when there is no content' do
-    swap_wrapper :default, self.custom_wrapper_with_unless_blank do
+    swap_wrapper :default, custom_wrapper_with_unless_blank do
       with_form_for @user, :name
       assert_no_select 'section.custom_wrapper div.no_output_wrapper'
       assert_no_select 'div.no_output_wrapper'

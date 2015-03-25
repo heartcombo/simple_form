@@ -46,7 +46,7 @@ module MiscHelpers
     end
   end
 
-  def swap_wrapper(name = :default, wrapper = self.custom_wrapper)
+  def swap_wrapper(name = :default, wrapper = custom_wrapper)
     old = SimpleForm.wrappers[name.to_s]
     SimpleForm.wrappers[name.to_s] = wrapper
     yield

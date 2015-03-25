@@ -90,7 +90,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'configuration allow set label text for wrappers' do
-    swap_wrapper :default, self.custom_wrapper_with_label_text do
+    swap_wrapper :default, custom_wrapper_with_label_text do
       with_concat_form_for(@user) do |f|
         concat f.input :age
       end
@@ -99,7 +99,7 @@ class LabelTest < ActionView::TestCase
   end
 
   test 'configuration allow set rewrited label tag for wrappers' do
-    swap_wrapper :default, self.custom_wrapper_with_custom_label_component do
+    swap_wrapper :default, custom_wrapper_with_custom_label_component do
       with_concat_form_for(@user) do |f|
         concat f.input :age
       end

@@ -146,14 +146,14 @@ class ErrorTest < ActionView::TestCase
   # FULL_ERROR_WRAPPER
 
   test 'full error finds errors on association' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :company_id, as: :select
       assert_select 'span.error', 'Company must be valid'
     end
   end
 
   test 'full error finds errors on association with reflection' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :company_id, as: :select,
         reflection: Association.new(Company, :company, {})
       assert_select 'span.error', 'Company must be valid'
@@ -161,14 +161,14 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'full error can be disabled' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :company_id, as: :select, full_error: false
       assert_no_select 'span.error'
     end
   end
 
   test 'full error can be disabled setting error to false' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :company_id, as: :select, error: false
       assert_no_select 'span.error'
     end
@@ -196,7 +196,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'input with custom error works when using full_error component' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       error_text = "Super User Name! cannot be blank"
       with_form_for @user, :name, error: error_text
 
@@ -219,7 +219,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'input with custom error escapes the error text using full_error component' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :name, error: 'error must not contain <b>markup</b>'
 
       assert_select 'span.error'
@@ -228,7 +228,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'input with custom error does not escape the error text if it is safe using full_error component' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :name, error: 'error must contain <b>markup</b>'.html_safe
 
       assert_select 'span.error'
@@ -237,7 +237,7 @@ class ErrorTest < ActionView::TestCase
   end
 
   test 'input with custom error when using full_error component does not generate the error if there is no error on the attribute' do
-    swap_wrapper :default, self.custom_wrapper_with_full_error do
+    swap_wrapper :default, custom_wrapper_with_full_error do
       with_form_for @user, :active, error: "Super User Active! can't be blank"
 
       assert_no_select 'span.error'
