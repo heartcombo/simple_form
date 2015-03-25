@@ -353,15 +353,15 @@ class FormBuilderTest < ActionView::TestCase
   [:input, :input_field].each do |method|
     test "builder receives a default argument and pass it to the inputs when calling '#{method}'" do
       with_concat_form_for @user, defaults: { input_html: { class: 'default_class' } } do |f|
-        f.send(method, :name)
+        f.public_send(method, :name)
       end
       assert_select 'input.default_class'
     end
 
     test "builder receives a default argument and pass it to the inputs without changing the defaults when calling '#{method}'" do
       with_concat_form_for @user, defaults: { input_html: { class: 'default_class', id: 'default_id' } } do |f|
-        concat(f.send(method, :name))
-        concat(f.send(method, :credit_limit))
+        concat(f.public_send(method, :name))
+        concat(f.public_send(method, :credit_limit))
       end
 
       assert_select "input.string.default_class[name='user[name]']"
@@ -372,9 +372,9 @@ class FormBuilderTest < ActionView::TestCase
       @user.company = Company.new(1, 'Empresa')
 
       with_concat_form_for @user, defaults: { input_html: { class: 'default_class' } } do |f|
-        concat(f.send(method, :name))
+        concat(f.public_send(method, :name))
         concat(f.simple_fields_for(:company) do |company_form|
-          concat(company_form.send(method, :name))
+          concat(company_form.public_send(method, :name))
         end)
       end
 
