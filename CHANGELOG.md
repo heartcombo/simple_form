@@ -7,6 +7,9 @@
   * `date/time/datetime` inputs now correctly generate the label `for` attribute when
   HTML5 compatibility is explicitly enabled. [@ericsullivan](https://github.com/ericsullivan)
 
+  * The boostrap datetime, date and time now has a nice format on bootstrap.
+  [ulissesalmeida][https://github.com/ulissesalmeida] [eltonchrls][https://github.com/eltonchrls]
+
 ## 3.1.0
 
 ### enhancements
