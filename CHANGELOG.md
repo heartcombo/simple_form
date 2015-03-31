@@ -10,6 +10,19 @@
   * The boostrap datetime, date and time now has a nice format on bootstrap.
   [ulissesalmeida][https://github.com/ulissesalmeida] [eltonchrls][https://github.com/eltonchrls]
 
+  * Now is possible set custom configured value input for collection.
+
+  Example:
+
+  ```ruby
+    # On configuration:
+    config.input_mappings = { /gender$/ => :check_boxes }
+
+    # On form:
+    f.input :gender, collection: [:male, :female]
+  ```
+  [strangeworks][https://github.com/strangeworks]
+
 ## 3.1.0
 
 ### enhancements
