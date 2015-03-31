@@ -122,7 +122,7 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-  config.wrappers :horizontal_select_date, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+  config.wrappers :multi_select, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: 'control-label'
@@ -142,6 +142,8 @@ SimpleForm.setup do |config|
     radio_buttons: :vertical_radio_and_checkboxes,
     file: :vertical_file_input,
     boolean: :vertical_boolean,
-    datetime: :horizontal_select_date,
+    datetime: :multi_select,
+    date: :multi_select,
+    time: :multi_select
   }
 end
