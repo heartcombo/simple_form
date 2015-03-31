@@ -508,8 +508,8 @@ module SimpleForm
     # collection is given.
     def default_input_type(attribute_name, column, options)
       return options[:as].to_sym if options[:as]
-      return :select             if options[:collection]
       custom_type = find_custom_type(attribute_name.to_s) and return custom_type
+      return :select             if options[:collection]
 
       input_type = column.try(:type)
       case input_type
