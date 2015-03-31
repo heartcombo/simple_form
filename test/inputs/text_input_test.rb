@@ -12,6 +12,13 @@ class TextInputTest < ActionView::TestCase
     assert_select 'textarea.text[placeholder="Put in some text"]'
   end
 
+  test 'input generates a placeholder from the translations' do
+    store_translations(:en, simple_form: { placeholders: { user: { name: "placeholder from i18n en.simple_form.placeholders.user.name" } } }) do
+      with_input_for @user, :name, :text
+      assert_select 'textarea.text[placeholder="placeholder from i18n en.simple_form.placeholders.user.name"]'
+    end
+  end
+
   test 'input gets maxlength from column definition for text attributes' do
     with_input_for @user, :description, :text
     assert_select 'textarea.text[maxlength="200"]'
