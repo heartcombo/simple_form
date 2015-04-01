@@ -7,10 +7,10 @@
   * `date/time/datetime` inputs now correctly generate the label `for` attribute when
   HTML5 compatibility is explicitly enabled. [@ericsullivan](https://github.com/ericsullivan)
 
-  * The boostrap datetime, date and time now has a nice format on bootstrap.
-  [ulissesalmeida][https://github.com/ulissesalmeida] [eltonchrls][https://github.com/eltonchrls]
+  * The datetime, date, and time inputs now have a nice format by default on bootstrap.
+  [ulissesalmeida](https://github.com/ulissesalmeida) [eltonchrls](https://github.com/eltonchrls)
 
-  * Now is possible set custom configured value input for collection.
+  * Now it is possible to set custom input mappings for collections.
 
   Example:
 
@@ -21,7 +21,7 @@
     # On form:
     f.input :gender, collection: [:male, :female]
   ```
-  [strangeworks][https://github.com/strangeworks]
+  [strangeworks](https://github.com/strangeworks)
 
 ## 3.1.0
 
