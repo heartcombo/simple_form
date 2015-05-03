@@ -118,6 +118,7 @@ class RequiredTest < ActionView::TestCase
           concat f.input :name, required: false
         end
         assert_no_select 'input[type=text][required]'
+        assert_no_select 'input[type=text][aria-required]'
       end
     end
   end
