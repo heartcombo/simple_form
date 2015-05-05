@@ -7,10 +7,10 @@ module SimpleForm
 
       def html5(wrapper_options = nil)
         @html5 = true
-        if has_required?
-          input_html_options[:required] = true
-          input_html_options[:'aria-required'] = true
-        end
+
+        input_html_options[:required]        = has_required?
+        input_html_options[:'aria-required'] = has_required? || nil
+
         nil
       end
 

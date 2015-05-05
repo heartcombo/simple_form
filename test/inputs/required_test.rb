@@ -110,4 +110,16 @@ class RequiredTest < ActionView::TestCase
     assert_no_select 'input[required]'
     assert_select 'input.optional#validating_user_phone_number'
   end
+
+  test 'builder input does not generate required html attribute when option is set to false when it is set to true in wrapper' do
+    swap SimpleForm, browser_validations: true do
+      swap_wrapper :default, self.custom_wrapper_with_required_input do
+        with_concat_form_for(@user) do |f|
+          concat f.input :name, required: false
+        end
+        assert_no_select 'input[type=text][required]'
+        assert_no_select 'input[type=text][aria-required]'
+      end
+    end
+  end
 end

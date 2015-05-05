@@ -184,6 +184,13 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_required_input
+    SimpleForm.build tag: :span, class: 'custom_wrapper' do |b|
+      b.use :html5
+      b.use :input, required: true
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end
