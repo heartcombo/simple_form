@@ -4,6 +4,8 @@
   * Add the `disabled_class` to the label when the input is disabled. [@rhodrid](https://github.com/rhodrid)
 
 ### bug fix
+  * Make it possible to override `required` value that was previously set in the wrapper. [@nashby](https://github.com/nashby)
+  
   * `date/time/datetime` inputs now correctly generate the label `for` attribute when
   HTML5 compatibility is explicitly enabled. [@ericsullivan](https://github.com/ericsullivan)
 
