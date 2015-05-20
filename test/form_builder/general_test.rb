@@ -31,6 +31,12 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder works with decorated object responsive to #to_model' do
+    assert_nothing_raised do
+      with_form_for @decorated_user, :name
+    end
+  end
+
   test 'builder input allows a block to configure input' do
     with_form_for @user, :name do
       text_field_tag :foo, :bar, id: :cool

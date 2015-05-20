@@ -54,6 +54,7 @@ class ActionView::TestCase
 
   def setup_users(extra_attributes = {})
     @user = User.build(extra_attributes)
+    @decorated_user = Decorator.new(@user)
 
     @validating_user = ValidatingUser.build({
       name: 'Tester McTesterson',

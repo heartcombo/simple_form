@@ -39,6 +39,7 @@ module SimpleForm
 
     def initialize(*) #:nodoc:
       super
+      @object   = convert_to_model(@object)
       @defaults = options[:defaults]
       @wrapper  = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
     end
