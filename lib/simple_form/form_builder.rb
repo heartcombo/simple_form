@@ -192,6 +192,23 @@ module SimpleForm
       input(attribute, options.merge(reflection: reflection))
     end
 
+    # Creates a submit button.
+    #
+    # This augments the original button implementation to generate a button element
+    # with a submit action when a block is given. Otherwise, it falls back to the
+    # original submit helper.
+    def submit_button(*args, &block)
+      if block_given?
+        options = args.extract_options!.dup
+        options[:type] = :submit
+        options[:name] ||= 'commit'
+        args << options
+        button_button(options, &block)
+      else
+        submit(*args)
+      end
+    end
+
     # Creates a button:
     #
     #   form_for @user do |f|

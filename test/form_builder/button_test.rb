@@ -44,4 +44,13 @@ class ButtonTest < ActionView::TestCase
       assert_select 'form button.button[type=submit]', 'Save!'
     end
   end
+
+  test 'builder generates a button element for submit buttons when block given' do
+    with_concat_form_for :post do |f|
+      f.button :submit do
+        'Save from Block!'
+      end
+    end
+    assert_select 'form button.button[type=submit]', 'Save from Block!'
+  end
 end
