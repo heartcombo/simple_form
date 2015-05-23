@@ -38,8 +38,9 @@ module SimpleForm
 
     def initialize(*) #:nodoc:
       super
-      @defaults = options[:defaults]
-      @wrapper  = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
+      @defaults      = options[:defaults]
+      @wrapper       = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
+      @wrapper_given = !!options[:wrapper]
     end
 
     # Basic input helper, combines all components in the stack to generate
@@ -588,11 +589,19 @@ module SimpleForm
     end
 
     def find_wrapper(input_type, options)
-      if name = options[:wrapper] || find_wrapper_mapping(input_type)
-        name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
+      if name = options[:wrapper]
+        wrapper_from_name(name)
+      elsif @wrapper_given
+        wrapper
+      elsif name = find_wrapper_mapping(input_type)
+        wrapper_from_name(name)
       else
         wrapper
       end
+    end
+
+    def wrapper_from_name(name)
+      name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
     end
 
     # If cache_discovery is enabled, use the class level cache that persists
