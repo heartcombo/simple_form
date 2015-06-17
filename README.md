@@ -327,8 +327,9 @@ translation. All other options given are sent straight to the underlying helper.
 can give prompt as:
 
 ```ruby
-f.input :age, collection: 18..60, prompt: "Select your age"
+f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
 ```
+Extra options are passed into helper [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select).
 
 It is also possible to create grouped collection selects, that will use the html *optgroup* tags, like this:
 
