@@ -1,6 +1,7 @@
-## master
+## 2.1.3
 
 ### bug fix
+  * Fix method reflection for Ruby 2.1+. [@badosu](https://github.com/badosu)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
   * Use the given name in `input_html` for the hidden field in `collection_check_boxes` [@angelic](https://github.com/angelic)
   * Add "checkbox" class to the label of boolean input when there is no `:label`
