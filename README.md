@@ -329,7 +329,20 @@ can give prompt as:
 ```ruby
 f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
 ```
-Extra options are passed into helper [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select).
+Extra options are passed into helper [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select). Thus it is possible to set individual HTML attributes on select options:
+
+```ruby
+f.input :attrib, collection: [['name1', 'value1', class: 'warn'], ['name2', 'value2']]
+```
+This will output:
+
+```html
+<select name="model[attrib]">
+  <option value=""></option>
+  <option class="warn" value="value1">name1</option>
+  <option value="value2">name2</option>
+</select>
+```
 
 It is also possible to create grouped collection selects, that will use the html *optgroup* tags, like this:
 
