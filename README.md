@@ -100,8 +100,8 @@ To start using **Simple Form** you just have to use the helper it provides:
 This will generate an entire form with labels for user name and password as well, and render errors
 by default when you render the form with invalid data (after submitting for example).
 
-You can overwrite the default label and error by passing them to the input method. You can also add a hint or
-even a placeholder. For boolean inputs, you can add an inline label as well:
+You can overwrite the default label by passing it to the input method. You can also add a hint,
+an error, or even a placeholder. For boolean inputs, you can add an inline label as well:
 
 ```erb
 <%= simple_form_for @user do |f| %>
