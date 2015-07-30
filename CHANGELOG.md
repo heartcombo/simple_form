@@ -1,6 +1,7 @@
-## next release
+## 3.0.4
 
 ### bug fix
+  * Fix method reflection for Ruby 2.1+. [@badosu](https://github.com/badosu)
   * Do not remove HTML attributes if components are not present.
 
 ## 3.0.3
