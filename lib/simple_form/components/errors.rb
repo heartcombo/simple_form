@@ -38,19 +38,29 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        object_errors[attribute_name] || []
       end
 
       def full_errors_on_attribute
-        object.errors.full_messages_for(attribute_name)
+        object_errors.full_messages_for(attribute_name) || []
       end
 
       def errors_on_association
-        reflection ? object.errors[reflection.name] : []
+        reflection ? object_errors[reflection.name] : []
+      end
+
+      def object_errors
+        @object_errors ||= begin
+          if !object.errors.nil? && object.errors.respond_to?(:[]) && !object.errors.is_a?(Array)
+            object.errors
+          else
+            {}
+          end
+        end
       end
 
       def full_errors_on_association
-        reflection ? object.errors.full_messages_for(reflection.name) : []
+        reflection ? object_errors.full_messages_for(reflection.name) : []
       end
 
       def has_custom_error?
