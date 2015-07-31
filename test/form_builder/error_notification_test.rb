@@ -91,4 +91,11 @@ class ErrorNotificationTest < ActionView::TestCase
     end
   end
 
+  test 'error notification accepts a nil errors collection' do
+    stub_any_instance User, :errors, nil do
+      with_error_notification_for @user
+      assert_no_select 'p.error_notification'
+    end
+  end
+
 end
