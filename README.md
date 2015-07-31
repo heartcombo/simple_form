@@ -413,7 +413,7 @@ The association helper just invokes `input` under the hood, so all options avail
 the collection by hand, all together with the prompt:
 
 ```ruby
-f.association :company, collection: Company.active.all(order: 'name'), prompt: "Choose a Company"
+f.association :company, collection: Company.active.order(:name), prompt: "Choose a Company"
 ```
 
 In case you want to declare different labels and values:
