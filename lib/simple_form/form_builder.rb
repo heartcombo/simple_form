@@ -207,8 +207,8 @@ module SimpleForm
       options = args.extract_options!.dup
       options[:class] = [SimpleForm.button_class, options[:class]].compact
       args << options
-      if respond_to?("#{type}_button")
-        send("#{type}_button", *args, &block)
+      if respond_to?(:"#{type}_button")
+        send(:"#{type}_button", *args, &block)
       else
         send(type, *args, &block)
       end
