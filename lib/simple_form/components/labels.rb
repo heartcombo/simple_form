@@ -33,7 +33,7 @@ module SimpleForm
 
       def label_text(wrapper_options = nil)
         label_text = options[:label_text] || SimpleForm.label_text
-        label_text.call(html_escape(raw_label_text), required_label_text, options[:label].present?).strip.html_safe
+        label_text.call(html_escape(raw_label_text), required_label_text, options).strip.html_safe
       end
 
       def label_target

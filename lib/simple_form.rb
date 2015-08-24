@@ -84,7 +84,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
-  @@label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
+  @@label_text = lambda { |label, required, options| "#{required} #{label}" }
 
   # You can define the class to be used on all labels. Defaults to none.
   mattr_accessor :label_class

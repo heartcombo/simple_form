@@ -107,15 +107,22 @@ class LabelTest < ActionView::TestCase
     end
   end
 
+  test 'label_text yields with options' do
+    swap SimpleForm, label_text: lambda { |label, required, options| "#{required} #{label} #{options[:icon]}" } do
+      with_label_for @user, :time_zone, icon: :calendar
+      assert_select 'label[for=user_time_zone]', /calendar/
+    end
+  end
+
   test 'builder allows custom formatting when label is explicitly specified' do
-    swap SimpleForm, label_text: lambda { |l, r, explicit_label| explicit_label ? l : "#{l.titleize}:" } do
+    swap SimpleForm, label_text: lambda { |l, r, options| options[:label].present? ? l : "#{l.titleize}:" } do
       with_label_for @user, :time_zone, 'What is your home time zone?'
       assert_select 'label[for=user_time_zone]', 'What is your home time zone?'
     end
   end
 
   test 'builder allows custom formatting when label is generated' do
-    swap SimpleForm, label_text: lambda { |l, r, explicit_label| explicit_label ? l : "#{l.titleize}:" } do
+    swap SimpleForm, label_text: lambda { |l, r, options| options[:label].present? ? l : "#{l.titleize}:" } do
       with_label_for @user, :time_zone
       assert_select 'label[for=user_time_zone]', 'Time Zone:'
     end
