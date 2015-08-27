@@ -1,6 +1,6 @@
+sudo: false
+cache: bundler
 language: ruby
-before_install:
-  - gem install bundler -v '>= 1.5.1'
 rvm:
   - 1.9.3
   - 2.0.0
@@ -12,7 +12,15 @@ gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
   - gemfiles/Gemfile.rails-4-2-stable
+  - gemfiles/Gemfile.rails-head
   - Gemfile
+exclude:
+  - rvm: 1.9.3
+    gemfile: gemfiles/Gemfile.rails-head
+  - rvm: 2.0.0
+    gemfile: gemfiles/Gemfile.rails-head
+  - rvm: 2.1
+    gemfile: gemfiles/Gemfile.rails-head
 notifications:
   email: false
   campfire:
