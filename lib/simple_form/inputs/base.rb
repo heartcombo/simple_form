@@ -173,22 +173,10 @@ module SimpleForm
         model_names = lookup_model_names.dup
         lookups     = []
 
-        while !model_names.empty?
-          joined_model_names = model_names.join(".")
-          model_names.shift
+  lookups << :"#{model_names.join(".")}.#{reflection_or_attribute_name}"
+  lookups << default
 
-          lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
-          lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}_html"
-          lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
-          lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}_html"
-        end
-        lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
-        lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}_html"
-        lookups << :"defaults.#{reflection_or_attribute_name}"
-        lookups << :"defaults.#{reflection_or_attribute_name}_html"
-        lookups << default
-
-        t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
+  t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
       end
 
       def merge_wrapper_options(options, wrapper_options)
