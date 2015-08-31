@@ -189,9 +189,14 @@ module SimpleForm
 
       def merge_wrapper_options(options, wrapper_options)
         if wrapper_options
-          options.merge(wrapper_options) do |_, oldval, newval|
-            if Array === oldval
-              oldval + Array(newval)
+          wrapper_options.merge(options) do |key, oldval, newval|
+            case key.to_s
+            when "class"
+              Array(oldval) + Array(newval)
+            when "data", "aria"
+              oldval.merge(newval)
+            else
+              newval
             end
           end
         else

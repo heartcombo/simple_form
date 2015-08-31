@@ -242,6 +242,36 @@ class WrapperTest < ActionView::TestCase
     assert_select "section.custom_wrapper div.another_wrapper input.string"
   end
 
+  test "input attributes class will merge with wrapper_options' classes" do
+    swap_wrapper :default, custom_wrapper_with_input_class do
+      with_concat_form_for @user do |f|
+        concat f.input :name, input_html: { class: 'another-class' }
+      end
+    end
+
+    assert_select "div.custom_wrapper input.string.inline-class.another-class"
+  end
+
+  test "input with data attributes will merge with wrapper_options' data" do
+    swap_wrapper :default, custom_wrapper_with_input_data_modal do
+      with_concat_form_for @user do |f|
+        concat f.input :name, input_html: { data: { modal: 'another-data', target: 'merge-data' } }
+      end
+    end
+
+    assert_select "input[data-wrapper='data-wrapper'][data-modal='another-data'][data-target='merge-data']"
+  end
+
+  test "input with aria attributes will merge with wrapper_options' aria" do
+    swap_wrapper :default, custom_wrapper_with_input_aria_modal do
+      with_concat_form_for @user do |f|
+        concat f.input :name, input_html: { aria: { modal: 'another-aria', target: 'merge-aria' } }
+      end
+    end
+
+    assert_select "input[aria-wrapper='aria-wrapper'][aria-modal='another-aria'][aria-target='merge-aria']"
+  end
+
   test 'input accepts attributes in the DSL' do
     swap_wrapper :default, custom_wrapper_with_input_class do
       with_concat_form_for @user do |f|
