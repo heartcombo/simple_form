@@ -115,15 +115,6 @@ class StringInputTest < ActionView::TestCase
     end
   end
 
-  test 'input translates a key prefixed with _html and return the html markup' do
-    store_translations(:en, simple_form: { labels: { user: {
-      name_html: '<b>Name</b>'
-    } } }) do
-      with_input_for @user, :name, :string
-      assert_select 'label b', 'Name'
-    end
-  end
-
   [:email, :url, :search, :tel].each do |type|
     test "input allows type #{type}" do
       with_input_for @user, :name, type

@@ -178,14 +178,10 @@ module SimpleForm
           model_names.shift
 
           lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
-          lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}_html"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
-          lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}_html"
         end
         lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
-        lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}_html"
         lookups << :"defaults.#{reflection_or_attribute_name}"
-        lookups << :"defaults.#{reflection_or_attribute_name}_html"
         lookups << default
 
         t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
