@@ -184,7 +184,7 @@ module SimpleForm
         lookups << :"defaults.#{reflection_or_attribute_name}"
         lookups << default
 
-        t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
+        I18n.t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
       end
 
       def merge_wrapper_options(options, wrapper_options)
