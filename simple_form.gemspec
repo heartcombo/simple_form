@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "simple_form"
 
-  s.add_dependency('activemodel', '~> 4.0')
-  s.add_dependency('actionpack', '~> 4.0')
+  s.add_dependency('activemodel', '>= 4.0')
+  s.add_dependency('actionpack', '>= 4.0')
 end
