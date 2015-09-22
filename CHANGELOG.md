@@ -1,8 +1,7 @@
-## master
+## 3.2.0
 
-## enhancements
-
-## bug fix
+### bug fix
+  * Improve performance of input generation by disabling support for `_html` translations. This reverts the feature introduced on the 3.1.0 branch
 
 ## 3.1.1
 
@@ -16,7 +15,7 @@
   HTML5 compatibility is explicitly enabled. [@ericsullivan](https://github.com/ericsullivan)
 
   * The datetime, date, and time inputs now have a nice format by default on bootstrap.
-  [ulissesalmeida](https://github.com/ulissesalmeida) [eltonchrls](https://github.com/eltonchrls)
+  [@ulissesalmeida](https://github.com/ulissesalmeida) [@eltonchrls](https://github.com/eltonchrls)
 
   * Now it is possible to set custom input mappings for collections.
 
