@@ -263,6 +263,8 @@ class WrapperTest < ActionView::TestCase
   end
 
   test "input with aria attributes will merge with wrapper_options' aria" do
+    skip unless ActionPack::VERSION::MAJOR == '4' && ActionPack::VERSION::MINOR >= '2'
+
     swap_wrapper :default, custom_wrapper_with_input_aria_modal do
       with_concat_form_for @user do |f|
         concat f.input :name, input_html: { aria: { modal: 'another-aria', target: 'merge-aria' } }
