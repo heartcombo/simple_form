@@ -15,6 +15,9 @@ gemfile:
   - gemfiles/Gemfile.rails-head
   - Gemfile
 matrix:
+  fast_finish: true
+  allow_failures:
+    - rvm: ruby-head
   exclude:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.rails-head
