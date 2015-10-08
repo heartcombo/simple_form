@@ -14,13 +14,16 @@ gemfile:
   - gemfiles/Gemfile.rails-4-2-stable
   - gemfiles/Gemfile.rails-head
   - Gemfile
-exclude:
-  - rvm: 1.9.3
-    gemfile: gemfiles/Gemfile.rails-head
-  - rvm: 2.0.0
-    gemfile: gemfiles/Gemfile.rails-head
-  - rvm: 2.1
-    gemfile: gemfiles/Gemfile.rails-head
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.rails-head
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.rails-head
+    - rvm: 2.1
+      gemfile: gemfiles/Gemfile.rails-head
+    - rvm: jruby
+      gemfile: gemfiles/Gemfile.rails-head
 notifications:
   email: false
   campfire:
