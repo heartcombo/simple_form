@@ -1,3 +1,9 @@
+## master
+
+### bug fix
+  * Fix `merge_wrapper_options` to correctly merge options with duplicated keys. [@herminiotorres](https://github.com/herminiotorres)
+  Closes [#1278](https://github.com/plataformatec/simple_form/issues/1278).
+
 ## 3.2.0
 
 ### bug fix

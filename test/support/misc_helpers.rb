@@ -91,6 +91,20 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_input_data_modal
+    SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
+      b.use :label
+      b.use :input, data: { modal: 'data-modal', wrapper: 'data-wrapper' }
+    end
+  end
+
+  def custom_wrapper_with_input_aria_modal
+    SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
+      b.use :label
+      b.use :input, aria: { modal: 'aria-modal', wrapper: 'aria-wrapper' }
+    end
+  end
+
   def custom_wrapper_with_label_class
     SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
       b.use :label, class: 'inline-class'
