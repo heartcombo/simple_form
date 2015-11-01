@@ -30,7 +30,7 @@ matrix:
 notifications:
   email: false
   campfire:
+  slack:
     on_success: change
     on_failure: always
-    rooms:
-      - secure: "0UzWiVjxtaMsAiLCdK0p5ZIpWi94rmH71hbEQ3tuKTSSrsh9qW16cd39TS6i\nOdlSojcdzACanjIL8Z2qyG2DHScLBZAzWdDNWpnbtpJfDQ+p5ldDdbFmL6+5\n0t2nvv9uNQvhSOMD9ukdb7BFlRvd8Yq7zdjyAKt8efV2Abx7Msk="
+    secure: vxwuYTr2Sy+a/C7VP06l3QQCSgsKH7mjbTqOF1cKfGgmIHwO2p1VZmNCKjOe24ILj090WmVfHdnF/MnSCQw/SD1mVNbCZFf8Vj7+fYBu26I7BfahN0jxv3S5NO1sx4ipj0cO17r21OjtD2r1XzOfKqdSkjBBCOk8+WjiqtmCXII=
