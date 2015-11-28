@@ -12,6 +12,9 @@ module SimpleForm
           text  = value_for_collection(item, @text_method)
           default_html_options = default_html_options_for_collection(item, value)
           additional_html_options = option_html_attributes(item)
+          if @options[:item_extra_html]
+            additional_html_options.merge!(@options[:item_extra_html].call(item, value))
+          end
 
           rendered_item = yield item, value, text, default_html_options.merge(additional_html_options)
 

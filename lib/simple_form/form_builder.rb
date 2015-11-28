@@ -362,6 +362,8 @@ module SimpleForm
     #
     #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
     #
+    #   * item_extra_html          => A method accepting the item and value, returning an hash of extra HTML tags for the radio component
+    #
     #   * a block                  => to generate the label + radio or any other component.
     def collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
       SimpleForm::Tags::CollectionRadioButtons.new(@object_name, method, @template, collection, value_method, text_method, objectify_options(options), @default_options.merge(html_options)).render(&block)
@@ -415,6 +417,8 @@ module SimpleForm
     #   * item_wrapper_tag         => the tag to wrap each item in the collection.
     #
     #   * item_wrapper_class       => the CSS class to use for item_wrapper_tag
+    #
+    #   * item_extra_html          => A method accepting the item and value, returning an hash of extra HTML tags for the checkbox component
     #
     #   * a block                  => to generate the label + check box or any other component.
     def collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {}, &block)

@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     simple_form (3.2.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -280,6 +280,3 @@ DEPENDENCIES
   rubinius-developer_tools
   rubysl (~> 2.0)
   simple_form!
-
-BUNDLED WITH
-   1.10.6

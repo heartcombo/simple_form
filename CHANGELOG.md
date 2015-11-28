@@ -1,3 +1,8 @@
+## 3.X.X
+
+### enhancements
+  * Add the `item_extra_html` option for radio and checkbox collections.
+
 ## 3.2.0
 
 ### bug fix

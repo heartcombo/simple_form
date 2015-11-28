@@ -423,4 +423,11 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       assert_select 'label[for=user_1_gender_female]'
     end
   end
+
+  test 'collection input with radio_buttons type and item_extra_html is included' do
+    with_input_for @user, :name, :radio_buttons, collection: [['Jose', 1], ['Carlos', 2]],
+                          item_extra_html: -> (item, value) { { 'data-extra' => "#{item.first}-and-#{value}" } }
+    assert_select 'input[value="1"][data-extra="Jose-and-1"]'
+    assert_select 'input[value="2"][data-extra="Carlos-and-2"]'
+  end
 end
