@@ -12,7 +12,7 @@ gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
   - gemfiles/Gemfile.rails-4-2-stable
-  - gemfiles/Gemfile.rails-head
+  - gemfiles/Gemfile.rails-5-0-alpha
   - Gemfile
 matrix:
   fast_finish: true
@@ -20,13 +20,13 @@ matrix:
     - rvm: ruby-head
   exclude:
     - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.rails-head
+      gemfile: gemfiles/Gemfile.rails-5-0-alpha
     - rvm: 2.0.0
-      gemfile: gemfiles/Gemfile.rails-head
+      gemfile: gemfiles/Gemfile.rails-5-0-alpha
     - rvm: 2.1
-      gemfile: gemfiles/Gemfile.rails-head
+      gemfile: gemfiles/Gemfile.rails-5-0-alpha
     - rvm: jruby
-      gemfile: gemfiles/Gemfile.rails-head
+      gemfile: gemfiles/Gemfile.rails-5-0-alpha
 notifications:
   email: false
   slack:
