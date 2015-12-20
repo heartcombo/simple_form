@@ -1,3 +1,7 @@
+## 3.2.1
+
+* Updated gem dependency to support Rails 5.0.x.
+
 ## 3.2.0
 
 ### bug fix

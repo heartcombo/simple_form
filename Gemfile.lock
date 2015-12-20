@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    simple_form (3.2.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
+    simple_form (3.2.1)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -38,10 +38,10 @@ GEM
     json (1.8.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mini_portile (0.6.2)
+    mini_portile2 (2.0.0)
     minitest (5.8.0)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7.1)
+      mini_portile2 (~> 2.0.0.rc2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -282,4 +282,4 @@ DEPENDENCIES
   simple_form!
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
