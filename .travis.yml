@@ -4,8 +4,8 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1
-  - 2.2
+  - 2.1.5
+  - 2.2.4
   - ruby-head
   - jruby
 gemfile:
@@ -23,7 +23,7 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-0-beta
     - rvm: 2.0.0
       gemfile: gemfiles/Gemfile.rails-5-0-beta
-    - rvm: 2.1
+    - rvm: 2.1.5
       gemfile: gemfiles/Gemfile.rails-5-0-beta
     - rvm: jruby
       gemfile: gemfiles/Gemfile.rails-5-0-beta
