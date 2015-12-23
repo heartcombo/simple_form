@@ -739,11 +739,11 @@ f.input :gender, prompt: :translate
 
 **Simple Form** also has support for translating options in collection helpers. For instance, given a
 User with a `:gender` attribute, you might want to create a select box showing translated labels
-that would post either `male` or `female` as value. With **Simple Form** you could create an input
+that would post `male`, `female`, or `other` as value. With **Simple Form** you could create an input
 like this:
 
 ```ruby
-f.input :gender, collection: [:male, :female]
+f.input :gender, collection: [:male, :female, :other]
 ```
 
 And **Simple Form** will try a lookup like this in your locale file, to find the right labels to show:
@@ -756,6 +756,7 @@ en:
         gender:
           male: 'Male'
           female: 'Female'
+          other: 'Other'
 ```
 
 You can also use the `defaults` key as you would do with labels, hints and placeholders. It is
