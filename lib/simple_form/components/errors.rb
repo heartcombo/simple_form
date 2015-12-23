@@ -13,6 +13,16 @@ module SimpleForm
         object && object.respond_to?(:errors) && errors.present?
       end
 
+      def has_value?
+        return unless object && object.respond_to?(attribute_name)
+
+        object.send(attribute_name).present?
+      end
+
+      def valid?
+        !has_errors? && has_value?
+      end
+
       protected
 
       def error_text

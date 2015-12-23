@@ -231,7 +231,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
   end
 
-  wrappers class: :input, hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+  wrappers class: :input, hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
     b.use :html5
 
     b.use :min_max
