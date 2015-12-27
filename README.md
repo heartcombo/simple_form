@@ -34,19 +34,26 @@ rails generate simple_form:install
 
 ### Bootstrap
 
-**Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/).
-To do that you have to use the `bootstrap` option in the install generator, like this:
+**Simple Form** can be easily integrated with [Bootstrap](http://getbootstrap.com/).
+
+**For [Bootstrap 3](http://getbootstrap.com/):** Use the `bootstrap` option in the install generator, like this:
 
 ```console
 rails generate simple_form:install --bootstrap
 ```
 
+**For [Bootstrap 4 Alpha](http://v4-alpha.getbootstrap.com/):** Use the `bootstrap4` option in the install generator, like this:
+
+```console
+rails generate simple_form:install --bootstrap4
+```
+
 You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap.com/)
 assets on your application.
 
-For more information see the generator output, our
-[example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
-[the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
+For more information see the generator output in our
+[example application](https://github.com/rafaelfranca/simple_form-bootstrap) and
+[the live example app](http://simple-form-bootstrap.plataformatec.com.br/) – both use bootstrap 3.
 
 ### Zurb Foundation 5
 
