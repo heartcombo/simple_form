@@ -18,7 +18,7 @@ module SimpleForm
         template "config/initializers/simple_form.rb"
 
         if options[:bootstrap]
-          template "config/initializers/simple_form_bootstrap.rb"
+          template "config/initializers/simple_form_bootstrap3.rb"
         elsif options[:foundation]
           template "config/initializers/simple_form_foundation.rb"
         end

@@ -17,11 +17,13 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
       /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
   end
 
-  test 'generates the simple_form initializer with the bootstrap wrappers' do
+  test 'generates the simple_form initializer with the bootstrap 3 wrappers' do
     run_generator %w(--bootstrap)
     assert_file 'config/initializers/simple_form.rb',
       /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
-    assert_file 'config/initializers/simple_form_bootstrap.rb', /config\.wrappers :vertical_form/,
+    assert_file 'config/initializers/simple_form_bootstrap3.rb', /config\.wrappers :vertical_form/,
+      /config\.wrappers :horizontal_form/, /config\.default_wrapper = :vertical_form/
+  end
       /config\.wrappers :horizontal_form/, /config\.default_wrapper = :vertical_form/
   end
 
