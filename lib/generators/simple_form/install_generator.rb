@@ -39,6 +39,7 @@ module SimpleForm
           case options
           when :bootstrap  then readme "README_bootstrap3"
           when :bootstrap4 then readme "README_bootstrap4"
+          end
         end
       end
     end
