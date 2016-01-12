@@ -15,7 +15,7 @@ module SimpleForm
           pattern
         elsif (pattern_validator = find_pattern_validator) && (with = pattern_validator.options[:with])
           evaluate_format_validator_option(with).source
-        end
+        end.try { |p| p.to_s.gsub(/(?:(?!\\)|\A)\\A/, '^').gsub(/(?<!\\)\\[zZ]/, '$') }
       end
 
       def find_pattern_validator

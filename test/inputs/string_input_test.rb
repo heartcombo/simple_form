@@ -68,6 +68,11 @@ class StringInputTest < ActionView::TestCase
     assert_no_select 'input[pattern="\w+"]'
   end
 
+  test 'input converts \\A and \\Z to ^ and $ that browsers support' do
+    with_input_for @other_validating_user, :country, :string
+    assert_no_select 'input[pattern="^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$"]'
+  end
+
   test 'input infers pattern from attributes' do
     with_input_for @other_validating_user, :country, :string, pattern: true
     assert_select 'input[pattern="\w+"]'

@@ -253,6 +253,7 @@ class OtherValidatingUser < User
   validates_format_of :country, with: /\w+/
   validates_format_of :name, with: Proc.new { /\w+/ }
   validates_format_of :description, without: /\d+/
+  validates_format_of :postal_code, with: /\A[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]\Z/
 end
 
 class HashBackedAuthor < Hash
