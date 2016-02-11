@@ -67,7 +67,7 @@ module SimpleForm
       end
 
       def detect_common_display_methods(collection_classes = detect_collection_classes)
-        collection_translated = translate_collection if collection_classes == [Symbol]
+        collection_translated = translate_collection if collection_classes == [Symbol] || collection_classes == [NilClass, Symbol]
 
         if collection_translated || collection_classes.include?(Array)
           { label: :first, value: :second }
