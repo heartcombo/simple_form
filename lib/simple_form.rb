@@ -202,6 +202,10 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :i18n_scope
   @@i18n_scope = 'simple_form'
 
+  # Where to look for translation of collection options
+  mattr_accessor :i18n_options_scope
+  @@i18n_options_scope = lambda { |i18n_scope| "#{i18n_scope}.options" }
+
   # Retrieves a given wrapper
   def self.wrapper(name)
     @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"

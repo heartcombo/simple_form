@@ -96,7 +96,9 @@ module SimpleForm
       end
 
       def translate_collection
-        if translated_collection = translate_from_namespace(:options)
+        if translated_collection = translate_from_namespace(
+          SimpleForm.i18n_options_scope.call(SimpleForm.i18n_scope), '', false
+        )
           @collection = collection.map do |key|
             html_key = "#{key}_html".to_sym
 

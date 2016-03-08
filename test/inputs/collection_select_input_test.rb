@@ -21,6 +21,40 @@ class CollectionSelectInputTest < ActionView::TestCase
     end
   end
 
+  test 'input as select uses i18n to translate select custom options' do
+    store_translations(:en, simple_form: { options: { user: { active: { yes: 'Sim', no: 'Não' } } } }) do
+      with_input_for @user, :active, :select, collection: [:yes, :no]
+      assert_select 'select option[value=yes]', 'Sim'
+      assert_select 'select option[value=no]', 'Não'
+    end
+  end
+
+  test 'input as select uses i18n options setting to translate select custom options with default scope' do
+    store_translations(
+      :en,
+      simple_form: { models: { user: { active: { yes: 'Sim', no: 'Não' } } } }
+    ) do
+      swap SimpleForm, i18n_options_scope: ->(scope) { "#{scope}.models" } do
+        with_input_for @user, :active, :select, collection: [:yes, :no]
+        assert_select 'select option[value=yes]', 'Sim'
+        assert_select 'select option[value=no]', 'Não'
+      end
+    end
+  end
+
+  test 'input as select uses i18n options setting to translate select custom options' do
+    store_translations(
+      :en,
+      values: { models: { user: { active: { yes: 'Sim', no: 'Não' } } } }
+    ) do
+      swap SimpleForm, i18n_options_scope: ->(_) { 'values.models' } do
+        with_input_for @user, :active, :select, collection: [:yes, :no]
+        assert_select 'select option[value=yes]', 'Sim'
+        assert_select 'select option[value=no]', 'Não'
+      end
+    end
+  end
+
   test 'input allows overriding collection for select types' do
     with_input_for @user, :name, :select, collection: ['Jose', 'Carlos']
     assert_select 'select.select#user_name'
