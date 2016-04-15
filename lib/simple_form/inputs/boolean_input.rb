@@ -55,6 +55,7 @@ module SimpleForm
       # we need the hidden field to be *outside* the label (otherwise it
       # generates invalid html - html5 only).
       def build_hidden_field_for_checkbox
+        return "" unless include_hidden?
         options = { value: unchecked_value, id: nil, disabled: input_html_options[:disabled] }
         options[:name] = input_html_options[:name] if input_html_options.has_key?(:name)
 
@@ -79,6 +80,10 @@ module SimpleForm
       # Terms of Use usually presented at most sites sign up screen.
       def required_by_default?
         false
+      end
+
+      def include_hidden?
+        options.fetch(:include_hidden, true)
       end
 
       def checked_value
