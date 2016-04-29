@@ -48,6 +48,11 @@ module SimpleForm
     # label + input + hint (when defined) + errors (when exists), and all can
     # be configured inside a wrapper html.
     #
+    # If a block is given, the contents of the block will replace the input
+    # field that would otherwise be generated automatically. The content will
+    # be given a label and wrapper div to make it consistent with the other
+    # elements in the form.
+    #
     # == Examples
     #
     #   # Imagine @user has error "can't be blank" on name
