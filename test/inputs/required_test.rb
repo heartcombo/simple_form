@@ -52,6 +52,14 @@ class RequiredTest < ActionView::TestCase
     end
   end
 
+  # VALIDATORS :allow_blank
+  test 'builder input does not be required when ActiveModel::Validations is included and allow_blank option is present' do
+    with_form_for @validating_user, :password
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_password'
+  end
+
   # VALIDATORS :if :unless
   test 'builder input does not be required when ActiveModel::Validations is included and if option is present' do
     with_form_for @validating_user, :age

@@ -196,6 +196,7 @@ class ValidatingUser < User
   validates :company, presence: true
   validates :age, presence: true, if: Proc.new { |user| user.name }
   validates :amount, presence: true, unless: Proc.new { |user| user.age }
+  validates :password, presence: true, allow_blank: true
 
   validates :action,            presence: true, on: :create
   validates :credit_limit,      presence: true, on: :save
