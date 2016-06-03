@@ -94,11 +94,34 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'span.error b', 'markup'
   end
 
-
   test 'error generates an error message with raw HTML tags' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'.html_safe
     assert_select 'span.error', "Name cannot be blank"
     assert_select 'span.error b', "Name"
+  end
+
+  test 'error adds aria-invalid attribute to inputs' do
+    with_form_for @user, :name, error: true
+    assert_select "input#user_name[name='user[name]'][aria-invalid='true']"
+
+    with_form_for @user, :name, as: :text, error: true
+    assert_select "textarea#user_name[name='user[name]'][aria-invalid='true']"
+
+    @user.errors.add(:active, 'must select one')
+    with_form_for @user, :active, as: :radio_buttons
+    assert_select "input#user_active_true[type=radio][name='user[active]'][aria-invalid='true']"
+    assert_select "input#user_active_false[type=radio][name='user[active]'][aria-invalid='true']"
+
+    with_form_for @user, :active, as: :check_boxes
+    assert_select "input#user_active_true[type=checkbox][aria-invalid='true']"
+    assert_select "input#user_active_false[type=checkbox][aria-invalid='true']"
+
+    with_form_for @user, :company_id, as: :select, error: true
+    assert_select "select#user_company_id[aria-invalid='true']"
+
+    @user.errors.add(:password, 'must not be blank')
+    with_form_for @user, :password
+    assert_select "input#user_password[type=password][aria-invalid='true']"
   end
 
   # FULL ERRORS
