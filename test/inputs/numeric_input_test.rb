@@ -113,6 +113,9 @@ class NumericInputTest < ActionView::TestCase
 
     with_input_for @validating_user, :age, :integer
     assert_select 'input[step="1"]'
+
+    with_input_for @validating_user, :age, :integer, as: :decimal, input_html: { step: 0.5 }
+    assert_select 'input[step="0.5"]'
   end
 
   test 'numeric input does not generate placeholder by default' do
