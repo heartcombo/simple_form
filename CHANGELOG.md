@@ -1,3 +1,9 @@
+## todo
+
+### enhancements
+
+* Add bootstrap 4 initializer template.
+
 ## 3.2.1
 
 * Updated gem dependency to support Rails 5.0.x.
