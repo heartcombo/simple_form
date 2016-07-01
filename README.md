@@ -323,8 +323,9 @@ Collection inputs accept two other options beside collections:
 
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
-translation. All other options given are sent straight to the underlying helper. For example, you
-can give prompt as:
+translation. You can also define a `to_label` method on your model as **Simple Form** will search for 
+and use `:to_label` as a `:label_method` first if it is found. All other options given are sent 
+straight to the underlying helper. For example, you can give prompt as:
 
 ```ruby
 f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
