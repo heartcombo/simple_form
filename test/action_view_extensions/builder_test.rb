@@ -566,6 +566,13 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
+  test 'fields for inherits the form builder class' do
+    form = SimpleForm::FormBuilder.new "user", @user, self, {}
+    form.fields_for :company, Company.new do |company|
+      assert company.instance_of?(SimpleForm::FormBuilder)
+    end
+  end
+
   test "fields for with a hash like model yeilds an instance of FormBuilder" do
     with_concat_form_for(:user) do |f|
       f.simple_fields_for(:author, HashBackedAuthor.new) do |author|

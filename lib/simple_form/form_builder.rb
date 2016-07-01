@@ -38,6 +38,7 @@ module SimpleForm
 
     def initialize(*) #:nodoc:
       super
+      options[:builder] ||= self.class
       @defaults = options[:defaults]
       @wrapper  = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
     end
