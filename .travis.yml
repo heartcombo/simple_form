@@ -13,21 +13,19 @@ gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
   - gemfiles/Gemfile.rails-4-2-stable
-  - gemfiles/Gemfile.rails-5-0-beta
   - Gemfile
 matrix:
-  fast_finish: true
   allow_failures:
     - rvm: ruby-head
   exclude:
     - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.rails-5-0-beta
+      gemfile: Gemfile
     - rvm: 2.0.0
-      gemfile: gemfiles/Gemfile.rails-5-0-beta
+      gemfile: Gemfile
     - rvm: 2.1.5
-      gemfile: gemfiles/Gemfile.rails-5-0-beta
+      gemfile: Gemfile
     - rvm: jruby
-      gemfile: gemfiles/Gemfile.rails-5-0-beta
+      gemfile: Gemfile
 notifications:
   email: false
   slack:

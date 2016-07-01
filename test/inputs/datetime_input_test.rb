@@ -6,7 +6,7 @@ class DateTimeInputWithHtml5Test < ActionView::TestCase
   test 'input generates a datetime input for datetime attributes if HTML5 compatibility is explicitly enbled' do
     with_input_for @user, :created_at, :datetime, html5: true
 
-    assert_select 'input[type="datetime"]'
+    assert_select 'input[type|="datetime"]'
   end
 
   test 'input generates a datetime select for datetime attributes' do
@@ -76,7 +76,7 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     swap_wrapper do
       with_input_for @user, :created_at, :datetime, html5: true
 
-      assert_select 'input[type="datetime"]'
+      assert_select 'input[type|="datetime"]'
     end
   end
 
