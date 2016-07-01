@@ -332,6 +332,8 @@ f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
 ```
 Extra options are passed into helper [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select).
 
+You may also find it useful to explicitly pass a value to the optional `:selected`, especially if passing a collection of nested objects.
+
 It is also possible to create grouped collection selects, that will use the html *optgroup* tags, like this:
 
 ```ruby
