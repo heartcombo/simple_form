@@ -215,7 +215,9 @@ class ValidatingUser < User
     only_integer: true
   validates_length_of :name, maximum: 25
   validates_length_of :description, maximum: 50
-  validates_length_of :action, maximum: 10, tokenizer: lambda { |str| str.scan(/\w+/) }
+  if ActionPack::VERSION::STRING < '5'
+    validates_length_of :action, maximum: 10, tokenizer: lambda { |str| str.scan(/\w+/) }
+  end
   validates_length_of :home_picture, is: 12
 
   def min_amount

@@ -152,10 +152,6 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :country_priority
   @@country_priority = nil
 
-  # DEPRECATED: Maximum size allowed for inputs.
-  mattr_accessor :default_input_size
-  @@default_input_size = nil
-
   # When off, do not use translations in labels. Disabling translation in
   # hints and placeholders can be done manually in the wrapper API.
   mattr_accessor :translate_labels

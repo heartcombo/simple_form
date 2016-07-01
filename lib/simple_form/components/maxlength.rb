@@ -15,10 +15,7 @@ module SimpleForm
           maxlength
         else
           length_validator = find_length_validator
-
-          if length_validator && !has_tokenizer?(length_validator)
-            length_validator.options[:is] || length_validator.options[:maximum]
-          end
+          maximum_length_value_from(length_validator)
         end
       end
 
@@ -28,6 +25,22 @@ module SimpleForm
 
       def has_tokenizer?(length_validator)
         length_validator.options[:tokenizer]
+      end
+
+      # Use validation with tokenizer if version of Rails is less than 5,
+      # if not validate without the tokenizer, if version is greater than Rails 4.
+      if ActionPack::VERSION::STRING < '5'
+        def maximum_length_value_from(length_validator)
+          if length_validator && !has_tokenizer?(length_validator)
+            length_validator.options[:is] || length_validator.options[:maximum]
+          end
+        end
+      elsif ActionPack::VERSION::STRING >= '5'
+        def maximum_length_value_from(length_validator)
+          if length_validator
+            length_validator.options[:is] || length_validator.options[:maximum]
+          end
+        end
       end
     end
   end
