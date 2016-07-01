@@ -1,3 +1,7 @@
+## Unreleased
+
+* Add the `aria-invalid` attribute on inputs with errors.
+
 ## 3.2.1
 
 * Updated gem dependency to support Rails 5.0.x.
