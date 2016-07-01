@@ -11,7 +11,7 @@ module SimpleForm
         input_html_options[:required]        = has_required?
         input_html_options[:'aria-required'] = has_required? || nil
 
-        input_html_options[:'aria-invalid']  = has_errors?
+        input_html_options[:'aria-invalid']  = has_errors? || nil
 
         nil
       end
