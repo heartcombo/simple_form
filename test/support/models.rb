@@ -1,10 +1,6 @@
 Association = Struct.new(:klass, :name, :macro, :scope, :options)
 
 Column = Struct.new(:name, :type, :limit) do
-  # Returns +true+ if the column is either of type integer, float or decimal.
-  def number?
-    type == :integer || type == :float || type == :decimal
-  end
 end
 
 Relation = Struct.new(:records) do

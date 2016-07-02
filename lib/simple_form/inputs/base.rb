@@ -115,7 +115,7 @@ module SimpleForm
       end
 
       def decimal_or_float?
-        column.number? && column.type != :integer
+        column.type == :float || column.type == :decimal
       end
 
       def nested_boolean_style?
