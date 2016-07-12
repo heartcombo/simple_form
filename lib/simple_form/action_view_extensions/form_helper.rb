@@ -66,4 +66,6 @@ module SimpleForm
   end
 end
 
-ActionView::Base.send :include, SimpleForm::ActionViewExtensions::FormHelper
+ActiveSupport.on_load(:action_view) do
+  include SimpleForm::ActionViewExtensions::FormHelper
+end
