@@ -30,8 +30,6 @@ module SimpleForm
   end
 end
 
-module ActionView::Helpers
-  class FormBuilder
-    include SimpleForm::ActionViewExtensions::Builder
-  end
+ActiveSupport.on_load(:action_view) do
+  ActionView::Helpers::FormBuilder.send :include, SimpleForm::ActionViewExtensions::Builder
 end
