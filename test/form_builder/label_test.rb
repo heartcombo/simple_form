@@ -120,4 +120,11 @@ class LabelTest < ActionView::TestCase
       assert_select 'label[for=user_time_zone]', 'Time Zone:'
     end
   end
+
+  test 'builder allows label specific `label_text` option' do
+    with_label_for @user, :time_zone, label_text: lambda { |l, _, _| "#{l.titleize}:" }
+
+    assert_no_select 'label[label_text]'
+    assert_select 'label[for=user_time_zone]', 'Time Zone:'
+  end
 end
