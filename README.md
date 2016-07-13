@@ -323,8 +323,8 @@ Collection inputs accept two other options beside collections:
 
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
-translation. You can also define a `to_label` method on your model as **Simple Form** will search for 
-and use `:to_label` as a `:label_method` first if it is found. All other options given are sent 
+translation. You can also define a `to_label` method on your model as **Simple Form** will search for
+and use `:to_label` as a `:label_method` first if it is found. All other options given are sent
 straight to the underlying helper. For example, you can give prompt as:
 
 ```ruby
@@ -682,7 +682,7 @@ en:
         age: 'Rather not say'
     prompts:
       user:
-        gender: 'Select your gender'
+        role: 'Select your role'
 ```
 
 And your forms will use this information to render the components for you.
@@ -737,16 +737,16 @@ For `:prompt` and `:include_blank` the I18n lookup is optional and to enable it 
 `:translate` as value.
 
 ```ruby
-f.input :gender, prompt: :translate
+f.input :role, prompt: :translate
 ```
 
 **Simple Form** also has support for translating options in collection helpers. For instance, given a
-User with a `:gender` attribute, you might want to create a select box showing translated labels
-that would post either `male` or `female` as value. With **Simple Form** you could create an input
+User with a `:role` attribute, you might want to create a select box showing translated labels
+that would post either `:admin` or `:editor` as value. With **Simple Form** you could create an input
 like this:
 
 ```ruby
-f.input :gender, collection: [:male, :female]
+f.input :role, collection: [:admin, :editor]
 ```
 
 And **Simple Form** will try a lookup like this in your locale file, to find the right labels to show:
@@ -756,9 +756,9 @@ en:
   simple_form:
     options:
       user:
-        gender:
-          male: 'Male'
-          female: 'Female'
+        role:
+          admin: 'Administrator'
+          editor: 'Editor'
 ```
 
 You can also use the `defaults` key as you would do with labels, hints and placeholders. It is
