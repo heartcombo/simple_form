@@ -1,10 +1,16 @@
 ## Unreleased
 
-* Add the `aria-invalid` attribute on inputs with errors.
+### enhancements
+  * Add the `aria-invalid` attribute on inputs with errors.
+
+### bug fix
+  * Fix `merge_wrapper_options` to correctly merge options with duplicated keys. [@herminiotorres](https://github.com/herminiotorres)
+  Closes [#1278](https://github.com/plataformatec/simple_form/issues/1278).
 
 ## 3.2.1
 
-* Updated gem dependency to support Rails 5.0.x.
+### enhancements
+  * Updated gem dependency to support Rails 5.0.x.
 
 ## 3.2.0
 
