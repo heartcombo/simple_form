@@ -290,7 +290,7 @@ module SimpleForm
     #
     #    f.label :name                     # Do I18n lookup
     #    f.label :name, "Name"             # Same behavior as Rails, do not add required tag
-    #    f.label :name, label: "Name"   # Same as above, but adds required tag
+    #    f.label :name, label: "Name"      # Same as above, but adds required tag
     #
     #    f.label :name, required: false
     #    f.label :name, id: "cool_label"
@@ -510,7 +510,7 @@ module SimpleForm
     end
 
     # Attempt to guess the better input type given the defined options. By
-    # default alwayls fallback to the user :as option, or to a :select when a
+    # default always fallback to the user :as option, or to a :select when a
     # collection is given.
     def default_input_type(attribute_name, column, options)
       return options[:as].to_sym if options[:as]
