@@ -121,6 +121,12 @@ class InputFieldTest < ActionView::TestCase
     assert_no_select 'input.boolean[boolean_style]'
   end
 
+  test 'build input_field does not treat "prompt" as a HTML attribute' do
+    with_input_field_for @user, :attempts, collection: [1,2,3,4,5], prompt: :translate
+
+    assert_no_select 'select[prompt]'
+  end
+
   test 'build input_field without pattern component use the pattern string' do
     swap_wrapper :default, custom_wrapper_with_html5_components do
       with_input_field_for @user, :name, pattern: '\w+'
