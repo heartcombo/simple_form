@@ -164,8 +164,9 @@ any html attribute to that wrapper as well using the `:wrapper_html` option, lik
 
 Required fields are marked with an * prepended to their labels.
 
-By default all inputs are required. When the form object has `presence` validations attached to its
-fields, **Simple Form** tells required and optional fields apart. For performance reasons, this
+By default all inputs are required. When the form object includes `ActiveModel::Validations` 
+(which, for example, happens with Active Record models), fields are required only when there is `presence` validation.
+Otherwise, **Simple Form** will mark fields as optional. For performance reasons, this
 detection is skipped on validations that make use of conditional options, such as `:if` and `:unless`.
 
 And of course, the `required` property of any input can be overwritten as needed:
