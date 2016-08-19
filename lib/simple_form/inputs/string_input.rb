@@ -1,7 +1,7 @@
 module SimpleForm
   module Inputs
     class StringInput < Base
-      enable :placeholder, :maxlength, :pattern
+      enable :placeholder, :maxlength, :minlength, :pattern
 
       def input(wrapper_options = nil)
         unless string?

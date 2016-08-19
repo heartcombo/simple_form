@@ -151,6 +151,14 @@ class InputFieldTest < ActionView::TestCase
     end
   end
 
+  test 'build input_field without minlength component use the minlength string' do
+    swap_wrapper :default, custom_wrapper_with_html5_components do
+      with_input_field_for @user, :name, minlength: 5
+
+      assert_select 'input[minlength="5"]'
+    end
+  end
+
   test 'build input_field without readonly component use the readonly string' do
     swap_wrapper :default, custom_wrapper_with_html5_components do
       with_input_field_for @user, :name, readonly: true
