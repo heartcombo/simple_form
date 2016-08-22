@@ -28,4 +28,9 @@ class TextInputTest < ActionView::TestCase
     with_input_for @validating_user, :description, :text
     assert_select 'textarea.text[maxlength="50"]'
   end
+
+  test 'input infers minlength column definition from validation when present for text attributes' do
+    with_input_for @validating_user, :description, :text
+    assert_select 'textarea.text[minlength="15"]'
+  end
 end

@@ -105,6 +105,12 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input.string[maxlength="25"]'
   end
 
+  test 'builder input_field uses minlength component' do
+    with_input_field_for @validating_user, :name, as: :string
+
+    assert_select 'input.string[minlength="5"]'
+  end
+
   test 'builder collection input_field generates input tag with a clean HTML' do
     with_input_field_for @user, :status, collection: ['Open', 'Closed'],
       class: 'status', label_method: :to_s, value_method: :to_s
