@@ -34,6 +34,38 @@ class RequiredTest < ActionView::TestCase
       with_input_for @user, :name, :string
       assert_select 'input[type=text].required'
       assert_no_select 'input[type=text][required]'
+      assert_no_select 'input[type=text][aria-required]'
+    end
+  end
+
+  test 'when not using browser validations, when required option is set to false, input does not generate required html attribute' do
+    swap SimpleForm, browser_validations: false do
+      with_input_for @user, :name, :string, required: false
+      assert_no_select 'input[type=text].required'
+      assert_no_select 'input[type=text][required]'
+      assert_no_select 'input[type=text][aria-required]'
+    end
+  end
+
+  test 'when not using browser validations, when required option is set to true, input generates required html attribute' do
+    swap SimpleForm, browser_validations: false do
+      with_input_for @user, :name, :string, required: true
+      assert_select 'input[type=text].required'
+      assert_select 'input[type=text][required]'
+      assert_select 'input[type=text][aria-required]'
+    end
+  end
+
+  test 'when not using browser validations, when required option is true in the wrapper, input does not generate required html attribute' do
+    swap SimpleForm, browser_validations: false do
+      swap_wrapper :default, self.custom_wrapper_with_required_input do
+        with_concat_form_for(@user) do |f|
+          concat f.input :name
+        end
+        assert_select 'input[type=text].required'
+        assert_no_select 'input[type=text][required]'
+        assert_no_select 'input[type=text][aria-required]'
+      end
     end
   end
 
