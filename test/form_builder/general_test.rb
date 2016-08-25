@@ -139,7 +139,11 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder generates uuid fields for uuid columns' do
     with_form_for @user, :uuid
-    assert_select 'form input#user_uuid.string.uuid'
+    if defined? ActiveModel::Type
+      assert_select 'form input#user_uuid.string.string'
+    else
+      assert_select 'form input#user_uuid.string.uuid'
+    end
   end
 
   test 'builder generates password fields for columns that matches password' do

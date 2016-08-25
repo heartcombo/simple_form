@@ -1,10 +1,6 @@
 Association = Struct.new(:klass, :name, :macro, :scope, :options)
 
 Column = Struct.new(:name, :type, :limit) do
-  # Returns +true+ if the column is either of type integer, float or decimal.
-  def number?
-    type == :integer || type == :float || type == :decimal
-  end
 end
 
 Relation = Struct.new(:records) do
@@ -128,6 +124,33 @@ class User
       when :uuid          then :uuid
     end
     Column.new(attribute, column_type, limit)
+  end
+
+  begin
+    require 'active_model/type'
+    def type_for_attribute(attribute)
+      column_type, limit = case attribute.to_sym
+        when :name, :status, :password then [:string, 100]
+        when :description   then [:text, 200]
+        when :age           then :integer
+        when :credit_limit  then [:decimal, 15]
+        when :active        then :boolean
+        when :born_at       then :date
+        when :delivery_time then :time
+        when :created_at    then :datetime
+        when :updated_at    then :datetime
+        when :lock_version  then :integer
+        when :home_picture  then :string
+        when :amount        then :integer
+        when :attempts      then :integer
+        when :action        then :string
+        when :credit_card   then :string
+        when :uuid          then :string
+      end
+
+      ActiveModel::Type.lookup(column_type, limit: limit)
+    end
+  rescue LoadError
   end
 
   def has_attribute?(attribute)

@@ -13,6 +13,7 @@ gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
   - gemfiles/Gemfile.rails-4-2-stable
+  - gemfiles/Gemfile.rails-5-0-stable
   - Gemfile
 matrix:
   allow_failures:
@@ -26,6 +27,14 @@ matrix:
       gemfile: Gemfile
     - rvm: jruby
       gemfile: Gemfile
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: 2.1.5
+      gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: jruby
+      gemfile: gemfiles/Gemfile.rails-5-0-stable
 notifications:
   email: false
   slack:
