@@ -1,7 +1,11 @@
 ## Unreleased
 
+## 3.3.0
+
 ### enhancements
   * Add the `aria-invalid` attribute on inputs with errors.
+  * Added support for the new `ActiveModel::Type` API over Active Record's
+    column objects.
 
 ### bug fix
   * Fix `merge_wrapper_options` to correctly merge options with duplicated keys. [@herminiotorres](https://github.com/herminiotorres)
