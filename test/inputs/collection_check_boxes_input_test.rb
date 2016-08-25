@@ -300,4 +300,39 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
       assert_select 'label[for=user_1_gender_female]'
     end
   end
+
+  test 'input check boxes, when sanitized_values option is passed, have the correct id attributes generated from these values' do
+    with_input_for @user, :gender, :check_boxes, collection: ['мужской', 'женский'], sanitized_values: [:male, :female]
+
+    assert_select 'input[id=user_gender_male]'
+    assert_select 'input[id=user_gender_female]'
+    assert_no_select 'input[sanitized_value]'
+  end
+
+  test 'input check boxes with nested style, when sanitized_values option is passed, have the correct id attributes generated from these values' do
+    with_input_for @user, :gender, :check_boxes, collection: ['мужской', 'женский'],
+                          sanitized_values: [:male, :female], boolean_style: :nested
+
+    assert_select 'input[id=user_gender_male]'
+    assert_select 'input[id=user_gender_female]'
+    assert_no_select 'input[sanitized_value]'
+  end
+
+  test 'input check boxes with nested style, when sanitized_values option is passed, have the correct for attributes generated from these values' do
+    with_input_for @user, :gender, :check_boxes, collection: ['мужской', 'женский'],
+                          sanitized_values: [:male, :female], boolean_style: :nested
+
+    assert_select 'label[for=user_gender_male]'
+    assert_select 'label[for=user_gender_female]'
+  end
+
+  test 'input check boxes, when sanitized_values length is not equal to collection length, raises error' do
+    assert_raise ArgumentError do
+      with_input_for @user, :gender, :check_boxes, collection: ['мужской', 'женский'], sanitized_values: [:male, :female, :other]
+    end
+
+    assert_raise ArgumentError do
+      with_input_for @user, :gender, :check_boxes, collection: ['мужской', 'женский'], sanitized_values: [:male]
+    end
+  end
 end

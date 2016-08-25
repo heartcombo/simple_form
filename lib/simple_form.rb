@@ -1,6 +1,7 @@
 require 'action_view'
 require 'simple_form/action_view_extensions/form_helper'
 require 'simple_form/action_view_extensions/builder'
+require 'simple_form/action_view_extensions/tags'
 require 'active_support/core_ext/hash/slice'
 require 'active_support/core_ext/hash/except'
 require 'active_support/core_ext/hash/reverse_merge'
