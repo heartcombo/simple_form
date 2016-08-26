@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 3.3.1
+
+### Bug fix
+
+* Fix support for symbols when looking up types with `ActiveModel::Type`.
+
 ## 3.3.0
 
 ### enhancements
