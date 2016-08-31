@@ -84,7 +84,7 @@ module SimpleForm
       end
 
       def additional_classes
-        @additional_classes ||= [input_type, required_class, readonly_class, disabled_class].compact
+        @additional_classes ||= [input_type, required_class, readonly_class, disabled_class, SimpleForm.input_class].compact
       end
 
       def input_class
