@@ -7,7 +7,7 @@ module SimpleForm
         nil
       end
 
-      def placeholder_text
+      def placeholder_text(wrapper_options = nil)
         placeholder = options[:placeholder]
         placeholder.is_a?(String) ? placeholder : translate_from_namespace(:placeholders)
       end
