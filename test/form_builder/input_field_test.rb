@@ -87,7 +87,7 @@ class InputFieldTest < ActionView::TestCase
     assert_select 'input[pattern="\w+"]'
   end
 
-  test 'builder input_field accepts custom patter' do
+  test 'builder input_field accepts custom pattern' do
     with_input_field_for @other_validating_user, :country, as: :string, pattern: '\d+'
 
     assert_select 'input[pattern="\d+"]'
