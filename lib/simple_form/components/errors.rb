@@ -38,7 +38,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        object.errors[options[:error_attribute] || attribute_name]
       end
 
       def full_errors_on_attribute
@@ -46,7 +46,7 @@ module SimpleForm
       end
 
       def errors_on_association
-        reflection ? object.errors[reflection.name] : []
+        reflection ? object.errors[options[:error_attribute] || reflection.name] : []
       end
 
       def full_errors_on_association
