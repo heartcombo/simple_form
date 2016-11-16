@@ -15,6 +15,7 @@ module SimpleForm
     autoload :Labels
     autoload :MinMax
     autoload :Maxlength
+    autoload :Minlength
     autoload :Pattern
     autoload :Placeholders
     autoload :Readonly

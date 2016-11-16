@@ -236,8 +236,8 @@ class ValidatingUser < User
     greater_than_or_equal_to: :min_attempts,
     less_than_or_equal_to: :max_attempts,
     only_integer: true
-  validates_length_of :name, maximum: 25
-  validates_length_of :description, maximum: 50
+  validates_length_of :name, maximum: 25, minimum: 5
+  validates_length_of :description, in: 15..50
   if ActionPack::VERSION::STRING < '5'
     validates_length_of :action, maximum: 10, tokenizer: lambda { |str| str.scan(/\w+/) }
   end

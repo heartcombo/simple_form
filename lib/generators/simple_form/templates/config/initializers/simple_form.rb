@@ -28,7 +28,11 @@ SimpleForm.setup do |config|
     # extensions by default, you can change `b.optional` to `b.use`.
 
     # Calculates maxlength from length validations for string inputs
+    # and/or database column lengths
     b.optional :maxlength
+
+    # Calculate minlength from length validations for string inputs
+    b.optional :minlength
 
     # Calculates pattern from format validations for string inputs
     b.optional :pattern
