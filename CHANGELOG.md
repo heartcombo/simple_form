@@ -1,5 +1,8 @@
 ## Unreleased
 
+* Added `minlength` component.
+* `boolean_label_class` can be set on a per-input basis.
+
 ## 3.3.1
 
 ### Bug fix
