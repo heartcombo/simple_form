@@ -6,7 +6,7 @@ module SimpleForm
 
         if nested_boolean_style?
           build_hidden_field_for_checkbox +
-            template.label_tag(nil, class: SimpleForm.boolean_label_class) {
+            template.label_tag(nil, class: boolean_label_class) {
               build_check_box_without_hidden_field(merged_input_options) +
                 inline_label
             }
@@ -21,7 +21,7 @@ module SimpleForm
         elsif nested_boolean_style?
           html_options = label_html_options.dup
           html_options[:class] ||= []
-          html_options[:class].push(SimpleForm.boolean_label_class) if SimpleForm.boolean_label_class
+          html_options[:class].push(boolean_label_class) if boolean_label_class
 
           merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
@@ -35,6 +35,10 @@ module SimpleForm
       end
 
       private
+
+      def boolean_label_class
+        options[:boolean_label_class] || SimpleForm.boolean_label_class
+      end
 
       # Build a checkbox tag using default unchecked value. This allows us to
       # reuse the method for nested boolean style, but with no unchecked value,
