@@ -38,7 +38,7 @@ module SimpleForm
       end
 
       def errors_on_attribute
-        object.errors[attribute_name]
+        object.errors[attribute_name] || []
       end
 
       def full_errors_on_attribute
