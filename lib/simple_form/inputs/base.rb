@@ -178,7 +178,13 @@ module SimpleForm
           joined_model_names = model_names.join(".")
           model_names.shift
 
-          lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
+          lookup_translation = "#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}" 
+
+          if lookup_action == 'edit' && translation_exists?("#{i18n_scope}.#{namespace}.#{lookup_translation}") 
+            lookup_translation = "#{joined_model_names}.new.#{reflection_or_attribute_name}"
+          end
+
+          lookups << :"#{lookup_translation}"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
         end
         lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
@@ -207,6 +213,10 @@ module SimpleForm
 
       def i18n_scope
         SimpleForm.i18n_scope
+      end
+
+      def translation_exists?(lookup)
+        I18n.translate(lookup).include?('translation missing')
       end
     end
   end

@@ -89,6 +89,15 @@ class HintTest < ActionView::TestCase
     end
   end
 
+  test 'i18n based hints should fallback to new action if there is no hint for edit action' do
+    store_translations(:en, simple_form: { hints: { user: {
+      new: { name: 'Content of this input will be truncated...' }
+    } } }) do
+      with_hint_for @user, :name
+      assert_select 'span.hint', 'Content of this input will be truncated...'
+    end
+  end
+
   test 'hint uses i18n with model and attribute to lookup translation' do
     store_translations(:en, simple_form: { hints: { user: {
       name: 'Content of this input will be capitalized...'
