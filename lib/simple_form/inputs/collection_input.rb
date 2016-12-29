@@ -90,9 +90,17 @@ module SimpleForm
       end
 
       def collection_includes_basic_objects?(collection_classes)
-        (collection_classes & [
-          String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
-        ]).any?
+        basic_objects = if unified_intger_version?
+          [String, Integer, Float, NilClass, Symbol, TrueClass, FalseClass]
+        else
+          [String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass]
+        end
+
+        (collection_classes & basic_objects).any?
+      end
+
+      def unified_intger_version?
+        0.class == Integer
       end
 
       def translate_collection
