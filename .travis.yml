@@ -7,6 +7,7 @@ rvm:
   - 2.1.5
   - 2.2.4
   - 2.3.0
+  - 2.4.0
   - ruby-head
   - jruby
 gemfile:
@@ -33,6 +34,12 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-0-stable
     - rvm: 2.1.5
       gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: 2.4.0
+      gemfile: gemfiles/Gemfile.rails-4-0-stable
+    - rvm: 2.4.0
+      gemfile: gemfiles/Gemfile.rails-4-1-stable
+    - rvm: 2.4.0
+      gemfile: gemfiles/Gemfile.rails-4-2-stable
     - rvm: jruby
       gemfile: gemfiles/Gemfile.rails-5-0-stable
 notifications:
