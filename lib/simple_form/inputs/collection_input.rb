@@ -90,9 +90,14 @@ module SimpleForm
       end
 
       def collection_includes_basic_objects?(collection_classes)
-        (collection_classes & [
-          String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
-        ]).any?
+        (collection_classes & base_object_classes).any?
+      end
+
+      def base_object_classes
+        # TODO: make a deprecation warning in future
+        classes = [String, Integer, Float, NilClass, Symbol, TrueClass, FalseClass]
+
+        RUBY_VERSION >= '2.4' ? classes : classes + [Bignum, Fixnum]
       end
 
       def translate_collection
