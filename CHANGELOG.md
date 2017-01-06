@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Removed Ruby 2.4.0 `Integer` unification deprecation warning.
+* Removed EOL Ruby 1.9.3 from the build matrix.
 * Added `minlength` component.
 * `boolean_label_class` can be set on a per-input basis.
 
