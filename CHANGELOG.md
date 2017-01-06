@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.4.0
+
 * Removed Ruby 2.4.0 `Integer` unification deprecation warning.
 * Removed EOL Ruby 1.9.3 from the build matrix.
 * Added `minlength` component.
