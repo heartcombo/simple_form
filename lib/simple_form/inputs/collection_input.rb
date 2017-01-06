@@ -90,9 +90,14 @@ module SimpleForm
       end
 
       def collection_includes_basic_objects?(collection_classes)
-        (collection_classes & [
-          String, Integer, Fixnum, Bignum, Float, NilClass, Symbol, TrueClass, FalseClass
-        ]).any?
+        basic_objects =  [String, Integer, Float, NilClass, Symbol, TrueClass, FalseClass]
+        basic_objects += [Fixnum, Bignum] unless unified_intger_version? # Ruby <= 2.3.x compatibility
+
+        (collection_classes & basic_objects).any?
+      end
+
+      def unified_intger_version?
+        0.class == Integer
       end
 
       def translate_collection
