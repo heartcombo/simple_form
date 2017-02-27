@@ -214,7 +214,7 @@ the wrapper as well:
 <% end %>
 ```
 
-**Simple Form** accepts same options as their corresponding input type helper in Rails:
+**Simple Form** inputs accept the same options as their corresponding input type helper in Rails:
 
 ```erb
 <%= simple_form_for @user do |f| %>
@@ -1057,7 +1057,7 @@ http://rubydoc.info/github/plataformatec/simple_form/master/frames
 ### Bug reports
 
 If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as
-possible to help us fixing the possible bug. We also encourage you to help even more by forking and
+possible to help us in fixing the potential bug. We also encourage you to help even more by forking and
 sending us a pull request.
 
 https://github.com/plataformatec/simple_form/issues
