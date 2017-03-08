@@ -113,7 +113,7 @@ an error, or even a placeholder. For boolean inputs, you can add an inline label
 <% end %>
 ```
 
-In some cases you may want to disable labels, hints or error. Or you may want to configure the html
+In some cases you may want to disable labels, hints or errors. Or you may want to configure the html
 of any of them:
 
 ```erb
@@ -164,7 +164,7 @@ any html attribute to that wrapper as well using the `:wrapper_html` option, lik
 
 Required fields are marked with an * prepended to their labels.
 
-By default all inputs are required. When the form object includes `ActiveModel::Validations` 
+By default all inputs are required. When the form object includes `ActiveModel::Validations`
 (which, for example, happens with Active Record models), fields are required only when there is `presence` validation.
 Otherwise, **Simple Form** will mark fields as optional. For performance reasons, this
 detection is skipped on validations that make use of conditional options, such as `:if` and `:unless`.
