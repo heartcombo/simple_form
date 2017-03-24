@@ -4,7 +4,7 @@ SimpleForm.setup do |config|
   # all the grid-related classes)
   #
   # Please note that hints are commented out by default since Foundation
-  # does't provide styles for hints. You will need to provide your own CSS styles for hints.
+  # doesn't provide styles for hints. You will need to provide your own CSS styles for hints.
   # Uncomment them to enable hints.
 
   config.wrappers :vertical_form, class: :input, hint_class: :field_with_hint, error_class: :error do |b|
@@ -98,7 +98,7 @@ SimpleForm.setup do |config|
   config.button_class = 'button'
 
   # Set this to div to make the checkbox and radio properly work
-  # otherwise simple_form adds a label tag instead of a div arround
+  # otherwise simple_form adds a label tag instead of a div around
   # the nested label
   config.item_wrapper_tag = :div
 
