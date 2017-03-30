@@ -191,6 +191,7 @@ module SimpleForm
       def merge_wrapper_options(options, wrapper_options)
         if wrapper_options
           if wrapper_options.key?(:error_class) && has_errors?
+            wrapper_options = wrapper_options.dup
             (wrapper_options[:class] ||= "").concat(" #{wrapper_options.delete(:error_class)}")
           end
           wrapper_options.merge(options) do |key, oldval, newval|
