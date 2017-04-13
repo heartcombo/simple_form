@@ -189,6 +189,9 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :boolean_label_class
   @@boolean_label_class = 'checkbox'
 
+  mattr_accessor :use_button_instead_of_submit
+  @@use_button_instead_of_submit = false
+
   ## WRAPPER CONFIGURATION
   # The default wrapper to be used by the FormBuilder.
   mattr_accessor :default_wrapper
