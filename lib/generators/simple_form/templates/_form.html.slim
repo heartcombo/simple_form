@@ -2,9 +2,13 @@
   = f.error_notification
 
   .form-inputs
-<%- attributes.each do |attribute| -%>
+  <%- attributes.each do |attribute| -%>
     = f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>
-<%- end -%>
+  <%- end -%>
 
   .form-actions
-    = f.button SimpleForm.use_button_instead_of_submit? :button : :submit
+  <%- if SimpleForm.use_button_instead_of_submit? -%>
+    = f.button :button
+  <%- else -%>
+    = f.button :submit
+  <%- end -%>
