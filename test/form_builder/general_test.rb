@@ -271,6 +271,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select#user_age.select'
   end
 
+  test 'builder does not generate url fields for columns that contain only the letters url' do
+    with_form_for @user, :hourly
+    assert_no_select 'form input#user_url.string.url'
+  end
+
   test 'builder allows overriding default input type for text' do
     with_form_for @user, :name, as: :text
     assert_no_select 'form input#user_name'
