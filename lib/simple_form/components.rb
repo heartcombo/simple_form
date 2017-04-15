@@ -19,5 +19,6 @@ module SimpleForm
     autoload :Pattern
     autoload :Placeholders
     autoload :Readonly
+    autoload :DefaultInputClass
   end
 end

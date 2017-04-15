@@ -28,6 +28,13 @@ class InputTest < ActionView::TestCase
     end
   end
 
+  test 'input does not add input_class if ignore_default_input_class option is provided' do
+    swap SimpleForm, input_class: :xlarge do
+      with_input_for @user, :name, :string, ignore_default_input_class: true
+      assert_no_select 'input.xlarge'
+    end
+  end
+
   test 'input does not add input_class when configured to not generate additional classes for input' do
     swap SimpleForm, input_class: 'xlarge', generate_additional_classes_for: [:wrapper] do
       with_input_for @user, :name, :string
