@@ -18,6 +18,7 @@ module SimpleForm
     autoload :PriorityInput
     autoload :RangeInput
     autoload :StringInput
+    autoload :CitextInput
     autoload :TextInput
   end
 end
