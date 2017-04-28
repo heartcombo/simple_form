@@ -38,6 +38,14 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-0-stable
     - rvm: jruby
       gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+    - rvm: 2.1.10
+      gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+    - rvm: 2.2.7
+      gemfile: gemfiles/Gemfile.rails-5-1-stable # because it now wants activerecord gem, too
 notifications:
   email: false
   slack:
