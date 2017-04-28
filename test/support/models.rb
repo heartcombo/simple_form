@@ -128,6 +128,7 @@ class User
 
   begin
     require 'active_model/type'
+    require 'active_record/type'
     def type_for_attribute(attribute)
       column_type, limit = case attribute
         when 'name', 'status', 'password' then [:string, 100]
@@ -148,7 +149,11 @@ class User
         when 'uuid'          then :string
       end
 
-      ActiveModel::Type.lookup(column_type, limit: limit)
+      begin
+        ActiveModel::Type.lookup(column_type, limit: limit)
+      rescue ArgumentError
+        ActiveRecord::Type.lookup(column_type, limit: limit)
+      end
     end
   rescue LoadError
   end
