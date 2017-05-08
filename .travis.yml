@@ -38,6 +38,14 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-0-stable
     - rvm: jruby
       gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.rails-5-1-stable
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.rails-5-1-stable
+    - rvm: 2.1.10
+      gemfile: gemfiles/Gemfile.rails-5-1-stable
+    - rvm: jruby
+      gemfile: gemfiles/Gemfile.rails-5-1-stable
 notifications:
   email: false
   slack:
