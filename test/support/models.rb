@@ -128,29 +128,37 @@ class User
 
   begin
     require 'active_model/type'
+    @@types = {
+      'name'          => [:string, 100],
+      'status'        => [:string, 100],
+      'password'      => [:string, 100],
+      'description'   => [:string, 200],
+      'age'           => [:integer, nil],
+      'credit_limit'  => [:decimal, 15],
+      'active'        => [:boolean, nil],
+      'born_at'       => [:date, nil],
+      'delivery_time' => [:time, nil],
+      'created_at'    => [:datetime, nil],
+      'updated_at'    => [:datetime, nil],
+      'lock_version'  => [:integer, nil],
+      'home_picture'  => [:string, nil],
+      'amount'        => [:integer, nil],
+      'attempts'      => [:integer, nil],
+      'action'        => [:string, nil],
+      'credit_card'   => [:string, nil],
+      'uuid'          => [:string, nil],
+    }
+    begin
+      ActiveModel::Type.lookup(:text)
+    rescue ArgumentError
+    else                        # :text is recognized as an ActiveModel::Type
+      @@types['description'] = [:text, 200]
+    end
     def type_for_attribute(attribute)
-      column_type, limit = case attribute
-        when 'name', 'status', 'password' then [:string, 100]
-        when 'description'   then [:string, 200] # because :text is database-adapter specific
-        when 'age'           then :integer
-        when 'credit_limit'  then [:decimal, 15]
-        when 'active'        then :boolean
-        when 'born_at'       then :date
-        when 'delivery_time' then :time
-        when 'created_at'    then :datetime
-        when 'updated_at'    then :datetime
-        when 'lock_version'  then :integer
-        when 'home_picture'  then :string
-        when 'amount'        then :integer
-        when 'attempts'      then :integer
-        when 'action'        then :string
-        when 'credit_card'   then :string
-        when 'uuid'          then :string
-      end
-
+      column_type, limit = @@types[attribute]
       ActiveModel::Type.lookup(column_type, limit: limit)
     end
-  rescue LoadError
+  rescue LoadError              # doesn't have active_model/type
   end
 
   def has_attribute?(attribute)
