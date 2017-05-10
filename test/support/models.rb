@@ -128,11 +128,10 @@ class User
 
   begin
     require 'active_model/type'
-    require 'active_record/type'
     def type_for_attribute(attribute)
       column_type, limit = case attribute
         when 'name', 'status', 'password' then [:string, 100]
-        when 'description'   then [:text, 200]
+        when 'description'   then [:string, 200] # because :text is database-adapter specific
         when 'age'           then :integer
         when 'credit_limit'  then [:decimal, 15]
         when 'active'        then :boolean
@@ -149,11 +148,7 @@ class User
         when 'uuid'          then :string
       end
 
-      begin
-        ActiveModel::Type.lookup(column_type, limit: limit)
-      rescue ArgumentError
-        ActiveRecord::Type.lookup(column_type, limit: limit)
-      end
+      ActiveModel::Type.lookup(column_type, limit: limit)
     end
   rescue LoadError
   end

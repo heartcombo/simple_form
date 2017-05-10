@@ -117,8 +117,13 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_name.string'
   end
 
-  test 'builder generates text areas for text columns' do
+  test 'builder generates text field for un-hinted text columns' do
     with_form_for @user, :description
+    assert_select 'form input#user_description.string'
+  end
+
+  test 'builder generates text areas for text columns when hinted' do
+    with_form_for @user, :description, as: :text
     assert_select 'form textarea#user_description.text'
   end
 

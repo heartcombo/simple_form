@@ -10,7 +10,6 @@ end
 gem 'country_select', '~> 2.5.2'
 gem 'railties', github: 'rails/rails', branch: '5-1-stable'
 gem 'activemodel', github: 'rails/rails', branch: '5-1-stable'
-gem 'activerecord', github: 'rails/rails', branch: '5-1-stable'
 gem 'actionpack', github: 'rails/rails', branch: '5-1-stable'
 gem 'rake'
 gem 'tzinfo'
