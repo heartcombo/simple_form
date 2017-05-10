@@ -120,10 +120,10 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder generates text field for text columns' do
     with_form_for @user, :description
     if @user.respond_to?(:type_for_attribute) &&
-       @user.type_for_attribute('description').type == :text
-      assert_select 'form textarea#user_description.text'
-    else
+       @user.type_for_attribute('description').type == :string
       assert_select 'form input#user_description.string'
+    else
+      assert_select 'form textarea#user_description.text'
     end
   end
 
