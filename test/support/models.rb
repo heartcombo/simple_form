@@ -132,7 +132,7 @@ class User
       'name'          => [:string, 100],
       'status'        => [:string, 100],
       'password'      => [:string, 100],
-      'description'   => [:string, 200],
+      'description'   => [:text, 200],
       'age'           => [:integer, nil],
       'credit_limit'  => [:decimal, 15],
       'active'        => [:boolean, nil],
@@ -150,9 +150,11 @@ class User
     }
     begin
       ActiveModel::Type.lookup(:text)
-    rescue ArgumentError
-    else                        # :text is recognized as an ActiveModel::Type
-      @@types['description'] = [:text, 200]
+    rescue ArgumentError        # :text is no longer an ActiveModel::Type
+      class ::ActiveModel::Type::Text < ActiveModel::Type::String
+        def type; :text; end
+      end
+      ActiveModel::Type.register(:text, ActiveModel::Type::Text)
     end
     def type_for_attribute(attribute)
       column_type, limit = @@types[attribute]
