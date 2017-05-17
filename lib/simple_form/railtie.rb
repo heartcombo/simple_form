@@ -7,7 +7,7 @@ module SimpleForm
     config.after_initialize do
       unless SimpleForm.configured?
         warn '[Simple Form] Simple Form is not configured in the application and will use the default values.' +
-          ' Use `rails generate simple_form:install` to generate the Simple Form configuration.'
+          ' Use `bin/spring rails generate simple_form:install` to generate the Simple Form configuration.'
       end
     end
   end
