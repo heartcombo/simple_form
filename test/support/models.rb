@@ -128,39 +128,38 @@ class User
 
   begin
     require 'active_model/type'
-    @@types = {
-      'name'          => [:string, 100],
-      'status'        => [:string, 100],
-      'password'      => [:string, 100],
-      'description'   => [:text, 200],
-      'age'           => [:integer, nil],
-      'credit_limit'  => [:decimal, 15],
-      'active'        => [:boolean, nil],
-      'born_at'       => [:date, nil],
-      'delivery_time' => [:time, nil],
-      'created_at'    => [:datetime, nil],
-      'updated_at'    => [:datetime, nil],
-      'lock_version'  => [:integer, nil],
-      'home_picture'  => [:string, nil],
-      'amount'        => [:integer, nil],
-      'attempts'      => [:integer, nil],
-      'action'        => [:string, nil],
-      'credit_card'   => [:string, nil],
-      'uuid'          => [:string, nil],
-    }
     begin
       ActiveModel::Type.lookup(:text)
     rescue ArgumentError        # :text is no longer an ActiveModel::Type
+      # But we don't want our tests to depend on ActiveRecord
       class ::ActiveModel::Type::Text < ActiveModel::Type::String
         def type; :text; end
       end
       ActiveModel::Type.register(:text, ActiveModel::Type::Text)
     end
     def type_for_attribute(attribute)
-      column_type, limit = @@types[attribute]
+      column_type, limit = case attribute
+        when 'name', 'status', 'password' then [:string, 100]
+        when 'description'   then [:text, 200]
+        when 'age'           then :integer
+        when 'credit_limit'  then [:decimal, 15]
+        when 'active'        then :boolean
+        when 'born_at'       then :date
+        when 'delivery_time' then :time
+        when 'created_at'    then :datetime
+        when 'updated_at'    then :datetime
+        when 'lock_version'  then :integer
+        when 'home_picture'  then :string
+        when 'amount'        then :integer
+        when 'attempts'      then :integer
+        when 'action'        then :string
+        when 'credit_card'   then :string
+        when 'uuid'          then :string
+      end
+
       ActiveModel::Type.lookup(column_type, limit: limit)
     end
-  rescue LoadError              # doesn't have active_model/type
+  rescue LoadError
   end
 
   def has_attribute?(attribute)

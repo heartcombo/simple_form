@@ -117,7 +117,7 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_name.string'
   end
 
-  test 'builder generates text field for text columns' do
+  test 'builder generates text field for un-hinted text columns' do
     with_form_for @user, :description
     if @user.respond_to?(:type_for_attribute) &&
        @user.type_for_attribute('description').type == :string
