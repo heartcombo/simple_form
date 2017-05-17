@@ -234,11 +234,15 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :name, as: :text
     assert_no_select 'form input#user_name'
     assert_select 'form textarea#user_name.text'
+  end
 
+  test 'builder allows overriding default input type for radio_buttons' do
     with_form_for @user, :active, as: :radio_buttons
     assert_no_select 'form input[type=checkbox]'
     assert_select 'form input.radio_buttons[type=radio]', count: 2
+  end
 
+  test 'builder allows overriding default input type for string' do
     with_form_for @user, :born_at, as: :string
     assert_no_select 'form select'
     assert_select 'form input#user_born_at.string'
