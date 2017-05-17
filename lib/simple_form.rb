@@ -198,6 +198,15 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :i18n_scope
   @@i18n_scope = 'simple_form'
 
+  # Defines if the default input in templates should be f.button :button 
+  # instead of f.button :submit
+  mattr_accessor :use_button_instead_of_submit
+  @@use_button_instead_of_submit = false
+
+  def self.use_button_instead_of_submit?
+    !!@@use_button_instead_of_submit
+  end
+
   # Retrieves a given wrapper
   def self.wrapper(name)
     @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"

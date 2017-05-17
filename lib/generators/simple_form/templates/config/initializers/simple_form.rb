@@ -166,4 +166,8 @@ SimpleForm.setup do |config|
 
   # Defines which i18n scope will be used in Simple Form.
   # config.i18n_scope = 'simple_form'
+
+  # Defines if the default input in templates should be f.button :button 
+  # instead of f.button :submit
+  # config.use_button_instead_of_submit = true
 end

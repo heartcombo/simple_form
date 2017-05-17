@@ -8,6 +8,10 @@
   </div>
 
   <div class="form-actions">
+  <%- if SimpleForm.use_button_instead_of_submit? -%>
+    <%%= f.button :button %>
+  <%- else -%>
     <%%= f.button :submit %>
+  <%- end -%>
   </div>
 <%% end %>
