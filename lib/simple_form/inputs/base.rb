@@ -170,7 +170,7 @@ module SimpleForm
       #            email: 'E-mail.'
       #
       #  Take a look at our locale example file.
-      def translate_from_namespace(namespace, default = '')
+      def translate_from_namespace(namespace, default = '', scope = i18n_scope)
         model_names = lookup_model_names.dup
         lookups     = []
 
@@ -185,7 +185,9 @@ module SimpleForm
         lookups << :"defaults.#{reflection_or_attribute_name}"
         lookups << default
 
-        I18n.t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
+        scope = scope ? "#{scope}." : ''
+
+        I18n.t(lookups.shift, scope: :"#{scope}#{namespace}", default: lookups).presence
       end
 
       def merge_wrapper_options(options, wrapper_options)
