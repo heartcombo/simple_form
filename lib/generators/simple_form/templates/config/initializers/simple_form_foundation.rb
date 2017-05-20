@@ -58,7 +58,7 @@ SimpleForm.setup do |config|
 
   # Foundation does not provide a way to handle inline forms
   # This wrapper can be used to create an inline form
-  # by hiding that labels on every screen sizes ('hidden-for-small-up').
+  # by hiding the labels.
   #
   # Note that you need to adapt this wrapper to your needs. If you need a 4
   # columns form then change the wrapper class to 'small-3', if you need
@@ -72,7 +72,7 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
 
-    b.use :label, class: 'hidden-for-small-up'
+    b.use :label, class: 'show-for-sr'
     b.use :input
 
     b.use :error, wrap_with: { tag: :small, class: :error }
