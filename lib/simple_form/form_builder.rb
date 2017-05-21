@@ -525,7 +525,13 @@ module SimpleForm
         case attribute_name.to_s
         when /password/  then :password
         when /time_zone/ then :time_zone
-        when /country/   then :country
+        when /country/
+          # check to see if country_select gem is included
+          if ActionView::Helpers::FormOptionsHelper.method_defined?(:country_select)
+            :country
+          else 
+            :string
+          end
         when /email/     then :email
         when /phone/     then :tel
         when /url/       then :url
