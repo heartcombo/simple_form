@@ -16,7 +16,11 @@ module SimpleForm
       end
 
       def valid_validator?(validator)
-        !conditional_validators?(validator) && action_validator_match?(validator)
+        !conditional_validators?(validator) && action_validator_match?(validator) && !has_allow_blank?(validator)
+      end
+
+      def has_allow_blank?(validator)
+        validator.options.include?(:allow_blank)
       end
 
       def conditional_validators?(validator)
