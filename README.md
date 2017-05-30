@@ -242,6 +242,16 @@ the wrapper as well:
 
 Any extra option passed to these methods will be rendered as html option.
 
+For namespaced model, like `Admin::User`
+
+```erb
+<%= simple_form_for [:admin, @user] do |f| %>
+  <%= f.input :username %>
+  <%= f.input :password %>
+  <%= f.button :submit %>
+<% end %>
+```
+
 ### Stripping away all wrapper divs
 
 **Simple Form** also allows you to strip away all the div wrappers around the `<input>` field that is
