@@ -76,4 +76,26 @@ class ErrorNotificationTest < ActionView::TestCase
       assert_select 'p.error_notification b', 'usuário'
     end
   end
+
+  test 'error notification accepts arrays of errors' do
+    stub_any_instance User, :errors, ["ERROR!"] do
+      with_error_notification_for @user
+      assert_select 'p.error_notification', 'Please review the problems below:'
+    end
+  end
+
+  test 'error notification accepts hashes of errors' do
+    stub_any_instance User, :errors, {:field1 => "ERROR!"} do
+      with_error_notification_for @user
+      assert_select 'p.error_notification', 'Please review the problems below:'
+    end
+  end
+
+  test 'error notification accepts a nil errors collection' do
+    stub_any_instance User, :errors, nil do
+      with_error_notification_for @user
+      assert_no_select 'p.error_notification'
+    end
+  end
+
 end
