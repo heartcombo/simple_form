@@ -9,13 +9,15 @@ class MockController
     defined?(@action_name) ? @action_name : "edit"
   end
 
-  def url_for(*args)
+  def url_for(*)
     "http://example.com"
   end
 
   def url_options
     {}
   end
+
+  def polymorphic_mappings(*); {}; end
 
   def hash_for_user_path(*); end
   def hash_for_validating_user_path(*); end

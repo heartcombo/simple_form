@@ -119,7 +119,20 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'builder generates text areas for text columns' do
     with_form_for @user, :description
+    assert_no_select 'form input#user_description.string'
     assert_select 'form textarea#user_description.text'
+  end
+
+  test 'builder generates text areas for text columns when hinted' do
+    with_form_for @user, :description, as: :text
+    assert_no_select 'form input#user_description.string'
+    assert_select 'form textarea#user_description.text'
+  end
+
+  test 'builder generates text field for text columns when hinted' do
+    with_form_for @user, :description, as: :string
+    assert_no_select 'form textarea#user_description.text'
+    assert_select 'form input#user_description.string'
   end
 
   test 'builder generates a checkbox for boolean columns' do
@@ -221,11 +234,15 @@ class FormBuilderTest < ActionView::TestCase
     with_form_for @user, :name, as: :text
     assert_no_select 'form input#user_name'
     assert_select 'form textarea#user_name.text'
+  end
 
+  test 'builder allows overriding default input type for radio_buttons' do
     with_form_for @user, :active, as: :radio_buttons
     assert_no_select 'form input[type=checkbox]'
     assert_select 'form input.radio_buttons[type=radio]', count: 2
+  end
 
+  test 'builder allows overriding default input type for string' do
     with_form_for @user, :born_at, as: :string
     assert_no_select 'form select'
     assert_select 'form input#user_born_at.string'

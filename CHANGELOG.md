@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 3.5.0
+
+* Updated gem dependency to support Rails 5.1.x.
+
 ## 3.4.0
 
 * Removed Ruby 2.4.0 `Integer` unification deprecation warning.
