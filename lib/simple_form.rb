@@ -163,7 +163,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # Cache SimpleForm inputs discovery.
   mattr_accessor :cache_discovery
-  @@cache_discovery = defined?(Rails) && !Rails.env.development?
+  @@cache_discovery = defined?(Rails.env) && !Rails.env.development?
 
   # Adds a class to each generated button, mostly for compatiblity.
   mattr_accessor :button_class
