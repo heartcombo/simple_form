@@ -25,10 +25,10 @@ module SimpleForm
 
           merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
-          build_hidden_field_for_checkbox +
-            @builder.label(label_target, html_options) {
-              build_check_box_without_hidden_field(merged_input_options) + label_text
-            }
+          build_check_box_without_hidden_field(merged_input_options) +
+              @builder.label(label_target, html_options, label_text) +
+              build_hidden_field_for_checkbox
+          
         else
           input(wrapper_options) + label(wrapper_options)
         end
