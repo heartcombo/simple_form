@@ -2,9 +2,9 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-  <%- attributes.each do |attribute| -%>
-    <%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
-  <%- end -%>
+    <%- attributes.each do |attribute| -%>
+      <%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+    <%- end -%>
   </div>
 
   <div class="form-actions">
