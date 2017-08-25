@@ -57,7 +57,8 @@ module SimpleForm
 
         klass = html_classes(input, options)
         opts  = html_options(options)
-        opts[:class] = (klass << opts[:class]).join(' ').strip unless klass.empty?
+        merge_classes(klass, opts[:class])
+        opts[:class] = klass.join(' ').strip unless klass.empty?
         input.template.content_tag(tag, content, opts)
       end
 
@@ -67,6 +68,16 @@ module SimpleForm
 
       def html_classes(input, options)
         @defaults[:class].dup
+      end
+      
+      def merge_classes(klass, klass2)
+        klass << klass2 unless klass2.blank?
+        #['col-xs-\d+', 'col-sm-\d+', 'col-md-\d+', 'col-lg-\d+'].each do |bc|
+        #  matches = klass.grep(Regexp.new(bc))
+        #  matches[0...(matches.size-1)].each do |match|
+        #    klass.delete(match)
+        #  end
+        #end
       end
     end
   end
