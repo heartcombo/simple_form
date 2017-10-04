@@ -325,7 +325,7 @@ Collection inputs accept two other options beside collections:
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
 translation. You can also define a `to_label` method on your model as **Simple Form** will search for
-and use `:to_label` as a `:label_method` first if it is found. All other options given are sent
+and use `:to_label` as a `:label_method` first if it is found. If your collection is an [enumerize object](https://github.com/brainspec/enumerize) the enumerize i18n keys are used by default. All other options given are sent
 straight to the underlying helper. For example, you can give prompt as:
 
 ```ruby
