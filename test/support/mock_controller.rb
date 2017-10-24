@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MockController
   attr_writer :action_name
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module ActionViewExtensions
     # A collection of methods required by simple_form but added to rails default form.

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'active_support/core_ext/object/deep_dup'
 require 'simple_form/map_type'
 require 'simple_form/tags'

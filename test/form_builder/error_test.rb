@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 # Tests for f.error and f.full_error

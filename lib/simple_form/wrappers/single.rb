@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module Wrappers
     # `Single` is an optimization for a wrapper that has only one component.

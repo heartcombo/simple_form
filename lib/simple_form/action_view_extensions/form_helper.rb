@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module ActionViewExtensions
     # This module creates SimpleForm wrappers around default form_for and fields_for.

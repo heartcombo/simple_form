@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module Helpers
     module Autofocus

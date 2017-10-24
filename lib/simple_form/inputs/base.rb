@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'simple_form/i18n_cache'
 require 'active_support/core_ext/string/output_safety'
 require 'action_view/helpers'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module Wrappers
     # Provides the builder syntax for components. The builder provides

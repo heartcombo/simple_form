@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module Wrappers
     # A wrapper is an object that holds several components and render them.
