@@ -8,7 +8,7 @@ rvm:
   - 2.3.4
   - 2.4.1
   - ruby-head
-  - jruby
+  - jruby-9.1.14.0
 gemfile:
   - gemfiles/Gemfile.rails-4-0-stable
   - gemfiles/Gemfile.rails-4-1-stable
@@ -28,7 +28,7 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-4-1-stable # activesupport 4.1 depends on json 1.8.3 which does not compile with Ruby 2.4.0
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.rails-4-1-stable # activesupport 4.1 depends on json 1.8.3 which does not compile with Ruby 2.4.0
-    - rvm: jruby
+    - rvm: jruby-9.1.14.0
       gemfile: Gemfile
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.rails-5-0-stable
@@ -36,9 +36,9 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-0-stable
     - rvm: 2.1.10
       gemfile: gemfiles/Gemfile.rails-5-0-stable
-    - rvm: jruby
+    - rvm: jruby-9.1.14.0
       gemfile: gemfiles/Gemfile.rails-5-0-stable
-    - rvm: jruby
+    - rvm: jruby-9.1.14.0
       gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2; any sol'n for jruby?
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2
