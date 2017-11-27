@@ -7,7 +7,7 @@ Relation = Struct.new(:records) do
   delegate :each, to: :records
 
   def where(conditions = nil)
-    self.class.new conditions ? records.first : records
+    self.class.new conditions ? [records.first] : records
   end
 
   def order(conditions = nil)
