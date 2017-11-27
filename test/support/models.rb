@@ -83,7 +83,7 @@ class User
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
     :extra_special_company_id, :pictures, :picture_ids, :special_pictures,
-    :special_picture_ids, :uuid, :friends, :friend_ids
+    :special_picture_ids, :uuid, :friends, :friend_ids, :special_tags, :special_tag_ids
 
   def self.build(extra_attributes = {})
     attributes = {
@@ -204,6 +204,8 @@ class User
         Association.new(Company, association, :belongs_to, nil, {})
       when :tags
         Association.new(Tag, association, :has_many, nil, {})
+      when :special_tags
+        Association.new(Tag, association, :has_many, ->(user) { where(id: user.id) }, {})
       when :first_company
         Association.new(Company, association, :has_one, nil, {})
       when :special_company
