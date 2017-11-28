@@ -462,7 +462,11 @@ module SimpleForm
         relation = reflection.klass.all
 
         if reflection.respond_to?(:scope) && reflection.scope
-          relation = reflection.klass.instance_exec(&reflection.scope)
+          if reflection.scope.parameters.any?
+            relation = reflection.klass.instance_exec(object, &reflection.scope)
+          else
+            relation = reflection.klass.instance_exec(&reflection.scope)
+          end
         else
           order = reflection.options[:order]
           conditions = reflection.options[:conditions]

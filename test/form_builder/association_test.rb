@@ -122,6 +122,15 @@ class AssociationTest < ActionView::TestCase
     assert_no_select 'form select option[value="2"]'
   end
 
+  test 'builder allows collection to have a scope with parameter' do
+    with_association_for @user, :special_tags
+    assert_select 'form select.select#user_special_tag_ids'
+    assert_select 'form select[multiple=multiple]'
+    assert_select 'form select option[value="1"]', 'Tag 1'
+    assert_no_select 'form select option[value="2"]'
+    assert_no_select 'form select option[value="3"]'
+  end
+
   test 'builder marks the record which already belongs to the user' do
     @user.company_id = 2
     with_association_for @user, :company, as: :radio_buttons
