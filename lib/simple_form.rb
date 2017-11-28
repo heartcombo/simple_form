@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'action_view'
 require 'action_pack'
 require 'simple_form/action_view_extensions/form_helper'

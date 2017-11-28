@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module MiscHelpers
   def store_translations(locale, translations, &block)
     I18n.backend.store_translations locale, translations

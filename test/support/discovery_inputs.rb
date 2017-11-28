@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class StringInput < SimpleForm::Inputs::StringInput
   def input(wrapper_options = nil)
     "<section>#{super}</section>".html_safe

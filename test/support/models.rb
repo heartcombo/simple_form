@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Association = Struct.new(:klass, :name, :macro, :scope, :options)
 
 Column = Struct.new(:name, :type, :limit) do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   module Wrappers
     # `Root` is the root wrapper for all components. It is special cased to

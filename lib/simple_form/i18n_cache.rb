@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SimpleForm
   # A lot of configuration values are retrived from I18n,
   # like boolean collection, required string. This module provides
