@@ -146,6 +146,14 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
+  test 'input with nested style does not include hidden field when unchecked_value is false' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, unchecked_value: false
+      assert_select "label.boolean > input.boolean"
+      assert_no_select "input[type=hidden] + label.boolean"
+    end
+  end
+
   test 'input boolean works using :input only in wrapper config (no label_input)' do
     swap_wrapper do
       with_input_for @user, :active, :boolean
