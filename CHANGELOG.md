@@ -1,7 +1,9 @@
 ## Unreleased
 
 ### Enhancements
+* Exclude hidden field when unchecked_value: false. [@fschwahn](https://github.com/fschwahn)
 * Add frozen_string_literal magic comment to several files. [@oniofchaos](https://github.com/oniofchaos)
+
 ### Bug fix
 * Fix error when the scope from association has parameter. [@feliperenan](https://github.com/feliperenan)
 * Only call `where` on associations when they respond to it. [@anicholson](https://github.com/anicholson)
