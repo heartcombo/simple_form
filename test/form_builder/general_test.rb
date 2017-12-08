@@ -142,6 +142,24 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_description.string'
   end
 
+  test 'builder generates text areas for hstore columns' do
+    with_form_for @user, :hstore
+    assert_no_select 'form input#user_hstore.string'
+    assert_select 'form textarea#user_hstore.text'
+  end
+
+  test 'builder generates text areas for json columns' do
+    with_form_for @user, :json
+    assert_no_select 'form input#user_json.string'
+    assert_select 'form textarea#user_json.text'
+  end
+
+  test 'builder generates text areas for jsonb columns' do
+    with_form_for @user, :jsonb
+    assert_no_select 'form input#user_jsonb.string'
+    assert_select 'form textarea#user_jsonb.text'
+  end
+
   test 'builder generates a checkbox for boolean columns' do
     with_form_for @user, :active
     assert_select 'form input[type=checkbox]#user_active.boolean'
@@ -164,6 +182,11 @@ class FormBuilderTest < ActionView::TestCase
     else
       assert_select 'form input#user_uuid.string.uuid'
     end
+  end
+
+  test 'builder generates string fields for citext columns' do
+    with_form_for @user, :citext
+    assert_select 'form input#user_citext.string'
   end
 
   test 'builder generates password fields for columns that matches password' do
