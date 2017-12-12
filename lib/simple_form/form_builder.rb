@@ -527,7 +527,7 @@ module SimpleForm
       case input_type
       when :timestamp
         :datetime
-      when :string, nil
+      when :string, :citext, nil
         case attribute_name.to_s
         when /password/  then :password
         when /time_zone/ then :time_zone
