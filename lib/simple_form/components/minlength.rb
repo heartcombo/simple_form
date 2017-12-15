@@ -4,7 +4,7 @@ module SimpleForm
     # Needs to be enabled in order to do automatic lookups.
     module Minlength
       def minlength(wrapper_options = nil)
-        input_html_options[:minlength] ||= minimum_length_from_validation || limit
+        input_html_options[:minlength] ||= minimum_length_from_validation
         nil
       end
 
