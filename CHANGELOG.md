@@ -3,6 +3,7 @@
 ### Enhancements
 * Exclude hidden field when unchecked_value: false. [@fschwahn](https://github.com/fschwahn)
 * Add frozen_string_literal magic comment to several files. [@oniofchaos](https://github.com/oniofchaos)
+* Try convert @object to model in case we got decorated object [timurvafin](https://github.com/timurvafin)
 
 ### Bug fix
 * Fix error when the scope from association has parameter. [@feliperenan](https://github.com/feliperenan)
