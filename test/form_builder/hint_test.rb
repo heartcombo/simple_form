@@ -19,6 +19,11 @@ class HintTest < ActionView::TestCase
     assert_select 'span.hint', 'Use with care...'
   end
 
+  test 'hint is generated with decorated object responsive to #to_model' do
+    with_hint_for @decorated_user, :name, hint: 'Use with care...'
+    assert_select 'span.hint', 'Use with care...'
+  end
+
   test 'hint does not modify the options hash' do
     options = { hint: 'Use with care...' }
     with_hint_for @user, :name, options

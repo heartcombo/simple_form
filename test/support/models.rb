@@ -19,6 +19,12 @@ Relation = Struct.new(:records) do
   alias_method :to_ary, :records
 end
 
+Decorator = Struct.new(:object) do
+  def to_model
+    object
+  end
+end
+
 Picture = Struct.new(:id, :name) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion

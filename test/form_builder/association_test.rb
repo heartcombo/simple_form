@@ -15,6 +15,12 @@ class AssociationTest < ActionView::TestCase
     end
   end
 
+  test 'builder association works with decorated object responsive to #to_model' do
+    assert_nothing_raised do
+      with_association_for @decorated_user, :company
+    end
+  end
+
   test 'builder association with a block calls simple_fields_for' do
     simple_form_for @user do |f|
       f.association :posts do |posts_form|

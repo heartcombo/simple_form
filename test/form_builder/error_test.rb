@@ -36,6 +36,11 @@ class ErrorTest < ActionView::TestCase
     assert_select 'span.error', "cannot be blank"
   end
 
+  test 'error generates messages with decorated object responsive to #to_model' do
+    with_error_for @decorated_user, :name
+    assert_select 'span.error', "cannot be blank"
+  end
+
   test 'error generates messages for attribute with one error when using first' do
     swap SimpleForm, error_method: :first do
       with_error_for @user, :age
