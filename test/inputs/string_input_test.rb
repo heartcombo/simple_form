@@ -133,7 +133,7 @@ class StringInputTest < ActionView::TestCase
     end
   end
 
-  [:email, :url, :search, :tel].each do |type|
+  %i[email url search tel].each do |type|
     test "input allows type #{type}" do
       with_input_for @user, :name, type
       assert_select "input.string.#{type}"

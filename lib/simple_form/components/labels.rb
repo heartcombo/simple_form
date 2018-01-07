@@ -8,7 +8,7 @@ module SimpleForm
         def translate_required_html
           i18n_cache :translate_required_html do
             I18n.t(:"simple_form.required.html", default:
-              %[<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>]
+              %(<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>)
             )
           end
         end

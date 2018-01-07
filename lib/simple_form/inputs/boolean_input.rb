@@ -62,7 +62,7 @@ module SimpleForm
       def build_hidden_field_for_checkbox
         return "" if !include_hidden? || !unchecked_value
         options = { value: unchecked_value, id: nil, disabled: input_html_options[:disabled] }
-        options[:name] = input_html_options[:name] if input_html_options.has_key?(:name)
+        options[:name] = input_html_options[:name] if input_html_options.key?(:name)
 
         @builder.hidden_field(attribute_name, options)
       end

@@ -12,7 +12,7 @@ module SimpleForm
       def render(input)
         method = input.method(@namespace)
 
-        if method.arity == 0
+        if method.arity.zero?
           ActiveSupport::Deprecation.warn(SimpleForm::CUSTOM_INPUT_DEPRECATION_WARN % { name: @namespace })
 
           method.call

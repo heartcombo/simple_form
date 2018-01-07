@@ -37,7 +37,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection radio handles camelized collection values for labels correctly" do
-    with_collection_radio_buttons @user, :active, ['Yes', 'No'], :to_s, :to_s
+    with_collection_radio_buttons @user, :active, %w[Yes No], :to_s, :to_s
 
     assert_select 'form label.collection_radio_buttons[for=user_active_yes]', 'Yes'
     assert_select 'form label.collection_radio_buttons[for=user_active_no]', 'No'
@@ -244,7 +244,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection radio with block helpers does not leak the template" do
     with_concat_form_for(@user) do |f|
-      collection_input =  f.collection_radio_buttons :active, [true, false], :to_s, :to_s do |b|
+      collection_input = f.collection_radio_buttons :active, [true, false], :to_s, :to_s do |b|
         b.label(class: b.object) { b.radio_button + b.text }
       end
       concat collection_input
@@ -284,7 +284,7 @@ class BuilderTest < ActionView::TestCase
   end
 
   test "collection check box handles camelized collection values for labels correctly" do
-    with_collection_check_boxes @user, :active, ['Yes', 'No'], :to_s, :to_s
+    with_collection_check_boxes @user, :active, %w[Yes No], :to_s, :to_s
 
     assert_select 'form label.collection_check_boxes[for=user_active_yes]', 'Yes'
     assert_select 'form label.collection_check_boxes[for=user_active_no]', 'No'
@@ -318,7 +318,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check boxes accepts selected string values as :checked option" do
     collection = (1..3).map { |i| [i, "Category #{i}"] }
-    with_collection_check_boxes :user, :category_ids, collection, :first, :last, checked: ['1', '3']
+    with_collection_check_boxes :user, :category_ids, collection, :first, :last, checked: %w[1 3]
 
     assert_select 'input[type=checkbox][value="1"][checked=checked]'
     assert_select 'input[type=checkbox][value="3"][checked=checked]'
@@ -542,7 +542,7 @@ class BuilderTest < ActionView::TestCase
 
   test "collection check boxes with block helpers does not leak the template" do
     with_concat_form_for(@user) do |f|
-      collection_input =  f.collection_check_boxes :active, [true, false], :to_s, :to_s do |b|
+      collection_input = f.collection_check_boxes :active, [true, false], :to_s, :to_s do |b|
         b.label(class: b.object) { b.check_box + b.text }
       end
       concat collection_input

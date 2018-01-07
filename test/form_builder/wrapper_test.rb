@@ -89,7 +89,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'wrapper skips additional classes when configured' do
-    swap SimpleForm, generate_additional_classes_for: [:input, :label] do
+    swap SimpleForm, generate_additional_classes_for: %i[input label] do
       with_form_for @user, :name, wrapper_class: :wrapper
       assert_select 'form div.wrapper'
       assert_no_select 'div.required'
@@ -99,7 +99,7 @@ class WrapperTest < ActionView::TestCase
   end
 
   test 'wrapper does not generate empty css class' do
-    swap SimpleForm, generate_additional_classes_for: [:input, :label] do
+    swap SimpleForm, generate_additional_classes_for: %i[input label] do
       swap_wrapper :default, custom_wrapper_without_class do
         with_form_for @user, :name
         assert_no_select 'div#custom_wrapper_without_class[class]'

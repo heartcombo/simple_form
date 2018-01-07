@@ -216,9 +216,9 @@ class User
       when :first_company
         Association.new(Company, association, :has_one, nil, {})
       when :special_company
-        Association.new(Company, association, :belongs_to, nil, { conditions: { id: 1 } })
+        Association.new(Company, association, :belongs_to, nil, conditions: { id: 1 })
       when :extra_special_company
-        Association.new(Company, association, :belongs_to, nil, { conditions: proc { { id: self.id } } })
+        Association.new(Company, association, :belongs_to, nil, conditions: proc { { id: self.id } })
       when :pictures
         Association.new(Picture, association, :has_many, nil, {})
       when :special_pictures
@@ -250,8 +250,8 @@ class ValidatingUser < User
   include ActiveModel::Validations
   validates :name, presence: true
   validates :company, presence: true
-  validates :age, presence: true, if: Proc.new { |user| user.name }
-  validates :amount, presence: true, unless: Proc.new { |user| user.age }
+  validates :age, presence: true, if: proc { |user| user.name }
+  validates :amount, presence: true, unless: proc { |user| user.age }
 
   validates :action,            presence: true, on: :create
   validates :credit_limit,      presence: true, on: :save
@@ -272,7 +272,7 @@ class ValidatingUser < User
   validates_length_of :name, maximum: 25, minimum: 5
   validates_length_of :description, in: 15..50
   if ActionPack::VERSION::STRING < '5'
-    validates_length_of :action, maximum: 10, tokenizer: lambda { |str| str.scan(/\w+/) }
+    validates_length_of :action, maximum: 10, tokenizer: ->(str) { str.scan(/\w+/) }
   end
   validates_length_of :home_picture, is: 12
 
@@ -300,16 +300,16 @@ class OtherValidatingUser < User
     less_than: 100,
     only_integer: true
   validates_numericality_of :amount,
-    greater_than: Proc.new { |user| user.age },
-    less_than: Proc.new { |user| user.age + 100 },
+    greater_than: proc { |user| user.age },
+    less_than: proc { |user| user.age + 100 },
     only_integer: true
   validates_numericality_of :attempts,
-    greater_than_or_equal_to: Proc.new { |user| user.age },
-    less_than_or_equal_to: Proc.new { |user| user.age + 100 },
+    greater_than_or_equal_to: proc { |user| user.age },
+    less_than_or_equal_to: proc { |user| user.age + 100 },
     only_integer: true
 
   validates_format_of :country, with: /\w+/
-  validates_format_of :name, with: Proc.new { /\w+/ }
+  validates_format_of :name, with: proc { /\w+/ }
   validates_format_of :description, without: /\d+/
 end
 

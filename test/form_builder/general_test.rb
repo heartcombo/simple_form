@@ -56,7 +56,7 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder does not override custom input mappings for custom collection' do
     swap SimpleForm, input_mappings: { /gender$/ => :check_boxes } do
       with_concat_form_for @user do |f|
-        f.input :gender, collection: [:male, :female]
+        f.input :gender, collection: %i[male female]
       end
 
       assert_no_select 'select option', 'Male'
@@ -65,7 +65,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'builder allows to skip input_type class' do
-    swap SimpleForm, generate_additional_classes_for: [:label, :wrapper] do
+    swap SimpleForm, generate_additional_classes_for: %i[label wrapper] do
       with_form_for @user, :post_count
       assert_no_select "form input#user_post_count.integer"
       assert_select "form input#user_post_count"
@@ -389,7 +389,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   # DEFAULT OPTIONS
-  [:input, :input_field].each do |method|
+  %i[input input_field].each do |method|
     test "builder receives a default argument and pass it to the inputs when calling '#{method}'" do
       with_concat_form_for @user, defaults: { input_html: { class: 'default_class' } } do |f|
         f.public_send(method, :name)

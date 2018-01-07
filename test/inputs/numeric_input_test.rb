@@ -157,7 +157,7 @@ class NumericInputTest < ActionView::TestCase
     end
   end
 
-  [:integer, :float, :decimal].each do |type|
+  %i[integer float decimal].each do |type|
     test "#{type} input infers min value from attributes with greater than or equal validation" do
       with_input_for @validating_user, :age, type
       assert_select 'input[min="18"]'

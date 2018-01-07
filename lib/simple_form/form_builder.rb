@@ -11,9 +11,9 @@ module SimpleForm
     ACTIONS = {
       'create' => 'new',
       'update' => 'edit'
-    }
+    }.freeze
 
-    ATTRIBUTE_COMPONENTS = [:html5, :min_max, :maxlength, :minlength, :placeholder, :pattern, :readonly]
+    ATTRIBUTE_COMPONENTS = %i[html5 min_max maxlength minlength placeholder pattern readonly].freeze
 
     extend MapType
     include SimpleForm::Inputs

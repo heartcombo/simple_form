@@ -44,13 +44,13 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'input radio does not include for attribute by default' do
-    with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+    with_input_for @user, :gender, :radio_buttons, collection: %i[male female]
     assert_select 'label'
     assert_no_select 'label[for=user_gender]'
   end
 
   test 'input radio includes for attribute when giving as html option' do
-    with_input_for @user, :gender, :radio_buttons, collection: [:male, :female], label_html: { for: 'gender' }
+    with_input_for @user, :gender, :radio_buttons, collection: %i[male female], label_html: { for: 'gender' }
     assert_select 'label[for=gender]'
   end
 
@@ -62,7 +62,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'input allows overriding collection for radio types' do
-    with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :radio_buttons, collection: %w[Jose Carlos]
     assert_select 'input[type=radio][value=Jose]'
     assert_select 'input[type=radio][value=Carlos]'
     assert_select 'label.collection_radio_buttons[for=user_name_jose]', 'Jose'
@@ -71,9 +71,9 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input does automatic collection translation for radio types using defaults key' do
     store_translations(:en, simple_form: { options: { defaults: {
-      gender: { male: 'Male', female: 'Female'}
+      gender: { male: 'Male', female: 'Female' }
     } } } ) do
-      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+      with_input_for @user, :gender, :radio_buttons, collection: %i[male female]
       assert_select 'input[type=radio][value=male]'
       assert_select 'input[type=radio][value=female]'
       assert_select 'label.collection_radio_buttons[for=user_gender_male]', 'Male'
@@ -83,9 +83,9 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input does automatic collection translation for radio types using specific object key' do
     store_translations(:en, simple_form: { options: { user: {
-      gender: { male: 'Male', female: 'Female'}
+      gender: { male: 'Male', female: 'Female' }
     } } } ) do
-      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+      with_input_for @user, :gender, :radio_buttons, collection: %i[male female]
       assert_select 'input[type=radio][value=male]'
       assert_select 'input[type=radio][value=female]'
       assert_select 'label.collection_radio_buttons[for=user_gender_male]', 'Male'
@@ -98,7 +98,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       store_translations(:en, simple_form: { options: { user: {
         gender: { male_html: '<strong>Male</strong>', female_html: '<strong>Female</strong>' }
       } } } ) do
-        with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+        with_input_for @user, :gender, :radio_buttons, collection: %i[male female]
         assert_select 'input[type=radio][value=male]'
         assert_select 'input[type=radio][value=female]'
         assert_select 'label[for=user_gender_male] strong', 'Male'
@@ -112,7 +112,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       store_translations(:en, simple_form: { options: { user: {
         gender: { male_html: 'Male', female_html: 'Female' }
       } } } ) do
-        with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+        with_input_for @user, :gender, :radio_buttons, collection: %i[male female]
         assert_select 'input[type=radio][value=male]'
         assert_select 'input[type=radio][value=female]'
         assert_select 'label[for=user_gender_male]', 'Male'
@@ -123,7 +123,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input marks the current radio value by default' do
     @user.name = "Carlos"
-    with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :radio_buttons, collection: %w[Jose Carlos]
     assert_select 'input[type=radio][value=Carlos][checked=checked]'
   end
 
@@ -133,7 +133,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'input allows using a collection with text/value arrays' do
-    with_input_for @user, :name, :radio_buttons, collection: [['Jose', 'jose'], ['Carlos', 'carlos']]
+    with_input_for @user, :name, :radio_buttons, collection: [%w[Jose jose], %w[Carlos carlos]]
     assert_select 'input[type=radio][value=jose]'
     assert_select 'input[type=radio][value=carlos]'
     assert_select 'label.collection_radio_buttons', 'Jose'
@@ -141,14 +141,14 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'input allows using a collection with a Proc' do
-    with_input_for @user, :name, :radio_buttons, collection: Proc.new { ['Jose', 'Carlos' ] }
+    with_input_for @user, :name, :radio_buttons, collection: proc { %w[Jose Carlos] }
     assert_select 'label.collection_radio_buttons', 'Jose'
     assert_select 'label.collection_radio_buttons', 'Carlos'
   end
 
   test 'input allows overriding only label method for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose', 'Carlos'],
+                          collection: %w[Jose Carlos],
                           label_method: :upcase
     assert_select 'label.collection_radio_buttons', 'JOSE'
     assert_select 'label.collection_radio_buttons', 'CARLOS'
@@ -156,7 +156,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input allows overriding only value method for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose', 'Carlos'],
+                          collection: %w[Jose Carlos],
                           value_method: :upcase
     assert_select 'input[type=radio][value=JOSE]'
     assert_select 'input[type=radio][value=CARLOS]'
@@ -164,7 +164,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input allows overriding label and value method for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose', 'Carlos'],
+                          collection: %w[Jose Carlos],
                           label_method: :upcase,
                           value_method: :downcase
     assert_select 'input[type=radio][value=jose]'
@@ -175,9 +175,9 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input allows overriding label and value method using a lambda for collections' do
     with_input_for @user, :name, :radio_buttons,
-                          collection: ['Jose', 'Carlos'],
-                          label_method: lambda { |i| i.upcase },
-                          value_method: lambda { |i| i.downcase }
+                          collection: %w[Jose Carlos],
+                          label_method: ->(i) { i.upcase },
+                          value_method: ->(i) { i.downcase }
     assert_select 'input[type=radio][value=jose]'
     assert_select 'input[type=radio][value=carlos]'
     assert_select 'label.collection_radio_buttons', 'JOSE'
@@ -185,13 +185,13 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   end
 
   test 'collection input with radio type generates required html attribute' do
-    with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :radio_buttons, collection: %w[Jose Carlos]
     assert_select 'input[type=radio].required'
     assert_select 'input[type=radio][required]'
   end
 
   test 'collection input with radio type generates aria-required html attribute' do
-    with_input_for @user, :name, :radio_buttons, collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :radio_buttons, collection: %w[Jose Carlos]
     assert_select 'input[type=radio].required'
     assert_select 'input[type=radio][aria-required=true]'
   end
@@ -388,7 +388,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input radio wrapper class are not included when set to falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
-      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female]
+      with_input_for @user, :gender, :radio_buttons, collection: %i[male female]
 
       assert_no_select 'label.radio'
     end
@@ -396,7 +396,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
 
   test 'input radio custom wrapper class is included when include input wrapper class is falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
-      with_input_for @user, :gender, :radio_buttons, collection: [:male, :female], item_wrapper_class: 'custom'
+      with_input_for @user, :gender, :radio_buttons, collection: %i[male female], item_wrapper_class: 'custom'
 
       assert_no_select 'label.radio'
       assert_select 'span.custom'
@@ -406,7 +406,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   test 'input radio with nested style and namespace uses the right for attribute' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_concat_form_for @user, namespace: :foo do |f|
-        concat f.input :gender, as: :radio_buttons, collection: [:male, :female]
+        concat f.input :gender, as: :radio_buttons, collection: %i[male female]
       end
 
       assert_select 'label[for=foo_user_gender_male]'
@@ -417,7 +417,7 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
   test 'input radio with nested style and index uses the right for attribute' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_concat_form_for @user, index: 1 do |f|
-        concat f.input :gender, as: :radio_buttons, collection: [:male, :female]
+        concat f.input :gender, as: :radio_buttons, collection: %i[male female]
       end
 
       assert_select 'label[for=user_1_gender_male]'

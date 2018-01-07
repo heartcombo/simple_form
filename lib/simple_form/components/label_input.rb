@@ -21,7 +21,7 @@ module SimpleForm
       def deprecated_component(namespace, wrapper_options)
         method = method(namespace)
 
-        if method.arity == 0
+        if method.arity.zero?
           ActiveSupport::Deprecation.warn(SimpleForm::CUSTOM_INPUT_DEPRECATION_WARN % { name: namespace })
 
           method.call
