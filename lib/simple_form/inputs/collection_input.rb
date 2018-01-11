@@ -46,7 +46,7 @@ module SimpleForm
 
       # Check if :include_blank must be included by default.
       def skip_include_blank?
-        (options.keys & [:prompt, :include_blank, :default, :selected]).any? || multiple?
+        (options.keys & %i[prompt include_blank default selected]).any? || multiple?
       end
 
       def multiple?
@@ -90,7 +90,7 @@ module SimpleForm
       end
 
       def detect_collection_classes(some_collection = collection)
-        some_collection.map { |e| e.class }.uniq
+        some_collection.map(&:class).uniq
       end
 
       def collection_includes_basic_objects?(collection_classes)

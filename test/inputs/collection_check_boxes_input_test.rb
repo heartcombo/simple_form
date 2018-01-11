@@ -8,33 +8,33 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
   end
 
   test 'input check boxes does not include for attribute by default' do
-    with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
+    with_input_for @user, :gender, :check_boxes, collection: %i[male female]
     assert_select 'label'
     assert_no_select 'label[for=user_gender]'
   end
 
   test 'input check boxes includes for attribute when giving as html option' do
-    with_input_for @user, :gender, :check_boxes, collection: [:male, :female], label_html: { for: 'gender' }
+    with_input_for @user, :gender, :check_boxes, collection: %i[male female], label_html: { for: 'gender' }
     assert_select 'label[for=gender]'
   end
 
   test 'collection input with check_boxes type does not generate required html attribute' do
-    with_input_for @user, :name, :check_boxes, collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :check_boxes, collection: %w[Jose Carlos]
     assert_select 'input.required'
     assert_no_select 'input[required]'
   end
 
   test 'collection input with check_boxes type does not generate aria-required html attribute' do
-    with_input_for @user, :name, :check_boxes, collection: ['Jose', 'Carlos']
+    with_input_for @user, :name, :check_boxes, collection: %w[Jose Carlos]
     assert_select 'input.required'
     assert_no_select 'input[aria-required]'
   end
 
   test 'input does automatic collection translation for check_box types using defaults key' do
     store_translations(:en, simple_form: { options: { defaults: {
-      gender: { male: 'Male', female: 'Female'}
+      gender: { male: 'Male', female: 'Female' }
     } } } ) do
-      with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
+      with_input_for @user, :gender, :check_boxes, collection: %i[male female]
       assert_select 'input[type=checkbox][value=male]'
       assert_select 'input[type=checkbox][value=female]'
       assert_select 'label.collection_check_boxes', 'Male'
@@ -44,9 +44,9 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
 
   test 'input does automatic collection translation for check_box types using specific object key' do
     store_translations(:en, simple_form: { options: { user: {
-      gender: { male: 'Male', female: 'Female'}
+      gender: { male: 'Male', female: 'Female' }
     } } } ) do
-      with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
+      with_input_for @user, :gender, :check_boxes, collection: %i[male female]
       assert_select 'input[type=checkbox][value=male]'
       assert_select 'input[type=checkbox][value=female]'
       assert_select 'label.collection_check_boxes', 'Male'
@@ -56,11 +56,11 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
 
   test 'input that uses automatic collection translation for check_boxes properly sets checked values' do
     store_translations(:en, simple_form: { options: { defaults: {
-      gender: { male: 'Male', female: 'Female'}
+      gender: { male: 'Male', female: 'Female' }
     } } } ) do
       @user.gender = 'male'
 
-      with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
+      with_input_for @user, :gender, :check_boxes, collection: %i[male female]
       assert_select 'input[type=checkbox][value=male][checked=checked]'
       assert_select 'input[type=checkbox][value=female]'
       assert_select 'label.collection_check_boxes', 'Male'
@@ -265,7 +265,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
 
   test 'input check boxes wrapper class are not included when set to falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
-      with_input_for @user, :gender, :check_boxes, collection: [:male, :female]
+      with_input_for @user, :gender, :check_boxes, collection: %i[male female]
 
       assert_no_select 'label.checkbox'
     end
@@ -273,7 +273,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
 
   test 'input check boxes custom wrapper class is included when include input wrapper class is falsey' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
-      with_input_for @user, :gender, :check_boxes, collection: [:male, :female], item_wrapper_class: 'custom'
+      with_input_for @user, :gender, :check_boxes, collection: %i[male female], item_wrapper_class: 'custom'
 
       assert_no_select 'label.checkbox'
       assert_select 'span.custom'
@@ -283,7 +283,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
   test 'input check boxes with nested style and namespace uses the right for attribute' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_concat_form_for @user, namespace: :foo do |f|
-        concat f.input :gender, as: :check_boxes, collection: [:male, :female]
+        concat f.input :gender, as: :check_boxes, collection: %i[male female]
       end
 
       assert_select 'label[for=foo_user_gender_male]'
@@ -294,7 +294,7 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
   test 'input check boxes with nested style and index uses the right for attribute' do
     swap SimpleForm, include_default_input_wrapper_class: false, boolean_style: :nested do
       with_concat_form_for @user, index: 1 do |f|
-        concat f.input :gender, as: :check_boxes, collection: [:male, :female]
+        concat f.input :gender, as: :check_boxes, collection: %i[male female]
       end
 
       assert_select 'label[for=user_1_gender_male]'

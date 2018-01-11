@@ -60,11 +60,11 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # Series of attemps to detect a default label method for collection.
   mattr_accessor :collection_label_methods
-  @@collection_label_methods = [:to_label, :name, :title, :to_s]
+  @@collection_label_methods = %i[to_label name title to_s]
 
   # Series of attemps to detect a default value method for collection.
   mattr_accessor :collection_value_methods
-  @@collection_value_methods = [:id, :to_s]
+  @@collection_value_methods = %i[id to_s]
 
   # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
   mattr_accessor :collection_wrapper_tag
@@ -86,7 +86,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # How the label text should be generated altogether with the required text.
   mattr_accessor :label_text
-  @@label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
+  @@label_text = ->(label, required, explicit_label) { "#{required} #{label}" }
 
   # You can define the class to be used on all labels. Defaults to none.
   mattr_accessor :label_class
@@ -110,7 +110,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # You can define which elements should obtain additional classes.
   mattr_accessor :generate_additional_classes_for
-  @@generate_additional_classes_for = [:wrapper, :label, :input]
+  @@generate_additional_classes_for = %i[wrapper label input]
 
   # Whether attributes are required by default or not.
   mattr_accessor :required_by_default
@@ -122,7 +122,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
-  @@file_methods = [:mounted_as, :file?, :public_filename]
+  @@file_methods = %i[mounted_as file? public_filename]
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name

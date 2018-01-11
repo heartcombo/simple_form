@@ -178,7 +178,7 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'label does not have css class from type when generate_additional_classes_for does not include :label' do
-    swap SimpleForm, generate_additional_classes_for: [:wrapper, :input] do
+    swap SimpleForm, generate_additional_classes_for: %i[wrapper input] do
       with_label_for @user, :name, :string
       assert_no_select 'label.string'
       with_label_for @user, :description, :text
@@ -193,7 +193,7 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'label does not generate empty css class' do
-    swap SimpleForm, generate_additional_classes_for: [:wrapper, :input] do
+    swap SimpleForm, generate_additional_classes_for: %i[wrapper input] do
       with_label_for @user, :name, :string
       assert_no_select 'label[class]'
     end
@@ -207,7 +207,7 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'label does not obtain required from ActiveModel::Validations when generate_additional_classes_for does not include :label' do
-    swap SimpleForm, generate_additional_classes_for: [:wrapper, :input] do
+    swap SimpleForm, generate_additional_classes_for: %i[wrapper input] do
       with_label_for @validating_user, :name, :string
       assert_no_select 'label.required'
       with_label_for @validating_user, :status, :string
@@ -290,7 +290,7 @@ class IsolatedLabelTest < ActionView::TestCase
   end
 
   test 'label includes for attribute for select collection' do
-    with_label_for @user, :sex, :select, collection: [:male, :female]
+    with_label_for @user, :sex, :select, collection: %i[male female]
     assert_select 'label[for=user_sex]'
   end
 

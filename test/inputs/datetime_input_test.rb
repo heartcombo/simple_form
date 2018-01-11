@@ -151,26 +151,26 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
   end
 
   test 'label uses i18n to get target for date input type' do
-    store_translations(:en, date: { order: ['month', 'day', 'year'] }) do
+    store_translations(:en, date: { order: %w[month day year] }) do
       with_input_for :project, :created_at, :date, html5: false
       assert_select 'label[for=project_created_at_2i]'
     end
   end
 
   test 'label uses i18n to get target for datetime input type' do
-    store_translations(:en, date: { order: ['month', 'day', 'year'] }) do
+    store_translations(:en, date: { order: %w[month day year] }) do
       with_input_for :project, :created_at, :datetime, html5: false
       assert_select 'label[for=project_created_at_2i]'
     end
   end
 
   test 'label uses order to get target when date input type' do
-    with_input_for :project, :created_at, :date, order: ['month', 'year', 'day'], html5: false
+    with_input_for :project, :created_at, :date, order: %w[month year day], html5: false
     assert_select 'label[for=project_created_at_2i]'
   end
 
   test 'label uses order to get target when datetime input type' do
-    with_input_for :project, :created_at, :datetime, order: ['month', 'year', 'day'], html5: false
+    with_input_for :project, :created_at, :datetime, order: %w[month year day], html5: false
     assert_select 'label[for=project_created_at_2i]'
   end
 

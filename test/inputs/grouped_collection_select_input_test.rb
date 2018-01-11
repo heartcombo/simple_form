@@ -5,7 +5,7 @@ require 'test_helper'
 class GroupedCollectionSelectInputTest < ActionView::TestCase
   test 'grouped collection accepts array collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
-      collection: [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]],
+      collection: [['Authors', %w[Jose Carlos]], ['General', %w[Bob John]]],
       group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
@@ -32,7 +32,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts proc as collection' do
     with_input_for @user, :tag_ids, :grouped_select,
-      collection: Proc.new { [['Authors', ['Jose', 'Carlos']], ['General', ['Bob', 'John']]] },
+      collection: proc { [['Authors', %w[Jose Carlos]], ['General', %w[Bob John]]] },
       group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
@@ -50,7 +50,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts hash collection form' do
     with_input_for @user, :tag_ids, :grouped_select,
-      collection: { 'Authors' => ['Jose', 'Carlos'], 'General' => ['Bob', 'John'] },
+      collection: { Authors: %w[Jose Carlos], General: %w[Bob John] },
       group_method: :last
 
     assert_select 'select.grouped_select#user_tag_ids' do
@@ -68,7 +68,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts group_label_method option' do
     with_input_for @user, :tag_ids, :grouped_select,
-      collection: { ['Jose', 'Carlos'] => 'Authors' },
+      collection: { %w[Jose Carlos] => 'Authors' },
       group_method: :first,
       group_label_method: :last
 
@@ -81,7 +81,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
   end
 
   test 'grouped collection finds default label methods on the group objects' do
-    option_list = ['Jose', 'Carlos']
+    option_list = %w[Jose Carlos]
 
     GroupedClass = Struct.new(:to_label, :options)
     group = GroupedClass.new("Authors", option_list)
@@ -118,7 +118,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection accepts label and value methods options' do
     with_input_for @user, :tag_ids, :grouped_select,
-      collection: { 'Authors' => ['Jose', 'Carlos'] },
+      collection: { Authors: %w[Jose Carlos] },
       group_method: :last,
       label_method: :upcase,
       value_method: :downcase
@@ -133,10 +133,10 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
 
   test 'grouped collection allows overriding label and value methods using a lambda' do
     with_input_for @user, :tag_ids, :grouped_select,
-      collection: { 'Authors' => ['Jose', 'Carlos'] },
+      collection: { Authors: %w[Jose Carlos] },
       group_method: :last,
-      label_method: lambda { |i| i.upcase },
-      value_method: lambda { |i| i.downcase }
+      label_method: ->(i) { i.upcase },
+      value_method: ->(i) { i.downcase }
 
     assert_select 'select.grouped_select#user_tag_ids' do
       assert_select 'optgroup[label=Authors]' do
@@ -149,7 +149,7 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
   test 'grouped collection with associations' do
     tag_groups = [
       TagGroup.new(1, "Group of Tags", [Tag.new(1, "Tag 1"), Tag.new(2, "Tag 2")]),
-      TagGroup.new(2, "Other group", [Tag.new(3, "Tag 3"), Tag.new(4,"Tag 4")])
+      TagGroup.new(2, "Other group", [Tag.new(3, "Tag 3"), Tag.new(4, "Tag 4")])
     ]
 
     with_input_for @user, :tag_ids, :grouped_select,

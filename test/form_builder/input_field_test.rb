@@ -113,7 +113,7 @@ class InputFieldTest < ActionView::TestCase
   end
 
   test 'builder collection input_field generates input tag with a clean HTML' do
-    with_input_field_for @user, :status, collection: ['Open', 'Closed'],
+    with_input_field_for @user, :status, collection: %w[Open Closed],
       class: 'status', label_method: :to_s, value_method: :to_s
 
     assert_no_select 'select.status[input_html]'

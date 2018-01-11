@@ -13,7 +13,7 @@ module SimpleForm
       'update' => 'edit'
     }
 
-    ATTRIBUTE_COMPONENTS = [:html5, :min_max, :maxlength, :minlength, :placeholder, :pattern, :readonly]
+    ATTRIBUTE_COMPONENTS = %i[html5 min_max maxlength minlength placeholder pattern readonly]
 
     extend MapType
     include SimpleForm::Inputs

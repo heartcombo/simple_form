@@ -20,7 +20,7 @@ module SimpleForm
       private
 
       def html_options(options)
-        [:label, :input].include?(namespace) ? {} : super
+        %i[label input].include?(namespace) ? {} : super
       end
     end
   end

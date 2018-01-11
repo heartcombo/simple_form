@@ -235,12 +235,12 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder with collection support does not change the options hash' do
-    options = { as: :check_boxes, collection_wrapper_tag: :ul, item_wrapper_tag: :li}
+    options = { as: :check_boxes, collection_wrapper_tag: :ul, item_wrapper_tag: :li }
     with_association_for @user, :tags, options
 
     assert_select 'form ul', count: 1
     assert_select 'form ul li', count: 3
-    assert_equal({ as: :check_boxes, collection_wrapper_tag: :ul, item_wrapper_tag: :li},
+    assert_equal({ as: :check_boxes, collection_wrapper_tag: :ul, item_wrapper_tag: :li },
                  options)
   end
 end

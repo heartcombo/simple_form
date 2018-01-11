@@ -120,12 +120,12 @@ class InputTest < ActionView::TestCase
   end
 
   test 'input as select with collection is generated properly when object is not present' do
-    with_input_for :project, :name, :select, collection: ['Jose', 'Carlos']
+    with_input_for :project, :name, :select, collection: %w[Jose Carlos]
     assert_select 'select.select#project_name'
   end
 
   test 'input does not generate empty css class' do
-    swap SimpleForm, generate_additional_classes_for: [:wrapper, :label] do
+    swap SimpleForm, generate_additional_classes_for: %i[wrapper label] do
       with_input_for :project, :name, :string
       assert_no_select 'input#project_name[class]'
     end

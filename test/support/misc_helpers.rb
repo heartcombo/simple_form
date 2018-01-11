@@ -182,7 +182,7 @@ module MiscHelpers
   end
 
   def custom_wrapper_with_label_text
-    SimpleForm.build :label_text => proc { |label, required| "**#{label}**" } do |b|
+    SimpleForm.build label_text: proc { |label, required| "**#{label}**" } do |b|
       b.use :label_input
     end
   end
