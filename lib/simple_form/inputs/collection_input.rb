@@ -2,7 +2,7 @@
 module SimpleForm
   module Inputs
     class CollectionInput < Base
-      BASIC_OBJECT_CLASSES = [String, Integer, Float, NilClass, Symbol, TrueClass, FalseClass].freeze
+      BASIC_OBJECT_CLASSES = [String, Integer, Float, NilClass, Symbol, TrueClass, FalseClass]
       BASIC_OBJECT_CLASSES.push(Fixnum, Bignum) unless 1.class == Integer
 
       # Default boolean collection for use with selects/radios when no
