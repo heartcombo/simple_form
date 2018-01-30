@@ -325,8 +325,18 @@ Collection inputs accept two other options beside collections:
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
 translation. You can also define a `to_label` method on your model as **Simple Form** will search for
-and use `:to_label` as a `:label_method` first if it is found. All other options given are sent
-straight to the underlying helper. For example, you can give prompt as:
+and use `:to_label` as a `:label_method` first if it is found. 
+
+By default, **Simple Form** will use the first item from an array as the label and the second one as the value.
+If you want to change this behavior you must make it explicit, like this:
+
+```erb
+<%= simple_form_for @user do |f| %>
+  <%= f.input :gender, as: :radio_buttons, collection: [['0', 'female'], ['1', 'male']], label_method: :second, value_method: :first %>
+<% end %>
+```
+
+All other options given are sent straight to the underlying helper. For example, you can give prompt as:
 
 ```ruby
 f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
