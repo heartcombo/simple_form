@@ -424,4 +424,19 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       assert_select 'label[for=user_1_gender_female]'
     end
   end
+
+  test 'input radio with nested style accetps non-string attribute as label' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :amount,
+                            :radio_buttons,
+                            collection: { 100 => 'hundred', 200 => 'two_hundred' },
+                            label_method: :first,
+                            value_method: :second
+
+      assert_select 'input[type=radio][value=hundred]'
+      assert_select 'input[type=radio][value=two_hundred]'
+      assert_select 'span.radio > label', '100'
+      assert_select 'span.radio > label', '200'
+    end
+  end
 end
