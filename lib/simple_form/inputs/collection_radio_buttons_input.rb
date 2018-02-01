@@ -41,7 +41,7 @@ module SimpleForm
       end
 
       def build_nested_boolean_style_item_tag(collection_builder)
-        collection_builder.radio_button + collection_builder.text
+        collection_builder.radio_button + collection_builder.text.to_s
       end
 
       def item_wrapper_class
