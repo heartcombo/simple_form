@@ -13,6 +13,7 @@
 * Check if Rails.env is defined. [@etagwerker](https://github.com/etagwerker)
 * Fix minlength. [@mameier](https://github.com/mameier)
 * Make errors_on_attribute return [] when not present. [@redrick](https://github.com/redrick)
+* Fix boolean inputs in nested style for label non-string. [@feliperenan](https://github.com/feliperenan)
 
 ## 3.5.0
 
