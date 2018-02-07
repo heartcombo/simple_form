@@ -7,6 +7,7 @@ platforms :rbx do
   gem 'rubinius-developer_tools'
 end
 
-gem 'country_select', '~> 2.5.2'
-gem 'railties'
+gem 'activemodel', '~> 5.2.0.rc1'
+gem 'country_select', '~> 3.1.1'
+gem 'railties', '~> 5.2.0.rc1'
 gem 'rake'

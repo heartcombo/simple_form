@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     simple_form (3.5.0)
-      actionpack (>= 5.2.0.rc1, < 6)
-      activemodel (>= 5.2.0.rc1, < 6)
+      actionpack (> 4, < 6)
+      activemodel (> 4, < 6)
 
 GEM
   remote: https://rubygems.org/
@@ -291,6 +291,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel (~> 5.2.0.rc1)
   country_select (~> 3.1.1)
   railties (~> 5.2.0.rc1)
   rake
