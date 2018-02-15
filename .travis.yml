@@ -10,9 +10,6 @@ rvm:
   - ruby-head
   - jruby-9.1.14.0
 gemfile:
-  - gemfiles/Gemfile.rails-4-0-stable
-  - gemfiles/Gemfile.rails-4-1-stable
-  - gemfiles/Gemfile.rails-4-2-stable
   - gemfiles/Gemfile.rails-5-0-stable
   - gemfiles/Gemfile.rails-5-1-stable
   - Gemfile
@@ -24,10 +21,6 @@ matrix:
       gemfile: Gemfile
     - rvm: 2.1.10
       gemfile: Gemfile
-    - rvm: 2.4.0
-      gemfile: gemfiles/Gemfile.rails-4-1-stable # activesupport 4.1 depends on json 1.8.3 which does not compile with Ruby 2.4.0
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.rails-4-1-stable # activesupport 4.1 depends on json 1.8.3 which does not compile with Ruby 2.4.0
     - rvm: jruby-9.1.14.0
       gemfile: Gemfile
     - rvm: 1.9.3
