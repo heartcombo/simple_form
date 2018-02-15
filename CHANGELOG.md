@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.5.1
+
 ### Enhancements
 * Exclude hidden field when unchecked_value: false. [@fschwahn](https://github.com/fschwahn)
 * Add frozen_string_literal magic comment to several files. [@oniofchaos](https://github.com/oniofchaos)
