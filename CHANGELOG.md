@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Remove support from Rails 4.0, 4.1 and 4.2 [@feliperenan](https://github.com/feliperenan)
+
 ## 3.5.1
 
 ### Enhancements
