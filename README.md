@@ -1049,6 +1049,76 @@ by passing the html5 option:
 <%= f.input :expires_at, as: :date, html5: true %>
 ```
 
+### Using non Active Record objects
+
+There are few ways to build forms with objects that don't inherit from Active Record, as 
+follow:
+
+You can include the module `ActiveModel::Model`.
+
+```ruby
+class User
+  include ActiveModel::Model
+
+  attr_accessor :id, :name
+end
+```
+
+If you are using Presenters or Decorators that inherit from `SimpleDelegator` you can delegate 
+it to the model.
+
+```ruby
+class UserPresenter < SimpleDelegator
+  # Without that, Simple Form will consider the user model as the object.
+  def to_model 
+    self 
+  end
+end
+```
+
+You can define all methods required by the helpers.
+
+```ruby
+class User 
+  extend ActiveModel::Naming
+
+  attr_accessor :id, :name
+
+  def to_model
+    self
+  end
+
+  def to_key 
+    id 
+  end
+
+  def persisted? 
+    false 
+  end
+end
+```
+
+If your object doesn't implement those methods, you must make explicit it when you are 
+building the form
+
+```ruby
+class User 
+  attr_accessor :id, :name
+
+  # The only method required to use the f.submit helper.
+  def persisted? 
+    false
+  end
+end
+```
+
+```erb
+<%= simple_form_for(@user, as: :user, method: :post, url: users_path) f| %>
+  <%= f.input :name %> 
+  <%= f.submit 'New user' %>
+<% end %>
+```
+
 ## Information
 
 ### Google Group
