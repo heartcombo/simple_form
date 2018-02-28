@@ -8,6 +8,9 @@
 * Exclude hidden field when unchecked_value: false. [@fschwahn](https://github.com/fschwahn)
 * Add frozen_string_literal magic comment to several files. [@oniofchaos](https://github.com/oniofchaos)
 * Try convert @object to model in case we got decorated object [@timurvafin](https://github.com/timurvafin)
+- From now, if you are using some object that inherits from `SimpleDelegator`, you must implement
+  `def to_model; self; end`. Otherwise, *Simple Form* will convert the decorated object to the model 
+  since `SimpleDelegator` will delegate it to the model.
 * Code cleanup [@Fornacula](https://github.com/Fornacula)
 
 ### Bug fix
