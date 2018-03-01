@@ -32,7 +32,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper :label_wrapper, tag: :div, class: 'small-3 columns' do |ba|
-      ba.use :label, class: 'right inline'
+      ba.use :label, class: 'text-right inline'
     end
 
     b.wrapper :right_input_wrapper, tag: :div, class: 'small-9 columns' do |ba|
