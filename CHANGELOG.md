@@ -5,6 +5,7 @@
 ### Bug fix
 * Fix horizontal form label position, from right to text-right. [@cavpollo](https://github.com/cavpollo)
 * Add base error display alongside existing errors. [@bluefalcon26](https://github.com/bluefalcon26)
+* Silent deprication warning for placeholder_text. [@moofkit](https://github.com/moofkit)
 
 ## 3.5.1
 
