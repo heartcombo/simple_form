@@ -191,6 +191,8 @@ module SimpleForm
 
       def merge_wrapper_options(options, wrapper_options)
         if wrapper_options
+          wrapper_options = set_input_classes(wrapper_options)
+
           wrapper_options.merge(options) do |key, oldval, newval|
             case key.to_s
             when "class"
@@ -204,6 +206,17 @@ module SimpleForm
         else
           options
         end
+      end
+
+      def set_input_classes(wrapper_options)
+        wrapper_options = wrapper_options.dup
+        error_class     = wrapper_options.delete(:error_class)
+
+        if error_class.present? && has_errors?
+          wrapper_options[:class] = "#{wrapper_options[:class]} #{error_class}"
+        end
+
+        wrapper_options
       end
 
       def i18n_scope
