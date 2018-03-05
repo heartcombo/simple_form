@@ -38,6 +38,18 @@ class WrapperTest < ActionView::TestCase
     assert_select 'div.field_with_errors'
   end
 
+  test 'wrapper adds error class to input for attribute with errors' do
+    with_form_for @user, :name, wrapper: custom_wrapper_with_input_error_class
+    assert_select 'div.field_with_errors'
+    assert_select 'input.is-invalid'
+  end
+
+  test 'wrapper does not add error class to input when the attribute is valid' do
+    with_form_for @user, :phone_number, wrapper: custom_wrapper_with_input_error_class
+    assert_no_select 'div.field_with_errors'
+    assert_no_select 'input.is-invalid'
+  end
+
   test 'wrapper adds hint class for attribute with a hint' do
     with_form_for @user, :name, hint: 'hint'
     assert_select 'div.field_with_hint'

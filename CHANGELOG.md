@@ -1,6 +1,7 @@
 ## Unreleased
 
-* Remove support from Rails 4.0, 4.1 and 4.2 [@feliperenan](https://github.com/feliperenan)
+* Allow custom errors classes to inputs . [@feliperenan](https://github.com/feliperenan)
+* Remove support from Rails 4.0, 4.1 and 4.2. [@feliperenan](https://github.com/feliperenan)
 
 ### Bug fix
 * Fix horizontal form label position, from right to text-right. [@cavpollo](https://github.com/cavpollo)
