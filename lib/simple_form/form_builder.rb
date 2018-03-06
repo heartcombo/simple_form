@@ -18,20 +18,20 @@ module SimpleForm
     extend MapType
     include SimpleForm::Inputs
 
-    map_type :text,                                       to: SimpleForm::Inputs::TextInput
-    map_type :file,                                       to: SimpleForm::Inputs::FileInput
-    map_type :string, :email, :search, :tel, :url, :uuid, to: SimpleForm::Inputs::StringInput
-    map_type :password,                                   to: SimpleForm::Inputs::PasswordInput
-    map_type :integer, :decimal, :float,                  to: SimpleForm::Inputs::NumericInput
-    map_type :range,                                      to: SimpleForm::Inputs::RangeInput
-    map_type :check_boxes,                                to: SimpleForm::Inputs::CollectionCheckBoxesInput
-    map_type :radio_buttons,                              to: SimpleForm::Inputs::CollectionRadioButtonsInput
-    map_type :select,                                     to: SimpleForm::Inputs::CollectionSelectInput
-    map_type :grouped_select,                             to: SimpleForm::Inputs::GroupedCollectionSelectInput
-    map_type :date, :time, :datetime,                     to: SimpleForm::Inputs::DateTimeInput
-    map_type :country, :time_zone,                        to: SimpleForm::Inputs::PriorityInput
-    map_type :boolean,                                    to: SimpleForm::Inputs::BooleanInput
-    map_type :hidden,                                     to: SimpleForm::Inputs::HiddenInput
+    map_type :text, :hstore, :json, :jsonb,                        to: SimpleForm::Inputs::TextInput
+    map_type :file,                                                to: SimpleForm::Inputs::FileInput
+    map_type :string, :email, :search, :tel, :url, :uuid, :citext, to: SimpleForm::Inputs::StringInput
+    map_type :password,                                            to: SimpleForm::Inputs::PasswordInput
+    map_type :integer, :decimal, :float,                           to: SimpleForm::Inputs::NumericInput
+    map_type :range,                                               to: SimpleForm::Inputs::RangeInput
+    map_type :check_boxes,                                         to: SimpleForm::Inputs::CollectionCheckBoxesInput
+    map_type :radio_buttons,                                       to: SimpleForm::Inputs::CollectionRadioButtonsInput
+    map_type :select,                                              to: SimpleForm::Inputs::CollectionSelectInput
+    map_type :grouped_select,                                      to: SimpleForm::Inputs::GroupedCollectionSelectInput
+    map_type :date, :time, :datetime,                              to: SimpleForm::Inputs::DateTimeInput
+    map_type :country, :time_zone,                                 to: SimpleForm::Inputs::PriorityInput
+    map_type :boolean,                                             to: SimpleForm::Inputs::BooleanInput
+    map_type :hidden,                                              to: SimpleForm::Inputs::HiddenInput
 
     def self.discovery_cache
       @discovery_cache ||= {}
@@ -527,7 +527,7 @@ module SimpleForm
       case input_type
       when :timestamp
         :datetime
-      when :string, nil
+      when :string, :citext, nil
         case attribute_name.to_s
         when /password/  then :password
         when /time_zone/ then :time_zone

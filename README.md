@@ -555,6 +555,7 @@ Mapping         | Generated HTML Element               | Database Column Type
 --------------- |--------------------------------------|---------------------
 `boolean`       | `input[type=checkbox]`               | `boolean`
 `string`        | `input[type=text]`                   | `string`
+`citext`        | `input[type=text]`                   | `citext`
 `email`         | `input[type=email]`                  | `string` with `name =~ /email/`
 `url`           | `input[type=url]`                    | `string` with `name =~ /url/`
 `tel`           | `input[type=tel]`                    | `string` with `name =~ /phone/`
@@ -562,6 +563,9 @@ Mapping         | Generated HTML Element               | Database Column Type
 `search`        | `input[type=search]`                 | -
 `uuid`          | `input[type=text]`                   | `uuid`
 `text`          | `textarea`                           | `text`
+`hstore`        | `textarea`                           | `hstore`
+`json`          | `textarea`                           | `json`
+`jsonb`         | `textarea`                           | `jsonb`
 `file`          | `input[type=file]`                   | `string` responding to file methods
 `hidden`        | `input[type=hidden]`                 | -
 `integer`       | `input[type=number]`                 | `integer`
