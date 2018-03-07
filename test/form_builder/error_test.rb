@@ -273,8 +273,6 @@ class ErrorTest < ActionView::TestCase
     end
   end
 
-  # NO ERRORS
-
   test 'input wrapper has valid class for present attribute without errors' do
     @user.instance_eval do
       undef errors
