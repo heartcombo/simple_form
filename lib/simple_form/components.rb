@@ -12,6 +12,7 @@ module SimpleForm
     autoload :Errors
     autoload :Hints
     autoload :HTML5
+    autoload :InputGroups
     autoload :LabelInput
     autoload :Labels
     autoload :MinMax
