@@ -242,6 +242,7 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder generates file for file columns' do
     @user.avatar = MiniTest::Mock.new
     @user.avatar.expect(:public_filename, true)
+    @user.avatar.expect(:!, false)
 
     with_form_for @user, :avatar
     assert_select 'form input#user_avatar.file'
@@ -250,6 +251,7 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder generates file for attributes that are real db columns but have file methods' do
     @user.home_picture = MiniTest::Mock.new
     @user.home_picture.expect(:mounted_as, true)
+    @user.home_picture.expect(:!, false)
 
     with_form_for @user, :home_picture
     assert_select 'form input#user_home_picture.file'

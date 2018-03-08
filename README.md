@@ -856,7 +856,8 @@ The syntax looks like this:
 
 ```ruby
 config.wrappers tag: :div, class: :input,
-                error_class: :field_with_errors do |b|
+                error_class: :field_with_errors,
+                valid_class: :field_without_errors do |b|
 
   # Form extensions
   b.use :html5

@@ -30,6 +30,7 @@ module SimpleForm
         end
         css << (options[:wrapper_error_class] || @defaults[:error_class]) if input.has_errors?
         css << (options[:wrapper_hint_class] || @defaults[:hint_class]) if input.has_hint?
+        css << (options[:wrapper_valid_class] || @defaults[:valid_class]) if input.valid?
         css.compact
       end
     end
