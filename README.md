@@ -1118,7 +1118,7 @@ end
 ```
 
 ```erb
-<%= simple_form_for(@user, as: :user, method: :post, url: users_path) f| %>
+<%= simple_form_for(@user, as: :user, method: :post, url: users_path) do |f| %>
   <%= f.input :name %> 
   <%= f.submit 'New user' %>
 <% end %>
