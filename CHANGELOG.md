@@ -1,6 +1,7 @@
 ## Unreleased
 
-* Allow custom errors classes to inputs . [@feliperenan](https://github.com/feliperenan)
+* Add API to register custom components.[@feliperenan](https://github.com/feliperenan)
+* Allow custom errors classes to inputs.[@feliperenan](https://github.com/feliperenan)
 * Remove support from Rails 4.0, 4.1 and 4.2. [@feliperenan](https://github.com/feliperenan)
 * Add support for citext, hstore, json & jsonb column types. [@swrobel](https://github.com/swrobel)
 
