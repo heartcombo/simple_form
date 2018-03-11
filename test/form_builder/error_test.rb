@@ -272,14 +272,4 @@ class ErrorTest < ActionView::TestCase
       assert_no_select 'span.error'
     end
   end
-
-  test 'input wrapper has valid class for present attribute without errors' do
-    @user.instance_eval do
-      undef errors
-      name = 'foo'
-    end
-
-    with_form_for @user, :name
-    assert_select '.input.field_without_errors'
-  end
 end
