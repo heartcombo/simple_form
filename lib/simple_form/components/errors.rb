@@ -15,9 +15,7 @@ module SimpleForm
       end
 
       def has_value?
-        return false unless object && object.respond_to?(attribute_name)
-
-        object.send(attribute_name).present?
+        object && object.respond_to?(attribute_name) && object.send(attribute_name).present?
       end
 
       def valid?
