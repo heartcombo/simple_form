@@ -216,7 +216,7 @@ module MiscHelpers
   def custom_wrapper_with_input_valid_class
     SimpleForm.build tag: :div, class: "custom_wrapper", valid_class: :field_without_errors do |b|
       b.use :label
-      b.use :input, class: 'inline-class'
+      b.use :input, class: 'inline-class', valid_class: 'is-valid'
     end
   end
 
