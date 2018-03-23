@@ -989,6 +989,92 @@ when the content is present.
   end
 ```
 
+## Custom Components
+
+When you use custom wrappers, you might also be looking for a way to add custom components to your 
+wrapper. The default components are:
+
+```ruby
+:label         # The <label> tag alone
+:input         # The <input> tag alone
+:label_input   # The <label> and the <input> tags
+:hint          # The hint for the input
+:error         # The error for the input
+```
+
+A custom component might be interesting for you if your views look something like this:
+
+```erb
+<%= simple_form_for @blog do |f| %>
+  <div class="row">
+    <div class="span1 number">
+      1
+    </div>
+    <div class="span8">
+      <%= f.input :title %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span1 number">
+      2
+    </div>
+    <div class="span8">
+      <%= f.input :body, as: :text %>
+    </div>
+  </div>
+<% end %>
+```
+
+A cleaner method to create your views would be:
+
+```erb
+<%= simple_form_for @blog, wrapper: :with_numbers do |f| %>
+  <%= f.input :title, number: 1 %>
+  <%= f.input :body, as: :text, number: 2 %>
+<% end %>
+```
+
+To use the number option on the input, first, tells to Simple Form the place where the components
+will be:
+
+``` ruby
+# config/initializers/simple_form.rb
+Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+```
+
+Create a new component within the path specified above:
+
+```ruby
+# lib/components/numbers_component.rb
+module NumbersComponent
+  # To avoid deprecation warning, you need to make the wrapper_options explicit
+  # even when they won't be used.
+  def number(wrapper_options = nil)
+    @number ||= begin
+      options[:number].to_s.html_safe if options[:number].present?
+    end
+  end
+end
+
+SimpleForm.include_component(NumbersComponent)
+```
+
+Finally, add a new wrapper to the config/initializers/simple_form.rb file:
+
+```ruby
+config.wrappers :with_numbers, tag: 'div', class: 'row', error_class: 'error' do |b|
+  b.use :html5
+  b.use :number, wrap_with: { tag: 'div', class: 'span1 number'}
+  b.wrapper tag: 'div', :class: 'span8' do |ba|
+    ba.use :placeholder
+    ba.use :label
+    ba.use :input
+    ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+    ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+end
+```
+
 ## HTML 5 Notice
 
 By default, **Simple Form** will generate input field types and attributes that are supported in HTML5,
