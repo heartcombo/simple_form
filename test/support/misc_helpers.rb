@@ -213,6 +213,13 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_input_valid_class
+    SimpleForm.build tag: :div, class: "custom_wrapper", valid_class: :field_without_errors do |b|
+      b.use :label
+      b.use :input, class: 'inline-class'
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end
