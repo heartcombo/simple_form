@@ -249,10 +249,28 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
+  test 'label uses custom i18n scope to find required text' do
+    store_translations(:en, my_scope: { required: { text: 'Pflichtfeld' } }) do
+      swap SimpleForm, i18n_scope: :my_scope do
+        with_label_for @user, :name, :string
+        assert_select 'form label abbr[title="Pflichtfeld"]', '*'
+      end
+    end
+  end
+
   test 'label uses i18n to find required mark' do
     store_translations(:en, simple_form: { required: { mark: '*-*' } }) do
       with_label_for @user, :name, :string
       assert_select 'form label abbr', '*-*'
+    end
+  end
+
+  test 'label uses custom i18n scope to find required mark' do
+    store_translations(:en, my_scope: { required: { mark: '!!' } }) do
+      swap SimpleForm, i18n_scope: :my_scope do
+        with_label_for @user, :name, :string
+        assert_select 'form label abbr', '!!'
+      end
     end
   end
 
@@ -261,6 +279,16 @@ class IsolatedLabelTest < ActionView::TestCase
       with_label_for @user, :name, :string
       assert_no_select 'form label abbr'
       assert_select 'form label span.required[title=requerido]', '*'
+    end
+  end
+
+  test 'label uses custom i18n scope to find required string tag' do
+    store_translations(:en, my_scope: { required: { html: '<span class="mandatory" title="Pflichtfeld">!!</span>' } }) do
+      swap SimpleForm, i18n_scope: :my_scope do
+        with_label_for @user, :name, :string
+        assert_no_select 'form label abbr'
+        assert_select 'form label span.mandatory[title=Pflichtfeld]', '!!'
+      end
     end
   end
 
