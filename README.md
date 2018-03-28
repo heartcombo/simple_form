@@ -906,12 +906,12 @@ You can customize _Form components_ passing options to them:
 
 ```ruby
 config.wrappers do |b|
-  b.use :label_input, class: 'label-input-class', error_class: 'is-invalid'
+  b.use :label_input, class: 'label-input-class', error_class: 'is-invalid', valid_class: 'is-valid'
 end
 ```
 
-This you set the input and label class to `'label-input-class'` and will set the class `'is-invalid'` 
-when the input has errors.
+This you set the input and label class to `'label-input-class'` and will set the class `'is-invalid'`
+when the input has errors and `'is-valid'` if the input is valid.
 
 If you want to customize the custom _Form components_ on demand you can give it a name like this:
 

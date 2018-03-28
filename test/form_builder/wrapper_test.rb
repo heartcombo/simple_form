@@ -54,7 +54,9 @@ class WrapperTest < ActionView::TestCase
     @user.instance_eval { undef errors }
     with_form_for @user, :name, wrapper: custom_wrapper_with_input_valid_class
     assert_select 'div.field_without_errors'
+    assert_select 'input.is-valid'
     assert_no_select 'div.field_with_errors'
+    assert_no_select 'input.is-invalid'
   end
 
   test 'wrapper adds hint class for attribute with a hint' do
