@@ -1066,7 +1066,7 @@ Finally, add a new wrapper to the config/initializers/simple_form.rb file:
 config.wrappers :with_numbers, tag: 'div', class: 'row', error_class: 'error' do |b|
   b.use :html5
   b.use :number, wrap_with: { tag: 'div', class: 'span1 number'}
-  b.wrapper tag: 'div', :class: 'span8' do |ba|
+  b.wrapper tag: 'div', class: 'span8' do |ba|
     ba.use :placeholder
     ba.use :label
     ba.use :input
