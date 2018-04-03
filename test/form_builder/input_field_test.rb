@@ -173,4 +173,29 @@ class InputFieldTest < ActionView::TestCase
       assert_select 'input[readonly="readonly"]'
     end
   end
+
+  test 'adds valid class to input_field when it is configured' do
+    swap SimpleForm, input_field_valid_class: 'is-valid' do
+      @user.instance_eval { undef errors }
+      with_input_field_for @user, :name
+
+      assert_select 'input.string.required.is-valid'
+    end
+  end
+
+  test 'adds error class to input_field when it is configured' do
+    swap SimpleForm, input_field_error_class: 'is-invalid' do
+      with_input_field_for @user, :name
+
+      assert_select 'input.string.required.is-invalid'
+    end
+  end
+
+  test 'does not add validation classes to input_field when it is not configured' do
+    swap SimpleForm, input_field_error_class: nil, input_field_valid_class: nil do
+      with_input_field_for @user, :name
+
+      assert_select 'input.string.required'
+    end
+  end
 end

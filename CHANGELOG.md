@@ -6,6 +6,7 @@
 * Add support for citext, hstore, json & jsonb column types. [@swrobel](https://github.com/swrobel)
 * Add :valid_class on input wrapper when value is present and valid [@aeberlin](https://github.com/aeberlin), [@m5o](https://github.com/m5o)
 * Allow :valid_class to inputs when value is present and valid. [@m5o](https://github.com/m5o)
+* Allow validation classes on input_field. [@feliperenan](https://github.com/feliperenan)
 
 ### Bug fix
 * Fix horizontal form label position, from right to text-right. [@cavpollo](https://github.com/cavpollo)

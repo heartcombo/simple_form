@@ -200,6 +200,12 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :i18n_scope
   @@i18n_scope = 'simple_form'
 
+  mattr_accessor :input_field_error_class
+  @@input_field_error_class = nil
+
+  mattr_accessor :input_field_valid_class
+  @@input_field_valid_class = nil
+
   # Retrieves a given wrapper
   def self.wrapper(name)
     @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
