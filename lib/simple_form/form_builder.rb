@@ -138,6 +138,29 @@ module SimpleForm
     #     <input class="string required" id="user_name" maxlength="100"
     #        name="user[name]" type="text" value="Carlos" />
     #
+    # It also support validation classes once it is configured.
+    #
+    #   # config/initializers/simple_form.rb
+    #   SimpleForm.setup do |config|
+    #     config.input_field_valid_class = 'is-valid'
+    #     config.input_field_error_class = 'is-invalid'
+    #   end
+    #
+    #   simple_form_for @user do |f|
+    #     f.input_field :name
+    #   end
+    #
+    # When the validation happens, the input will be rendered with
+    # the class configured according to the validation:
+    #
+    # - when the input is valid:
+    #
+    #     <input class="is-valid string required" id="user_name" value="Carlos" />
+    #
+    # - when the input is invalid:
+    #
+    #     <input class="is-invalid string required" id="user_name" value="" />
+    #
     def input_field(attribute_name, options = {})
       components = (wrapper.components.map(&:namespace) & ATTRIBUTE_COMPONENTS)
 
@@ -147,7 +170,7 @@ module SimpleForm
 
       input      = find_input(attribute_name, options)
       wrapper    = find_wrapper(input.input_type, options)
-      components = components.concat([:input]).map { |component| SimpleForm::Wrappers::Leaf.new(component) }
+      components = build_input_field_components(components.push(:input))
 
       SimpleForm::Wrappers::Root.new(components, wrapper.options.merge(wrapper: false)).render input
     end
@@ -645,6 +668,32 @@ module SimpleForm
       end
 
       nil
+    end
+
+    def build_input_field_components(components)
+      components.map do |component|
+        if component == :input
+          SimpleForm::Wrappers::Leaf.new(component, build_input_field_options)
+        else
+          SimpleForm::Wrappers::Leaf.new(component)
+        end
+      end
+    end
+
+    def build_input_field_options
+      input_field_options = {}
+      valid_class         = SimpleForm.input_field_valid_class
+      error_class         = SimpleForm.input_field_error_class
+
+      if error_class.present?
+        input_field_options[:error_class] = error_class
+      end
+
+      if valid_class.present?
+        input_field_options[:valid_class] = valid_class
+      end
+
+      input_field_options
     end
   end
 end
