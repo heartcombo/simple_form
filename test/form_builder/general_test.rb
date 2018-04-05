@@ -248,6 +248,15 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_avatar.file'
   end
 
+  test 'builder generates file for activestorage entries' do
+    @user.avatar = MiniTest::Mock.new
+    @user.avatar.expect(:attached?, false)
+    @user.avatar.expect(:!, false)
+
+    with_form_for @user, :avatar
+    assert_select 'form input#user_avatar.file'
+  end
+
   test 'builder generates file for attributes that are real db columns but have file methods' do
     @user.home_picture = MiniTest::Mock.new
     @user.home_picture.expect(:mounted_as, true)
