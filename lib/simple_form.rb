@@ -122,7 +122,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
-  @@file_methods = %i[mounted_as file? public_filename]
+  @@file_methods = %i[mounted_as file? public_filename attached?]
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
