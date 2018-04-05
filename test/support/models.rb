@@ -90,7 +90,8 @@ class User
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
     :extra_special_company_id, :pictures, :picture_ids, :special_pictures,
-    :special_picture_ids, :uuid, :friends, :friend_ids, :special_tags, :special_tag_ids
+    :special_picture_ids, :uuid, :friends, :friend_ids, :special_tags, :special_tag_ids,
+    :citext, :hstore, :json, :jsonb
 
   def self.build(extra_attributes = {})
     attributes = {
@@ -141,7 +142,7 @@ class User
       when :attempts      then :integer
       when :action        then :string
       when :credit_card   then :string
-      when :uuid          then :uuid
+      else attribute.to_sym
     end
     Column.new(attribute, column_type, limit)
   end
@@ -175,6 +176,10 @@ class User
         when 'action'        then :string
         when 'credit_card'   then :string
         when 'uuid'          then :string
+        when 'citext'        then :string
+        when 'hstore'        then [:text, 200]
+        when 'json'          then [:text, 200]
+        when 'jsonb'         then [:text, 200]
       end
 
       ActiveModel::Type.lookup(column_type, limit: limit)
@@ -187,7 +192,8 @@ class User
       when :name, :status, :password, :description, :age,
         :credit_limit, :active, :born_at, :delivery_time,
         :created_at, :updated_at, :lock_version, :home_picture,
-        :amount, :attempts, :action, :credit_card, :uuid then true
+        :amount, :attempts, :action, :credit_card, :uuid,
+        :citext, :hstore, :json, :jsonb then true
       else false
     end
   end

@@ -555,6 +555,7 @@ Mapping         | Generated HTML Element               | Database Column Type
 --------------- |--------------------------------------|---------------------
 `boolean`       | `input[type=checkbox]`               | `boolean`
 `string`        | `input[type=text]`                   | `string`
+`citext`        | `input[type=text]`                   | `citext`
 `email`         | `input[type=email]`                  | `string` with `name =~ /email/`
 `url`           | `input[type=url]`                    | `string` with `name =~ /url/`
 `tel`           | `input[type=tel]`                    | `string` with `name =~ /phone/`
@@ -562,6 +563,9 @@ Mapping         | Generated HTML Element               | Database Column Type
 `search`        | `input[type=search]`                 | -
 `uuid`          | `input[type=text]`                   | `uuid`
 `text`          | `textarea`                           | `text`
+`hstore`        | `textarea`                           | `hstore`
+`json`          | `textarea`                           | `json`
+`jsonb`         | `textarea`                           | `jsonb`
 `file`          | `input[type=file]`                   | `string` responding to file methods
 `hidden`        | `input[type=hidden]`                 | -
 `integer`       | `input[type=number]`                 | `integer`
@@ -852,7 +856,8 @@ The syntax looks like this:
 
 ```ruby
 config.wrappers tag: :div, class: :input,
-                error_class: :field_with_errors do |b|
+                error_class: :field_with_errors,
+                valid_class: :field_without_errors do |b|
 
   # Form extensions
   b.use :html5
@@ -901,11 +906,12 @@ You can customize _Form components_ passing options to them:
 
 ```ruby
 config.wrappers do |b|
-  b.use :label_input, class: 'label-input-class'
+  b.use :label_input, class: 'label-input-class', error_class: 'is-invalid', valid_class: 'is-valid'
 end
 ```
 
-This you set the input and label class to `'label-input-class'`.
+This you set the input and label class to `'label-input-class'` and will set the class `'is-invalid'`
+when the input has errors and `'is-valid'` if the input is valid.
 
 If you want to customize the custom _Form components_ on demand you can give it a name like this:
 
@@ -984,6 +990,92 @@ when the content is present.
   end
 ```
 
+## Custom Components
+
+When you use custom wrappers, you might also be looking for a way to add custom components to your 
+wrapper. The default components are:
+
+```ruby
+:label         # The <label> tag alone
+:input         # The <input> tag alone
+:label_input   # The <label> and the <input> tags
+:hint          # The hint for the input
+:error         # The error for the input
+```
+
+A custom component might be interesting for you if your views look something like this:
+
+```erb
+<%= simple_form_for @blog do |f| %>
+  <div class="row">
+    <div class="span1 number">
+      1
+    </div>
+    <div class="span8">
+      <%= f.input :title %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span1 number">
+      2
+    </div>
+    <div class="span8">
+      <%= f.input :body, as: :text %>
+    </div>
+  </div>
+<% end %>
+```
+
+A cleaner method to create your views would be:
+
+```erb
+<%= simple_form_for @blog, wrapper: :with_numbers do |f| %>
+  <%= f.input :title, number: 1 %>
+  <%= f.input :body, as: :text, number: 2 %>
+<% end %>
+```
+
+To use the number option on the input, first, tells to Simple Form the place where the components
+will be:
+
+``` ruby
+# config/initializers/simple_form.rb
+Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+```
+
+Create a new component within the path specified above:
+
+```ruby
+# lib/components/numbers_component.rb
+module NumbersComponent
+  # To avoid deprecation warning, you need to make the wrapper_options explicit
+  # even when they won't be used.
+  def number(wrapper_options = nil)
+    @number ||= begin
+      options[:number].to_s.html_safe if options[:number].present?
+    end
+  end
+end
+
+SimpleForm.include_component(NumbersComponent)
+```
+
+Finally, add a new wrapper to the config/initializers/simple_form.rb file:
+
+```ruby
+config.wrappers :with_numbers, tag: 'div', class: 'row', error_class: 'error' do |b|
+  b.use :html5
+  b.use :number, wrap_with: { tag: 'div', class: 'span1 number'}
+  b.wrapper tag: 'div', class: 'span8' do |ba|
+    ba.use :placeholder
+    ba.use :label
+    ba.use :input
+    ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+    ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+end
+```
+
 ## HTML 5 Notice
 
 By default, **Simple Form** will generate input field types and attributes that are supported in HTML5,
@@ -1047,6 +1139,76 @@ by passing the html5 option:
 
 ```erb
 <%= f.input :expires_at, as: :date, html5: true %>
+```
+
+### Using non Active Record objects
+
+There are few ways to build forms with objects that don't inherit from Active Record, as 
+follow:
+
+You can include the module `ActiveModel::Model`.
+
+```ruby
+class User
+  include ActiveModel::Model
+
+  attr_accessor :id, :name
+end
+```
+
+If you are using Presenters or Decorators that inherit from `SimpleDelegator` you can delegate 
+it to the model.
+
+```ruby
+class UserPresenter < SimpleDelegator
+  # Without that, Simple Form will consider the user model as the object.
+  def to_model 
+    self 
+  end
+end
+```
+
+You can define all methods required by the helpers.
+
+```ruby
+class User 
+  extend ActiveModel::Naming
+
+  attr_accessor :id, :name
+
+  def to_model
+    self
+  end
+
+  def to_key 
+    id 
+  end
+
+  def persisted? 
+    false 
+  end
+end
+```
+
+If your object doesn't implement those methods, you must make explicit it when you are 
+building the form
+
+```ruby
+class User 
+  attr_accessor :id, :name
+
+  # The only method required to use the f.submit helper.
+  def persisted? 
+    false
+  end
+end
+```
+
+```erb
+<%= simple_form_for(@user, as: :user, method: :post, url: users_path) do |f| %>
+  <%= f.input :name %> 
+  <%= f.submit 'New user' %>
+<% end %>
 ```
 
 ## Information

@@ -122,7 +122,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
 
   # Collection of methods to detect if a file type was given.
   mattr_accessor :file_methods
-  @@file_methods = %i[mounted_as file? public_filename]
+  @@file_methods = %i[mounted_as file? public_filename attached?]
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
@@ -229,7 +229,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
     SimpleForm::Wrappers::Root.new(builder.to_a, options)
   end
 
-  wrappers class: :input, hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+  wrappers class: :input, hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
     b.use :html5
 
     b.use :min_max
@@ -264,6 +264,49 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   def self.setup
     @@configured = true
     yield self
+  end
+
+  # Includes a component to be used by Simple Form. Methods defined in a
+  # component will be exposed to be used in the wrapper as Simple::Components
+  #
+  # Examples
+  #
+  #    # The application needs to tell where the components will be.
+  #    Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+  #
+  #    # Create a custom component in the path specified above.
+  #    # lib/components/input_group_component.rb
+  #    module InputGroupComponent
+  #      def prepend
+  #        ...
+  #      end
+  #
+  #      def append
+  #        ...
+  #      end
+  #    end
+  #
+  #    SimpleForm.setup do |config|
+  #      # Create a wrapper using the custom component.
+  #      config.wrappers :input_group, tag: :div, error_class: :error do |b|
+  #        b.use :label
+  #        b.optional :prepend
+  #        b.use :input
+  #        b.use :append
+  #      end
+  #    end
+  #
+  #    # Using the custom component in the form.
+  #    <%= simple_form_for @blog, wrapper: input_group do |f| %>
+  #      <%= f.input :title, prepend: true %>
+  #    <% end %>
+  #
+  def self.include_component(component)
+    if Module === component
+      SimpleForm::Inputs::Base.include(component)
+    else
+      raise TypeError, "SimpleForm.include_component expects a module but got: #{component.class}"
+    end
   end
 end
 

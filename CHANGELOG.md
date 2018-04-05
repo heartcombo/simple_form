@@ -1,9 +1,27 @@
 ## Unreleased
 
+* Add Rails 5.2 support. [@gobijan](https://github.com/gobijan)
+* Add API to register custom components.[@feliperenan](https://github.com/feliperenan)
+* Allow custom errors classes to inputs.[@feliperenan](https://github.com/feliperenan)
+* Remove support from Rails 4.0, 4.1 and 4.2. [@feliperenan](https://github.com/feliperenan)
+* Add support for citext, hstore, json & jsonb column types. [@swrobel](https://github.com/swrobel)
+* Add :valid_class on input wrapper when value is present and valid [@aeberlin](https://github.com/aeberlin), [@m5o](https://github.com/m5o)
+* Allow :valid_class to inputs when value is present and valid. [@m5o](https://github.com/m5o)
+
+### Bug fix
+* Fix horizontal form label position, from right to text-right. [@cavpollo](https://github.com/cavpollo)
+* Add base error display alongside existing errors. [@bluefalcon26](https://github.com/bluefalcon26)
+* Silent deprication warning for placeholder_text. [@moofkit](https://github.com/moofkit)
+
+## 3.5.1
+
 ### Enhancements
 * Exclude hidden field when unchecked_value: false. [@fschwahn](https://github.com/fschwahn)
 * Add frozen_string_literal magic comment to several files. [@oniofchaos](https://github.com/oniofchaos)
 * Try convert @object to model in case we got decorated object [@timurvafin](https://github.com/timurvafin)
+- From now, if you are using some object that inherits from `SimpleDelegator`, you must implement
+  `def to_model; self; end`. Otherwise, *Simple Form* will convert the decorated object to the model 
+  since `SimpleDelegator` will delegate it to the model.
 * Code cleanup [@Fornacula](https://github.com/Fornacula)
 
 ### Bug fix

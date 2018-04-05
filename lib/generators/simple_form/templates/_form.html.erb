@@ -1,6 +1,7 @@
 <%# frozen_string_literal: true %>
 <%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
   <%%= f.error_notification %>
+  <%%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
   <%- attributes.each do |attribute| -%>

@@ -38,6 +38,27 @@ class WrapperTest < ActionView::TestCase
     assert_select 'div.field_with_errors'
   end
 
+  test 'wrapper adds error class to input for attribute with errors' do
+    with_form_for @user, :name, wrapper: custom_wrapper_with_input_error_class
+    assert_select 'div.field_with_errors'
+    assert_select 'input.is-invalid'
+  end
+
+  test 'wrapper does not add error class to input when the attribute is valid' do
+    with_form_for @user, :phone_number, wrapper: custom_wrapper_with_input_error_class
+    assert_no_select 'div.field_with_errors'
+    assert_no_select 'input.is-invalid'
+  end
+
+  test 'wrapper adds valid class for present attribute without errors' do
+    @user.instance_eval { undef errors }
+    with_form_for @user, :name, wrapper: custom_wrapper_with_input_valid_class
+    assert_select 'div.field_without_errors'
+    assert_select 'input.is-valid'
+    assert_no_select 'div.field_with_errors'
+    assert_no_select 'input.is-invalid'
+  end
+
   test 'wrapper adds hint class for attribute with a hint' do
     with_form_for @user, :name, hint: 'hint'
     assert_select 'div.field_with_hint'
@@ -264,8 +285,6 @@ class WrapperTest < ActionView::TestCase
   end
 
   test "input with aria attributes will merge with wrapper_options' aria" do
-    skip unless ActionPack::VERSION::MAJOR == '4' && ActionPack::VERSION::MINOR >= '2'
-
     swap_wrapper :default, custom_wrapper_with_input_aria_modal do
       with_concat_form_for @user do |f|
         concat f.input :name, input_html: { aria: { modal: 'another-aria', target: 'merge-aria' } }
