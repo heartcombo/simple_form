@@ -7,11 +7,13 @@
 * Add :valid_class on input wrapper when value is present and valid [@aeberlin](https://github.com/aeberlin), [@m5o](https://github.com/m5o)
 * Allow :valid_class to inputs when value is present and valid. [@m5o](https://github.com/m5o)
 * Allow validation classes on input_field. [@feliperenan](https://github.com/feliperenan)
+* Add basic ActiveStorage support. [@murb](https://github.com/murb)
 
 ### Bug fix
 * Fix horizontal form label position, from right to text-right. [@cavpollo](https://github.com/cavpollo)
 * Add base error display alongside existing errors. [@bluefalcon26](https://github.com/bluefalcon26)
 * Silent deprication warning for placeholder_text. [@moofkit](https://github.com/moofkit)
+* Use custom i18n scope for label required html. [@tvdeyen](https://github.com/tvdeyen)
 
 ## 3.5.1
 
