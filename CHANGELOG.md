@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Add bootstrap v4.1 generator template. [@m5o](https://github.com/m5o)
 * Add Rails 5.2 support. [@gobijan](https://github.com/gobijan)
 * Add API to register custom components.[@feliperenan](https://github.com/feliperenan)
 * Allow custom errors classes to inputs.[@feliperenan](https://github.com/feliperenan)
@@ -23,7 +24,7 @@
 * Add frozen_string_literal magic comment to several files. [@oniofchaos](https://github.com/oniofchaos)
 * Try convert @object to model in case we got decorated object [@timurvafin](https://github.com/timurvafin)
 - From now, if you are using some object that inherits from `SimpleDelegator`, you must implement
-  `def to_model; self; end`. Otherwise, *Simple Form* will convert the decorated object to the model 
+  `def to_model; self; end`. Otherwise, *Simple Form* will convert the decorated object to the model
   since `SimpleDelegator` will delegate it to the model.
 * Code cleanup [@Fornacula](https://github.com/Fornacula)
 
