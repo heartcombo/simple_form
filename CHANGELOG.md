@@ -1,5 +1,8 @@
 ## Unreleased
 
+## 4.0.0
+
+### Enhancements
 * Add bootstrap v4.1 generator template. [@m5o](https://github.com/m5o)
 * Add Rails 5.2 support. [@gobijan](https://github.com/gobijan)
 * Add API to register custom components.[@feliperenan](https://github.com/feliperenan)
