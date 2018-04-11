@@ -7,11 +7,13 @@ rvm:
   - 2.2.7
   - 2.3.4
   - 2.4.1
+  - 2.5.0
   - ruby-head
   - jruby-9.1.14.0
 gemfile:
   - gemfiles/Gemfile.rails-5-0-stable
   - gemfiles/Gemfile.rails-5-1-stable
+  - gemfiles/Gemfile.rails-5-2-stable
   - Gemfile
 matrix:
   allow_failures:
@@ -39,6 +41,14 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2
     - rvm: 2.1.10
       gemfile: gemfiles/Gemfile.rails-5-1-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+    - rvm: jruby-9.1.14.0
+      gemfile: gemfiles/Gemfile.rails-5-2-stable # rack 2.0.1 requires Ruby version >= 2.2.2; any sol'n for jruby?
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.rails-5-2-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.rails-5-2-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+    - rvm: 2.1.10
+      gemfile: gemfiles/Gemfile.rails-5-2-stable # rack 2.0.1 requires Ruby version >= 2.2.2
 notifications:
   email: false
   slack:
