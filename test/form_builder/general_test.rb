@@ -274,6 +274,7 @@ class FormBuilderTest < ActionView::TestCase
   test 'builder does not generate url fields for columns that contain only the letters url' do
     with_form_for @user, :hourly
     assert_no_select 'form input#user_url.string.url'
+    assert_select 'form input#user_hourly.string'
   end
 
   test 'builder allows overriding default input type for text' do
