@@ -255,6 +255,12 @@ module MiscHelpers
       f.input(attribute_name, options.merge(as: type))
     end
   end
+
+  def with_input_field_for(object, *args)
+    with_concat_form_for(object) do |f|
+      f.input_field(*args)
+    end
+  end
 end
 
 class CustomFormBuilder < SimpleForm::FormBuilder

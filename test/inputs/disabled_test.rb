@@ -76,4 +76,17 @@ class DisabledTest < ActionView::TestCase
     with_input_for @user, :created_at, :datetime
     assert_no_select 'select.datetime.disabled[disabled]'
   end
+
+  test 'input_field collection allows disabled select' do
+    with_input_field_for @user, :description, collection: ['foo', 'bar'], disabled: true
+    assert_select 'select[disabled]'
+    assert_no_select 'option[disabled]'
+  end
+
+  test 'input_field collection allows individual disabled options' do
+    with_input_field_for @user, :description, collection: ['foo', 'bar'], disabled: 'bar'
+    assert_no_select 'select[disabled]'
+    assert_no_select 'option[disabled][value=foo]'
+    assert_select 'option[disabled][value=bar]'
+  end
 end
