@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     simple_form (4.0.0)
-      actionpack (> 4)
-      activemodel (> 4)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
 
 GEM
   remote: https://rubygems.org/
