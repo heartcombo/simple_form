@@ -49,6 +49,10 @@ matrix:
       gemfile: gemfiles/Gemfile.rails-5-2-stable # rack 2.0.1 requires Ruby version >= 2.2.2
     - rvm: 2.1.10
       gemfile: gemfiles/Gemfile.rails-5-2-stable # rack 2.0.1 requires Ruby version >= 2.2.2
+
+before_install:
+  - gem update --system
+
 notifications:
   email: false
   slack:
