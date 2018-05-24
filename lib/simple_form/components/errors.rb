@@ -3,7 +3,7 @@ module SimpleForm
   module Components
     module Errors
       def error(wrapper_options = nil)
-        error_text if has_errors?
+        error_text if has_errors? || has_custom_error?
       end
 
       def full_error(wrapper_options = nil)
