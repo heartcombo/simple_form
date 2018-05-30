@@ -552,12 +552,12 @@ module SimpleForm
         :datetime
       when :string, :citext, nil
         case attribute_name.to_s
-        when /password/  then :password
-        when /time_zone/ then :time_zone
-        when /country/   then :country
-        when /email/     then :email
-        when /phone/     then :tel
-        when /url/       then :url
+        when /(?:\b|\W|_)password(?:\b|\W|_)/  then :password
+        when /(?:\b|\W|_)time_zone(?:\b|\W|_)/ then :time_zone
+        when /(?:\b|\W|_)country(?:\b|\W|_)/   then :country
+        when /(?:\b|\W|_)email(?:\b|\W|_)/     then :email
+        when /(?:\b|\W|_)phone(?:\b|\W|_)/     then :tel
+        when /(?:\b|\W|_)url(?:\b|\W|_)/       then :url
         else
           file_method?(attribute_name) ? :file : (input_type || :string)
         end
