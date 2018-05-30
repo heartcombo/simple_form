@@ -1,5 +1,8 @@
 ## Unreleased
 
+### Enhancements
+* Guess input type more carefully. [sringling](https://github.com/sringling)
+
 ## 4.0.1
 
 ### Bug fix
