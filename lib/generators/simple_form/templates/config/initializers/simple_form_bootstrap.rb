@@ -335,6 +335,16 @@ SimpleForm.setup do |config|
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
 
+  # custom select
+  config.wrappers :custom_select, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: 'form-control-label'
+    b.use :input, class: 'custom-select', error_class: 'is-invalid', valid_class: 'is-valid'
+    b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
+    b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
+  end
+
   # custom multi select
   config.wrappers :custom_multi_select, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
     b.use :html5
@@ -434,6 +444,7 @@ SimpleForm.setup do |config|
   #   file:          :custom_file,
   #   radio_buttons: :custom_collection,
   #   range:         :custom_range,
+  #   select:        :custom_select,
   #   time:          :custom_multi_select
   # }
 end
