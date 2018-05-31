@@ -45,6 +45,19 @@ SimpleForm.setup do |config|
   config.input_field_error_class = 'is-invalid'
   config.input_field_valid_class = 'is-valid'
 
+  # Configure layout of date input, time input, and datetime input.
+  SimpleForm::Inputs::DateTimeInput.default_options = {
+    date_separator: '<div class="mx-1"></div>',
+    time_separator: '<div class="mx-1">:</div>',
+    datetime_separator: '<div class="col-2 mw-100 flex-shrink-1 text-center">&mdash;</div>',
+    with_css_classes: {
+      year: "col-3 mw-100 flex-grow-1 flex-shrink-1",
+      month: "col-5 mw-100 flex-grow-1 flex-shrink-1",
+      day: "col-2 mw-100 flex-grow-1 flex-shrink-1",
+      hour: "col-2 mw-100 flex-grow-1 flex-shrink-1",
+      minute: "col-2 mw-100 flex-grow-1 flex-shrink-1",
+    },
+  }
 
   # vertical forms
   #
@@ -117,8 +130,8 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
     b.use :label, class: 'form-control-label'
-    b.wrapper tag: 'div', class: 'd-flex flex-row justify-content-between align-items-center' do |ba|
-      ba.use :input, class: 'form-control mx-1', error_class: 'is-invalid', valid_class: 'is-valid'
+    b.wrapper tag: 'div', class: 'd-flex flex-row align-items-center flex-wrap flex-md-nowrap' do |ba|
+      ba.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
     end
     b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
@@ -218,8 +231,8 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: 'col-sm-3 control-label'
     b.wrapper :grid_wrapper, tag: 'div', class: 'col-sm-9' do |ba|
-      ba.wrapper tag: 'div', class: 'd-flex flex-row justify-content-between align-items-center' do |bb|
-        bb.use :input, class: 'form-control mx-1', error_class: 'is-invalid', valid_class: 'is-valid'
+      ba.wrapper tag: 'div', class: 'd-flex flex-row align-items-center flex-wrap' do |bb|
+        bb.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
       end
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
       ba.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
@@ -350,8 +363,8 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
     b.use :label, class: 'form-control-label'
-    b.wrapper tag: 'div', class: 'd-flex flex-row justify-content-between align-items-center' do |ba|
-      ba.use :input, class: 'custom-select mx-1', error_class: 'is-invalid', valid_class: 'is-valid'
+    b.wrapper tag: 'div', class: 'd-flex flex-row align-items-center flex-wrap flex-md-nowrap' do |ba|
+      ba.use :input, class: 'custom-select', error_class: 'is-invalid', valid_class: 'is-valid'
     end
     b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
