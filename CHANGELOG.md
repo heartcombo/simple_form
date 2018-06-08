@@ -3,6 +3,9 @@
 ### Enhancements
 * Guess input type more carefully. [sringling](https://github.com/sringling)
 
+### Bug fix
+* Improve disabled option to input_field. [betelgeuse](https://github.com/betelgeuse)
+
 ## 4.0.1
 
 ### Bug fix
