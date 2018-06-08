@@ -165,7 +165,7 @@ module SimpleForm
       components = (wrapper.components.map(&:namespace) & ATTRIBUTE_COMPONENTS)
 
       options = options.dup
-      options[:input_html] = options.except(:as, :boolean_style, :collection, :label_method, :value_method, :prompt, *components)
+      options[:input_html] = options.except(:as, :boolean_style, :collection, :disabled, :label_method, :value_method, :prompt, *components)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       input      = find_input(attribute_name, options)
