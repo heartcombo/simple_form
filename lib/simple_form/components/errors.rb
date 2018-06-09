@@ -11,7 +11,7 @@ module SimpleForm
       end
 
       def has_errors?
-        object && object.respond_to?(:errors) && errors.present?
+        object_with_errors? || object.nil? && has_custom_error?
       end
 
       def has_value?
@@ -32,6 +32,10 @@ module SimpleForm
 
       def full_error_text
         has_custom_error? ? options[:error] : full_errors.send(error_method)
+      end
+
+      def object_with_errors?
+        object && object.respond_to?(:errors) && errors.present?
       end
 
       def error_method
