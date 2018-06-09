@@ -2,6 +2,7 @@
 
 ### Enhancements
 * Guess input type more carefully. [sringling](https://github.com/sringling)
+* Allow custom error on forms without model. [victorperez](https://github.com/victorperez)
 
 ### Bug fix
 * Improve disabled option to input_field. [betelgeuse](https://github.com/betelgeuse)
