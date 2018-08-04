@@ -88,12 +88,12 @@ class StringInputTest < ActionView::TestCase
 
   test 'input infers pattern from attributes' do
     with_input_for @other_validating_user, :country, :string, pattern: true
-    assert_select 'input[pattern="\w+"]'
+    assert_select "input:match('pattern', ?)", /\w+/
   end
 
   test 'input infers pattern from attributes using proc' do
     with_input_for @other_validating_user, :name, :string, pattern: true
-    assert_select 'input[pattern="\w+"]'
+    assert_select "input:match('pattern', ?)", /\w+/
   end
 
   test 'input does not infer pattern from attributes if root default is false' do
@@ -105,7 +105,7 @@ class StringInputTest < ActionView::TestCase
 
   test 'input uses given pattern from attributes' do
     with_input_for @other_validating_user, :country, :string, input_html: { pattern: "\\d+" }
-    assert_select 'input[pattern="\d+"]'
+    assert_select "input:match('pattern', ?)", /\\d+/
   end
 
   test 'input does not use pattern if model has :without validation option' do
