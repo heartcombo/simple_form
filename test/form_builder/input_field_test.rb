@@ -79,13 +79,13 @@ class InputFieldTest < ActionView::TestCase
   test 'builder input_field infers pattern from attributes' do
     with_input_field_for @other_validating_user, :country, as: :string, pattern: true
 
-    assert_select 'input[pattern="\w+"]'
+    assert_select "input:match('pattern', ?)", /\w+/
   end
 
   test 'builder input_field accepts custom pattern' do
     with_input_field_for @other_validating_user, :country, as: :string, pattern: '\d+'
 
-    assert_select 'input[pattern="\d+"]'
+    assert_select "input:match('pattern', ?)", /\\d+/
   end
 
   test 'builder input_field uses readonly component' do
@@ -132,7 +132,7 @@ class InputFieldTest < ActionView::TestCase
     swap_wrapper :default, custom_wrapper_with_html5_components do
       with_input_field_for @user, :name, pattern: '\w+'
 
-      assert_select 'input[pattern="\w+"]'
+      assert_select "input:match('pattern', ?)", /\w+/
     end
   end
 
