@@ -238,6 +238,18 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'uses wrapper for specified in config mapping when wrapper is false' do
+    swap_wrapper :string, false do
+      swap SimpleForm, wrapper_mappings: { string: false } do
+        # binding.pry
+        with_form_for @user, :name
+
+        assert_select 'form > label[for=user_name]'
+        assert_select 'form > input#user_name.string'
+      end
+    end
+  end
+
   test 'uses custom wrapper mapping per form basis' do
     swap_wrapper :another do
       with_concat_form_for @user, wrapper_mappings: { string: :another } do |f|
