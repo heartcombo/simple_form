@@ -39,7 +39,7 @@ end
 
 class FileInput < SimpleForm::Inputs::FileInput
   def input_html_classes
-    super.delete_if { |html_class| html_class == 'file' }
+    super.delete_if { |html_class| html_class == :file }
     super.push('file-upload')
   end
 end
