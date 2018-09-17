@@ -109,6 +109,14 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
+  test 'new inputs can override the default input_html_classes' do
+    discovery do
+      with_form_for @user, :avatar, as: :file
+      assert_select 'form input[type=file]#user_avatar.file.file-upload', false
+      assert_select 'form input[type=file]#user_avatar.file-upload'
+    end
+  end
+
   test 'inputs method without wrapper_options are deprecated' do
     discovery do
       assert_deprecated do
