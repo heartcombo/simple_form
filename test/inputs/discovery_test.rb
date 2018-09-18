@@ -115,7 +115,7 @@ class DiscoveryTest < ActionView::TestCase
         with_form_for @user, :active, as: :select
         assert_select 'form select#user_active.select' do
           # Make sure class list contains 'chosen' only once.
-          assert_select '[class=?]', /^(?!.*\bchosen\b.*\bchosen\b).*\bchosen\b.*$/
+          assert_select ":match('class', ?)", /^(?!.*\bchosen\b.*\bchosen\b).*\bchosen\b.*$/
         end
       end
     end
