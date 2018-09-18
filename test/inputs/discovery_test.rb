@@ -109,6 +109,18 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
+  test 'giving extra class to input_html_classes adds it to element only once' do
+    discovery do
+      swap SimpleForm, input_class: 'custom-default-input-class' do
+        with_form_for @user, :active, as: :select
+        assert_select 'form select#user_active.select' do
+          # Make sure class list contains 'chosen' only once.
+          assert_select '[class=?]', /^(?!.*\bchosen\b.*\bchosen\b).*\bchosen\b.*$/
+        end
+      end
+    end
+  end
+
   test 'inputs method without wrapper_options are deprecated' do
     discovery do
       assert_deprecated do
