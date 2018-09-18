@@ -113,7 +113,7 @@ class DiscoveryTest < ActionView::TestCase
   test 'new inputs can override the default input_html_classes' do
     discovery do
       with_form_for @user, :avatar, as: :file
-      assert_select 'form input[type=file]#user_avatar.file.file-upload', false
+      assert_no_select 'form input[type=file]#user_avatar.file.file-upload'
       assert_select 'form input[type=file]#user_avatar.file-upload'
     end
   end
