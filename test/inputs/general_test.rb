@@ -16,14 +16,6 @@ class InputTest < ActionView::TestCase
     assert_select 'select.datetime'
   end
 
-  test 'input does not generate css class based on default input type when configured not to' do
-    swap SimpleForm, generate_input_type_class: false do
-      with_input_for @user, :name, :string
-      assert_select 'input.string#user_name', false
-      assert_select 'input#user_name'
-    end
-  end
-
   test 'string input generates autofocus attribute when autofocus option is true' do
     with_input_for @user, :name, :string, autofocus: true
     assert_select 'input.string[autofocus]'
