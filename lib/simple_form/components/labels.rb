@@ -49,7 +49,10 @@ module SimpleForm
 
       def label_html_options
         label_html_classes = SimpleForm.additional_classes_for(:label) {
-          [input_type, required_class, disabled_class, SimpleForm.label_class].compact
+          html_classes = [required_class, disabled_class, SimpleForm.label_class]
+          html_classes.unshift(input_type) if SimpleForm.generate_input_type_class
+
+          html_classes.compact
         }
 
         label_options = html_options_for(:label, label_html_classes)

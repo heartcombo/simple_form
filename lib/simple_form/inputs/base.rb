@@ -92,7 +92,10 @@ module SimpleForm
       end
 
       def additional_classes
-        @additional_classes ||= [input_type, required_class, readonly_class, disabled_class].compact
+        additional_classes = [required_class, readonly_class, disabled_class]
+        additional_classes.unshift(input_type) if SimpleForm.generate_input_type_class
+
+        @additional_classes ||= additional_classes.compact
       end
 
       def input_class

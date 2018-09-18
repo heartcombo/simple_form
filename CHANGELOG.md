@@ -3,6 +3,7 @@
 ### Enhancements
 * Guess input type more carefully. [sringling](https://github.com/sringling)
 * Allow custom error on forms without model. [victorperez](https://github.com/victorperez)
+* Allow removing input_type classes from generated elements. [@RigoTheDev](https://github.com/RigoTheDev)
 
 ### Bug fix
 * Improve disabled option to input_field. [betelgeuse](https://github.com/betelgeuse)
