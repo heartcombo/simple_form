@@ -112,7 +112,7 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :generate_additional_classes_for
   @@generate_additional_classes_for = %i[wrapper label input]
 
-  # You can define whether generated inputs contain input type classes
+  # You can define whether generated elements contain input type classes.
   mattr_accessor :generate_input_type_class
   @@generate_input_type_class = true
 
