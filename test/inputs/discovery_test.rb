@@ -15,6 +15,7 @@ class DiscoveryTest < ActionView::TestCase
         Object.send :remove_const, :CustomizedInput
         Object.send :remove_const, :DeprecatedInput
         Object.send :remove_const, :CollectionSelectInput
+        Object.send :remove_const, :FileInput
         CustomInputs.send :remove_const, :CustomizedInput
         CustomInputs.send :remove_const, :PasswordInput
         CustomInputs.send :remove_const, :NumericInput
