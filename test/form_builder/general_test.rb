@@ -80,6 +80,22 @@ class FormBuilderTest < ActionView::TestCase
     end
   end
 
+  test 'builder allows removing input_type class for label' do
+    swap SimpleForm, generate_input_type_class: false do
+      with_form_for @user, :post_count
+      assert_no_select 'form label#user_post_count.required.integer'
+      assert_select 'form label[for=user_post_count].required'
+    end
+  end
+
+  test 'builder allows removing input_type class for wrapper' do
+    swap SimpleForm, generate_input_type_class: false do
+      with_form_for @user, :post_count
+      assert_no_select 'form div.user_post_count.required.integer'
+      assert_select 'form div.user_post_count.required'
+    end
+  end
+
   test 'builder allows to add additional classes only for wrapper' do
     swap SimpleForm, generate_additional_classes_for: [:wrapper] do
       with_form_for @user, :post_count
