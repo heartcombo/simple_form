@@ -15,6 +15,7 @@ class DiscoveryTest < ActionView::TestCase
         Object.send :remove_const, :CustomizedInput
         Object.send :remove_const, :DeprecatedInput
         Object.send :remove_const, :CollectionSelectInput
+        Object.send :remove_const, :FileInput
         CustomInputs.send :remove_const, :CustomizedInput
         CustomInputs.send :remove_const, :PasswordInput
         CustomInputs.send :remove_const, :NumericInput
@@ -106,6 +107,14 @@ class DiscoveryTest < ActionView::TestCase
     discovery do
       with_form_for @user, :active, as: :select
       assert_select 'form select#user_active.select.chosen'
+    end
+  end
+
+  test 'new inputs can override the default input_html_classes' do
+    discovery do
+      with_form_for @user, :avatar, as: :file
+      assert_no_select 'form input[type=file]#user_avatar.file.file-upload'
+      assert_select 'form input[type=file]#user_avatar.file-upload'
     end
   end
 

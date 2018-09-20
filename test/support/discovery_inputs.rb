@@ -37,6 +37,13 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
   end
 end
 
+class FileInput < SimpleForm::Inputs::FileInput
+  def input_html_classes
+    super.delete_if { |html_class| html_class == :file }
+    super.push('file-upload')
+  end
+end
+
 module CustomInputs
   class CustomizedInput < SimpleForm::Inputs::StringInput
     def input_html_classes
