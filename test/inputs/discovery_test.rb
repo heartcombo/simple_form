@@ -109,7 +109,7 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
-  test 'giving extra class to input_html_classes adds it to element only once' do
+  test 'does not duplicate the html classes giving a extra class' do
     discovery do
       swap SimpleForm, input_class: 'custom-default-input-class' do
         with_form_for @user, :active, as: :select
