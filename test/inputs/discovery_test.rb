@@ -121,7 +121,7 @@ class DiscoveryTest < ActionView::TestCase
       end
     end
   end
-  
+
   test 'new inputs can override the default input_html_classes' do
     discovery do
       with_form_for @user, :avatar, as: :file
