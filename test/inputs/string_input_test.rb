@@ -8,6 +8,11 @@ class StringInputTest < ActionView::TestCase
     assert_select "input#user_name[type=text][name='user[name]'][value='New in SimpleForm!']"
   end
 
+  test 'input maps text field to citext attribute' do
+    with_input_for @user, :name, :citext
+    assert_select "input#user_name[type=text][name='user[name]'][value='New in SimpleForm!']"
+  end
+
   test 'input generates a password field for password attributes' do
     with_input_for @user, :password, :password
     assert_select "input#user_password.password[type=password][name='user[password]']"
