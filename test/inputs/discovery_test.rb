@@ -110,6 +110,18 @@ class DiscoveryTest < ActionView::TestCase
     end
   end
 
+  test 'does not duplicate the html classes giving a extra class' do
+    discovery do
+      swap SimpleForm, input_class: 'custom-default-input-class' do
+        with_form_for @user, :active, as: :select
+        assert_select 'form select#user_active.select' do
+          # Make sure class list contains 'chosen' only once.
+          assert_select ":match('class', ?)", /^(?!.*\bchosen\b.*\bchosen\b).*\bchosen\b.*$/
+        end
+      end
+    end
+  end
+
   test 'new inputs can override the default input_html_classes' do
     discovery do
       with_form_for @user, :avatar, as: :file
@@ -117,7 +129,7 @@ class DiscoveryTest < ActionView::TestCase
       assert_select 'form input[type=file]#user_avatar.file-upload'
     end
   end
-
+  
   test 'inputs method without wrapper_options are deprecated' do
     discovery do
       assert_deprecated do

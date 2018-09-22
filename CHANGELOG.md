@@ -6,6 +6,7 @@
 
 ### Bug fix
 * Improve disabled option to input_field. [betelgeuse](https://github.com/betelgeuse)
+* Memoize `input_html_classes` in `SimpleForm::Inputs::Base`. [@RigoTheDev](https://github.com/RigoTheDev)
 
 ## 4.0.1
 
