@@ -13,6 +13,7 @@
 ### Bug fix
 * Do not support Rails 4 anymore. [@rafaelfranca](https://github.com/rafaelfranca)
 * Add missing comma. [@vill](https://github.com/vill)
+* Fix column type citext HTML5 input type bug. [@brucew](https://github.com/brucew)
 
 ## 4.0.0
 
