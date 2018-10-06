@@ -1,13 +1,14 @@
 ## Unreleased
 
 ### Enhancements
-* Guess input type more carefully. [sringling](https://github.com/sringling)
-* Allow custom error on forms without model. [victorperez](https://github.com/victorperez)
+* Guess input type more carefully. [@sringling](https://github.com/sringling)
+* Allow custom error on forms without model. [@victorperez](https://github.com/victorperez)
 
 ### Bug fix
-* Improve disabled option to input_field. [betelgeuse](https://github.com/betelgeuse)
+* Improve disabled option to input_field. [@betelgeuse](https://github.com/betelgeuse)
 * Memoize `input_html_classes` in `SimpleForm::Inputs::Base`. [@RigoTheDev](https://github.com/RigoTheDev)
 * Fix column type citext HTML5 input type bug. [@brucew](https://github.com/brucew)
+* Use form attribute in the nested boolean hidden field when it is given. [@feliperenan](https://github.com/feliperenan)
 
 ## 4.0.1
 
