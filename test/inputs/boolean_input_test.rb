@@ -107,6 +107,14 @@ class BooleanInputTest < ActionView::TestCase
     end
   end
 
+  test 'input boolean with nested generates a disabled hidden field with the form attribute when it is given' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, input_html: { form: 'form_id' }
+
+      assert_select "input[type=hidden][form=form_id]+ label.boolean > input.boolean"
+    end
+  end
+
   test 'input accepts changing boolean style to nested through given options' do
     with_input_for @user, :active, :boolean, boolean_style: :nested
     assert_select 'label[for=user_active]', 'Active'
