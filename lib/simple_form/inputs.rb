@@ -10,6 +10,7 @@ module SimpleForm
     autoload :CollectionInput
     autoload :CollectionRadioButtonsInput
     autoload :CollectionSelectInput
+    autoload :ColorInput
     autoload :DateTimeInput
     autoload :FileInput
     autoload :GroupedCollectionSelectInput
