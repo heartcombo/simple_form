@@ -6,12 +6,7 @@ require 'test_helper'
 class DateTimeInputWithHtml5Test < ActionView::TestCase
   test 'input generates a datetime input for datetime attributes if HTML5 compatibility is explicitly enbled' do
     with_input_for @user, :created_at, :datetime, html5: true
-
-    if ActionPack::VERSION::STRING >= '5'
-      assert_select 'input[type="datetime-local"]'
-    elsif ActionPack::VERSION::STRING < '5'
-      assert_select 'input[type="datetime"]'
-    end
+    assert_select 'input[type="datetime-local"]'
   end
 
   test 'input generates a datetime select for datetime attributes' do
@@ -80,12 +75,7 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
   test 'input generates a datetime input for datetime attributes if HTML5 compatibility is explicitly enabled' do
     swap_wrapper do
       with_input_for @user, :created_at, :datetime, html5: true
-
-      if ActionPack::VERSION::STRING >= '5'
-        assert_select 'input[type="datetime-local"]'
-      elsif ActionPack::VERSION::STRING < '5'
-        assert_select 'input[type="datetime"]'
-      end
+      assert_select 'input[type="datetime-local"]'
     end
   end
 

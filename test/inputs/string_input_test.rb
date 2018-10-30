@@ -43,18 +43,6 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input.string[minlength="5"]'
   end
 
-  if ActionPack::VERSION::STRING < '5'
-    test 'input does not get maxlength from validation when tokenizer present' do
-      with_input_for @validating_user, :action, :string
-      assert_no_select 'input.string[maxlength]'
-    end
-
-    test 'input does not get minlength from validation when tokenizer present' do
-      with_input_for @validating_user, :action, :string
-      assert_no_select 'input.string[minlength]'
-    end
-  end
-
   test 'input gets maxlength from validation when :is option present' do
     with_input_for @validating_user, :home_picture, :string
     assert_select 'input.string[maxlength="12"]'
