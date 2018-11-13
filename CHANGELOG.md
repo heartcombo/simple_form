@@ -3,6 +3,7 @@
 ### Enhancements
 * Guess input type more carefully. [@sringling](https://github.com/sringling)
 * Allow custom error on forms without model. [@victorperez](https://github.com/victorperez)
+* Do not support Ruby < 2.3 anymore. [@gssbzn](https://github.com/gssbzn)
 
 ### Bug fix
 * Improve disabled option to input_field. [@betelgeuse](https://github.com/betelgeuse)

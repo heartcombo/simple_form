@@ -6,22 +6,14 @@ class PriorityInputTest < ActionView::TestCase
   test 'input generates a country select field' do
     with_input_for @user, :country, :country
     assert_select 'select#user_country'
-    if ActionPack::VERSION::STRING >= '5'
-      assert_select 'select option[value=BR]', 'Brazil'
-    elsif ActionPack::VERSION::STRING < '5'
-      assert_select 'select option[value=Brazil]', 'Brazil'
-    end
+    assert_select 'select option[value=BR]', 'Brazil'
     assert_no_select 'select option[value=""][disabled=disabled]'
   end
 
   test 'input generates a country select with SimpleForm default' do
     swap SimpleForm, country_priority: [ 'Brazil' ] do
       with_input_for @user, :country, :country
-      if ActionPack::VERSION::STRING >= '5'
-        assert_select 'select option[value="---------------"][disabled=disabled]'
-      elsif ActionPack::VERSION::STRING < '5'
-        assert_select 'select option[value=""][disabled=disabled]'
-      end
+      assert_select 'select option[value="---------------"][disabled=disabled]'
     end
   end
 
