@@ -91,7 +91,7 @@ class User
     :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
     :extra_special_company_id, :pictures, :picture_ids, :special_pictures,
     :special_picture_ids, :uuid, :friends, :friend_ids, :special_tags, :special_tag_ids,
-    :citext, :hstore, :json, :jsonb, :hourly
+    :citext, :hstore, :json, :jsonb, :hourly, :favorite_color
 
   def self.build(extra_attributes = {})
     attributes = {
