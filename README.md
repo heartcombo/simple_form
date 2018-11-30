@@ -1144,7 +1144,7 @@ by passing the html5 option:
 ### Using non Active Record objects
 
 There are few ways to build forms with objects that don't inherit from Active Record, as 
-follow:
+follows:
 
 You can include the module `ActiveModel::Model`.
 
