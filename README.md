@@ -524,7 +524,7 @@ Creates a collection of checkboxes with labels associated (same API as `collecti
 
 ```ruby
 form_for @user do |f|
-  f.collection_check_boxes :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+  f.collection_check_boxes :options, [[true, 'Yes'], [false, 'No']], :first, :last
 end
 ```
 
