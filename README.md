@@ -507,7 +507,7 @@ Creates a collection of radio inputs with labels associated (same API as `collec
 
 ```ruby
 form_for @user do |f|
-  f.collection_radio_buttons :options, [[true, 'Yes'] ,[false, 'No']], :first, :last
+  f.collection_radio_buttons :options, [[true, 'Yes'], [false, 'No']], :first, :last
 end
 ```
 
