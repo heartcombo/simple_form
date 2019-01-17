@@ -511,7 +511,7 @@ module SimpleForm
       when :has_one
         raise ArgumentError, ":has_one associations are not supported by f.association"
       else
-        if options[:as] == :select
+        if options[:as] == :select || options[:as] == :grouped_select
           html_options = options[:input_html] ||= {}
           html_options[:multiple] = true unless html_options.key?(:multiple)
         end
