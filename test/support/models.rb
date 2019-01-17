@@ -76,7 +76,11 @@ Friend = Struct.new(:id, :name) do
   end
 end
 
-class Tag < Company; end
+class Tag < Company
+  def group_method
+    ["category-1"]
+  end
+end
 
 TagGroup = Struct.new(:id, :name, :tags)
 

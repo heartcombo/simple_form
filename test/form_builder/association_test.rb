@@ -243,4 +243,10 @@ class AssociationTest < ActionView::TestCase
     assert_equal({ as: :check_boxes, collection_wrapper_tag: :ul, item_wrapper_tag: :li },
                  options)
   end
+
+  test 'builder with group select considers multiple select by default' do
+    with_association_for @user, :tags, as: :grouped_select, group_method: :group_method
+
+    assert_select 'select[multiple="multiple"].grouped_select'
+  end
 end
