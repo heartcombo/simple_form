@@ -32,6 +32,7 @@ module SimpleForm
     map_type :country, :time_zone,                                 to: SimpleForm::Inputs::PriorityInput
     map_type :boolean,                                             to: SimpleForm::Inputs::BooleanInput
     map_type :hidden,                                              to: SimpleForm::Inputs::HiddenInput
+    map_type :money,                                               to: SimpleForm::Inputs::MoneyInput
 
     def self.discovery_cache
       @discovery_cache ||= {}

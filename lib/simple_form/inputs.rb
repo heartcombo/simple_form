@@ -21,5 +21,6 @@ module SimpleForm
     autoload :RangeInput
     autoload :StringInput
     autoload :TextInput
+    autoload :MoneyInput
   end
 end
