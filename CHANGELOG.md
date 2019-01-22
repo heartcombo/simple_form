@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Enhancements
+- Set multiple attribute for grouped selects also. [@ollym)](https://github.com/ollym)
+- Add support to Money field .[@feliperenan](https://github.com/feliperenan)
+
 ## 4.1.0
 
 ### Enhancements
