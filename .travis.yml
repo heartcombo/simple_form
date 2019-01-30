@@ -27,3 +27,5 @@ notifications:
     on_success: change
     on_failure: always
     secure: vxwuYTr2Sy+a/C7VP06l3QQCSgsKH7mjbTqOF1cKfGgmIHwO2p1VZmNCKjOe24ILj090WmVfHdnF/MnSCQw/SD1mVNbCZFf8Vj7+fYBu26I7BfahN0jxv3S5NO1sx4ipj0cO17r21OjtD2r1XzOfKqdSkjBBCOk8+WjiqtmCXII=
+
+script: "bin/test"

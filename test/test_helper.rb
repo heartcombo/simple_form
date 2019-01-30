@@ -1,15 +1,13 @@
 # frozen_string_literal: true
-require 'bundler/setup'
-
 require 'minitest/autorun'
 
 require 'active_model'
 require 'action_controller'
 require 'action_view'
+
 ActionView::RoutingUrlFor.send(:include, ActionDispatch::Routing::UrlFor)
 
 require 'action_view/template'
-
 require 'action_view/test_case'
 
 module Rails
@@ -41,9 +39,13 @@ if ActiveSupport::TestCase.respond_to?(:test_order=)
   ActiveSupport::TestCase.test_order = :random
 end
 
+require "rails/test_unit/line_filtering"
+
 class ActionView::TestCase
   include MiscHelpers
   include SimpleForm::ActionViewExtensions::FormHelper
+
+  extend Rails::LineFiltering
 
   setup :set_controller
   setup :setup_users
