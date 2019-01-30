@@ -439,4 +439,12 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       assert_select 'span.radio > label', '200'
     end
   end
+
+  test 'input check boxes with inline style support label custom classes' do
+    swap SimpleForm, boolean_style: :inline do
+      with_input_for @user, :gender, :radio_buttons, collection: %i[male female], item_label_class: 'beautiful-label'
+
+      assert_select 'label.beautiful-label', count: 2
+    end
+  end
 end

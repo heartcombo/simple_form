@@ -1,5 +1,10 @@
 ## Unreleased
 
+### Enhancements
+* Set multiple attribute for grouped selects also. [@ollym](https://github.com/ollym)
+* Removes or renames label classes. [Abduvakilov](https://github.com/Abduvakilov)
+* Support to label custom classes for inline collections. [@feliperenan](https://github.com/feliperenan)
+
 ## 4.1.0
 
 ### Enhancements
@@ -7,7 +12,6 @@
 * Allow custom error on forms without model. [@victorperez](https://github.com/victorperez)
 * Do not support Ruby < 2.3 anymore. [@gssbzn](https://github.com/gssbzn)
 * Add color input type. [@gssbzn](https://github.com/gssbzn)
-* Set multiple attribute for grouped selects also. [@ollym](https://github.com/ollym)
 
 ### Bug fix
 * Improve disabled option to input_field. [@betelgeuse](https://github.com/betelgeuse)

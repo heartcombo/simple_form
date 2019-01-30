@@ -545,6 +545,12 @@ form_for @user do |f|
 end
 ```
 
+To add a CSS class to the label item, you can use the `item_label_class` option:
+
+```ruby
+f.collection_check_boxes :role_ids, Role.all, :id, :name, item_label_class: 'my-custom-class' 
+```
+
 ## Available input types and defaults for each column type
 
 The following table shows the html element you will get for each attribute
