@@ -48,7 +48,9 @@ module SimpleForm
       private
 
       def render_component(builder)
-        builder.radio_button + builder.label(class: "collection_radio_buttons")
+        label_class = "#{@options[:item_label_class]} collection_radio_buttons".strip
+
+        builder.radio_button + builder.label(class: label_class)
       end
     end
 
@@ -62,7 +64,9 @@ module SimpleForm
       private
 
       def render_component(builder)
-        builder.check_box + builder.label(class: "collection_check_boxes")
+        label_class = "#{@options[:item_label_class]} collection_check_boxes".strip
+
+        builder.check_box + builder.label(class: label_class)
       end
     end
   end
