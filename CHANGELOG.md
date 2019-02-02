@@ -4,6 +4,7 @@
 * Set multiple attribute for grouped selects also. [@ollym](https://github.com/ollym)
 * Removes or renames label classes. [Abduvakilov](https://github.com/Abduvakilov)
 * Support to label custom classes for inline collections. [@feliperenan](https://github.com/feliperenan)
+* Update bootstrap generator template to match v4.1.3. [@m5o](https://github.com/m5o)
 
 ## 4.1.0
 
