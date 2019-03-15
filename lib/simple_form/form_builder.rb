@@ -26,6 +26,7 @@ module SimpleForm
     map_type :range,                                               to: SimpleForm::Inputs::RangeInput
     map_type :check_boxes,                                         to: SimpleForm::Inputs::CollectionCheckBoxesInput
     map_type :radio_buttons,                                       to: SimpleForm::Inputs::CollectionRadioButtonsInput
+    map_type :rich_text_area,                                      to: SimpleForm::Inputs::RichTextAreaInput
     map_type :select,                                              to: SimpleForm::Inputs::CollectionSelectInput
     map_type :grouped_select,                                      to: SimpleForm::Inputs::GroupedCollectionSelectInput
     map_type :date, :time, :datetime,                              to: SimpleForm::Inputs::DateTimeInput
