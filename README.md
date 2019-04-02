@@ -288,13 +288,6 @@ end
 </form>
 ```
 
-Produces:
-
-```html
-<input class="string required" id="user_name" maxlength="100"
-   name="user[name]" size="100" type="text" value="Carlos" />
-```
-
 To view the actual RDocs for this, check them out here - http://rubydoc.info/github/plataformatec/simple_form/master/SimpleForm/FormBuilder:input_field
 
 ### Collections
