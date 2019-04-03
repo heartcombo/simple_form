@@ -36,15 +36,15 @@ class PriorityInputTest < ActionView::TestCase
     assert_no_select 'select option[value=""]', /^$/
   end
 
-  test 'priority input does not generate invalid required html attribute' do
+  test 'priority input does generate select element with required html attribute' do
     with_input_for @user, :country, :country
     assert_select 'select.required'
-    assert_no_select 'select[required]'
+    assert_select 'select[required]'
   end
 
-  test 'priority input does not generate invalid aria-required html attribute' do
+  test 'priority input does generate select element with aria-required html attribute' do
     with_input_for @user, :country, :country
     assert_select 'select.required'
-    assert_no_select 'select[aria-required]'
+    assert_select 'select[aria-required]'
   end
 end
