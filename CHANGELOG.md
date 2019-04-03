@@ -5,6 +5,7 @@
 * Removes or renames label classes. [Abduvakilov](https://github.com/Abduvakilov)
 * Support to label custom classes for inline collections. [@feliperenan](https://github.com/feliperenan)
 * Update bootstrap generator template to match v4.3.x. [@m5o](https://github.com/m5o)
+* Allow "required" attribute in generated select elements of PriorityInput. [@mcountis](https://github.com/mcountis)
 
 ## 4.1.0
 
