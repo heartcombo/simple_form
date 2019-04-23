@@ -28,10 +28,15 @@ module SimpleForm
         css += SimpleForm.additional_classes_for(:wrapper) do
           input.additional_classes + [input.input_class]
         end
-        css << (options[:wrapper_error_class] || @defaults[:error_class]) if input.has_errors?
-        css << (options[:wrapper_hint_class] || @defaults[:hint_class]) if input.has_hint?
-        css << (options[:wrapper_valid_class] || @defaults[:valid_class]) if input.valid?
+        css << html_class(:error_class, options) { input.has_errors? }
+        css << html_class(:hint_class, options) { input.has_hint? }
+        css << html_class(:valid_class, options) { input.valid? }
         css.compact
+      end
+
+      def html_class(key, options)
+        css = (options[:"wrapper_#{key}"] || @defaults[key])
+        css if css && yield
       end
     end
   end
