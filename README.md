@@ -910,7 +910,7 @@ end
 ```
 
 This sets the input and label class to `'label-input-class'` and will set the class `'is-invalid'`
-when the input has errors and `'is-valid'` if the input is valid.
+if the input has errors and `'is-valid'` if the input is valid.
 
 If you want to customize the custom _Form components_ on demand you can give it a name like this:
 
