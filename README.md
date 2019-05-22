@@ -909,8 +909,8 @@ config.wrappers do |b|
 end
 ```
 
-This you set the input and label class to `'label-input-class'` and will set the class `'is-invalid'`
-when the input has errors and `'is-valid'` if the input is valid.
+This sets the input and label classes to `'label-input-class'` and will set the class `'is-invalid'`
+if the input has errors and `'is-valid'` if the input is valid.
 
 If you want to customize the custom _Form components_ on demand you can give it a name like this:
 
