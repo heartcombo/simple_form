@@ -24,7 +24,7 @@ SimpleForm.setup do |config|
   config.label_text = lambda { |label, required, explicit_label| "#{label} #{required}" }
 
   # Define the way to render check boxes / radio buttons with labels.
-  config.boolean_style = :inline
+  config.boolean_style = :nested
 
   # You can wrap each item in a collection of radio/check boxes with a tag
   config.item_wrapper_tag = :div
