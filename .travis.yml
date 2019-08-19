@@ -5,6 +5,7 @@ rvm:
   - 2.3.8
   - 2.4.6
   - 2.5.5
+  - 2.6.3
   - ruby-head
   - jruby-9.1.17.0
   - jruby-9.2.0.0
@@ -14,6 +15,11 @@ gemfile:
   - gemfiles/Gemfile.rails-5-2-stable
   - Gemfile
 matrix:
+  exclude:
+    - rvm: 2.3.8
+      gemfile: Gemfile
+    - rvm: 2.4.6
+      gemfile: Gemfile
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-9.1.17.0
