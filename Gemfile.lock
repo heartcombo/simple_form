@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_form (4.1.0)
+    simple_form (5.0.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
 
@@ -299,4 +299,4 @@ DEPENDENCIES
   simple_form!
 
 BUNDLED WITH
-   1.17.1
+   1.17.3

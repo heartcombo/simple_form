@@ -572,9 +572,28 @@ module SimpleForm
       }.try(:last) if SimpleForm.input_mappings
     end
 
+    # Internal: Try to discover whether an attribute corresponds to a file or not.
+    #
+    # Most upload Gems add some kind of attributes to the ActiveRecord's model they are included in.
+    # This method tries to guess if an attribute belongs to some of these Gems by checking the presence
+    # of their methods using `#respond_to?`.
+    #
+    # Note: This does not support multiple file upload inputs, as this is very application-specific.
+    #
+    # The order here was choosen based on the popularity of Gems and for commodity - e.g. the method
+    # with the suffix `_url` is present in three Gems, so it's checked with priority:
+    #
+    # - `#{attribute_name}_attachment` - ActiveStorage >= `5.2` and Refile >= `0.2.0` <= `0.4.0`
+    # - `#{attribute_name}_url` - Shrine >= `0.9.0`, Refile >= `0.6.0` and CarrierWave >= `0.2.1`
+    # - `#{attribute_name}_attacher` - Refile >= `0.4.0` and Shrine >= `0.9.0`
+    # - `#{attribute_name}_file_name` - Paperclip ~> `2.0` (added for backwards compatibility)
+    #
+    # Returns a Boolean.
     def file_method?(attribute_name)
-      file = @object.send(attribute_name) if @object.respond_to?(attribute_name)
-      file && SimpleForm.file_methods.any? { |m| file.respond_to?(m) }
+      @object.respond_to?("#{attribute_name}_attachment") ||
+        @object.respond_to?("#{attribute_name}_url") ||
+        @object.respond_to?("#{attribute_name}_attacher") ||
+        @object.respond_to?("#{attribute_name}_file_name")
     end
 
     def find_attribute_column(attribute_name)

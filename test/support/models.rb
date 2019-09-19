@@ -333,3 +333,21 @@ end
 
 class UserNumber1And2 < User
 end
+
+class UserWithAttachment < User
+  def avatar_attachment
+    OpenStruct.new
+  end
+
+  def cover_url
+    "/uploads/cover.png"
+  end
+
+  def profile_image_attacher
+    OpenStruct.new
+  end
+
+  def portrait_file_name
+    "portrait.png"
+  end
+end

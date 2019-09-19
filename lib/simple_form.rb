@@ -38,6 +38,17 @@ to
 See https://github.com/plataformatec/simple_form/pull/997 for more information.
   WARN
 
+  FILE_METHODS_DEPRECATION_WARN = <<-WARN
+[SIMPLE_FORM] SimpleForm.file_methods is deprecated and has no effect.
+
+Since version 5, Simple Form now supports automatically discover of file inputs for the following Gems: activestorage, carrierwave, paperclip, refile and shrine.
+If you are using a custom method that is not from one of the supported Gems, please change your forms to pass the input type explicitly:
+
+    <%= form.input :avatar, as: :file %>
+
+See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-form-cve-2019-16676 for more information.
+  WARN
+
   @@configured = false
 
   def self.configured? #:nodoc:
@@ -119,10 +130,6 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   # Tell browsers whether to use default HTML5 validations (novalidate option).
   mattr_accessor :browser_validations
   @@browser_validations = true
-
-  # Collection of methods to detect if a file type was given.
-  mattr_accessor :file_methods
-  @@file_methods = %i[mounted_as file? public_filename attached?]
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
@@ -263,6 +270,16 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   def self.form_class=(value)
     ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.form_class= is deprecated and will be removed in 4.x. Use SimpleForm.default_form_class= instead", caller
     @@form_class = value
+  end
+
+  def self.file_methods=(file_methods)
+    ActiveSupport::Deprecation.warn(FILE_METHODS_DEPRECATION_WARN, caller)
+    @@file_methods = file_methods
+  end
+
+  def self.file_methods
+    ActiveSupport::Deprecation.warn(FILE_METHODS_DEPRECATION_WARN, caller)
+    @@file_methods
   end
 
   # Default way to setup Simple Form. Run rails generate simple_form:install

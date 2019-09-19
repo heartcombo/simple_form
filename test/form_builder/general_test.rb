@@ -239,31 +239,24 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form select#user_updated_at_1i.datetime'
   end
 
-  test 'builder generates file for file columns' do
-    @user.avatar = MiniTest::Mock.new
-    @user.avatar.expect(:public_filename, true)
-    @user.avatar.expect(:!, false)
-
-    with_form_for @user, :avatar
-    assert_select 'form input#user_avatar.file'
+  test 'builder generates file input for ActiveStorage >= 5.2 and Refile >= 0.2.0 <= 0.4.0' do
+    with_form_for UserWithAttachment.build, :avatar
+    assert_select 'form input#user_with_attachment_avatar.file'
   end
 
-  test 'builder generates file for activestorage entries' do
-    @user.avatar = MiniTest::Mock.new
-    @user.avatar.expect(:attached?, false)
-    @user.avatar.expect(:!, false)
-
-    with_form_for @user, :avatar
-    assert_select 'form input#user_avatar.file'
+  test 'builder generates file input for Shrine >= 0.9.0, Refile >= 0.6.0 and CarrierWave >= 0.2.1' do
+    with_form_for UserWithAttachment.build, :cover
+    assert_select 'form input#user_with_attachment_cover.file'
   end
 
-  test 'builder generates file for attributes that are real db columns but have file methods' do
-    @user.home_picture = MiniTest::Mock.new
-    @user.home_picture.expect(:mounted_as, true)
-    @user.home_picture.expect(:!, false)
+  test 'builder generates file input for Refile >= 0.4.0 and Shrine >= 0.9.0' do
+    with_form_for UserWithAttachment.build, :profile_image
+    assert_select 'form input#user_with_attachment_profile_image.file'
+  end
 
-    with_form_for @user, :home_picture
-    assert_select 'form input#user_home_picture.file'
+  test 'builder generates file input for Paperclip ~> 2.0' do
+    with_form_for UserWithAttachment.build, :portrait
+    assert_select 'form input#user_with_attachment_portrait.file'
   end
 
   test 'build generates select if a collection is given' do

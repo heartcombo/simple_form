@@ -91,4 +91,5 @@ class ActionView::TestCase
   alias :validating_user_path :user_path
   alias :validating_users_path :user_path
   alias :other_validating_user_path :user_path
+  alias :user_with_attachment_path :user_path
 end
