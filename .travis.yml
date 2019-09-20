@@ -8,7 +8,7 @@ rvm:
   - 2.6.3
   - ruby-head
   - jruby-9.1.17.0
-  - jruby-9.2.0.0
+  - jruby-9.2.7.0
 gemfile:
   - gemfiles/Gemfile.rails-5-0-stable
   - gemfiles/Gemfile.rails-5-1-stable
@@ -26,8 +26,10 @@ matrix:
     - rvm: ruby-head
     - rvm: jruby-9.1.17.0
       gemfile: Gemfile
-    - rvm: jruby-9.2.0.0
+    - rvm: jruby-9.2.7.0
       gemfile: Gemfile
+before_install:
+  - gem update --system
 notifications:
   email: false
   slack:
