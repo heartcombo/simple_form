@@ -204,7 +204,7 @@ class User
 
   def self.human_attribute_name(attribute, options = {})
     case attribute
-      when 'name'
+      when 'name', :name
         'Super User Name!'
       when 'description'
         'User Description!'
