@@ -6,7 +6,6 @@ rvm:
   - 2.4.6
   - 2.5.5
   - 2.6.3
-  - ruby-head
   - jruby-9.1.17.0
   - jruby-9.2.7.0
 gemfile:
@@ -23,7 +22,6 @@ matrix:
     - rvm: jruby-9.1.17.0
       gemfile: Gemfile
   allow_failures:
-    - rvm: ruby-head
     - rvm: jruby-9.1.17.0
       gemfile: Gemfile
     - rvm: jruby-9.2.7.0
