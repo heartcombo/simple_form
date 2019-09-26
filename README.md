@@ -1233,6 +1233,8 @@ sending us a pull request.
 
 https://github.com/plataformatec/simple_form/issues
 
+If you have discovered a security related bug, please do NOT use the GitHub issue tracker. Send an e-mail to opensource@plataformatec.com.br.
+
 ## Maintainers
 
 * José Valim (https://github.com/josevalim)
