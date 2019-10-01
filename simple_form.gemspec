@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.test_files    = Dir["test/**/*.rb"]
   s.test_files   -= Dir["test/support/country_select/**/*"]
   s.require_paths = ["lib"]
+  
+  s.required_ruby_version = '>= 2.3.0'
 
   s.add_dependency('activemodel', '>= 5.0')
   s.add_dependency('actionpack', '>= 5.0')
