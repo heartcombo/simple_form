@@ -580,7 +580,7 @@ module SimpleForm
     #
     # Note: This does not support multiple file upload inputs, as this is very application-specific.
     #
-    # The order here was choosen based on the popularity of Gems:
+    # The order here was chosen based on the popularity of Gems:
     #
     # - `#{attribute_name}_attachment` - ActiveStorage >= `5.2` and Refile >= `0.2.0` <= `0.4.0`
     # - `remote_#{attribute_name}_url` - Refile >= `0.3.0` and CarrierWave >= `0.2.2`
