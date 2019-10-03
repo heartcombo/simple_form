@@ -339,7 +339,7 @@ class UserWithAttachment < User
     OpenStruct.new
   end
 
-  def cover_url
+  def remote_cover_url
     "/uploads/cover.png"
   end
 
