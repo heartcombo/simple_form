@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 5.0.1
+
 ### Bug fix
 * Replace `_url` with `remote_url` when trying to guess file inputs [@tegon](https://github.com/tegon). This has the side-effect of changing carrierwave's support from `0.2.1` to `0.2.2`.
 
