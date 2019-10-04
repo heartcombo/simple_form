@@ -580,18 +580,17 @@ module SimpleForm
     #
     # Note: This does not support multiple file upload inputs, as this is very application-specific.
     #
-    # The order here was choosen based on the popularity of Gems and for commodity - e.g. the method
-    # with the suffix `_url` is present in three Gems, so it's checked with priority:
+    # The order here was chosen based on the popularity of Gems:
     #
     # - `#{attribute_name}_attachment` - ActiveStorage >= `5.2` and Refile >= `0.2.0` <= `0.4.0`
-    # - `#{attribute_name}_url` - Shrine >= `0.9.0`, Refile >= `0.6.0` and CarrierWave >= `0.2.1`
+    # - `remote_#{attribute_name}_url` - Refile >= `0.3.0` and CarrierWave >= `0.2.2`
     # - `#{attribute_name}_attacher` - Refile >= `0.4.0` and Shrine >= `0.9.0`
     # - `#{attribute_name}_file_name` - Paperclip ~> `2.0` (added for backwards compatibility)
     #
     # Returns a Boolean.
     def file_method?(attribute_name)
       @object.respond_to?("#{attribute_name}_attachment") ||
-        @object.respond_to?("#{attribute_name}_url") ||
+        @object.respond_to?("remote_#{attribute_name}_url") ||
         @object.respond_to?("#{attribute_name}_attacher") ||
         @object.respond_to?("#{attribute_name}_file_name")
     end
