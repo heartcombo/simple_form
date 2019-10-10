@@ -561,6 +561,7 @@ Mapping         | Generated HTML Element               | Database Column Type
 `password`      | `input[type=password]`               | `string` with `name =~ /password/`
 `search`        | `input[type=search]`                 | -
 `uuid`          | `input[type=text]`                   | `uuid`
+`color`         | `input[type=color]`                  | `string`
 `text`          | `textarea`                           | `text`
 `hstore`        | `textarea`                           | `hstore`
 `json`          | `textarea`                           | `json`
