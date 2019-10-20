@@ -284,6 +284,12 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'select[required]'
   end
 
+  test "collection input generated aria-label should contain 'true'" do
+    with_input_for @user, :age, :select, collection: 18..30, prompt: "Please select foo"
+    assert_select 'select.required'
+    assert_select 'select[aria-required=true]'
+  end
+
   test 'collection input with select type does not generate required html attribute without blank option' do
     with_input_for @user, :name, :select, include_blank: false, collection: %w[Jose Carlos]
     assert_select 'select.required'
