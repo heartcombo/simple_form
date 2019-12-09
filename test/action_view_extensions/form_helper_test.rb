@@ -33,6 +33,18 @@ class FormHelperTest < ActionView::TestCase
     end
   end
 
+  test 'SimpleForm allows additional form classes' do
+    with_concat_form_for :user, html: { classes: ['my_class', 'another_class'] }
+    assert_select 'form.my_class.another_class'
+  end
+
+  test 'SimpleForm allows additional form classes to default form class' do
+    swap SimpleForm, default_form_class: "my_custom_class" do
+      with_concat_form_for :user, html: { classes: ['my_class', 'another_class'] }
+      assert_select 'form.my_custom_class.another_class'
+    end
+  end
+
   test 'SimpleForm uses default browser validations by default' do
     with_concat_form_for(:user)
     assert_no_select 'form[novalidate]'
