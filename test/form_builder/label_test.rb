@@ -19,7 +19,7 @@ class LabelTest < ActionView::TestCase
     assert_select 'label.string[for=user_name]', /Name/
   end
 
-  test 'builder generates a label for the boolean attrbiute' do
+  test 'builder generates a label for the boolean attribute' do
     with_label_for @user, :name, as: :boolean
     assert_select 'label.boolean[for=user_name]', /Name/
     assert_no_select 'label[as=boolean]'
