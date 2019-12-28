@@ -7,7 +7,6 @@ rvm:
   - 2.5.5
   - 2.6.5
   - 2.7.0
-  - jruby-9.1.17.0
   - jruby-9.2.7.0
 gemfile:
   - gemfiles/Gemfile.rails-5-0-stable

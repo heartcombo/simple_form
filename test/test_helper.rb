@@ -60,7 +60,7 @@ class ActionView::TestCase
 
     @validating_user = ValidatingUser.build({
       name: 'Tester McTesterson',
-      description: 'A test user of the most distinguised caliber',
+      description: 'A test user of the most distinguished caliber',
       home_picture: 'Home picture',
       age: 19,
       amount: 15,

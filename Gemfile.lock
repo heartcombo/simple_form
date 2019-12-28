@@ -297,6 +297,3 @@ DEPENDENCIES
   rubinius-developer_tools
   rubysl (~> 2.0)
   simple_form!
-
-BUNDLED WITH
-   1.17.3
