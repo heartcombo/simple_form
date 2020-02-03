@@ -1,13 +1,12 @@
 ## Contributing
 
 1. If you have any questions about Simple Form, search the
-[Wiki](https://github.com/plataformatec/simple_form/wiki) or
-use the [Mailing List](https://groups.google.com/group/plataformatec-simpleform)
+[Wiki](https://github.com/heartcombo/simple_form/wiki)
 or [Stack Overflow](http://stackoverflow.com/questions/tagged/simple_form).
 Do not post questions here.
 
 2. If you find a security bug, **DO NOT** submit an issue here.
-Please send an e-mail to [opensource@plataformatec.com.br](mailto:opensource@plataformatec.com.br)
+Please send an e-mail to [heartcombo@googlegroups.com](mailto:heartcombo@googlegroups.com)
 instead.
 
 3. Do a small search on the issues tracker before submitting your issue to

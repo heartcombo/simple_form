@@ -115,7 +115,7 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
 
 ### bug fix
   * Fix `merge_wrapper_options` to correctly merge options with duplicated keys. [@herminiotorres](https://github.com/herminiotorres)
-  Closes [#1278](https://github.com/plataformatec/simple_form/issues/1278).
+  Closes [#1278](https://github.com/heartcombo/simple_form/issues/1278).
 
 ## 3.2.1
 
@@ -177,11 +177,11 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   * Add `boolean_label_class` config.
   * Add `:html` option to include additional attributes on custom wrappers [@remofritzsche](https://github.com/remofritzsche) and [@ulissesalmeida](https://github.com/ulissesalmeida)
   * Make possible to use the Wrappers API to define attributes for the components.
-  See https://github.com/plataformatec/simple_form/pull/997 for more information.
+  See https://github.com/heartcombo/simple_form/pull/997 for more information.
   * Put a whitespace before the `inline_label` options of boolean input if it is present.
   * Add support to configure the `label_text` proc at the wrapper level. [@NOX73](https://github.com/NOX73)
   * `label_text` proc now receive three arguments (label, request, and if the label was explicit). [@timscott](https://github.com/timscott)
-  * Add I18n support to `:include_blank` and `:prompt` when `:translate` is used as value. [@haines](https://github.com/plataformatec/simple_form/pull/616)
+  * Add I18n support to `:include_blank` and `:prompt` when `:translate` is used as value. [@haines](https://github.com/heartcombo/simple_form/pull/616)
   * Add support to define custom error messages for the attributes.
   * Add support to change the I18n scope to be used in Simple Form. [@nielsbuus](https://github.com/nielsbuus)
   * The default form class can now be overridden with `html: { :class }`. [@rmm5t](https://github.com/rmm5t)
@@ -190,16 +190,16 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   * Fix `full_error` when the attribute is an association. [@mvdamme](https://github.com/jorge-d)
   * Fix suppport to `:namespace` and `:index` options for nested check boxes and radio buttons when the attribute is an association.
   * Collection input that uses automatic collection translation properly sets checked values.
-  Closes [#971](https://github.com/plataformatec/simple_form/issues/971) [@nashby](https://github.com/nashby)
+  Closes [#971](https://github.com/heartcombo/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
   * Grouped collection uses the first non-empty object to detect label and value methods.
 
 ## deprecation
   * Methods on custom inputs now accept a required argument with the wrapper options.
-  See https://github.com/plataformatec/simple_form/pull/997 for more information.
+  See https://github.com/heartcombo/simple_form/pull/997 for more information.
   * SimpleForm.form_class is deprecated in favor of SimpleForm.default_form_class.
   Future versions of Simple Form will not generate `simple_form` class for the form
   element.
-  See https://github.com/plataformatec/simple_form/pull/1109 for more information.
+  See https://github.com/heartcombo/simple_form/pull/1109 for more information.
 
-Please check [v3.0](https://github.com/plataformatec/simple_form/blob/v3.0/CHANGELOG.md) for previous changes.
+Please check [v3.0](https://github.com/heartcombo/simple_form/blob/v3.0/CHANGELOG.md) for previous changes.

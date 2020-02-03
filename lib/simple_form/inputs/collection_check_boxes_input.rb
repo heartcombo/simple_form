@@ -5,7 +5,7 @@ module SimpleForm
       protected
 
       # Checkbox components do not use the required html tag.
-      # More info: https://github.com/plataformatec/simple_form/issues/340#issuecomment-2871956
+      # More info: https://github.com/heartcombo/simple_form/issues/340#issuecomment-2871956
       def has_required?
         false
       end

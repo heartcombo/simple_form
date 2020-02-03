@@ -1,6 +1,4 @@
-![Simple Form Logo](https://raw.github.com/plataformatec/simple_form/master/simple_form.png)
-
-By [Plataformatec](http://plataformatec.com.br/).
+![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/master/simple_form.png)
 
 Rails forms made easy.
 
@@ -9,8 +7,7 @@ your forms. The basic goal of **Simple Form** is to not touch your way of defini
 you find the better design for your eyes. Most of the DSL was inherited from Formtastic,
 which we are thankful for and should make you feel right at home.
 
-INFO: This README is [also available in a friendly navigable format](http://simple-form.plataformatec.com.br/)
-and refers to **Simple Form** 3.1. For older releases, check the related branch for your version.
+INFO: This README refers to **Simple Form** 3.1. For older releases, check the related branch for your version.
 
 ## Installation
 
@@ -184,7 +181,7 @@ By default, **Simple Form** will look at the column type in the database and use
 appropriate input for the column. For example, a column created with type
 `:text` in the database will use a `textarea` input by default. See the section
 [Available input types and defaults for each column
-type](https://github.com/plataformatec/simple_form#available-input-types-and-defaults-for-each-column-type)
+type](https://github.com/heartcombo/simple_form#available-input-types-and-defaults-for-each-column-type)
 for a complete list of defaults.
 
 **Simple Form** also lets you overwrite the default input type it creates:
@@ -288,7 +285,7 @@ end
 </form>
 ```
 
-To view the actual RDocs for this, check them out here - http://rubydoc.info/github/plataformatec/simple_form/master/SimpleForm/FormBuilder:input_field
+To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/master/SimpleForm/FormBuilder:input_field
 
 ### Collections
 
@@ -318,7 +315,7 @@ Collection inputs accept two other options beside collections:
 Those methods are useful to manipulate the given collection. Both of these options also accept
 lambda/procs in case you want to calculate the value or label in a special way eg. custom
 translation. You can also define a `to_label` method on your model as **Simple Form** will search for
-and use `:to_label` as a `:label_method` first if it is found. 
+and use `:to_label` as a `:label_method` first if it is found.
 
 By default, **Simple Form** will use the first item from an array as the label and the second one as the value.
 If you want to change this behavior you must make it explicit, like this:
@@ -992,7 +989,7 @@ when the content is present.
 
 ## Custom Components
 
-When you use custom wrappers, you might also be looking for a way to add custom components to your 
+When you use custom wrappers, you might also be looking for a way to add custom components to your
 wrapper. The default components are:
 
 ```ruby
@@ -1143,7 +1140,7 @@ by passing the html5 option:
 
 ### Using non Active Record objects
 
-There are few ways to build forms with objects that don't inherit from Active Record, as 
+There are few ways to build forms with objects that don't inherit from Active Record, as
 follows:
 
 You can include the module `ActiveModel::Model`.
@@ -1156,7 +1153,7 @@ class User
 end
 ```
 
-If you are using Presenters or Decorators that inherit from `SimpleDelegator` you can delegate 
+If you are using Presenters or Decorators that inherit from `SimpleDelegator` you can delegate
 it to the model.
 
 ```ruby
@@ -1190,7 +1187,7 @@ class User
 end
 ```
 
-If your object doesn't implement those methods, you must make explicit it when you are 
+If your object doesn't implement those methods, you must make explicit it when you are
 building the form
 
 ```ruby
@@ -1213,18 +1210,11 @@ end
 
 ## Information
 
-### Google Group
-
-If you have any questions, comments, or concerns please use the Google Group instead of the GitHub
-Issues tracker:
-
-http://groups.google.com/group/plataformatec-simpleform
-
 ### RDocs
 
 You can view the **Simple Form** documentation in RDoc format here:
 
-http://rubydoc.info/github/plataformatec/simple_form/master/frames
+http://rubydoc.info/github/heartcombo/simple_form/master/frames
 
 ### Bug reports
 
@@ -1232,25 +1222,24 @@ If you discover any bugs, feel free to create an issue on GitHub. Please add as 
 possible to help us in fixing the potential bug. We also encourage you to help even more by forking and
 sending us a pull request.
 
-https://github.com/plataformatec/simple_form/issues
+https://github.com/heartcombo/simple_form/issues
 
-If you have discovered a security related bug, please do NOT use the GitHub issue tracker. Send an e-mail to opensource@plataformatec.com.br.
+If you have discovered a security related bug, please do NOT use the GitHub issue tracker. Send an e-mail to heartcombo@googlegroups.com.
 
 ## Maintainers
 
-* José Valim (https://github.com/josevalim)
 * Carlos Antonio da Silva (https://github.com/carlosantoniodasilva)
 * Rafael Mendonça França (https://github.com/rafaelfranca)
-* Vasiliy Ermolovich (https://github.com/nashby)
+* Felipe Renan (https://github.com/feliperenan)
 
 [![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
-[![Build Status](https://api.travis-ci.org/plataformatec/simple_form.svg?branch=master)](http://travis-ci.org/plataformatec/simple_form)
-[![Code Climate](https://codeclimate.com/github/plataformatec/simple_form.png)](https://codeclimate.com/github/plataformatec/simple_form)
-[![Inline docs](http://inch-ci.org/github/plataformatec/simple_form.png)](http://inch-ci.org/github/plataformatec/simple_form)
+[![Build Status](https://api.travis-ci.org/heartcombo/simple_form.svg?branch=master)](http://travis-ci.org/heartcombo/simple_form)
+[![Code Climate](https://codeclimate.com/github/heartcombo/simple_form.png)](https://codeclimate.com/github/heartcombo/simple_form)
+[![Inline docs](http://inch-ci.org/github/heartcombo/simple_form.png)](http://inch-ci.org/github/heartcombo/simple_form)
 
 ## License
 
-MIT License. Copyright 2009-2019 Plataformatec. http://plataformatec.com.br
+MIT License. Copyright 2020 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
 
-You are not granted rights or licenses to the trademarks of the Plataformatec, including without
-limitation the Simple Form name or logo.
+The Simple Form logo is licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+

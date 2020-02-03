@@ -35,7 +35,7 @@ to
 
     def %{name}(wrapper_options)
 
-See https://github.com/plataformatec/simple_form/pull/997 for more information.
+See https://github.com/heartcombo/simple_form/pull/997 for more information.
   WARN
 
   FILE_METHODS_DEPRECATION_WARN = <<-WARN

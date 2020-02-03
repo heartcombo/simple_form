@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version     = SimpleForm::VERSION.dup
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Forms made easy!"
-  s.email       = "opensource@plataformatec.com.br"
-  s.homepage    = "https://github.com/plataformatec/simple_form"
+  s.email       = "heartcombo@googlegroups.com"
+  s.homepage    = "https://github.com/heartcombo/simple_form"
   s.description = "Forms made easy!"
   s.authors     = ['José Valim', 'Carlos Antônio', 'Rafael França']
   s.license     = "MIT"
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files    = Dir["test/**/*.rb"]
   s.test_files   -= Dir["test/support/country_select/**/*"]
   s.require_paths = ["lib"]
-  
+
   s.required_ruby_version = '>= 2.3.0'
 
   s.add_dependency('activemodel', '>= 5.0')
