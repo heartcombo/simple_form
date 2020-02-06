@@ -3,9 +3,8 @@
   Be sure to have a copy of the Bootstrap stylesheet available on your
   application, you can get it on http://getbootstrap.com/.
 
-  Inside your views, use the 'simple_form_for' with the Bootstrap form
-  class, '.form-inline', as the following:
+  For usage examples and documentation, see:
 
-    = simple_form_for(@user, html: { class: 'form-inline' }) do |form|
+    http://simple-form-bootstrap.plataformatec.com.br/
 
 ===============================================================================
