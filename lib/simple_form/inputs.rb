@@ -19,6 +19,7 @@ module SimpleForm
     autoload :PasswordInput
     autoload :PriorityInput
     autoload :RangeInput
+    autoload :RichTextAreaInput
     autoload :StringInput
     autoload :TextInput
   end
