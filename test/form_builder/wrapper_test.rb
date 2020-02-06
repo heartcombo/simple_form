@@ -59,6 +59,15 @@ class WrapperTest < ActionView::TestCase
     assert_no_select 'input.is-invalid'
   end
 
+  test 'wrapper does not determine if valid class is needed when it is set to nil' do
+    def @user.name; raise BOOM; end
+    with_form_for @user, :name, as: :file, wrapper: custom_wrapper_with_input_valid_class(valid_class: nil)
+    assert_select 'div'
+    assert_select 'input'
+    assert_no_select 'div.field_with_errors'
+    assert_no_select 'input.is-invalid'
+  end
+
   test 'wrapper adds hint class for attribute with a hint' do
     with_form_for @user, :name, hint: 'hint'
     assert_select 'div.field_with_hint'
