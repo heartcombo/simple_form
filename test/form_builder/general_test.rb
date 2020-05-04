@@ -244,6 +244,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_select 'form input#user_with_attachment_avatar.file'
   end
 
+  test 'builder generates file input for ActiveStorage::Attached::Many' do
+    with_form_for UserWithAttachment.build, :avatars
+    assert_select 'form input#user_with_attachment_avatars.file'
+  end
+
   test 'builder generates file input for Refile >= 0.3.0 and CarrierWave >= 0.2.2' do
     with_form_for UserWithAttachment.build, :cover
     assert_select 'form input#user_with_attachment_cover.file'

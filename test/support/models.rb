@@ -339,6 +339,10 @@ class UserWithAttachment < User
     OpenStruct.new
   end
 
+  def avatars_attachments
+    OpenStruct.new
+  end
+
   def remote_cover_url
     "/uploads/cover.png"
   end

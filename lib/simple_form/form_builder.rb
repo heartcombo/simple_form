@@ -591,6 +591,7 @@ module SimpleForm
     # Returns a Boolean.
     def file_method?(attribute_name)
       @object.respond_to?("#{attribute_name}_attachment") ||
+        @object.respond_to?("#{attribute_name}_attachments") ||
         @object.respond_to?("remote_#{attribute_name}_url") ||
         @object.respond_to?("#{attribute_name}_attacher") ||
         @object.respond_to?("#{attribute_name}_file_name")
