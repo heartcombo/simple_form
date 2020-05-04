@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Fix for ActiveStorage::Attached::Many. [@enriquez](https://github.com/enriquez)
+
 ## 5.0.2
 
 ### Enhancements
