@@ -7,7 +7,7 @@ your forms. The basic goal of **Simple Form** is to not touch your way of defini
 you find the better design for your eyes. Most of the DSL was inherited from Formtastic,
 which we are thankful for and should make you feel right at home.
 
-INFO: This README refers to **Simple Form** 3.1. For older releases, check the related branch for your version.
+INFO: This README refers to **Simple Form** 5.0. For older releases, check the related branch for your version.
 
 ## Installation
 
