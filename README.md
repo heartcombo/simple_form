@@ -115,7 +115,7 @@ of any of them:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, label_html: { class: 'my_class' } %>
+  <%= f.input :username, label_html: { class: 'my_class' }, hint_html: {class: 'hint_class'} %>
   <%= f.input :password, hint: false, error_html: { id: 'password_error'} %>
   <%= f.input :password_confirmation, label: false %>
   <%= f.button :submit %>
