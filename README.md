@@ -115,7 +115,7 @@ of any of them:
 
 ```erb
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username, label_html: { class: 'my_class' }, hint_html: {class: 'hint_class'} %>
+  <%= f.input :username, label_html: { class: 'my_class' }, hint_html: { class: 'hint_class' } %>
   <%= f.input :password, hint: false, error_html: { id: 'password_error'} %>
   <%= f.input :password_confirmation, label: false %>
   <%= f.button :submit %>
@@ -538,7 +538,7 @@ end
 To add a CSS class to the label item, you can use the `item_label_class` option:
 
 ```ruby
-f.collection_check_boxes :role_ids, Role.all, :id, :name, item_label_class: 'my-custom-class' 
+f.collection_check_boxes :role_ids, Role.all, :id, :name, item_label_class: 'my-custom-class'
 ```
 
 ## Available input types and defaults for each column type
@@ -1159,8 +1159,8 @@ it to the model.
 ```ruby
 class UserPresenter < SimpleDelegator
   # Without that, Simple Form will consider the user model as the object.
-  def to_model 
-    self 
+  def to_model
+    self
   end
 end
 ```
@@ -1168,7 +1168,7 @@ end
 You can define all methods required by the helpers.
 
 ```ruby
-class User 
+class User
   extend ActiveModel::Naming
 
   attr_accessor :id, :name
@@ -1177,12 +1177,12 @@ class User
     self
   end
 
-  def to_key 
-    id 
+  def to_key
+    id
   end
 
-  def persisted? 
-    false 
+  def persisted?
+    false
   end
 end
 ```
@@ -1191,11 +1191,11 @@ If your object doesn't implement those methods, you must make explicit it when y
 building the form
 
 ```ruby
-class User 
+class User
   attr_accessor :id, :name
 
   # The only method required to use the f.submit helper.
-  def persisted? 
+  def persisted?
     false
   end
 end
@@ -1203,7 +1203,7 @@ end
 
 ```erb
 <%= simple_form_for(@user, as: :user, method: :post, url: users_path) do |f| %>
-  <%= f.input :name %> 
+  <%= f.input :name %>
   <%= f.submit 'New user' %>
 <% end %>
 ```
