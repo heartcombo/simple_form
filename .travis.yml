@@ -1,12 +1,10 @@
 cache: bundler
 language: ruby
 rvm:
-  - 2.3.8
-  - 2.4.6
-  - 2.5.5
-  - 2.6.5
-  - 2.7.0
-  - jruby-9.2.7.0
+  - 2.4
+  - 2.5
+  - 2.6
+  - 2.7
 gemfile:
   - gemfiles/Gemfile.rails-5-0-stable
   - gemfiles/Gemfile.rails-5-1-stable
@@ -14,17 +12,14 @@ gemfile:
   - Gemfile
 matrix:
   exclude:
-    - rvm: 2.3.8
+    - rvm: 2.4
       gemfile: Gemfile
-    - rvm: 2.4.6
-      gemfile: Gemfile
-    - rvm: jruby-9.1.17.0
-      gemfile: Gemfile
-  allow_failures:
-    - rvm: jruby-9.1.17.0
-      gemfile: Gemfile
-    - rvm: jruby-9.2.7.0
-      gemfile: Gemfile
+    - rvm: 2.7
+      gemfile: gemfiles/Gemfile.rails-5-0-stable
+    - rvm: 2.7
+      gemfile: gemfiles/Gemfile.rails-5-1-stable
+    - rvm: 2.7
+      gemfile: gemfiles/Gemfile.rails-5-2-stable
 before_install:
   - gem update --system
 notifications:

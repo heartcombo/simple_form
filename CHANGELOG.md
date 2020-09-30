@@ -1,3 +1,7 @@
+## Unreleased
+
+* Drop support to Ruby < 2.4.
+
 ## 5.0.3
 
 ### Bug fix
