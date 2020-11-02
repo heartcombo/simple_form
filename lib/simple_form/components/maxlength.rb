@@ -24,10 +24,6 @@ module SimpleForm
         find_validator(:length)
       end
 
-      def has_tokenizer?(length_validator)
-        length_validator.options[:tokenizer]
-      end
-
       def maximum_length_value_from(length_validator)
         if length_validator
           length_validator.options[:is] || length_validator.options[:maximum]
