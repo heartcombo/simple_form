@@ -5,19 +5,29 @@ module SimpleForm
   # caching facility to speed up form construction.
   module I18nCache
     def i18n_cache(key)
-      get_i18n_cache(key)[I18n.locale] ||= yield.freeze
-    end
-
-    def get_i18n_cache(key)
-      if class_variable_defined?(:"@@#{key}")
-        class_variable_get(:"@@#{key}")
-      else
-        reset_i18n_cache(key)
-      end
+      store = I18nCacheStore.instance
+      store[key] ||= {}
+      store[key][I18n.locale] ||= yield.freeze
     end
 
     def reset_i18n_cache(key)
-      class_variable_set(:"@@#{key}", {})
+      I18nCacheStore.instance[key] = {}
+    end
+  end
+
+  class I18nCacheStore
+    include Singleton
+
+    def initialize
+      @store ||= {}
+    end
+
+    def [](key)
+      @store[key]
+    end
+
+    def []=(key, value)
+      @store[key] = value
     end
   end
 end
