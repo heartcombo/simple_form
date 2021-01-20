@@ -10,10 +10,8 @@ module SimpleForm
       # Texts can be translated using i18n in "simple_form.yes" and
       # "simple_form.no" keys. See the example locale file.
       def self.boolean_collection
-        i18n_cache :boolean_collection do
-          [ [I18n.t(:"simple_form.yes", default: 'Yes'), true],
-            [I18n.t(:"simple_form.no", default: 'No'), false] ]
-        end
+        [ [I18n.t(:"simple_form.yes", default: 'Yes'), true],
+          [I18n.t(:"simple_form.no", default: 'No'), false] ]
       end
 
       def input(wrapper_options = nil)

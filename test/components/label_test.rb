@@ -4,10 +4,6 @@ require 'test_helper'
 
 # Isolated tests for label without triggering f.label.
 class IsolatedLabelTest < ActionView::TestCase
-  setup do
-    SimpleForm::Inputs::Base.reset_i18n_cache :translate_required_html
-  end
-
   def with_label_for(object, attribute_name, type, options = {})
     with_concat_form_for(object) do |f|
       options[:reflection] = Association.new(Company, :company, {}) if options.delete(:setup_association)

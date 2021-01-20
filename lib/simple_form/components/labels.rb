@@ -6,11 +6,9 @@ module SimpleForm
 
       module ClassMethods #:nodoc:
         def translate_required_html
-          i18n_cache :translate_required_html do
-            I18n.t(:"required.html", scope: i18n_scope, default:
-              %(<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>)
-            )
-          end
+          I18n.t(:"required.html", scope: i18n_scope, default:
+            %(<abbr title="#{translate_required_text}">#{translate_required_mark}</abbr>)
+          )
         end
 
         def translate_required_text

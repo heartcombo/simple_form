@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class CollectionRadioButtonsInputTest < ActionView::TestCase
-  setup do
-    SimpleForm::Inputs::CollectionRadioButtonsInput.reset_i18n_cache :boolean_collection
-  end
-
   test 'input generates boolean radio buttons by default for radio types' do
     with_input_for @user, :active, :radio_buttons
     assert_select 'input[type=radio][value=true].radio_buttons#user_active_true'

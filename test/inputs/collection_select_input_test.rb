@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class CollectionSelectInputTest < ActionView::TestCase
-  setup do
-    SimpleForm::Inputs::CollectionSelectInput.reset_i18n_cache :boolean_collection
-  end
-
   test 'input generates a boolean select with options by default for select types' do
     with_input_for @user, :active, :select
     assert_select 'select.select#user_active'

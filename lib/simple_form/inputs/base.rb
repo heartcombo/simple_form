@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'simple_form/i18n_cache'
 require 'active_support/core_ext/string/output_safety'
 require 'action_view/helpers'
 
@@ -8,8 +7,6 @@ module SimpleForm
     class Base
       include ERB::Util
       include ActionView::Helpers::TranslationHelper
-
-      extend I18nCache
 
       include SimpleForm::Helpers::Autofocus
       include SimpleForm::Helpers::Disabled

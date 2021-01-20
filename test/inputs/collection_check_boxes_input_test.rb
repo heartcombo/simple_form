@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class CollectionCheckBoxesInputTest < ActionView::TestCase
-  setup do
-    SimpleForm::Inputs::CollectionCheckBoxesInput.reset_i18n_cache :boolean_collection
-  end
-
   test 'input check boxes does not include for attribute by default' do
     with_input_for @user, :gender, :check_boxes, collection: %i[male female]
     assert_select 'label'

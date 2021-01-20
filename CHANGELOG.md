@@ -1,6 +1,7 @@
 ## Unreleased
 
-* Drop support for Ruby < 2.4.
+* Remove `I18nCache` module entirely. It was added complexity for very little gain in some translations, and caused extra trouble upgrading to Ruby 3. If you need that level of caching consider looking into I18n caching as a whole.
+* Add support for Ruby 3.0, drop support for Ruby < 2.5.
 * Add support for Rails 6.1, drop support for Rails < 5.2.
 * Move CI to GitHub Actions.
 
