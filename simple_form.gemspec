@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.4.0'
 
-  s.add_dependency('activemodel', '>= 5.0')
-  s.add_dependency('actionpack', '>= 5.0')
+  s.add_dependency('activemodel', '>= 5.2')
+  s.add_dependency('actionpack', '>= 5.2')
 end

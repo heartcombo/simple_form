@@ -1,6 +1,8 @@
 ## Unreleased
 
-* Drop support to Ruby < 2.4.
+* Drop support for Ruby < 2.4.
+* Add support for Rails 6.1, drop support for Rails < 5.2.
+* Move CI to GitHub Actions.
 
 ## 5.0.3
 

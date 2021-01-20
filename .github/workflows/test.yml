@@ -7,9 +7,8 @@ jobs:
       matrix:
         gemfile:
           - Gemfile
-          - gemfiles/Gemfile-rails-5-0
-          - gemfiles/Gemfile-rails-5-1
           - gemfiles/Gemfile-rails-5-2
+          - gemfiles/Gemfile-rails-6-0
         ruby:
           - 2.4
           - 2.5
@@ -18,10 +17,8 @@ jobs:
         exclude:
           - ruby: 2.4
             gemfile: Gemfile
-          - ruby: 2.7
-            gemfile: gemfiles/Gemfile-rails-5-0
-          - ruby: 2.7
-            gemfile: gemfiles/Gemfile-rails-5-1
+          - ruby: 2.4
+            gemfile: gemfiles/Gemfile-rails-6-0
           - ruby: 2.7
             gemfile: gemfiles/Gemfile-rails-5-2
     runs-on: ubuntu-latest
