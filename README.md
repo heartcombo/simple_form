@@ -1216,6 +1216,13 @@ You can view the **Simple Form** documentation in RDoc format here:
 
 http://rubydoc.info/github/heartcombo/simple_form/master/frames
 
+### Supported Ruby / Rails versions
+
+We intend to maintain support for all Ruby / Rails versions that haven't reached end-of-life.
+
+For more information about specific versions please check [Ruby](https://www.ruby-lang.org/en/downloads/branches/)
+and [Rails](https://guides.rubyonrails.org/maintenance_policy.html) maintenance policies, and our test matrix.
+
 ### Bug reports
 
 If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as
