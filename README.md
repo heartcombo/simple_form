@@ -1233,7 +1233,6 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 * Felipe Renan (https://github.com/feliperenan)
 
 [![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
-[![Build Status](https://api.travis-ci.org/heartcombo/simple_form.svg?branch=master)](http://travis-ci.org/heartcombo/simple_form)
 [![Code Climate](https://codeclimate.com/github/heartcombo/simple_form.png)](https://codeclimate.com/github/heartcombo/simple_form)
 [![Inline docs](http://inch-ci.org/github/heartcombo/simple_form.png)](http://inch-ci.org/github/heartcombo/simple_form)
 
@@ -1242,4 +1241,3 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 MIT License. Copyright 2020 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
 
 The Simple Form logo is licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
-

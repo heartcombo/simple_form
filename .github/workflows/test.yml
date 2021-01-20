@@ -1,0 +1,36 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        gemfile:
+          - Gemfile
+          - gemfiles/Gemfile.rails-5-0-stable
+          - gemfiles/Gemfile.rails-5-1-stable
+          - gemfiles/Gemfile.rails-5-2-stable
+        ruby:
+          - 2.4
+          - 2.5
+          - 2.6
+          - 2.7
+        exclude:
+          - ruby: 2.4
+            gemfile: Gemfile
+          - ruby: 2.7
+            gemfile: gemfiles/Gemfile.rails-5-0-stable
+          - ruby: 2.7
+            gemfile: gemfiles/Gemfile.rails-5-1-stable
+          - ruby: 2.7
+            gemfile: gemfiles/Gemfile.rails-5-2-stable
+    runs-on: ubuntu-latest
+    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true # runs bundle install and caches installed gems automatically
+      - run: bundle exec rake
