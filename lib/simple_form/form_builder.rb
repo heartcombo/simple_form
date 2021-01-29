@@ -674,7 +674,7 @@ module SimpleForm
       return if SimpleForm.inputs_discovery == false && at == Object
 
       begin
-        at.const_get(mapping) if at.constants.include?(mapping.to_sym)
+        at.const_get(mapping) if at.const_defined?(mapping)
       rescue NameError => e
         raise if e.message !~ /#{mapping}$/
       end
