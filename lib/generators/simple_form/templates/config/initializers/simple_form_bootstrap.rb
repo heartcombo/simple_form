@@ -2,7 +2,7 @@
 
 # Please do not make direct changes to this file!
 # This generator is maintained by the community around simple_form-bootstrap:
-# https://github.com/rafaelfranca/simple_form-bootstrap
+# https://github.com/heartcombo/simple_form-bootstrap
 # All future development, tests, and organization should happen there.
 # Background history: https://github.com/heartcombo/simple_form/issues/1561
 
@@ -362,7 +362,7 @@ SimpleForm.setup do |config|
 
 
   # Input Group - custom component
-  # see example app and config at https://github.com/rafaelfranca/simple_form-bootstrap
+  # see example app and config at https://github.com/heartcombo/simple_form-bootstrap
   # config.wrappers :input_group, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
   #   b.use :html5
   #   b.use :placeholder

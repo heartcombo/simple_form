@@ -42,7 +42,7 @@ You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap
 assets on your application.
 
 For more information see the generator output, our
-[example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
+[example application code](https://github.com/heartcombo/simple_form-bootstrap) and
 [the live example app](https://simple-form-bootstrap.herokuapp.com/).
 
 ### Zurb Foundation 5
