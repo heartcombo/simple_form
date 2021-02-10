@@ -43,7 +43,7 @@ assets on your application.
 
 For more information see the generator output, our
 [example application code](https://github.com/rafaelfranca/simple_form-bootstrap) and
-[the live example app](http://simple-form-bootstrap.plataformatec.com.br/).
+[the live example app](https://simple-form-bootstrap.herokuapp.com/).
 
 ### Zurb Foundation 5
 
