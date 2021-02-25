@@ -326,14 +326,13 @@ If you want to change this behavior you must make it explicit, like this:
 <% end %>
 ```
 
-All other options given are sent straight to the underlying helper. For example, you can give prompt as:
+All other options given are sent straight to the underlying Rails helper(s): [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select), [`collection_check_boxes`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_check_boxes), [`collection_radio_buttons`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_radio_buttons). For example, you can pass `prompt` and `selected` as:
 
 ```ruby
 f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
 ```
-Extra options are passed into helper [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select).
 
-You may also find it useful to explicitly pass a value to the optional `:selected`, especially if passing a collection of nested objects.
+It may also be useful to explicitly pass a value to the optional `:selected` like above, especially if passing a collection of nested objects.
 
 It is also possible to create grouped collection selects, that will use the html *optgroup* tags, like this:
 
