@@ -116,7 +116,7 @@ of any of them:
 ```erb
 <%= simple_form_for @user do |f| %>
   <%= f.input :username, label_html: { class: 'my_class' }, hint_html: { class: 'hint_class' } %>
-  <%= f.input :password, hint: false, error_html: { id: 'password_error'} %>
+  <%= f.input :password, hint: false, error_html: { id: 'password_error' } %>
   <%= f.input :password_confirmation, label: false %>
   <%= f.button :submit %>
 <% end %>
@@ -1061,7 +1061,7 @@ Finally, add a new wrapper to the config/initializers/simple_form.rb file:
 ```ruby
 config.wrappers :with_numbers, tag: 'div', class: 'row', error_class: 'error' do |b|
   b.use :html5
-  b.use :number, wrap_with: { tag: 'div', class: 'span1 number'}
+  b.use :number, wrap_with: { tag: 'div', class: 'span1 number' }
   b.wrapper tag: 'div', class: 'span8' do |ba|
     ba.use :placeholder
     ba.use :label
