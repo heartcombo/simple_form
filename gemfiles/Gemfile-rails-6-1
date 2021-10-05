@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gemspec :path => '..'
+gemspec path: '..'
 
 gem 'country_select'
 gem 'railties', '~> 6.1.0'
