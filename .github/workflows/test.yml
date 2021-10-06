@@ -10,7 +10,7 @@ jobs:
           - gemfiles/Gemfile-rails-5-2
           - gemfiles/Gemfile-rails-6-0
           - gemfiles/Gemfile-rails-6-1
-          - gemfiles/Gemfile-rails-head
+          - gemfiles/Gemfile-rails-main
         ruby:
           - 2.5
           - 2.6
@@ -18,9 +18,9 @@ jobs:
           - 3.0
         exclude:
           - ruby: 2.5
-            gemfile: gemfiles/Gemfile-rails-head
+            gemfile: gemfiles/Gemfile-rails-main
           - ruby: 2.6
-            gemfile: gemfiles/Gemfile-rails-head
+            gemfile: gemfiles/Gemfile-rails-main
           - ruby: 2.5
             gemfile: Gemfile
           - ruby: 2.6
