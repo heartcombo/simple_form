@@ -114,7 +114,7 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   mattr_reader :form_class
   @@form_class = :simple_form
 
-  # You can define the default class to be used on all forms. Can be overriden
+  # You can define the default class to be used on all forms. Can be overridden
   # with `html: { :class }`. Defaults to none.
   mattr_accessor :default_form_class
   @@default_form_class = nil
