@@ -143,11 +143,21 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
 
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
-  # e.g { string: :string_wrapper, boolean: :boolean_wrapper }
+  # e.g config.wrapper_mappings = { string: :string_wrapper, boolean: :boolean_wrapper }
   # You can also set a wrapper mapping per form basis.
   # e.g simple_form_for(@foo, wrapper_mappings: { check_boxes: :bootstrap_checkbox })
-  mattr_accessor :wrapper_mappings
-  @@wrapper_mappings = nil
+  # If you wish to create another set of wrappers you can do so
+  # config.wrapper_mappings[:inline] = { string: :inline_string }
+  # Which will allow referencing a set of wrappers with the set key
+  # e.g simple_form_for(@foo, wrapper_mappings: :custom)
+
+  def self.wrapper_mappings
+    @@wrapper_mappings ||= {}
+  end
+
+  def self.wrapper_mappings=(opts)
+    wrapper_mappings[:default] = opts
+  end
 
   # Namespaces where SimpleForm should look for custom input classes that override
   # default inputs. Namespaces are given as string to allow lazy loading inputs.
