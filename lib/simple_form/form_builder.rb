@@ -634,10 +634,13 @@ module SimpleForm
     # Attempts to find a wrapper mapping. It follows the following rules:
     #
     # 1) It tries to find a wrapper for the current form
-    # 2) If not, it tries to find a config
+    # 2) It tries to find a wrapper for the current wrapper(@wrapper)
+    # 3) If not, it tries to find a config
     def find_wrapper_mapping(input_type)
       if options[:wrapper_mappings] && options[:wrapper_mappings][input_type]
         options[:wrapper_mappings][input_type]
+      elsif @wrapper.options[:wrapper_mappings] && @wrapper.options[:wrapper_mappings][input_type]
+        @wrapper.options[:wrapper_mappings][input_type]
       else
         SimpleForm.wrapper_mappings && SimpleForm.wrapper_mappings[input_type]
       end
