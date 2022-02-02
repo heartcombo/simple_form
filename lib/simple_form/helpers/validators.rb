@@ -34,6 +34,8 @@ module SimpleForm
           !object.persisted?
         when :update
           object.persisted?
+        else
+          options[:context] == validator.options[:on]
         end
       end
 
