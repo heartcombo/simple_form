@@ -34,6 +34,14 @@ class SimpleFormGeneratorTest < Rails::Generators::TestCase
       /config\.default_wrapper = :vertical_form/, /config\.item_wrapper_tag = :div/
   end
 
+  test 'generates the simple_form initializer with the tailwindcss wrappers' do
+    run_generator %w[--tailwindcss]
+    assert_file 'config/initializers/simple_form.rb',
+      /config\.default_wrapper = :default/, /config\.boolean_style = :nested/
+    assert_file 'config/initializers/simple_form_tailwindcss.rb', /config\.wrappers :vertical_form/,
+      /config\.default_wrapper = :vertical_form/, /config\.item_wrapper_tag = :div/
+  end
+
   %w[erb haml slim].each do |engine|
     test "generates the scaffold template when using #{engine}" do
       run_generator ['-e', engine]
