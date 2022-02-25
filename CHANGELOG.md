@@ -1,6 +1,6 @@
 ## Unreleased
 
-* Add support for Rails 7.0 rc (no changes required)
+* Add support for Rails 7.0 (no changes required)
 
 ## 5.1.0
 

@@ -15,7 +15,8 @@ jobs:
           - 2.5
           - 2.6
           - 2.7
-          - 3.0
+          - '3.0'
+          - 3.1
         exclude:
           - ruby: 2.5
             gemfile: gemfiles/Gemfile-rails-main
@@ -29,6 +30,12 @@ jobs:
             gemfile: gemfiles/Gemfile-rails-5-2
           - ruby: 3.0
             gemfile: gemfiles/Gemfile-rails-5-2
+          - ruby: 3.1
+            gemfile: gemfiles/Gemfile-rails-5-2
+          - ruby: 3.1
+            gemfile: gemfiles/Gemfile-rails-6-0
+          - ruby: 3.1
+            gemfile: gemfiles/Gemfile-rails-6-1
     runs-on: ubuntu-latest
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
