@@ -1,6 +1,7 @@
 ## Unreleased
 
 * Add support for Rails 7.0 and Ruby 3.1 (no changes required)
+* Fix escaping issue on boolean input with `include_hidden: false` and custom wrapper.
 
 ## 5.1.0
 
