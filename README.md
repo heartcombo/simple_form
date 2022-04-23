@@ -14,7 +14,7 @@ INFO: This README refers to **Simple Form** 5.0. For older releases, check the r
 ## Table of Contents
 
 - [Installation](#installation)
-  - [Bootstrap](#bootstrap)
+  - [Bootstrap](#bootstrap-5)
   - [Zurb Foundation 5](#zurb-foundation-5)
   - [Country Select](#country-select)
 - [Usage](#usage)
