@@ -33,6 +33,11 @@ class BooleanInputTest < ActionView::TestCase
     assert_select 'input[type=hidden][value=off]'
   end
 
+  test 'input allows skipping hidden input when setting :include_hidden to false' do
+    with_input_for @user, :active, :boolean, include_hidden: false
+    assert_no_select "input[type=hidden][name='user[active]']"
+  end
+
   test 'input uses inline boolean style by default' do
     with_input_for @user, :active, :boolean
     assert_select 'input.boolean + label.boolean.optional'
