@@ -66,6 +66,19 @@ class GroupedCollectionSelectInputTest < ActionView::TestCase
     end
   end
 
+  test 'grouped collection allows overriding group_method using a lambda' do
+    with_input_for @user, :tag_ids, :grouped_select,
+      collection: { Authors: %w[Jose Carlos] },
+      group_method: ->(i) { i.last }
+
+    assert_select 'select.grouped_select#user_tag_ids' do
+      assert_select 'optgroup[label=Authors]' do
+        assert_select 'option[value=Jose]', 'Jose'
+        assert_select 'option[value=Carlos]', 'Carlos'
+      end
+    end
+  end
+
   test 'grouped collection accepts group_label_method option' do
     with_input_for @user, :tag_ids, :grouped_select,
       collection: { %w[Jose Carlos] => 'Authors' },
