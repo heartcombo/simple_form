@@ -257,7 +257,7 @@ the wrapper as well:
   <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year - 12, discard_day: true,
                               order: [:month, :year] %>
-  <%= f.input :accepts, as: :boolean, checked_value: true, unchecked_value: false %>
+  <%= f.input :accepts, as: :boolean, checked_value: 'positive', unchecked_value: 'negative' %>
   <%= f.button :submit %>
 <% end %>
 ```
