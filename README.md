@@ -257,7 +257,18 @@ the wrapper as well:
   <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year - 12, discard_day: true,
                               order: [:month, :year] %>
-  <%= f.input :accepts, as: :boolean, checked_value: true, unchecked_value: false %>
+  <%= f.input :accepts, as: :boolean, checked_value: 'positive', unchecked_value: 'negative' %>
+  <%= f.button :submit %>
+<% end %>
+```
+
+By default, **Simple Form** generates a hidden field to handle the un-checked case for boolean fields. 
+Passing `unchecked_value: false` in the options for boolean fields will cause this hidden field to be omitted,
+following the convention in Rails. You can also specify `include_hidden: false` to skip the hidden field:
+
+```erb
+<%= simple_form_for @user do |f| %>
+  <%= f.input :just_the_checked_case, as: :boolean, include_hidden: false %>
   <%= f.button :submit %>
 <% end %>
 ```
