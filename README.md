@@ -262,6 +262,17 @@ the wrapper as well:
 <% end %>
 ```
 
+By default, **Simple Form** generates a hidden field to handle the un-checked case for boolean fields. 
+Passing `unchecked_value: false` in the options for boolean fields will cause this hidden field to be omitted,
+following the convention in Rails. You can also specify `include_hidden: false` to skip the hidden field:
+
+```erb
+<%= simple_form_for @user do |f| %>
+  <%= f.input :just_the_checked_case, as: :boolean, include_hidden: false %>
+  <%= f.button :submit %>
+<% end %>
+```
+
 **Simple Form** also allows you to use label, hint, input_field, error and full_error helpers
 (please take a look at the rdocs for each method for more info):
 
