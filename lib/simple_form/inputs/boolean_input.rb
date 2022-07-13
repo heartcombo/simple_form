@@ -12,7 +12,11 @@ module SimpleForm
                 inline_label
             }
         else
-          build_check_box(unchecked_value, merged_input_options)
+          if include_hidden?
+            build_check_box(unchecked_value, merged_input_options)
+          else
+            build_check_box_without_hidden_field(merged_input_options)
+          end
         end
       end
 
