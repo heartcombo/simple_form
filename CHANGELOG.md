@@ -4,6 +4,7 @@
 * Fix escaping issue on boolean input with `include_hidden: false` and custom wrapper.
 * Update Bootstrap install generator version 5. [@mhw](https://github.com/mhw)
 * Accept proc as `group_method` for grouped collection select
+* Honor `include_hidden` option on inline boolean inputs [@yboulkaid](https://github.com/yboulkaid)
 
 ## 5.1.0
 
