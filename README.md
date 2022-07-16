@@ -335,7 +335,7 @@ end
 </form>
 ```
 
-To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/master/SimpleForm/FormBuilder:input_field
+To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/main/SimpleForm/FormBuilder:input_field
 
 ### Collections
 
@@ -1263,7 +1263,7 @@ end
 
 You can view the **Simple Form** documentation in RDoc format here:
 
-http://rubydoc.info/github/heartcombo/simple_form/master/frames
+http://rubydoc.info/github/heartcombo/simple_form/main/frames
 
 ### Supported Ruby / Rails versions
 
