@@ -676,7 +676,7 @@ module SimpleForm
       begin
         at.const_get(mapping)
       rescue NameError => e
-        raise if e.message !~ /#{mapping}$/
+        raise unless e.is_a? NameError
       end
     end
 
