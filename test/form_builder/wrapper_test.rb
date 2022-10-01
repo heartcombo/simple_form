@@ -382,4 +382,11 @@ class WrapperTest < ActionView::TestCase
       assert_select 'section.custom_wrapper div.custom_error'
     end
   end
+
+  test 'inline wrapper has no error class when there is no error' do
+    swap_wrapper :default, custom_wrapper_with_error_class do
+      with_form_for @user, :email
+      assert_no_select 'section.custom_wrapper div.custom_error'
+    end
+  end
 end
