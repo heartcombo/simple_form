@@ -23,7 +23,7 @@ module SimpleForm
         if self.class < ActionView::Helpers::FormBuilder
           options[:builder] ||= self.class
         else
-          options[:builder] ||= SimpleForm::FormBuilder
+          options[:builder] ||= SimpleForm.default_builder.constantize
         end
         fields_for(*args, options, &block)
       end

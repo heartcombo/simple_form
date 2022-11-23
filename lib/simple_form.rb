@@ -213,6 +213,9 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   mattr_accessor :input_field_valid_class
   @@input_field_valid_class = nil
 
+  mattr_accessor :default_builder
+  @@default_builder = 'SimpleForm::FormBuilder'
+
   # Retrieves a given wrapper
   def self.wrapper(name)
     @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
