@@ -118,6 +118,8 @@ module SimpleForm
     def input(attribute_name, options = {}, &block)
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
+      binding.pry
+      
       input   = find_input(attribute_name, options, &block)
       wrapper = find_wrapper(input.input_type, options)
 
