@@ -12,7 +12,11 @@ module SimpleForm
                 inline_label
             }
         else
-          build_check_box(unchecked_value, merged_input_options)
+          if include_hidden?
+            build_check_box(unchecked_value, merged_input_options)
+          else
+            build_check_box_without_hidden_field(merged_input_options)
+          end
         end
       end
 
@@ -60,7 +64,7 @@ module SimpleForm
       # we need the hidden field to be *outside* the label (otherwise it
       # generates invalid html - html5 only).
       def build_hidden_field_for_checkbox
-        return "" if !include_hidden? || !unchecked_value
+        return "".html_safe if !include_hidden? || !unchecked_value
         options = { value: unchecked_value, id: nil, disabled: input_html_options[:disabled] }
         options[:name] = input_html_options[:name] if input_html_options.key?(:name)
         options[:form] = input_html_options[:form] if input_html_options.key?(:form)

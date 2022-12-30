@@ -9,6 +9,43 @@ which we are thankful for and should make you feel right at home.
 
 INFO: This README refers to **Simple Form** 5.0. For older releases, check the related branch for your version.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Installation](#installation)
+  - [Bootstrap](#bootstrap-5)
+  - [Zurb Foundation 5](#zurb-foundation-5)
+  - [Country Select](#country-select)
+- [Usage](#usage)
+  - [Stripping away all wrapper divs](#stripping-away-all-wrapper-divs)
+  - [Collections](#collections)
+  - [Priority](#priority)
+  - [Associations](#associations)
+  - [Buttons](#buttons)
+  - [Wrapping Rails Form Helpers](#wrapping-rails-form-helpers)
+  - [Extra helpers](#extra-helpers)
+    - [Simple Fields For](#simple-fields-for)
+    - [Collection Radio Buttons](#collection-radio-buttons)
+    - [Collection Check Boxes](#collection-check-boxes)
+- [Available input types and defaults for each column type](#available-input-types-and-defaults-for-each-column-type)
+- [Custom inputs](#custom-inputs)
+- [Custom form builder](#custom-form-builder)
+- [I18n](#i18n)
+- [Configuration](#configuration)
+  - [The wrappers API](#the-wrappers-api)
+- [Custom Components](#custom-components)
+- [HTML 5 Notice](#html-5-notice)
+  - [Using non Active Record objects](#using-non-active-record-objects)
+- [Information](#information)
+  - [RDocs](#rdocs)
+  - [Supported Ruby / Rails versions](#supported-ruby--rails-versions)
+  - [Bug reports](#bug-reports)
+- [Maintainers](#maintainers)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Installation
 
 Add it to your Gemfile:
@@ -29,15 +66,17 @@ Run the generator:
 rails generate simple_form:install
 ```
 
-### Bootstrap
+### Bootstrap 5
 
-**Simple Form** can be easily integrated to the [Bootstrap](http://getbootstrap.com/).
-To do that you have to use the `bootstrap` option in the install generator, like this:
+**Simple Form** can be easily integrated with [Bootstrap 5](http://getbootstrap.com/).
+Use the `bootstrap` option in the install generator, like this:
 
 ```console
 rails generate simple_form:install --bootstrap
 ```
 
+This will add an initializer that configures **Simple Form** wrappers for
+Bootstrap 5's [form controls](https://getbootstrap.com/docs/5.0/forms/overview/).
 You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap.com/)
 assets on your application.
 
@@ -218,7 +257,18 @@ the wrapper as well:
   <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year - 12, discard_day: true,
                               order: [:month, :year] %>
-  <%= f.input :accepts, as: :boolean, checked_value: true, unchecked_value: false %>
+  <%= f.input :accepts, as: :boolean, checked_value: 'positive', unchecked_value: 'negative' %>
+  <%= f.button :submit %>
+<% end %>
+```
+
+By default, **Simple Form** generates a hidden field to handle the un-checked case for boolean fields. 
+Passing `unchecked_value: false` in the options for boolean fields will cause this hidden field to be omitted,
+following the convention in Rails. You can also specify `include_hidden: false` to skip the hidden field:
+
+```erb
+<%= simple_form_for @user do |f| %>
+  <%= f.input :just_the_checked_case, as: :boolean, include_hidden: false %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -285,7 +335,7 @@ end
 </form>
 ```
 
-To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/master/SimpleForm/FormBuilder:input_field
+To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/main/SimpleForm/FormBuilder:input_field
 
 ### Collections
 
@@ -1213,7 +1263,7 @@ end
 
 You can view the **Simple Form** documentation in RDoc format here:
 
-http://rubydoc.info/github/heartcombo/simple_form/master/frames
+http://rubydoc.info/github/heartcombo/simple_form/main/frames
 
 ### Supported Ruby / Rails versions
 

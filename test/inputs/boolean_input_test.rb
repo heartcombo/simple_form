@@ -33,6 +33,11 @@ class BooleanInputTest < ActionView::TestCase
     assert_select 'input[type=hidden][value=off]'
   end
 
+  test 'input allows skipping hidden input when setting :include_hidden to false' do
+    with_input_for @user, :active, :boolean, include_hidden: false
+    assert_no_select "input[type=hidden][name='user[active]']"
+  end
+
   test 'input uses inline boolean style by default' do
     with_input_for @user, :active, :boolean
     assert_select 'input.boolean + label.boolean.optional'
@@ -149,6 +154,14 @@ class BooleanInputTest < ActionView::TestCase
   test 'input with nested style allows disabling hidden field' do
     swap SimpleForm, boolean_style: :nested do
       with_input_for @user, :active, :boolean, include_hidden: false
+      assert_select "label.boolean > input.boolean"
+      assert_no_select "input[type=hidden] + label.boolean"
+    end
+  end
+
+  test 'input with nested style and with single wrapper allows disabling hidden field' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :active, :boolean, include_hidden: false, wrapper: custom_wrapper_with_wrapped_label_input
       assert_select "label.boolean > input.boolean"
       assert_no_select "input[type=hidden] + label.boolean"
     end

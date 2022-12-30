@@ -1,6 +1,11 @@
 ## Unreleased
 
-* Add support for Rails 7.0 alpha 2 (no changes required)
+* Add support for Rails 7.0 and Ruby 3.1 (no changes required)
+* Fix escaping issue on boolean input with `include_hidden: false` and custom wrapper.
+* Update Bootstrap install generator version 5. [@mhw](https://github.com/mhw)
+* Accept proc as `group_method` for grouped collection select
+* Honor `include_hidden` option on inline boolean inputs [@yboulkaid](https://github.com/yboulkaid)
+* Fix deprecation error when using country_select input.
 
 ## 5.1.0
 
