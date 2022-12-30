@@ -1300,6 +1300,42 @@ end
 <% end %>
 ```
 
+## Wrapper Mappings
+
+The simplest default wrapper for all inputs is defined in the simple_form initializer.
+
+```
+config.default_wrapper = :default
+```
+
+As custom wrappers are added to your configuration it may become appropriate to map an input to a specific wrapper, a good example of this would be the config that is generated with the bootstrap install. This would override *:default* with *:bs5_boolean_collection* for those inputs only.
+
+```
+config.wrapper_mappings = {
+  # ..8<..
+  check_boxes: :bs5_boolean_collection,
+  radio_buttons: :bs5_boolean_collection,
+  # ..8<..
+}
+```
+
+This may be further exhanced to have multiple sets of wrapper mappings so that you can use a set of mappings for a single form or set of fields, instead of setting the wrapper for each input.
+
+```
+config.wrapper_mappings[:tables] = {
+  select: :bs5_select2,
+  string: :bs5_input_float,
+}
+```
+
+The form builder accepts a *:wrapper_mappings* option to cope with this situation.
+
+```
+simple_form_for(object, wrapper_mappings: :table) do |f|
+  f.input :name
+end
+```
+
 ## Information
 
 ### RDocs
