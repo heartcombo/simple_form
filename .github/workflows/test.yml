@@ -28,19 +28,17 @@ jobs:
           - gemfile: gemfiles/Gemfile-rails-main
             ruby: '2.5'
           - gemfile: gemfiles/Gemfile-rails-6-0
+            ruby: '3.2'
+          - gemfile: gemfiles/Gemfile-rails-6-0
             ruby: '3.1'
+          - gemfile: gemfiles/Gemfile-rails-5-2
+            ruby: '3.2'
           - gemfile: gemfiles/Gemfile-rails-5-2
             ruby: '3.1'
           - gemfile: gemfiles/Gemfile-rails-5-2
             ruby: '3.0'
           - gemfile: gemfiles/Gemfile-rails-5-2
             ruby: '2.7'
-          - gemfile: gemfiles/Gemfile-rails-6-1
-            ruby: '3.2'
-          - gemfile: gemfiles/Gemfile-rails-6-0
-            ruby: '3.2'
-          - gemfile: gemfiles/Gemfile-rails-5-2
-            ruby: '3.2'
     runs-on: ubuntu-latest
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
