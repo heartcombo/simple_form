@@ -41,6 +41,19 @@ class IsolatedLabelTest < ActionView::TestCase
     end
   end
 
+  test 'label uses i18n based on model, overrided lookup_action, and attribute to lookup translation' do
+    @controller.action_name = "new"
+    store_translations(:en, simple_form: { labels: { user: {
+      shared: { description: 'Nova descrição' }
+    } } }) do
+      with_concat_form_for(@user, lookup: :shared) do |f|
+        concat f.input :description
+      end
+
+      assert_select 'label[for=user_description]', /Nova descrição/
+    end
+  end
+
   test 'label fallbacks to new when action is create' do
     @controller.action_name = "create"
     store_translations(:en, simple_form: { labels: { user: {
