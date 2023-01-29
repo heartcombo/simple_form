@@ -1,5 +1,8 @@
 ## Unreleased
 
+
+## 5.2.0
+
 * Add support for Rails 7.0 and Ruby 3.1/3.2 (no changes required)
 * Fix escaping issue on boolean input with `include_hidden: false` and custom wrapper.
 * Update Bootstrap install generator version 5. [@mhw](https://github.com/mhw)
