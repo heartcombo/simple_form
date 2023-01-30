@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.metadata    = {
     "homepage_uri"      => "https://github.com/heartcombo/simple_form",
     "documentation_uri" => "https://rubydoc.info/github/heartcombo/simple_form",
-    "changelog_uri"     => "https://github.com/heartcombo/simple_form/blob/master/CHANGELOG.md",
+    "changelog_uri"     => "https://github.com/heartcombo/simple_form/blob/main/CHANGELOG.md",
     "source_code_uri"   => "https://github.com/heartcombo/simple_form",
     "bug_tracker_uri"   => "https://github.com/heartcombo/simple_form/issues",
     "wiki_uri"          => "https://github.com/heartcombo/simple_form/wiki"

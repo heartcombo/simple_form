@@ -1,4 +1,4 @@
-![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/master/simple_form.png)
+![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/main/simple_form.png)
 
 Rails forms made easy.
 
@@ -262,7 +262,7 @@ the wrapper as well:
 <% end %>
 ```
 
-By default, **Simple Form** generates a hidden field to handle the un-checked case for boolean fields. 
+By default, **Simple Form** generates a hidden field to handle the un-checked case for boolean fields.
 Passing `unchecked_value: false` in the options for boolean fields will cause this hidden field to be omitted,
 following the convention in Rails. You can also specify `include_hidden: false` to skip the hidden field:
 
