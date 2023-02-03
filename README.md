@@ -1289,7 +1289,6 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 * Felipe Renan (https://github.com/feliperenan)
 
 [![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
-[![Code Climate](https://codeclimate.com/github/heartcombo/simple_form.png)](https://codeclimate.com/github/heartcombo/simple_form)
 [![Inline docs](http://inch-ci.org/github/heartcombo/simple_form.png)](http://inch-ci.org/github/heartcombo/simple_form)
 
 ## License
