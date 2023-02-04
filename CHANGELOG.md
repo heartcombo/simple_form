@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Remove test files from the gem package. [@orien](https://github.com/orien)
 
 ## 5.2.0
 
