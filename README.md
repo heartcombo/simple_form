@@ -1293,6 +1293,6 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 
 ## License
 
-MIT License. Copyright 2020 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
+MIT License. Copyright 2020-2023 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
 
 The Simple Form logo is licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
