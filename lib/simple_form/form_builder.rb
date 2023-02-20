@@ -672,7 +672,8 @@ module SimpleForm
 
     def attempt_mapping(mapping, at)
       return if SimpleForm.inputs_discovery == false && at == Object
-      return at.const_get(mapping) if at.const_defined?(mapping)
+
+      at.const_get(mapping) if at.const_defined?(mapping)
     end
 
     def attempt_mapping_with_custom_namespace(input_name)
