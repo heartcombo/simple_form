@@ -1,6 +1,7 @@
 ## Unreleased
 
 * Remove test files from the gem package. [@orien](https://github.com/orien)
+* Speed up input mapping lookup by avoiding rescuing exceptions. [@meanphil](https://github.com/meanphil) [@kriom](https://github.com/kriom) [@egeek](https://github.com/egeek)
 
 ## 5.2.0
 
