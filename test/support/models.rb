@@ -86,6 +86,7 @@ TagGroup = Struct.new(:id, :name, :tags)
 
 class User
   extend ActiveModel::Naming
+  extend ActiveModel::Translation
   include ActiveModel::Conversion
 
   attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :age,

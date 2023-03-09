@@ -213,6 +213,11 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   mattr_accessor :input_field_valid_class
   @@input_field_valid_class = nil
 
+  # If set to true all labels, hints, and placeholders would be expected to have an entry in a locale file and raise
+  # an exception if not.
+  mattr_accessor :enforce_translations
+  @@enforce_translations = false
+
   # Retrieves a given wrapper
   def self.wrapper(name)
     @@wrappers[name.to_s] or raise WrapperNotFound, "Couldn't find wrapper with name #{name}"
