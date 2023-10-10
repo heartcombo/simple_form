@@ -29,11 +29,7 @@ I18n.default_locale = :en
 
 require 'country_select'
 
-if defined?(HTMLSelector::NO_STRIP)
-  HTMLSelector::NO_STRIP << "label"
-else
-  ActionDispatch::Assertions::NO_STRIP << "label"
-end
+Rails::Dom::Testing::Assertions::SelectorAssertions::HTMLSelector::NO_STRIP << "label"
 
 if ActiveSupport::TestCase.respond_to?(:test_order=)
   ActiveSupport::TestCase.test_order = :random
