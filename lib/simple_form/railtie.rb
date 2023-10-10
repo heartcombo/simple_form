@@ -11,5 +11,9 @@ module SimpleForm
           ' Use `rails generate simple_form:install` to generate the Simple Form configuration.'
       end
     end
+
+    initializer "simple_form.deprecator" do |app|
+      app.deprecators[:simple_form] = SimpleForm.deprecator if app.respond_to?(:deprecators)
+    end
   end
 end
