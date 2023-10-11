@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Add support for Rails 7.1. (no meaningful changes required.)
+* Add `SimpleForm.deprecator` to integrate with new application deprecators in Rails 7.1.
 * Remove test files from the gem package. [@orien](https://github.com/orien)
 * Speed up input mapping lookup by avoiding rescuing exceptions. [@meanphil](https://github.com/meanphil) [@kriom](https://github.com/kriom) [@egeek](https://github.com/egeek)
 

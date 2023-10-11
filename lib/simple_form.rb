@@ -55,6 +55,10 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
     @@configured
   end
 
+  def self.deprecator
+    @deprecator ||= ActiveSupport::Deprecation.new("5.3", "SimpleForm")
+  end
+
   ## CONFIGURATION OPTIONS
 
   # Method used to tidy up errors.
@@ -264,21 +268,21 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   ## SETUP
 
   def self.default_input_size=(*)
-    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.default_input_size= is deprecated and has no effect", caller
+    SimpleForm.deprecator.warn "[SIMPLE_FORM] SimpleForm.default_input_size= is deprecated and has no effect", caller
   end
 
   def self.form_class=(value)
-    ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.form_class= is deprecated and will be removed in 4.x. Use SimpleForm.default_form_class= instead", caller
+    SimpleForm.deprecator.warn "[SIMPLE_FORM] SimpleForm.form_class= is deprecated and will be removed in 4.x. Use SimpleForm.default_form_class= instead", caller
     @@form_class = value
   end
 
   def self.file_methods=(file_methods)
-    ActiveSupport::Deprecation.warn(FILE_METHODS_DEPRECATION_WARN, caller)
+    SimpleForm.deprecator.warn(FILE_METHODS_DEPRECATION_WARN, caller)
     @@file_methods = file_methods
   end
 
   def self.file_methods
-    ActiveSupport::Deprecation.warn(FILE_METHODS_DEPRECATION_WARN, caller)
+    SimpleForm.deprecator.warn(FILE_METHODS_DEPRECATION_WARN, caller)
     @@file_methods
   end
 

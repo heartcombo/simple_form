@@ -48,7 +48,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder preloads collection association' do
-    value = @user.tags = MiniTest::Mock.new
+    value = @user.tags = Minitest::Mock.new
     value.expect(:to_a, value)
 
     with_association_for @user, :tags
@@ -61,7 +61,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder does not preload collection association if preload is false' do
-    value = @user.tags = MiniTest::Mock.new
+    value = @user.tags = Minitest::Mock.new
     value.expect(:to_a, nil)
 
     with_association_for @user, :tags, preload: false
@@ -76,7 +76,7 @@ class AssociationTest < ActionView::TestCase
   end
 
   test 'builder does not preload non-collection association' do
-    value = @user.company = MiniTest::Mock.new
+    value = @user.company = Minitest::Mock.new
     value.expect(:to_a, nil)
 
     with_association_for @user, :company
