@@ -99,6 +99,50 @@ You will need to provide your own CSS styles for hints.
 
 Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/applications.html).
 
+### TailwindCSS 3
+
+To generate wrappers that are compatible with [TailwindCSS 3](https://tailwindcss.com/), pass
+the `tailwindcss` option to the generator, like this:
+
+```console
+rails generate simple_form:install --tailwindcss
+```
+
+Then add to your `tailwind.config.js` following config:
+
+```
+module.exports = {
+  content: [
+    './config/initializers/simple_form_tailwindcss.rb'
+  ]
+}
+```
+
+You have to be sure that you have a [tailwindcss-rails](https://github.com/rails/tailwindcss-rails) gem.
+
+**Warnings**
+
+Please pay attention that Tailwindcss not have owned a file-input style and with it, we can't modify `abbr` (star for required fields), so for styling, just add the next styles to your `app/assets/application.tailwind.css` or if you have a gem [tailwindcss_merger](https://github.com/loqimean/tailwindcss_merger) (for multiple files of tailwind's' additional styles) to `app/assets/tailwindcss_stylesheets/your_styles.css`:
+
+*For file-input:*
+
+```
+input[type=file]::-webkit-file-upload-button,
+input[type=file]::file-selector-button {
+   @apply text-white bg-indigo-600 hover:bg-indigo-700 font-medium text-sm cursor-pointer border-0 py-2.5 pl-8 pr-4;
+   margin-inline-start: -1rem;
+   margin-inline-end: 1rem;
+}
+```
+
+*For abbr of required fields:*
+
+```
+abbr[title=required] {
+  @apply !text-red-500 no-underline;
+}
+```
+
 ### Country Select
 
 If you want to use the country select, you will need the
@@ -359,7 +403,6 @@ Collection inputs accept two other options beside collections:
 
 * *label_method* => the label method to be applied to the collection to retrieve the label (use this
   instead of the `text_method` option in `collection_select`)
-
 * *value_method* => the value method to be applied to the collection to retrieve the value
 
 Those methods are useful to manipulate the given collection. Both of these options also accept
@@ -395,7 +438,6 @@ used to retrieve label/value attributes for the `option` tags. Besides that, you
 
 * *group_method* => the method to be called on the given collection to generate the options for
   each group (required)
-
 * *group_label_method* => the label method to be applied on the given collection to retrieve the label
   for the _optgroup_ (**Simple Form** will attempt to guess the best one the same way it does with
   `:label_method`)
@@ -648,6 +690,7 @@ And use it in your views:
 ```ruby
 f.input :money, as: :currency
 ```
+
 Note, you may have to create the `app/inputs/` directory and restart your webserver.
 
 You can also redefine existing **Simple Form** inputs by creating a new class with the same name. For
@@ -1084,7 +1127,7 @@ A cleaner method to create your views would be:
 To use the number option on the input, first, tells to Simple Form the place where the components
 will be:
 
-``` ruby
+```ruby
 # config/initializers/simple_form.rb
 Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
 ```
