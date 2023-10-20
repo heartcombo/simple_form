@@ -189,6 +189,46 @@ module SimpleForm
         I18n.t(lookups.shift, scope: :"#{i18n_scope}.#{namespace}", default: lookups).presence
       end
 
+      def translate_label(namespace = :labels, default = '')
+        model_names = lookup_model_names.dup
+        lookups     = []
+
+        while !model_names.empty?
+          joined_model_names = model_names.join(".")
+          model_names.shift
+
+          lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
+          lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
+        end
+        lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
+        lookups << :"defaults.#{reflection_or_attribute_name}"
+
+        lookups = lookups.map { |l| :"#{i18n_scope}.#{namespace}.#{l}" }
+
+        if object.class.respond_to?(:human_attribute_name)
+          attribute = reflection_or_attribute_name.to_s
+          klass_scope = object.class.i18n_scope
+          if attribute.include?(".")
+            namespace, _, attribute = attribute.rpartition(".")
+            namespace.tr!(".", "/")
+
+             object.class.lookup_ancestors.map do |klass|
+              lookups << :"#{klass_scope}.attributes.#{klass.model_name.i18n_key}/#{namespace}.#{attribute}"
+            end
+            lookups << :"#{klass_scope}.attributes.#{namespace}.#{attribute}"
+          else
+            object.class.lookup_ancestors.map do |klass|
+              lookups << :"#{klass_scope}.attributes.#{klass.model_name.i18n_key}.#{attribute}"
+            end
+          end
+          lookups << :"#{klass_scope}.attributes.#{attribute}"
+        end
+
+
+        lookups << default unless SimpleForm.enforce_translations
+        I18n.t(lookups.shift, default: lookups, raise: SimpleForm.enforce_translations).presence
+      end
+
       def merge_wrapper_options(options, wrapper_options)
         if wrapper_options
           wrapper_options = set_input_classes(wrapper_options)
