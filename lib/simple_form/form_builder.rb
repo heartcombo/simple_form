@@ -636,11 +636,10 @@ module SimpleForm
     # 1) It tries to find a wrapper for the current form
     # 2) If not, it tries to find a config
     def find_wrapper_mapping(input_type)
-      if options[:wrapper_mappings] && options[:wrapper_mappings][input_type]
-        options[:wrapper_mappings][input_type]
-      else
-        SimpleForm.wrapper_mappings && SimpleForm.wrapper_mappings[input_type]
-      end
+      mapping = options[:wrapper_mappings]
+      mapping.is_a?(Hash) && mapping[input_type] ||
+        SimpleForm.wrapper_mappings.fetch(mapping, {}).try(:[], input_type) ||
+          SimpleForm.wrapper_mappings.fetch(:default, {}).try(:[], input_type)
     end
 
     def find_wrapper(input_type, options)
