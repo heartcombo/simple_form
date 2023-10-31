@@ -1,3 +1,7 @@
+## Unreleased
+
+* Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
+
 ## 5.3.0
 
 * Add support for Rails 7.1. (no meaningful changes required.)
