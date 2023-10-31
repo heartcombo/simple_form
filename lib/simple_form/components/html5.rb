@@ -10,10 +10,7 @@ module SimpleForm
         @html5 = true
 
         input_html_options[:required]        = input_html_required_option
-        input_html_options[:'aria-required'] = input_html_aria_required_option
-
         input_html_options[:'aria-invalid']  = has_errors? || nil
-
         nil
       end
 
@@ -23,10 +20,6 @@ module SimpleForm
 
       def input_html_required_option
         !options[:required].nil? ? required_field? : has_required?
-      end
-
-      def input_html_aria_required_option
-        !options[:required].nil? ? (required_field? || nil) : (has_required? || nil)
       end
 
       def has_required?

@@ -35,7 +35,6 @@ class RequiredTest < ActionView::TestCase
       with_input_for @user, :name, :string
       assert_select 'input[type=text].required'
       assert_no_select 'input[type=text][required]'
-      assert_no_select 'input[type=text][aria-required]'
     end
   end
 
@@ -44,7 +43,6 @@ class RequiredTest < ActionView::TestCase
       with_input_for @user, :name, :string, required: false
       assert_no_select 'input[type=text].required'
       assert_no_select 'input[type=text][required]'
-      assert_no_select 'input[type=text][aria-required]'
     end
   end
 
@@ -53,7 +51,6 @@ class RequiredTest < ActionView::TestCase
       with_input_for @user, :name, :string, required: true
       assert_select 'input[type=text].required'
       assert_select 'input[type=text][required]'
-      assert_select 'input[type=text][aria-required]'
     end
   end
 
@@ -65,7 +62,6 @@ class RequiredTest < ActionView::TestCase
         end
         assert_select 'input[type=text].required'
         assert_no_select 'input[type=text][required]'
-        assert_no_select 'input[type=text][aria-required]'
       end
     end
   end
@@ -151,7 +147,6 @@ class RequiredTest < ActionView::TestCase
           concat f.input :name, required: false
         end
         assert_no_select 'input[type=text][required]'
-        assert_no_select 'input[type=text][aria-required]'
       end
     end
   end

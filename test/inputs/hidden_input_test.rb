@@ -21,11 +21,10 @@ class HiddenInputTest < ActionView::TestCase
     assert_no_select 'label'
   end
 
-  test 'required/aria-required/optional options does not be generated for hidden inputs' do
+  test 'required/optional options does not be generated for hidden inputs' do
     with_input_for @user, :name, :hidden
     assert_no_select 'input.required'
     assert_no_select 'input[required]'
-    assert_no_select 'input[aria-required]'
     assert_no_select 'input.optional'
     assert_select 'input.hidden#user_name'
   end

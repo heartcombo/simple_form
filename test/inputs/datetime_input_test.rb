@@ -44,11 +44,6 @@ class DateTimeInputWithHtml5Test < ActionView::TestCase
     assert_select 'input.required'
     assert_select 'input[required]'
   end
-
-  test 'input has an aria-required html attribute' do
-    with_input_for @user, :delivery_time, :time, required: true, html5: true
-    assert_select 'input[aria-required=true]'
-  end
 end
 
 # Tests for datetime, date and time inputs when HTML5 compatibility is enabled in the wrapper.

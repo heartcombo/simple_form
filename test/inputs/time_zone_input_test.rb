@@ -27,10 +27,4 @@ class TimeZoneInputTest < ActionView::TestCase
     assert_select 'select.required'
     assert_select 'select[required]'
   end
-
-  test 'input does generate select element with aria-required html attribute' do
-    with_input_for @user, :time_zone, :time_zone
-    assert_select 'select.required'
-    assert_select 'select[aria-required]'
-  end
 end
