@@ -105,7 +105,7 @@ If you want to use the country select, you will need the
 [country_select gem](https://rubygems.org/gems/country_select), add it to your Gemfile:
 
 ```ruby
-gem 'country_select'
+gem 'country_select', '~> 8.0.3'
 ```
 
 If you don't want to use the gem you can easily override this behaviour by mapping the
