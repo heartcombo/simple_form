@@ -1,3 +1,7 @@
+## Unreleased
+
+* Add support to Ruby 3.3. (no changes required.)
+
 ## 5.3.0
 
 * Add support for Rails 7.1. (no meaningful changes required.)
