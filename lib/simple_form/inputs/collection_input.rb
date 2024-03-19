@@ -33,7 +33,12 @@ module SimpleForm
 
       def collection
         @collection ||= begin
-          collection = options.delete(:collection) || self.class.boolean_collection
+          collection_option = options.delete(:collection) || self.class.boolean_collection
+          if collection_option.is_a?(Symbol)
+            collection = self.object.send(collection_option)
+          else
+            collection = collection_option
+          end
           collection.respond_to?(:call) ? collection.call : collection.to_a
         end
       end
