@@ -92,7 +92,7 @@ class User
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
-    :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :gender,
+    :post_count, :lock_version, :amount, :attempts, :action, :credit_card, :locale, :gender,
     :extra_special_company_id, :pictures, :picture_ids, :special_pictures,
     :special_picture_ids, :uuid, :friends, :friend_ids, :special_tags, :special_tag_ids,
     :citext, :hstore, :json, :jsonb, :hourly, :favorite_color
@@ -146,9 +146,14 @@ class User
       when :attempts      then :integer
       when :action        then :string
       when :credit_card   then :string
+      when :locale        then :string
       else attribute.to_sym
     end
     Column.new(attribute, column_type, limit)
+  end
+
+  def locales
+    [:"en-US", :"fr-FR", :"es-ES", :"ja-JP", :"zh-CN"]
   end
 
   begin

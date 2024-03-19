@@ -65,6 +65,12 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'select option[selected=selected]', '18'
   end
 
+  test 'input support to give a method name as symbol to define the collection' do
+    @user.locale = :"ja-JP"
+    with_input_for @user, :locale, :select, collection: :locales
+    assert_select 'select option[selected=selected]', "ja-JP"
+  end
+
   test 'input marks the selected value when using booleans and select' do
     @user.active = false
     with_input_for @user, :active, :select
