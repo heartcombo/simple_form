@@ -5,7 +5,7 @@ require 'active_model'
 require 'action_controller'
 require 'action_view'
 
-ActionView::RoutingUrlFor.send(:include, ActionDispatch::Routing::UrlFor)
+ActionView::RoutingUrlFor.include ActionDispatch::Routing::UrlFor
 
 require 'action_view/template'
 require 'action_view/test_case'
