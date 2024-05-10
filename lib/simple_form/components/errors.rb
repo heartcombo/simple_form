@@ -11,7 +11,7 @@ module SimpleForm
       end
 
       def has_errors?
-        object_with_errors? || object.nil? && has_custom_error?
+        object_with_errors? || !object && has_custom_error?
       end
 
       def has_value?

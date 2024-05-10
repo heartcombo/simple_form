@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Add support to Ruby 3.3. (no changes required.)
 * Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
 
 ## 5.3.0
