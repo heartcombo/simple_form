@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Revert "Speed up input mapping lookup by avoiding rescuing exceptions" from v5.3.0, it caused a regression on dev/test environments with custom inputs.
 * Add support to Ruby 3.3. (no changes required.)
 
 ## 5.3.0
