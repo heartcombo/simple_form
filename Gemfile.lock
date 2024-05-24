@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_form (5.3.0)
+    simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
 
