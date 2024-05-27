@@ -4,61 +4,47 @@ require 'test_helper'
 
 # Tests for datetime, date and time inputs when HTML5 compatibility is enabled in the wrapper.
 class DateTimeInputWithHtml5Test < ActionView::TestCase
-  test 'input generates a datetime input for datetime attributes if HTML5 compatibility is explicitly enbled' do
-    with_input_for @user, :created_at, :datetime, html5: true
+
+  test 'input generates a datetime input for datetime attributes' do
+    with_input_for @user, :created_at, :datetime
     assert_select 'input[type="datetime-local"]'
   end
 
-  test 'input generates a datetime select for datetime attributes' do
-    with_input_for @user, :created_at, :datetime
-
-    assert_select 'select.datetime'
-  end
-
-  test 'input generates a date input for date attributes if HTML5 compatibility is explicitly enbled' do
-    with_input_for @user, :born_at, :date, html5: true
-
+  test 'input generates a date input for date attributes' do
+    with_input_for @user, :born_at, :date
     assert_select 'input[type="date"]'
   end
 
-  test 'input generates a date select for date attributes' do
-    with_input_for @user, :born_at, :date
-
-    assert_select 'select.date'
-  end
-
-  test 'input generates a time input for time attributes if HTML5 compatibility is explicitly enbled' do
-    with_input_for @user, :delivery_time, :time, html5: true
-
+  test 'input generates a time input for time attributes' do
+    with_input_for @user, :delivery_time, :time
     assert_select 'input[type="time"]'
   end
 
-  test 'input generates a time select for time attributes' do
-    with_input_for @user, :delivery_time, :time
-
-    assert_select 'select.time'
-  end
-
   test 'input generates required html attribute' do
-    with_input_for @user, :delivery_time, :time, required: true, html5: true
+    with_input_for @user, :delivery_time, :time, required: true
     assert_select 'input.required'
     assert_select 'input[required]'
   end
 
   test 'input has an aria-required html attribute' do
-    with_input_for @user, :delivery_time, :time, required: true, html5: true
+    with_input_for @user, :delivery_time, :time, required: true
     assert_select 'input[aria-required=true]'
   end
+
+  test 'label points to attribute name' do
+    with_input_for :project, :created_at, :date
+    assert_select 'label[for=project_created_at]'
+  end
+
 end
 
-# Tests for datetime, date and time inputs when HTML5 compatibility is enabled in the wrapper.
+# Tests for datetime, date and time inputs when HTML5 compatibility is disabled in the wrapper.
 class DateTimeInputWithoutHtml5Test < ActionView::TestCase
+
   test 'input generates a datetime select by default for datetime attributes' do
-    swap_wrapper do
-      with_input_for @user, :created_at, :datetime
-      1.upto(5) do |i|
-        assert_select "form select.datetime#user_created_at_#{i}i"
-      end
+    with_input_for @user, :created_at, :datetime, html5: false
+    1.upto(5) do |i|
+      assert_select "form select.datetime#user_created_at_#{i}i"
     end
   end
 
@@ -72,26 +58,17 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     assert_select 'select.datetime option', 'dia'
   end
 
-  test 'input generates a datetime input for datetime attributes if HTML5 compatibility is explicitly enabled' do
-    swap_wrapper do
-      with_input_for @user, :created_at, :datetime, html5: true
-      assert_select 'input[type="datetime-local"]'
-    end
-  end
-
   test 'input generates a date select for date attributes' do
-    swap_wrapper do
-      with_input_for @user, :born_at, :date
-      assert_select 'select.date#user_born_at_1i'
-      assert_select 'select.date#user_born_at_2i'
-      assert_select 'select.date#user_born_at_3i'
-      assert_no_select 'select.date#user_born_at_4i'
-    end
+    with_input_for @user, :born_at, :date, html5: false
+    assert_select 'select.date#user_born_at_1i'
+    assert_select 'select.date#user_born_at_2i'
+    assert_select 'select.date#user_born_at_3i'
+    assert_no_select 'select.date#user_born_at_4i'
   end
 
   test 'input is able to pass options to date select' do
     with_input_for @user, :born_at, :date, as: :date, html5: false,
-      disabled: true, prompt: { year: 'ano', month: 'mês', day: 'dia' }
+       disabled: true, prompt: { year: 'ano', month: 'mês', day: 'dia' }
 
     assert_select 'select.date[disabled=disabled]'
     assert_select 'select.date option', 'ano'
@@ -104,23 +81,13 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     assert_select "select.date option[value='#{Date.today.year}'][selected=selected]"
   end
 
-  test 'input generates a date input for date attributes if HTML5 compatibility is explicitly enabled' do
-    swap_wrapper do
-      with_input_for @user, :born_at, :date, html5: true
-
-      assert_select 'input[type="date"]'
-    end
-  end
-
   test 'input generates a time select for time attributes' do
-    swap_wrapper do
-      with_input_for @user, :delivery_time, :time
-      assert_select 'input[type=hidden]#user_delivery_time_1i'
-      assert_select 'input[type=hidden]#user_delivery_time_2i'
-      assert_select 'input[type=hidden]#user_delivery_time_3i'
-      assert_select 'select.time#user_delivery_time_4i'
-      assert_select 'select.time#user_delivery_time_5i'
-    end
+    with_input_for @user, :delivery_time, :time, html5: false
+    assert_select 'input[type=hidden]#user_delivery_time_1i'
+    assert_select 'input[type=hidden]#user_delivery_time_2i'
+    assert_select 'input[type=hidden]#user_delivery_time_3i'
+    assert_select 'select.time#user_delivery_time_4i'
+    assert_select 'select.time#user_delivery_time_5i'
   end
 
   test 'input is able to pass options to time select' do
@@ -130,14 +97,6 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     assert_select 'select.time[disabled=disabled]'
     assert_select 'select.time option', 'hora'
     assert_select 'select.time option', 'minuto'
-  end
-
-  test 'input generates a time input for time attributes if HTML5 compatibility is explicitly enabled' do
-    swap_wrapper do
-      with_input_for @user, :delivery_time, :time, html5: true
-
-      assert_select 'input[type="time"]'
-    end
   end
 
   test 'label uses i18n to get target for date input type' do
@@ -169,8 +128,4 @@ class DateTimeInputWithoutHtml5Test < ActionView::TestCase
     assert_select 'label[for=project_created_at_4i]'
   end
 
-  test 'label points to attribute name if HTML5 compatibility is explicitly enabled' do
-    with_input_for :project, :created_at, :date, html5: true
-    assert_select 'label[for=project_created_at]'
-  end
 end
