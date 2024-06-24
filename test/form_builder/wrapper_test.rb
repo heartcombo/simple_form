@@ -245,6 +245,23 @@ class WrapperTest < ActionView::TestCase
     end
   end
 
+  test 'uses custom wrapper mapping for specified in config mapping' do
+    swap_wrapper :another do
+      swap SimpleForm, wrapper_mappings: { string: :not_found } do
+        begin
+          SimpleForm.wrapper_mappings[:custom] = { string: :another }
+          with_concat_form_for @user, wrapper_mappings: :custom do |f|
+            concat f.input :name
+          end
+          assert_select "section.custom_wrapper div.another_wrapper label"
+          assert_select "section.custom_wrapper div.another_wrapper input.string"
+        ensure
+          SimpleForm.wrapper_mappings.delete(:custom)
+        end
+      end
+    end
+  end
+
   test 'uses custom wrapper mapping per form basis' do
     swap_wrapper :another do
       with_concat_form_for @user, wrapper_mappings: { string: :another } do |f|
