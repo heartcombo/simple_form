@@ -626,6 +626,7 @@ Mapping         | Generated HTML Element               | Database Column Type
 `check_boxes`   | collection of `input[type=checkbox]` | `has_many`/`has_and_belongs_to_many` associations
 `country`       | `select` (countries as options)      | `string` with `name =~ /country/`
 `time_zone`     | `select` (timezones as options)      | `string` with `name =~ /time_zone/`
+`rich_text_area`| `trix-editor`                        | -
 
 ## Custom inputs
 
