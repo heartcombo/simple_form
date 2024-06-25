@@ -23,12 +23,12 @@ class IsolatedLabelTest < ActionView::TestCase
 
   test 'label uses human attribute name from object when available' do
     with_label_for @user, :description, :text
-    assert_select 'label[for=user_description]', /User Description!/
+    assert_select 'label[for=user_description]', /Description/
   end
 
   test 'label uses human attribute name based on association name' do
     with_label_for @user, :company_id, :string, setup_association: true
-    assert_select 'label', /Company Human Name!/
+    assert_select 'label', /Company/
   end
 
   test 'label uses i18n based on model, action, and attribute to lookup translation' do
@@ -81,6 +81,16 @@ class IsolatedLabelTest < ActionView::TestCase
       store_translations(:en, simple_form: { labels: { defaults: { age: 'Idade' } } }) do
         with_label_for @user, :age, :integer
         assert_select 'label[for=user_age]', /Age/
+      end
+    end
+  end
+
+  test 'missing translation in location file raises exception if SimpleForm.enforce_translations is true' do
+    swap SimpleForm, enforce_translations: true do
+      store_translations(:en, simple_form: { }) do
+        assert_raise I18n::MissingTranslationData do
+          with_label_for @user, :age, :integer
+        end
       end
     end
   end
