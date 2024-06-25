@@ -1188,7 +1188,7 @@ by passing the html5 option:
 <%= f.input :expires_at, as: :date, html5: true %>
 ```
 
-### Using non Active Record objects
+## Using non Active Record objects
 
 There are few ways to build forms with objects that don't inherit from Active Record, as
 follows:
@@ -1233,6 +1233,45 @@ class User
 
   def persisted?
     false
+  end
+end
+```
+
+To have SimpleForm infer the attributes' types, you can provide
+`#has_attribute?` and `#type_for_attribute` methods.
+The later should return an object that responds to `#type`
+with the attribute type. This is useful for generating
+the correct input types (eg: checkboxes for booleans).
+
+```ruby
+class User < Struct.new(:id, :name, :age, :registered)
+  def to_model
+    self
+  end
+
+  def model_name
+    OpenStruct.new(param_key: "user")
+  end
+
+  def to_key
+    id
+  end
+
+  def persisted?
+    id.present?
+  end
+
+  def has_attribute?(attr_name)
+    %w(id name age registered).include?(attr_name.to_s)
+  end
+
+  def type_for_attribute(attr_name)
+    case attr_name.to_s
+      when "id" then OpenStruct.new(type: :integer)
+      when "name" then OpenStruct.new(type: :string)
+      when "age" then OpenStruct.new(type: :integer)
+      when "registered" then OpenStruct.new(type: :boolean)
+    end
   end
 end
 ```
