@@ -163,6 +163,13 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'span.error b', 'markup'
   end
 
+  test 'full error uses human_attribute_name and passed object as an option to it' do
+    @user.errors.add(:status, 'error')
+    with_full_error_for @user, :status
+
+    assert_select 'span.error', "\[#{@user.id}\] User Status! error"
+  end
+
   # CUSTOM WRAPPERS
 
   test 'error with custom wrappers works' do

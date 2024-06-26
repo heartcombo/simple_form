@@ -274,7 +274,7 @@ module SimpleForm
       options = options.dup
 
       options[:error_prefix] ||= if object.class.respond_to?(:human_attribute_name)
-        object.class.human_attribute_name(attribute_name.to_s)
+        object.class.human_attribute_name(attribute_name.to_s, { base: object })
       else
         attribute_name.to_s.humanize
       end
