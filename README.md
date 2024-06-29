@@ -621,6 +621,7 @@ Mapping         | Generated HTML Element               | Database Column Type
 `datetime`      | `datetime select`                    | `datetime/timestamp`
 `date`          | `date select`                        | `date`
 `time`          | `time select`                        | `time`
+`weekday`       | `select` (weekdays as options)       | -
 `select`        | `select`                             | `belongs_to`/`has_many`/`has_and_belongs_to_many` associations
 `radio_buttons` | collection of `input[type=radio]`    | `belongs_to` associations
 `check_boxes`   | collection of `input[type=checkbox]` | `has_many`/`has_and_belongs_to_many` associations
