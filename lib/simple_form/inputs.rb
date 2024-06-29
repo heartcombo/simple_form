@@ -22,5 +22,6 @@ module SimpleForm
     autoload :RichTextAreaInput
     autoload :StringInput
     autoload :TextInput
+    autoload :WeekdayInput
   end
 end

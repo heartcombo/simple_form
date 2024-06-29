@@ -1,6 +1,7 @@
 ## Unreleased
 
 * Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
+* Add `weekday` input. [@nashby](https://github.com/nashby)
 
 ## 5.3.1
 
