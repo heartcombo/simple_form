@@ -1,5 +1,7 @@
 ## Unreleased
-
+* breaking changes
+  * Drop support to Ruby < 2.7
+  * Drop support to Rails < 6.0
 * Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
 
 ## 5.3.1
