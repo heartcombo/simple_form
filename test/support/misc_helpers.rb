@@ -69,6 +69,22 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_wrapper_mappings(mappings=nil)
+    options = {tag: :section, class: "custom_wrapper", pattern: false}
+    options[:wrapper_mappings] =  mappings if mappings
+    SimpleForm.build options do |b|
+      b.use :pattern
+      b.wrapper :grid_wrapper, class: "grid" do |ba|
+        ba.use :label
+        ba.use :input
+      end
+      b.wrapper :error_wrapper, tag: :div, class: "error_wrapper" do |be|
+        be.use :error, wrap_with: { tag: :span, class: "omg_error" }
+      end
+      b.use :hint, wrap_with: { class: "omg_hint" }
+    end
+  end
+
   def custom_wrapper_with_wrapped_optional_component
     SimpleForm.build tag: :section, class: "custom_wrapper" do |b|
       b.wrapper tag: :div, class: 'no_output_wrapper' do |ba|

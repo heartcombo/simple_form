@@ -256,6 +256,19 @@ class WrapperTest < ActionView::TestCase
     assert_select "section.custom_wrapper div.another_wrapper input.string"
   end
 
+  test 'uses wrapper with mappings when building form' do
+    swap_wrapper :default, custom_wrapper_with_wrapper_mappings({ string: :another }) do
+      swap_wrapper :another do
+        with_concat_form_for @user do |f|
+          concat f.input :name
+        end
+      end
+    end
+
+    assert_select "section.custom_wrapper div.another_wrapper label"
+    assert_select "section.custom_wrapper div.another_wrapper input.string"
+  end
+
   test 'simple_fields_form reuses custom wrapper mapping per form basis' do
     @user.company = Company.new(1, 'Empresa')
 
