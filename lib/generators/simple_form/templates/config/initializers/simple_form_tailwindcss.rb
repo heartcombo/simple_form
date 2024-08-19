@@ -129,7 +129,7 @@ SimpleForm.setup do |config|
     b.optional :minlength
     b.optional :readonly
     b.use :label, class: 'mb-2'
-    b.use :input, class: 'w-full min-w-fit mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md border',
+    b.use :input, class: 'w-full min-w-fit mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md border mb-3',
                   error_class: 'border-red-400 is-invalid mb-1',
                   valid_class: 'is-valid'
     b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback text-xs text-red-400' }
