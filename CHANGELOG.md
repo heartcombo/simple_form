@@ -1,8 +1,29 @@
 ## Unreleased
 
-* Add support for Rails 7.0 and Ruby 3.1 (no changes required)
+* Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
+* Add `weekday` input. [@nashby](https://github.com/nashby)
+
+## 5.3.1
+
+* Revert "Speed up input mapping lookup by avoiding rescuing exceptions" from v5.3.0, it caused a regression on dev/test environments with custom inputs.
+* Try a slightly different approach to input lookups, without relying on regexp, to see if that helps with performance as originally intended.
+* Add support to Ruby 3.3. (no changes required.)
+
+## 5.3.0
+
+* Add support for Rails 7.1. (no meaningful changes required.)
+* Add `SimpleForm.deprecator` to integrate with new application deprecators in Rails 7.1.
+* Remove test files from the gem package. [@orien](https://github.com/orien)
+* Speed up input mapping lookup by avoiding rescuing exceptions. [@meanphil](https://github.com/meanphil) [@kriom](https://github.com/kriom) [@egeek](https://github.com/egeek)
+
+## 5.2.0
+
+* Add support for Rails 7.0 and Ruby 3.1/3.2 (no changes required)
 * Fix escaping issue on boolean input with `include_hidden: false` and custom wrapper.
 * Update Bootstrap install generator version 5. [@mhw](https://github.com/mhw)
+* Accept proc as `group_method` for grouped collection select
+* Honor `include_hidden` option on inline boolean inputs [@yboulkaid](https://github.com/yboulkaid)
+* Fix deprecation error when using country_select input.
 
 ## 5.1.0
 

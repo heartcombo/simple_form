@@ -26,6 +26,11 @@ class IsolatedLabelTest < ActionView::TestCase
     assert_select 'label[for=user_description]', /User Description!/
   end
 
+  test 'label uses human_attribute_name and passed object as an option to it' do
+    with_label_for @user, :status, :text
+    assert_select 'label[for=user_status]', /\[#{@user.id}\] User Status!/
+  end
+
   test 'label uses human attribute name based on association name' do
     with_label_for @user, :company_id, :string, setup_association: true
     assert_select 'label', /Company Human Name!/

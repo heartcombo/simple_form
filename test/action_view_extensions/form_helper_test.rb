@@ -24,7 +24,7 @@ class FormHelperTest < ActionView::TestCase
 
   # Remove this test when SimpleForm.form_class is removed in 4.x
   test 'SimpleForm allows overriding default form class, but not form class' do
-    ActiveSupport::Deprecation.silence do
+    SimpleForm.deprecator.silence do
       swap SimpleForm, form_class: "fixed_class", default_form_class: "my_custom_class" do
         with_concat_form_for :user, html: { class: "override_class" }
         assert_no_select 'form.my_custom_class'

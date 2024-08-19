@@ -1,4 +1,4 @@
-![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/master/simple_form.png)
+![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/main/simple_form.png)
 
 Rails forms made easy.
 
@@ -14,7 +14,7 @@ INFO: This README refers to **Simple Form** 5.0. For older releases, check the r
 ## Table of Contents
 
 - [Installation](#installation)
-  - [Bootstrap](#bootstrap)
+  - [Bootstrap](#bootstrap-5)
   - [Zurb Foundation 5](#zurb-foundation-5)
   - [Country Select](#country-select)
 - [Usage](#usage)
@@ -301,7 +301,18 @@ the wrapper as well:
   <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year - 12, discard_day: true,
                               order: [:month, :year] %>
-  <%= f.input :accepts, as: :boolean, checked_value: true, unchecked_value: false %>
+  <%= f.input :accepts, as: :boolean, checked_value: 'positive', unchecked_value: 'negative' %>
+  <%= f.button :submit %>
+<% end %>
+```
+
+By default, **Simple Form** generates a hidden field to handle the un-checked case for boolean fields.
+Passing `unchecked_value: false` in the options for boolean fields will cause this hidden field to be omitted,
+following the convention in Rails. You can also specify `include_hidden: false` to skip the hidden field:
+
+```erb
+<%= simple_form_for @user do |f| %>
+  <%= f.input :just_the_checked_case, as: :boolean, include_hidden: false %>
   <%= f.button :submit %>
 <% end %>
 ```
@@ -368,7 +379,7 @@ end
 </form>
 ```
 
-To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/master/SimpleForm/FormBuilder:input_field
+To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/main/SimpleForm/FormBuilder:input_field
 
 ### Collections
 
@@ -652,11 +663,13 @@ Mapping         | Generated HTML Element               | Database Column Type
 `datetime`      | `datetime select`                    | `datetime/timestamp`
 `date`          | `date select`                        | `date`
 `time`          | `time select`                        | `time`
+`weekday`       | `select` (weekdays as options)       | -
 `select`        | `select`                             | `belongs_to`/`has_many`/`has_and_belongs_to_many` associations
 `radio_buttons` | collection of `input[type=radio]`    | `belongs_to` associations
 `check_boxes`   | collection of `input[type=checkbox]` | `has_many`/`has_and_belongs_to_many` associations
 `country`       | `select` (countries as options)      | `string` with `name =~ /country/`
 `time_zone`     | `select` (timezones as options)      | `string` with `name =~ /time_zone/`
+`rich_text_area`| `trix-editor`                        | -
 
 ## Custom inputs
 
@@ -1219,7 +1232,7 @@ by passing the html5 option:
 <%= f.input :expires_at, as: :date, html5: true %>
 ```
 
-### Using non Active Record objects
+## Using non Active Record objects
 
 There are few ways to build forms with objects that don't inherit from Active Record, as
 follows:
@@ -1268,6 +1281,45 @@ class User
 end
 ```
 
+To have SimpleForm infer the attributes' types, you can provide
+`#has_attribute?` and `#type_for_attribute` methods.
+The later should return an object that responds to `#type`
+with the attribute type. This is useful for generating
+the correct input types (eg: checkboxes for booleans).
+
+```ruby
+class User < Struct.new(:id, :name, :age, :registered)
+  def to_model
+    self
+  end
+
+  def model_name
+    OpenStruct.new(param_key: "user")
+  end
+
+  def to_key
+    id
+  end
+
+  def persisted?
+    id.present?
+  end
+
+  def has_attribute?(attr_name)
+    %w(id name age registered).include?(attr_name.to_s)
+  end
+
+  def type_for_attribute(attr_name)
+    case attr_name.to_s
+      when "id" then OpenStruct.new(type: :integer)
+      when "name" then OpenStruct.new(type: :string)
+      when "age" then OpenStruct.new(type: :integer)
+      when "registered" then OpenStruct.new(type: :boolean)
+    end
+  end
+end
+```
+
 If your object doesn't implement those methods, you must make explicit it when you are
 building the form
 
@@ -1295,7 +1347,7 @@ end
 
 You can view the **Simple Form** documentation in RDoc format here:
 
-http://rubydoc.info/github/heartcombo/simple_form/master/frames
+http://rubydoc.info/github/heartcombo/simple_form/main/frames
 
 ### Supported Ruby / Rails versions
 
@@ -1321,11 +1373,10 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 * Felipe Renan (https://github.com/feliperenan)
 
 [![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
-[![Code Climate](https://codeclimate.com/github/heartcombo/simple_form.png)](https://codeclimate.com/github/heartcombo/simple_form)
 [![Inline docs](http://inch-ci.org/github/heartcombo/simple_form.png)](http://inch-ci.org/github/heartcombo/simple_form)
 
 ## License
 
-MIT License. Copyright 2020 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
+MIT License. Copyright 2020-2024 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
 
 The Simple Form logo is licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).

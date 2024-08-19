@@ -129,10 +129,10 @@ class DiscoveryTest < ActionView::TestCase
       assert_select 'form input[type=file]#user_avatar.file-upload'
     end
   end
-  
+
   test 'inputs method without wrapper_options are deprecated' do
     discovery do
-      assert_deprecated do
+      assert_deprecated('input method now accepts a `wrapper_options` argument.', SimpleForm.deprecator) do
         with_form_for @user, :name, as: :deprecated
       end
 

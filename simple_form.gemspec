@@ -15,15 +15,13 @@ Gem::Specification.new do |s|
   s.metadata    = {
     "homepage_uri"      => "https://github.com/heartcombo/simple_form",
     "documentation_uri" => "https://rubydoc.info/github/heartcombo/simple_form",
-    "changelog_uri"     => "https://github.com/heartcombo/simple_form/blob/master/CHANGELOG.md",
+    "changelog_uri"     => "https://github.com/heartcombo/simple_form/blob/main/CHANGELOG.md",
     "source_code_uri"   => "https://github.com/heartcombo/simple_form",
     "bug_tracker_uri"   => "https://github.com/heartcombo/simple_form/issues",
     "wiki_uri"          => "https://github.com/heartcombo/simple_form/wiki"
   }
 
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
-  s.test_files    = Dir["test/**/*.rb"]
-  s.test_files   -= Dir["test/support/country_select/**/*"]
   s.require_paths = ["lib"]
 
   s.required_ruby_version = '>= 2.5.0'

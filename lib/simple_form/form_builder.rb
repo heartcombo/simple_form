@@ -274,7 +274,7 @@ module SimpleForm
       options = options.dup
 
       options[:error_prefix] ||= if object.class.respond_to?(:human_attribute_name)
-        object.class.human_attribute_name(attribute_name.to_s)
+        object.class.human_attribute_name(attribute_name.to_s, { base: object })
       else
         attribute_name.to_s.humanize
       end
@@ -497,7 +497,7 @@ module SimpleForm
           conditions = reflection.options[:conditions]
           conditions = object.instance_exec(&conditions) if conditions.respond_to?(:call)
 
-          relation = relation.where(conditions) if relation.respond_to?(:where)
+          relation = relation.where(conditions) if relation.respond_to?(:where) && conditions.present?
           relation = relation.order(order) if relation.respond_to?(:order)
         end
 
@@ -599,7 +599,11 @@ module SimpleForm
 
     def find_attribute_column(attribute_name)
       if @object.respond_to?(:type_for_attribute) && @object.has_attribute?(attribute_name)
-        @object.type_for_attribute(attribute_name.to_s)
+        detected_type = @object.type_for_attribute(attribute_name.to_s)
+
+        # Some attributes like ActiveRecord::Encryption::EncryptedAttribute are detected
+        # as different type, in that case we need to use the original type
+        detected_type.respond_to?(:cast_type) ? detected_type.cast_type : detected_type
       elsif @object.respond_to?(:column_for_attribute) && @object.has_attribute?(attribute_name)
         @object.column_for_attribute(attribute_name)
       end
@@ -676,7 +680,7 @@ module SimpleForm
       begin
         at.const_get(mapping)
       rescue NameError => e
-        raise if e.message !~ /#{mapping}$/
+        raise unless e.message.include?(mapping)
       end
     end
 

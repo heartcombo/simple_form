@@ -208,6 +208,8 @@ class User
         'Super User Name!'
       when 'description'
         'User Description!'
+      when 'status'
+        "[#{options[:base].id}] User Status!"
       when 'company'
         'Company Human Name!'
       else
