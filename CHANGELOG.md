@@ -110,7 +110,7 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
 ### Bug fix
 * Fix horizontal form label position, from right to text-right. [@cavpollo](https://github.com/cavpollo)
 * Add base error display alongside existing errors. [@bluefalcon26](https://github.com/bluefalcon26)
-* Silent deprication warning for placeholder_text. [@moofkit](https://github.com/moofkit)
+* Silent deprecation warning for placeholder_text. [@moofkit](https://github.com/moofkit)
 * Use custom i18n scope for label required html. [@tvdeyen](https://github.com/tvdeyen)
 
 ## 3.5.1
@@ -232,7 +232,7 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
 
 ### bug fix
   * Fix `full_error` when the attribute is an association. [@mvdamme](https://github.com/jorge-d)
-  * Fix suppport to `:namespace` and `:index` options for nested check boxes and radio buttons when the attribute is an association.
+  * Fix support to `:namespace` and `:index` options for nested check boxes and radio buttons when the attribute is an association.
   * Collection input that uses automatic collection translation properly sets checked values.
   Closes [#971](https://github.com/heartcombo/simple_form/issues/971) [@nashby](https://github.com/nashby)
   * Collection input generates `required` attribute if it has `prompt` option. [@nashby](https://github.com/nashby)
