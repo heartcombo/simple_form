@@ -220,7 +220,7 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'select option[value="2"]', 'Carlos'
   end
 
-  test 'input disables the anothers components when the option is a object' do
+  test 'input disables all options when the entire select is disabled' do
     with_input_for @user, :description, :select, collection: %w[Jose Carlos], disabled: true
     assert_no_select 'select option[value=Jose][disabled=disabled]', 'Jose'
     assert_no_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
@@ -228,7 +228,7 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'div.disabled'
   end
 
-  test 'input does not disable the anothers components when the option is a object' do
+  test 'input disables only specific options when individual options are disabled' do
     with_input_for @user, :description, :select, collection: %w[Jose Carlos], disabled: 'Jose'
     assert_select 'select option[value=Jose][disabled=disabled]', 'Jose'
     assert_no_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'

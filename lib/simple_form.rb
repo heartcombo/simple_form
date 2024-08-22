@@ -73,11 +73,11 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   mattr_accessor :error_notification_class
   @@error_notification_class = :error_notification
 
-  # Series of attemps to detect a default label method for collection.
+  # Series of attempts to detect a default label method for collection.
   mattr_accessor :collection_label_methods
   @@collection_label_methods = %i[to_label name title to_s]
 
-  # Series of attemps to detect a default value method for collection.
+  # Series of attempts to detect a default value method for collection.
   mattr_accessor :collection_value_methods
   @@collection_value_methods = %i[id to_s]
 
@@ -178,7 +178,7 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   mattr_accessor :cache_discovery
   @@cache_discovery = defined?(Rails.env) && !Rails.env.development?
 
-  # Adds a class to each generated button, mostly for compatiblity.
+  # Adds a class to each generated button, mostly for compatibility.
   mattr_accessor :button_class
   @@button_class = 'button'
 
