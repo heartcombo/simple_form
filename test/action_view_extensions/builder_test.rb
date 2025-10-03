@@ -294,16 +294,8 @@ class BuilderTest < ActionView::TestCase
   test "collection check box sanitizes collection values for labels correctly" do
     with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
 
-    # Rails 6 changed the way it sanitizes the values
-    # https://github.com/rails/rails/blob/6-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L141
-    # https://github.com/rails/rails/blob/5-2-stable/actionview/lib/action_view/helpers/tags/base.rb#L141
-    if ActionView::VERSION::MAJOR == 5
-      assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
-      assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
-    else
-      assert_select 'label.collection_check_boxes[for=user_name_0_99]', '$0.99'
-      assert_select 'label.collection_check_boxes[for=user_name_1_99]', '$1.99'
-    end
+    assert_select 'label.collection_check_boxes[for=user_name_0_99]', '$0.99'
+    assert_select 'label.collection_check_boxes[for=user_name_1_99]', '$1.99'
   end
 
   test "collection check box checks the correct value to local variables" do
