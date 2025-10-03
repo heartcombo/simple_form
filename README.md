@@ -1,5 +1,7 @@
 ![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/main/simple_form.png)
 
+[![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
+
 Rails forms made easy.
 
 **Simple Form** aims to be as flexible as possible while helping you with powerful components to create
@@ -1321,19 +1323,12 @@ sending us a pull request.
 
 https://github.com/heartcombo/simple_form/issues
 
-If you have discovered a security related bug, please do NOT use the GitHub issue tracker. Send an e-mail to heartcombo@googlegroups.com.
-
-## Maintainers
-
-* Carlos Antonio da Silva (https://github.com/carlosantoniodasilva)
-* Rafael Mendonça França (https://github.com/rafaelfranca)
-* Felipe Renan (https://github.com/feliperenan)
-
-[![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
-[![Inline docs](http://inch-ci.org/github/heartcombo/simple_form.png)](http://inch-ci.org/github/heartcombo/simple_form)
+If you have discovered a security related bug, please do NOT use the GitHub issue tracker. Send an e-mail to heartcombo.oss@gmail.com.
 
 ## License
 
-MIT License. Copyright 2020-2024 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
+MIT License.
+Copyright 2020-2025 Rafael França, Carlos Antonio da Silva.
+Copyright 2009-2019 Plataformatec.
 
 The Simple Form logo is licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).

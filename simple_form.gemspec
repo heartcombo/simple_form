@@ -7,10 +7,10 @@ Gem::Specification.new do |s|
   s.version     = SimpleForm::VERSION.dup
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Forms made easy!"
-  s.email       = "heartcombo@googlegroups.com"
+  s.email       = "heartcombo.oss@gmail.com"
   s.homepage    = "https://github.com/heartcombo/simple_form"
   s.description = "Forms made easy!"
-  s.authors     = ['José Valim', 'Carlos Antônio', 'Rafael França']
+  s.authors     = ['José Valim', 'Carlos Antonio', 'Rafael França']
   s.license     = "MIT"
   s.metadata    = {
     "homepage_uri"      => "https://github.com/heartcombo/simple_form",
