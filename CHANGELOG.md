@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Add support for Ruby 3.4 and Rails 7.2/8.0/8.1. (no changes required)
+* Drop support for Rails < 7 and Ruby < 2.7.
 * Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
 * Add `weekday` input. [@nashby](https://github.com/nashby)
 
