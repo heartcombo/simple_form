@@ -3,6 +3,7 @@
   * Drop support to Ruby < 2.7
   * Drop support to Rails < 6.0
 * Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
+* Add `weekday` input. [@nashby](https://github.com/nashby)
 
 ## 5.3.1
 
