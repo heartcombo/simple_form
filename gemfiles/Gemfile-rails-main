@@ -1,10 +1,9 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gemspec path: '..'
+gemspec path: ".."
 
-gem 'country_select'
-gem 'railties', github: 'rails/rails', branch: 'main'
-gem 'activemodel', github: 'rails/rails', branch: 'main'
-gem 'actionpack', github: 'rails/rails', branch: 'main'
-gem 'rake'
-gem 'tzinfo'
+gem "country_select"
+gem "railties", github: "rails/rails", branch: "main"
+gem "activemodel", github: "rails/rails", branch: "main"
+gem "actionpack", github: "rails/rails", branch: "main"
+gem "tzinfo"
