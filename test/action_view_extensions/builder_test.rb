@@ -261,7 +261,7 @@ class BuilderTest < ActionView::TestCase
     end
   end
   # COLLECTION CHECK BOX
-  test "collection check box accepts a collection and generate a serie of checkboxes for value method" do
+  test "collection check box accepts a collection and generate a series of checkboxes for value method" do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
 
@@ -276,7 +276,7 @@ class BuilderTest < ActionView::TestCase
     assert_select "form input[type=hidden][name='user[tag_ids][]'][value='']", count: 1
   end
 
-  test "collection check box accepts a collection and generate a serie of checkboxes with labels for label method" do
+  test "collection check box accepts a collection and generate a series of checkboxes with labels for label method" do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
 
@@ -569,7 +569,7 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-  test "fields for with a hash like model yeilds an instance of FormBuilder" do
+  test "fields for with a hash like model yields an instance of FormBuilder" do
     with_concat_form_for(:user) do |f|
       f.simple_fields_for(:author, HashBackedAuthor.new) do |author|
         assert author.instance_of?(SimpleForm::FormBuilder)
