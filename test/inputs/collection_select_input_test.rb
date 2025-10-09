@@ -220,7 +220,7 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'select option[value="2"]', 'Carlos'
   end
 
-  test 'input disables all options when the entire select is disabled' do
+  test 'input disables the entire select and no specific options when given `true`' do
     with_input_for @user, :description, :select, collection: %w[Jose Carlos], disabled: true
     assert_no_select 'select option[value=Jose][disabled=disabled]', 'Jose'
     assert_no_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
@@ -228,10 +228,18 @@ class CollectionSelectInputTest < ActionView::TestCase
     assert_select 'div.disabled'
   end
 
-  test 'input disables only specific options when individual options are disabled' do
+  test 'input allows disabling only a single given option' do
     with_input_for @user, :description, :select, collection: %w[Jose Carlos], disabled: 'Jose'
     assert_select 'select option[value=Jose][disabled=disabled]', 'Jose'
     assert_no_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
+    assert_no_select 'select[disabled=disabled]'
+    assert_no_select 'div.disabled'
+  end
+
+  test 'input allows disabling multiple given options' do
+    with_input_for @user, :description, :select, collection: %w[Jose Carlos], disabled: %w[Jose Carlos]
+    assert_select 'select option[value=Jose][disabled=disabled]', 'Jose'
+    assert_select 'select option[value=Carlos][disabled=disabled]', 'Carlos'
     assert_no_select 'select[disabled=disabled]'
     assert_no_select 'div.disabled'
   end
