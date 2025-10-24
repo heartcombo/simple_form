@@ -2,8 +2,11 @@
 
 * Add support for Ruby 3.4 and Rails 7.2/8.0/8.1. (no changes required)
 * Drop support for Rails < 7 and Ruby < 2.7.
-* Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
-* Add `weekday` input. [@nashby](https://github.com/nashby)
+* Add `weekday` input. [#1846](https://github.com/heartcombo/simple_form/pull/1846)
+* Remove redundant `aria-required` attribute for required fields. [#1823](https://github.com/heartcombo/simple_form/pull/1823)
+* Integrate `:rich_text_area` with placeholders [#1842](https://github.com/heartcombo/simple_form/pull/1842)
+* Fix encrypted attributes improperly casted (later fixed in Rails) [#1836](https://github.com/heartcombo/simple_form/pull/1836)
+* Pass `base` object to `human_attribute_name` in labels [#1812](https://github.com/heartcombo/simple_form/pull/1812)
 
 ## 5.3.1
 
