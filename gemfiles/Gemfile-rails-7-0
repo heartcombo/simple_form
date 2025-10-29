@@ -2,6 +2,6 @@ source "https://rubygems.org"
 
 gemspec path: ".."
 
-gem "activemodel", "~> 7.0.0", github: "rails/rails", branch: "7-0-stable"
-gem "actionpack", "~> 7.0.0", github: "rails/rails", branch: "7-0-stable"
-gem "railties", "~> 7.0.0", github: "rails/rails", branch: "7-0-stable"
+gem "activemodel", "~> 7.0.0"
+gem "actionpack", "~> 7.0.0"
+gem "railties", "~> 7.0.0"
