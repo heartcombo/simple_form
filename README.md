@@ -200,7 +200,7 @@ any html attribute to that wrapper as well using the `:wrapper_html` option, lik
 <% end %>
 ```
 
-Required fields are marked with an * prepended to their labels.
+Required fields are marked with an * appended to their labels.
 
 By default all inputs are required. When the form object includes `ActiveModel::Validations`
 (which, for example, happens with Active Record models), fields are required only when there is `presence` validation.
