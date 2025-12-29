@@ -129,6 +129,7 @@ DEPENDENCIES
   minitest (< 6)
   railties (~> 8.1.0)
   rake
+  rdoc
   simple_form!
 
 BUNDLED WITH
