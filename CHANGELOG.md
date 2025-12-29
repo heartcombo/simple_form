@@ -1,3 +1,7 @@
+## Unreleased
+
+* Ruby 4.0 support (no changes required)
+
 ## 5.4.0
 
 * Add support for Ruby 3.4 and Rails 7.2/8.0/8.1. (no changes required)

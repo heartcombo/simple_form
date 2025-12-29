@@ -13,6 +13,7 @@ jobs:
           - gemfiles/Gemfile-rails-7-1
           - gemfiles/Gemfile-rails-7-0
         ruby:
+          - '4.0'
           - '3.4'
           - '3.3'
           - '3.2'
