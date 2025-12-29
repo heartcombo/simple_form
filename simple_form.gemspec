@@ -31,4 +31,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "country_select"
   s.add_development_dependency "rake"
+  s.add_development_dependency "minitest", "< 6"
 end
