@@ -283,7 +283,11 @@ class ValidatingUser < User
     less_than_or_equal_to: :max_attempts,
     only_integer: true
   validates_length_of :name, maximum: 25, minimum: 5
-  validates_length_of :username, maximum: -> { 30 }, minimum: -> { 10 }
+  if ActiveModel.gem_version >= Gem::Version::new("7.1.0")
+    validates_length_of :username, maximum: -> { 30 }, minimum: -> { 10 }
+  else
+    validates_length_of :username, maximum: ->(_) { 30 }, minimum: ->(_) { 10 }
+  end
   validates_length_of :description, in: 15..50
   validates_length_of :home_picture, is: 12
 
