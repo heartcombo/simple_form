@@ -88,7 +88,7 @@ class User
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  attr_accessor :id, :name, :company, :company_id, :time_zone, :active, :age,
+  attr_accessor :id, :name, :username, :company, :company_id, :time_zone, :active, :age,
     :description, :created_at, :updated_at, :credit_limit, :password, :url,
     :delivery_time, :born_at, :special_company_id, :country, :tags, :tag_ids,
     :avatar, :home_picture, :email, :status, :residence_country, :phone_number,
@@ -261,6 +261,7 @@ end
 class ValidatingUser < User
   include ActiveModel::Validations
   validates :name, presence: true
+  validates :username, presence: true
   validates :company, presence: true
   validates :age, presence: true, if: proc { |user| user.name }
   validates :amount, presence: true, unless: proc { |user| user.age }
@@ -282,6 +283,7 @@ class ValidatingUser < User
     less_than_or_equal_to: :max_attempts,
     only_integer: true
   validates_length_of :name, maximum: 25, minimum: 5
+  validates_length_of :username, maximum: -> { 30 }, minimum: -> { 10 }
   validates_length_of :description, in: 15..50
   validates_length_of :home_picture, is: 12
 
