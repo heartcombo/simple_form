@@ -15,20 +15,12 @@ module SimpleForm
         if pattern.is_a?(String)
           pattern
         elsif (pattern_validator = find_pattern_validator) && (with = pattern_validator.options[:with])
-          evaluate_format_validator_option(with).source
+          resolve_validator_value(with).source
         end
       end
 
       def find_pattern_validator
         find_validator(:format)
-      end
-
-      def evaluate_format_validator_option(option)
-        if option.respond_to?(:call)
-          option.call(object)
-        else
-          option
-        end
       end
     end
   end

@@ -33,14 +33,24 @@ class StringInputTest < ActionView::TestCase
     assert_select 'input.password[type=password][maxlength="100"]'
   end
 
-  test 'input infers maxlength column definition from validation when present' do
+  test 'input infers maxlength from validation when present' do
     with_input_for @validating_user, :name, :string
     assert_select 'input.string[maxlength="25"]'
   end
 
-  test 'input infers minlength column definition from validation when present' do
+  test 'input infers minlength from validation when present' do
     with_input_for @validating_user, :name, :string
     assert_select 'input.string[minlength="5"]'
+  end
+
+  test 'input infers maxlength from validation proc when present' do
+    with_input_for @validating_user, :username, :string
+    assert_select 'input.string[maxlength="30"]'
+  end
+
+  test 'input infers minlength from validation proc when present' do
+    with_input_for @validating_user, :username, :string
+    assert_select 'input.string[minlength="10"]'
   end
 
   test 'input gets maxlength from validation when :is option present' do

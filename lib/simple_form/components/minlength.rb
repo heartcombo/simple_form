@@ -26,7 +26,8 @@ module SimpleForm
 
       def minimum_length_value_from(length_validator)
         if length_validator
-          length_validator.options[:is] || length_validator.options[:minimum]
+          value = length_validator.options[:is] || length_validator.options[:minimum]
+          resolve_validator_value(value)
         end
       end
     end
