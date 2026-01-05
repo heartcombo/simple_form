@@ -1328,7 +1328,7 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 ## License
 
 MIT License.
-Copyright 2020-2025 Rafael França, Carlos Antonio da Silva.
+Copyright 2020-CURRENT Rafael França, Carlos Antonio da Silva.
 Copyright 2009-2019 Plataformatec.
 
 The Simple Form logo is licensed under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
