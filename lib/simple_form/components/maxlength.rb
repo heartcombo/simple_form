@@ -26,7 +26,8 @@ module SimpleForm
 
       def maximum_length_value_from(length_validator)
         if length_validator
-          length_validator.options[:is] || length_validator.options[:maximum]
+          value = length_validator.options[:is] || length_validator.options[:maximum]
+          resolve_validator_value(value)
         end
       end
     end

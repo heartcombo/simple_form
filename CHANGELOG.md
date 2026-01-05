@@ -1,6 +1,7 @@
 ## Unreleased
 
 * Ruby 4.0 support (no changes required)
+* Support procs on validators for minlength/maxlength, and improve validators logic across the board to match Rails [#1859](https://github.com/heartcombo/simple_form/pull/1859)
 
 ## 5.4.0
 
