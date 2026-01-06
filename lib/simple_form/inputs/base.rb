@@ -28,7 +28,7 @@ module SimpleForm
       attr_reader :attribute_name, :column, :input_type, :reflection,
                   :options, :input_html_options, :input_html_classes, :html_classes
 
-      delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, to: :@builder
+      delegate :template, :object, :object_name, :lookup_model_names, :lookup_action, :lookup_option, to: :@builder
 
       class_attribute :default_options
       self.default_options = {}
@@ -179,9 +179,11 @@ module SimpleForm
           joined_model_names = model_names.join(".")
           model_names.shift
 
+          lookups << :"#{joined_model_names}.#{lookup_option}.#{reflection_or_attribute_name}" if lookup_option
           lookups << :"#{joined_model_names}.#{lookup_action}.#{reflection_or_attribute_name}"
           lookups << :"#{joined_model_names}.#{reflection_or_attribute_name}"
         end
+        lookups << :"defaults.#{lookup_option}.#{reflection_or_attribute_name}" if lookup_option
         lookups << :"defaults.#{lookup_action}.#{reflection_or_attribute_name}"
         lookups << :"defaults.#{reflection_or_attribute_name}"
         lookups << default
