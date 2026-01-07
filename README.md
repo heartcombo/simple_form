@@ -1,6 +1,6 @@
 ![Simple Form Logo](https://raw.github.com/heartcombo/simple_form/main/simple_form.png)
 
-[![Gem Version](https://fury-badge.herokuapp.com/rb/simple_form.png)](http://badge.fury.io/rb/simple_form)
+[![Gem Version](https://badge.fury.io/rb/simple_form.svg)](https://badge.fury.io/rb/simple_form)
 
 Rails forms made easy.
 
@@ -70,7 +70,7 @@ rails generate simple_form:install
 
 ### Bootstrap 5
 
-**Simple Form** can be easily integrated with [Bootstrap 5](http://getbootstrap.com/).
+**Simple Form** can be easily integrated with [Bootstrap 5](https://getbootstrap.com/).
 Use the `bootstrap` option in the install generator, like this:
 
 ```console
@@ -79,16 +79,15 @@ rails generate simple_form:install --bootstrap
 
 This will add an initializer that configures **Simple Form** wrappers for
 Bootstrap 5's [form controls](https://getbootstrap.com/docs/5.0/forms/overview/).
-You have to be sure that you added a copy of the [Bootstrap](http://getbootstrap.com/)
+You have to be sure that you added a copy of the [Bootstrap](https://getbootstrap.com/)
 assets on your application.
 
 For more information see the generator output, our
-[example application code](https://github.com/heartcombo/simple_form-bootstrap) and
-[the live example app](https://simple-form-bootstrap.herokuapp.com/).
+[example application code](https://github.com/heartcombo/simple_form-bootstrap).
 
 ### Zurb Foundation 5
 
-To generate wrappers that are compatible with [Zurb Foundation 5](http://foundation.zurb.com/), pass
+To generate wrappers that are compatible with [Zurb Foundation 5](https://get.foundation/sites/docs-v5/), pass
 the `foundation` option to the generator, like this:
 
 ```console
@@ -99,7 +98,7 @@ Please note that the Foundation wrapper does not support the `:hint` option by d
 enable hints, please uncomment the appropriate line in `config/initializers/simple_form_foundation.rb`.
 You will need to provide your own CSS styles for hints.
 
-Please see the [instructions on how to install Foundation in a Rails app](http://foundation.zurb.com/docs/applications.html).
+Please see the [instructions on how to install Foundation in a Rails app](https://get.foundation/sites/docs-v5/applications.html).
 
 ### Country Select
 
@@ -337,7 +336,7 @@ end
 </form>
 ```
 
-To view the actual RDocs for this, check them out here - http://rubydoc.info/github/heartcombo/simple_form/main/SimpleForm/FormBuilder:input_field
+To view the actual RDocs for this, check them out here - https://rubydoc.info/github/heartcombo/simple_form/main/SimpleForm/FormBuilder:input_field
 
 ### Collections
 
@@ -378,7 +377,7 @@ If you want to change this behavior you must make it explicit, like this:
 <% end %>
 ```
 
-All other options given are sent straight to the underlying Rails helper(s): [`collection_select`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select), [`collection_check_boxes`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_check_boxes), [`collection_radio_buttons`](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_radio_buttons). For example, you can pass `prompt` and `selected` as:
+All other options given are sent straight to the underlying Rails helper(s): [`collection_select`](https://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select), [`collection_check_boxes`](https://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_check_boxes), [`collection_radio_buttons`](https://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_radio_buttons). For example, you can pass `prompt` and `selected` as:
 
 ```ruby
 f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
@@ -1306,7 +1305,7 @@ end
 
 You can view the **Simple Form** documentation in RDoc format here:
 
-http://rubydoc.info/github/heartcombo/simple_form/main/frames
+https://rubydoc.info/github/heartcombo/simple_form/main/frames
 
 ### Supported Ruby / Rails versions
 
