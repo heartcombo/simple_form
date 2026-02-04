@@ -46,16 +46,8 @@ class BuilderTest < ActionView::TestCase
   test "collection radio sanitizes collection values for labels correctly" do
     with_collection_radio_buttons @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
 
-    # Rails 6 changed the way it sanitizes the values
-    # https://github.com/rails/rails/blob/6-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L141
-    # https://github.com/rails/rails/blob/5-2-stable/actionview/lib/action_view/helpers/tags/base.rb#L141
-    if ActionView::VERSION::MAJOR == 5
-      assert_select 'label.collection_radio_buttons[for=user_name_099]', '$0.99'
-      assert_select 'label.collection_radio_buttons[for=user_name_199]', '$1.99'
-    else
-      assert_select 'label.collection_radio_buttons[for=user_name_0_99]', '$0.99'
-      assert_select 'label.collection_radio_buttons[for=user_name_1_99]', '$1.99'
-    end
+    assert_select 'label.collection_radio_buttons[for=user_name_0_99]', '$0.99'
+    assert_select 'label.collection_radio_buttons[for=user_name_1_99]', '$1.99'
   end
 
   test "collection radio checks the correct value to local variables" do
@@ -269,7 +261,7 @@ class BuilderTest < ActionView::TestCase
     end
   end
   # COLLECTION CHECK BOX
-  test "collection check box accepts a collection and generate a serie of checkboxes for value method" do
+  test "collection check box accepts a collection and generate a series of checkboxes for value method" do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
 
@@ -284,7 +276,7 @@ class BuilderTest < ActionView::TestCase
     assert_select "form input[type=hidden][name='user[tag_ids][]'][value='']", count: 1
   end
 
-  test "collection check box accepts a collection and generate a serie of checkboxes with labels for label method" do
+  test "collection check box accepts a collection and generate a series of checkboxes with labels for label method" do
     collection = [Tag.new(1, 'Tag 1'), Tag.new(2, 'Tag 2')]
     with_collection_check_boxes @user, :tag_ids, collection, :id, :name
 
@@ -302,16 +294,8 @@ class BuilderTest < ActionView::TestCase
   test "collection check box sanitizes collection values for labels correctly" do
     with_collection_check_boxes @user, :name, ['$0.99', '$1.99'], :to_s, :to_s
 
-    # Rails 6 changed the way it sanitizes the values
-    # https://github.com/rails/rails/blob/6-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L141
-    # https://github.com/rails/rails/blob/5-2-stable/actionview/lib/action_view/helpers/tags/base.rb#L141
-    if ActionView::VERSION::MAJOR == 5
-      assert_select 'label.collection_check_boxes[for=user_name_099]', '$0.99'
-      assert_select 'label.collection_check_boxes[for=user_name_199]', '$1.99'
-    else
-      assert_select 'label.collection_check_boxes[for=user_name_0_99]', '$0.99'
-      assert_select 'label.collection_check_boxes[for=user_name_1_99]', '$1.99'
-    end
+    assert_select 'label.collection_check_boxes[for=user_name_0_99]', '$0.99'
+    assert_select 'label.collection_check_boxes[for=user_name_1_99]', '$1.99'
   end
 
   test "collection check box checks the correct value to local variables" do
@@ -585,7 +569,7 @@ class BuilderTest < ActionView::TestCase
     end
   end
 
-  test "fields for with a hash like model yeilds an instance of FormBuilder" do
+  test "fields for with a hash like model yields an instance of FormBuilder" do
     with_concat_form_for(:user) do |f|
       f.simple_fields_for(:author, HashBackedAuthor.new) do |author|
         assert author.instance_of?(SimpleForm::FormBuilder)

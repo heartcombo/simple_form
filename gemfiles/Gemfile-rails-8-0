@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+gem "activemodel", "~> 8.0.0"
+gem "actionpack", "~> 8.0.0"
+gem "railties", "~> 8.0.0"

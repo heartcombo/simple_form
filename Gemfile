@@ -1,9 +1,7 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 gemspec
 
-gem 'country_select'
-gem 'activemodel', '~> 7.1.0'
-gem 'actionpack', '~> 7.1.0'
-gem 'railties', '~> 7.1.0'
-gem 'rake'
+gem "activemodel", "~> 8.1.0"
+gem "actionpack", "~> 8.1.0"
+gem "railties", "~> 8.1.0"
