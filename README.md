@@ -17,6 +17,7 @@ INFO: This README refers to **Simple Form** 5.0. For older releases, check the r
 
 - [Installation](#installation)
   - [Bootstrap](#bootstrap-5)
+  - [Css-zero](#css-zero)
   - [Zurb Foundation 5](#zurb-foundation-5)
   - [Country Select](#country-select)
 - [Usage](#usage)
@@ -84,6 +85,17 @@ assets on your application.
 
 For more information see the generator output, our
 [example application code](https://github.com/heartcombo/simple_form-bootstrap).
+
+### CSS-Zero
+
+To generate wrappers that are compatible with [CSS-Zero](https://github.com/lazaronixon/css-zero), pass
+the `css_zero` option to the generator, like this:
+
+```console
+rails generate simple_form:install --css-zero
+```
+
+Please see the [Installation instructions](https://github.com/lazaronixon/css-zero?tab=readme-ov-file#installation) for more information.
 
 ### Zurb Foundation 5
 
