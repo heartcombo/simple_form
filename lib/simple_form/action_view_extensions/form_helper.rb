@@ -12,7 +12,7 @@ module SimpleForm
     module FormHelper
 
       def simple_form_for(record, options = {}, &block)
-        options[:builder] ||= SimpleForm::FormBuilder
+        options[:builder] ||= SimpleForm.default_builder.constantize
         options[:html] ||= {}
         unless options[:html].key?(:novalidate)
           options[:html][:novalidate] = !SimpleForm.browser_validations
@@ -30,7 +30,7 @@ module SimpleForm
 
       def simple_fields_for(record_name, record_object = nil, options = {}, &block)
         options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
-        options[:builder] ||= SimpleForm::FormBuilder
+        options[:builder] ||= SimpleForm.default_builder.constantize
 
         with_simple_form_field_error_proc do
           fields_for(record_name, record_object, options, &block)
