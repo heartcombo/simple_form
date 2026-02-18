@@ -82,18 +82,30 @@ class RequiredTest < ActionView::TestCase
   end
 
   # VALIDATORS :if :unless
-  test 'builder input does not be required when ActiveModel::Validations is included and if option is present' do
+  test 'builder input is required when if condition is present and evaluates to true' do
+    with_form_for @validating_user, :age
+    assert_select 'input.required[required]#validating_user_age'
+  end
+
+  test 'builder input is not required when if condition is present and evaluates to false' do
+    @validating_user.name = nil
     with_form_for @validating_user, :age
     assert_no_select 'input.required'
     assert_no_select 'input[required]'
     assert_select 'input.optional#validating_user_age'
   end
 
-  test 'builder input does not be required when ActiveModel::Validations is included and unless option is present' do
+  test 'builder input is not required when unless condition is present and evaluates to true' do
     with_form_for @validating_user, :amount
     assert_no_select 'input.required'
     assert_no_select 'input[required]'
     assert_select 'input.optional#validating_user_amount'
+  end
+
+  test 'builder input is required when unless condition is present and evaluates to false' do
+    @validating_user.age = nil
+    with_form_for @validating_user, :amount
+    assert_select 'input.required[required]#validating_user_amount'
   end
 
   # VALIDATORS :on
