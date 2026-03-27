@@ -86,24 +86,53 @@ class ErrorTest < ActionView::TestCase
     assert_no_select 'p.error[error_method]'
   end
 
-  test 'error escapes error prefix text' do
-    with_error_for @user, :name, error_prefix: '<b>Name</b>'
-    assert_no_select 'span.error b'
-  end
-
   test 'error escapes error text' do
     @user.errors.add(:action, 'must not contain <b>markup</b>')
-
     with_error_for @user, :action
 
     assert_select 'span.error'
     assert_no_select 'span.error b', 'markup'
   end
 
+  test 'error does not escape error text marked as safe' do
+    @user.errors.add(:action, 'must have a <a href="/help">valid format</a>'.html_safe)
+    with_error_for @user, :action
+
+    assert_select 'span.error'
+    assert_select 'span.error a', 'valid format'
+  end
+
+  test 'error escapes error prefix text' do
+    with_error_for @user, :name, error_prefix: '<b>Name</b>'
+
+    assert_no_select 'span.error b'
+  end
+
   test 'error generates an error message with raw HTML tags' do
     with_error_for @user, :name, error_prefix: '<b>Name</b>'.html_safe
+
     assert_select 'span.error', "Name cannot be blank"
     assert_select 'span.error b', "Name"
+  end
+
+  test 'error accepts a custom error message via error option' do
+    with_error_for @user, :name, error: 'must be unique'
+
+    assert_select 'span.error', 'must be unique'
+  end
+
+  test 'error escapes custom error message via error option' do
+    with_error_for @user, :name, error: 'must not contain <b>markup</b>'
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
+  end
+
+  test 'error does not escape custom error message via error option marked as safe' do
+    with_error_for @user, :name, error: 'must have a <a href="/help">valid format</a>'.html_safe
+
+    assert_select 'span.error'
+    assert_select 'span.error a', 'valid format'
   end
 
   test 'error adds aria-invalid attribute to inputs' do
@@ -156,11 +185,38 @@ class ErrorTest < ActionView::TestCase
 
   test 'full error escapes error text' do
     @user.errors.add(:action, 'must not contain <b>markup</b>')
-
     with_full_error_for @user, :action
 
     assert_select 'span.error'
     assert_no_select 'span.error b', 'markup'
+  end
+
+  test 'full error does not escape error text marked as safe' do
+    @user.errors.add(:action, 'must have a <a href="/help">valid format</a>'.html_safe)
+    with_full_error_for @user, :action
+
+    assert_select 'span.error'
+    assert_select 'span.error a', 'valid format'
+  end
+
+  test 'full error accepts a custom error message via error option' do
+    with_full_error_for @user, :name, error: 'must be unique'
+
+    assert_select 'span.error', 'Super User Name! must be unique'
+  end
+
+  test 'full error escapes custom error message via error option' do
+    with_full_error_for @user, :name, error: 'must not contain <b>markup</b>'
+
+    assert_select 'span.error'
+    assert_no_select 'span.error b', 'markup'
+  end
+
+  test 'full error does not escape custom error message via error option marked as safe' do
+    with_full_error_for @user, :name, error: 'must have a <a href="/help">valid format</a>'.html_safe
+
+    assert_select 'span.error'
+    assert_select 'span.error a', 'valid format'
   end
 
   test 'full error uses human_attribute_name and passed object as an option to it' do
