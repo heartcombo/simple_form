@@ -265,6 +265,7 @@ class ValidatingUser < User
   validates :company, presence: true
   validates :age, presence: true, if: proc { |user| user.name }
   validates :amount, presence: true, unless: proc { |user| user.age }
+  validates :home_picture, presence: true, on: :with_picture
 
   validates :action,            presence: true, on: :create
   validates :credit_limit,      presence: true, on: :save
