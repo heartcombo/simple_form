@@ -21,7 +21,46 @@ module SimpleForm
       end
 
       def conditional_validators?(validator)
-        validator.options.include?(:if) || validator.options.include?(:unless)
+        if_condition = validator.options[:if]
+        unless_condition = validator.options[:unless]
+
+        return false if if_condition.nil? && unless_condition.nil?
+
+        conditional = false
+
+        if if_condition
+          conditions = Array(if_condition)
+          conditional = conditions.any? { |c| !resolve_if_condition(c) }
+        end
+
+        if !conditional && unless_condition
+          conditions = Array(unless_condition)
+          conditional = conditions.any? { |c| resolve_if_condition(c) }
+        end
+
+        conditional
+      # If evaluating the condition fails (e.g., the condition references a method
+      # the object doesn't have, or a callable with unexpected arity), fall back to
+      # treating the validator as conditional and skipping it.
+      rescue NoMethodError, ArgumentError
+        true
+      end
+
+      def resolve_if_condition(condition)
+        case condition
+        when Symbol
+          object.send(condition)
+        else
+          if condition.respond_to?(:call)
+            if condition.is_a?(Proc) && condition.arity == 0
+              condition.call
+            else
+              condition.call(object)
+            end
+          else
+            condition
+          end
+        end
       end
 
       def action_validator_match?(validator)
