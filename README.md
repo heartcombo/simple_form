@@ -290,6 +290,14 @@ following the convention in Rails. You can also specify `include_hidden: false` 
 
 Any extra option passed to these methods will be rendered as html option.
 
+Error messages are HTML-escaped by default. If you need to render HTML in error messages
+(e.g. links), mark them as `html_safe`. This works for both custom error messages and
+model validation messages automatically added to inputs:
+
+```erb
+<%= f.error :name, error: 'please see <a href="/help">our guide</a>'.html_safe %>
+```
+
 ### Stripping away all wrapper divs
 
 **Simple Form** also allows you to strip away all the div wrappers around the `<input>` field that is

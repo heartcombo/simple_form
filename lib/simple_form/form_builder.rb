@@ -248,10 +248,15 @@ module SimpleForm
     # Creates an error tag based on the given attribute, only when the attribute
     # contains errors. All the given options are sent as :error_html.
     #
+    # Error messages are HTML-escaped by default. Messages marked as +html_safe+
+    # will be rendered without escaping.
+    #
     # == Examples
     #
     #    f.error :name
     #    f.error :name, id: "cool_error"
+    #    f.error :name, error: "custom error message"
+    #    f.error :name, error: "see <a href='/help'>our guide</a>".html_safe
     #
     def error(attribute_name, options = {})
       options = options.dup
@@ -266,9 +271,14 @@ module SimpleForm
     # Return the error but also considering its name. This is used
     # when errors for a hidden field need to be shown.
     #
+    # Error messages are HTML-escaped by default. Messages marked as +html_safe+
+    # will be rendered without escaping.
+    #
     # == Examples
     #
     #    f.full_error :token #=> <span class="error">Token is invalid</span>
+    #    f.full_error :token, error: "custom error message"
+    #    f.full_error :token, error: "see <a href='/help'>our guide</a>".html_safe
     #
     def full_error(attribute_name, options = {})
       options = options.dup
