@@ -1,5 +1,10 @@
 ## 5.4.1
 
+<<<<<<< feature/add-css-zero-initializer
+* Remove redundant `aria-required` attribute for required fields. [@aduth](https://github.com/aduth)
+* Add `weekday` input. [@nashby](https://github.com/nashby)
+* Add support for `css-zero` framework [@CuddlyBunion341](https://github.com/CuddlyBunion341)
+=======
 * Ruby 4.0 support (no changes required)
 * Support procs on validators for minlength/maxlength, and improve validators logic across the board to match Rails [#1859](https://github.com/heartcombo/simple_form/pull/1859)
 
@@ -12,6 +17,7 @@
 * Integrate `:rich_text_area` with placeholders [#1842](https://github.com/heartcombo/simple_form/pull/1842)
 * Fix encrypted attributes improperly casted (later fixed in Rails) [#1836](https://github.com/heartcombo/simple_form/pull/1836)
 * Pass `base` object to `human_attribute_name` in labels [#1812](https://github.com/heartcombo/simple_form/pull/1812)
+>>>>>>> main
 
 ## 5.3.1
 

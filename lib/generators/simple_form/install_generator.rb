@@ -7,12 +7,13 @@ module SimpleForm
       class_option :template_engine, desc: 'Template engine to be invoked (erb, haml or slim).'
       class_option :bootstrap, type: :boolean, desc: 'Add the Bootstrap 5 wrappers to the SimpleForm initializer.'
       class_option :foundation, type: :boolean, desc: 'Add the Zurb Foundation 5 wrappers to the SimpleForm initializer.'
+      class_option :css_zero, type: :boolean, desc: 'Add the CSS Zero wrappers to the SimpleForm initializer.'
 
       def info_bootstrap
-        return if options.bootstrap? || options.foundation?
-        puts "SimpleForm supports Bootstrap 5 and Zurb Foundation 5. If you want "\
+        return if options.bootstrap? || options.foundation? || options.css_zero?
+        puts "SimpleForm supports Bootstrap 5, Zurb Foundation 5 and CSS Zero. If you want "\
           "a configuration that is compatible with one of these frameworks, then please " \
-          "re-run this generator with --bootstrap or --foundation as an option."
+          "re-run this generator with --bootstrap, --foundation or --css-zero as an option."
       end
 
       def copy_config
@@ -20,6 +21,8 @@ module SimpleForm
 
         if options[:bootstrap]
           template "config/initializers/simple_form_bootstrap.rb"
+        elsif options[:css_zero]
+          template "config/initializers/simple_form_css_zero.rb"
         elsif options[:foundation]
           template "config/initializers/simple_form_foundation.rb"
         end
