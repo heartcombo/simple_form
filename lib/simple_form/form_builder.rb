@@ -5,7 +5,7 @@ require 'simple_form/tags'
 
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :template, :object_name, :object, :wrapper
+    attr_reader :template, :object_name, :object, :wrapper, :lookup_option
 
     # When action is create or update, we still should use new and edit
     ACTIONS = {
@@ -40,9 +40,10 @@ module SimpleForm
 
     def initialize(*) #:nodoc:
       super
-      @object   = convert_to_model(@object)
-      @defaults = options[:defaults]
-      @wrapper  = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
+      @object        = convert_to_model(@object)
+      @defaults      = options[:defaults]
+      @wrapper       = SimpleForm.wrapper(options[:wrapper] || SimpleForm.default_wrapper)
+      @lookup_option = options[:lookup]
     end
 
     # Basic input helper, combines all components in the stack to generate
