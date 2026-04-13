@@ -113,10 +113,9 @@ See http://blog.plataformatec.com.br/2019/09/incorrect-access-control-in-simple-
   mattr_accessor :boolean_style
   @@boolean_style = :inline
 
-  # DEPRECATED: You can define the class to be used on all forms. Default is
-  # simple_form.
+  # DEPRECATED: You can define the class to be used on all forms. Default is none.
   mattr_reader :form_class
-  @@form_class = :simple_form
+  @@form_class = nil
 
   # You can define the default class to be used on all forms. Can be overridden
   # with `html: { :class }`. Defaults to none.
