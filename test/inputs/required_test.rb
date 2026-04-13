@@ -140,6 +140,34 @@ class RequiredTest < ActionView::TestCase
     assert_select 'input.optional#validating_user_phone_number'
   end
 
+  test 'builder input does not be required when validation is on custom context which is not active' do
+    with_form_for @validating_user, :home_picture
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_home_picture'
+  end
+
+  test 'builder input is required when validation is on custom context which is active' do
+    with_form_for @validating_user, :home_picture, context: :with_picture
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_home_picture'
+  end
+
+  test 'builder input is required when validation has no custom context, but another one is active' do
+    with_form_for @validating_user, :name, context: :with_picture
+    assert_select 'input.required'
+    assert_select 'input[required]'
+    assert_select 'input.required[required]#validating_user_name'
+  end
+
+  test 'builder input does not be required when validation has no custom context, but another one is active' do
+    with_form_for @validating_user, :attempts, context: :with_picture
+    assert_no_select 'input.required'
+    assert_no_select 'input[required]'
+    assert_select 'input.optional#validating_user_attempts'
+  end
+
   test 'builder input does not generate required html attribute when option is set to false when it is set to true in wrapper' do
     swap SimpleForm, browser_validations: true do
       swap_wrapper :default, self.custom_wrapper_with_required_input do

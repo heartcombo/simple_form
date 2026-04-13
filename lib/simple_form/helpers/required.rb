@@ -19,7 +19,13 @@ module SimpleForm
       end
 
       def required_by_validators?
-        (attribute_validators + reflection_validators).any? { |v| v.kind == :presence && valid_validator?(v) }
+        (attribute_validators + reflection_validators).any? { |v| v.kind == :presence && valid_validator?(v) && required_by_validation_context?(v) }
+      end
+
+      def required_by_validation_context?(validator)
+        return true if options[:context].blank? || validator.options[:on].blank?
+
+        validator.options[:on] == options[:context]
       end
 
       def required_by_default?
