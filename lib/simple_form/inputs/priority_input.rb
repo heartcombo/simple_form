@@ -3,6 +3,8 @@ module SimpleForm
   module Inputs
     class PriorityInput < CollectionSelectInput
       def input(wrapper_options = nil)
+        return super if options[:collection]
+
         merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
         send(:"#{input_type}_input", merged_input_options)

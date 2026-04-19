@@ -30,6 +30,14 @@ class CountryInputTest < ActionView::TestCase
     assert_select %(select option[value="UA"] + #{COUNTRY_SELECT_SEPARATOR})
   end
 
+  test 'input generates a country select with a custom collection' do
+    with_input_for @user, :country, :country, collection: [['Brazil', 'BR'], ['Ukraine', 'UA']]
+    assert_select 'select#user_country'
+    assert_select 'select option', count: 3 # 2 countries + include_blank
+    assert_select 'select option[value=BR]', 'Brazil'
+    assert_select 'select option[value=UA]', 'Ukraine'
+  end
+
   test 'input does generate select element with required html attribute' do
     with_input_for @user, :country, :country
     assert_select 'select.required'
