@@ -437,4 +437,24 @@ class CollectionRadioButtonsInputTest < ActionView::TestCase
       assert_select 'label.beautiful-label', count: 2
     end
   end
+
+  test 'input radio label for attribute matches input id when collection contains nil value' do
+    with_input_for @user, :name, :radio_buttons, collection: [['Yes', true], ['Undefined', nil]]
+
+    assert_select 'input[type=radio][value=true]#user_name_true'
+    assert_select 'label.collection_radio_buttons[for=user_name_true]', 'Yes'
+    assert_select 'input[type=radio]#user_name'
+    assert_select 'label.collection_radio_buttons[for=user_name]', 'Undefined'
+    assert_no_select 'label[for=user_name_]'
+  end
+
+  test 'input radio with nested style label for attribute matches input id when collection contains nil value' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :name, :radio_buttons, collection: [['Yes', true], ['Undefined', nil]]
+
+      assert_select 'label[for=user_name_true]'
+      assert_select 'label[for=user_name]'
+      assert_no_select 'label[for=user_name_]'
+    end
+  end
 end

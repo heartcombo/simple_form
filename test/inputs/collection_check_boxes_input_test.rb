@@ -314,4 +314,24 @@ class CollectionCheckBoxesInputTest < ActionView::TestCase
       assert_select 'label.beautiful-label', count: 2
     end
   end
+
+  test 'input check boxes label for attribute matches input id when collection contains nil value' do
+    with_input_for @user, :name, :check_boxes, collection: [['Yes', true], ['Undefined', nil]]
+
+    assert_select 'input[type=checkbox][value=true]#user_name_true'
+    assert_select 'label.collection_check_boxes[for=user_name_true]', 'Yes'
+    assert_select 'input[type=checkbox]#user_name'
+    assert_select 'label.collection_check_boxes[for=user_name]', 'Undefined'
+    assert_no_select 'label[for=user_name_]'
+  end
+
+  test 'input check boxes with nested style label for attribute matches input id when collection contains nil value' do
+    swap SimpleForm, boolean_style: :nested do
+      with_input_for @user, :name, :check_boxes, collection: [['Yes', true], ['Undefined', nil]]
+
+      assert_select 'label[for=user_name_true]'
+      assert_select 'label[for=user_name]'
+      assert_no_select 'label[for=user_name_]'
+    end
+  end
 end

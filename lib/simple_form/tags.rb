@@ -26,6 +26,20 @@ module SimpleForm
         end.join.html_safe
       end
 
+      # Override Rails' sanitize_attribute_name to avoid generating a trailing
+      # underscore when the collection value is nil (e.g. "method_" instead of
+      # "method"), which causes the label's `for` attribute to not match the
+      # input's `id`. See https://github.com/heartcombo/simple_form/issues/1840
+      def sanitize_attribute_name(value)
+        sanitized = sanitized_value(value)
+
+        if sanitized.empty?
+          sanitized_method_name.dup
+        else
+          "#{sanitized_method_name}_#{sanitized}"
+        end
+      end
+
       def wrap_rendered_collection(collection)
         wrapper_tag = @options[:collection_wrapper_tag]
 
