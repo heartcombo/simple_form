@@ -375,4 +375,54 @@ class WrapperTest < ActionView::TestCase
       assert_no_select 'p.omg_hint'
     end
   end
+
+  # label_for option tests
+
+  test 'wrapper with label_for adds for attribute to label tag' do
+    swap_wrapper :default, custom_wrapper_with_label_for do
+      with_form_for @user, :name
+      assert_select 'div.custom_wrapper label.label-wrapper[for=user_name]'
+    end
+  end
+
+  test 'wrapper with label_for uses custom input id when input_html id is given' do
+    swap_wrapper :default, custom_wrapper_with_label_for do
+      with_form_for @user, :name, input_html: { id: 'my_custom_id' }
+      assert_select 'div.custom_wrapper label.label-wrapper[for=my_custom_id]'
+    end
+  end
+
+  test 'wrapper with label_for does not override for attribute from html options' do
+    swap_wrapper :default, custom_wrapper_with_label_for_and_html_for do
+      with_form_for @user, :name
+      assert_select 'div.custom_wrapper label.label-wrapper[for=custom_for]'
+    end
+  end
+
+  test 'wrapper without label_for does not add for attribute to label tag' do
+    custom = SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
+      b.wrapper tag: :label, class: "label-wrapper" do |c|
+        c.use :input
+      end
+    end
+
+    swap_wrapper :default, custom do
+      with_form_for @user, :name
+      assert_select 'div.custom_wrapper label.label-wrapper'
+      assert_no_select 'div.custom_wrapper label.label-wrapper[for]'
+    end
+  end
+
+  test 'wrapper with label_for resolves correct id for nested forms' do
+    @user.company = Company.new(1, 'Empresa')
+    swap_wrapper :default, custom_wrapper_with_label_for do
+      with_concat_form_for @user do |f|
+        concat(f.simple_fields_for(:company) do |company_form|
+          concat(company_form.input :name)
+        end)
+      end
+
+      assert_select 'div.custom_wrapper label.label-wrapper[for=user_company_attributes_name]'
+    end
+  end
 end

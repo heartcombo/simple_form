@@ -220,6 +220,22 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_label_for
+    SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
+      b.wrapper tag: :label, label_for: true, class: "label-wrapper" do |c|
+        c.use :input
+      end
+    end
+  end
+
+  def custom_wrapper_with_label_for_and_html_for
+    SimpleForm.build tag: :div, class: "custom_wrapper" do |b|
+      b.wrapper tag: :label, label_for: true, class: "label-wrapper", html: { for: "custom_for" } do |c|
+        c.use :input
+      end
+    end
+  end
+
   def custom_form_for(object, *args, &block)
     simple_form_for(object, *args, { builder: CustomFormBuilder }, &block)
   end

@@ -1,3 +1,7 @@
+## Unreleased
+
+* Add `label_for` option to wrappers, allowing label wrapper tags to automatically include the `for` attribute pointing to the corresponding input. [#1868](https://github.com/heartcombo/simple_form/pull/1868)
+
 ## 5.4.1
 
 * Ruby 4.0 support (no changes required)

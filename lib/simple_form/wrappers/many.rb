@@ -59,11 +59,24 @@ module SimpleForm
         klass = html_classes(input, options)
         opts  = html_options(options)
         opts[:class] = (klass << opts[:class]).join(' ').strip unless klass.empty?
+
+        if @defaults[:label_for]
+          opts[:for] ||= resolve_label_for(input)
+        end
+
         input.template.content_tag(tag, content, opts)
       end
 
       def html_options(options)
         (@defaults[:html] || {}).merge(options[:"#{namespace}_html"] || {})
+      end
+
+      def resolve_label_for(input)
+        if input.options.key?(:input_html) && input.options[:input_html].key?(:id)
+          input.options[:input_html][:id]
+        else
+          input.template.field_id(input.object_name, input.attribute_name)
+        end
       end
 
       def html_classes(input, options)
