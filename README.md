@@ -1170,7 +1170,7 @@ If you want to have all other HTML 5 features, such as the new field types, you 
 the browser validation:
 
 ```ruby
-SimpleForm.browser_validations = false # default is true
+SimpleForm.browser_validations = false
 ```
 
 This option adds a new `novalidate` property to the form, instructing it to skip all HTML 5
