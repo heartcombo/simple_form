@@ -1173,6 +1173,11 @@ the browser validation:
 SimpleForm.browser_validations = false # default is true
 ```
 
+Note: while `true` is the default when SimpleForm is loaded, running `rails generate simple_form:install`
+creates an initializer that explicitly sets this to `false`, as it is the recommended setting due to
+inconsistent native validation behavior across browsers. If you want the default `true` behavior, remove
+or comment out this line in `config/initializers/simple_form.rb`.
+
 This option adds a new `novalidate` property to the form, instructing it to skip all HTML 5
 validation. The inputs will still be generated with the required and other attributes, that might
 help you to use some generic javascript validation.
