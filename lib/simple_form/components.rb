@@ -9,6 +9,7 @@ module SimpleForm
   module Components
     extend ActiveSupport::Autoload
 
+    autoload :AriaDescribedby
     autoload :Errors
     autoload :Hints
     autoload :HTML5

@@ -1,3 +1,7 @@
+## Unreleased
+
+* Add the opt-in `:aria_describedby` wrapper component, which links inputs to their hint and error through `aria-describedby`. [#1875](https://github.com/heartcombo/simple_form/pull/1875)
+
 ## 5.4.1
 
 * Ruby 4.0 support (no changes required)

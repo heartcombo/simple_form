@@ -14,6 +14,7 @@ module SimpleForm
       include SimpleForm::Helpers::Required
       include SimpleForm::Helpers::Validators
 
+      include SimpleForm::Components::AriaDescribedby
       include SimpleForm::Components::Errors
       include SimpleForm::Components::Hints
       include SimpleForm::Components::HTML5
