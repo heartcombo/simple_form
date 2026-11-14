@@ -181,6 +181,23 @@ module MiscHelpers
     end
   end
 
+  def custom_wrapper_with_aria_describedby
+    SimpleForm.build tag: :div, class: 'custom_wrapper' do |b|
+      b.use :aria_describedby
+      b.use :label_input
+      b.use :hint,  wrap_with: { tag: :span, class: :hint }
+      b.use :error, wrap_with: { tag: :span, class: :error }
+    end
+  end
+
+  def custom_wrapper_with_aria_describedby_and_full_error
+    SimpleForm.build tag: :div, class: 'custom_wrapper' do |b|
+      b.use :aria_describedby
+      b.use :input
+      b.use :full_error, wrap_with: { tag: :span, class: :error }
+    end
+  end
+
   def custom_wrapper_with_label_text
     SimpleForm.build label_text: proc { |label, required| "**#{label}**" } do |b|
       b.use :label_input

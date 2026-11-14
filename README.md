@@ -944,6 +944,31 @@ The available components are:
 The _Form extensions_ are used to generate some attributes or perform some lookups on the model to
 add extra information to your components.
 
+The `:aria_describedby` extension is not used by the generated wrappers. Add it to connect each
+input to its hint and error, so screen readers announce them together with the field:
+
+```ruby
+config.wrappers tag: :div, class: :input, error_class: :field_with_errors do |b|
+  b.use :html5
+  b.use :aria_describedby
+
+  b.use :label_input
+  b.use :hint,  wrap_with: { tag: :span, class: :hint }
+  b.use :error, wrap_with: { tag: :span, class: :error }
+end
+```
+
+```html
+<input aria-invalid="true" aria-describedby="user_name_error user_name_hint" type="text" name="user[name]" id="user_name" />
+<span id="user_name_hint" class="hint">Your full name</span>
+<span id="user_name_error" class="error">is too short</span>
+```
+
+Components render in the order they are listed, so `:aria_describedby` must come before `:input`
+(or `:label_input`). The hint and error need a tag (`wrap_with`) to carry the id. Ids you set
+with `hint_html: { id: ... }` or `error_html: { id: ... }` are kept. It works with `:full_error`
+too. Collection inputs, such as radio buttons and check boxes, get the attribute on every item.
+
 You can create new _Form components_ using the wrappers API as in the following example:
 
 ```ruby
